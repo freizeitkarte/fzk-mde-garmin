@@ -2067,7 +2067,7 @@ sub show_help {
       . "perl $programName  -ram=6000    -cores=max     build     5815\n"
       . "perl $programName  -ram=6000    -cores=max     build     Freizeitkarte_Oesterreich  DT36ROUTING\n\n"
       . "Options:\n"
-      . "-ram      = javaheapsize in MB (join, split, build, mapsforge) (default = %d)\n"
+      . "-ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
       . "-cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
       . "-ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
       . "-typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ)  (default = freizeit.TYP)\n"
