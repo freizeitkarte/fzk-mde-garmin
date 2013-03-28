@@ -18,6 +18,7 @@ use File::Copy;
 use File::Path;
 use File::Basename;
 use Getopt::Long;
+use Data::Dumper;
 
 my @actions = (
   # 'Aktion',  'Beschreibung'
@@ -33,140 +34,156 @@ my @actions = (
   [ 'imagedir',  '6.  create image directory (e.g. for QLandkarte)' ],
 
   # Optional
-  [ 'cfg',       'A. create individual cfg file' ],
-  [ 'typ',       'B. create individual typ file from master' ],
-  [ 'nsicfg',    'C. create nsi configuration file (for NSIS compiler)' ],
-  [ 'nsiexe',    'C. create nsi configuration file (for NSIS compiler)' ],
-  [ 'gmap2',     'D. create gmap file (for BaseCamp OS X, Windows)' ],
-  [ 'bim',       'E. build images: create, fetch_*, join, split, build' ],
-  [ 'bam',       'F. build all maps: gmap, nsis, gmapsupp, imagedir' ],
-  [ 'zip',       'G. zip all maps' ],
-  [ 'regions',   'H. extract regions from Europe data' ],
-  [ 'fetch_map', 'I. fetch map data from Europe directory' ],
+  [ 'cfg',        'A. create individual cfg file' ],
+  [ 'typ',        'B. create individual typ file from master' ],
+  [ 'compiletyp', 'B. compile TYP files out of text files' ],
+  [ 'nsicfg',     'C. create nsi configuration file (for NSIS compiler)' ],
+  [ 'nsiexe',     'C. create nsi configuration file (for NSIS compiler)' ],
+  [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ],
+  [ 'bim',        'E. build images: create, fetch_*, join, split, build' ],
+  [ 'bam',        'F. build all maps: gmap, nsis, gmapsupp, imagedir' ],
+  [ 'zip',        'G. zip all maps' ],
+  [ 'regions',    'H. extract regions from Europe data' ],
+  [ 'fetch_map',  'I. fetch map data from Europe directory' ],
+  [ 'checkurl',   'J. Check all download URLs for existence' ],
 );
 
 my @supportedlanguages = (
   # 'code', 'Beschreibung'
   # Iso639-1
-  [ 'de',   'Deutsch' ],
-  [ 'en',   'English' ],
-  [ 'fr',   'French' ]
+  [ 'de', 'Deutsch' ],
+  [ 'en', 'English' ],
+  [ 'fr', 'French' ]
 );
+
+# languages that are always in the TYP files (FR falls out if another language has to go in)
+my @typfilelangfixed = (
+  "xx",    # Unspecified
+  "de",    # Deutsch
+  "en",    # Englisch
+  "fr"     # Französich
+);
+
+# Define the download base URLs for the Elevation Data
+my %elevationbaseurl = (
+  'ele10' => "http://freizeitkarte-osm.de/maps/Development/ele_10_100_200",
+  'ele25' => "http://freizeitkarte-osm.de/maps/Development/ele_25_250_500",
+  );
 
 my @maps = (
   # ID, 'Karte', 'URL der Quelle', 'Code', 'language'
 
   # Bundesländer
   [ -1,   'Bundeslaender',                        'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 5810, 'Freizeitkarte_BADEN-WUERTTEMBERG',     'http://download.geofabrik.de/openstreetmap/europe/germany/baden-wuerttemberg.osm.pbf',                     'BADEN-WUERTTEMBERG',       'de', 'Freizeitkarte_Baden-Wuerttemberg'        ],
-  [ 5811, 'Freizeitkarte_BAYERN',                 'http://download.geofabrik.de/openstreetmap/europe/germany/bayern.osm.pbf',                                 'BAYERN',                   'de', 'Freizeitkarte_Bayern'                    ],
-  [ 5812, 'Freizeitkarte_BERLIN',                 'http://download.geofabrik.de/openstreetmap/europe/germany/berlin.osm.pbf',                                 'BERLIN',                   'de', 'Freizeitkarte_Berlin'                    ],
-  [ 5813, 'Freizeitkarte_BRANDENBURG',            'http://download.geofabrik.de/openstreetmap/europe/germany/brandenburg.osm.pbf',                            'BRANDENBURG',              'de', 'Freizeitkarte_Brandenburg'               ],
-  [ 5814, 'Freizeitkarte_BREMEN',                 'http://download.geofabrik.de/openstreetmap/europe/germany/bremen.osm.pbf',                                 'BREMEN',                   'de', 'Freizeitkarte_Bremen'                    ],
-  [ 5815, 'Freizeitkarte_HAMBURG',                'http://download.geofabrik.de/openstreetmap/europe/germany/hamburg.osm.pbf',                                'HAMBURG',                  'de', 'Freizeitkarte_Hamburg'                   ],
-  [ 5816, 'Freizeitkarte_HESSEN',                 'http://download.geofabrik.de/openstreetmap/europe/germany/hessen.osm.pbf',                                 'HESSEN',                   'de', 'Freizeitkarte_Hessen'                    ],
-  [ 5817, 'Freizeitkarte_MECKLENBURG-VORPOMMERN', 'http://download.geofabrik.de/openstreetmap/europe/germany/mecklenburg-vorpommern.osm.pbf',                 'MECKLENBURG-VORPOMMERN',   'de', 'Freizeitkarte_Mecklenburg-Vorpommern'    ],
-  [ 5818, 'Freizeitkarte_NIEDERSACHSEN',          'http://download.geofabrik.de/openstreetmap/europe/germany/niedersachsen.osm.pbf',                          'NIEDERSACHSEN',            'de', 'Freizeitkarte_Niedersachsen'             ],
-  [ 5819, 'Freizeitkarte_NORDRHEIN-WESTFALEN',    'http://download.geofabrik.de/openstreetmap/europe/germany/nordrhein-westfalen.osm.pbf',                    'NORDRHEIN-WESTFALEN',      'de', 'Freizeitkarte_Nordrhein-Westfalen'       ],
-  [ 5820, 'Freizeitkarte_RHEINLAND-PFALZ',        'http://download.geofabrik.de/openstreetmap/europe/germany/rheinland-pfalz.osm.pbf',                        'RHEINLAND-PFALZ',          'de', 'Freizeitkarte_Rheinland-Pfalz'           ],
-  [ 5821, 'Freizeitkarte_SAARLAND',               'http://download.geofabrik.de/openstreetmap/europe/germany/saarland.osm.pbf',                               'SAARLAND',                 'de', 'Freizeitkarte_Saarland'                  ],
-  [ 5822, 'Freizeitkarte_SACHSEN',                'http://download.geofabrik.de/openstreetmap/europe/germany/sachsen.osm.pbf',                                'SACHSEN',                  'de', 'Freizeitkarte_Sachsen'                   ],
-  [ 5823, 'Freizeitkarte_SACHSEN-ANHALT',         'http://download.geofabrik.de/openstreetmap/europe/germany/sachsen-anhalt.osm.pbf',                         'SACHSEN-ANHALT',           'de', 'Freizeitkarte_Sachsen-Anhalt'            ],
-  [ 5824, 'Freizeitkarte_SCHLESWIG-HOLSTEIN',     'http://download.geofabrik.de/openstreetmap/europe/germany/schleswig-holstein.osm.pbf',                     'SCHLESWIG-HOLSTEIN',       'de', 'Freizeitkarte_Schleswig-Holstein'        ],
-  [ 5825, 'Freizeitkarte_THUERINGEN',             'http://download.geofabrik.de/openstreetmap/europe/germany/thueringen.osm.pbf',                             'THUERINGEN',               'de', 'Freizeitkarte_Thueringen'                ],
+  [ 5810, 'Freizeitkarte_BADEN-WUERTTEMBERG',     'http://download.geofabrik.de/europe/germany/baden-wuerttemberg-latest.osm.pbf',                     'BADEN-WUERTTEMBERG',       'de', 'Freizeitkarte_Baden-Wuerttemberg'        ],
+  [ 5811, 'Freizeitkarte_BAYERN',                 'http://download.geofabrik.de/europe/germany/bayern-latest.osm.pbf',                                 'BAYERN',                   'de', 'Freizeitkarte_Bayern'                    ],
+  [ 5812, 'Freizeitkarte_BERLIN',                 'http://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf',                                 'BERLIN',                   'de', 'Freizeitkarte_Berlin'                    ],
+  [ 5813, 'Freizeitkarte_BRANDENBURG',            'http://download.geofabrik.de/europe/germany/brandenburg-latest.osm.pbf',                            'BRANDENBURG',              'de', 'Freizeitkarte_Brandenburg'               ],
+  [ 5814, 'Freizeitkarte_BREMEN',                 'http://download.geofabrik.de/europe/germany/bremen-latest.osm.pbf',                                 'BREMEN',                   'de', 'Freizeitkarte_Bremen'                    ],
+  [ 5815, 'Freizeitkarte_HAMBURG',                'http://download.geofabrik.de/europe/germany/hamburg-latest.osm.pbf',                                'HAMBURG',                  'de', 'Freizeitkarte_Hamburg'                   ],
+  [ 5816, 'Freizeitkarte_HESSEN',                 'http://download.geofabrik.de/europe/germany/hessen-latest.osm.pbf',                                 'HESSEN',                   'de', 'Freizeitkarte_Hessen'                    ],
+  [ 5817, 'Freizeitkarte_MECKLENBURG-VORPOMMERN', 'http://download.geofabrik.de/europe/germany/mecklenburg-vorpommern-latest.osm.pbf',                 'MECKLENBURG-VORPOMMERN',   'de', 'Freizeitkarte_Mecklenburg-Vorpommern'    ],
+  [ 5818, 'Freizeitkarte_NIEDERSACHSEN',          'http://download.geofabrik.de/europe/germany/niedersachsen-latest.osm.pbf',                          'NIEDERSACHSEN',            'de', 'Freizeitkarte_Niedersachsen'             ],
+  [ 5819, 'Freizeitkarte_NORDRHEIN-WESTFALEN',    'http://download.geofabrik.de/europe/germany/nordrhein-westfalen-latest.osm.pbf',                    'NORDRHEIN-WESTFALEN',      'de', 'Freizeitkarte_Nordrhein-Westfalen'       ],
+  [ 5820, 'Freizeitkarte_RHEINLAND-PFALZ',        'http://download.geofabrik.de/europe/germany/rheinland-pfalz-latest.osm.pbf',                        'RHEINLAND-PFALZ',          'de', 'Freizeitkarte_Rheinland-Pfalz'           ],
+  [ 5821, 'Freizeitkarte_SAARLAND',               'http://download.geofabrik.de/europe/germany/saarland-latest.osm.pbf',                               'SAARLAND',                 'de', 'Freizeitkarte_Saarland'                  ],
+  [ 5822, 'Freizeitkarte_SACHSEN',                'http://download.geofabrik.de/europe/germany/sachsen-latest.osm.pbf',                                'SACHSEN',                  'de', 'Freizeitkarte_Sachsen'                   ],
+  [ 5823, 'Freizeitkarte_SACHSEN-ANHALT',         'http://download.geofabrik.de/europe/germany/sachsen-anhalt-latest.osm.pbf',                         'SACHSEN-ANHALT',           'de', 'Freizeitkarte_Sachsen-Anhalt'            ],
+  [ 5824, 'Freizeitkarte_SCHLESWIG-HOLSTEIN',     'http://download.geofabrik.de/europe/germany/schleswig-holstein-latest.osm.pbf',                     'SCHLESWIG-HOLSTEIN',       'de', 'Freizeitkarte_Schleswig-Holstein'        ],
+  [ 5825, 'Freizeitkarte_THUERINGEN',             'http://download.geofabrik.de/europe/germany/thueringen-latest.osm.pbf',                             'THUERINGEN',               'de', 'Freizeitkarte_Thueringen'                ],
 
   # Regierungsbezirke Baden-Wuerttemberg
   [ -1,   'Regierungsbezirke Baden-Wuerttemberg', 'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 5830, 'Freizeitkarte_FREIBURG',               'http://download.geofabrik.de/openstreetmap/europe/germany/baden-wuerttemberg/freiburg-regbez.osm.pbf',     'FREIBURG',                 'de', 'Freizeitkarte_Freiburg'                  ],
-  [ 5831, 'Freizeitkarte_KARLSRUHE',              'http://download.geofabrik.de/openstreetmap/europe/germany/baden-wuerttemberg/karlsruhe-regbez.osm.pbf',    'KARLSRUHE',                'de', 'Freizeitkarte_Karlsruhe'                 ],
-  [ 5832, 'Freizeitkarte_STUTTGART',              'http://download.geofabrik.de/openstreetmap/europe/germany/baden-wuerttemberg/stuttgart-regbez.osm.pbf',    'STUTTGART',                'de', 'Freizeitkarte_Stuttgart'                 ],
-  [ 5833, 'Freizeitkarte_TUEBINGEN',              'http://download.geofabrik.de/openstreetmap/europe/germany/baden-wuerttemberg/tuebingen-regbez.osm.pbf',    'TUEBINGEN',                'de', 'Freizeitkarte_Tuebingen'                 ],
+  [ 5830, 'Freizeitkarte_FREIBURG',               'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/freiburg-regbez-latest.osm.pbf',     'FREIBURG',                 'de', 'Freizeitkarte_Freiburg'                  ],
+  [ 5831, 'Freizeitkarte_KARLSRUHE',              'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/karlsruhe-regbez-latest.osm.pbf',    'KARLSRUHE',                'de', 'Freizeitkarte_Karlsruhe'                 ],
+  [ 5832, 'Freizeitkarte_STUTTGART',              'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/stuttgart-regbez-latest.osm.pbf',    'STUTTGART',                'de', 'Freizeitkarte_Stuttgart'                 ],
+  [ 5833, 'Freizeitkarte_TUEBINGEN',              'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/tuebingen-regbez-latest.osm.pbf',    'TUEBINGEN',                'de', 'Freizeitkarte_Tuebingen'                 ],
 
   # Regierungsbezirke Nordrhein-Westfalen
   [ -1,   'Regierungsbezirke Nordrhein-Westfalen','URL',                                                                                                      'Name',               'Language' , 'oldName'                                ],
-  [ 5840, 'Freizeitkarte_ARNSBERG',               'http://download.geofabrik.de/openstreetmap/europe/germany/nordrhein-westfalen/arnsberg-regbez.osm.pbf',    'ARNSBERG',                 'de' , 'Freizeitkarte_Arnsberg'                 ],
-  [ 5841, 'Freizeitkarte_DETMOLD',                'http://download.geofabrik.de/openstreetmap/europe/germany/nordrhein-westfalen/detmold-regbez.osm.pbf',     'DETMOLD',                  'de' , 'Freizeitkarte_Detmold'                  ],
-  [ 5842, 'Freizeitkarte_DUESSELDORF',            'http://download.geofabrik.de/openstreetmap/europe/germany/nordrhein-westfalen/duesseldorf-regbez.osm.pbf', 'DUESSELDORF',              'de' , 'Freizeitkarte_Duesseldorf'              ],
-  [ 5843, 'Freizeitkarte_KOELN',                  'http://download.geofabrik.de/openstreetmap/europe/germany/nordrhein-westfalen/koeln-regbez.osm.pbf',       'KOELN',                    'de' , 'Freizeitkarte_Koeln'                    ],
-  [ 5844, 'Freizeitkarte_MUENSTER',               'http://download.geofabrik.de/openstreetmap/europe/germany/nordrhein-westfalen/muenster-regbez.osm.pbf',    'MUENSTER',                 'de' , 'Freizeitkarte_Muenster'                 ],
+  [ 5840, 'Freizeitkarte_ARNSBERG',               'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/arnsberg-regbez-latest.osm.pbf',    'ARNSBERG',                 'de' , 'Freizeitkarte_Arnsberg'                 ],
+  [ 5841, 'Freizeitkarte_DETMOLD',                'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/detmold-regbez-latest.osm.pbf',     'DETMOLD',                  'de' , 'Freizeitkarte_Detmold'                  ],
+  [ 5842, 'Freizeitkarte_DUESSELDORF',            'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/duesseldorf-regbez-latest.osm.pbf', 'DUESSELDORF',              'de' , 'Freizeitkarte_Duesseldorf'              ],
+  [ 5843, 'Freizeitkarte_KOELN',                  'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/koeln-regbez-latest.osm.pbf',       'KOELN',                    'de' , 'Freizeitkarte_Koeln'                    ],
+  [ 5844, 'Freizeitkarte_MUENSTER',               'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/muenster-regbez-latest.osm.pbf',    'MUENSTER',                 'de' , 'Freizeitkarte_Muenster'                 ],
 
   # Regierungsbezirke Bayern
   [ -1,   'Regierungsbezirke Bayern',             'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 5850, 'Freizeitkarte_MITTELFRANKEN',          'http://download.geofabrik.de/openstreetmap/europe/germany/bayern/mittelfranken.osm.pbf',                   'MITTELFRANKEN',            'de', 'Freizeitkarte_Mittelfranken'             ],
-  [ 5851, 'Freizeitkarte_NIEDERBAYERN',           'http://download.geofabrik.de/openstreetmap/europe/germany/bayern/niederbayern.osm.pbf',                    'NIEDERBAYERN',             'de', 'Freizeitkarte_Niederbayern'              ],
-  [ 5852, 'Freizeitkarte_OBERBAYERN',             'http://download.geofabrik.de/openstreetmap/europe/germany/bayern/oberbayern.osm.pbf',                      'OBERBAYERN',               'de', 'Freizeitkarte_Oberbayern'                ],
-  [ 5853, 'Freizeitkarte_OBERFRANKEN',            'http://download.geofabrik.de/openstreetmap/europe/germany/bayern/oberfranken.osm.pbf',                     'OBERFRANKEN',              'de', 'Freizeitkarte_Oberfranken'               ],
-  [ 5854, 'Freizeitkarte_OBERPFALZ',              'http://download.geofabrik.de/openstreetmap/europe/germany/bayern/oberpfalz.osm.pbf',                       'OBERPFALZ',                'de', 'Freizeitkarte_Oberpfalz'                 ],
-  [ 5855, 'Freizeitkarte_SCHWABEN',               'http://download.geofabrik.de/openstreetmap/europe/germany/bayern/schwaben.osm.pbf',                        'SCHWABEN',                 'de', 'Freizeitkarte_Schwaben'                  ],
-  [ 5856, 'Freizeitkarte_UNTERFRANKEN',           'http://download.geofabrik.de/openstreetmap/europe/germany/bayern/unterfranken.osm.pbf',                    'UNTERFRANKEN',             'de', 'Freizeitkarte_Unterfranken'              ],
+  [ 5850, 'Freizeitkarte_MITTELFRANKEN',          'http://download.geofabrik.de/europe/germany/bayern/mittelfranken-latest.osm.pbf',                   'MITTELFRANKEN',            'de', 'Freizeitkarte_Mittelfranken'             ],
+  [ 5851, 'Freizeitkarte_NIEDERBAYERN',           'http://download.geofabrik.de/europe/germany/bayern/niederbayern-latest.osm.pbf',                    'NIEDERBAYERN',             'de', 'Freizeitkarte_Niederbayern'              ],
+  [ 5852, 'Freizeitkarte_OBERBAYERN',             'http://download.geofabrik.de/europe/germany/bayern/oberbayern-latest.osm.pbf',                      'OBERBAYERN',               'de', 'Freizeitkarte_Oberbayern'                ],
+  [ 5853, 'Freizeitkarte_OBERFRANKEN',            'http://download.geofabrik.de/europe/germany/bayern/oberfranken-latest.osm.pbf',                     'OBERFRANKEN',              'de', 'Freizeitkarte_Oberfranken'               ],
+  [ 5854, 'Freizeitkarte_OBERPFALZ',              'http://download.geofabrik.de/europe/germany/bayern/oberpfalz-latest.osm.pbf',                       'OBERPFALZ',                'de', 'Freizeitkarte_Oberpfalz'                 ],
+  [ 5855, 'Freizeitkarte_SCHWABEN',               'http://download.geofabrik.de/europe/germany/bayern/schwaben-latest.osm.pbf',                        'SCHWABEN',                 'de', 'Freizeitkarte_Schwaben'                  ],
+  [ 5856, 'Freizeitkarte_UNTERFRANKEN',           'http://download.geofabrik.de/europe/germany/bayern/unterfranken-latest.osm.pbf',                    'UNTERFRANKEN',             'de', 'Freizeitkarte_Unterfranken'              ],
 
   # Regionen in Frankreich (unvollständig)
   [ -1,   'Regionen Frankreich',                  'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 5860, 'Freizeitkarte_LORRAINE',               'http://download.geofabrik.de/openstreetmap/europe/france/lorraine.osm.pbf',                                'LORRAINE',                 'de', 'Freizeitkarte_Lothringen'                ],
-  [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/openstreetmap/europe/france/alsace.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass'                    ],
+  [ 5860, 'Freizeitkarte_LORRAINE',               'http://download.geofabrik.de/europe/france/lorraine-latest.osm.pbf',                                'LORRAINE',                 'de', 'Freizeitkarte_Lothringen'                ],
+  [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/europe/france/alsace-latest.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass'                    ],
 
   # Länder, Ländercodes: 6000 + ISO-3166 (numerisch)
   [ -1,   'Europaeische Laender',                 'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 6008, 'Freizeitkarte_ALB',                    'http://download.geofabrik.de/openstreetmap/europe/albania.osm.pbf',                                        'ALB',                      'en', 'Freizeitkarte_Albanien'                  ],
-  [ 6020, 'Freizeitkarte_AND',                    'http://download.geofabrik.de/openstreetmap/europe/andorra.osm.pbf',                                        'AND',                      'en', 'Freizeitkarte_Andorra'                   ],
-  [ 6112, 'Freizeitkarte_BLR',                    'http://download.geofabrik.de/openstreetmap/europe/belarus.osm.pbf',                                        'BLR',                      'en', 'Freizeitkarte_Belarus'                   ],
-  [ 6056, 'Freizeitkarte_BEL',                    'http://download.geofabrik.de/openstreetmap/europe/belgium.osm.pbf',                                        'BEL',                      'en', 'Freizeitkarte_Belgien'                   ],
-  [ 6070, 'Freizeitkarte_BIH',                    'http://download.geofabrik.de/openstreetmap/europe/bosnia-herzegovina.osm.pbf',                             'BIH',                      'en', 'Freizeitkarte_Bosnien-Herzegowina'       ],
-  [ 6100, 'Freizeitkarte_BGR',                    'http://download.geofabrik.de/openstreetmap/europe/bulgaria.osm.pbf',                                       'BGR',                      'en', 'Freizeitkarte_Bulgarien'                 ],
-  [ 6208, 'Freizeitkarte_DNK',                    'http://download.geofabrik.de/openstreetmap/europe/denmark.osm.pbf',                                        'DNK',                      'en', 'Freizeitkarte_Daenemark'                 ],
-  [ 6276, 'Freizeitkarte_DEU',                    'http://download.geofabrik.de/openstreetmap/europe/germany.osm.pbf',                                        'DEU',                      'de', 'Freizeitkarte_Deutschland'               ],
-  [ 6233, 'Freizeitkarte_EST',                    'http://download.geofabrik.de/openstreetmap/europe/estonia.osm.pbf',                                        'EST',                      'en', 'Freizeitkarte_Estland'                   ],
-  [ 6234, 'Freizeitkarte_FRO',                    'http://download.geofabrik.de/openstreetmap/europe/faroe_islands.osm.pbf',                                  'FRO',                      'en', 'Freizeitkarte_Faeroeer'                  ],
-  [ 6246, 'Freizeitkarte_FIN',                    'http://download.geofabrik.de/openstreetmap/europe/finland.osm.pbf',                                        'FIN',                      'en', 'Freizeitkarte_Finnland'                  ],
-  [ 6250, 'Freizeitkarte_FRA',                    'http://download.geofabrik.de/openstreetmap/europe/france.osm.pbf',                                         'FRA',                      'en', 'Freizeitkarte_Frankreich'                ],
-  [ 6826, 'Freizeitkarte_GBR',                    'http://download.geofabrik.de/openstreetmap/europe/great_britain.osm.pbf',                                  'GBR',                      'en', 'Freizeitkarte_Grossbritannien'           ],
-  [ 6300, 'Freizeitkarte_GRC',                    'http://download.geofabrik.de/openstreetmap/europe/greece.osm.pbf',                                         'GRC',                      'en', 'Freizeitkarte_Griechenland'              ],
-  [ 6833, 'Freizeitkarte_IMN',                    'http://download.geofabrik.de/openstreetmap/europe/isle_of_man.osm.pbf',                                    'IMN',                      'en', 'Freizeitkarte_Insel-Man'                 ],
-  [ 6372, 'Freizeitkarte_IRL',                    'http://download.geofabrik.de/openstreetmap/europe/ireland-and-northern-ireland.osm.pbf',                   'IRL',                      'en', 'Freizeitkarte_Irland'                    ],
-  [ 6352, 'Freizeitkarte_ISL',                    'http://download.geofabrik.de/openstreetmap/europe/iceland.osm.pbf',                                        'ISL',                      'en', 'Freizeitkarte_Island'                    ],
-  [ 6380, 'Freizeitkarte_ITA',                    'http://download.geofabrik.de/openstreetmap/europe/italy.osm.pbf',                                          'ITA',                      'en', 'Freizeitkarte_Italien'                   ],
-  [ 6680, 'Freizeitkarte_KOSOVO',                 'http://download.geofabrik.de/openstreetmap/europe/kosovo.osm.pbf',                                         'KOSOSVO',                  'en', 'Freizeitkarte_Kosovo'                    ],
-  [ 6191, 'Freizeitkarte_HRV',                    'http://download.geofabrik.de/openstreetmap/europe/croatia.osm.pbf',                                        'HRV',                      'en', 'Freizeitkarte_Kroatien'                  ],
-  [ 6428, 'Freizeitkarte_LVA',                    'http://download.geofabrik.de/openstreetmap/europe/latvia.osm.pbf',                                         'LVA',                      'en', 'Freizeitkarte_Lettland'                  ],
-  [ 6438, 'Freizeitkarte_LIE',                    'http://download.geofabrik.de/openstreetmap/europe/liechtenstein.osm.pbf',                                  'LIE',                      'en', 'Freizeitkarte_Liechtenstein'             ],
-  [ 6440, 'Freizeitkarte_LTU',                    'http://download.geofabrik.de/openstreetmap/europe/lithuania.osm.pbf',                                      'LTU',                      'en', 'Freizeitkarte_Litauen'                   ],
-  [ 6442, 'Freizeitkarte_LUX',                    'http://download.geofabrik.de/openstreetmap/europe/luxembourg.osm.pbf',                                     'LUX',                      'en', 'Freizeitkarte_Luxemburg'                 ],
-  [ 6807, 'Freizeitkarte_MKD',                    'http://download.geofabrik.de/openstreetmap/europe/macedonia.osm.pbf',                                      'MKD',                      'en', 'Freizeitkarte_Mazedonien'                ],
-  [ 6470, 'Freizeitkarte_MLT',                    'http://download.geofabrik.de/openstreetmap/europe/malta.osm.pbf',                                          'MLT',                      'en', 'Freizeitkarte_Malta'                     ],
-  [ 6498, 'Freizeitkarte_MDA',                    'http://download.geofabrik.de/openstreetmap/europe/moldova.osm.pbf',                                        'MDA',                      'en', 'Freizeitkarte_Moldawien'                 ],
-  [ 6492, 'Freizeitkarte_MCO',                    'http://download.geofabrik.de/openstreetmap/europe/monaco.osm.pbf',                                         'MCO',                      'en', 'Freizeitkarte_Monaco'                    ],
-  [ 6499, 'Freizeitkarte_MNE',                    'http://download.geofabrik.de/openstreetmap/europe/montenegro.osm.pbf',                                     'MNE',                      'en', 'Freizeitkarte_Montenegro'                ],
-  [ 6504, 'Freizeitkarte_MAR',                    'http://download.geofabrik.de/openstreetmap/africa/morocco.osm.pbf',                                        'MAR',                      'en', 'Freizeitkarte_Marokko'                   ],
-  [ 6528, 'Freizeitkarte_NLD',                    'http://download.geofabrik.de/openstreetmap/europe/netherlands.osm.pbf',                                    'NLD',                      'en', 'Freizeitkarte_Niederlande'               ],
-  [ 6578, 'Freizeitkarte_NOR',                    'http://download.geofabrik.de/openstreetmap/europe/norway.osm.pbf',                                         'NOR',                      'en', 'Freizeitkarte_Norwegen'                  ],
-  [ 6040, 'Freizeitkarte_AUT',                    'http://download.geofabrik.de/openstreetmap/europe/austria.osm.pbf',                                        'AUT',                      'de', 'Freizeitkarte_Oesterreich'               ],
-  [ 6616, 'Freizeitkarte_POL',                    'http://download.geofabrik.de/openstreetmap/europe/poland.osm.pbf',                                         'POL',                      'en', 'Freizeitkarte_Polen'                     ],
-  [ 6620, 'Freizeitkarte_PRT',                    'http://download.geofabrik.de/openstreetmap/europe/portugal.osm.pbf',                                       'PRT',                      'en', 'Freizeitkarte_Portugal'                  ],
-  [ 6642, 'Freizeitkarte_ROU',                    'http://download.geofabrik.de/openstreetmap/europe/romania.osm.pbf',                                        'ROU',                      'en', 'Freizeitkarte_Rumaenien'                 ],
-  [ 6752, 'Freizeitkarte_SWE',                    'http://download.geofabrik.de/openstreetmap/europe/sweden.osm.pbf',                                         'SWE',                      'en', 'Freizeitkarte_Schweden'                  ],
-  [ 6756, 'Freizeitkarte_CHE',                    'http://download.geofabrik.de/openstreetmap/europe/switzerland.osm.pbf',                                    'CHE',                      'de', 'Freizeitkarte_Schweiz'                   ],
-  [ 6688, 'Freizeitkarte_SRB',                    'http://download.geofabrik.de/openstreetmap/europe/serbia.osm.pbf',                                         'SRB',                      'en', 'Freizeitkarte_Serbien'                   ],
-  [ 6703, 'Freizeitkarte_SVK',                    'http://download.geofabrik.de/openstreetmap/europe/slovakia.osm.pbf',                                       'SVK',                      'en', 'Freizeitkarte_Slowakei'                  ],
-  [ 6705, 'Freizeitkarte_SVN',                    'http://download.geofabrik.de/openstreetmap/europe/slovenia.osm.pbf',                                       'SVN',                      'en', 'Freizeitkarte_Slowenien'                 ],
-  [ 6724, 'Freizeitkarte_ESP',                    'http://download.geofabrik.de/openstreetmap/europe/spain.osm.pbf',                                          'ESP',                      'en', 'Freizeitkarte_Spanien'                   ],
-  [ 6203, 'Freizeitkarte_CZE',                    'http://download.geofabrik.de/openstreetmap/europe/czech_republic.osm.pbf',                                 'CZE',                      'en', 'Freizeitkarte_Tschechien'                ],
-  [ 6792, 'Freizeitkarte_TUR',                    'http://download.geofabrik.de/openstreetmap/europe/turkey.osm.pbf',                                         'TUR',                      'en', 'Freizeitkarte_Tuerkei'                   ],
-  [ 6804, 'Freizeitkarte_UKR',                    'http://download.geofabrik.de/openstreetmap/europe/ukraine.osm.pbf',                                        'UKR',                      'en', 'Freizeitkarte_Ukraine'                   ],
-  [ 6348, 'Freizeitkarte_HUN',                    'http://download.geofabrik.de/openstreetmap/europe/hungary.osm.pbf',                                        'HUN',                      'en', 'Freizeitkarte_Ungarn'                    ],
-  [ 6196, 'Freizeitkarte_CYP',                    'http://download.geofabrik.de/openstreetmap/europe/cyprus.osm.pbf',                                         'CYP',                      'en', 'Freizeitkarte_Zypern'                    ],
+  [ 6008, 'Freizeitkarte_ALB',                    'http://download.geofabrik.de/europe/albania-latest.osm.pbf',                                        'ALB',                      'en', 'Freizeitkarte_Albanien'                  ],
+  [ 6020, 'Freizeitkarte_AND',                    'http://download.geofabrik.de/europe/andorra-latest.osm.pbf',                                        'AND',                      'en', 'Freizeitkarte_Andorra'                   ],
+  [ 6112, 'Freizeitkarte_BLR',                    'http://download.geofabrik.de/europe/belarus-latest.osm.pbf',                                        'BLR',                      'en', 'Freizeitkarte_Belarus'                   ],
+  [ 6056, 'Freizeitkarte_BEL',                    'http://download.geofabrik.de/europe/belgium-latest.osm.pbf',                                        'BEL',                      'en', 'Freizeitkarte_Belgien'                   ],
+  [ 6070, 'Freizeitkarte_BIH',                    'http://download.geofabrik.de/europe/bosnia-herzegovina-latest.osm.pbf',                             'BIH',                      'en', 'Freizeitkarte_Bosnien-Herzegowina'       ],
+  [ 6100, 'Freizeitkarte_BGR',                    'http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf',                                       'BGR',                      'en', 'Freizeitkarte_Bulgarien'                 ],
+  [ 6208, 'Freizeitkarte_DNK',                    'http://download.geofabrik.de/europe/denmark-latest.osm.pbf',                                        'DNK',                      'en', 'Freizeitkarte_Daenemark'                 ],
+  [ 6276, 'Freizeitkarte_DEU',                    'http://download.geofabrik.de/europe/germany-latest.osm.pbf',                                        'DEU',                      'de', 'Freizeitkarte_Deutschland'               ],
+  [ 6233, 'Freizeitkarte_EST',                    'http://download.geofabrik.de/europe/estonia-latest.osm.pbf',                                        'EST',                      'en', 'Freizeitkarte_Estland'                   ],
+  [ 6234, 'Freizeitkarte_FRO',                    'http://download.geofabrik.de/europe/faroe-islands-latest.osm.pbf',                                  'FRO',                      'en', 'Freizeitkarte_Faeroeer'                  ],
+  [ 6246, 'Freizeitkarte_FIN',                    'http://download.geofabrik.de/europe/finland-latest.osm.pbf',                                        'FIN',                      'en', 'Freizeitkarte_Finnland'                  ],
+  [ 6250, 'Freizeitkarte_FRA',                    'http://download.geofabrik.de/europe/france-latest.osm.pbf',                                         'FRA',                      'en', 'Freizeitkarte_Frankreich'                ],
+  [ 6826, 'Freizeitkarte_GBR',                    'http://download.geofabrik.de/europe/great-britain-latest.osm.pbf',                                  'GBR',                      'en', 'Freizeitkarte_Grossbritannien'           ],
+  [ 6300, 'Freizeitkarte_GRC',                    'http://download.geofabrik.de/europe/greece-latest.osm.pbf',                                         'GRC',                      'en', 'Freizeitkarte_Griechenland'              ],
+  [ 6833, 'Freizeitkarte_IMN',                    'http://download.geofabrik.de/europe/isle-of-man-latest.osm.pbf',                                    'IMN',                      'en', 'Freizeitkarte_Insel-Man'                 ],
+  [ 6372, 'Freizeitkarte_IRL',                    'http://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf',                   'IRL',                      'en', 'Freizeitkarte_Irland'                    ],
+  [ 6352, 'Freizeitkarte_ISL',                    'http://download.geofabrik.de/europe/iceland-latest.osm.pbf',                                        'ISL',                      'en', 'Freizeitkarte_Island'                    ],
+  [ 6380, 'Freizeitkarte_ITA',                    'http://download.geofabrik.de/europe/italy-latest.osm.pbf',                                          'ITA',                      'en', 'Freizeitkarte_Italien'                   ],
+  [ 6680, 'Freizeitkarte_KOSOVO',                 'http://download.geofabrik.de/europe/kosovo-latest.osm.pbf',                                         'KOSOSVO',                  'en', 'Freizeitkarte_Kosovo'                    ],
+  [ 6191, 'Freizeitkarte_HRV',                    'http://download.geofabrik.de/europe/croatia-latest.osm.pbf',                                        'HRV',                      'en', 'Freizeitkarte_Kroatien'                  ],
+  [ 6428, 'Freizeitkarte_LVA',                    'http://download.geofabrik.de/europe/latvia-latest.osm.pbf',                                         'LVA',                      'en', 'Freizeitkarte_Lettland'                  ],
+  [ 6438, 'Freizeitkarte_LIE',                    'http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf',                                  'LIE',                      'en', 'Freizeitkarte_Liechtenstein'             ],
+  [ 6440, 'Freizeitkarte_LTU',                    'http://download.geofabrik.de/europe/lithuania-latest.osm.pbf',                                      'LTU',                      'en', 'Freizeitkarte_Litauen'                   ],
+  [ 6442, 'Freizeitkarte_LUX',                    'http://download.geofabrik.de/europe/luxembourg-latest.osm.pbf',                                     'LUX',                      'en', 'Freizeitkarte_Luxemburg'                 ],
+  [ 6807, 'Freizeitkarte_MKD',                    'http://download.geofabrik.de/europe/macedonia-latest.osm.pbf',                                      'MKD',                      'en', 'Freizeitkarte_Mazedonien'                ],
+  [ 6470, 'Freizeitkarte_MLT',                    'http://download.geofabrik.de/europe/malta-latest.osm.pbf',                                          'MLT',                      'en', 'Freizeitkarte_Malta'                     ],
+  [ 6498, 'Freizeitkarte_MDA',                    'http://download.geofabrik.de/europe/moldova-latest.osm.pbf',                                        'MDA',                      'en', 'Freizeitkarte_Moldawien'                 ],
+  [ 6492, 'Freizeitkarte_MCO',                    'http://download.geofabrik.de/europe/monaco-latest.osm.pbf',                                         'MCO',                      'en', 'Freizeitkarte_Monaco'                    ],
+  [ 6499, 'Freizeitkarte_MNE',                    'http://download.geofabrik.de/europe/montenegro-latest.osm.pbf',                                     'MNE',                      'en', 'Freizeitkarte_Montenegro'                ],
+  [ 6504, 'Freizeitkarte_MAR',                    'http://download.geofabrik.de/africa/morocco-latest.osm.pbf',                                        'MAR',                      'en', 'Freizeitkarte_Marokko'                   ],
+  [ 6528, 'Freizeitkarte_NLD',                    'http://download.geofabrik.de/europe/netherlands-latest.osm.pbf',                                    'NLD',                      'en', 'Freizeitkarte_Niederlande'               ],
+  [ 6578, 'Freizeitkarte_NOR',                    'http://download.geofabrik.de/europe/norway-latest.osm.pbf',                                         'NOR',                      'en', 'Freizeitkarte_Norwegen'                  ],
+  [ 6040, 'Freizeitkarte_AUT',                    'http://download.geofabrik.de/europe/austria-latest.osm.pbf',                                        'AUT',                      'de', 'Freizeitkarte_Oesterreich'               ],
+  [ 6616, 'Freizeitkarte_POL',                    'http://download.geofabrik.de/europe/poland-latest.osm.pbf',                                         'POL',                      'en', 'Freizeitkarte_Polen'                     ],
+  [ 6620, 'Freizeitkarte_PRT',                    'http://download.geofabrik.de/europe/portugal-latest.osm.pbf',                                       'PRT',                      'en', 'Freizeitkarte_Portugal'                  ],
+  [ 6642, 'Freizeitkarte_ROU',                    'http://download.geofabrik.de/europe/romania-latest.osm.pbf',                                        'ROU',                      'en', 'Freizeitkarte_Rumaenien'                 ],
+  [ 6752, 'Freizeitkarte_SWE',                    'http://download.geofabrik.de/europe/sweden-latest.osm.pbf',                                         'SWE',                      'en', 'Freizeitkarte_Schweden'                  ],
+  [ 6756, 'Freizeitkarte_CHE',                    'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE',                      'de', 'Freizeitkarte_Schweiz'                   ],
+  [ 6688, 'Freizeitkarte_SRB',                    'http://download.geofabrik.de/europe/serbia-latest.osm.pbf',                                         'SRB',                      'en', 'Freizeitkarte_Serbien'                   ],
+  [ 6703, 'Freizeitkarte_SVK',                    'http://download.geofabrik.de/europe/slovakia-latest.osm.pbf',                                       'SVK',                      'en', 'Freizeitkarte_Slowakei'                  ],
+  [ 6705, 'Freizeitkarte_SVN',                    'http://download.geofabrik.de/europe/slovenia-latest.osm.pbf',                                       'SVN',                      'en', 'Freizeitkarte_Slowenien'                 ],
+  [ 6724, 'Freizeitkarte_ESP',                    'http://download.geofabrik.de/europe/spain-latest.osm.pbf',                                          'ESP',                      'en', 'Freizeitkarte_Spanien'                   ],
+  [ 6203, 'Freizeitkarte_CZE',                    'http://download.geofabrik.de/europe/czech-republic-latest.osm.pbf',                                 'CZE',                      'en', 'Freizeitkarte_Tschechien'                ],
+  [ 6792, 'Freizeitkarte_TUR',                    'http://download.geofabrik.de/europe/turkey-latest.osm.pbf',                                         'TUR',                      'en', 'Freizeitkarte_Tuerkei'                   ],
+  [ 6804, 'Freizeitkarte_UKR',                    'http://download.geofabrik.de/europe/ukraine-latest.osm.pbf',                                        'UKR',                      'en', 'Freizeitkarte_Ukraine'                   ],
+  [ 6348, 'Freizeitkarte_HUN',                    'http://download.geofabrik.de/europe/hungary-latest.osm.pbf',                                        'HUN',                      'en', 'Freizeitkarte_Ungarn'                    ],
+  [ 6196, 'Freizeitkarte_CYP',                    'http://download.geofabrik.de/europe/cyprus-latest.osm.pbf',                                         'CYP',                      'en', 'Freizeitkarte_Zypern'                    ],
 
   # Andere Regionen
   [ -1,   'Andere Regionen',                      'URL' ,                                                                                                     'Name',               'Language', 'oldName'                                 ],
-  [ 7010, 'Freizeitkarte_ALPS-SMALL',             'http://download.geofabrik.de/openstreetmap/europe/alps.osm.pbf',                                           'ALPS-SMALL',               'en', 'Freizeitkarte_Alpen'                     ],
-  [ 7020, 'Freizeitkarte_AZORES',                 'http://download.geofabrik.de/openstreetmap/europe/azores.osm.pbf',                                         'AZORES',                   'en', 'Freizeitkarte_Azoren'                    ],
-  [ 7030, 'Freizeitkarte_BRITISH-ISLES',          'http://download.geofabrik.de/openstreetmap/europe/british_isles.osm.pbf',                                  'BRITISH-ISLES',            'en', 'Freizeitkarte_Britische-Inseln'          ],
-  [ 7040, 'Freizeitkarte_IRELAND-ISLAND',         'http://download.geofabrik.de/openstreetmap/europe/ireland-and-northern-ireland.osm.pbf',                   'IRELAND-ISLAND',           'en', 'Freizeitkarte_Irland-Insel'              ],
-  [ 7050, 'Freizeitkarte_EUROP-RUSSIA',           'http://download.geofabrik.de/openstreetmap/europe/russia-european-part.osm.pbf',                           'EUROP-RUSSIA',             'en', 'Freizeitkarte_Euro-Russland'             ],
-  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/openstreetmap/africa/canary_islands.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln'         ],
+  [ 7010, 'Freizeitkarte_ALPS-SMALL',             'http://download.geofabrik.de/europe/alps-latest.osm.pbf',                                           'ALPS-SMALL',               'en', 'Freizeitkarte_Alpen'                     ],
+  [ 7020, 'Freizeitkarte_AZORES',                 'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                   'en', 'Freizeitkarte_Azoren'                    ],
+  [ 7030, 'Freizeitkarte_BRITISH-ISLES',          'http://download.geofabrik.de/europe/british-isles-latest.osm.pbf',                                  'BRITISH-ISLES',            'en', 'Freizeitkarte_Britische-Inseln'          ],
+  [ 7040, 'Freizeitkarte_IRELAND-ISLAND',         'http://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf',                   'IRELAND-ISLAND',           'en', 'Freizeitkarte_Irland-Insel'              ],
+  [ 7050, 'Freizeitkarte_EUROP-RUSSIA',           'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'EUROP-RUSSIA',             'en', 'Freizeitkarte_Euro-Russland'             ],
+  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln'         ],
 
   # Sonderkarten wie z.B. FZK-eigene Extrakte (alle ohne geofabrik-Download (NA = Not Applicable); Ausnahme Europa)
   [ -1,   'Freizeitkarte Regionen',               'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 8888, 'Freizeitkarte_EUROPE',                 'http://download.geofabrik.de/openstreetmap/europe.osm.pbf',                                                'EUROPE',                   'en', 'no_old_name'                             ],
+  [ 8888, 'Freizeitkarte_EUROPE',                 'http://download.geofabrik.de/europe-latest.osm.pbf',                                                'EUROPE',                   'en', 'no_old_name'                             ],
   [ 8010, 'Freizeitkarte_GBR_IRL',                'NA',                                                                                                       'GBR_IRL',                  'en', 'no_old_name'                             ],
   [ 8020, 'Freizeitkarte_ALPS',                   'NA',                                                                                                       'ALPS',                     'en', 'no_old_name'                             ],
   [ 8030, 'Freizeitkarte_DNK_NOR_SWE_FIN',        'NA',                                                                                                       'DNK_NOR_SWE_FIN',          'en', 'no_old_name'                             ],
@@ -177,11 +194,11 @@ my @maps = (
 # pseudo constants
 my $EMPTY = q{};
 
-my $MAPID   = 0;
-my $MAPNAME = 1;
-my $OSMURL  = 2;
-my $MAPCODE = 3;
-my $MAPLANG = 4;
+my $MAPID      = 0;
+my $MAPNAME    = 1;
+my $OSMURL     = 2;
+my $MAPCODE    = 3;
+my $MAPLANG    = 4;
 my $MAPNAMEOLD = 5;
 
 my $ACTIONNAME = 0;
@@ -228,13 +245,13 @@ my $language = $EMPTY;
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
 
-my $mapid    = -1;
-my $mapname  = $EMPTY;
+my $mapid      = -1;
+my $mapname    = $EMPTY;
 my $mapnameold = $EMPTY;
-my $osmurl   = $EMPTY;
-my $mapcode  = $EMPTY;
-my $maplang  = $EMPTY;
-my $langdesc = $EMPTY;
+my $osmurl     = $EMPTY;
+my $mapcode    = $EMPTY;
+my $maplang    = $EMPTY;
+my $langdesc   = $EMPTY;
 
 my $error   = -1;
 my $command = $EMPTY;
@@ -282,13 +299,13 @@ if ( $error ) {
 $error = 1;
 for my $mapdata ( @maps ) {
   if ( ( @$mapdata[ $MAPNAME ] eq $mapname ) || ( @$mapdata[ $MAPID ] eq $mapid ) || ( @$mapdata[ $MAPCODE ] eq $mapcode ) ) {
-    $mapid   = @$mapdata[ $MAPID ];
-    $mapname = @$mapdata[ $MAPNAME ];
-    $osmurl  = @$mapdata[ $OSMURL ];
-    $mapcode = @$mapdata[ $MAPCODE ];
-    $maplang = @$mapdata[ $MAPLANG ];
+    $mapid      = @$mapdata[ $MAPID ];
+    $mapname    = @$mapdata[ $MAPNAME ];
+    $osmurl     = @$mapdata[ $OSMURL ];
+    $mapcode    = @$mapdata[ $MAPCODE ];
+    $maplang    = @$mapdata[ $MAPLANG ];
     $mapnameold = @$mapdata[ $MAPNAMEOLD ];
-    $error   = 0;
+    $error      = 0;
     last;
   }
 }
@@ -315,16 +332,15 @@ if ( $error ) {
   show_help ();
 }
 
-  
 # Entwicklungsumgebung auf Konsistenz pruefen.
 my $directory = 'install';
-if ( ! ( -e $directory ) ) {
+if ( !( -e $directory ) ) {
   mkdir ( $directory );
   printf { *STDOUT } ( "Directory %s created.\n", $directory );
 }
 
 $directory = 'work';
-if ( ! ( -e $directory ) ) {
+if ( !( -e $directory ) ) {
   mkdir ( $directory );
   printf { *STDOUT } ( "Directory %s created.\n\n", $directory );
 }
@@ -334,14 +350,14 @@ printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
 
 # Create the WORKDIR and the INSTALLDIR variables, used at a lot of places
 # (Freizeitkarte_EUROPE can't be built, only used for cutting the regions, therefore we have a special treatment here)
-my $WORKDIR = '';
+my $WORKDIR    = '';
 my $INSTALLDIR = '';
 if ( $mapname eq 'Freizeitkarte_EUROPE' ) {
-  $WORKDIR = "$BASEPATH/work/$mapname";
+  $WORKDIR    = "$BASEPATH/work/$mapname";
   $INSTALLDIR = "$BASEPATH/install/$mapname";
 }
 else {
-  $WORKDIR = "$BASEPATH/work/$mapname" . "_$maplang";
+  $WORKDIR    = "$BASEPATH/work/$mapname" . "_$maplang";
   $INSTALLDIR = "$BASEPATH/install/$mapname" . "_$maplang";
 }
 
@@ -362,11 +378,11 @@ elsif ( $actionname eq 'split' ) {
   split_mapdata ();
 }
 elsif ( $actionname eq 'build' ) {
-  create_cfgfile    ();
-  create_typfile    ();
+  create_cfgfile           ();
+  create_typfile           ();
   create_styletranslations ();
-  preprocess_styles ();
-  build_map         ();
+  preprocess_styles        ();
+  build_map                ();
 }
 elsif ( $actionname eq 'gmap' ) {
   create_typfile  ();
@@ -389,7 +405,14 @@ elsif ( $actionname eq 'cfg' ) {
   create_cfgfile ();
 }
 elsif ( $actionname eq 'typ' ) {
+  create_typtranslations ();
+  compile_typfiles ();
   create_typfile ();
+}
+elsif ( $actionname eq 'compiletyp' ) {
+  create_typtranslations ();
+#  preprocess_typfile ();
+  compile_typfiles ();
 }
 elsif ( $actionname eq 'nsicfg' ) {
   create_nsis_nsifile ();
@@ -402,16 +425,18 @@ elsif ( $actionname eq 'gmap2' ) {
   create_gmap2file ();
 }
 elsif ( $actionname eq 'bim' ) {
-  create_dirs       ();
-  fetch_osmdata     ();
-  fetch_eledata     ();
-  join_mapdata      ();
-  split_mapdata     ();
-  create_cfgfile    ();
-  create_typfile    ();
+  create_dirs              ();
+  fetch_osmdata            ();
+  fetch_eledata            ();
+  join_mapdata             ();
+  split_mapdata            ();
+  create_cfgfile           ();
+  create_typtranslations   ();
+  compile_typfiles         ();
+  create_typfile           ();
   create_styletranslations ();
-  preprocess_styles ();
-  build_map         ();
+  preprocess_styles        ();
+  build_map                ();
 }
 elsif ( $actionname eq 'bam' ) {
   create_typfile         ();
@@ -429,6 +454,9 @@ elsif ( $actionname eq 'regions' ) {
 }
 elsif ( $actionname eq 'fetch_map' ) {
   fetch_mapdata ();
+}
+elsif ( $actionname eq 'checkurl' ) {
+  check_downloadurls ();
 }
 
 exit ( 0 );
@@ -456,10 +484,10 @@ sub process_command {
       printf { *STDERR } ( "Failed to execute: $!\n" );
     }
     elsif ( $systemReturncode & 127 ) {
-      $temp_string = sprintf (
-        "Child died with signal %d, %s coredump\n",
-        ( $systemReturncode & 127 ),
-        ( $systemReturncode & 128 ) ? 'with' : 'without'
+      $temp_string = sprintf ( 
+        "Child died with signal %d, %s coredump\n", 
+        ( $systemReturncode & 127 ), 
+        ( $systemReturncode & 128 ) ? 'with' : 'without' 
       );
       printf { *STDERR } $temp_string;
     }
@@ -501,11 +529,11 @@ sub create_dirs {
   printf { *STDOUT } ( "\n" );
 
   # Verzeichnisstrukturen loeschen
-  rmtree ( "$WORKDIR", 0, 1 );
+  rmtree ( "$WORKDIR",    0, 1 );
   rmtree ( "$INSTALLDIR", 0, 1 );
 
   sleep 1;
-    
+
   # Verzeichnisstrukturen neu anlegen
   mkpath ( "$WORKDIR" );
   mkpath ( "$INSTALLDIR" );
@@ -515,6 +543,71 @@ sub create_dirs {
   return;
 }
 
+# -----------------------------------------
+# Check if all download URLs are existing
+# -----------------------------------------
+sub check_downloadurls {
+	
+  my $returnvalue;
+
+  # Set the OS specific command
+  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+    # OS X, Linux, FreeBSD, OpenBSD
+    $command = "curl --output /dev/null --silent --fail --head --url ";
+  }
+  elsif ( $OSNAME eq 'MSWin32' ) {
+    # Windows
+    $command = "$BASEPATH/windows/wget2/wget.exe -q --spider ";
+  }
+  else {
+    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+  }
+
+  # run through the complete maps array
+  for my $mapdata ( @maps ) {
+	
+	# Jump to next it's not a real map
+	if ( ( @$mapdata[ $MAPID ] == -1 ) || ( @$mapdata[ $OSMURL ] eq "NA" ) ) {
+		next;
+    }
+
+    # Real map, print out a header per map
+    print "\n" . @$mapdata[ $MAPNAME ] . "\n";
+    print "---------------------------------------------------\n";
+
+    # Check the MapURL
+    $returnvalue = system( $command . @$mapdata[ $OSMURL ]);
+    if ( $returnvalue != 0 ) {
+		print "FAIL: ";
+	}
+	else {
+		print "OK:   ";
+    }
+    print @$mapdata[ $OSMURL ] ."\n";
+    
+    # Check the ElevationData 10m
+    $returnvalue = system( $command . "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
+    if ( $returnvalue != 0 ) {
+		print "FAIL: ";
+	}
+	else {
+		print "OK:   ";
+    }
+    print "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
+
+    # Check the ElevationData 25m
+    $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
+    if ( $returnvalue != 0 ) {
+		print "FAIL: ";
+	}
+	else {
+		print "OK:   ";
+    }
+    print "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";      
+	  
+  }
+	
+}
 
 # -----------------------------------------
 # OSM-Kartendaten aus Internet laden.
@@ -558,11 +651,11 @@ sub fetch_eledata {
   # Download-URL
   my $eleurl = '';
   if ( $ele == 10 ) {
-    $eleurl = "http://freizeitkarte-osm.de/maps/Development/ele_10_100_200/Hoehendaten_$mapname.osm.pbf";
+    $eleurl = "$elevationbaseurl{ele10}/Hoehendaten_$mapname.osm.pbf";
   }
   else {
     # Default = 25 Meter
-    $eleurl = "http://freizeitkarte-osm.de/maps/Development/ele_25_250_500/Hoehendaten_$mapname.osm.pbf";
+    $eleurl = "$elevationbaseurl{ele25}/Hoehendaten_$mapname.osm.pbf";
   }
 
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
@@ -626,14 +719,14 @@ sub join_mapdata {
 
     # Java-Optionen in Osmosis-Aufruf einbringen
     my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
-    $ENV { JAVACMD_OPTIONS } = $javacmd_options;
+    $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
 
     # osmosis-Aufrufparameter
-    my $osmosis_parameter =
-        " --read-pbf $filename_kartendaten"
-      . " --read-pbf $filename_hoehendaten"
-      . " --merge"
-      . " --write-pbf $filename_ergebnisdaten"
+    my $osmosis_parameter = 
+        " --read-pbf $filename_kartendaten" 
+      . " --read-pbf $filename_hoehendaten" 
+      . " --merge" 
+      . " --write-pbf $filename_ergebnisdaten" 
       . " omitmetadata=true";
 
     if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
@@ -687,20 +780,20 @@ sub split_mapdata {
   }
 
   # OSM-Kartendaten splitten
-  $command =
-      "java -Xmx"
-    . $javaheapsize . "M"
-    . " -jar $BASEPATH/tools/splitter/splitter.jar"
-    . $max_threads
-    . " --geonames-file=$BASEPATH/cities/cities15000.zip"
-    . " --no-trim"
-    . " --precomp-sea=$BASEPATH/sea"
-    . " --keep-complete=true"
-    . " --mapid="
-    . $mapid . "0001"
-    . " --max-nodes=800000"
-    . " --output=xml"
-    . " --output-dir=$WORKDIR $filename_ergebnisdaten";
+  $command = 
+     "java -Xmx" 
+   . $javaheapsize . "M" 
+   . " -jar $BASEPATH/tools/splitter/splitter.jar" 
+   . $max_threads 
+   . " --geonames-file=$BASEPATH/cities/cities15000.zip" 
+   . " --no-trim" 
+   . " --precomp-sea=$BASEPATH/sea" 
+   . " --keep-complete=true" 
+   . " --mapid=" 
+   . $mapid . "0001" 
+   . " --max-nodes=800000" 
+   . " --output=xml" 
+   . " --output-dir=$WORKDIR $filename_ergebnisdaten";
   process_command ( $command );
 
   return;
@@ -724,13 +817,13 @@ sub create_cfgfile {
   printf { *STDOUT } ( "Creating $filename ...\n" );
   open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
 
-  printf { $fh }
-    (   "# ------------------------------------------------------------------------------\n"
-      . "# Zweck   : mkgmap-Konfigurationsdatei\n"
-      . "# Version : "
-      . $VERSION . "\n"
-      . "# Erzeugt : "
-      . localtime () . "\n"
+  printf { $fh } 
+    (   "# ------------------------------------------------------------------------------\n" 
+      . "# Zweck   : mkgmap-Konfigurationsdatei\n" 
+      . "# Version : " 
+      . $VERSION . "\n" 
+      . "# Erzeugt : " 
+      . localtime () . "\n" 
       . "# ------------------------------------------------------------------------------\n" );
 
   printf { $fh } ( "\n# General options:\n" );
@@ -744,37 +837,37 @@ sub create_cfgfile {
   #     . "#   this option is set. Files must have OSM or PBF fileformat.\n"
   #     . "coastlinefile: $BASEPATH/coasts/coastlines.osm.pbf\n" );
 
-  printf { $fh }
-    (   "\n"
-      . "# --precomp-sea=directoryname\n"
-      . "#   Defines the directory that contains the precompiled sea tiles.\n"
-      . "#   When this option is defined all natural=coastline tags from the\n"
-      . "#   input OSM tiles are removed and the precompiled data is used instead.\n"
-      . "#   This option can be combined with the generate-sea options\n"
-      . "#   multipolygon, polygons and land-tag. The coastlinefile option\n"
-      . "#   is ignored if precomp-sea is set.\n"
+  printf { $fh } 
+    (   "\n" 
+      . "# --precomp-sea=directoryname\n" 
+      . "#   Defines the directory that contains the precompiled sea tiles.\n" 
+      . "#   When this option is defined all natural=coastline tags from the\n" 
+      . "#   input OSM tiles are removed and the precompiled data is used instead.\n" 
+      . "#   This option can be combined with the generate-sea options\n" 
+      . "#   multipolygon, polygons and land-tag. The coastlinefile option\n" 
+      . "#   is ignored if precomp-sea is set.\n" 
       . "precomp-sea=$BASEPATH/sea\n" );
 
-  printf { $fh }
-    (   "\n"
-      . "# --description=text\n"
-      . "#   Sets the descriptive text for the map. This may be displayed in\n"
-      . "#   QLandkarte, MapSource or on a GPS etc, where it is normally shown\n"
-      . "#   below the family name. Example: --description=\"Germany, Denmark\"\n"
-      . "#   Please note: if you use splitter.jar to build a template.args file\n"
-      . "#   an use -c template.args, then that file may contain a\n"
-      . "#   \"description\" that will override this option. Use \"--description\" in\n"
-      . "#   splitter.jar to change the description in the template.args file.\n"
-      . "description=\"%s (Release %d.%d)\"\n",
-    $mapname,
-    ( $year - 100 ),
-    ( $mon + 1 )
+  printf { $fh } 
+    (   "\n" 
+      . "# --description=text\n" 
+      . "#   Sets the descriptive text for the map. This may be displayed in\n" 
+      . "#   QLandkarte, MapSource or on a GPS etc, where it is normally shown\n" 
+      . "#   below the family name. Example: --description=\"Germany, Denmark\"\n" 
+      . "#   Please note: if you use splitter.jar to build a template.args file\n" 
+      . "#   an use -c template.args, then that file may contain a\n" 
+      . "#   \"description\" that will override this option. Use \"--description\" in\n" 
+      . "#   splitter.jar to change the description in the template.args file.\n" 
+      . "description=\"%s (Release %d.%d)\"\n", 
+    $mapname, 
+    ( $year - 100 ), 
+    ( $mon + 1 ) 
   );
 
   printf { $fh } ( "\n# Label options:\n" );
   printf { $fh } ( "# -------------\n" );
 
-  printf { $fh }
+  printf { $fh } 
     (   "\n" 
       . "# --latin1\n" 
       . "#   This is equivalent to --code-page=1252.\n" 
@@ -783,15 +876,15 @@ sub create_cfgfile {
   printf { $fh } ( "\n# Address search options:\n" );
   printf { $fh } ( "# ----------------------\n" );
 
-  printf { $fh }
-    (   "\n"
-      . "# --index\n"
-      . "#   Generate a global index that can be used with MapSource.\n"
-      . "#   Makes the find places functions in MapSource available.\n"
-      . "#   The index consists of two files named osmmap.mdx and osmmap_mdr.img\n"
-      . "#   by default.  The overview-mapname can be used to change the name.\n"
-      . "#   If the mapset is sent to the device from MapSource, it will enable\n"
-      . "#   find by name and address search on the GPS.\n"
+  printf { $fh } 
+    (   "\n" 
+      . "# --index\n" 
+      . "#   Generate a global index that can be used with MapSource.\n" 
+      . "#   Makes the find places functions in MapSource available.\n" 
+      . "#   The index consists of two files named osmmap.mdx and osmmap_mdr.img\n" 
+      . "#   by default.  The overview-mapname can be used to change the name.\n" 
+      . "#   If the mapset is sent to the device from MapSource, it will enable\n" 
+      . "#   find by name and address search on the GPS.\n" 
       . "index\n" );
 
   printf { $fh }
@@ -1067,6 +1160,352 @@ sub create_cfgfile {
   return;
 }
 
+# -----------------------------------------
+# Ableitung des 'typ-translations' file mit allen sprachspezifischen Strings
+# -----------------------------------------
+sub create_typtranslations {
+	
+  # Verzeichnisstrukturen neu anlegen (falls noch nicht vorhanden)
+  mkpath ( "$WORKDIR/TYP" );
+
+
+  # Short description of the process:
+  # ---------------------------------
+  # 1) deduct which languages will end up in the TYP files (max 4)
+  # 2) Read all TYP file translations into hashes
+  # 3) 'Mix-down': add the translations to the source TXT files
+
+  # defined languages
+  my %typlanguages = (
+    "xx", "0x00",    #	 unspecified
+    "fr", "0x01",    #	 french
+    "de", "0x02",    #	 german
+    "nl", "0x03",    #	 dutch
+    "en", "0x04",    #	 english
+    "it", "0x05",    #	 italian
+    "fi", "0x06",    #	 finnish
+    "sv", "0x07",    #	 swedish
+    "es", "0x08",    #	 spanish
+    "eu", "0x09",    #	 basque
+    "ca", "0x0a",    #	 catalan
+    "gl", "0x0b",    #	 galician
+    "cy", "0x0c",    #	 welsh
+    "gd", "0x0d",    #	 gaelic
+    "da", "0x0e",    #	 danish
+    "no", "0x0f",    #	 norwegian
+    "pt", "0x10",    #	 portuguese
+    "sk", "0x11",    #	 slovak
+    "cs", "0x12",    #	 czech
+    "hr", "0x13",    #	 croatian
+    "hu", "0x14",    #	 hungarian
+    "pl", "0x15",    #	 polish
+    "tr", "0x16",    #	 turkish
+    "el", "0x17",    #	 greek
+    "sl", "0x18",    #	 slovenian
+    "ru", "0x19",    #	 russian
+    "et", "0x1a",    #	 estonian
+    "lv", "0x1b",    #	 latvian
+    "ro", "0x1c",    #	 romanian
+    "sq", "0x1d",    #	 albanian
+    "bs", "0x1e",    #	 bosnian
+    "lt", "0x1f",    #	 lithuanian
+    "sr", "0x20",    #	 serbian
+    "mk", "0x21",    #	 macedonian
+    "bg", "0x22"     #	 bulgarian
+  );
+
+  my %typlanguagesbyhex = reverse %typlanguages;
+
+  # Set some Variables
+  my $inputfile;
+  my $outputfile;
+  my $actualfile;
+
+  my @typfilelangcode;
+  my %typfilestringindex;
+  my %typfilestringhex;
+  my $stringindex = 1;
+  my $langcode    = $maplang;
+
+  my $inputline;
+  my $thisobjectform;
+  my $thisobjecttype;
+  my $thisobjectsubtype;
+  my $thisobjectid;
+  my $thisobjectstringhash;
+  my $thisobjectstringsdone;
+  my %thisobjectstrings  = ();
+  my %objecttranslations = ();
+
+  # 1) deduct which languages will end up in the TYP files (max 4)
+  # -----------------------------------------------------------------------------
+  # Create an array with the languages that go into the TYP files
+  push ( @typfilelangcode, $typlanguages{ $langcode } );
+  $typfilestringindex{ $typlanguages{ $langcode } } = $stringindex;
+  $stringindex++;
+  foreach my $tmp ( @typfilelangfixed ) {
+    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) ) {
+      push ( @typfilelangcode, $typlanguages{ $tmp } );
+      $stringindex++;
+    }
+  }
+
+  # Fill the hash with the languages and the stringindex (properly sorted)
+  $stringindex = 1;
+  foreach my $hexcode ( sort ( keys %typlanguagesbyhex ) ) {
+    foreach my $tmp ( @typfilelangcode ) {
+      if ( $tmp eq $hexcode ) {
+        $typfilestringindex{ $tmp } = $stringindex;
+        $stringindex++;
+      }
+    }
+  }
+  %typfilestringhex = reverse %typfilestringindex;
+
+
+  # 2) Read all TYP file translations into hashes
+  # ----------------------------------------------
+  # Open input
+  $inputfile = "$BASEPATH/translations/typ-translations-master";
+  open IN, "< $inputfile" or die "Can't open $inputfile : $!";
+
+  # Read through the inputfile
+  while ( <IN> ) {
+
+    # Get the line
+    $inputline = $_;
+
+    # empty the temporary variables
+    $thisobjectform    = '';
+    $thisobjecttype    = '';
+    $thisobjectsubtype = '';
+    $thisobjectid      = '';
+    %thisobjectstrings = ();
+
+    if ( $inputline =~ /^\[_(line|polygon|point)\]$/ ) {
+      $thisobjectform = $1;
+
+      # read nextline
+      $inputline = <IN>;
+      $inputline =~ /^Type=(0x[0-9A-F]{2,5})/i;
+      $thisobjecttype = $1;
+      if ( $thisobjectform eq "point" ) {
+        $inputline = <IN>;
+        $inputline =~ /^SubType=(0x[0-9A-F]{2,5})/i;
+        $thisobjectsubtype = $1;
+      }
+
+      # Create the Object ID
+      $thisobjectid = "$thisobjectform" . "_" . "$thisobjecttype" . "_" . "$thisobjectsubtype";
+
+      # Get strings
+      while ( <IN> ) {
+        last if /^\[end\]/;    # Object finished, get on
+        $inputline = $_;
+        # Check for strings
+        if ( $inputline =~ /^String[0-4]*=(0x[0-9A-F]{2}),(.*)$/i ) {
+          $thisobjectstringhash = $thisobjectid . "_$1";
+          $objecttranslations{ $thisobjectstringhash } = $2;
+        }
+      }
+    }
+  }
+
+  close IN;
+
+
+  # 3) 'Mix-down': add the translations to the source TXT files
+  #------------------------------------------------------------
+  # Let's go to the TYP file directory to fetch all files
+  chdir "$BASEPATH/TYP";
+
+  # Run through all the source txt files found in the TYP directory
+  for my $actualfile ( glob "*.txt" ) {
+
+    $inputfile  = "$BASEPATH/TYP/$actualfile";
+    $outputfile = "$WORKDIR/TYP/$actualfile";
+
+    open IN, "< $inputfile" or die "Can't open $inputfile : $!";
+    #  open OUT, ">:encoding(UTF-8)","$outputfile" or die "Can't open $outputfile : $!";
+    open OUT, ">:", "$outputfile" or die "Can't open $outputfile : $!";
+
+    # Read through the inputfile
+    while ( <IN> ) {
+
+      # Get the line
+      $inputline = $_;
+
+      # empty the temporary variables
+      $thisobjectform        = '';
+      $thisobjecttype        = '';
+      $thisobjectsubtype     = '';
+      $thisobjectid          = '';
+      $thisobjectstringsdone = 0;
+      %thisobjectstrings     = ();
+
+      if ( $inputline =~ /^\[_(line|polygon|point)\]$/ ) {
+        print OUT $inputline;
+
+        $thisobjectform = $1;
+
+        # read nextline
+        $inputline = <IN>;
+        print OUT $inputline;
+
+        $inputline =~ /^Type=(0x[0-9A-F]{2,5})/i;
+        $thisobjecttype = $1;
+        if ( $thisobjectform eq "point" ) {
+          $inputline = <IN>;
+          print OUT $inputline;
+          $inputline =~ /^SubType=(0x[0-9A-F]{2,5})/i;
+          $thisobjectsubtype = $1;
+        }
+
+        # Create the Object ID
+        $thisobjectid = "$thisobjectform" . "_" . "$thisobjecttype" . "_" . "$thisobjectsubtype";
+
+        # Get strings
+        while ( <IN> ) {
+          $inputline = $_;
+
+          # Check for strings
+          if ( $inputline =~ /^String[0-4]*=(0x[0-9A-F]{2},.*)$/i ) {
+            if ( $thisobjectstringsdone == 0 ) {
+              for my $tmp ( sort ( keys ( %typfilestringhex ) ) ) {
+                $thisobjectstringsdone = 1;
+                $thisobjectstringhash  = $thisobjectid . "_$typfilestringhex{$tmp}";
+                if ( defined $objecttranslations{ $thisobjectstringhash } ) {
+                  print OUT "String$tmp=$typfilestringhex{$tmp}," . $objecttranslations{ $thisobjectstringhash } . "\n";
+                }
+                else {
+                  print "WARNING: $actualfile: string with ID $thisobjectstringhash not defined in the translation file\n";
+                  $thisobjectstringsdone = 0;
+                  print OUT $inputline;
+                  last;
+                }
+              }
+            }
+          }
+          elsif ( $inputline =~ /^\[end\]/ ) {
+            print OUT $inputline;
+            last;
+          }
+          else {
+            print OUT $inputline;
+          }
+        }
+      }
+      else {
+        print OUT $inputline;
+      }
+    }
+
+    close IN;
+    close OUT;
+
+  }
+}
+
+
+# -----------------------------------------
+# Vorverarbeitung der TYP Text-Files.
+#
+# ppp supports the following standard preprocessor features:
+# #define %var% [value]
+# #define %pseudo_fn%([arg-list])
+# #undef %var%
+# #include "path"
+# #ifdef %var% .. #else .. #endif
+# #ifndef %var% .. #else .. #endif
+# #if <expr> .. #else .. #endif
+# Macro variable expansion
+#
+# Usage: ppp <input-filename> [<output-filename>] [<options>]
+#     where <options> =
+#      -D<var>                   #define <var>
+#      -D<var>=<value>           #define <var> with value <value>
+#      -expand         or  -x    Expand all macros, includes and #ifdef
+#      -expanddef      or  -xd   Expand #define-d macros only
+#      -includeonly    or  -i    Expand #include only
+#      -optdef         or  -od   Only process #define in -opt file
+#      -opt=<file>               Process option file before others
+#      -delete=<var>   or  -del  Delete code under #ifdef <var>
+#      -inplace                  Edit files in-place, destructively
+#      -debug[=<level>]          Run in debug mode
+#      -list           or  -l    Create list file in TEMP dir as 'pplisting.txt'
+#      -listfn         or  -lf   Display filename when showing line number
+#      -verbose[=<n>]  or  -v    Set message level to 2 or <n>
+#      -quiet          or  -q    Turn off all messages
+#      -h                        Display splash header
+# -----------------------------------------
+sub preprocess_typfile {
+
+  # sub possibly not needed anymore.... inactive at the moment
+
+  # copying the files from the style directory into the work directory
+  for my $typfilemaster ( glob "$BASEPATH/TYP/*.txt-master" ) {
+    copy ( $typfilemaster, $WORKDIR ) or die ( "copy() of typ text files failed: $!\n" );
+  }
+
+  # Go to the Workdir
+  chdir "$WORKDIR";
+
+  # Preprozessor-Optionen zusammenbauen (alle Angaben hinter dem Kartennamen)
+  # $ARGV[ 0 ]                = Aktion;
+  # $ARGV[ 1 ]                = Karte oder ID;
+  # $ARGV[ 2 ] ... $ARGV[ N ] = Preprozessor-Optionen
+  my $ppp_optionen = '';
+  foreach my $argnum ( 2 .. $#ARGV ) {
+    $ppp_optionen .= "-$ARGV[$argnum] ";
+  }
+  # Add the Preprozessor Option for the language
+  $ppp_optionen .= "\U-D$maplang";
+
+  # Run through the existing textfiles
+  for my $typfilemaster ( glob "$WORKDIR/*.txt-master" ) {
+    # create the output filename
+    my $typfile = $typfilemaster;
+    $typfile =~ s/^(.*)-master$/$1/;
+    # run that file through the preprocessor
+    $command = "perl  $BASEPATH/tools/ppp/ppp.pl " . $typfile . "-master " . $typfile . " -x $ppp_optionen";
+    process_command ( $command );
+  }
+
+  return;
+}
+
+# -----------------------------------------
+# Kompilieren der TYP files aus txt source files
+# -----------------------------------------
+sub compile_typfiles {
+	
+  # Verzeichnisstrukturen neu anlegen (falls noch nicht vorhanden)
+  mkpath ( "$WORKDIR/TYP" );
+
+  # Verzeichnis wechseln
+  chdir "$WORKDIR/TYP";
+  my @typfilelist = glob "*.txt" ;
+#  chdir "$WORKDIR";
+  
+  # Run through the existing textfiles
+  for my $typfile ( @typfilelist ) {
+
+    # run that file through the compiler
+    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=1252 --product-id=1 --family-id=$mapid $typfile";
+    process_command ( $command );
+
+    #Rename .typ to .TYP
+    move(basename("$typfile", ".txt") . ".typ" , basename("$typfile", ".txt" ) . ".TYP" );
+  }
+
+  # temporär erzeugte Dateien löschen
+  unlink ( "osmmap.tdb" );
+  unlink ( "osmmap.img" );
+  
+  # 
+
+  return;
+}
 
 # -----------------------------------------
 # Kartenindividuelles TYP-File aus dem Master-TYP-File ableiten.
@@ -1074,14 +1513,16 @@ sub create_cfgfile {
 sub create_typfile {
 
   # Verzeichnis wechseln
-  chdir "$BASEPATH/TYP";
+#  chdir "$BASEPATH/TYP";
+  chdir "$WORKDIR/TYP";
 
   # TYP-File kopieren
   copy ( "$typfile", "$WORKDIR/$mapid.TYP" ) or die ( "copy() failed: $!\n" );
 
   # Family-ID anpassen
-  $command = "perl set-typ.pl $mapid 1 $WORKDIR/$mapid.TYP";
-  process_command ( $command );
+  # Not needed anymore as we're creating them already with the correct IDs
+#  $command = "perl set-typ.pl $mapid 1 $WORKDIR/$mapid.TYP";
+#  process_command ( $command );
 
   return;
 }
@@ -1093,50 +1534,50 @@ sub create_typfile {
 sub create_styletranslations {
 
   # Set some Variables
-  my $inputfile = "$BASEPATH/translations/style-translations-master";
+  my $inputfile  = "$BASEPATH/translations/style-translations-master";
   my $outputfile = "$WORKDIR/style-translations";
-  my $langcode = "\U$maplang";
+  my $langcode   = "\U$maplang";
   my @input;
   my %translation = ();
   my $hashkey;
   my $line;
-  
+
   # Open input and output files
-  open IN, "< $inputfile" or die "Can't open $inputfile : $!";
+  open IN,  "< $inputfile"  or die "Can't open $inputfile : $!";
   open OUT, "> $outputfile" or die "Can't open $outputfile : $!";
 
   # Read only the #define values from the file (ignoring trailing and tailing whitespace)
-  while ( <IN>) {
+  while ( <IN> ) {
     # Get the line
     $line = $_;
-    
+
     # Skip everything except the #define lines
-    next unless $line=~ /^\s*\#define\s+/;
-    
+    next unless $line =~ /^\s*\#define\s+/;
+
     # Get rid of leading and trailing whitespace
     $line =~ s/^\s+//;
     $line =~ s/\s+$//;
 
     # Put result in the prepared input array
-    chomp($line);
-    push(@input,$line);
+    chomp ( $line );
+    push ( @input, $line );
   }
-  
+
   # run through sorted array(to have defines without langcode above those with langcode)
-  foreach $line (sort (@input)) {
+  foreach $line ( sort ( @input ) ) {
     # Remove the wished langcode if existing
     $line =~ s/^(\#define \$__.*__)($langcode)\s+(.*)/$1 $3/;
 
     # Skip all the other language codes, just leave stuff without langcode
-    next unless $line=~/^\#define \$__.*__\s+.*/; 
+    next unless $line =~ /^\#define \$__.*__\s+.*/;
 
     # create the hashtable
     $line =~ /^\#define \$(__.*__)\s+(.*)$/;
-    $translation{$1} = "$2";
+    $translation{ $1 } = "$2";
   }
-  
+
   # Write the output file
-  foreach $hashkey ( sort (keys %translation)) {
+  foreach $hashkey ( sort ( keys %translation ) ) {
     print OUT "#define \$$hashkey $translation{$hashkey}\n";
   }
 
@@ -1182,7 +1623,7 @@ sub preprocess_styles {
 
   # Verzeichnis wechseln
 #  chdir "$BASEPATH/style";
-  
+
   # copying the files from the style directory into the work directory
   for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
     copy ( $stylefile, $WORKDIR ) or die ( "copy() of style files failed: $!\n" );
@@ -1190,19 +1631,19 @@ sub preprocess_styles {
 
   # Go to the Workdir
   chdir "$WORKDIR";
-   
- 
+
+
   # Preprozessor-Optionen zusammenbauen (alle Angaben hinter dem Kartennamen)
   # $ARGV[ 0 ]                = Aktion;
   # $ARGV[ 1 ]                = Karte oder ID;
   # $ARGV[ 2 ] ... $ARGV[ N ] = Preprozessor-Optionen
   my $ppp_optionen = '';
-  foreach my $argnum (2 .. $#ARGV) {
+  foreach my $argnum ( 2 .. $#ARGV ) {
     $ppp_optionen .= "-$ARGV[$argnum] ";
   }
   # Add the Preprozessor Option for the language
   $ppp_optionen .= "\U-D$maplang";
-  
+
   # indexsearch verarbeiten
   $command = "perl  $BASEPATH/tools/ppp/ppp.pl indexsearch-master indexsearch -x $ppp_optionen";
   process_command ( $command );
@@ -1344,22 +1785,22 @@ sub create_nsis_nsifile {
   printf { $fh } ( "!define KARTEN_AUSGABE \"(Ausgabe %d.%02d)\"\n", ( $year - 100 ), ( $mon + 1 ) );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name der Installer-EXE-Datei\n" );
-  printf { $fh } ( "!define INSTALLER_EXE_NAME \"Install_%s_%s\"\n", $mapname , $maplang );
+  printf { $fh } ( "!define INSTALLER_EXE_NAME \"Install_%s_%s\"\n", $mapname, $maplang );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name der Karte\n" );
-  printf { $fh } ( "!define MAPNAME \"%s\"\n",                    $mapname );
+  printf { $fh } ( "!define MAPNAME \"%s\"\n",     $mapname );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Product-ID der Karte\n" );
   printf { $fh } ( "!define PRODUCT_ID \"1\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name des Windows-Registrierungsschlüssels\n" );
-  printf { $fh } ( "!define REG_KEY \"%s\"\n",                    $mapname );
+  printf { $fh } ( "!define REG_KEY \"%s\"\n",     $mapname );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name des alten Windows-Registrierungsschlüssels (vor Umbenennung der Karten)\n" );
-  printf { $fh } ( "!define REG_KEY_OLD \"%s\"\n",                $mapnameold );
+  printf { $fh } ( "!define REG_KEY_OLD \"%s\"\n", $mapnameold );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name des kartenspezifischen TYP-Files\n" );
-  printf { $fh } ( "!define TYPNAME \"%s\"\n",                    $typfiles[ 0 ] );
+  printf { $fh } ( "!define TYPNAME \"%s\"\n",     $typfiles[ 0 ] );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Compressor Settings\n" );
@@ -1518,11 +1959,11 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  Pop \$0\n" );
   printf { $fh } ( "  StrCmp \$0 \"success\" +2\n" );
   printf { $fh } ( "    call InstallError\n" );
-  
+
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ClearErrors\n" );
   printf { $fh } ( "\n" );
-  
+
   printf { $fh } ( "  CreateDirectory \"\$INSTDIR\"\n" );
   printf { $fh } ( "\n" );
 
@@ -1544,12 +1985,12 @@ sub create_nsis_nsifile {
   printf { $fh } ( "    Call InstallError\n" );
   printf { $fh } ( "\n" );
 
-  
+
   printf { $fh } ( "  ; Delete temporary directory and content\n" );
   printf { $fh } ( "  ; --------------------------------------\n" );
   printf { $fh } ( "  RMDir /r \$MyTempDir\n" );
   printf { $fh } ( "\n" );
-    
+
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Create BaseCamp / MapSource registry keys\n" );
   printf { $fh } ( "  ; -----------------------------------------\n" );
@@ -1652,7 +2093,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  RMDir /r \$MyTempDir\n" );
   printf { $fh } ( "  Abort\n" );
   printf { $fh } ( "FunctionEnd\n" );
-    
+
   close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
 
   return;
@@ -1728,14 +2169,14 @@ sub create_nsis_exefile {
 
   # in work-Verzeichnis wechseln
   chdir "$WORKDIR";
-  
+
   # Installer-Executable erzeugen (mit NSIS-Compiler)
   process_command ( $command );
 
   # Installer-Executable ins install-Verzeichnis verschieben
   my $filename = "Install_" . $mapname . "_" . $maplang . ".exe";
   move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!\n" );
-  
+
   # Delete the zip file again, not needed anymore
   unlink ( $mapname . "_InstallFiles.zip" );
 
@@ -1818,7 +2259,7 @@ sub create_gmapsuppfile {
   # Lizenz-File kopieren
   copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
 
-  my $mapversion = sprintf ( "%d.%d",  ( $year - 100 ),  ( $mon + 1 ) );
+  my $mapversion = sprintf ( "%d.%d", ( $year - 100 ), ( $mon + 1 ) );
 
   # mkgmap-Parameter
   # --description: Anzeige des Kartennamens in BaseCamp
@@ -1854,7 +2295,7 @@ sub create_gmapsuppfile {
 
 # -----------------------------------------
 # Einfaches Verzeichnis mit allen Kartendaten erzeugen:
-# - *.img, *.tdb, *.mdx, *.TYP 
+# - *.img, *.tdb, *.mdx, *.TYP
 # Karte kann z.B. direkt mit QLandkarte eingelesen werden.
 # -----------------------------------------
 sub create_image_directory {
@@ -1873,25 +2314,25 @@ sub create_image_directory {
   # img-Dateien kopieren
   for my $file ( <*.img> ) {
     printf { *STDOUT } ( "Copying %s\n", $file );
-    copy( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
   }
 
   # tdb-Datei kopieren
   for my $file ( <*.tdb> ) {
     printf { *STDOUT } ( "Copying %s\n", $file );
-    copy( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
   }
 
   # mdx-Datei kopieren
   for my $file ( <*.mdx> ) {
     printf { *STDOUT } ( "Copying %s\n", $file );
-    copy( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
   }
-  
+
   # TYP-Datei kopieren
   for my $file ( <*.TYP> ) {
     printf { *STDOUT } ( "Copying %s\n", $file );
-    copy( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
   }
 
   return;
@@ -1934,7 +2375,7 @@ sub zip_maps {
   # nothing to do
 
   # gmapsupp (Beispiel: gmapsupp.img -> DEU_de_gmapsupp.img.zip)
-  $source      = 'gmapsupp.img';
+  $source = 'gmapsupp.img';
 #  $destination = lc ($mapcode) . '_' . $source . '.zip';
   $destination = $mapcode . '_' . $maplang . '_' . $source . '.zip';
   $command     = $zipper . "$destination $source";
@@ -1949,7 +2390,7 @@ sub zip_maps {
   if ( -e $source ) {
     process_command ( $command );
   }
-	
+
   return;
 }
 
@@ -2002,7 +2443,7 @@ sub extract_regions {
 
   # Java-Optionen in Osmosis-Aufruf einbringen
   my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
-  $ENV { JAVACMD_OPTIONS } = $javacmd_options;
+  $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
 
   # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
   my $osmosis_parameter =
@@ -2082,12 +2523,12 @@ sub show_help {
   );
 
   printf { *STDOUT } ( "Actions:\n" );
-  foreach my $i (0..9) {
+  foreach my $i ( 0 .. 9 ) {
     printf { *STDOUT } ( "%-9s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
   }
   if ( $optional ) {
     printf { *STDOUT } ( "\n" );
-    foreach my $i (10..19) {
+    foreach my $i ( 10 .. 19 ) {
       printf { *STDOUT } ( "%-9s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
     }
   }
@@ -2106,19 +2547,19 @@ sub show_help {
     else {
       # nur ausgewaehlte Karten
       if (   ( ( @$mapdata[ $MAPID ] <= 5825 ) && ( @$mapdata[ $MAPID ] >= 5810 ) )  # Bundesländer
-          || ( @$mapdata[ $MAPID ] == 6276 )                                         # Deutschland
-          || ( @$mapdata[ $MAPID ] == 6208 )                                         # Dänemark
-          || ( @$mapdata[ $MAPID ] == 6616 )                                         # Polen
-          || ( @$mapdata[ $MAPID ] == 6203 )                                         # Tschechien
-          || ( @$mapdata[ $MAPID ] == 6040 )                                         # Österreich
-          || ( @$mapdata[ $MAPID ] == 6756 )                                         # Schweiz
-          || ( @$mapdata[ $MAPID ] == 7010 )                                         # Alpen
-          || ( @$mapdata[ $MAPID ] == 6250 )                                         # Frankreich
-          || ( @$mapdata[ $MAPID ] == 6442 )                                         # Luxemburg
-          || ( @$mapdata[ $MAPID ] == 6056 )                                         # Belgien
-          || ( @$mapdata[ $MAPID ] == 6528 )                                         # Niederlande
-          || ( @$mapdata[ $MAPID ] == 6752 )                                         # Schweden
-         )
+        || ( @$mapdata[ $MAPID ] == 6276 )                                        # Deutschland
+        || ( @$mapdata[ $MAPID ] == 6208 )                                        # Dänemark
+        || ( @$mapdata[ $MAPID ] == 6616 )                                        # Polen
+        || ( @$mapdata[ $MAPID ] == 6203 )                                        # Tschechien
+        || ( @$mapdata[ $MAPID ] == 6040 )                                        # Österreich
+        || ( @$mapdata[ $MAPID ] == 6756 )                                        # Schweiz
+        || ( @$mapdata[ $MAPID ] == 7010 )                                        # Alpen
+        || ( @$mapdata[ $MAPID ] == 6250 )                                        # Frankreich
+        || ( @$mapdata[ $MAPID ] == 6442 )                                        # Luxemburg
+        || ( @$mapdata[ $MAPID ] == 6056 )                                        # Belgien
+        || ( @$mapdata[ $MAPID ] == 6528 )                                        # Niederlande
+        || ( @$mapdata[ $MAPID ] == 6752 )                                        # Schweden
+        )
       {
         printf { *STDOUT } ( "%s = %-26s = %-50s(%s)\n", @$mapdata[ $MAPID ], @$mapdata[ $MAPCODE ], @$mapdata[ $MAPNAME ], @$mapdata[ $MAPLANG ] );
       }
