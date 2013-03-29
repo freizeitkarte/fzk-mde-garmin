@@ -2153,6 +2153,64 @@ Xpm="32 32 2 1"
 ;12345678901234567890123456789012
 [end]
 
+[_polygon]
+Type=0x54
+String1=0x00,Fun Park
+String2=0x01,Fun Park
+String3=0x02,Snow Park
+String4=0x04,Fun Park
+ExtendedLabels=Y
+FontStyle=Default
+CustomColor=No
+Xpm="0 0 1 0"
+"1 c #FFFF8B"
+[end]
+
+[_polygon]
+Type=0x55
+String1=0x00,Wadi
+String2=0x01,Oued
+String3=0x02,Wadi
+String4=0x04,Wadi
+ExtendedLabels=N
+Xpm="32 32 2 1"
+"! c #A0CAE9"
+"  c none"
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"  !   !   !   !   !   !   !   ! "
+"                                "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"  !   !   !   !   !   !   !   ! "
+"                                "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"  !   !   !   !   !   !   !   ! "
+"                                "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"  !   !   !   !   !   !   !   ! "
+"                                "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"  !   !   !   !   !   !   !   ! "
+"                                "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"  !   !   !   !   !   !   !   ! "
+"                                "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"  !   !   !   !   !   !   !   ! "
+"                                "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"  !   !   !   !   !   !   !   ! "
+"                                "
+;12345678901234567890123456789012
+[end]
+
 
 ;====================== LINES ===========================
 
@@ -2944,6 +3002,27 @@ CustomColor=No
 
 
 [_line]
+Type=0x1010f
+UseOrientation=Y
+Xpm="32 4 2  1"
+"! c #838383"
+"  c none"
+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+"  !!!       !!!        !!!      "
+"                                "
+"                                "
+;12345678901234567890123456789012
+String1=0x00,Abutment
+String2=0x01,Contrefort
+String3=0x02,Stützmauer
+String4=0x04,Abutment
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
 Type=0x10110
 UseOrientation=N
 Xpm="32 2 2  1"
@@ -3182,6 +3261,41 @@ String4=0x04,Track/Dirt Road (4,5)
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
+[end]
+
+[_line]
+Type=0x10201
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #A0CAE9"
+"# c #79A6BE"
+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+"################################"
+;12345678901234567890123456789012
+String1=0x00,
+String2=0x01,
+String3=0x02,
+String4=0x04,
+ExtendedLabels=N
+[end]
+
+
+[_line]
+Type=0x10202
+UseOrientation=N
+Xpm="32 4 2  1"
+"! c #A0CAE9"
+"# c #79A6BE"
+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+"################################"
+"################################"
+;12345678901234567890123456789012
+String1=0x00,
+String2=0x01,
+String3=0x02,
+String4=0x04,
+ExtendedLabels=N
 [end]
 
 
