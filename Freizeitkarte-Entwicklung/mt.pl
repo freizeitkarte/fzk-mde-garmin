@@ -18,7 +18,7 @@ use File::Copy;
 use File::Path;
 use File::Basename;
 use Getopt::Long;
-use Data::Dumper;
+#use Data::Dumper;
 
 my @actions = (
   # 'Aktion',  'Beschreibung'
@@ -207,7 +207,7 @@ my $ACTIONDESC = 1;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.2.0 - 2013/02/28';
+my $VERSION = '1.3.0 - 2013/03/30';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -557,7 +557,7 @@ sub check_downloadurls {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    $command = "$BASEPATH/windows/wget2/wget.exe -q --spider ";
+    $command = "$BASEPATH/windows/wget/wget.exe -q --spider ";
   }
   else {
     printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
@@ -1164,6 +1164,10 @@ sub create_cfgfile {
 # Ableitung des 'typ-translations' file mit allen sprachspezifischen Strings
 # -----------------------------------------
 sub create_typtranslations {
+
+  # Create some output (just to know where we are)
+  print "\nCreating complete source txt files for the TYP files\n"
+      . "  (containing all needed language strings)\n\n";
 	
   # Verzeichnisstrukturen neu anlegen (falls noch nicht vorhanden)
   mkpath ( "$WORKDIR/TYP" );
@@ -1408,76 +1412,13 @@ sub create_typtranslations {
 
 
 # -----------------------------------------
-# Vorverarbeitung der TYP Text-Files.
-#
-# ppp supports the following standard preprocessor features:
-# #define %var% [value]
-# #define %pseudo_fn%([arg-list])
-# #undef %var%
-# #include "path"
-# #ifdef %var% .. #else .. #endif
-# #ifndef %var% .. #else .. #endif
-# #if <expr> .. #else .. #endif
-# Macro variable expansion
-#
-# Usage: ppp <input-filename> [<output-filename>] [<options>]
-#     where <options> =
-#      -D<var>                   #define <var>
-#      -D<var>=<value>           #define <var> with value <value>
-#      -expand         or  -x    Expand all macros, includes and #ifdef
-#      -expanddef      or  -xd   Expand #define-d macros only
-#      -includeonly    or  -i    Expand #include only
-#      -optdef         or  -od   Only process #define in -opt file
-#      -opt=<file>               Process option file before others
-#      -delete=<var>   or  -del  Delete code under #ifdef <var>
-#      -inplace                  Edit files in-place, destructively
-#      -debug[=<level>]          Run in debug mode
-#      -list           or  -l    Create list file in TEMP dir as 'pplisting.txt'
-#      -listfn         or  -lf   Display filename when showing line number
-#      -verbose[=<n>]  or  -v    Set message level to 2 or <n>
-#      -quiet          or  -q    Turn off all messages
-#      -h                        Display splash header
-# -----------------------------------------
-sub preprocess_typfile {
-
-  # sub possibly not needed anymore.... inactive at the moment
-
-  # copying the files from the style directory into the work directory
-  for my $typfilemaster ( glob "$BASEPATH/TYP/*.txt-master" ) {
-    copy ( $typfilemaster, $WORKDIR ) or die ( "copy() of typ text files failed: $!\n" );
-  }
-
-  # Go to the Workdir
-  chdir "$WORKDIR";
-
-  # Preprozessor-Optionen zusammenbauen (alle Angaben hinter dem Kartennamen)
-  # $ARGV[ 0 ]                = Aktion;
-  # $ARGV[ 1 ]                = Karte oder ID;
-  # $ARGV[ 2 ] ... $ARGV[ N ] = Preprozessor-Optionen
-  my $ppp_optionen = '';
-  foreach my $argnum ( 2 .. $#ARGV ) {
-    $ppp_optionen .= "-$ARGV[$argnum] ";
-  }
-  # Add the Preprozessor Option for the language
-  $ppp_optionen .= "\U-D$maplang";
-
-  # Run through the existing textfiles
-  for my $typfilemaster ( glob "$WORKDIR/*.txt-master" ) {
-    # create the output filename
-    my $typfile = $typfilemaster;
-    $typfile =~ s/^(.*)-master$/$1/;
-    # run that file through the preprocessor
-    $command = "perl  $BASEPATH/tools/ppp/ppp.pl " . $typfile . "-master " . $typfile . " -x $ppp_optionen";
-    process_command ( $command );
-  }
-
-  return;
-}
-
-# -----------------------------------------
 # Kompilieren der TYP files aus txt source files
 # -----------------------------------------
 sub compile_typfiles {
+	
+
+  # Create some output (just to know where we are)
+  print "\nCompiling source txt files into binary TYP files:\n\n";
 	
   # Verzeichnisstrukturen neu anlegen (falls noch nicht vorhanden)
   mkpath ( "$WORKDIR/TYP" );
@@ -1732,18 +1673,23 @@ sub create_gmap2file {
 # -----------------------------------------
 sub create_nsis_nsifile {
 
-  # Verzeichnis wechseln
-  chdir "$WORKDIR";
 
   my $filename = $mapname . ".nsi";
   printf { *STDOUT } ( "\nCreating $filename ...\n" );
 
-  my @typfiles = glob ( "*.TYP" );
+  # Verzeichnis wechseln
+  chdir "$WORKDIR/TYP";
+
+  my @typfiles = ( "$mapid.TYP" , glob ( "*.TYP" ) );
   for my $typfile ( @typfiles ) {
     printf { *STDOUT } ( "TYP-File = $typfile\n" );
   }
 
-  my $familyID = substr ( $typfiles[ 0 ], 0, 4 );
+  # Verzeichnis wechseln
+  chdir "$WORKDIR";
+
+  #my $familyID = substr ( $typfiles[ 0 ], 0, 4 );
+  my $familyID = $mapid;
   printf { *STDOUT } ( "Family-ID = $familyID\n" );
 
   my @imgfiles = glob ( $familyID . "*.img" );
@@ -1954,7 +1900,6 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  ; ---------------------\n" );
   printf { $fh } ( "  SetOutPath \"\$MyTempDir\"\n" );
   printf { $fh } ( "  File \"\${MAPNAME}_InstallFiles.zip\"\n" );
-#  printf { $fh } ( "  File \"/oname=\${MAPNAME}.Images.zip\" \"..\\..\\install\\\${MAPNAME}\\\${MAPNAME}.Images.zip\"\n" );
   printf { $fh } ( "  nsisunz::UnzipToLog \"\$MyTempDir\\\${MAPNAME}_InstallFiles.zip\" \"\$MyTempDir\"\n" );
   printf { $fh } ( "  Pop \$0\n" );
   printf { $fh } ( "  StrCmp \$0 \"success\" +2\n" );
@@ -1968,11 +1913,12 @@ sub create_nsis_nsifile {
   printf { $fh } ( "\n" );
 
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}.img\" \"\$INSTDIR\\\${MAPNAME}.img\"\n" );
-#  printf { $fh } ( "  !ifdef INDEX\n" );
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}_mdr.img\" \"\$INSTDIR\\\${MAPNAME}_mdr.img\"\n" );
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}.mdx\" \"\$INSTDIR\\\${MAPNAME}.mdx\"\n" );
-#  printf { $fh } ( "  !endif\n" );
-  printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${TYPNAME}\" \"\$INSTDIR\\\${TYPNAME}\"\n" );
+#  printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${TYPNAME}\" \"\$INSTDIR\\\${TYPNAME}\"\n" );
+  for my $typfile ( @typfiles ) {
+    printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\%s\" \"\$INSTDIR\\\%s\"\n", $typfile, $typfile );
+  }
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}.tdb\" \"\$INSTDIR\\\${MAPNAME}.tdb\"\n" );
   printf { $fh } ( "\n" );
 
@@ -1984,7 +1930,6 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  IfErrors 0 +2\n" );
   printf { $fh } ( "    Call InstallError\n" );
   printf { $fh } ( "\n" );
-
 
   printf { $fh } ( "  ; Delete temporary directory and content\n" );
   printf { $fh } ( "  ; --------------------------------------\n" );
@@ -2000,17 +1945,13 @@ sub create_nsis_nsifile {
   my $hexHigh = substr ( $hexID, 0, 2 );
   printf { $fh } ( "  WriteRegBin HKLM \"SOFTWARE\\Garmin\\MapSource\\Families\\\${REG_KEY}\" \"ID\" %s%s\n", $hexLow, $hexHigh );
   printf { $fh } ( "\n" );
-#  printf { $fh } ( "  !ifdef INDEX\n" );
   printf { $fh }
     ( "  WriteRegStr HKLM \"SOFTWARE\\Garmin\\MapSource\\Families\\\${REG_KEY}\" \"IDX\" \"\$INSTDIR\\\${MAPNAME}.mdx\"\n" );
   printf { $fh }
     ( "  WriteRegStr HKLM \"SOFTWARE\\Garmin\\MapSource\\Families\\\${REG_KEY}\" \"MDR\" \"\$INSTDIR\\\${MAPNAME}_mdr.img\"\n" );
-#  printf { $fh } ( "  !endif\n" );
   printf { $fh } ( "\n" );
-#  printf { $fh } ( "  !ifdef TYPNAME\n" );
   printf { $fh }
     ( "  WriteRegStr HKLM \"SOFTWARE\\Garmin\\MapSource\\Families\\\${REG_KEY}\" \"TYP\" \"\$INSTDIR\\\${TYPNAME}\"\n" );
-#  printf { $fh } ( "  !endif\n" );
   printf { $fh } ( "\n" );
   printf { $fh }
     (
@@ -2050,11 +1991,12 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  ; Files to be uninstalled\n" );
   printf { $fh } ( "  ; -----------------------\n" );
   printf { $fh } ( "  Delete \"\$INSTDIR\\\${MAPNAME}.img\"\n" );
-#  printf { $fh } ( "  !ifdef TYPNAME\n" );
   printf { $fh } ( "  Delete \"\$INSTDIR\\\${MAPNAME}_mdr.img\"\n" );
   printf { $fh } ( "  Delete \"\$INSTDIR\\\${MAPNAME}.mdx\"\n" );
-#  printf { $fh } ( "  !endif\n" );
-  printf { $fh } ( "  Delete \"\$INSTDIR\\\${TYPNAME}\"\n" );
+#  printf { $fh } ( "  Delete \"\$INSTDIR\\\${TYPNAME}\"\n" );
+  for my $typfile ( @typfiles ) {
+    printf { $fh } ( "  Delete \"\$INSTDIR\\\%s\"\n", $typfile );
+  }
   printf { $fh } ( "  Delete \"\$INSTDIR\\\${MAPNAME}.tdb\"\n" );
 
   for my $imgfile ( @imgfiles ) {
@@ -2068,14 +2010,10 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  ; ----------------\n" );
   printf { $fh } ( "  DeleteRegValue HKLM \"SOFTWARE\\Garmin\\MapSource\\Families\\\${REG_KEY}\" \"ID\"\n" );
   printf { $fh } ( "\n" );
-#  printf { $fh } ( "  !ifdef INDEX\n" );
   printf { $fh } ( "  DeleteRegValue HKLM \"SOFTWARE\\Garmin\\MapSource\\Families\\\${REG_KEY}\" \"IDX\"\n" );
   printf { $fh } ( "  DeleteRegValue HKLM \"SOFTWARE\\Garmin\\MapSource\\Families\\\${REG_KEY}\" \"MDR\"\n" );
-#  printf { $fh } ( "  !endif\n" );
   printf { $fh } ( "\n" );
-#  printf { $fh } ( "  !ifdef TYPNAME\n" );
   printf { $fh } ( "  DeleteRegValue HKLM \"SOFTWARE\\Garmin\\MapSource\\Families\\\${REG_KEY}\" \"TYP\"\n" );
-#  printf { $fh } ( "  !endif\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  DeleteRegValue HKLM \"SOFTWARE\\Garmin\\MapSource\\Families\\\${REG_KEY}\\\${PRODUCT_ID}\" \"BMAP\"\n" );
   printf { $fh } ( "  DeleteRegValue HKLM \"SOFTWARE\\Garmin\\MapSource\\Families\\\${REG_KEY}\\\${PRODUCT_ID}\" \"LOC\"\n" );
@@ -2130,6 +2068,13 @@ sub create_nsis_exefile {
     return;
   }
 
+  # Copy the rest of the TYP files (actually hidden in a TYP subdirectory of the WORKDIR)
+  chdir "$WORKDIR/TYP";
+  for my $file ( <*.TYP> ) {
+    printf { *STDOUT } ( "Copying %s\n", $file );
+    copy ( $file, "$WORKDIR" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+  }  
+
   # in work-Verzeichnis wechseln
   chdir "$WORKDIR";
 
@@ -2138,6 +2083,15 @@ sub create_nsis_exefile {
   $destination = $mapname . '_InstallFiles.zip';
   $command     = $zipper . "$destination $source";
   process_command ( $command );
+
+  # Remove the additional TYP files again from workdir, they disturb jmc_cli at the moment
+  chdir "$WORKDIR/TYP";
+  for my $file ( <*.TYP> ) {
+    printf { *STDOUT } ( "Removing %s again\n", $file );
+    unlink ( $WORKDIR . "/" . $file );
+  }  
+  chdir "$WORKDIR";
+
 
   # Prep for creating the Installer: get OS dependent command name for nsis and zipper
   if ( $OSNAME eq 'darwin' ) {
@@ -2239,6 +2193,13 @@ sub create_gmapfile {
     printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
   }
 
+#  # Copy the rest of the TYP files (actually hidden in a TYP subdirectory of the WORKDIR)
+#  chdir "$WORKDIR/TYP";
+#  for my $file ( <*.TYP> ) {
+#    printf { *STDOUT } ( "Copying %s\n", $file );
+#    copy ( $file, "$INSTALLDIR/$mapname.gmap" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+#  }  
+
   return;
 }
 
@@ -2334,6 +2295,13 @@ sub create_image_directory {
     printf { *STDOUT } ( "Copying %s\n", $file );
     copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
   }
+  
+  # Copy the rest of the TYP files (actually hidden in a TYP subdirectory of the WORKDIR)
+  chdir "$WORKDIR/TYP";
+  for my $file ( <*.TYP> ) {
+    printf { *STDOUT } ( "Copying %s\n", $file );
+    copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+  }  
 
   return;
 }
