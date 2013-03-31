@@ -35,6 +35,7 @@ cp -r $SOURCEDIR/TYP             $DESTDIR
 cp -r $SOURCEDIR/windows         $DESTDIR
 
 # Correct executable rights (just to be sure)
+#set -x 
 cd $DESTDIR
 
 chmod u+x,g+x,o+x cpfzk.sh mt.pl
@@ -45,7 +46,7 @@ find tools/dud -type f  -exec chmod u+x,g+x,o+x {} \;
 find tools/gmapi-builder -type f  -exec chmod u+x,g+x,o+x {} \;
 find tools/IMGinfo -type f  -exec chmod u+x,g+x,o+x {} \;
 find tools/jmc -type f -exec chmod u+x,g+x,o+x {} \;
-find tools/osmconvert -type f  -exec u+x,g+x,o+x {} \;
+find tools/osmconvert -type f  -exec chmod u+x,g+x,o+x {} \;
 find tools/osmfilter -type f  -exec chmod u+x,g+x,o+x {} \;
 find tools/ppp -type f  -exec chmod u+x,g+x,o+x {} \;
 find tools/zip -type f  -exec chmod u+x,g+x,o+x {} \;
