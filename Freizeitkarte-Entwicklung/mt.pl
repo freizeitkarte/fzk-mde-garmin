@@ -207,7 +207,7 @@ my $ACTIONDESC = 1;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.0 - 2013/03/30';
+my $VERSION = '1.3.1 - 2013/04/02';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -378,7 +378,14 @@ elsif ( $actionname eq 'split' ) {
   split_mapdata ();
 }
 elsif ( $actionname eq 'build' ) {
+#  create_cfgfile           ();
+#  create_typfile           ();
+#  create_styletranslations ();
+#  preprocess_styles        ();
+#  build_map                ();
   create_cfgfile           ();
+  create_typtranslations   ();
+  compile_typfiles         ();
   create_typfile           ();
   create_styletranslations ();
   preprocess_styles        ();
@@ -547,7 +554,7 @@ sub create_dirs {
 # Check if all download URLs are existing
 # -----------------------------------------
 sub check_downloadurls {
-	
+
   my $returnvalue;
 
   # Set the OS specific command
@@ -2479,7 +2486,7 @@ sub show_help {
       . "-ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
       . "-cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
       . "-ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
-      . "-typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ)  (default = freizeit.TYP)\n"
+      . "-typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
       . "-language = overwrite the default language of a map (en=english, de=german)\n"
       . "PPO       = preprocessor options (multiple possible)\n\n"
       . "Arguments:\n"
@@ -2492,12 +2499,12 @@ sub show_help {
 
   printf { *STDOUT } ( "Actions:\n" );
   foreach my $i ( 0 .. 9 ) {
-    printf { *STDOUT } ( "%-9s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
+    printf { *STDOUT } ( "%-10s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
   }
   if ( $optional ) {
     printf { *STDOUT } ( "\n" );
-    foreach my $i ( 10 .. 19 ) {
-      printf { *STDOUT } ( "%-9s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
+    foreach my $i ( 10 .. 21 ) {
+      printf { *STDOUT } ( "%-10s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
     }
   }
   printf { *STDOUT } ( "\nID = Code = Map  (default language):\n" );
