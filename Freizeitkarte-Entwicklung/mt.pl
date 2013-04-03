@@ -2149,21 +2149,34 @@ sub create_nsis_exefile {
 # Garmin-Map-File für BaseCamp erzeugen.
 # - Tool : jmc_cli
 # - OS   : Linux, OS X, Windows
+# - Version: 0.7
 #
 # Usage:
-# jmc_cli -src=source_folder -dest=destination_folder [-bmap=basemap.img] [-gmap=mapname.gmap] [-v]
-#
+# jmc_cli source_folder
+# 
+# or
+# 
+# jmc_cli -src=source_folder [-dest=destination_folder] [-bmap=basemap.img] [-gmap=mapname.gmap] [-v]
+# 
+# or
+# 
+# jmc_cli -config=mapname.cfg [-v]
+# 
 # Parameters:
-# -src      Path to folder with map files you want to convert
-# -dest     Path to folder where the .gmap folder will be created
-# -bmap     Name of .img file with overview map (optional)
-#           (Needed only when jmc_cli cannot decide which file to use)
-# -gmap     Name of .gmap folder (optional; when omitted the map name will be used)
-# -v        Verbose output: display every step in the process (optional)
-#
-# Use quotes around paths when they contain spaces, or (Mac/Linux only) escape the spaces with backslashes.
-#
+# -src     (Relative) path to folder with map files you want to convert
+# -dest    (Relative) path to folder where the .gmap folder will be created
+#          (optional; when omitted the parent folder of source_folder will be used)
+# -bmap    Name of .img file with overview map (optional)
+#          (Needed only when jmc_cli cannot decide which file to use)
+# -gmap    Name of .gmap folder (optional; when omitted the map name will be used)
+# -v       Verbose output: display every step in the process (optional)
+# -config  Use parameters from config file; see sample
+# 
+# Use quotes around paths when they contain spaces, or (Mac/Linux only) escape
+# the spaces with backslashes (not in the config file!).
+# 
 # Status codes:
+# 
 # 0: success
 # 1: wrong parameters
 # 2: missing files
@@ -2178,8 +2191,43 @@ sub create_gmapfile {
   # Verzeichnisstruktur loeschen
   rmtree ( "$INSTALLDIR/$mapname.gmap", 0, 1 );
 
+  # Create the config file we use for jmc_cli (v0.7)1
+  my $filename = "$WORKDIR/jmc_cli.cfg";
+  printf { *STDOUT } ( "Creating $filename ...\n" );
+  open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+
+  printf { $fh } 
+    (   "# ------------------------------------------------------------------------------\n" 
+      . "# Configurationfile used for jmc_cli call\n"
+      . "# Version needed: 0.7 (or higher)\n"
+      . "# created : " 
+      . localtime () . "\n\n"
+      . "# (complete example configuration file can be found in binary directory)\n" 
+      . "# ------------------------------------------------------------------------------\n" );
+
+  printf { $fh } ( "\n# Required options:\n" );
+  printf { $fh } ( "# -----------------\n" );
+  
+  # add requiered source and destination directory to the config file
+  printf { $fh } ( "sourcefolder = $WORKDIR\n" );
+  printf { $fh } ( "destfolder = $INSTALLDIR\n" );
+  
+  printf { $fh } ( "\n# Optional stuff options:\n" );
+  printf { $fh } ( "# -----------------------\n" );
+  
+  # add requiered source and destination directory to the config file
+  printf { $fh } ( "basemap = $mapname.img\n" );
+  printf { $fh } ( "TYPfile = $mapid.TYP\n" );
+
+  close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
+
+  printf { *STDOUT } ( "Done\n" );
+
+
+
   # jmc-Aufrufparameter
-  my $jmc_parameter = "-v -src=\"$WORKDIR\" -dest=\"$INSTALLDIR\" -bmap=\"$mapname.img\"";
+#  my $jmc_parameter = "-v -src=\"$WORKDIR\" -dest=\"$INSTALLDIR\" -bmap=\"$mapname.img\"";
+  my $jmc_parameter = "-v -config=\"$WORKDIR/jmc_cli.cfg\"";
 
   if ( $OSNAME eq 'darwin' ) {
     # OS X
