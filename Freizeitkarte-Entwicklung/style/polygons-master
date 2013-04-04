@@ -12,8 +12,10 @@
 # Version : 0.8 - 09.06.2012: Anleger (Pier) auch als Flaeche moeglich; PPP-Schalter fuer Kulturland eingeführt
 #                             Darstellung von Häfen die als Dock getaggt sind
 # Version : 0.9 - 21.07.2012: Änderung bei Naturschutzgebieten
+# Version : 0.10- 02.04.2014: Resolution bei waterway=riverbank von 19 auf 17 geändert
+#                             Darstellung von Bussteigen (highway=platform) wie Bahnsteige.
 #
-# Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
+# Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
 #
 # Hinweis auf weitere Unterlagen:
 # - http://wiki.openstreetmap.org/wiki/DE:Map_Features
@@ -562,7 +564,7 @@ natural = wood [0x52 resolution 17]
 # ------------------------------------------------------------
 
 # Flussufer: Wird für große (breite) Flüsse verwendet, um die Fläche zwischen den Ufern zu definieren. [point, closedway]
-waterway = riverbank [0x46 resolution 19]
+waterway = riverbank [0x46 resolution 17]
 
 # Kanal - wasserführendes offenes Bauwerk, das verschiedene Zwecke erfüllen kann, z.B. Transport oder Wasserkraft.
 # Kommt in seltenen Fällen auch als Polygon vor (führt aber potenziell zu "Überflutungen").
@@ -838,6 +840,9 @@ highway = living_street & area = yes [0x30 resolution 20]
 highway = residential  & area = yes [0x31 resolution 20]
 highway = unclassified & area = yes [0x31 resolution 20]
 highway = service      & area = yes [0x31 resolution 20]
+
+# Bussteig: Wird wie Bahnsteig dargestellt.
+highway = platform & area = yes [0x3e resolution 20]
 
 # "Schwarzer Fleck" (für Qualitätssicherung)
 # highway = * {name '${name} - highway'} [0x53 resolution 20]
