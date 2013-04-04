@@ -27,8 +27,9 @@
 # Version : 0.15 -19.11.2012: Kommentare aktualisiert
 #                             Wege die als "abandoned" getaggt sind, werden nicht mehr dargestellt
 # Version : 0.16 -21.12.2012: Darstellung der Strecken von Standseilbahnen (Funicular), Darstellung von Zäunen (fence)
+# Version : 0.17 -04.04.2013: Darstellung von Bussteigen (highway = platform)
 #
-# Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
+# Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
 # - Verbesserung der Adresssuchregeln in Zusammenarbeit mit Ludwich und Georg V.
 # - Definition der Routingregeln durch Johannes Hahn
 # - Definition der Pistenregeln durch Roman Büchler
@@ -1391,6 +1392,13 @@ highway = raceway [0x010108 resolution 21-22]
 # 0x010119 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
 highway = via_ferrata [0x010118 resolution 24 continue]
 highway = via_ferrata [0x010119 resolution 23-23]
+
+
+# Bussteig:
+# ---------
+# Wie Bahnsteig.
+# 0x010e1d = 2 (NoLabel)
+highway = platform & area != * [0x010e1d resolution 24]
 
 
 # --------------------------------------------------------
