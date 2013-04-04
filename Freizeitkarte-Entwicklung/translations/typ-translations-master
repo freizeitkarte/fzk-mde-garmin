@@ -1,0 +1,3761 @@
+﻿; typ-translations-master
+; ========================
+; Purpose: Contains all needed strings for the different objects in the 
+;          TYP source files (e.g. freizeit.txt).
+;          These language strings get mixed-down to complete TYP source
+;          files (containing all objects with all variables and all strings)
+;          by the perl script mt.pl by the action 'typ' as in the following
+;          call for example:
+;                 perl ./mt.pl typ LUX
+;          This call prepares complete TYP source text files and compiles them
+;          with the help of mkgmap into binary TYP files.
+;
+; Format:  The format of this file is actually the same as in the TYP source
+;          text files (created by TYPViewer for example), but does not need all
+;          fields/variables in it (but they do not really disturb). Only those field needed for identifying the 
+;          object are needed besides the strings.
+;          Needed fields/variables:
+;            Object Start:    [_point]
+;            Type:            Type=0x02a
+;            evtl SubType:    SubType=0x01
+;            Strings:         String1=0x00,Restaurant: Amerikanisch
+;                             String2=0x01,Restaurant: Amerikanisch
+;                             String3=0x02,Restaurant: Amerikanisch
+;                             String4=0x04,Restaurant: American
+;            Object End:      [end]
+;          All the other variables are not needed in this file, but do not disturb.
+;          
+; All possible languages and the according identifiers
+; -----------------------------------------------------
+;  my %typlanguages = (
+;    "xx", "0x00",    #	 unspecified   (always in the TYP file; english strings)
+;    "fr", "0x01",    #	 french        (prepared already with english strings)
+;    "de", "0x02",    #	 german        (properly translated)
+;    "nl", "0x03",    #	 dutch
+;    "en", "0x04",    #	 english       (properly translated)
+;    "it", "0x05",    #	 italian
+;    "fi", "0x06",    #	 finnish
+;    "sv", "0x07",    #	 swedish
+;    "es", "0x08",    #	 spanish
+;    "eu", "0x09",    #	 basque
+;    "ca", "0x0a",    #	 catalan
+;    "gl", "0x0b",    #	 galician
+;    "cy", "0x0c",    #	 welsh
+;    "gd", "0x0d",    #	 gaelic
+;    "da", "0x0e",    #	 danish
+;    "no", "0x0f",    #	 norwegian
+;    "pt", "0x10",    #	 portuguese
+;    "sk", "0x11",    #	 slovak
+;    "cs", "0x12",    #	 czech
+;    "hr", "0x13",    #	 croatian
+;    "hu", "0x14",    #	 hungarian
+;    "pl", "0x15",    #	 polish
+;    "tr", "0x16",    #	 turkish
+;    "el", "0x17",    #	 greek
+;    "sl", "0x18",    #	 slovenian
+;    "ru", "0x19",    #	 russian
+;    "et", "0x1a",    #	 estonian
+;    "lv", "0x1b",    #	 latvian
+;    "ro", "0x1c",    #	 romanian
+;    "sq", "0x1d",    #	 albanian
+;    "bs", "0x1e",    #	 bosnian
+;    "lt", "0x1f",    #	 lithuanian
+;    "sr", "0x20",    #	 serbian
+;    "mk", "0x21",    #	 macedonian
+;    "bg", "0x22"     #	 bulgarian
+;  );
+
+
+;===================== POLYGONES ========================
+
+
+; Residential Area <=> Wohngebiet
+[_polygon]
+Type=0x02
+String1=0x00,Residential Area
+String2=0x01,Residential Area
+String3=0x02,Wohngebiet
+String4=0x04,Residential Area
+[end]
+
+; Military Area <=> Militär
+[_polygon]
+Type=0x04
+String1=0x00,Military Area
+String2=0x01,Military Area
+String3=0x02,Militär
+String4=0x04,Military Area
+[end]
+
+; Parking Place <=> Parkplatz
+[_polygon]
+Type=0x05
+String1=0x00,Parking Place
+String2=0x01,Parking Place
+String3=0x02,Parkplatz
+String4=0x04,Parking Place
+[end]
+
+; Retail Area <=> Handel
+[_polygon]
+Type=0x08
+String1=0x00,Retail Area
+String2=0x01,Retail Area
+String3=0x02,Handel
+String4=0x04,Retail Area
+[end]
+
+; Marina <=> Yachthafen
+[_polygon]
+Type=0x09
+String1=0x00,Marina
+String2=0x01,Marina
+String3=0x02,Yachthafen
+String4=0x04,Marina
+[end]
+
+; School <=> Schule
+[_polygon]
+Type=0x0a
+String1=0x00,School
+String2=0x01,School
+String3=0x02,Schule
+String4=0x04,School
+[end]
+
+; Hospital <=> Krankenhaus
+[_polygon]
+Type=0x0b
+String1=0x00,Hospital
+String2=0x01,Hospital
+String3=0x02,Krankenhaus
+String4=0x04,Hospital
+[end]
+
+; Industrial Area <=> Industrie
+[_polygon]
+Type=0x0c
+String1=0x00,Industrial Area
+String2=0x01,Industrial Area
+String3=0x02,Industrie
+String4=0x04,Industrial Area
+[end]
+
+; Nature Reserve <=> Naturreservat
+[_polygon]
+Type=0x0d
+String1=0x00,Nature Reserve
+String2=0x01,Nature Reserve
+String3=0x02,Naturreservat
+String4=0x04,Nature Reserve
+[end]
+
+; Playground <=> Spielplatz
+[_polygon]
+Type=0x0f
+String1=0x00,Playground
+String2=0x01,Playground
+String3=0x02,Spielplatz
+String4=0x04,Playground
+[end]
+
+; Camping <=> Camping
+[_polygon]
+Type=0x10
+String1=0x00,Camping
+String2=0x01,Camping
+String3=0x02,Camping
+String4=0x04,Camping
+[end]
+
+; Attraction <=> Attraktion
+[_polygon]
+Type=0x11
+String1=0x00,Attraction
+String2=0x01,Attraction
+String3=0x02,Attraktion
+String4=0x04,Attraction
+[end]
+
+; Quarry <=> Rohstoffabbau
+[_polygon]
+Type=0x12
+String1=0x00,Quarry
+String2=0x01,Quarry
+String3=0x02,Rohstoffabbau
+String4=0x04,Quarry
+[end]
+
+; Building <=> Gebäude
+[_polygon]
+Type=0x13
+String1=0x00,Building
+String2=0x01,Building
+String3=0x02,Gebäude
+String4=0x04,Building
+[end]
+
+; Deciduous Forest <=> Laubwald
+[_polygon]
+Type=0x15
+String1=0x00,Deciduous Forest
+String2=0x01,Deciduous Forest
+String3=0x02,Laubwald
+String4=0x04,Deciduous Forest
+[end]
+
+; Cliff <=> Fels
+[_polygon]
+Type=0x16
+String1=0x00,Cliff
+String2=0x01,Cliff
+String3=0x02,Fels
+String4=0x04,Cliff
+[end]
+
+; Meadow <=> Wiese
+[_polygon]
+Type=0x17
+String1=0x00,Meadow
+String2=0x01,Meadow
+String3=0x02,Wiese
+String4=0x04,Meadow
+[end]
+
+; Golf Course <=> Golfplatz
+[_polygon]
+Type=0x18
+String1=0x00,Golf Course
+String2=0x01,Golf Course
+String3=0x02,Golfplatz
+String4=0x04,Golf Course
+[end]
+
+; Sports Centre <=> Sportanlage
+[_polygon]
+Type=0x19
+String1=0x00,Sports Centre
+String2=0x01,Sports Centre
+String3=0x02,Sportanlage
+String4=0x04,Sports Centre
+[end]
+
+; Cemetery <=> Friedhof
+[_polygon]
+Type=0x1a
+String1=0x00,Cemetery
+String2=0x01,Cemetery
+String3=0x02,Friedhof
+String4=0x04,Cemetery
+[end]
+
+; Vineyard <=> Weinberg
+[_polygon]
+Type=0x1b
+String1=0x00,Vineyard
+String2=0x01,Vineyard
+String3=0x02,Weinberg
+String4=0x04,Vineyard
+[end]
+
+; Barracks <=> Kasernen
+[_polygon]
+Type=0x1c
+String1=0x00,Barracks
+String2=0x01,Barracks
+String3=0x02,Kasernen
+String4=0x04,Barracks
+[end]
+
+; Park <=> Park
+[_polygon]
+Type=0x1e
+String1=0x00,Park
+String2=0x01,Park
+String3=0x02,Park
+String4=0x04,Park
+[end]
+
+; Danger Area <=> Gefahrenzone
+[_polygon]
+Type=0x21
+String1=0x00,Danger Area
+String2=0x01,Danger Area
+String3=0x02,Gefahrenzone
+String4=0x04,Danger Area
+[end]
+
+; Zoo <=> Zoo
+[_polygon]
+Type=0x22
+String1=0x00,Zoo
+String2=0x01,Zoo
+String3=0x02,Zoo
+String4=0x04,Zoo
+[end]
+
+; Allotments <=> Schrebergärten
+[_polygon]
+Type=0x23
+String1=0x00,Allotments
+String2=0x01,Allotments
+String3=0x02,Schrebergärten
+String4=0x04,Allotments
+[end]
+
+; Farmland <=> Kulturland
+[_polygon]
+Type=0x24
+String1=0x00,Farmland
+String2=0x01,Farmland
+String3=0x02,Kulturland
+String4=0x04,Farmland
+[end]
+
+; Power Station <=> Kraftwerk
+[_polygon]
+Type=0x25
+String1=0x00,Power Station
+String2=0x01,Power Station
+String3=0x02,Kraftwerk
+String4=0x04,Power Station
+[end]
+
+; Administration <=> Verwaltung
+[_polygon]
+Type=0x26
+String1=0x00,Administration
+String2=0x01,Administration
+String3=0x02,Verwaltung
+String4=0x04,Administration
+[end]
+
+; Construction / Brownfield Site <=> Baugebiet / Brache
+[_polygon]
+Type=0x27
+String1=0x00,Construction / Brownfield Site
+String2=0x01,Construction / Brownfield Site
+String3=0x02,Baugebiet / Brache
+String4=0x04,Construction / Brownfield Site
+[end]
+
+; Landfill Site <=> Deponie
+[_polygon]
+Type=0x2a
+String1=0x00,Landfill Site
+String2=0x01,Landfill Site
+String3=0x02,Deponie
+String4=0x04,Landfill Site
+[end]
+
+; Heath <=> Heide
+[_polygon]
+Type=0x2b
+String1=0x00,Heath
+String2=0x01,Heath
+String3=0x02,Heide
+String4=0x04,Heath
+[end]
+
+; Airfield Apron <=> Vorfeld
+[_polygon]
+Type=0x2c
+String1=0x00,Airfield Apron
+String2=0x01,Airfield Apron
+String3=0x02,Vorfeld
+String4=0x04,Airfield Apron
+[end]
+
+; Aerodrome/Airfield <=> Flugplatz
+[_polygon]
+Type=0x2d
+String1=0x00,Aerodrome/Airfield
+String2=0x01,Aerodrome/Airfield
+String3=0x02,Flugplatz
+String4=0x04,Aerodrome/Airfield
+[end]
+
+; Beach <=> Strand
+[_polygon]
+Type=0x2e
+String1=0x00,Beach
+String2=0x01,Beach
+String3=0x02,Strand
+String4=0x04,Beach
+[end]
+
+; Mud <=> Schlick
+[_polygon]
+Type=0x2f
+String1=0x00,Mud
+String2=0x01,Mud
+String3=0x02,Schlick
+String4=0x04,Mud
+[end]
+
+; Living Street <=> Mischgebiet
+[_polygon]
+Type=0x30
+String1=0x00,Living Street
+String2=0x01,Living Street
+String3=0x02,Mischgebiet
+String4=0x04,Living Street
+[end]
+
+; Square <=> Platz
+[_polygon]
+Type=0x31
+String1=0x00,Square
+String2=0x01,Square
+String3=0x02,Platz
+String4=0x04,Square
+[end]
+
+; Sea <=> Meer
+[_polygon]
+Type=0x32
+String1=0x00,Sea
+String2=0x01,Sea
+String3=0x02,Meer
+String4=0x04,Sea
+[end]
+
+; Pedestrian Area <=> Fußgängerzone
+[_polygon]
+Type=0x33
+String1=0x00,Pedestrian Area
+String2=0x01,Pedestrian Area
+String3=0x02,Fußgängerzone
+String4=0x04,Pedestrian Area
+[end]
+
+; Supermarket <=> Supermarkt
+[_polygon]
+Type=0x35
+String1=0x00,Supermarket
+String2=0x01,Supermarket
+String3=0x02,Supermarkt
+String4=0x04,Supermarket
+[end]
+
+; Place of Worship <=> Andachtsstätte
+[_polygon]
+Type=0x36
+String1=0x00,Place of Worship
+String2=0x01,Place of Worship
+String3=0x02,Andachtsstätte
+String4=0x04,Place of Worship
+[end]
+
+; Playing Field / Track <=> Spielfeld / Laufbahn
+[_polygon]
+Type=0x37
+String1=0x00,Playing Field / Track
+String2=0x01,Playing Field / Track
+String3=0x02,Spielfeld / Laufbahn
+String4=0x04,Playing Field / Track
+[end]
+
+; Terminal <=> Terminal
+[_polygon]
+Type=0x38
+String1=0x00,Terminal
+String2=0x01,Terminal
+String3=0x02,Terminal
+String4=0x04,Terminal
+[end]
+
+; Moorings <=> Anlegestelle
+[_polygon]
+Type=0x39
+String1=0x00,Moorings
+String2=0x01,Moorings
+String3=0x02,Anlegestelle
+String4=0x04,Moorings
+[end]
+
+; Land <=> Land
+[_polygon]
+Type=0x3a
+String1=0x00,Land
+String2=0x01,Land
+String3=0x02,Land
+String4=0x04,Land
+[end]
+
+; Water <=> Wasser
+[_polygon]
+Type=0x3c
+String1=0x00,Water
+String2=0x01,Water
+String3=0x02,Wasser
+String4=0x04,Water
+[end]
+
+; Dam <=> Staudamm / -mauer
+[_polygon]
+Type=0x3d
+String1=0x00,Dam
+String2=0x01,Dam
+String3=0x02,Staudamm / -mauer
+String4=0x04,Dam
+[end]
+
+; Railway Platform <=> Bahnsteig
+[_polygon]
+Type=0x3e
+String1=0x00,Railway Platform
+String2=0x01,Railway Platform
+String3=0x02,Bahnsteig
+String4=0x04,Railway Platform
+[end]
+
+; Water <=> Wasser
+[_polygon]
+Type=0x3f
+String1=0x00,Water
+String2=0x01,Water
+String3=0x02,Wasser
+String4=0x04,Water
+[end]
+
+; Fell <=> Alm / Bergwiese
+[_polygon]
+Type=0x40
+String1=0x00,Fell
+String2=0x01,Fell
+String3=0x02,Alm / Bergwiese
+String4=0x04,Fell
+[end]
+
+; Playing Field <=> Spielfeld
+[_polygon]
+Type=0x41
+String1=0x00,Playing Field
+String2=0x01,Playing Field
+String3=0x02,Spielfeld
+String4=0x04,Playing Field
+[end]
+
+; Stadium <=> Stadion
+[_polygon]
+Type=0x42
+String1=0x00,Stadium
+String2=0x01,Stadium
+String3=0x02,Stadion
+String4=0x04,Stadium
+[end]
+
+; Scree <=> Geröll
+[_polygon]
+Type=0x43
+String1=0x00,Scree
+String2=0x01,Scree
+String3=0x02,Geröll
+String4=0x04,Scree
+[end]
+
+; Service Area <=> Raststätte
+[_polygon]
+Type=0x44
+String1=0x00,Service Area
+String2=0x01,Service Area
+String3=0x02,Raststätte
+String4=0x04,Service Area
+[end]
+
+; Riverbank <=> Flussufer
+[_polygon]
+Type=0x46
+String1=0x00,Riverbank
+String2=0x01,Riverbank
+String3=0x02,Flussufer
+String4=0x04,Riverbank
+[end]
+
+; Sand <=> Sand
+[_polygon]
+Type=0x47
+String1=0x00,Sand
+String2=0x01,Sand
+String3=0x02,Sand
+String4=0x04,Sand
+[end]
+
+; Farm <=> Gehöft
+[_polygon]
+Type=0x49
+String1=0x00,Farm
+String2=0x01,Farm
+String3=0x02,Gehöft
+String4=0x04,Farm
+[end]
+
+; Background <=> Hintergrund
+[_polygon]
+Type=0x4b
+String1=0x00,Background
+String2=0x01,Background
+String3=0x02,Hintergrund
+String4=0x04,Background
+[end]
+
+; Dock <=> Dock
+[_polygon]
+Type=0x4c
+String1=0x00,Dock
+String2=0x01,Dock
+String3=0x02,Dock
+String4=0x04,Dock
+[end]
+
+; Glacier <=> Gletscher
+[_polygon]
+Type=0x4d
+String1=0x00,Glacier
+String2=0x01,Glacier
+String3=0x02,Gletscher
+String4=0x04,Glacier
+[end]
+
+; Plantation <=> Plantage
+[_polygon]
+Type=0x4e
+String1=0x00,Plantation
+String2=0x01,Plantation
+String3=0x02,Plantage
+String4=0x04,Plantation
+[end]
+
+; Brush/Scrub <=> Gebüsch
+[_polygon]
+Type=0x4f
+String1=0x00,Brush/Scrub
+String2=0x01,Brush/Scrub
+String3=0x02,Gebüsch
+String4=0x04,Brush/Scrub
+[end]
+
+; Coniferous forest <=> Nadelwald
+[_polygon]
+Type=0x50
+String1=0x00,Coniferous forest
+String2=0x01,Coniferous forest
+String3=0x02,Nadelwald
+String4=0x04,Coniferous forest
+[end]
+
+; Marsh/Wetland <=> Feuchtgebiet
+[_polygon]
+Type=0x51
+String1=0x00,Marsh/Wetland
+String2=0x01,Marsh/Wetland
+String3=0x02,Feuchtgebiet
+String4=0x04,Marsh/Wetland
+[end]
+
+; Mixed forest <=> Mischwald
+[_polygon]
+Type=0x52
+String1=0x00,Mixed forest
+String2=0x01,Mixed forest
+String3=0x02,Mischwald
+String4=0x04,Mixed forest
+[end]
+
+; Black Hole <=> Schwarzes Loch
+[_polygon]
+Type=0x53
+String1=0x00,Black Hole
+String2=0x01,Black Hole
+String3=0x02,Schwarzes Loch
+String4=0x04,Black Hole
+[end]
+
+; Fun Park <=> Fun Park
+[_polygon]
+Type=0x54
+String1=0x00,Fun Park
+String2=0x01,Fun Park
+String3=0x02,Snow Park
+String4=0x04,Fun Park
+[end]
+
+; Wadi <=> Wadi
+[_polygon]
+Type=0x55
+String1=0x00,Wadi
+String2=0x01,Wadi
+String3=0x02,Wadi
+String4=0x04,Wadi
+[end]
+
+
+
+;====================== LINES ===========================
+
+
+
+; [Motorway] <=> [Autobahn]
+[_line]
+Type=0x01
+String1=0x00,[Motorway]
+String2=0x01,[Motorway]
+String3=0x02,[Autobahn]
+String4=0x04,[Motorway]
+[end]
+
+; [Highway] <=> [Bundesstraße]
+[_line]
+Type=0x02
+String1=0x00,[Highway]
+String2=0x01,[Highway]
+String3=0x02,[Bundesstraße]
+String4=0x04,[Highway]
+[end]
+
+; [Highway] <=> [Bundesstraße]
+[_line]
+Type=0x03
+String1=0x00,[Highway]
+String2=0x01,[Highway]
+String3=0x02,[Bundesstraße]
+String4=0x04,[Highway]
+[end]
+
+; [Secondary Road] <=> [Landstraße]
+[_line]
+Type=0x04
+String1=0x00,[Secondary Road]
+String2=0x01,[Secondary Road]
+String3=0x02,[Landstraße]
+String4=0x04,[Secondary Road]
+[end]
+
+; [Country Road] <=> [Kreisstraße]
+[_line]
+Type=0x05
+String1=0x00,[Country Road]
+String2=0x01,[Country Road]
+String3=0x02,[Kreisstraße]
+String4=0x04,[Country Road]
+[end]
+
+; [Residential street] <=> [Wohngebietsstraße]
+[_line]
+Type=0x06
+String1=0x00,[Residential street]
+String2=0x01,[Residential street]
+String3=0x02,[Wohngebietsstraße]
+String4=0x04,[Residential street]
+[end]
+
+; [Unclassified Road] <=> [Nebenstraße]
+[_line]
+Type=0x07
+String1=0x00,[Unclassified Road]
+String2=0x01,[Unclassified Road]
+String3=0x02,[Nebenstraße]
+String4=0x04,[Unclassified Road]
+[end]
+
+; [Service Road] <=> [Erschließungsstraße]
+[_line]
+Type=0x08
+String1=0x00,[Service Road]
+String2=0x01,[Service Road]
+String3=0x02,[Erschließungsstraße]
+String4=0x04,[Service Road]
+[end]
+
+; [Living Street] <=> [Spielstraße]
+[_line]
+Type=0x09
+String1=0x00,[Living Street]
+String2=0x01,[Living Street]
+String3=0x02,[Spielstraße]
+String4=0x04,[Living Street]
+[end]
+
+; [Cycleway] <=> [Rad-Fußweg-Straße]
+[_line]
+Type=0x0a
+String1=0x00,[Cycleway]
+String2=0x01,[Cycleway]
+String3=0x02,[Rad-Fußweg-Straße]
+String4=0x04,[Cycleway]
+[end]
+
+; [Bridleway] <=> [Rad-Fußweg]
+[_line]
+Type=0x0b
+String1=0x00,[Bridleway]
+String2=0x01,[Bridleway]
+String3=0x02,[Rad-Fußweg]
+String4=0x04,[Bridleway]
+[end]
+
+; [Roundabout] <=> [Kreisverkehr]
+[_line]
+Type=0x0c
+String1=0x00,[Roundabout]
+String2=0x01,[Roundabout]
+String3=0x02,[Kreisverkehr]
+String4=0x04,[Roundabout]
+[end]
+
+; [Pedestrian Only] <=> [Fußgängerstraße]
+[_line]
+Type=0x0d
+String1=0x00,[Pedestrian Only]
+String2=0x01,[Pedestrian Only]
+String3=0x02,[Fußgängerstraße]
+String4=0x04,[Pedestrian Only]
+[end]
+
+; [One Way Street] <=> [Fahrrad-Gegen-Einbahn]
+[_line]
+Type=0x0e
+String1=0x00,[Pedestrian Only]
+String2=0x01,[One Way Street]
+String3=0x02,[Fahrrad-Gegen-Einbahn]
+String4=0x04,[One Way Street]
+[end]
+
+; [Cable Car] <=> [Seilbahn]
+[_line]
+Type=0x11
+String1=0x00,[Cable Car]
+String2=0x01,[Cable Car]
+String3=0x02,[Seilbahn]
+String4=0x04,[Cable Car]
+[end]
+
+; [indexsearch] <=> [Indexsuche]
+[_line]
+Type=0x12
+String1=0x00,[indexsearch]
+String2=0x01,[indexsearch]
+String3=0x02,[Indexsuche]
+String4=0x04,[indexsearch]
+[end]
+
+; [Steps] <=> [Treppe]
+[_line]
+Type=0x13
+String1=0x00,[Steps]
+String2=0x01,[Steps]
+String3=0x02,[Treppe]
+String4=0x04,[Steps]
+[end]
+
+; Tram & Cable Car <=> Straßenbahn
+[_line]
+Type=0x14
+String1=0x00,Tram & Cable Car
+String2=0x01,Tram & Cable Car
+String3=0x02,Straßenbahn
+String4=0x04,Tram & Cable Car
+[end]
+
+; [Footpath] <=> [Fußweg]
+[_line]
+Type=0x16
+String1=0x00,[Footpath]
+String2=0x01,[Footpath]
+String3=0x02,[Fußweg]
+String4=0x04,[Footpath]
+[end]
+
+; Stream <=> Bach
+[_line]
+Type=0x18
+String1=0x00,Stream
+String2=0x01,Stream
+String3=0x02,Bach
+String4=0x04,Stream
+[end]
+
+; [Ferry] <=> [Fähre]
+[_line]
+Type=0x1a
+String1=0x00,[Ferry]
+String2=0x01,[Ferry]
+String3=0x02,[Fähre]
+String4=0x04,[Ferry]
+[end]
+
+; National Park Boundary <=> Nationalparkgrenze
+[_line]
+Type=0x1d
+String1=0x00,National Park Boundary
+String2=0x01,National Park Boundary
+String3=0x02,Nationalparkgrenze
+String4=0x04,National Park Boundary
+[end]
+
+; National/State/County Border <=> Staatsgrenze
+[_line]
+Type=0x1e
+String1=0x00,National/State/County Border
+String2=0x01,National/State/County Border
+String3=0x02,Staatsgrenze
+String4=0x04,National/State/County Border
+[end]
+
+; River <=> Fluss (breit)
+[_line]
+Type=0x1f
+String1=0x00,River
+String2=0x01,River
+String3=0x02,Fluss
+String4=0x04,River
+[end]
+
+; Minor Contour Line <=> Höhenlinie minor
+[_line]
+Type=0x20
+String1=0x00,Minor Contour Line
+String2=0x01,Minor Contour Line
+String3=0x02,Höhenlinie minor
+String4=0x04,Minor Contour Line
+[end]
+
+; Medium Contour Line <=> Höhenlinie medium (breit)
+[_line]
+Type=0x21
+String1=0x00,Medium Contour Line
+String2=0x01,Medium Contour Line
+String3=0x02,Höhenlinie medium (breit)
+String4=0x04,Medium Contour Line
+[end]
+
+; Major Contour Line <=> Höhenlinie major (breit)
+[_line]
+Type=0x22
+String1=0x00,Major Contour Line
+String2=0x01,Major Contour Line
+String3=0x02,Höhenlinie major (breit)
+String4=0x04,Major Contour Line
+[end]
+
+; Canal <=> Kanal (breit)
+[_line]
+Type=0x26
+String1=0x00,Canal
+String2=0x01,Canal
+String3=0x02,Kanal
+String4=0x04,Canal
+[end]
+
+; Runway <=> Start- / Landebahn (breit)
+[_line]
+Type=0x27
+String1=0x00,Runway
+String2=0x01,Runway
+String3=0x02,Start- / Landebahn
+String4=0x04,Runway
+[end]
+
+; Power Line <=> Stromleitung
+[_line]
+Type=0x29
+String1=0x00,Power Line
+String2=0x01,Power Line
+String3=0x02,Stromleitung
+String4=0x04,Power Line
+[end]
+
+; River <=> Fluss (mittel)
+[_line]
+Type=0x10100
+String1=0x00,River
+String2=0x01,River
+String3=0x02,Fluss
+String4=0x04,River
+[end]
+
+; Stream <=> Fluss (schmal)
+[_line]
+Type=0x10101
+String1=0x00,Stream
+String2=0x01,Stream
+String3=0x02,Fluss
+String4=0x04,Stream
+[end]
+
+; Canal <=> Kanal (mittel)
+[_line]
+Type=0x10102
+String1=0x00,Canal
+String2=0x01,Canal
+String3=0x02,Kanal
+String4=0x04,Canal
+[end]
+
+; Canal <=> Kanal (schmal)
+[_line]
+Type=0x10103
+String1=0x00,Canal
+String2=0x01,Canal
+String3=0x02,Kanal
+String4=0x04,Canal
+[end]
+
+; Cliff <=> Klippe
+[_line]
+Type=0x10104
+String1=0x00,Cliff
+String2=0x01,Cliff
+String3=0x02,Klippe
+String4=0x04,Cliff
+[end]
+
+; Residential Street (restricted) <=> Wohngebietsstraße (Eingeschränkt) schmal
+[_line]
+Type=0x10105
+String1=0x00,Residential Street (restricted)
+String2=0x01,Residential Street (restricted)
+String3=0x02,Wohngebietsstraße (Eingeschränkt)
+String4=0x04,Residential Street (restricted)
+[end]
+
+; Unclassified Road (Narrow) <=> Nebenstraße schmal
+[_line]
+Type=0x10106
+String1=0x00,Unclassified Road (Narrow)
+String2=0x01,Unclassified Road (Narrow)
+String3=0x02,Nebenstraße
+String4=0x04,Unclassified Road (Narrow)
+[end]
+
+; Service Road <=> Erschließungsstraße schmal
+[_line]
+Type=0x10107
+String1=0x00,Service Road
+String2=0x01,Service Road
+String3=0x02,Erschließungsstraße
+String4=0x04,Service Road
+[end]
+
+; Living Street (restricted) narrow <=> Spielstraße (Eingeschränkt) schmal
+[_line]
+Type=0x10108
+String1=0x00,Living Street (restricted) narrow
+String2=0x01,Living Street (restricted) narrow
+String3=0x02,Spielstraße (Eingeschränkt)
+String4=0x04,Living Street (restricted) narrow
+[end]
+
+; Track/Dirt Road (4,5) <=> Feld- / Waldweg (4,5) breit
+[_line]
+Type=0x10109
+String1=0x00,Track/Dirt Road (4,5)
+String2=0x01,Track/Dirt Road (4,5)
+String3=0x02,Feld- / Waldweg (4,5)
+String4=0x04,Track/Dirt Road (4,5)
+[end]
+
+; Ditch <=> Wassergraben
+[_line]
+Type=0x1010a
+String1=0x00,Ditch
+String2=0x01,Ditch
+String3=0x02,Wassergraben
+String4=0x04,Ditch
+[end]
+
+; Drainage Ditch/Drain <=> Abwassergraben
+[_line]
+Type=0x1010b
+String1=0x00,Drainage Ditch/Drain
+String2=0x01,Drainage Ditch/Drain
+String3=0x02,Abwassergraben
+String4=0x04,Drainage Ditch/Drain
+[end]
+
+; Dam <=> Staudamm / -mauer
+[_line]
+Type=0x1010c
+String1=0x00,Dam
+String2=0x01,Dam
+String3=0x02,Staudamm / -mauer
+String4=0x04,Dam
+[end]
+
+; Secondary Road <=> Landstraße breit
+[_line]
+Type=0x1010d
+String1=0x00,Secondary Road
+String2=0x01,Secondary Road
+String3=0x02,Landstraße
+String4=0x04,Secondary Road
+[end]
+
+; Country Road <=> Kreisstraße breit
+[_line]
+Type=0x1010e
+String1=0x00,Country Road
+String2=0x01,Country Road
+String3=0x02,Kreisstraße
+String4=0x04,Country Road
+[end]
+
+; Abutment <=> Stützmauser
+[_line]
+Type=0x1010f
+String1=0x00,Abutment
+String2=0x01,Abutment
+String3=0x02,Stützmauer
+String4=0x04,Abutment
+[end]
+
+; Decommisioned Railway <=> Schienen (Rückbau)
+[_line]
+Type=0x10110
+String1=0x00,Decommisioned Railway
+String2=0x01,Decommisioned Railway
+String3=0x02,Schienen (Rückbau)
+String4=0x04,Decommisioned Railway
+[end]
+
+; Railway <=> Bahn
+[_line]
+Type=0x10111
+String1=0x00,Railway
+String2=0x01,Railway
+String3=0x02,Bahn
+String4=0x04,Railway
+[end]
+
+; Light Rail <=> S-Bahn
+[_line]
+Type=0x10112
+String1=0x00,Light Rail
+String2=0x01,Light Rail
+String3=0x02,S-Bahn
+String4=0x04,Light Rail
+[end]
+
+; Subway/Underground Railway <=> U-Bahn
+[_line]
+Type=0x10113
+String1=0x00,Subway/Underground Railway
+String2=0x01,Subway/Underground Railway
+String3=0x02,U-Bahn
+String4=0x04,Subway/Underground Railway
+[end]
+
+; Light Rail (tunnel) <=> S-Bahn (Tunnel)
+[_line]
+Type=0x10115
+String1=0x00,Light Rail (tunnel)
+String2=0x01,Light Rail (tunnel)
+String3=0x02,S-Bahn (Tunnel)
+String4=0x04,Light Rail (tunnel)
+[end]
+
+; Railway (tunnel) <=> Bahn (Tunnel)
+[_line]
+Type=0x10116
+String1=0x00,Railway (tunnel)
+String2=0x01,Railway (tunnel)
+String3=0x02,Bahn (Tunnel)
+String4=0x04,Railway (tunnel)
+[end]
+
+; Subway (overground) <=> U-Bahn (oberirdisch)
+[_line]
+Type=0x10117
+String1=0x00,Subway (overground)
+String2=0x01,Subway (overground)
+String3=0x02,U-Bahn (oberirdisch)
+String4=0x04,Subway (overground)
+[end]
+
+; Via Ferrata <=> Klettersteig breit
+[_line]
+Type=0x10118
+String1=0x00,Via Ferrata
+String2=0x01,Via Ferrata
+String3=0x02,Klettersteig
+String4=0x04,Via Ferrata
+[end]
+
+; Via Ferrata <=> Klettersteig schmal
+[_line]
+Type=0x10119
+String1=0x00,Via Ferrata
+String2=0x01,Via Ferrata
+String3=0x02,Klettersteig
+String4=0x04,Via Ferrata
+[end]
+
+; Ropeway (for material transport) <=> Materialseilbahn
+[_line]
+Type=0x1011a
+String1=0x00,Ropeway (for material transport)
+String2=0x01,Ropeway (for material transport)
+String3=0x02,Materialseilbahn
+String4=0x04,Ropeway (for material transport)
+[end]
+
+; Tramway (tunnel) <=> Straßenbahn (Tunnel)
+[_line]
+Type=0x1011b
+String1=0x00,Tramway (tunnel)
+String2=0x01,Tramway (tunnel)
+String3=0x02,Straßenbahn (Tunnel)
+String4=0x04,Tramway (tunnel)
+[end]
+
+; Nature Reserve <=> Naturreservat
+[_line]
+Type=0x1011c
+String1=0x00,Nature Reserve
+String2=0x01,Nature Reserve
+String3=0x02,Naturreservat
+String4=0x04,Nature Reserve
+[end]
+
+; Track/Dirt Road (4,5) <=> Feld- / Waldweg (4,5) schmal
+[_line]
+Type=0x1011d
+String1=0x00,Track/Dirt Road (4,5)
+String2=0x01,Track/Dirt Road (4,5)
+String3=0x02,Feld- / Waldweg (4,5)
+String4=0x04,Track/Dirt Road (4,5)
+[end]
+
+; Track/Dirt Road (4,5) <=> Feld- / Waldweg (4,5) schmal
+[_line]
+Type=0x10201
+String1=0x00,Track/Dirt Road (4,5)
+String2=0x01,Track/Dirt Road (4,5)
+String3=0x02,
+String4=0x04,
+[end]
+
+; Track/Dirt Road (4,5) <=> Feld- / Waldweg (4,5) schmal
+[_line]
+Type=0x10202
+String1=0x00,Track/Dirt Road (4,5)
+String2=0x01,Track/Dirt Road (4,5)
+String3=0x02,
+String4=0x04,
+[end]
+
+; Bridge <=> Brücke
+[_line]
+Type=0x10405
+String1=0x00,Bridge
+String2=0x01,Bridge
+String3=0x02,Brücke
+String4=0x04,Bridge
+[end]
+
+; Tunnel <=> Tunnel
+[_line]
+Type=0x10406
+String1=0x00,Tunnel
+String2=0x01,Tunnel
+String3=0x02,Tunnel
+String4=0x04,Tunnel
+[end]
+
+; Bridge <=> Brücke
+[_line]
+Type=0x10407
+String1=0x00,Bridge
+String2=0x01,Bridge
+String3=0x02,Brücke
+String4=0x04,Bridge
+[end]
+
+; Tunnel <=> Tunnel
+[_line]
+Type=0x10408
+String1=0x00,Tunnel
+String2=0x01,Tunnel
+String3=0x02,Tunnel
+String4=0x04,Tunnel
+[end]
+
+; Bridge <=> Brücke
+[_line]
+Type=0x10409
+String1=0x00,Bridge
+String2=0x01,Bridge
+String3=0x02,Brücke
+String4=0x04,Bridge
+[end]
+
+; Tunnel <=> Tunnel
+[_line]
+Type=0x1040a
+String1=0x00,Tunnel
+String2=0x01,Tunnel
+String3=0x02,Tunnel
+String4=0x04,Tunnel
+[end]
+
+; Bridge <=> Brücke
+[_line]
+Type=0x1040b
+String1=0x00,Bridge
+String2=0x01,Bridge
+String3=0x02,Brücke
+String4=0x04,Bridge
+[end]
+
+; Tunnel <=> Tunnel
+[_line]
+Type=0x1040c
+String1=0x00,Tunnel
+String2=0x01,Tunnel
+String3=0x02,Tunnel
+String4=0x04,Tunnel
+[end]
+
+; Highway <=> Bundesstraße (wie Autobahn) breit
+[_line]
+Type=0x1040d
+String1=0x00,Highway
+String2=0x01,Highway
+String3=0x02,Bundesstraße (wie Autobahn)
+String4=0x04,Highway
+[end]
+
+; Highway <=> Bundesstraße breit
+[_line]
+Type=0x1040e
+String1=0x00,Highway
+String2=0x01,Highway
+String3=0x02,Bundesstraße
+String4=0x04,Highway
+[end]
+
+; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 breit
+[_line]
+Type=0x10410
+String1=0x00,Alpine Trail T3 / T4
+String2=0x01,Alpine Trail T3 / T4
+String3=0x02,Bergwanderweg T3 / T4
+String4=0x04,Alpine Trail T3 / T4
+[end]
+
+; Alpine Trail T5/T6 <=> Bergwanderweg T5 / T6 breit
+[_line]
+Type=0x10411
+String1=0x00,Alpine Trail T5/T6
+String2=0x01,Alpine Trail T5/T6
+String3=0x02,Bergwanderweg T5 / T6
+String4=0x04,Alpine Trail T5/T6
+[end]
+
+; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 breit
+[_line]
+Type=0x10412
+String1=0x00,Alpine Trail T1 / T2
+String2=0x01,Alpine Trail T1 / T2
+String3=0x02,Bergwanderweg T1 / T2 breit
+String4=0x04,Alpine Trail T1 / T2
+[end]
+
+; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 schmal
+[_line]
+Type=0x10413
+String1=0x00,Alpine Trail T3 / T4
+String2=0x01,Alpine Trail T3 / T4
+String3=0x02,Bergwanderweg T3 / T4
+String4=0x04,Alpine Trail T3 / T4
+[end]
+
+; Alpine Trail T5 / T6 <=> Bergwanderweg T5 / T6 schmal
+[_line]
+Type=0x10414
+String1=0x00,Alpine Trail T5 / T6
+String2=0x01,Alpine Trail T5 / T6
+String3=0x02,Bergwanderweg T5 / T6
+String4=0x04,Alpine Trail T5 / T6
+[end]
+
+; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 schmal
+[_line]
+Type=0x10415
+String1=0x00,Alpine Trail T1 / T2
+String2=0x01,Alpine Trail T1 / T2
+String3=0x02,Bergwanderweg T1 / T2
+String4=0x04,Alpine Trail T1 / T2
+[end]
+
+; Taxiway <=> Rollweg (breit)
+[_line]
+Type=0x10e00
+String1=0x00,Taxiway
+String2=0x01,Taxiway
+String3=0x02,Rollweg
+String4=0x04,Taxiway
+[end]
+
+; Unknown Street <=> Straße unbekannter Art
+[_line]
+Type=0x10e01
+String1=0x00,Unknown Street
+String2=0x01,Unknown Street
+String3=0x02,Straße unbekannter Art
+String4=0x04,Unknown Street
+[end]
+
+; Unknown Street (restricted) <=> Straße unbekannter Art (Eingeschränkt)
+[_line]
+Type=0x10e02
+String1=0x00,Unknown Street (restricted)
+String2=0x01,Unknown Street (restricted)
+String3=0x02,Straße unbekannter Art (Eingeschränkt)
+String4=0x04,Unknown Street (restricted)
+[end]
+
+; bridle path <=> Reitweg
+[_line]
+Type=0x10e03
+String1=0x00,bridle path
+String2=0x01,bridle path
+String3=0x02,Reitweg
+String4=0x04,bridle path
+[end]
+
+; Road (under construction) <=> Straße (im Bau)
+[_line]
+Type=0x10e04
+String1=0x00,Road (under construction)
+String2=0x01,Road (under construction)
+String3=0x02,Straße (im Bau)
+String4=0x04,Road (under construction)
+[end]
+
+; Footpath <=> Fußweg schmal
+[_line]
+Type=0x10e05
+String1=0x00,Footpath
+String2=0x01,Footpath
+String3=0x02,Fußweg
+String4=0x04,Footpath
+[end]
+
+; Path <=> Weg / Pfad schmal
+[_line]
+Type=0x10e06
+String1=0x00,Path
+String2=0x01,Path
+String3=0x02,Weg / Pfad
+String4=0x04,Path
+[end]
+
+; Track/Dirt Road (1) <=> Feld- / Waldweg (1) schmal
+[_line]
+Type=0x10e07
+String1=0x00,Track/Dirt Road (1)
+String2=0x01,Track/Dirt Road (1)
+String3=0x02,Feld- / Waldweg (1)
+String4=0x04,Track/Dirt Road (1)
+[end]
+
+; Track/Dirt Road (n.a,2,3) <=> Feld- / Waldweg (ohne,2,3) schmal
+[_line]
+Type=0x10e08
+String1=0x00,Track/Dirt Road (n.a,2,3)
+String2=0x01,Track/Dirt Road (n.a,2,3)
+String3=0x02,Feld- / Waldweg (ohne,2,3)
+String4=0x04,Track/Dirt Road (n.a,2,3)
+[end]
+
+; Track/Dirt Road (1) <=> Feld- / Waldweg (1) breit
+[_line]
+Type=0x10e09
+String1=0x00,Track/Dirt Road (1)
+String2=0x01,Track/Dirt Road (1)
+String3=0x02,Feld- / Waldweg (1)
+String4=0x04,Track/Dirt Road (1)
+[end]
+
+; freeway <=> Autobahn sehr schmal
+[_line]
+Type=0x10e0a
+String1=0x00,freeway
+String2=0x01,freeway
+String3=0x02,Autobahn
+String4=0x04,freeway
+[end]
+
+; Highway <=> Bundesstraße sehr schmal
+[_line]
+Type=0x10e0b
+String1=0x00,Highway
+String2=0x01,Highway
+String3=0x02,Bundesstraße
+String4=0x04,Highway
+[end]
+
+; path <=> Weg / Pfad breit
+[_line]
+Type=0x10e0c
+String1=0x00,path
+String2=0x01,path
+String3=0x02,Weg / Pfad
+String4=0x04,path
+[end]
+
+; dirt road (restricted) <=> Feldweg (Eingeschränkt)
+[_line]
+Type=0x10e0f
+String1=0x00,dirt road (restricted)
+String2=0x01,dirt road (restricted)
+String3=0x02,Feldweg (Eingeschränkt)
+String4=0x04,dirt road (restricted)
+[end]
+
+; Bridleway narrow <=> Rad- / Fußweg schmal
+[_line]
+Type=0x10e10
+String1=0x00,Bridleway narrow
+String2=0x01,Bridleway narrow
+String3=0x02,Rad- / Fußweg
+String4=0x04,Bridleway narrow
+[end]
+
+; Path (restricted) <=> Weg / Pfad (Eingeschränkt) breit
+[_line]
+Type=0x10e11
+String1=0x00,Path (restricted)
+String2=0x01,Path (restricted)
+String3=0x02,Weg / Pfad (Eingeschränkt)
+String4=0x04,Path (restricted)
+[end]
+
+; Path (restricted) <=> Weg / Pfad (Eingeschränkt) schmal
+[_line]
+Type=0x10e12
+String1=0x00,Path (restricted)
+String2=0x01,Path (restricted)
+String3=0x02,Weg / Pfad (Eingeschränkt)
+String4=0x04,Path (restricted)
+[end]
+
+; Track/Dirt Road (1) (restricted) <=> Feld- / Waldweg (1) (Eingeschränkt) breit
+[_line]
+Type=0x10e13
+String1=0x00,Track/Dirt Road (1) (restricted)
+String2=0x01,Track/Dirt Road (1) (restricted)
+String3=0x02,Feld- / Waldweg (1) (Eingeschränkt)
+String4=0x04,Track/Dirt Road (1) (restricted)
+[end]
+
+; Track/Dirt Road (1) (restricted) <=> Feld- / Waldweg (1) (Eingeschränkt) schmal
+[_line]
+Type=0x10e14
+String1=0x00,Track/Dirt Road (1) (restricted)
+String2=0x01,Track/Dirt Road (1) (restricted)
+String3=0x02,Feld- / Waldweg (1) (Eingeschränkt)
+String4=0x04,Track/Dirt Road (1) (restricted)
+[end]
+
+; Track/Dirt Road (n.a,2,3) (restricted) <=> Feld- / Waldweg (ohne,2,3) (Eingeschränkt) breit
+[_line]
+Type=0x10e15
+String1=0x00,Track/Dirt Road (n.a,2,3) (restricted)
+String2=0x01,Track/Dirt Road (n.a,2,3) (restricted)
+String3=0x02,Feld- / Waldweg (ohne,2,3) (Eingeschränkt)
+String4=0x04,Track/Dirt Road (n.a,2,3) (restricted)
+[end]
+
+; Track/Dirt Road (n.a,2,3) (restricted) <=> Feld- / Waldweg (ohne,2,3) (Eingeschränkt) schmal
+[_line]
+Type=0x10e16
+String1=0x00,Track/Dirt Road (n.a,2,3) (restricted)
+String2=0x01,Track/Dirt Road (n.a,2,3) (restricted)
+String3=0x02,Feld- / Waldweg (ohne,2,3) (Eingeschränkt)
+String4=0x04,Track/Dirt Road (n.a,2,3) (restricted)
+[end]
+
+; Track/Dirt Road (4,5) (restricted) <=> Feld- / Waldweg (4,5) (Eingeschränkt) breit
+[_line]
+Type=0x10e17
+String1=0x00,Track/Dirt Road (4,5) (restricted)
+String2=0x01,Track/Dirt Road (4,5) (restricted)
+String3=0x02,Feld- / Waldweg (4,5) (Eingeschränkt)
+String4=0x04,Track/Dirt Road (4,5) (restricted)
+[end]
+
+; Track/Dirt Road (n.a,2,3) <=> Feld- / Waldweg (ohne,2,3) breit
+[_line]
+Type=0x10e18
+String1=0x00,Track/Dirt Road (n.a,2,3)
+String2=0x01,Track/Dirt Road (n.a,2,3)
+String3=0x02,Feld- / Waldweg (ohne,2,3)
+String4=0x04,Track/Dirt Road (n.a,2,3)
+[end]
+
+; Runway <=> Start- / Landebahn (mittel)
+[_line]
+Type=0x10e19
+String1=0x00,Runway
+String2=0x01,Runway
+String3=0x02,Start- / Landebahn
+String4=0x04,Runway
+[end]
+
+; Runway <=> Start- / Landebahn (schmal)
+[_line]
+Type=0x10e1a
+String1=0x00,Runway
+String2=0x01,Runway
+String3=0x02,Start- / Landebahn
+String4=0x04,Runway
+[end]
+
+; Taxiway <=> Rollweg (mittel)
+[_line]
+Type=0x10e1b
+String1=0x00,Taxiway
+String2=0x01,Taxiway
+String3=0x02,Rollweg
+String4=0x04,Taxiway
+[end]
+
+; Taxiway <=> Rollweg (schmal)
+[_line]
+Type=0x10e1c
+String1=0x00,Taxiway
+String2=0x01,Taxiway
+String3=0x02,Rollweg
+String4=0x04,Taxiway
+[end]
+
+; Platform <=> Bahnsteig
+[_line]
+Type=0x10e1d
+String1=0x00,Platform
+String2=0x01,Platform
+String3=0x02,Bahnsteig
+String4=0x04,Platform
+[end]
+
+; Groyne/Breakwater <=> Buhne
+[_line]
+Type=0x10e1f
+String1=0x00,Groyne/Breakwater
+String2=0x01,Groyne/Breakwater
+String3=0x02,Buhne
+String4=0x04,Groyne/Breakwater
+[end]
+
+; Pier <=> Anleger
+[_line]
+Type=0x10f01
+String1=0x00,Pier
+String2=0x01,Pier
+String3=0x02,Anleger
+String4=0x04,Pier
+[end]
+
+; Test line <=> Testlinie
+[_line]
+Type=0x10f02
+String1=0x00,Test line
+String2=0x01,Test line
+String3=0x02,Testlinie
+String4=0x04,Test line
+[end]
+
+; Living Street <=> Spielstraße mittel
+[_line]
+Type=0x10f03
+String1=0x00,Living Street
+String2=0x01,Living Street
+String3=0x02,Spielstraße
+String4=0x04,Living Street
+[end]
+
+; Living Street <=> Spielstraße schmal
+[_line]
+Type=0x10f04
+String1=0x00,Living Street
+String2=0x01,Living Street
+String3=0x02,Spielstraße
+String4=0x04,Living Street
+[end]
+
+; Living Street (restricted) <=> Spielstraße (Eingeschränkt) breit
+[_line]
+Type=0x10f05
+String1=0x00,Living Street (restricted)
+String2=0x01,Living Street (restricted)
+String3=0x02,Spielstraße (Eingeschränkt)
+String4=0x04,Living Street (restricted)
+[end]
+
+; Living Street (restricted) <=> Spielstraße (Eingeschränkt) mittel
+[_line]
+Type=0x10f06
+String1=0x00,Living Street (restricted)
+String2=0x01,Living Street (restricted)
+String3=0x02,Spielstraße (Eingeschränkt)
+String4=0x04,Living Street (restricted)
+[end]
+
+; Cycleway <=> Radweg schmal
+[_line]
+Type=0x10f07
+String1=0x00,Cycleway
+String2=0x01,Cycleway
+String3=0x02,Radweg
+String4=0x04,Cycleway
+[end]
+
+; Pedestrianised Street <=> Fußgängerstraße mittel
+[_line]
+Type=0x10f08
+String1=0x00,Pedestrianised Street
+String2=0x01,Pedestrianised Street
+String3=0x02,Fußgängerstraße mittel
+String4=0x04,Pedestrianised Street
+[end]
+
+; Pedestrianised street <=> Fußgängerstraße schmal
+[_line]
+Type=0x10f09
+String1=0x00,Pedestrianised street
+String2=0x01,Pedestrianised street
+String3=0x02,Fußgängerstraße
+String4=0x04,Pedestrianised street
+[end]
+
+; freeway <=> Autobahn mittel
+[_line]
+Type=0x10f0a
+String1=0x00,freeway
+String2=0x01,freeway
+String3=0x02,Autobahn
+String4=0x04,freeway
+[end]
+
+; freeway <=> Autobahn schmal
+[_line]
+Type=0x10f0b
+String1=0x00,freeway
+String2=0x01,freeway
+String3=0x02,Autobahn
+String4=0x04,freeway
+[end]
+
+; Highway (like freeway) <=> Bundesstraße (wie Autobahn) mittel
+[_line]
+Type=0x10f0c
+String1=0x00,Highway (like freeway)
+String2=0x01,Highway (like freeway)
+String3=0x02,Bundesstraße (wie Autobahn)
+String4=0x04,Highway (like freeway)
+[end]
+
+; Highway (like freeway) <=> Bundesstraße (wie Autobahn) schmal
+[_line]
+Type=0x10f0d
+String1=0x00,Highway (like freeway)
+String2=0x01,Highway (like freeway)
+String3=0x02,Bundesstraße (wie Autobahn)
+String4=0x04,Highway (like freeway)
+[end]
+
+; Highway <=> Bundesstraße mittel
+[_line]
+Type=0x10f0e
+String1=0x00,Highway
+String2=0x01,Highway
+String3=0x02,Bundesstraße
+String4=0x04,Highway
+[end]
+
+; Highway <=> Bundesstraße schmal
+[_line]
+Type=0x10f0f
+String1=0x00,Highway
+String2=0x01,Highway
+String3=0x02,Bundesstraße
+String4=0x04,Highway
+[end]
+
+; secondary road <=> Landstraße mittel
+[_line]
+Type=0x10f10
+String1=0x00,secondary road
+String2=0x01,secondary road
+String3=0x02,Landstraße
+String4=0x04,secondary road
+[end]
+
+; secondary road <=> Landstraße schmal
+[_line]
+Type=0x10f11
+String1=0x00,secondary road
+String2=0x01,secondary road
+String3=0x02,Landstraße
+String4=0x04,secondary road
+[end]
+
+; Country Road <=> Kreisstraße mittel
+[_line]
+Type=0x10f12
+String1=0x00,Country Road
+String2=0x01,Country Road
+String3=0x02,Kreisstraße
+String4=0x04,Country Road
+[end]
+
+; Country Road <=> Kreisstraße schmal
+[_line]
+Type=0x10f13
+String1=0x00,Country Road
+String2=0x01,Country Road
+String3=0x02,Kreisstraße
+String4=0x04,Country Road
+[end]
+
+; Residential Road <=> Wohngebietsstraße mittel
+[_line]
+Type=0x10f14
+String1=0x00,Residential Road
+String2=0x01,Residential Road
+String3=0x02,Wohngebietsstraße
+String4=0x04,Residential Road
+[end]
+
+; Residential Road <=> Wohngebietsstraße schmal
+[_line]
+Type=0x10f15
+String1=0x00,Residential Road
+String2=0x01,Residential Road
+String3=0x02,Wohngebietsstraße
+String4=0x04,Residential Road
+[end]
+
+; Residential Road (restricted) <=> Wohngebietsstraße (Eingeschränkt) breit
+[_line]
+Type=0x10f16
+String1=0x00,Residential Road (restricted)
+String2=0x01,Residential Road (restricted)
+String3=0x02,Wohngebietsstraße (Eingeschränkt)
+String4=0x04,Residential Road (restricted)
+[end]
+
+; Residential Road (restricted) <=> Wohngebietsstraße (Eingeschränkt) mittel
+[_line]
+Type=0x10f17
+String1=0x00,Residential Road (restricted)
+String2=0x01,Residential Road (restricted)
+String3=0x02,Wohngebietsstraße (Eingeschränkt)
+String4=0x04,Residential Road (restricted)
+[end]
+
+; Unclassified Road <=> Nebenstraße breit
+[_line]
+Type=0x10f18
+String1=0x00,Unclassified Road
+String2=0x01,Unclassified Road
+String3=0x02,Nebenstraße
+String4=0x04,Unclassified Road
+[end]
+
+; Unclassified Road <=> Nebenstraße schmal
+[_line]
+Type=0x10f19
+String1=0x00,Unclassified Road
+String2=0x01,Unclassified Road
+String3=0x02,Nebenstraße
+String4=0x04,Unclassified Road
+[end]
+
+; Unclassified Road (restricted) <=> Nebenstraße (Eingeschränkt) breit
+[_line]
+Type=0x10f1a
+String1=0x00,Unclassified Road (restricted)
+String2=0x01,Unclassified Road (restricted)
+String3=0x02,Nebenstraße (Eingeschränkt)
+String4=0x04,Unclassified Road (restricted)
+[end]
+
+; Unclassified Road (restricted) <=> Nebenstraße (Eingeschränkt) mittel
+[_line]
+Type=0x10f1b
+String1=0x00,Unclassified Road (restricted)
+String2=0x01,Unclassified Road (restricted)
+String3=0x02,Nebenstraße (Eingeschränkt)
+String4=0x04,Unclassified Road (restricted)
+[end]
+
+; Service Road <=> Erschließungsstraße mittel
+[_line]
+Type=0x10f1c
+String1=0x00,Service Road
+String2=0x01,Service Road
+String3=0x02,Erschließungsstraße
+String4=0x04,Service Road
+[end]
+
+; Service Road (restricted) <=> Erschließungsstraße (Eingeschränkt) schmal
+[_line]
+Type=0x10f1d
+String1=0x00,Service Road (restricted)
+String2=0x01,Service Road (restricted)
+String3=0x02,Erschließungsstraße (Eingeschränkt)
+String4=0x04,Service Road (restricted)
+[end]
+
+; Service Road (restricted) <=> Erschließungsstraße (Eingeschränkt) breit
+[_line]
+Type=0x10f1e
+String1=0x00,Service Road (restricted)
+String2=0x01,Service Road (restricted)
+String3=0x02,Erschließungsstraße (Eingeschränkt)
+String4=0x04,Service Road (restricted)
+[end]
+
+; Service Road (restricted) <=> Erschließungsstraße (Eingeschränkt) mittel
+[_line]
+Type=0x10f1f
+String1=0x00,Service Road (restricted)
+String2=0x01,Service Road (restricted)
+String3=0x02,Erschließungsstraße (Eingeschränkt)
+String4=0x04,Service Road (restricted)
+[end]
+
+; Dam, not passable <=> Deich, nicht befahrbar
+[_line]
+Type=0x11f01
+String1=0x00,Dam, not passable
+String2=0x01,Dam, not passable
+String3=0x02,Deich, nicht befahrbar
+String4=0x04,Dam, not passable
+[end]
+
+; Dam <=> Damm
+[_line]
+Type=0x11f02
+String1=0x00,Dam
+String2=0x01,Dam
+String3=0x02,Damm
+String4=0x04,Dam
+[end]
+
+; Dam <=> Damm
+[_line]
+Type=0x11f03
+String1=0x00,Dam
+String2=0x01,Dam
+String3=0x02,Damm
+String4=0x04,Dam
+[end]
+
+; Dam <=> Damm
+[_line]
+Type=0x11f04
+String1=0x00,Dam
+String2=0x01,Dam
+String3=0x02,Damm
+String4=0x04,Dam
+[end]
+
+; Dam <=> Damm
+[_line]
+Type=0x11f05
+String1=0x00,Dam
+String2=0x01,Dam
+String3=0x02,Damm
+String4=0x04,Dam
+[end]
+
+; Fence <=> Zaun
+[_line]
+Type=0x11f06
+String1=0x00,Fence
+String2=0x01,Fence
+String3=0x02,Zaun
+String4=0x04,Fence
+[end]
+
+; Ferry <=> Fähre
+[_line]
+Type=0x11f10
+String1=0x00,Ferry
+String2=0x01,Ferry
+String3=0x02,Fähre
+String4=0x04,Ferry
+[end]
+
+; Steps <=> Stufen
+[_line]
+Type=0x11f11
+String1=0x00,Steps
+String2=0x01,Steps
+String3=0x02,Stufen
+String4=0x04,Steps
+[end]
+
+; Foot path <=> Fußweg
+[_line]
+Type=0x11f12
+String1=0x00,Foot path
+String2=0x01,Foot path
+String3=0x02,Fußweg
+String4=0x04,Foot path
+[end]
+
+; freeway <=> Autobahn breit
+[_line]
+Type=0x11f13
+String1=0x00,freeway
+String2=0x01,freeway
+String3=0x02,Autobahn
+String4=0x04,freeway
+[end]
+
+; Highway (like freeway) <=> Bundesstraße (wie Autobahn) breit
+[_line]
+Type=0x11f14
+String1=0x00,Highway (like freeway)
+String2=0x01,Highway (like freeway)
+String3=0x02,Bundesstraße (wie Autobahn)
+String4=0x04,Highway (like freeway)
+[end]
+
+; Highway <=> Bundesstraße breit
+[_line]
+Type=0x11f15
+String1=0x00,Highway
+String2=0x01,Highway
+String3=0x02,Bundesstraße
+String4=0x04,Highway
+[end]
+
+; Secondary Road <=> Landstraße breit
+[_line]
+Type=0x11f16
+String1=0x00,Secondary Road
+String2=0x01,Secondary Road
+String3=0x02,Landstraße
+String4=0x04,Secondary Road
+[end]
+
+; side street <=> Wohngebietsstraße breit
+[_line]
+Type=0x11f17
+String1=0x00,side street
+String2=0x01,side street
+String3=0x02,Wohngebietsstraße
+String4=0x04,side street
+[end]
+
+; Unclassified Road <=> Nebenstraße breit
+[_line]
+Type=0x11f18
+String1=0x00,Unclassified Road
+String2=0x01,Unclassified Road
+String3=0x02,Nebenstraße
+String4=0x04,Unclassified Road
+[end]
+
+; Unclassified Road <=> Erschließungsstraße breit
+[_line]
+Type=0x11f19
+String1=0x00,Service Road
+String2=0x01,Service Road
+String3=0x02,Erschließungsstraße
+String4=0x04,Service Road
+[end]
+
+; Living Street <=> Spielstraße breit
+[_line]
+Type=0x11f1a
+String1=0x00,Living Street
+String2=0x01,Living Street
+String3=0x02,Spielstraße
+String4=0x04,Living Street
+[end]
+
+; Pedestrianised Street <=> Fußgängerstraße breit
+[_line]
+Type=0x11f1b
+String1=0x00,Pedestrianised Street
+String2=0x01,Pedestrianised Street
+String3=0x02,Fußgängerstraße
+String4=0x04,Pedestrianised Street
+[end]
+
+; Bridleway <=> Rad- / Fußweg breit
+[_line]
+Type=0x11f1c
+String1=0x00,Bridleway
+String2=0x01,Bridleway
+String3=0x02,Rad- / Fußweg
+String4=0x04,Bridleway
+[end]
+
+; Cyclepath <=> Radweg
+[_line]
+Type=0x11f1d
+String1=0x00,Cyclepath
+String2=0x01,Cyclepath
+String3=0x02,Radweg
+String4=0x04,Cyclepath
+[end]
+
+; Skilift <=> Skilift
+[_line]
+Type=0x11f1e
+String1=0x00,Skilift
+String2=0x01,Skilift
+String3=0x02,Skilift
+String4=0x04,Skilift
+[end]
+
+; Cable Car <=> Kabinenseilbahn
+[_line]
+Type=0x11f1f
+String1=0x00,Cable Car
+String2=0x01,Cable Car
+String3=0x02,Kabinenseilbahn
+String4=0x04,Cable Car
+[end]
+
+; Novice Piste <=> Anfänger Skipiste
+[_line]
+Type=0x12000
+String1=0x00,Novice Piste
+String2=0x01,Novice Piste
+String3=0x02,Anfänger Skipiste
+String4=0x04,Novice Piste
+[end]
+
+; Easy Piste <=> Einfache Skipiste
+[_line]
+Type=0x12001
+String1=0x00,Easy Piste
+String2=0x01,Easy Piste
+String3=0x02,Einfache Skipiste
+String4=0x04,Easy Piste
+[end]
+
+; Intermediate Piste <=> Skipiste (mittlerer Schwierigkeitsgrad)
+[_line]
+Type=0x12002
+String1=0x00,Intermediate Piste
+String2=0x01,Intermediate Piste
+String3=0x02,Skipiste (mittlerer Schwierigkeitsgrad)
+String4=0x04,Intermediate Piste
+[end]
+
+; Advanced Piste <=> Skipiste für Fortgeschrittene
+[_line]
+Type=0x12003
+String1=0x00,Advanced Piste
+String2=0x01,Advanced Piste
+String3=0x02,Skipiste für Fortgeschrittene
+String4=0x04,Advanced Piste
+[end]
+
+; Expert Piste <=> Skipiste für Experten
+[_line]
+Type=0x12004
+String1=0x00,Expert Piste
+String2=0x01,Expert Piste
+String3=0x02,Skipiste für Experten
+String4=0x04,Expert Piste
+[end]
+
+; Freeride <=> Freeride
+[_line]
+Type=0x12005
+String1=0x00,Freeride
+String2=0x01,Freeride
+String3=0x02,Freeride
+String4=0x04,Freeride
+[end]
+
+; Extreme Piste <=> Extrem schwere Skipiste
+[_line]
+Type=0x12006
+String1=0x00,Extreme Piste
+String2=0x01,Extreme Piste
+String3=0x02,Extrem schwere Skipiste
+String4=0x04,Extreme Piste
+[end]
+
+; Cross-country Very Easy <=> Langlauf sehr leicht
+[_line]
+Type=0x12007
+String1=0x00,Cross-country Very Easy
+String2=0x01,Cross-country Very Easy
+String3=0x02,Langlauf sehr leicht
+String4=0x04,Cross-country Very Easy
+[end]
+
+; Cross-country Easy <=> Langlauf leicht
+[_line]
+Type=0x12008
+String1=0x00,Cross-country Easy
+String2=0x01,Cross-country Easy
+String3=0x02,Langlauf leicht
+String4=0x04,Cross-country Easy
+[end]
+
+; Cross-country Medium <=> Langlauf weniger schwer
+[_line]
+Type=0x12009
+String1=0x00,Cross-country Medium
+String2=0x01,Cross-country Medium
+String3=0x02,Langlauf weniger schwer
+String4=0x04,Cross-country Medium
+[end]
+
+; Cross-country Difficult <=> Langlauf schwer
+[_line]
+Type=0x1200a
+String1=0x00,Cross-country Difficult
+String2=0x01,Cross-country Difficult
+String3=0x02,Langlauf schwer
+String4=0x04,Cross-country Difficult
+[end]
+
+; Cross-country very difficult <=> Langlauf sehr schwer
+[_line]
+Type=0x1200b
+String1=0x00,Cross-country very difficult
+String2=0x01,Cross-country very difficult
+String3=0x02,Langlauf sehr schwer
+String4=0x04,Cross-country very difficult
+[end]
+
+; Skitour SAL L <=> Skitour SAC L
+[_line]
+Type=0x1200c
+String1=0x00,Skitour SAL L
+String2=0x01,Skitour SAL L
+String3=0x02,Skitour SAC L
+String4=0x04,Skitour SAL L
+[end]
+
+; Skitour SAL WS <=> Skitour SAC WS
+[_line]
+Type=0x1200d
+String1=0x00,Skitour SAL WS
+String2=0x01,Skitour SAL WS
+String3=0x02,Skitour SAC WS
+String4=0x04,Skitour SAL WS
+[end]
+
+; Skitour SAL ZW <=> Skitour SAC ZW
+[_line]
+Type=0x1200e
+String1=0x00,Skitour SAL ZW
+String2=0x01,Skitour SAL ZW
+String3=0x02,Skitour SAC ZW
+String4=0x04,Skitour SAL ZW
+[end]
+
+; Skitour SAL S <=> Skitour SAC S
+[_line]
+Type=0x1200f
+String1=0x00,Skitour SAL S
+String2=0x01,Skitour SAL S
+String3=0x02,Skitour SAC S
+String4=0x04,Skitour SAL S
+[end]
+
+; Skitour SAL SS <=> Skitour SAC SS
+[_line]
+Type=0x12010
+String1=0x00,Skitour SAL SS
+String2=0x01,Skitour SAL SS
+String3=0x02,Skitour SAC SS
+String4=0x04,Skitour SAL SS
+[end]
+
+; Skitour SAL AS <=> Skitour SAC AS
+[_line]
+Type=0x12011
+String1=0x00,Skitour SAL AS
+String2=0x01,Skitour SAL AS
+String3=0x02,Skitour SAC AS
+String4=0x04,Skitour SAL AS
+[end]
+
+; Skitour SAL EX <=> Skitour SAC EX
+[_line]
+Type=0x12012
+String1=0x00,Skitour SAL EX
+String2=0x01,Skitour SAL EX
+String3=0x02,Skitour SAC EX
+String4=0x04,Skitour SAL EX
+[end]
+
+; Toboggan Run <=> Rodelbahn
+[_line]
+Type=0x12013
+String1=0x00,Toboggan Run
+String2=0x01,Toboggan Run
+String3=0x02,Rodelbahn
+String4=0x04,Toboggan Run
+[end]
+
+; Funpark <=> Funpark
+[_line]
+Type=0x12014
+String1=0x00,Funpark
+String2=0x01,Funpark
+String3=0x02,Funpark
+String4=0x04,Funpark
+[end]
+
+
+;====================== POINTS ==========================
+
+
+; Mega City <=> Megastadt
+[_point]
+Type=0x001
+SubType=0x00
+String1=0x00,Mega City
+String2=0x01,Mega City
+String3=0x02,Megastadt
+String4=0x04,Mega City
+[end]
+
+; Large City <=> Grossstadt
+[_point]
+Type=0x002
+SubType=0x00
+String1=0x00,Large City
+String2=0x01,Large City
+String3=0x02,Großstadt
+String4=0x04,Large City
+[end]
+
+; City <=> Stadt
+[_point]
+Type=0x006
+SubType=0x00
+String1=0x00,City
+String2=0x01,City
+String3=0x02,Stadt
+String4=0x04,City
+[end]
+
+; Urban District <=> Stadtteil
+[_point]
+Type=0x00b
+SubType=0x00
+String1=0x00,Urban District
+String2=0x01,Urban District
+String3=0x02,Stadtteil
+String4=0x04,Urban District
+[end]
+
+; Village <=> Dorf
+[_point]
+Type=0x00c
+SubType=0x00
+String1=0x00,Village
+String2=0x01,Village
+String3=0x02,Dorf
+String4=0x04,Village
+[end]
+
+; Hamlet <=> Bauernschaft, Weiler
+[_point]
+Type=0x00d
+SubType=0x00
+String1=0x00,Hamlet
+String2=0x01,Hamlet
+String3=0x02,Bauernschaft, Weiler
+String4=0x04,Hamlet
+[end]
+
+; Lighthouse <=> Leuchtturm
+[_point]
+Type=0x012
+SubType=0x06
+String1=0x00,Lighthouse
+String2=0x01,Lighthouse
+String3=0x02,Leuchtturm
+String4=0x04,Lighthouse
+[end]
+
+; Gate <=> Tor
+[_point]
+Type=0x012
+SubType=0x07
+String1=0x00,Gate
+String2=0x01,Gate
+String3=0x02,Tor
+String4=0x04,Gate
+[end]
+
+; Bollard <=> Poller
+[_point]
+Type=0x012
+SubType=0x08
+String1=0x00,Bollard
+String2=0x01,Bollard
+String3=0x02,Poller
+String4=0x04,Bollard
+[end]
+
+; Cycle Barrier <=> Umlaufsperre
+[_point]
+Type=0x012
+SubType=0x09
+String1=0x00,Cycle Barrier
+String2=0x01,Cycle Barrier
+String3=0x02,Umlaufsperre
+String4=0x04,Cycle Barrier
+[end]
+
+; Barrier <=> Schlagbaum
+[_point]
+Type=0x012
+SubType=0x10
+String1=0x00,Barrier
+String2=0x01,Barrier
+String3=0x02,Schlagbaum
+String4=0x04,Barrier
+[end]
+
+; Block <=> Block
+[_point]
+Type=0x012
+SubType=0x11
+String1=0x00,Block
+String2=0x01,Block
+String3=0x02,Block
+String4=0x04,Block
+[end]
+
+; Wreck <=> Wrack
+[_point]
+Type=0x01c
+SubType=0x01
+String1=0x00,Wreck
+String2=0x01,Wreck
+String3=0x02,Wrack
+String4=0x04,Wreck
+[end]
+
+; Exit <=> Ausfahrt
+[_point]
+Type=0x029
+SubType=0x00
+String1=0x00,Exit
+String2=0x01,Exit
+String3=0x02,Ausfahrt
+String4=0x04,Exit
+[end]
+
+; Rest Area <=> Rastplatz / -stätte
+[_point]
+Type=0x029
+SubType=0x01
+String1=0x00,Rest Area
+String2=0x01,Rest Area
+String3=0x02,Rastplatz / -stätte
+String4=0x04,Rest Area
+[end]
+
+; Restaurant: other <=> Restaurant: Anderes
+[_point]
+Type=0x02a
+SubType=0x00
+String1=0x00,Restaurant: other
+String2=0x01,Restaurant: other
+String3=0x02,Restaurant: Anderes
+String4=0x04,Restaurant: other
+[end]
+
+; Restaurant: American <=> Restaurant: Amerikanisch
+[_point]
+Type=0x02a
+SubType=0x01
+String1=0x00,Restaurant: American
+String2=0x01,Restaurant: American
+String3=0x02,Restaurant: Amerikanisch
+String4=0x04,Restaurant: American
+[end]
+
+; Restaurant: Asian <=> Restaurant: Asiatisch
+[_point]
+Type=0x02a
+SubType=0x02
+String1=0x00,Restaurant: Asian
+String2=0x01,Restaurant: Asian
+String3=0x02,Restaurant: Asiatisch
+String4=0x04,Restaurant: Asian
+[end]
+
+; Restaurant: Barbecue <=> Restaurant: Barbecue
+[_point]
+Type=0x02a
+SubType=0x03
+String1=0x00,Restaurant: Barbecue
+String2=0x01,Restaurant: Barbecue
+String3=0x02,Restaurant: Barbecue
+String4=0x04,Restaurant: Barbecue
+[end]
+
+; Restaurant: Chinese <=> Restaurant: Chinesisch
+[_point]
+Type=0x02a
+SubType=0x04
+String1=0x00,Restaurant: Chinese
+String2=0x01,Restaurant: Chinese
+String3=0x02,Restaurant: Chinesisch
+String4=0x04,Restaurant: Chinese
+[end]
+
+; Restaurant: Deli/bakery <=> Restaurant: Feinkost
+[_point]
+Type=0x02a
+SubType=0x05
+String1=0x00,Restaurant: Deli/bakery
+String2=0x01,Restaurant: Deli/bakery
+String3=0x02,Restaurant: Feinkost
+String4=0x04,Restaurant: Deli/bakery
+[end]
+
+; Restaurant: International <=> Restaurant: International
+[_point]
+Type=0x02a
+SubType=0x06
+String1=0x00,Restaurant: International
+String2=0x01,Restaurant: International
+String3=0x02,Restaurant: International
+String4=0x04,Restaurant: International
+[end]
+
+; Restaurant: Fast food <=> Restaurant: Fast Food
+[_point]
+Type=0x02a
+SubType=0x07
+String1=0x00,Restaurant: Fast food
+String2=0x01,Restaurant: Fast food
+String3=0x02,Restaurant: Fast Food
+String4=0x04,Restaurant: Fast food
+[end]
+
+; Restaurant: Italian <=> Restaurant: Italienisch
+[_point]
+Type=0x02a
+SubType=0x08
+String1=0x00,Restaurant: Italian
+String2=0x01,Restaurant: Italian
+String3=0x02,Restaurant: Italienisch
+String4=0x04,Restaurant: Italian
+[end]
+
+; Restaurant: Mexican <=> Restaurant: Mexikanisch
+[_point]
+Type=0x02a
+SubType=0x09
+String1=0x00,Restaurant: Mexican
+String2=0x01,Restaurant: Mexican
+String3=0x02,Restaurant: Mexikanisch
+String4=0x04,Restaurant: Mexican
+[end]
+
+; Restaurant: Pizzeria <=> Restaurant: Pizza
+[_point]
+Type=0x02a
+SubType=0x0a
+String1=0x00,Restaurant: Pizzeria
+String2=0x01,Restaurant: Pizzeria
+String3=0x02,Restaurant: Pizza
+String4=0x04,Restaurant: Pizzeria
+[end]
+
+; Restaurant: Seafood <=> Restaurant: Meeresfrüchte
+[_point]
+Type=0x02a
+SubType=0x0b
+String1=0x00,Restaurant: Seafood
+String2=0x01,Restaurant: Seafood
+String3=0x02,Restaurant: Meeresfrüchte
+String4=0x04,Restaurant: Seafood
+[end]
+
+; Restaurant: Steak House <=> Restaurant: Steak/Grill
+[_point]
+Type=0x02a
+SubType=0x0c
+String1=0x00,Restaurant: Steak House
+String2=0x01,Restaurant: Steak House
+String3=0x02,Restaurant: Steak/Grill
+String4=0x04,Restaurant: Steak House
+[end]
+
+; Restaurant: Bagel/donut <=> Restaurant: Bagel/Donut
+[_point]
+Type=0x02a
+SubType=0x0d
+String1=0x00,Restaurant: Bagel/donut
+String2=0x01,Restaurant: Bagel/donut
+String3=0x02,Restaurant: Bagel/Donut
+String4=0x04,Restaurant: Bagel/donut
+[end]
+
+; Restaurant: Cafe/diner <=> Restaurant: Cafe/Diner
+[_point]
+Type=0x02a
+SubType=0x0e
+String1=0x00,Restaurant: Cafe/diner
+String2=0x01,Restaurant: Cafe/diner
+String3=0x02,Restaurant: Cafe/Diner
+String4=0x04,Restaurant: Cafe/diner
+[end]
+
+; Restaurant: French <=> Restaurant: Französisch
+[_point]
+Type=0x02a
+SubType=0x0f
+String1=0x00,Restaurant: French
+String2=0x01,Restaurant: French
+String3=0x02,Restaurant: Französisch
+String4=0x04,Restaurant: French
+[end]
+
+; Restaurant: German <=> Restaurant: Deutsch
+[_point]
+Type=0x02a
+SubType=0x10
+String1=0x00,Restaurant: German
+String2=0x01,Restaurant: German
+String3=0x02,Restaurant: Deutsch
+String4=0x04,Restaurant: German
+[end]
+
+; Restaurant: British <=> Restaurant: Britisch
+[_point]
+Type=0x02a
+SubType=0x11
+String1=0x00,Restaurant: British
+String2=0x01,Restaurant: British
+String3=0x02,Restaurant: Britisch
+String4=0x04,Restaurant: British
+[end]
+
+; Restaurant: Speciality <=> Restaurant: Spezialitäten
+[_point]
+Type=0x02a
+SubType=0x12
+String1=0x00,Restaurant: Speciality
+String2=0x01,Restaurant: Speciality
+String3=0x02,Restaurant: Spezialitäten
+String4=0x04,Restaurant: Speciality
+[end]
+
+; Restaurant: Other <=> Restaurant: Anderes
+[_point]
+Type=0x02a
+SubType=0x13
+String1=0x00,Restaurant: Other
+String2=0x01,Restaurant: Other
+String3=0x02,Restaurant: Anderes
+String4=0x04,Restaurant: Other
+[end]
+
+; Hotel <=> Hotel
+[_point]
+Type=0x02b
+SubType=0x01
+String1=0x00,Hotel
+String2=0x01,Hotel
+String3=0x02,Hotel
+String4=0x04,Hotel
+[end]
+
+; Guest House <=> Gasthaus
+[_point]
+Type=0x02b
+SubType=0x02
+String1=0x00,Guest House
+String2=0x01,Guest House
+String3=0x02,Gasthaus
+String4=0x04,Guest House
+[end]
+
+; Camping <=> Camping
+[_point]
+Type=0x02b
+SubType=0x03
+String1=0x00,Camping
+String2=0x01,Camping
+String3=0x02,Camping
+String4=0x04,Camping
+[end]
+
+; Shelter <=> Schutzhütte
+[_point]
+Type=0x02b
+SubType=0x06
+String1=0x00,Shelter
+String2=0x01,Shelter
+String3=0x02,Schutzhütte
+String4=0x04,Shelter
+[end]
+
+; Theme Park <=> Freizeitpark
+[_point]
+Type=0x02c
+SubType=0x01
+String1=0x00,Theme Park
+String2=0x01,Theme Park
+String3=0x02,Freizeitpark
+String4=0x04,Theme Park
+[end]
+
+; Museum <=> Museum
+[_point]
+Type=0x02c
+SubType=0x02
+String1=0x00,Museum
+String2=0x01,Museum
+String3=0x02,Museum
+String4=0x04,Museum
+[end]
+
+; Library <=> Bibliothek
+[_point]
+Type=0x02c
+SubType=0x03
+String1=0x00,Library
+String2=0x01,Library
+String3=0x02,Bibliothek
+String4=0x04,Library
+[end]
+
+; Arts Centre <=> Kunstzentrum
+[_point]
+Type=0x02c
+SubType=0x04
+String1=0x00,Arts Centre
+String2=0x01,Arts Centre
+String3=0x02,Kunstzentrum
+String4=0x04,Arts Centre
+[end]
+
+; School/College <=> Schule / Hochschule
+[_point]
+Type=0x02c
+SubType=0x05
+String1=0x00,School/College
+String2=0x01,School/College
+String3=0x02,Schule / Hochschule
+String4=0x04,School/College
+[end]
+
+; Park / Garden <=> Park / Garten
+[_point]
+Type=0x02c
+SubType=0x06
+String1=0x00,Park / Garden
+String2=0x01,Park / Garden
+String3=0x02,Park / Garten
+String4=0x04,Park / Garden
+[end]
+
+; Zoo <=> Zoo
+[_point]
+Type=0x02c
+SubType=0x07
+String1=0x00,Zoo
+String2=0x01,Zoo
+String3=0x02,Zoo
+String4=0x04,Zoo
+[end]
+
+; Stadium, Racetrack <=> Stadion, Rennbahn
+[_point]
+Type=0x02c
+SubType=0x08
+String1=0x00,Stadium, Racetrack
+String2=0x01,Stadium, Racetrack
+String3=0x02,Stadion, Rennbahn
+String4=0x04,Stadium, Racetrack
+[end]
+
+; Fair <=> Messe
+[_point]
+Type=0x02c
+SubType=0x09
+String1=0x00,Fair
+String2=0x01,Fair
+String3=0x02,Messe
+String4=0x04,Fair
+[end]
+
+; Church <=> Kirche
+[_point]
+Type=0x02c
+SubType=0x0b
+String1=0x00,Church
+String2=0x01,Church
+String3=0x02,Kirche
+String4=0x04,Church
+[end]
+
+; Volcano <=> Vulkan
+[_point]
+Type=0x02c
+SubType=0x0c
+String1=0x00,Volcano
+String2=0x01,Volcano
+String3=0x02,Vulkan
+String4=0x04,Volcano
+[end]
+
+; Mosque <=> Moschee
+[_point]
+Type=0x02c
+SubType=0x0d
+String1=0x00,Mosque
+String2=0x01,Mosque
+String3=0x02,Moschee
+String4=0x04,Mosque
+[end]
+
+; Synagogue <=> Synagoge
+[_point]
+Type=0x02c
+SubType=0x0e
+String1=0x00,Synagogue
+String2=0x01,Synagogue
+String3=0x02,Synagoge
+String4=0x04,Synagogue
+[end]
+
+; Theatre <=> Theater
+[_point]
+Type=0x02d
+SubType=0x01
+String1=0x00,Theatre
+String2=0x01,Theatre
+String3=0x02,Theater
+String4=0x04,Theatre
+[end]
+
+; Pub, Bar, Beergarden, Nightclub, Disco <=> Kneipe, Bar, Biergarten, Nachtclub, Disco
+[_point]
+Type=0x02d
+SubType=0x02
+String1=0x00,Pub, Bar, Beergarden, Nightclub, Disco
+String2=0x01,Pub, Bar, Beergarden, Nightclub, Disco
+String3=0x02,Kneipe, Bar, Biergarten, Nachtclub, Disco
+String4=0x04,Pub, Bar, Beergarden, Nightclub, Disco
+[end]
+
+; Cinema <=> Kino
+[_point]
+Type=0x02d
+SubType=0x03
+String1=0x00,Cinema
+String2=0x01,Cinema
+String3=0x02,Kino
+String4=0x04,Cinema
+[end]
+
+; Casino <=> Casino
+[_point]
+Type=0x02d
+SubType=0x04
+String1=0x00,Casino
+String2=0x01,Casino
+String3=0x02,Casino
+String4=0x04,Casino
+[end]
+
+; Golf Course <=> Golfanlage
+[_point]
+Type=0x02d
+SubType=0x05
+String1=0x00,Golf Course
+String2=0x01,Golf Course
+String3=0x02,Golfanlage
+String4=0x04,Golf Course
+[end]
+
+; Ski Area, Ski Dome <=> Skipiste, -halle
+[_point]
+Type=0x02d
+SubType=0x06
+String1=0x00,Ski Area, Ski Dome
+String2=0x01,Ski Area, Ski Dome
+String3=0x02,Skipiste, -halle
+String4=0x04,Ski Area, Ski Dome
+[end]
+
+; Bowling (9 or 10 pin) <=> Kegel-, Bowlingbahn
+[_point]
+Type=0x02d
+SubType=0x07
+String1=0x00,Bowling (9 or 10 pin)
+String2=0x01,Bowling (9 or 10 pin)
+String3=0x02,Kegel-, Bowlingbahn
+String4=0x04,Bowling (9 or 10 pin)
+[end]
+
+; Ice Rink <=> Eissporthalle
+[_point]
+Type=0x02d
+SubType=0x08
+String1=0x00,Ice Rink
+String2=0x01,Ice Rink
+String3=0x02,Eissporthalle
+String4=0x04,Ice Rink
+[end]
+
+; Swimming Pool <=> Schwimmbad
+[_point]
+Type=0x02d
+SubType=0x09
+String1=0x00,Swimming Pool
+String2=0x01,Swimming Pool
+String3=0x02,Schwimmbad
+String4=0x04,Swimming Pool
+[end]
+
+; Multi-purpose Hall <=> Mehrzweckhalle
+[_point]
+Type=0x02d
+SubType=0x0a
+String1=0x00,Multi-purpose Hall
+String2=0x01,Multi-purpose Hall
+String3=0x02,Mehrzweckhalle
+String4=0x04,Multi-purpose Hall
+[end]
+
+; Shop: Department Store <=> Geschäft: Kaufhaus
+[_point]
+Type=0x02e
+SubType=0x01
+String1=0x00,Shop: Department Store
+String2=0x01,Shop: Department Store
+String3=0x02,Geschäft: Kaufhaus
+String4=0x04,Shop: Department Store
+[end]
+
+; Shop: Grocery <=> Geschäft: Lebensmittel
+[_point]
+Type=0x02e
+SubType=0x02
+String1=0x00,Shop: Grocery
+String2=0x01,Shop: Grocery
+String3=0x02,Geschäft: Lebensmittel
+String4=0x04,Shop: Grocery
+[end]
+
+; Grocery Shop <=> Geschäft: Gemischtwaren
+[_point]
+Type=0x02e
+SubType=0x03
+String1=0x00,Grocery Shop
+String2=0x01,Grocery Shop
+String3=0x02,Geschäft: Gemischtwaren
+String4=0x04,Grocery Shop
+[end]
+
+; Shop: Shopping Centre <=> Geschäft: Einkaufszentrum
+[_point]
+Type=0x02e
+SubType=0x04
+String1=0x00,Shop: Shopping Centre
+String2=0x01,Shop: Shopping Centre
+String3=0x02,Geschäft: Einkaufszentrum
+String4=0x04,Shop: Shopping Centre
+[end]
+
+; Shop: Pharmacy <=> Geschäft: Apotheke
+[_point]
+Type=0x02e
+SubType=0x05
+String1=0x00,Shop: Pharmacy
+String2=0x01,Shop: Pharmacy
+String3=0x02,Geschäft: Apotheke
+String4=0x04,Shop: Pharmacy
+[end]
+
+; Shop: Convinience <=> Geschäft: Bedarfsartikel
+[_point]
+Type=0x02e
+SubType=0x06
+String1=0x00,Shop: Convinience
+String2=0x01,Shop: Convinience
+String3=0x02,Geschäft: Bedarfsartikel
+String4=0x04,Shop: Convinience
+[end]
+
+; Shop: Clothing <=> Geschäft: Bekleidung
+[_point]
+Type=0x02e
+SubType=0x07
+String1=0x00,Shop: Clothing
+String2=0x01,Shop: Clothing
+String3=0x02,Geschäft: Bekleidung
+String4=0x04,Shop: Clothing
+[end]
+
+; Shop: Garden Centre <=> Geschäft: Haus und Garten
+[_point]
+Type=0x02e
+SubType=0x08
+String1=0x00,Shop: Garden Centre
+String2=0x01,Shop: Garden Centre
+String3=0x02,Geschäft: Haus und Garten
+String4=0x04,Shop: Garden Centre
+[end]
+
+; Shop: Home Furnishing <=> Geschäft: Wohnungseinrichtung
+[_point]
+Type=0x02e
+SubType=0x09
+String1=0x00,Shop: Home Furnishing
+String2=0x01,Shop: Home Furnishing
+String3=0x02,Geschäft: Wohnungseinrichtung
+String4=0x04,Shop: Home Furnishing
+[end]
+
+; Shop: Specialist <=> Geschäft: Einzelhandel
+[_point]
+Type=0x02e
+SubType=0x0a
+String1=0x00,Shop: Specialist
+String2=0x01,Shop: Specialist
+String3=0x02,Geschäft: Einzelhandel
+String4=0x04,Shop: Specialist
+[end]
+
+; Shop: Computer/Software/IT <=> Geschäft: Computer/Software
+[_point]
+Type=0x02e
+SubType=0x0b
+String1=0x00,Shop: Computer/Software/IT
+String2=0x01,Shop: Computer/Software/IT
+String3=0x02,Geschäft: Computer/Software
+String4=0x04,Shop: Computer/Software/IT
+[end]
+
+; Shop: Butcher <=> Geschäft: Metzger
+[_point]
+Type=0x02e
+SubType=0x0c
+String1=0x00,Shop: Butcher
+String2=0x01,Shop: Butcher
+String3=0x02,Geschäft: Metzger
+String4=0x04,Shop: Butcher
+[end]
+
+; Shop: Other <=> Geschäft: Anderes
+[_point]
+Type=0x02e
+SubType=0x0d
+String1=0x00,Shop: Other
+String2=0x01,Shop: Other
+String3=0x02,Geschäft: Anderes
+String4=0x04,Shop: Other
+[end]
+
+; Petrol Station <=> Tankstelle
+[_point]
+Type=0x02f
+SubType=0x01
+String1=0x00,Petrol Station
+String2=0x01,Petrol Station
+String3=0x02,Tankstelle
+String4=0x04,Petrol Station
+[end]
+
+; Car Rental/Car Hire <=> Autoverleih
+[_point]
+Type=0x02f
+SubType=0x02
+String1=0x00,Car Rental/Car Hire
+String2=0x01,Car Rental/Car Hire
+String3=0x02,Autoverleih
+String4=0x04,Car Rental/Car Hire
+[end]
+
+; Car Repair/Garage <=> Autowerkstatt
+[_point]
+Type=0x02f
+SubType=0x03
+String1=0x00,Car Repair/Garage
+String2=0x01,Car Repair/Garage
+String3=0x02,Autowerkstatt
+String4=0x04,Car Repair/Garage
+[end]
+
+; Post Office <=> Postamt
+[_point]
+Type=0x02f
+SubType=0x05
+String1=0x00,Post Office
+String2=0x01,Post Office
+String3=0x02,Postamt
+String4=0x04,Post Office
+[end]
+
+; ATM <=> Geldautomat
+[_point]
+Type=0x02f
+SubType=0x06
+String1=0x00,ATM
+String2=0x01,ATM
+String3=0x02,Geldautomat
+String4=0x04,ATM
+[end]
+
+; Shop: Car Sales <=> Geschäft: Auto
+[_point]
+Type=0x02f
+SubType=0x07
+String1=0x00,Shop: Car Sales
+String2=0x01,Shop: Car Sales
+String3=0x02,Geschäft: Auto
+String4=0x04,Shop: Car Sales
+[end]
+
+; Stop <=> Haltestelle
+[_point]
+Type=0x02f
+SubType=0x08
+String1=0x00,Stop
+String2=0x01,Stop
+String3=0x02,Haltestelle
+String4=0x04,Stop
+[end]
+
+; Marina <=> Jachthafen
+[_point]
+Type=0x02f
+SubType=0x09
+String1=0x00,Marina
+String2=0x01,Marina
+String3=0x02,Jachthafen
+String4=0x04,Marina
+[end]
+
+; Parking (restricted) <=> Parken (eingeschränkt)
+[_point]
+Type=0x02f
+SubType=0x0b
+String1=0x00,Parking (restricted)
+String2=0x01,Parking (restricted)
+String3=0x02,Parken (eingeschränkt)
+String4=0x04,Parking (restricted)
+[end]
+
+; Car Club <=> Automobil-Club
+[_point]
+Type=0x02f
+SubType=0x0d
+String1=0x00,Car Club
+String2=0x01,Car Club
+String3=0x02,Automobil-Club
+String4=0x04,Car Club
+[end]
+
+; Car Wash <=> Autowaschanlage
+[_point]
+Type=0x02f
+SubType=0x0e
+String1=0x00,Car Wash
+String2=0x01,Car Wash
+String3=0x02,Autowaschanlage
+String4=0x04,Car Wash
+[end]
+
+; Shop: Hairdresser <=> Geschäft: Friseur
+[_point]
+Type=0x02f
+SubType=0x10
+String1=0x00,Shop: Hairdresser
+String2=0x01,Shop: Hairdresser
+String3=0x02,Geschäft: Friseur
+String4=0x04,Shop: Hairdresser
+[end]
+
+; Radio Mast <=> Funkmast
+[_point]
+Type=0x02f
+SubType=0x12
+String1=0x00,Radio Mast
+String2=0x01,Radio Mast
+String3=0x02,Funkmast
+String4=0x04,Radio Mast
+[end]
+
+; Shop: Bicycle <=> Geschäft: Fahrrad
+[_point]
+Type=0x02f
+SubType=0x13
+String1=0x00,Shop: Bicycle
+String2=0x01,Shop: Bicycle
+String3=0x02,Geschäft: Fahrrad
+String4=0x04,Shop: Bicycle
+[end]
+
+; Social Facility <=> Sozialeinrichtung
+[_point]
+Type=0x02f
+SubType=0x14
+String1=0x00,Social Facility
+String2=0x01,Social Facility
+String3=0x02,Sozialeinrichtung
+String4=0x04,Social Facility
+[end]
+
+; Railway Station <=> Bahnhof
+[_point]
+Type=0x02f
+SubType=0x17
+String1=0x00,Railway Station
+String2=0x01,Railway Station
+String3=0x02,Bahnhof
+String4=0x04,Railway Station
+[end]
+
+; Subway Entrance <=> U-Bahn-Eingang
+[_point]
+Type=0x02f
+SubType=0x1f
+String1=0x00,Subway Entrance
+String2=0x01,Subway Entrance
+String3=0x02,U-Bahn-Eingang
+String4=0x04,Subway Entrance
+[end]
+
+; Police Station <=> Polizeistation
+[_point]
+Type=0x030
+SubType=0x01
+String1=0x00,Police Station
+String2=0x01,Police Station
+String3=0x02,Polizeistation
+String4=0x04,Police Station
+[end]
+
+; Hospital <=> Krankenhaus
+[_point]
+Type=0x030
+SubType=0x02
+String1=0x00,Hospital
+String2=0x01,Hospital
+String3=0x02,Krankenhaus
+String4=0x04,Hospital
+[end]
+
+; Town hall, Embassy <=> Rathaus, Botschaft
+[_point]
+Type=0x030
+SubType=0x03
+String1=0x00,Town hall, Embassy
+String2=0x01,Town hall, Embassy
+String3=0x02,Rathaus, Botschaft
+String4=0x04,Town hall, Embassy
+[end]
+
+; Courthouse <=> Gericht
+[_point]
+Type=0x030
+SubType=0x04
+String1=0x00,Courthouse
+String2=0x01,Courthouse
+String3=0x02,Gericht
+String4=0x04,Courthouse
+[end]
+
+; Community/Village Hall <=> Lokale Veranstaltungshalle
+[_point]
+Type=0x030
+SubType=0x05
+String1=0x00,Community/Village Hall
+String2=0x01,Community/Village Hall
+String3=0x02,Lokale Veranstaltungshalle
+String4=0x04,Community/Village Hall
+[end]
+
+; Government Building/Office <=> Amt, Behörde
+[_point]
+Type=0x030
+SubType=0x07
+String1=0x00,Government Building/Office
+String2=0x01,Government Building/Office
+String3=0x02,Amt, Behörde
+String4=0x04,Government Building/Office
+[end]
+
+; Fire Station <=> Feuerwache
+[_point]
+Type=0x030
+SubType=0x08
+String1=0x00,Fire Station
+String2=0x01,Fire Station
+String3=0x02,Feuerwache
+String4=0x04,Fire Station
+[end]
+
+; Alpine Hut (operated/manned) <=> Berghütte (bewirtschaftet)
+[_point]
+Type=0x048
+SubType=0x03
+String1=0x00,Alpine Hut (operated/manned)
+String2=0x01,Alpine Hut (operated/manned)
+String3=0x02,Berghütte (bewirtschaftet)
+String4=0x04,Alpine Hut (operated/manned)
+[end]
+
+; Alpine Hut (self-catering) <=> Berghütte (Selbstversorger)
+[_point]
+Type=0x048
+SubType=0x04
+String1=0x00,Alpine Hut (self-catering)
+String2=0x01,Alpine Hut (self-catering)
+String3=0x02,Berghütte (Selbstversorger)
+String4=0x04,Alpine Hut (self-catering)
+[end]
+
+; Basic Hut <=> Basic hut
+[_point]
+Type=0x048
+SubType=0x05
+String1=0x00,Basic Hut
+String2=0x01,Basic Hut
+String3=0x02,Basic hut
+String4=0x04,Basic Hut
+[end]
+
+; Wilderness hut <=> Wilderness hut
+[_point]
+Type=0x048
+SubType=0x06
+String1=0x00,Wilderness hut
+String2=0x01,Wilderness hut
+String3=0x02,Wilderness hut
+String4=0x04,Wilderness hut
+[end]
+
+; Lean-to <=> Lean-to
+[_point]
+Type=0x048
+SubType=0x07
+String1=0x00,Lean-to
+String2=0x01,Lean-to
+String3=0x02,Lean-to
+String4=0x04,Lean-to
+[end]
+
+; Picnic Area <=> Rastplatz (Picknick)
+[_point]
+Type=0x04a
+SubType=0x00
+String1=0x00,Picnic Area
+String2=0x01,Picnic Area
+String3=0x02,Rastplatz (Picknick)
+String4=0x04,Picnic Area
+[end]
+
+; Parking <=> Parken
+[_point]
+Type=0x04d
+SubType=0x00
+String1=0x00,Parking
+String2=0x01,Parking
+String3=0x02,Parken
+String4=0x04,Parking
+[end]
+
+; Viewpoint <=> Aussichtspunkt
+[_point]
+Type=0x052
+SubType=0x00
+String1=0x00,Viewpoint
+String2=0x01,Viewpoint
+String3=0x02,Aussichtspunkt
+String4=0x04,Viewpoint
+[end]
+
+; Helipad <=> Hubschrauberlandeplatz
+[_point]
+Type=0x059
+SubType=0x04
+String1=0x00,Helipad
+String2=0x01,Helipad
+String3=0x02,Hubschrauberlandeplatz
+String4=0x04,Helipad
+[end]
+
+; Airport <=> Flughafen
+[_point]
+Type=0x059
+SubType=0x05
+String1=0x00,Airport
+String2=0x01,Airport
+String3=0x02,Flughafen
+String4=0x04,Airport
+[end]
+
+; Cemetery <=> Friedhof
+[_point]
+Type=0x064
+SubType=0x03
+String1=0x00,Cemetery
+String2=0x01,Cemetery
+String3=0x02,Friedhof
+String4=0x04,Cemetery
+[end]
+
+; Grave/memorial <=> Ruhe-/Gedenkstätte
+[_point]
+Type=0x064
+SubType=0x05
+String1=0x00,Grave/memorial
+String2=0x01,Grave/memorial
+String3=0x02,Ruhe-/Gedenkstätte
+String4=0x04,Grave/memorial
+[end]
+
+; Military <=> Militär
+[_point]
+Type=0x064
+SubType=0x0b
+String1=0x00,Military
+String2=0x01,Military
+String3=0x02,Militär
+String4=0x04,Military
+[end]
+
+; Playground <=> Spielplatz
+[_point]
+Type=0x064
+SubType=0x0e
+String1=0x00,Playground
+String2=0x01,Playground
+String3=0x02,Spielplatz
+String4=0x04,Playground
+[end]
+
+; Drinking Water <=> Trinkwasser
+[_point]
+Type=0x064
+SubType=0x14
+String1=0x00,Drinking Water
+String2=0x01,Drinking Water
+String3=0x02,Trinkwasser
+String4=0x04,Drinking Water
+[end]
+
+; Electricty Pylon <=> Strommast
+[_point]
+Type=0x064
+SubType=0x17
+String1=0x00,Electricty Pylon
+String2=0x01,Electricty Pylon
+String3=0x02,Strommast
+String4=0x04,Electricty Pylon
+[end]
+
+; Wind Generator <=> Windkraftanlage
+[_point]
+Type=0x064
+SubType=0x19
+String1=0x00,Wind Generator
+String2=0x01,Wind Generator
+String3=0x02,Windkraftanlage
+String4=0x04,Wind Generator
+[end]
+
+; Identified Area (water) <=> Bezeichnetes Gebiet (Wasser)
+[_point]
+Type=0x065
+SubType=0x00
+String1=0x00,Identified Area (water)
+String2=0x01,Identified Area (water)
+String3=0x02,Bezeichnetes Gebiet (Wasser)
+String4=0x04,Identified Area (water)
+[end]
+
+; Bay <=> Bucht
+[_point]
+Type=0x065
+SubType=0x03
+String1=0x00,Bay
+String2=0x01,Bay
+String3=0x02,Bucht
+String4=0x04,Bay
+[end]
+
+; Waterfall <=> Wasserfall
+[_point]
+Type=0x065
+SubType=0x08
+String1=0x00,Waterfall
+String2=0x01,Waterfall
+String3=0x02,Wasserfall
+String4=0x04,Waterfall
+[end]
+
+; Glacier <=> Gletscher
+[_point]
+Type=0x065
+SubType=0x0a
+String1=0x00,Glacier
+String2=0x01,Glacier
+String3=0x02,Gletscher
+String4=0x04,Glacier
+[end]
+
+; Glacier <=> Hafen
+[_point]
+Type=0x065
+SubType=0x0b
+String1=0x00,Port
+String2=0x01,Port
+String3=0x02,Hafen
+String4=0x04,Port
+[end]
+
+; Lake / Pond <=> See / Teich
+[_point]
+Type=0x065
+SubType=0x0d
+String1=0x00,Lake / Pond
+String2=0x01,Lake / Pond
+String3=0x02,See / Teich
+String4=0x04,Lake / Pond
+[end]
+
+; Spring <=> Quelle
+[_point]
+Type=0x065
+SubType=0x11
+String1=0x00,Spring
+String2=0x01,Spring
+String3=0x02,Quelle
+String4=0x04,Spring
+[end]
+
+; Wetland <=> Feuchtgebiet
+[_point]
+Type=0x065
+SubType=0x13
+String1=0x00,Wetland
+String2=0x01,Wetland
+String3=0x02,Feuchtgebiet
+String4=0x04,Wetland
+[end]
+
+; Identified Area (Land) <=> Bezeichnetes Gebiet (Land)
+[_point]
+Type=0x066
+SubType=0x00
+String1=0x00,Identified Area (Land)
+String2=0x01,Identified Area (Land)
+String3=0x02,Bezeichnetes Gebiet (Land)
+String4=0x04,Identified Area (Land)
+[end]
+
+; Cave <=> Höhle
+[_point]
+Type=0x066
+SubType=0x01
+String1=0x00,Cave
+String2=0x01,Cave
+String3=0x02,Höhle
+String4=0x04,Cave
+[end]
+
+; Basin <=> Bassin
+[_point]
+Type=0x066
+SubType=0x03
+String1=0x00,Basin
+String2=0x01,Basin
+String3=0x02,Bassin
+String4=0x04,Basin
+[end]
+
+; Beach <=> Strand
+[_point]
+Type=0x066
+SubType=0x04
+String1=0x00,Beach
+String2=0x01,Beach
+String3=0x02,Strand
+String4=0x04,Beach
+[end]
+
+; Industrial Plant <=> Industrieanlage
+[_point]
+Type=0x066
+SubType=0x05
+String1=0x00,Industrial Plant
+String2=0x01,Industrial Plant
+String3=0x02,Industrieanlage
+String4=0x04,Industrial Plant
+[end]
+
+; Cliff <=> Klippe
+[_point]
+Type=0x066
+SubType=0x07
+String1=0x00,Cliff
+String2=0x01,Cliff
+String3=0x02,Klippe
+String4=0x04,Cliff
+[end]
+
+; Trig/Survey Point <=> Trigonometrischer Punkt
+[_point]
+Type=0x066
+SubType=0x08
+String1=0x00,Trig/Survey Point
+String2=0x01,Trig/Survey Point
+String3=0x02,Trigonometrischer Punkt
+String4=0x04,Trig/Survey Point
+[end]
+
+; Trig/Survey point <=> Trigonometrischer Punkt
+[_point]
+Type=0x066
+SubType=0x09
+String1=0x00,Trig/Survey point
+String2=0x01,Trig/Survey point
+String3=0x02,Trigonometrischer Punkt
+String4=0x04,Trig/Survey point
+[end]
+
+; Wood <=> Wald
+[_point]
+Type=0x066
+SubType=0x0a
+String1=0x00,Wood
+String2=0x01,Wood
+String3=0x02,Wald
+String4=0x04,Wood
+[end]
+
+; Conservation Area <=> Naturschutzgebiet
+[_point]
+Type=0x066
+SubType=0x12
+String1=0x00,Conservation Area
+String2=0x01,Conservation Area
+String3=0x02,Naturschutzgebiet
+String4=0x04,Conservation Area
+[end]
+
+; Erratic Boulder <=> Findling
+[_point]
+Type=0x066
+SubType=0x14
+String1=0x00,Erratic Boulder
+String2=0x01,Erratic Boulder
+String3=0x02,Findling
+String4=0x04,Erratic Boulder
+[end]
+
+; Summit/Peak <=> Gipfel
+[_point]
+Type=0x066
+SubType=0x16
+String1=0x00,Summit/Peak
+String2=0x01,Summit/Peak
+String3=0x02,Gipfel
+String4=0x04,Summit/Peak
+[end]
+
+; Pass <=> Pass
+[_point]
+Type=0x066
+SubType=0x17
+String1=0x00,Pass
+String2=0x01,Pass
+String3=0x02,Pass
+String4=0x04,Pass
+[end]
+
+; Tree <=> Baum
+[_point]
+Type=0x066
+SubType=0x19
+String1=0x00,Tree
+String2=0x01,Tree
+String3=0x02,Baum
+String4=0x04,Tree
+[end]
+
+; Information <=> Information
+[_point]
+Type=0x066
+SubType=0x1a
+String1=0x00,Information
+String2=0x01,Information
+String3=0x02,Information
+String4=0x04,Information
+[end]
+
+; Saddle <=> Joch, Sattel, Scharte
+[_point]
+Type=0x066
+SubType=0x1b
+String1=0x00,Saddle
+String2=0x01,Saddle
+String3=0x02,Joch, Sattel, Scharte
+String4=0x04,Saddle
+[end]
+
+; Cablecar Station <=> Seilbahnstation
+[_point]
+Type=0x066
+SubType=0x1c
+String1=0x00,Cablecar Station
+String2=0x01,Cablecar Station
+String3=0x02,Seilbahnstation
+String4=0x04,Cablecar Station
+[end]
+
+; Bunker <=> Mil. Bunker
+[_point]
+Type=0x066
+SubType=0x1d
+String1=0x00,Bunker
+String2=0x01,Bunker
+String3=0x02,Mil. Bunker
+String4=0x04,Bunker
+[end]
+
+; Ruin <=> Ruine
+[_point]
+Type=0x066
+SubType=0x1e
+String1=0x00,Ruin
+String2=0x01,Ruin
+String3=0x02,Ruine
+String4=0x04,Ruin
+[end]
+
+; Tower, Platform <=> Turm, Plattform
+[_point]
+Type=0x066
+SubType=0x1f
+String1=0x00,Tower, Platform
+String2=0x01,Tower, Platform
+String3=0x02,Turm, Plattform
+String4=0x04,Tower, Platform
+[end]
