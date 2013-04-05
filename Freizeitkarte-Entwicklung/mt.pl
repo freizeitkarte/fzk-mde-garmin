@@ -1436,14 +1436,14 @@ sub compile_typfiles {
 #  chdir "$WORKDIR";
   
   # Run through the existing textfiles
-  for my $typfile ( @typfilelist ) {
+  for my $thistypfile ( @typfilelist ) {
 
     # run that file through the compiler
-    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=1252 --product-id=1 --family-id=$mapid $typfile";
+    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=1252 --product-id=1 --family-id=$mapid $thistypfile";
     process_command ( $command );
 
     #Rename .typ to .TYP
-    move(basename("$typfile", ".txt") . ".typ" , basename("$typfile", ".txt" ) . ".TYP" );
+    move(basename("$thistypfile", ".txt") . ".typ" , basename("$thistypfile", ".txt" ) . ".TYP" );
   }
 
   # temporär erzeugte Dateien löschen
@@ -1688,8 +1688,8 @@ sub create_nsis_nsifile {
   chdir "$WORKDIR/TYP";
 
   my @typfiles = ( "$mapid.TYP" , glob ( "*.TYP" ) );
-  for my $typfile ( @typfiles ) {
-    printf { *STDOUT } ( "TYP-File = $typfile\n" );
+  for my $thistypfile ( @typfiles ) {
+    printf { *STDOUT } ( "TYP-File = $thistypfile\n" );
   }
 
   # Verzeichnis wechseln
@@ -1923,8 +1923,8 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}_mdr.img\" \"\$INSTDIR\\\${MAPNAME}_mdr.img\"\n" );
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}.mdx\" \"\$INSTDIR\\\${MAPNAME}.mdx\"\n" );
 #  printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${TYPNAME}\" \"\$INSTDIR\\\${TYPNAME}\"\n" );
-  for my $typfile ( @typfiles ) {
-    printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\%s\" \"\$INSTDIR\\\%s\"\n", $typfile, $typfile );
+  for my $thistypfile ( @typfiles ) {
+    printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\%s\" \"\$INSTDIR\\\%s\"\n", $thistypfile, $thistypfile );
   }
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}.tdb\" \"\$INSTDIR\\\${MAPNAME}.tdb\"\n" );
   printf { $fh } ( "\n" );
@@ -2001,8 +2001,8 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  Delete \"\$INSTDIR\\\${MAPNAME}_mdr.img\"\n" );
   printf { $fh } ( "  Delete \"\$INSTDIR\\\${MAPNAME}.mdx\"\n" );
 #  printf { $fh } ( "  Delete \"\$INSTDIR\\\${TYPNAME}\"\n" );
-  for my $typfile ( @typfiles ) {
-    printf { $fh } ( "  Delete \"\$INSTDIR\\\%s\"\n", $typfile );
+  for my $thistypfile ( @typfiles ) {
+    printf { $fh } ( "  Delete \"\$INSTDIR\\\%s\"\n", $thistypfile );
   }
   printf { $fh } ( "  Delete \"\$INSTDIR\\\${MAPNAME}.tdb\"\n" );
 
