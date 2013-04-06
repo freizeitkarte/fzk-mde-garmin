@@ -239,7 +239,7 @@ my $ram      = $EMPTY;
 my $cores    = 2;
 my $ele      = 25;
 my $clm      = 1;
-my $typfile  = "freizeit.TYP";
+my $typfile  = $EMPTY;
 my $language = $EMPTY;
 
 my $actionname = $EMPTY;
@@ -252,6 +252,7 @@ my $osmurl     = $EMPTY;
 my $mapcode    = $EMPTY;
 my $maplang    = $EMPTY;
 my $langdesc   = $EMPTY;
+my $maptypfile = "freizeit.TYP";
 
 my $error   = -1;
 my $command = $EMPTY;
@@ -329,6 +330,20 @@ for my $languagedata ( @supportedlanguages ) {
   }
 }
 if ( $error ) {
+  show_help ();
+}
+# Did user choose a TYP file via argument -typfile=xx ?
+if ( $typfile ne $EMPTY ) {
+  $maptypfile = $typfile;
+}
+
+# Checking if this TYP file exists
+$error = 1;
+if ( (-e "$BASEPATH/TYP/" . basename("$maptypfile",".TYP") . ".txt" ) || (-e "$BASEPATH/TYP/" . basename("$maptypfile",".typ") . ".txt" ) ){
+  $error    = 0;
+}
+if ( $error ) {
+  printf { *STDOUT } ( "ERROR: TYP file %s not found.\n\n", $maptypfile );
   show_help ();
 }
 
@@ -418,7 +433,6 @@ elsif ( $actionname eq 'typ' ) {
 }
 elsif ( $actionname eq 'compiletyp' ) {
   create_typtranslations ();
-#  preprocess_typfile ();
   compile_typfiles ();
 }
 elsif ( $actionname eq 'nsicfg' ) {
@@ -1177,7 +1191,8 @@ sub create_typtranslations {
       . "  (containing all needed language strings)\n\n";
 	
   # Verzeichnisstrukturen neu anlegen (falls noch nicht vorhanden)
-  mkpath ( "$WORKDIR/TYP" );
+  # (Shouldn't be necessary anymore)
+#  mkpath ( "$WORKDIR/TYP" );
 
 
   # Short description of the process:
@@ -1334,7 +1349,8 @@ sub create_typtranslations {
   for my $actualfile ( glob "*.txt" ) {
 
     $inputfile  = "$BASEPATH/TYP/$actualfile";
-    $outputfile = "$WORKDIR/TYP/$actualfile";
+#    $outputfile = "$WORKDIR/TYP/$actualfile";
+    $outputfile = "$WORKDIR/$actualfile";
 
     open IN, "< $inputfile" or die "Can't open $inputfile : $!";
     #  open OUT, ">:encoding(UTF-8)","$outputfile" or die "Can't open $outputfile : $!";
@@ -1428,12 +1444,14 @@ sub compile_typfiles {
   print "\nCompiling source txt files into binary TYP files:\n\n";
 	
   # Verzeichnisstrukturen neu anlegen (falls noch nicht vorhanden)
-  mkpath ( "$WORKDIR/TYP" );
+  # (shouldn't be needed anymore
+#  mkpath ( "$WORKDIR/TYP" );
 
   # Verzeichnis wechseln
-  chdir "$WORKDIR/TYP";
+#  chdir "$WORKDIR/TYP";
+  chdir "$BASEPATH/TYP";
   my @typfilelist = glob "*.txt" ;
-#  chdir "$WORKDIR";
+  chdir "$WORKDIR";
   
   # Run through the existing textfiles
   for my $thistypfile ( @typfilelist ) {
@@ -1462,10 +1480,11 @@ sub create_typfile {
 
   # Verzeichnis wechseln
 #  chdir "$BASEPATH/TYP";
-  chdir "$WORKDIR/TYP";
+#  chdir "$WORKDIR/TYP";
+  chdir "$WORKDIR";
 
   # TYP-File kopieren
-  copy ( "$typfile", "$WORKDIR/$mapid.TYP" ) or die ( "copy() failed: $!\n" );
+  copy ( "$maptypfile", "$WORKDIR/$mapid.TYP" ) or die ( "copy() failed: $!\n" );
 
   # Family-ID anpassen
   # Not needed anymore as we're creating them already with the correct IDs
@@ -1680,20 +1699,21 @@ sub create_gmap2file {
 # -----------------------------------------
 sub create_nsis_nsifile {
 
-
   my $filename = $mapname . ".nsi";
   printf { *STDOUT } ( "\nCreating $filename ...\n" );
 
   # Verzeichnis wechseln
-  chdir "$WORKDIR/TYP";
+#  chdir "$WORKDIR/TYP";
+  chdir "$WORKDIR";
 
-  my @typfiles = ( "$mapid.TYP" , glob ( "*.TYP" ) );
+#  my @typfiles = ( "$mapid.TYP" , glob ( "*.TYP" ) );
+  my @typfiles = ( glob ( "*.TYP" ) );
   for my $thistypfile ( @typfiles ) {
     printf { *STDOUT } ( "TYP-File = $thistypfile\n" );
   }
 
   # Verzeichnis wechseln
-  chdir "$WORKDIR";
+#  chdir "$WORKDIR";
 
   #my $familyID = substr ( $typfiles[ 0 ], 0, 4 );
   my $familyID = $mapid;
@@ -2076,11 +2096,12 @@ sub create_nsis_exefile {
   }
 
   # Copy the rest of the TYP files (actually hidden in a TYP subdirectory of the WORKDIR)
-  chdir "$WORKDIR/TYP";
-  for my $file ( <*.TYP> ) {
-    printf { *STDOUT } ( "Copying %s\n", $file );
-    copy ( $file, "$WORKDIR" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
-  }  
+  # (shouldn't be necessary anymore)
+#  chdir "$WORKDIR/TYP";
+#  for my $file ( <*.TYP> ) {
+#    printf { *STDOUT } ( "Copying %s\n", $file );
+#    copy ( $file, "$WORKDIR" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+#  }  
 
   # in work-Verzeichnis wechseln
   chdir "$WORKDIR";
@@ -2092,12 +2113,13 @@ sub create_nsis_exefile {
   process_command ( $command );
 
   # Remove the additional TYP files again from workdir, they disturb jmc_cli at the moment
-  chdir "$WORKDIR/TYP";
-  for my $file ( <*.TYP> ) {
-    printf { *STDOUT } ( "Removing %s again\n", $file );
-    unlink ( $WORKDIR . "/" . $file );
-  }  
-  chdir "$WORKDIR";
+  # (shouldn't be necessary anymore)
+#  chdir "$WORKDIR/TYP";
+#  for my $file ( <*.TYP> ) {
+#    printf { *STDOUT } ( "Removing %s again\n", $file );
+#    unlink ( $WORKDIR . "/" . $file );
+#  }  
+#  chdir "$WORKDIR";
 
 
   # Prep for creating the Installer: get OS dependent command name for nsis and zipper
@@ -2136,12 +2158,16 @@ sub create_nsis_exefile {
 
   # Installer-Executable ins install-Verzeichnis verschieben
   my $filename = "Install_" . $mapname . "_" . $maplang . ".exe";
+
+  # sleep needed on windows... perl is faster than windows...
+  sleep 1;
   move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!\n" );
 
   # Delete the zip file again, not needed anymore
   unlink ( $mapname . "_InstallFiles.zip" );
 
   return;
+
 }
 
 
@@ -2352,11 +2378,12 @@ sub create_image_directory {
   }
   
   # Copy the rest of the TYP files (actually hidden in a TYP subdirectory of the WORKDIR)
-  chdir "$WORKDIR/TYP";
-  for my $file ( <*.TYP> ) {
-    printf { *STDOUT } ( "Copying %s\n", $file );
-    copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
-  }  
+  # (Shouldn't be necessary anymore)
+#  chdir "$WORKDIR/TYP";
+#  for my $file ( <*.TYP> ) {
+#    printf { *STDOUT } ( "Copying %s\n", $file );
+#    copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+#  }  
 
   return;
 }
