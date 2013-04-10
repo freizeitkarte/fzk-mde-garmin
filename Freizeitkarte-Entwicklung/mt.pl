@@ -22,30 +22,30 @@ use Getopt::Long;
 
 my @actions = (
   # 'Aktion',  'Beschreibung'
-  [ 'create',    '1.  (re)create all directories' ],
-  [ 'fetch_osm', '2a. fetch osm data from url' ],
-  [ 'fetch_ele', '2b. fetch elevation data from url' ],
-  [ 'join',      '3.  join osm and elevation data' ],
-  [ 'split',     '4.  split map data into tiles' ],
-  [ 'build',     '5.  build map files (img, mdx, tdb)' ],
-  [ 'gmap',      '6.  create gmap file (for BaseCamp OS X, Windows)' ],
-  [ 'nsis',      '6.  create nsis installer (for BaseCamp Windows)' ],
-  [ 'gmapsupp',  '6.  create gmapsupp image (for GPS receiver)' ],
-  [ 'imagedir',  '6.  create image directory (e.g. for QLandkarte)' ],
+  [ 'create',    '1.  (re)create all directories' ,                        '-' ],
+  [ 'fetch_osm', '2a. fetch osm data from url' ,                           '-' ],
+  [ 'fetch_ele', '2b. fetch elevation data from url' ,                     '-' ],
+  [ 'join',      '3.  join osm and elevation data' ,                       '-' ],
+  [ 'split',     '4.  split map data into tiles' ,                         '-' ],
+  [ 'build',     '5.  build map files (img, mdx, tdb)' ,                   '-' ],
+  [ 'gmap',      '6.  create gmap file (for BaseCamp OS X, Windows)' ,     '-' ],
+  [ 'nsis',      '6.  create nsis installer (for BaseCamp Windows)' ,      '-' ],
+  [ 'gmapsupp',  '6.  create gmapsupp image (for GPS receiver)' ,          '-' ],
+  [ 'imagedir',  '6.  create image directory (e.g. for QLandkarte)' ,      '-' ],
 
   # Optional
-  [ 'cfg',        'A. create individual cfg file' ],
-  [ 'typ',        'B. create individual typ file from master' ],
-  [ 'compiletyp', 'B. compile TYP files out of text files' ],
-  [ 'nsicfg',     'C. create nsi configuration file (for NSIS compiler)' ],
-  [ 'nsiexe',     'C. create nsi configuration file (for NSIS compiler)' ],
-  [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ],
-  [ 'bim',        'E. build images: create, fetch_*, join, split, build' ],
-  [ 'bam',        'F. build all maps: gmap, nsis, gmapsupp, imagedir' ],
-  [ 'zip',        'G. zip all maps' ],
-  [ 'regions',    'H. extract regions from Europe data' ],
-  [ 'fetch_map',  'I. fetch map data from Europe directory' ],
-  [ 'checkurl',   'J. Check all download URLs for existence' ],
+  [ 'cfg',        'A. create individual cfg file' ,                        'optional' ],
+  [ 'typ',        'B. create individual typ file from master' ,            'optional' ],
+  [ 'compiletyp', 'B. compile TYP files out of text files' ,               'optional' ],
+  [ 'nsicfg',     'C. create nsi configuration file (for NSIS compiler)' , 'optional' ],
+  [ 'nsiexe',     'C. create nsi installer exe (via NSIS compiler)' ,      'optional' ],
+  [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ,     'optional' ],
+  [ 'bim',        'E. build images: create, fetch_*, join, split, build' , 'optional' ],
+  [ 'bam',        'F. build all maps: gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
+  [ 'zip',        'G. zip all maps' ,                                      'optional' ],
+  [ 'regions',    'H. extract regions from Europe data' ,                  'optional' ],
+  [ 'fetch_map',  'I. fetch map data from Europe directory' ,              'optional' ],
+  [ 'checkurl',   'J. Check all download URLs for existence' ,             'optional' ],
 );
 
 my @supportedlanguages = (
@@ -203,6 +203,7 @@ my $MAPNAMEOLD = 5;
 
 my $ACTIONNAME = 0;
 my $ACTIONDESC = 1;
+my $ACTIONOPT  = 2;
 
 my $LANGCODE = 0;
 my $LANGDESC = 1;
@@ -2496,17 +2497,24 @@ sub show_help {
       . "Map       = Name of the to be processed map\n\n",
     $javaheapsize, $cores
   );
-
+  
+  my $printdelimiter = $EMPTY;
   printf { *STDOUT } ( "Actions:\n" );
-  foreach my $i ( 0 .. 9 ) {
-    printf { *STDOUT } ( "%-10s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
-  }
-  if ( $optional ) {
-    printf { *STDOUT } ( "\n" );
-    foreach my $i ( 10 .. 21 ) {
+  foreach my $i ( 0 .. $#actions ) {
+    if ( ( ( $actions[ $i ][ $ACTIONOPT ] eq 'optional' ) && $optional ) || $actions[ $i ][ $ACTIONOPT ] ne 'optional') {
+      if ( ( $actions[ $i ][ $ACTIONOPT ] eq 'optional' ) && $optional && ( $printdelimiter ne 'done' ) ) {
+        printf { *STDOUT } ( "\n" );
+        $printdelimiter = 'done';
+      }
       printf { *STDOUT } ( "%-10s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
     }
   }
+#  if ( $optional ) {
+#    printf { *STDOUT } ( "\n" );
+#    foreach my $i ( 10 .. 21 ) {
+#      printf { *STDOUT } ( "%-10s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
+#    }
+#  }
   printf { *STDOUT } ( "\nID = Code = Map  (default language):\n" );
 
   for my $mapdata ( @maps ) {
