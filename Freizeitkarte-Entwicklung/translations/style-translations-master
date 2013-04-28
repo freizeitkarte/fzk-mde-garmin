@@ -648,10 +648,10 @@
 #define $__BICYCLERENTAL__FR Fahrradverleih
 
 ## Busbahnhof (große Haltestelle). [point, closedway] (s.a. highway = bus_stop)
-#define $__BUSSTATION__ Haltestelle
-#define $__BUSSTATION__DE Haltestelle
+#define $__BUSSTATION__ Busbahnhof
+#define $__BUSSTATION__DE Busbahnhof
 #define $__BUSSTATION__EN Bus Station 
-#define $__BUSSTATION__FR Haltestelle
+#define $__BUSSTATION__FR Busbahnhof
 
 ## Automobil-Club. [point, closedway]
 #define $__CARCLUB__ Automobil-Club

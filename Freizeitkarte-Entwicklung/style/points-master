@@ -719,7 +719,7 @@ amenity = pub & name = * {name '${name} ($__PUB__)'}  [0x2d02 resolution 24]
 
 # Amerikanisch.
 amenity = restaurant & cuisine = american & name = * {set name = '${name} ($__AMERICAN__)'} [0x2a01 resolution 24]
-amenity = restaurant & cuisine = burger   & name = * {set name = '${name} ($__AMERICAN__EN)'} [0x2a01 resolution 24]
+amenity = restaurant & cuisine = burger   & name = * {set name = '${name} ($__AMERICAN__)'} [0x2a01 resolution 24]
 
 # Asiatisch.
 amenity = restaurant & cuisine = thai       & name = * {set name = '${name} ($__THAI__)'} [0x2a02 resolution 24]
@@ -841,7 +841,7 @@ amenity = bicycle_rental {name '${name} ($__BICYCLERENTAL__)' | '$__BICYCLERENTA
 
 # Busbahnhof (große Haltestelle). [point, closedway] (s.a. highway = bus_stop)
 amenity = bus_station                         {name '${name} ($__BUSSTATION__)' | '$__BUSSTATION__'} [0x2f08 resolution 24]
-public_transport = stop_position & bus = yes  {name '${name} ($__BUSSTATION__)' | '$__BUSSTATION__'} [0x2f08 resolution 24]
+public_transport = stop_position & bus = yes  {name '${name} ($__BUSSTOP__)' | '$__BUSSTOP__'} [0x2f08 resolution 24]
 
 # Automobil-Club. [point, closedway]
 amenity = car_club & name = * {name '${name} ($__CARCLUB__)'} [0x2f0d resolution 24]
@@ -864,8 +864,8 @@ amenity = fuel { name '${brand}' | '${operator}' | '${name}' | '$__FUELSTATION__
 # Parkplatz. [point, closedway]
 # amenity = parking & access = * {name '${name} (Parken eingeschränkt)' | 'Parken (eingeschränkt)'} [0x2F0B resolution 24]
 # amenity = parking              {name '${name} (Parken)' | 'Parken'}                               [0x4D00 resolution 24]
-amenity = parking & (capacity != * | capacity >= 10)              {name '${name} ($__PARKING__)' | '$__PARKING__'}                               [0x4D00 resolution 24]
 amenity = parking & access = * & (capacity != * | capacity >= 10) {name '${name} ($__PARKING__ $__RESTRICTED__)' | '$__PARKING__ ($__RESTRICTED__)'} [0x2F0B resolution 24]
+amenity = parking & (capacity != * | capacity >= 10)              {name '${name} ($__PARKING__)' | '$__PARKING__'}                               [0x4D00 resolution 24]
 
 # Kategorie "Finanzen"
 # --------------------
@@ -1052,7 +1052,7 @@ man_made = works & name = * {name '${name} ($__INDUSTRIALPLANT__)'} [0x6605 reso
 # Haltepunkt (kein Bahnhof, z. T. ohne Bahnsteig, nur bei Bedarf). [point]
 # Ggf. eigenes Symbol - hier zunächst wie Bahnhof.
 railway = halt                                  {name '${name} ($__RAILWAYHALT__)' | '$__RAILWAYHALT__'} [0x2f17 resolution 24]
-public_transport = stop_position & train = yes  {name '${name} (Haltepunkt)' | 'Haltepunkt'} [0x2f17 resolution 24]
+public_transport = stop_position & train = yes  {name '${name} ($__RAILWAYHALT__)' | '$__RAILWAYHALT__'} [0x2f17 resolution 24]
 
 # Bahnübergang – Straße kreuzt mit Bahnschiene. [point]
 # railway = level_crossing (wird derzeit nicht unterstützt)
@@ -1221,7 +1221,7 @@ shop = travel_agency       & name = * {name '${name} ($__TRAVELAGENCY__)'} [0x2e
 shop = vacant              & name = * {name '${name} ($__VACANT__)'} [0x2e0a resolution 24]
 shop = variety_store       & name = * {name '${name} ($__VARIETYSTORE__)'} [0x2e0a resolution 24]
 shop = video               & name = * {name '${name} ($__VIDEO__)'} [0x2e0a resolution 24]
-shop = wine                & name = * {name '${name} (Weinhandlung)'} [0x2e0a resolution 24]
+shop = wine                & name = * {name '${name} ($__WINESHOP__)'} [0x2e0a resolution 24]
 
 # Alle anderen Geschäfte (Spezialitäteneinzelhandel). [point, closedway]
 shop = * & name = * {name '${name} (${shop})'} [0x2e0a resolution 24]
@@ -1356,6 +1356,8 @@ leisure = water_park & name = * {name '${name} ($__WATERPARK__)'} [0x2D09 resolu
 # --------------------------------------------
 
 # Ausgrabungsstätte, oberirdisch sichtbare Bodendenkmal. [point, closedway]
+# Ausgrabungsstätte, oberirdisch sichtbare Bodendenkmal. [point, closedway]
+historic = archaelogical_site & name = * {name '${name} ($__ARCHAELOGICALSITE__)'} [0x6600 resolution 24]
 
 # Schlachtfeld. [point, closedway]
 historic = battlefield & name = * {name '${name} ($__BATTLEFIELD__)'} [0x6600 resolution 24]
