@@ -2161,7 +2161,7 @@ sub create_nsis_exefile {
   my $filename = "Install_" . $mapname . "_" . $maplang . ".exe";
 
   # sleep needed on windows... perl is faster than windows...
-  sleep 1;
+  sleep 3;
   move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!\n" );
 
   # Delete the zip file again, not needed anymore
