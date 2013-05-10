@@ -698,7 +698,8 @@ leisure = dog_park [0x1e resolution 20]
 
 # Ein Garten ist ein Gelände, in dem Blumen und andere Pflanzen in dekorativer und strukturierter Form
 # wachsen oder zu Forschungszwecken gezogen werden, zum Beispiel ein Botanischer Garten. [point, closedway]
-leisure = garden [0x17 resolution 20]
+#leisure = garden [0x17 resolution 20]
+leisure = garden & garden:type!=residential [0x17 resolution 20]
 
 # Golfanlage. [point, closedway]
 leisure = golf_course [0x18 resolution 20]
