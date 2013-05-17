@@ -2422,8 +2422,14 @@ sub zip_maps {
     process_command ( $command );
   }
 
-  # nsis (Beispiel: Install_Freizeitkarte_Deutschland.exe -> wird nicht gezippt)
-  # nothing to do
+  # nsis (Beispiel: Install_Freizeitkarte_DEU_de.exe )
+  $source      = "Install_" . $mapname . . '_' . $maplang .'.exe';
+  $destination = "Install_" . $mapname . . '_' . $maplang .'.zip';
+  $command     = $zipper . "$destination $source";
+  if ( -e $source ) {
+    process_command ( $command );
+  }
+
 
   # gmapsupp (Beispiel: gmapsupp.img -> DEU_de_gmapsupp.img.zip)
   $source = 'gmapsupp.img';
