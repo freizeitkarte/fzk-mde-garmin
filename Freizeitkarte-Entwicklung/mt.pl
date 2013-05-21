@@ -362,14 +362,19 @@ if ( $typfile ne $EMPTY ) {
 
 # Checking if this TYP file exists
 $error = 1;
-if ( (-e "$BASEPATH/TYP/" . basename("$maptypfile",".TYP") . ".txt" ) || (-e "$BASEPATH/TYP/" . basename("$maptypfile",".typ") . ".txt" ) ){
-  $error    = 0;
+#if ( (-e "$BASEPATH/TYP/" . basename("$maptypfile",".TYP") . ".txt" ) || (-e "$BASEPATH/TYP/" . basename("$maptypfile",".typ") . ".txt" ) ){
+if ( -e "$BASEPATH/TYP/" . basename("$maptypfile", (".TYP", ".typ" ) ) . ".txt" ) {
+      $error    = 0;
 }
 if ( $error ) {
   printf { *STDOUT } ( "ERROR:\n  TYP file '" . $maptypfile . "' not found.\n\n\n" );
   show_usage ();
   exit(1);
 }
+
+##
+print "$maptypfile\n";
+exit;
 
 # Entwicklungsumgebung auf Konsistenz pruefen.
 my $directory = 'install';
