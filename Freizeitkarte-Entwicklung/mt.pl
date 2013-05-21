@@ -262,8 +262,16 @@ my $command = $EMPTY;
 GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language );
 
 # Show help if wished
-if ( ( $help ) || ( $optional ) || ( ( $#ARGV + 1 ) < 2 ) ) {
+if ( ( $help ) || ( $optional ) ) {
   show_help ();
+  exit(0);
+}
+
+# Definitely not enough arguments
+if ( ( $#ARGV + 1 ) < 2 ) {
+  printf { *STDOUT } ( "ERROR:\n  Not enough Arguments\n\n\n" );
+  show_usage ();
+  exit(1);
 }
 
 if ( $ram ne $EMPTY ) {
@@ -285,6 +293,7 @@ $mapid      = $ARGV[ 1 ];
 $mapcode    = $ARGV[ 1 ];
 $mapname    = $ARGV[ 1 ];
 
+# Checking Arguments for valid actions
 $error = 1;
 for my $actiondata ( @actions ) {
   if ( @$actiondata[ $ACTIONNAME ] eq $actionname ) {
@@ -295,10 +304,14 @@ for my $actiondata ( @actions ) {
   }
 }
 
+# Error due to invalid action
 if ( $error ) {
-  show_help ();
+  printf { *STDOUT } ( "ERROR:\n  Action '" . $actionname . "' not valid.\n\n\n" );
+  show_usage ();
+  exit(1);
 }
 
+# Checking arguments for valid maps
 $error = 1;
 for my $mapdata ( @maps ) {
   if ( ( @$mapdata[ $MAPNAME ] eq $mapname ) || ( @$mapdata[ $MAPID ] eq $mapid ) || ( @$mapdata[ $MAPCODE ] eq $mapcode ) ) {
@@ -313,8 +326,11 @@ for my $mapdata ( @maps ) {
   }
 }
 
+# Error due to invalid map name/code
 if ( $error ) {
-  show_help ();
+  printf { *STDOUT } ( "ERROR:\n  Map '" . $mapid . "' not valid (invalid ID, code or name).\n\n\n" );
+  show_usage ();
+  exit(1);
 }
 
 # Default Map Language overwritten ?
@@ -331,9 +347,14 @@ for my $languagedata ( @supportedlanguages ) {
     last;
   }
 }
+
+# Error due to invalid language code
 if ( $error ) {
-  show_help ();
+  printf { *STDOUT } ( "ERROR:\n  Language '" . $maplang . "' not supported.\n\n\n" );
+  show_usage ();
+  exit(1);
 }
+
 # Did user choose a TYP file via argument -typfile=xx ?
 if ( $typfile ne $EMPTY ) {
   $maptypfile = $typfile;
@@ -345,8 +366,9 @@ if ( (-e "$BASEPATH/TYP/" . basename("$maptypfile",".TYP") . ".txt" ) || (-e "$B
   $error    = 0;
 }
 if ( $error ) {
-  printf { *STDOUT } ( "ERROR: TYP file %s not found.\n\n", $maptypfile );
-  show_help ();
+  printf { *STDOUT } ( "ERROR:\n  TYP file '" . $maptypfile . "' not found.\n\n\n" );
+  show_usage ();
+  exit(1);
 }
 
 # Entwicklungsumgebung auf Konsistenz pruefen.
@@ -2552,14 +2574,36 @@ sub fetch_mapdata {
 
 
 # -----------------------------------------
-# Show help and exit.
+# Show short usage
 # -----------------------------------------
-sub show_help {
+sub show_usage {
 
+  # Print the Usage
   printf { *STDOUT } (
     "Usage:\n"
       . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
-      . "Examples:\n"
+      . "  or for getting help:\n"
+      . "  perl $programName -? | -h | -o\n"
+      . "\n\n"
+  );
+
+}
+
+
+# -----------------------------------------
+# Show complete help
+# -----------------------------------------
+sub show_help {
+
+  # Show the sort Usage
+  show_usage ();
+  
+  # Print the details of the help
+  printf { *STDOUT } (
+#    "Usage:\n"
+#      . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
+#      . "Examples:\n"
+      "Examples:\n"
       . "perl $programName                              build     Freizeitkarte_Hamburg\n"
       . "perl $programName  -ram=1536    -cores=2       build     Freizeitkarte_Hamburg\n"
       . "perl $programName  -ram=6000                   build     5815\n"
@@ -2632,5 +2676,5 @@ sub show_help {
   }
   printf { *STDOUT } ( "\n" );
 
-  exit ( 1 );
+#  exit ( 1 );
 }
