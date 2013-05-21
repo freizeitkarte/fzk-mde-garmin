@@ -365,16 +365,13 @@ $error = 1;
 #if ( (-e "$BASEPATH/TYP/" . basename("$maptypfile",".TYP") . ".txt" ) || (-e "$BASEPATH/TYP/" . basename("$maptypfile",".typ") . ".txt" ) ){
 if ( -e "$BASEPATH/TYP/" . basename("$maptypfile", (".TYP", ".typ" ) ) . ".txt" ) {
       $error    = 0;
+      $maptypfile = basename("$maptypfile", (".TYP", ".typ" ) ) ;
 }
 if ( $error ) {
   printf { *STDOUT } ( "ERROR:\n  TYP file '" . $maptypfile . "' not found.\n\n\n" );
   show_usage ();
   exit(1);
 }
-
-##
-print "$maptypfile\n";
-exit;
 
 # Entwicklungsumgebung auf Konsistenz pruefen.
 my $directory = 'install';
@@ -1513,7 +1510,7 @@ sub create_typfile {
   chdir "$WORKDIR";
 
   # TYP-File kopieren
-  copy ( "$maptypfile", "$WORKDIR/$mapid.TYP" ) or die ( "copy() failed: $!\n" );
+  copy ( "$maptypfile.TYP", "$WORKDIR/$mapid.TYP" ) or die ( "copy() of $maptypfile.TYP failed: $!\n" );
 
   # Family-ID anpassen
   # Not needed anymore as we're creating them already with the correct IDs
