@@ -261,6 +261,7 @@ my $command = $EMPTY;
 # get the command line parameters
 GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language );
 
+# Show help if wished
 if ( ( $help ) || ( $optional ) || ( ( $#ARGV + 1 ) < 2 ) ) {
   show_help ();
 }
@@ -2423,8 +2424,8 @@ sub zip_maps {
   }
 
   # nsis (Beispiel: Install_Freizeitkarte_DEU_de.exe )
-  $source      = "Install_" . $mapname . . '_' . $maplang .'.exe';
-  $destination = "Install_" . $mapname . . '_' . $maplang .'.zip';
+  $source      = "Install_" . $mapname . '_' . $maplang . '.exe';
+  $destination = "Install_" . $mapname . '_' . $maplang . '.zip';
   $command     = $zipper . "$destination $source";
   if ( -e $source ) {
     process_command ( $command );
