@@ -1169,6 +1169,15 @@ sub create_cfgfile {
       . "#   Makes some operations more verbose. Mostly used with --list-styles.\n" 
       . "verbose\n" );
 
+  printf { $fh }
+    (   "\n" 
+      . "# --x-housenumbers\n"
+      . "#   Housenumbers that are tagged with addr:housenumber and addr:street are now\n"
+      . "#   applied. It can be enabled with the undocumented parameter --x-housenumbers.\n"
+      . "#   It's not yet an official parameter because it handles only a small\n"
+      . "# subset of housenumbers.\n"
+      . "x-housenumbers\n" );
+
   # Kartenkacheln anhaengen
   # mapname: 58100003
   # description: DE-Konstanz
