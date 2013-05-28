@@ -433,177 +433,195 @@
 #define $__RESTAURANT__FR Restaurant
 
 ## Amerikanisch.
-#define $__AMERICAN__ Amerikanisch, Restaurant
-#define $__AMERICAN__DE Amerikanisch, Restaurant
-#define $__AMERICAN__EN American, Restaurant
-#define $__AMERICAN__FR Amerikanisch, Restaurant
-#define $__BURGER__ Hamburger, Restaurant
-#define $__BURGER__DE Hamburger, Restaurant
+#define $__AMERICAN__ Amerikanisch
+#define $__AMERICAN__DE Amerikanisch
+#define $__AMERICAN__EN American
+#define $__AMERICAN__FR Amerikanisch
+#define $__BURGER__ Hamburger
+#define $__BURGER__DE Hamburger
 #define $__BURGER__EN Burger Bar 
-#define $__BURGER__FR Hamburger, Restaurant
+#define $__BURGER__FR Hamburger
 
 ## Asiatisch.
-#define $__THAI__ Thailändisch, Restaurant
-#define $__THAI__DE Thailändisch, Restaurant
-#define $__THAI__EN Thai, Restaurant
-#define $__THAI__FR Thailändisch, Restaurant
-#define $__ASIAN__ Asiatisch, Restaurant
-#define $__ASIAN__DE Asiatisch, Restaurant
-#define $__ASIAN__EN Asian, Restaurant
-#define $__ASIAN__FR Asiatisch, Restaurant
-#define $__JAPANESE__ Japanisch, Restaurant
-#define $__JAPANESE__DE Japanisch, Restaurant
-#define $__JAPANESE__EN Japanese, Restaurant
-#define $__JAPANESE__FR Japanisch, Restaurant
-#define $__KOREAN__ Koreanisch, Restaurant
-#define $__KOREAN__DE Koreanisch, Restaurant
-#define $__KOREAN__EN Korean, Restaurant
-#define $__KOREAN__FR Koreanisch, Restaurant
-#define $__VIETNAMESE__ Vietnamesisch, Restaurant
-#define $__VIETNAMESE__DE Vietnamesisch, Restaurant
-#define $__VIETNAMESE__EN Vietnamese, Restaurant
-#define $__VIETNAMESE__FR Vietnamesisch, Restaurant
+#define $__THAI__ Thailändisch
+#define $__THAI__DE Thailändisch
+#define $__THAI__EN Thai
+#define $__THAI__FR Thailändisch
+#define $__ASIAN__ Asiatisch
+#define $__ASIAN__DE Asiatisch
+#define $__ASIAN__EN Asian
+#define $__ASIAN__FR Asiatisch
+#define $__JAPANESE__ Japanisch
+#define $__JAPANESE__DE Japanisch
+#define $__JAPANESE__EN Japanese
+#define $__JAPANESE__FR Japanisch
+#define $__KOREAN__ Koreanisch
+#define $__KOREAN__DE Koreanisch
+#define $__KOREAN__EN Korean
+#define $__KOREAN__FR Koreanisch
+#define $__VIETNAMESE__ Vietnamesisch
+#define $__VIETNAMESE__DE Vietnamesisch
+#define $__VIETNAMESE__EN Vietnamese
+#define $__VIETNAMESE__FR Vietnamesisch
 
 ## Chinesisch.
-#define $__CHINESE__ Chinesisch, Restaurant
-#define $__CHINESE__DE Chinesisch, Restaurant
-#define $__CHINESE__EN Chinese, Restaurant
-#define $__CHINESE__FR Chinesisch, Restaurant
+#define $__CHINESE__ Chinesisch
+#define $__CHINESE__DE Chinesisch
+#define $__CHINESE__EN Chinese
+#define $__CHINESE__FR Chinesisch
 
 ## Italienisch.
-#define $__ITALIAN__ Italienisch, Restaurant
-#define $__ITALIAN__DE Italienisch, Restaurant
-#define $__ITALIAN__EN Italian, Restaurant
-#define $__ITALIAN__FR Italienisch, Restaurant
-#define $__MEDITERRANEAN__ Mediteran, Restaurant
-#define $__MEDITERRANEAN__DE Mediteran, Restaurant
-#define $__MEDITERRANEAN__EN Mediterranean, Restaurant
-#define $__MEDITERRANEAN__FR Mediteran, Restaurant
+#define $__ITALIAN__ Italienisch
+#define $__ITALIAN__DE Italienisch
+#define $__ITALIAN__EN Italian
+#define $__ITALIAN__FR Italienisch
+#define $__MEDITERRANEAN__ Mediteran
+#define $__MEDITERRANEAN__DE Mediteran
+#define $__MEDITERRANEAN__EN Mediterranean
+#define $__MEDITERRANEAN__FR Mediteran
+
+## Pizza.
+#define $__PIZZA__ Pizza
+#define $__PIZZA__DE Pizza
+#define $__PIZZA__EN Pizza
+#define $__PIZZA__FR Pizza
 
 ## Mexikanisch.
-#define $__MEXICAN__ Mexikanisch, Restaurant
-#define $__MEXICAN__DE Mexikanisch, Restaurant
-#define $__MEXICAN__EN Mexican, Restaurant
-#define $__MEXICAN__FR Mexikanisch, Restaurant
+#define $__MEXICAN__ Mexikanisch
+#define $__MEXICAN__DE Mexikanisch
+#define $__MEXICAN__EN Mexican
+#define $__MEXICAN__FR Mexikanisch
 
 ## Spanisch
-#define $__SPANISH__ Spanisch, Restaurant
-#define $__SPANISH__DE Spanisch, Restaurant
-#define $__SPANISH__EN Spanish, Restaurant
-#define $__SPANISH__FR Spanisch, Restaurant
+#define $__SPANISH__ Spanisch
+#define $__SPANISH__DE Spanisch
+#define $__SPANISH__EN Spanish
+#define $__SPANISH__FR Spanisch
 
 ## Meeresfrüchte.
-#define $__SEAFOOD__ Fisch, Restaurant
-#define $__SEAFOOD__DE Fisch, Restaurant
-#define $__SEAFOOD__EN Seafood, Restaurant
-#define $__SEAFOOD__FR Fisch, Restaurant
-#define $__FISH__ Fisch, Restaurant
-#define $__FISH__DE Fisch, Restaurant
+#define $__SEAFOOD__ Fisch
+#define $__SEAFOOD__DE Fisch
+#define $__SEAFOOD__EN Seafood
+#define $__SEAFOOD__FR Fisch
+#define $__FISH__ Fisch
+#define $__FISH__DE Fisch
 #define $__FISH__EN Fish/Fish & Chips Restaurant
-#define $__FISH__FR Fisch, Restaurant
-#define $__SUSHI__ Sushi, Restaurant
-#define $__SUSHI__DE Sushi, Restaurant
-#define $__SUSHI__EN Sushi, Restaurant
-#define $__SUSHI__FR Sushi, Restaurant
+#define $__FISH__FR Fisch
+#define $__SUSHI__ Sushi
+#define $__SUSHI__DE Sushi
+#define $__SUSHI__EN Sushi
+#define $__SUSHI__FR Sushi
 
 ## Steak / Grill.
-#define $__STEAKHOUSE__ Steak-House, Restaurant
-#define $__STEAKHOUSE__DE Steak-House, Restaurant
+#define $__STEAKHOUSE__ Steak-House
+#define $__STEAKHOUSE__DE Steak-House
 #define $__STEAKHOUSE__EN Steak House 
-#define $__STEAKHOUSE__FR Steak-House, Restaurant
+#define $__STEAKHOUSE__FR Steak-House
 
 ## Cafe / Bar.
-#define $__COFFEESHOP__ Coffee-Shop, Restaurant
-#define $__COFFEESHOP__DE Coffee-Shop, Restaurant
+#define $__COFFEESHOP__ Coffee-Shop
+#define $__COFFEESHOP__DE Coffee-Shop
 #define $__COFFEESHOP__EN Coffee Shop
-#define $__COFFEESHOP__FR Coffee-Shop, Restaurant
+#define $__COFFEESHOP__FR Coffee-Shop
 
 ## Französisch.
-#define $__FRENCH__ Französisch, Restaurant
-#define $__FRENCH__DE Französisch, Restaurant
-#define $__FRENCH__EN French, Restaurant
-#define $__FRENCH__FR Französisch, Restaurant
+#define $__FRENCH__ Französisch
+#define $__FRENCH__DE Französisch
+#define $__FRENCH__EN French
+#define $__FRENCH__FR Französisch
 
 ## Deutsch.
-#define $__GERMAN__ Deutsch, Restaurant
-#define $__GERMAN__DE Deutsch, Restaurant
-#define $__GERMAN__EN German, Restaurant
-#define $__GERMAN__FR Deutsch, Restaurant
-#define $__BAVARIAN__ Bayrisch, Restaurant
-#define $__BAVARIAN__DE Bayrisch, Restaurant
-#define $__BAVARIAN__EN Bavarian, Restaurant
-#define $__BAVARIAN__FR Bayrisch, Restaurant
-#define $__SWABIAN__ Schwäbisch, Restaurant
-#define $__SWABIAN__DE Schwäbisch, Restaurant
-#define $__SWABIAN__EN Swabian, Restaurant
-#define $__SWABIAN__FR Schwäbisch, Restaurant
+#define $__GERMAN__ Deutsch
+#define $__GERMAN__DE Deutsch
+#define $__GERMAN__EN German
+#define $__GERMAN__FR Deutsch
+#define $__BAVARIAN__ Bayrisch
+#define $__BAVARIAN__DE Bayrisch
+#define $__BAVARIAN__EN Bavarian
+#define $__BAVARIAN__FR Bayrisch
+#define $__SWABIAN__ Schwäbisch
+#define $__SWABIAN__DE Schwäbisch
+#define $__SWABIAN__EN Swabian
+#define $__SWABIAN__FR Schwäbisch
 
 ## Britisch.
 ## Gibt es in Deutschland nicht (Stand 10/2011).
-#define $__BRITISH__ Britisch, Restaurant
-#define $__BRITISH__DE Britisch, Restaurant
-#define $__BRITISH__EN British, Restaurant
-#define $__BRITISH__FR Britisch, Restaurant
+#define $__BRITISH__ Britisch
+#define $__BRITISH__DE Britisch
+#define $__BRITISH__EN British
+#define $__BRITISH__FR Britisch
 
 ## Spezialitäten.
-#define $__SPECIALITY__ Spezialitäten, Restaurant
-#define $__SPECIALITY__DE Spezialitäten, Restaurant
-#define $__SPECIALITY__EN Speciality, Restaurant
-#define $__SPECIALITY__FR Spezialitäten, Restaurant
-#define $__GREEK__ Griechisch, Restaurant
-#define $__GREEK__DE Griechisch, Restaurant
-#define $__GREEK__EN Greek, Restaurant
-#define $__GREEK__FR Griechisch, Restaurant
-#define $__TURKISH__ Türkisch, Restaurant
-#define $__TURKISH__DE Türkisch, Restaurant
-#define $__TURKISH__EN Turkish, Restaurant
-#define $__TURKISH__FR Türkisch, Restaurant
-#define $__INDIAN__ Indisch, Restaurant
-#define $__INDIAN__DE Indisch, Restaurant
-#define $__INDIAN__EN Indian, Restaurant
-#define $__INDIAN__FR Indisch, Restaurant
-#define $__ARAB__ Arabisch, Restaurant
-#define $__ARAB__DE Arabisch, Restaurant
-#define $__ARAB__EN Arabic, Restaurant
-#define $__ARAB__FR Arabisch, Restaurant
-#define $__PORTUGUESE__ Portugiesisch, Restaurant
-#define $__PORTUGUESE__DE Portugiesisch, Restaurant
-#define $__PORTUGUESE__EN Portugese, Restaurant
-#define $__PORTUGUESE__FR Portugiesisch, Restaurant
-#define $__VEGETARIAN__ Vegetarisch, Restaurant
-#define $__VEGETARIAN__DE Vegetarisch, Restaurant
-#define $__VEGETARIAN__EN Vegetarian, Restaurant
-#define $__VEGETARIAN__FR Vegetarisch, Restaurant
-#define $__AUSTRIAN__ Österreichisch, Restaurant
-#define $__AUSTRIAN__DE Österreichisch, Restaurant
-#define $__AUSTRIAN__EN Austrian, Restaurant
-#define $__AUSTRIAN__FR Österreichisch, Restaurant
-#define $__PERSIAN__ Persisch, Restaurant
-#define $__PERSIAN__DE Persisch, Restaurant
-#define $__PERSIAN__EN Persian, Restaurant
-#define $__PERSIAN__FR Persisch, Restaurant
-#define $__LEBANESE__ Libanesisch, Restaurant
-#define $__LEBANESE__DE Libanesisch, Restaurant
-#define $__LEBANESE__EN Lebanese, Restaurant
-#define $__LEBANESE__FR Libanesisch, Restaurant
-#define $__AFRICAN__ Afrikanisch, Restaurant
-#define $__AFRICAN__DE Afrikanisch, Restaurant
-#define $__AFRICAN__EN African, Restaurant
-#define $__AFRICAN__FR Afrikanisch, Restaurant
-#define $__RUSSIAN__ Russisch, Restaurant
-#define $__RUSSIAN__DE Russisch, Restaurant
-#define $__RUSSIAN__EN Russian, Restaurant
-#define $__RUSSIAN__FR Russisch, Restaurant
-#define $__YUGOSLAVIAN__ Jugoslawisch, Restaurant
-#define $__YUGOSLAVIAN__DE Jugoslawisch, Restaurant
-#define $__YUGOSLAVIAN__EN Yugoslavian, Restaurant
-#define $__YUGOSLAVIAN__FR Jugoslawisch, Restaurant
+#define $__SPECIALITY__ Spezialitäten
+#define $__SPECIALITY__DE Spezialitäten
+#define $__SPECIALITY__EN Speciality
+#define $__SPECIALITY__FR Spezialitäten
+#define $__GREEK__ Griechisch
+#define $__GREEK__DE Griechisch
+#define $__GREEK__EN Greek
+#define $__GREEK__FR Griechisch
+#define $__TURKISH__ Türkisch
+#define $__TURKISH__DE Türkisch
+#define $__TURKISH__EN Turkish
+#define $__TURKISH__FR Türkisch
+#define $__INDIAN__ Indisch
+#define $__INDIAN__DE Indisch
+#define $__INDIAN__EN Indian
+#define $__INDIAN__FR Indisch
+#define $__ARAB__ Arabisch
+#define $__ARAB__DE Arabisch
+#define $__ARAB__EN Arabic
+#define $__ARAB__FR Arabisch
+#define $__PORTUGUESE__ Portugiesisch
+#define $__PORTUGUESE__DE Portugiesisch
+#define $__PORTUGUESE__EN Portugese
+#define $__PORTUGUESE__FR Portugiesisch
+#define $__VEGETARIAN__ Vegetarisch
+#define $__VEGETARIAN__DE Vegetarisch
+#define $__VEGETARIAN__EN Vegetarian
+#define $__VEGETARIAN__FR Vegetarisch
+#define $__AUSTRIAN__ Österreichisch
+#define $__AUSTRIAN__DE Österreichisch
+#define $__AUSTRIAN__EN Austrian
+#define $__AUSTRIAN__FR Österreichisch
+#define $__PERSIAN__ Persisch
+#define $__PERSIAN__DE Persisch
+#define $__PERSIAN__EN Persian
+#define $__PERSIAN__FR Persisch
+#define $__LEBANESE__ Libanesisch
+#define $__LEBANESE__DE Libanesisch
+#define $__LEBANESE__EN Lebanese
+#define $__LEBANESE__FR Libanesisch
+#define $__AFRICAN__ Afrikanisch
+#define $__AFRICAN__DE Afrikanisch
+#define $__AFRICAN__EN African
+#define $__AFRICAN__FR Afrikanisch
+#define $__RUSSIAN__ Russisch
+#define $__RUSSIAN__DE Russisch
+#define $__RUSSIAN__EN Russian
+#define $__RUSSIAN__FR Russisch
+#define $__YUGOSLAVIAN__ Jugoslawisch
+#define $__YUGOSLAVIAN__DE Jugoslawisch
+#define $__YUGOSLAVIAN__EN Yugoslavian
+#define $__YUGOSLAVIAN__FR Jugoslawisch
+#define $__BALKAN__ Balkan
+#define $__BALKAN__DE Balkan
+#define $__BALKAN__EN Balkan
+#define $__BALKAN__FR Balkan
+#define $__REGIONAL__ Regional
+#define $__REGIONAL__DE Regional
+#define $__REGIONAL__EN Regional
+#define $__REGIONAL__FR Regional
+#define $__INTERNATIONAL__ International
+#define $__INTERNATIONAL__DE International
+#define $__INTERNATIONAL__EN International
+#define $__INTERNATIONAL__FR International
 
 ## Eiscafé, Eisdiele.
-#define $__ICECREAMRESTAURANT__ Eis, Restaurant
-#define $__ICECREAMRESTAURANT__DE Eis, Restaurant
+#define $__ICECREAMRESTAURANT__ Eis
+#define $__ICECREAMRESTAURANT__DE Eis
 #define $__ICECREAMRESTAURANT__EN Ice Cream Parlour
-#define $__ICECREAMRESTAURANT__FR Eis, Restaurant
+#define $__ICECREAMRESTAURANT__FR Eis
 
 ## Kategorie "Bildung"
 ## -------------------
