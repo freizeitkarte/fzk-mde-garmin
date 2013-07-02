@@ -177,13 +177,21 @@ my @maps = (
 
 
   # Andere Regionen
-  [ -1,   'Andere Regionen',                      'URL' ,                                                                                                     'Name',               'Language', 'oldName'                                 ],
-  [ 7010, 'Freizeitkarte_ALPS-SMALL',             'http://download.geofabrik.de/europe/alps-latest.osm.pbf',                                           'ALPS-SMALL',               'en', 'Freizeitkarte_Alpen'                     ],
-  [ 7020, 'Freizeitkarte_AZORES',                 'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                   'en', 'Freizeitkarte_Azoren'                    ],
-  [ 7030, 'Freizeitkarte_BRITISH-ISLES',          'http://download.geofabrik.de/europe/british-isles-latest.osm.pbf',                                  'BRITISH-ISLES',            'en', 'Freizeitkarte_Britische-Inseln'          ],
-  [ 7040, 'Freizeitkarte_IRELAND-ISLAND',         'http://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf',                   'IRELAND-ISLAND',           'en', 'Freizeitkarte_Irland-Insel'              ],
-  [ 7050, 'Freizeitkarte_EUROP-RUSSIA',           'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'EUROP-RUSSIA',             'en', 'Freizeitkarte_Euro-Russland'             ],
-  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln'         ],
+#  [ -1,   'Andere Regionen',                      'URL' ,                                                                                                     'Name',               'Language', 'oldName'                                 ],
+#  [ 7010, 'Freizeitkarte_ALPS-SMALL',             'http://download.geofabrik.de/europe/alps-latest.osm.pbf',                                           'ALPS-SMALL',               'en', 'Freizeitkarte_Alpen'                     ],
+#  [ 7020, 'Freizeitkarte_AZORES',                 'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                   'en', 'Freizeitkarte_Azoren'                    ],
+#  [ 7030, 'Freizeitkarte_BRITISH-ISLES',          'http://download.geofabrik.de/europe/british-isles-latest.osm.pbf',                                  'BRITISH-ISLES',            'en', 'Freizeitkarte_Britische-Inseln'          ],
+#  [ 7040, 'Freizeitkarte_IRELAND-ISLAND',         'http://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf',                   'IRELAND-ISLAND',           'en', 'Freizeitkarte_Irland-Insel'              ],
+#  [ 7050, 'Freizeitkarte_EUROP-RUSSIA',           'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'EUROP-RUSSIA',             'en', 'Freizeitkarte_Euro-Russland'             ],
+#  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln'         ],
+
+  # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
+  [ -1,   'Freizeitkarte PLUS Länder',             'URL',                                                                                               'Name',               'Language', 'oldName'                                 ],
+  [ 7040, 'Freizeitkarte_AUT+',                    'NA',                                        														'AUT+',                      'de', 'no_old_name'               				],
+  [ 7756, 'Freizeitkarte_CHE+',                    'NA',                                    															'CHE+',                      'de', 'no_old_name'                            ],
+  [ 7276, 'Freizeitkarte_DEU+',                    'NA',                                        														'DEU+',                      'de', 'no_old_name'                            ],
+
+
 
   # Sonderkarten wie z.B. FZK-eigene Extrakte (alle ohne geofabrik-Download (NA = Not Applicable); Ausnahme Europa)
   [ -1,   'Freizeitkarte Regionen',               'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
@@ -195,7 +203,7 @@ my @maps = (
   [ 8050, 'Freizeitkarte_ESP_PRT',                'NA',                                                                                                       'ESP_PRT',                  'en', 'no_old_name'                             ],
 
   [ 8889, 'Freizeitkarte_SOUTHAMERICA',           'http://download.geofabrik.de/south-america-latest.osm.pbf',                                                'SOUTHAMERICA',             'en', 'no_old_name'                             ],
-  [ 8210, 'Freizeitkarte_MISIONES',               'NA',                                                                                                       'MISIONES',                 'en', 'no_old_name'                             ],
+  [ 8510, 'Freizeitkarte_MISIONES',               'NA',                                                                                                       'MISIONES',                 'en', 'no_old_name'                             ],
 
 );
 
@@ -2552,7 +2560,7 @@ sub extract_regions {
      # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
      $osmosis_parameter =
          " --read-pbf file=$filename_quelldaten"
-       . " --tee 5"
+       . " --tee 8"
        . " --bounding-polygon file=$BASEPATH/poly/fzk_alps.poly"
        . " --write-pbf file=$WORKDIR/Freizeitkarte_ALPS.osm.pbf omitmetadata=yes"
        . " --bounding-polygon file=$BASEPATH/poly/fzk_esp_prt.poly"
@@ -2562,7 +2570,14 @@ sub extract_regions {
        . " --bounding-polygon file=$BASEPATH/poly/fzk_bel_nld_lux.poly"
        . " --write-pbf file=$WORKDIR/Freizeitkarte_BEL_NLD_LUX.osm.pbf omitmetadata=yes"
        . " --bounding-polygon file=$BASEPATH/poly/fzk_dnk_nor_swe_fin.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_DNK_NOR_SWE_FIN.osm.pbf omitmetadata=yes";
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_DNK_NOR_SWE_FIN.osm.pbf omitmetadata=yes"
+       . " --bounding-polygon file=$BASEPATH/poly/fzk_AUT+.poly"
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_AUT+.osm.pbf omitmetadata=yes"
+       . " --bounding-polygon file=$BASEPATH/poly/fzk_CHE+.poly"
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_CHE+.osm.pbf omitmetadata=yes"
+       . " --bounding-polygon file=$BASEPATH/poly/fzk_DEU+.poly"
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_DEU+.osm.pbf omitmetadata=yes"
+       ;
   }
   elsif ( $mapcode eq 'SOUTHAMERICA' ) {
      # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
@@ -2600,7 +2615,7 @@ sub extract_regions {
 sub fetch_mapdata {
 
   # Maps based on the Europe Extract
-  if ( $mapcode eq 'GBR_IRL' or $mapcode eq 'ALPS' or $mapcode eq 'DNS_NOR_SWE_FIN' or $mapcode eq 'BEL_NLD_LUX' or $mapname eq 'ESP_PRT' ) {
+  if ( $mapcode eq 'GBR_IRL' or $mapcode eq 'ALPS' or $mapcode eq 'DNS_NOR_SWE_FIN' or $mapcode eq 'BEL_NLD_LUX' or $mapname eq 'ESP_PRT' or $mapname eq 'AUT+'or $mapname eq 'CHE+' or $mapname eq 'DEU+' ) {
      # Source file path hardcoded... suboptimal... to be changed later
      my $source_filename      = "$BASEPATH/work/Freizeitkarte_EUROPE/$mapname.osm.pbf";
      my $destination_filename = "$WORKDIR/$mapname.osm.pbf";
