@@ -172,6 +172,10 @@ my @maps = (
   [ 6348, 'Freizeitkarte_HUN',                    'http://download.geofabrik.de/europe/hungary-latest.osm.pbf',                                        'HUN',                      'en', 'Freizeitkarte_Ungarn'                    ],
   [ 6196, 'Freizeitkarte_CYP',                    'http://download.geofabrik.de/europe/cyprus-latest.osm.pbf',                                         'CYP',                      'en', 'Freizeitkarte_Zypern'                    ],
 
+  [ -1,   'Andere Laender',                       'URL',                                                                                               'Name',                     'Language', 'oldName'                           ],
+  [ 6196, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'Freizeitkarte_Argentinien'                    ],
+
+
   # Andere Regionen
   [ -1,   'Andere Regionen',                      'URL' ,                                                                                                     'Name',               'Language', 'oldName'                                 ],
   [ 7010, 'Freizeitkarte_ALPS-SMALL',             'http://download.geofabrik.de/europe/alps-latest.osm.pbf',                                           'ALPS-SMALL',               'en', 'Freizeitkarte_Alpen'                     ],
@@ -189,6 +193,10 @@ my @maps = (
   [ 8030, 'Freizeitkarte_DNK_NOR_SWE_FIN',        'NA',                                                                                                       'DNK_NOR_SWE_FIN',          'en', 'no_old_name'                             ],
   [ 8040, 'Freizeitkarte_BEL_NLD_LUX',            'NA',                                                                                                       'BEL_NLD_LUX',              'en', 'no_old_name'                             ],
   [ 8050, 'Freizeitkarte_ESP_PRT',                'NA',                                                                                                       'ESP_PRT',                  'en', 'no_old_name'                             ],
+
+  [ 8889, 'Freizeitkarte_SOUTHAMERICA',           'http://download.geofabrik.de/south-america-latest.osm.pbf',                                                'SOUTHAMERICA',             'en', 'no_old_name'                             ],
+  [ 8210, 'Freizeitkarte_MISIONES',               'NA',                                                                                                       'MISIONES',                 'en', 'no_old_name'                             ],
+
 );
 
 # pseudo constants
@@ -393,7 +401,7 @@ printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
 # (Freizeitkarte_EUROPE can't be built, only used for cutting the regions, therefore we have a special treatment here)
 my $WORKDIR    = '';
 my $INSTALLDIR = '';
-if ( $mapname eq 'Freizeitkarte_EUROPE' ) {
+if ( $mapcode eq 'EUROPE' or $mapcode eq 'SOUTHAMERICA' ) {
   $WORKDIR    = "$BASEPATH/work/$mapname";
   $INSTALLDIR = "$BASEPATH/install/$mapname";
 }
@@ -2517,6 +2525,7 @@ sub check_osmpbf {
 sub extract_regions {
 
   my $filename_quelldaten = "$WORKDIR/$mapname.osm.pbf";
+  my $osmosis_parameter = "";
 
   if ( -e $filename_quelldaten ) {
     # auf gültige osm.pbf-Datei prüfen
@@ -2536,21 +2545,34 @@ sub extract_regions {
   my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
   $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
 
-  # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
-  my $osmosis_parameter =
-      " --read-pbf file=$filename_quelldaten"
-    . " --tee 5"
-    . " --bounding-polygon file=$BASEPATH/poly/fzk_alps.poly"
-    . " --write-pbf file=$WORKDIR/Freizeitkarte_ALPS.osm.pbf omitmetadata=yes"
-    . " --bounding-polygon file=$BASEPATH/poly/fzk_esp_prt.poly"
-    . " --write-pbf file=$WORKDIR/Freizeitkarte_ESP_PRT.osm.pbf omitmetadata=yes"
-    . " --bounding-polygon file=$BASEPATH/poly/fzk_gbr_irl.poly"
-    . " --write-pbf file=$WORKDIR/Freizeitkarte_GBR_IRL.osm.pbf omitmetadata=yes"
-    . " --bounding-polygon file=$BASEPATH/poly/fzk_bel_nld_lux.poly"
-    . " --write-pbf file=$WORKDIR/Freizeitkarte_BEL_NLD_LUX.osm.pbf omitmetadata=yes"
-    . " --bounding-polygon file=$BASEPATH/poly/fzk_dnk_nor_swe_fin.poly"
-    . " --write-pbf file=$WORKDIR/Freizeitkarte_DNK_NOR_SWE_FIN.osm.pbf omitmetadata=yes";
-
+  if ( $mapcode eq 'EUROPE' ) {
+     # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
+     $osmosis_parameter =
+         " --read-pbf file=$filename_quelldaten"
+       . " --tee 5"
+       . " --bounding-polygon file=$BASEPATH/poly/fzk_alps.poly"
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_ALPS.osm.pbf omitmetadata=yes"
+       . " --bounding-polygon file=$BASEPATH/poly/fzk_esp_prt.poly"
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_ESP_PRT.osm.pbf omitmetadata=yes"
+       . " --bounding-polygon file=$BASEPATH/poly/fzk_gbr_irl.poly"
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_GBR_IRL.osm.pbf omitmetadata=yes"
+       . " --bounding-polygon file=$BASEPATH/poly/fzk_bel_nld_lux.poly"
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_BEL_NLD_LUX.osm.pbf omitmetadata=yes"
+       . " --bounding-polygon file=$BASEPATH/poly/fzk_dnk_nor_swe_fin.poly"
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_DNK_NOR_SWE_FIN.osm.pbf omitmetadata=yes";
+  }
+  elsif ( $mapcode eq 'SOUTHAMERICA' ) {
+     # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
+     $osmosis_parameter =
+         " --read-pbf file=$filename_quelldaten"
+       . " --tee 1"
+       . " --bounding-polygon file=$BASEPATH/poly/fzk_misiones.poly"
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_MISIONES.osm.pbf omitmetadata=yes";	  
+  }
+  else {
+    printf { *STDERR } ( "\nERROR: $mapname is not a region.\n" );
+  }
+  
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # OS X, Linux, FreeBSD, OpenBSD
     $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
@@ -2574,11 +2596,24 @@ sub extract_regions {
 # -----------------------------------------
 sub fetch_mapdata {
 
-  # Source file path hardcoded... suboptimal... to be changed later
-  my $source_filename      = "$BASEPATH/work/Freizeitkarte_EUROPE/$mapname.osm.pbf";
-  my $destination_filename = "$WORKDIR/$mapname.osm.pbf";
+  # Maps based on the Europe Extract
+  if ( $mapcode eq 'GBR_IRL' or $mapcode eq 'ALPS' or $mapcode eq 'DNS_NOR_SWE_FIN' or $mapcode eq 'BEL_NLD_LUX' or $mapname eq 'ESP_PRT' ) {
+     # Source file path hardcoded... suboptimal... to be changed later
+     my $source_filename      = "$BASEPATH/work/Freizeitkarte_EUROPE/$mapname.osm.pbf";
+     my $destination_filename = "$WORKDIR/$mapname.osm.pbf";
 
-  copy ( "$source_filename", "$destination_filename" ) or die ( "copy() failed: $!\n" );
+     copy ( "$source_filename", "$destination_filename" ) or die ( "copy() failed: $!\n" );
+  }
+  elsif ( $mapcode eq 'MISIONES' ) {
+     # Source file path hardcoded... suboptimal... to be changed later
+     my $source_filename      = "$BASEPATH/work/Freizeitkarte_SOUTHAMERICA/$mapname.osm.pbf";
+     my $destination_filename = "$WORKDIR/$mapname.osm.pbf";
+
+     copy ( "$source_filename", "$destination_filename" ) or die ( "copy() failed: $!\n" );
+  }
+  else {
+    printf { *STDERR } ( "\nERROR: $mapname is not a region.\n" );
+  }
 
   return;
 }
