@@ -1971,7 +1971,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  SetOutPath \"\$MyTempDir\"\n" );
   printf { $fh } ( "  File \"\${MAPNAME}_InstallFiles.zip\"\n" );
 
-  printf { $fh } ( "  !addplugindir \"\$BASEDIR\\windows\\NSIS\\Plugins\"\n" );
+  printf { $fh } ( "  !addplugindir \"\%s\\windows\\NSIS\\Plugins\"\n", $BASEPATH );
 
   printf { $fh } ( "  nsisunz::UnzipToLog \"\$MyTempDir\\\${MAPNAME}_InstallFiles.zip\" \"\$MyTempDir\"\n" );
   printf { $fh } ( "  Pop \$0\n" );
@@ -2305,7 +2305,7 @@ sub create_gmapfile {
     # OS X
     $command = "$BASEPATH/tools/jmc/osx/jmc_cli $jmc_parameter";
     process_command ( $command );
-  }
+  }	
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
     $command = "$BASEPATH/tools/jmc/windows/jmc_cli.exe $jmc_parameter";
