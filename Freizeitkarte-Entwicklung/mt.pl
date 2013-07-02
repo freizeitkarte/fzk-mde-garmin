@@ -1970,6 +1970,9 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  ; ---------------------\n" );
   printf { $fh } ( "  SetOutPath \"\$MyTempDir\"\n" );
   printf { $fh } ( "  File \"\${MAPNAME}_InstallFiles.zip\"\n" );
+
+  printf { $fh } ( "  !addplugindir \"\$BASEDIR\\windows\\NSIS\\Plugins\"\n" );
+
   printf { $fh } ( "  nsisunz::UnzipToLog \"\$MyTempDir\\\${MAPNAME}_InstallFiles.zip\" \"\$MyTempDir\"\n" );
   printf { $fh } ( "  Pop \$0\n" );
   printf { $fh } ( "  StrCmp \$0 \"success\" +2\n" );
