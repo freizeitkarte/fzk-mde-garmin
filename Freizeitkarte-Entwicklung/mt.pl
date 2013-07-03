@@ -2619,7 +2619,6 @@ sub fetch_mapdata {
      # Source file path hardcoded... suboptimal... to be changed later
      my $source_filename      = "$BASEPATH/work/Freizeitkarte_EUROPE/$mapname.osm.pbf";
      my $destination_filename = "$WORKDIR/$mapname.osm.pbf";
-print "$source_filename\n$destination_filename\n";
 
      copy ( "$source_filename", "$destination_filename" ) or die ( "copy() failed: $!\n" );
   }
