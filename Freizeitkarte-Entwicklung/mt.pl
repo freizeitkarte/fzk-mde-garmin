@@ -2615,10 +2615,11 @@ sub extract_regions {
 sub fetch_mapdata {
 
   # Maps based on the Europe Extract
-  if ( $mapcode eq 'GBR_IRL' or $mapcode eq 'ALPS' or $mapcode eq 'DNS_NOR_SWE_FIN' or $mapcode eq 'BEL_NLD_LUX' or $mapname eq 'ESP_PRT' or $mapname eq 'AUT+'or $mapname eq 'CHE+' or $mapname eq 'DEU+' ) {
+  if ( $mapcode eq 'GBR_IRL' or $mapcode eq 'ALPS' or $mapcode eq 'DNS_NOR_SWE_FIN' or $mapcode eq 'BEL_NLD_LUX' or $mapcode eq 'ESP_PRT' or $mapcode eq 'AUT+'or $mapcode eq 'CHE+' or $mapcode eq 'DEU+' ) {
      # Source file path hardcoded... suboptimal... to be changed later
      my $source_filename      = "$BASEPATH/work/Freizeitkarte_EUROPE/$mapname.osm.pbf";
      my $destination_filename = "$WORKDIR/$mapname.osm.pbf";
+print "$source_filename\n$destination_filename\n";
 
      copy ( "$source_filename", "$destination_filename" ) or die ( "copy() failed: $!\n" );
   }
