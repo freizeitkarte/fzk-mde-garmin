@@ -190,6 +190,7 @@ my @maps = (
   [ 7040, 'Freizeitkarte_AUT+',                    'NA',                                        														'AUT+',                      'de', 'no_old_name'               				],
   [ 7756, 'Freizeitkarte_CHE+',                    'NA',                                    															'CHE+',                      'de', 'no_old_name'                            ],
   [ 7276, 'Freizeitkarte_DEU+',                    'NA',                                        														'DEU+',                      'de', 'no_old_name'                            ],
+  [ 7196, 'Freizeitkarte_ARG+',                    'NA',                                        														'ARG+',                      'en', 'no_old_name'                            ],
 
 
 
@@ -204,6 +205,7 @@ my @maps = (
 
   [ 8889, 'Freizeitkarte_SOUTHAMERICA',           'http://download.geofabrik.de/south-america-latest.osm.pbf',                                                'SOUTHAMERICA',             'en', 'no_old_name'                             ],
   [ 8510, 'Freizeitkarte_MISIONES',               'NA',                                                                                                       'MISIONES',                 'en', 'no_old_name'                             ],
+  [ 8520, 'Freizeitkarte_SAOPAULO',               'NA',                                                                                                       'SAOPAULO',                 'en', 'no_old_name'                             ],
 
 );
 
@@ -2213,9 +2215,9 @@ sub create_nsis_exefile {
   # Installer-Executable ins install-Verzeichnis verschieben
   my $filename = "Install_" . $mapname . "_" . $maplang . ".exe";
 
-  # sleep needed on windows... perl is faster than windows...
-  sleep 3;
-  move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!\n" );
+  # sleep needed on windows... perl is faster than windows... (Viruschecking ?)
+  sleep 30;
+  move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!: move $filename $INSTALLDIR/$filename\n" );
 
   # Delete the zip file again, not needed anymore
   unlink ( $mapname . "_InstallFiles.zip" );
@@ -2583,7 +2585,11 @@ sub extract_regions {
      # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
      $osmosis_parameter =
          " --read-pbf file=$filename_quelldaten"
-       . " --tee 1"
+       . " --tee 3"
+       . " --bounding-polygon file=$BASEPATH/poly/fzk_ARG+.poly"
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_ARG+.osm.pbf omitmetadata=yes"	  
+       . " --bounding-polygon file=$BASEPATH/poly/fzk_saopaulo.poly"
+       . " --write-pbf file=$WORKDIR/Freizeitkarte_SAOPAULO.osm.pbf omitmetadata=yes"	  
        . " --bounding-polygon file=$BASEPATH/poly/fzk_misiones.poly"
        . " --write-pbf file=$WORKDIR/Freizeitkarte_MISIONES.osm.pbf omitmetadata=yes";	  
   }
@@ -2622,7 +2628,7 @@ sub fetch_mapdata {
 
      copy ( "$source_filename", "$destination_filename" ) or die ( "copy() failed: $!\n" );
   }
-  elsif ( $mapcode eq 'MISIONES' ) {
+  elsif ( $mapcode eq 'MISIONES' or $mapcode eq 'ARG+' or $mapcode eq 'SAOPAULO' ) {
      # Source file path hardcoded... suboptimal... to be changed later
      my $source_filename      = "$BASEPATH/work/Freizeitkarte_SOUTHAMERICA/$mapname.osm.pbf";
      my $destination_filename = "$WORKDIR/$mapname.osm.pbf";
