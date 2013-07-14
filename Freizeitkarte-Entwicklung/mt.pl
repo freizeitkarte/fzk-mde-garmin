@@ -74,138 +74,138 @@ my @maps = (
   # ID, 'Karte', 'URL der Quelle', 'Code', 'language'
 
   # Bundesländer
-  [ -1,   'Bundeslaender',                        'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 5810, 'Freizeitkarte_BADEN-WUERTTEMBERG',     'http://download.geofabrik.de/europe/germany/baden-wuerttemberg-latest.osm.pbf',                     'BADEN-WUERTTEMBERG',       'de', 'Freizeitkarte_Baden-Wuerttemberg'        ],
-  [ 5811, 'Freizeitkarte_BAYERN',                 'http://download.geofabrik.de/europe/germany/bayern-latest.osm.pbf',                                 'BAYERN',                   'de', 'Freizeitkarte_Bayern'                    ],
-  [ 5812, 'Freizeitkarte_BERLIN',                 'http://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf',                                 'BERLIN',                   'de', 'Freizeitkarte_Berlin'                    ],
-  [ 5813, 'Freizeitkarte_BRANDENBURG',            'http://download.geofabrik.de/europe/germany/brandenburg-latest.osm.pbf',                            'BRANDENBURG',              'de', 'Freizeitkarte_Brandenburg'               ],
-  [ 5814, 'Freizeitkarte_BREMEN',                 'http://download.geofabrik.de/europe/germany/bremen-latest.osm.pbf',                                 'BREMEN',                   'de', 'Freizeitkarte_Bremen'                    ],
-  [ 5815, 'Freizeitkarte_HAMBURG',                'http://download.geofabrik.de/europe/germany/hamburg-latest.osm.pbf',                                'HAMBURG',                  'de', 'Freizeitkarte_Hamburg'                   ],
-  [ 5816, 'Freizeitkarte_HESSEN',                 'http://download.geofabrik.de/europe/germany/hessen-latest.osm.pbf',                                 'HESSEN',                   'de', 'Freizeitkarte_Hessen'                    ],
-  [ 5817, 'Freizeitkarte_MECKLENBURG-VORPOMMERN', 'http://download.geofabrik.de/europe/germany/mecklenburg-vorpommern-latest.osm.pbf',                 'MECKLENBURG-VORPOMMERN',   'de', 'Freizeitkarte_Mecklenburg-Vorpommern'    ],
-  [ 5818, 'Freizeitkarte_NIEDERSACHSEN',          'http://download.geofabrik.de/europe/germany/niedersachsen-latest.osm.pbf',                          'NIEDERSACHSEN',            'de', 'Freizeitkarte_Niedersachsen'             ],
-  [ 5819, 'Freizeitkarte_NORDRHEIN-WESTFALEN',    'http://download.geofabrik.de/europe/germany/nordrhein-westfalen-latest.osm.pbf',                    'NORDRHEIN-WESTFALEN',      'de', 'Freizeitkarte_Nordrhein-Westfalen'       ],
-  [ 5820, 'Freizeitkarte_RHEINLAND-PFALZ',        'http://download.geofabrik.de/europe/germany/rheinland-pfalz-latest.osm.pbf',                        'RHEINLAND-PFALZ',          'de', 'Freizeitkarte_Rheinland-Pfalz'           ],
-  [ 5821, 'Freizeitkarte_SAARLAND',               'http://download.geofabrik.de/europe/germany/saarland-latest.osm.pbf',                               'SAARLAND',                 'de', 'Freizeitkarte_Saarland'                  ],
-  [ 5822, 'Freizeitkarte_SACHSEN',                'http://download.geofabrik.de/europe/germany/sachsen-latest.osm.pbf',                                'SACHSEN',                  'de', 'Freizeitkarte_Sachsen'                   ],
-  [ 5823, 'Freizeitkarte_SACHSEN-ANHALT',         'http://download.geofabrik.de/europe/germany/sachsen-anhalt-latest.osm.pbf',                         'SACHSEN-ANHALT',           'de', 'Freizeitkarte_Sachsen-Anhalt'            ],
-  [ 5824, 'Freizeitkarte_SCHLESWIG-HOLSTEIN',     'http://download.geofabrik.de/europe/germany/schleswig-holstein-latest.osm.pbf',                     'SCHLESWIG-HOLSTEIN',       'de', 'Freizeitkarte_Schleswig-Holstein'        ],
-  [ 5825, 'Freizeitkarte_THUERINGEN',             'http://download.geofabrik.de/europe/germany/thueringen-latest.osm.pbf',                             'THUERINGEN',               'de', 'Freizeitkarte_Thueringen'                ],
+  [ -1,   'Bundeslaender',                        'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 5810, 'Freizeitkarte_BADEN-WUERTTEMBERG',     'http://download.geofabrik.de/europe/germany/baden-wuerttemberg-latest.osm.pbf',                     'BADEN-WUERTTEMBERG',       'de', 'Freizeitkarte_Baden-Wuerttemberg',        3, 'NA'             ],
+  [ 5811, 'Freizeitkarte_BAYERN',                 'http://download.geofabrik.de/europe/germany/bayern-latest.osm.pbf',                                 'BAYERN',                   'de', 'Freizeitkarte_Bayern',                    3, 'NA'             ],
+  [ 5812, 'Freizeitkarte_BERLIN',                 'http://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf',                                 'BERLIN',                   'de', 'Freizeitkarte_Berlin',                    3, 'NA'             ],
+  [ 5813, 'Freizeitkarte_BRANDENBURG',            'http://download.geofabrik.de/europe/germany/brandenburg-latest.osm.pbf',                            'BRANDENBURG',              'de', 'Freizeitkarte_Brandenburg',               3, 'NA'             ],
+  [ 5814, 'Freizeitkarte_BREMEN',                 'http://download.geofabrik.de/europe/germany/bremen-latest.osm.pbf',                                 'BREMEN',                   'de', 'Freizeitkarte_Bremen',                    3, 'NA'             ],
+  [ 5815, 'Freizeitkarte_HAMBURG',                'http://download.geofabrik.de/europe/germany/hamburg-latest.osm.pbf',                                'HAMBURG',                  'de', 'Freizeitkarte_Hamburg',                   3, 'NA'             ],
+  [ 5816, 'Freizeitkarte_HESSEN',                 'http://download.geofabrik.de/europe/germany/hessen-latest.osm.pbf',                                 'HESSEN',                   'de', 'Freizeitkarte_Hessen',                    3, 'NA'             ],
+  [ 5817, 'Freizeitkarte_MECKLENBURG-VORPOMMERN', 'http://download.geofabrik.de/europe/germany/mecklenburg-vorpommern-latest.osm.pbf',                 'MECKLENBURG-VORPOMMERN',   'de', 'Freizeitkarte_Mecklenburg-Vorpommern',    3, 'NA'             ],
+  [ 5818, 'Freizeitkarte_NIEDERSACHSEN',          'http://download.geofabrik.de/europe/germany/niedersachsen-latest.osm.pbf',                          'NIEDERSACHSEN',            'de', 'Freizeitkarte_Niedersachsen',             3, 'NA'             ],
+  [ 5819, 'Freizeitkarte_NORDRHEIN-WESTFALEN',    'http://download.geofabrik.de/europe/germany/nordrhein-westfalen-latest.osm.pbf',                    'NORDRHEIN-WESTFALEN',      'de', 'Freizeitkarte_Nordrhein-Westfalen',       3, 'NA'             ],
+  [ 5820, 'Freizeitkarte_RHEINLAND-PFALZ',        'http://download.geofabrik.de/europe/germany/rheinland-pfalz-latest.osm.pbf',                        'RHEINLAND-PFALZ',          'de', 'Freizeitkarte_Rheinland-Pfalz',           3, 'NA'             ],
+  [ 5821, 'Freizeitkarte_SAARLAND',               'http://download.geofabrik.de/europe/germany/saarland-latest.osm.pbf',                               'SAARLAND',                 'de', 'Freizeitkarte_Saarland',                  3, 'NA'             ],
+  [ 5822, 'Freizeitkarte_SACHSEN',                'http://download.geofabrik.de/europe/germany/sachsen-latest.osm.pbf',                                'SACHSEN',                  'de', 'Freizeitkarte_Sachsen',                   3, 'NA'             ],
+  [ 5823, 'Freizeitkarte_SACHSEN-ANHALT',         'http://download.geofabrik.de/europe/germany/sachsen-anhalt-latest.osm.pbf',                         'SACHSEN-ANHALT',           'de', 'Freizeitkarte_Sachsen-Anhalt',            3, 'NA'             ],
+  [ 5824, 'Freizeitkarte_SCHLESWIG-HOLSTEIN',     'http://download.geofabrik.de/europe/germany/schleswig-holstein-latest.osm.pbf',                     'SCHLESWIG-HOLSTEIN',       'de', 'Freizeitkarte_Schleswig-Holstein',        3, 'NA'             ],
+  [ 5825, 'Freizeitkarte_THUERINGEN',             'http://download.geofabrik.de/europe/germany/thueringen-latest.osm.pbf',                             'THUERINGEN',               'de', 'Freizeitkarte_Thueringen',                3, 'NA'             ],
 
   # Regierungsbezirke Baden-Wuerttemberg
-  [ -1,   'Regierungsbezirke Baden-Wuerttemberg', 'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 5830, 'Freizeitkarte_FREIBURG',               'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/freiburg-regbez-latest.osm.pbf',     'FREIBURG',                 'de', 'Freizeitkarte_Freiburg'                  ],
-  [ 5831, 'Freizeitkarte_KARLSRUHE',              'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/karlsruhe-regbez-latest.osm.pbf',    'KARLSRUHE',                'de', 'Freizeitkarte_Karlsruhe'                 ],
-  [ 5832, 'Freizeitkarte_STUTTGART',              'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/stuttgart-regbez-latest.osm.pbf',    'STUTTGART',                'de', 'Freizeitkarte_Stuttgart'                 ],
-  [ 5833, 'Freizeitkarte_TUEBINGEN',              'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/tuebingen-regbez-latest.osm.pbf',    'TUEBINGEN',                'de', 'Freizeitkarte_Tuebingen'                 ],
+  [ -1,   'Regierungsbezirke Baden-Wuerttemberg', 'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 5830, 'Freizeitkarte_FREIBURG',               'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/freiburg-regbez-latest.osm.pbf',     'FREIBURG',                 'de', 'Freizeitkarte_Freiburg',                  3, 'NA'             ],
+  [ 5831, 'Freizeitkarte_KARLSRUHE',              'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/karlsruhe-regbez-latest.osm.pbf',    'KARLSRUHE',                'de', 'Freizeitkarte_Karlsruhe',                 3, 'NA'             ],
+  [ 5832, 'Freizeitkarte_STUTTGART',              'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/stuttgart-regbez-latest.osm.pbf',    'STUTTGART',                'de', 'Freizeitkarte_Stuttgart',                 3, 'NA'             ],
+  [ 5833, 'Freizeitkarte_TUEBINGEN',              'http://download.geofabrik.de/europe/germany/baden-wuerttemberg/tuebingen-regbez-latest.osm.pbf',    'TUEBINGEN',                'de', 'Freizeitkarte_Tuebingen',                 3, 'NA'             ],
 
   # Regierungsbezirke Nordrhein-Westfalen
-  [ -1,   'Regierungsbezirke Nordrhein-Westfalen','URL',                                                                                                      'Name',               'Language' , 'oldName'                                ],
-  [ 5840, 'Freizeitkarte_ARNSBERG',               'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/arnsberg-regbez-latest.osm.pbf',    'ARNSBERG',                 'de' , 'Freizeitkarte_Arnsberg'                 ],
-  [ 5841, 'Freizeitkarte_DETMOLD',                'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/detmold-regbez-latest.osm.pbf',     'DETMOLD',                  'de' , 'Freizeitkarte_Detmold'                  ],
-  [ 5842, 'Freizeitkarte_DUESSELDORF',            'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/duesseldorf-regbez-latest.osm.pbf', 'DUESSELDORF',              'de' , 'Freizeitkarte_Duesseldorf'              ],
-  [ 5843, 'Freizeitkarte_KOELN',                  'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/koeln-regbez-latest.osm.pbf',       'KOELN',                    'de' , 'Freizeitkarte_Koeln'                    ],
-  [ 5844, 'Freizeitkarte_MUENSTER',               'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/muenster-regbez-latest.osm.pbf',    'MUENSTER',                 'de' , 'Freizeitkarte_Muenster'                 ],
+  [ -1,   'Regierungsbezirke Nordrhein-Westfalen','URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 5840, 'Freizeitkarte_ARNSBERG',               'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/arnsberg-regbez-latest.osm.pbf',    'ARNSBERG',                 'de' , 'Freizeitkarte_Arnsberg',                 3, 'NA'             ],
+  [ 5841, 'Freizeitkarte_DETMOLD',                'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/detmold-regbez-latest.osm.pbf',     'DETMOLD',                  'de' , 'Freizeitkarte_Detmold',                  3, 'NA'             ],
+  [ 5842, 'Freizeitkarte_DUESSELDORF',            'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/duesseldorf-regbez-latest.osm.pbf', 'DUESSELDORF',              'de' , 'Freizeitkarte_Duesseldorf',              3, 'NA'             ],
+  [ 5843, 'Freizeitkarte_KOELN',                  'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/koeln-regbez-latest.osm.pbf',       'KOELN',                    'de' , 'Freizeitkarte_Koeln',                    3, 'NA'             ],
+  [ 5844, 'Freizeitkarte_MUENSTER',               'http://download.geofabrik.de/europe/germany/nordrhein-westfalen/muenster-regbez-latest.osm.pbf',    'MUENSTER',                 'de' , 'Freizeitkarte_Muenster',                 3, 'NA'             ],
 
   # Regierungsbezirke Bayern
-  [ -1,   'Regierungsbezirke Bayern',             'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 5850, 'Freizeitkarte_MITTELFRANKEN',          'http://download.geofabrik.de/europe/germany/bayern/mittelfranken-latest.osm.pbf',                   'MITTELFRANKEN',            'de', 'Freizeitkarte_Mittelfranken'             ],
-  [ 5851, 'Freizeitkarte_NIEDERBAYERN',           'http://download.geofabrik.de/europe/germany/bayern/niederbayern-latest.osm.pbf',                    'NIEDERBAYERN',             'de', 'Freizeitkarte_Niederbayern'              ],
-  [ 5852, 'Freizeitkarte_OBERBAYERN',             'http://download.geofabrik.de/europe/germany/bayern/oberbayern-latest.osm.pbf',                      'OBERBAYERN',               'de', 'Freizeitkarte_Oberbayern'                ],
-  [ 5853, 'Freizeitkarte_OBERFRANKEN',            'http://download.geofabrik.de/europe/germany/bayern/oberfranken-latest.osm.pbf',                     'OBERFRANKEN',              'de', 'Freizeitkarte_Oberfranken'               ],
-  [ 5854, 'Freizeitkarte_OBERPFALZ',              'http://download.geofabrik.de/europe/germany/bayern/oberpfalz-latest.osm.pbf',                       'OBERPFALZ',                'de', 'Freizeitkarte_Oberpfalz'                 ],
-  [ 5855, 'Freizeitkarte_SCHWABEN',               'http://download.geofabrik.de/europe/germany/bayern/schwaben-latest.osm.pbf',                        'SCHWABEN',                 'de', 'Freizeitkarte_Schwaben'                  ],
-  [ 5856, 'Freizeitkarte_UNTERFRANKEN',           'http://download.geofabrik.de/europe/germany/bayern/unterfranken-latest.osm.pbf',                    'UNTERFRANKEN',             'de', 'Freizeitkarte_Unterfranken'              ],
+  [ -1,   'Regierungsbezirke Bayern',             'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 5850, 'Freizeitkarte_MITTELFRANKEN',          'http://download.geofabrik.de/europe/germany/bayern/mittelfranken-latest.osm.pbf',                   'MITTELFRANKEN',            'de', 'Freizeitkarte_Mittelfranken',             3, 'NA'             ],
+  [ 5851, 'Freizeitkarte_NIEDERBAYERN',           'http://download.geofabrik.de/europe/germany/bayern/niederbayern-latest.osm.pbf',                    'NIEDERBAYERN',             'de', 'Freizeitkarte_Niederbayern',              3, 'NA'             ],
+  [ 5852, 'Freizeitkarte_OBERBAYERN',             'http://download.geofabrik.de/europe/germany/bayern/oberbayern-latest.osm.pbf',                      'OBERBAYERN',               'de', 'Freizeitkarte_Oberbayern',                3, 'NA'             ],
+  [ 5853, 'Freizeitkarte_OBERFRANKEN',            'http://download.geofabrik.de/europe/germany/bayern/oberfranken-latest.osm.pbf',                     'OBERFRANKEN',              'de', 'Freizeitkarte_Oberfranken',               3, 'NA'             ],
+  [ 5854, 'Freizeitkarte_OBERPFALZ',              'http://download.geofabrik.de/europe/germany/bayern/oberpfalz-latest.osm.pbf',                       'OBERPFALZ',                'de', 'Freizeitkarte_Oberpfalz',                 3, 'NA'             ],
+  [ 5855, 'Freizeitkarte_SCHWABEN',               'http://download.geofabrik.de/europe/germany/bayern/schwaben-latest.osm.pbf',                        'SCHWABEN',                 'de', 'Freizeitkarte_Schwaben',                  3, 'NA'             ],
+  [ 5856, 'Freizeitkarte_UNTERFRANKEN',           'http://download.geofabrik.de/europe/germany/bayern/unterfranken-latest.osm.pbf',                    'UNTERFRANKEN',             'de', 'Freizeitkarte_Unterfranken',              3, 'NA'             ],
 
   # Regionen in Frankreich (unvollständig)
-  [ -1,   'Regionen Frankreich',                  'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 5860, 'Freizeitkarte_LORRAINE',               'http://download.geofabrik.de/europe/france/lorraine-latest.osm.pbf',                                'LORRAINE',                 'de', 'Freizeitkarte_Lothringen'                ],
-  [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/europe/france/alsace-latest.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass'                    ],
+  [ -1,   'Regionen Frankreich',                  'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 5860, 'Freizeitkarte_LORRAINE',               'http://download.geofabrik.de/europe/france/lorraine-latest.osm.pbf',                                'LORRAINE',                 'de', 'Freizeitkarte_Lothringen',                3, 'NA'             ],
+  [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/europe/france/alsace-latest.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass',                    3, 'NA'             ],
 
   # Länder, Ländercodes: 6000 + ISO-3166 (numerisch)
-  [ -1,   'Europaeische Laender',                 'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 6008, 'Freizeitkarte_ALB',                    'http://download.geofabrik.de/europe/albania-latest.osm.pbf',                                        'ALB',                      'en', 'Freizeitkarte_Albanien'                  ],
-  [ 6020, 'Freizeitkarte_AND',                    'http://download.geofabrik.de/europe/andorra-latest.osm.pbf',                                        'AND',                      'en', 'Freizeitkarte_Andorra'                   ],
-  [ 6112, 'Freizeitkarte_BLR',                    'http://download.geofabrik.de/europe/belarus-latest.osm.pbf',                                        'BLR',                      'en', 'Freizeitkarte_Belarus'                   ],
-  [ 6056, 'Freizeitkarte_BEL',                    'http://download.geofabrik.de/europe/belgium-latest.osm.pbf',                                        'BEL',                      'en', 'Freizeitkarte_Belgien'                   ],
-  [ 6070, 'Freizeitkarte_BIH',                    'http://download.geofabrik.de/europe/bosnia-herzegovina-latest.osm.pbf',                             'BIH',                      'en', 'Freizeitkarte_Bosnien-Herzegowina'       ],
-  [ 6100, 'Freizeitkarte_BGR',                    'http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf',                                       'BGR',                      'en', 'Freizeitkarte_Bulgarien'                 ],
-  [ 6208, 'Freizeitkarte_DNK',                    'http://download.geofabrik.de/europe/denmark-latest.osm.pbf',                                        'DNK',                      'en', 'Freizeitkarte_Daenemark'                 ],
-  [ 6276, 'Freizeitkarte_DEU',                    'http://download.geofabrik.de/europe/germany-latest.osm.pbf',                                        'DEU',                      'de', 'Freizeitkarte_Deutschland'               ],
-  [ 6233, 'Freizeitkarte_EST',                    'http://download.geofabrik.de/europe/estonia-latest.osm.pbf',                                        'EST',                      'en', 'Freizeitkarte_Estland'                   ],
-  [ 6234, 'Freizeitkarte_FRO',                    'http://download.geofabrik.de/europe/faroe-islands-latest.osm.pbf',                                  'FRO',                      'en', 'Freizeitkarte_Faeroeer'                  ],
-  [ 6246, 'Freizeitkarte_FIN',                    'http://download.geofabrik.de/europe/finland-latest.osm.pbf',                                        'FIN',                      'en', 'Freizeitkarte_Finnland'                  ],
-  [ 6250, 'Freizeitkarte_FRA',                    'http://download.geofabrik.de/europe/france-latest.osm.pbf',                                         'FRA',                      'en', 'Freizeitkarte_Frankreich'                ],
-  [ 6826, 'Freizeitkarte_GBR',                    'http://download.geofabrik.de/europe/great-britain-latest.osm.pbf',                                  'GBR',                      'en', 'Freizeitkarte_Grossbritannien'           ],
-  [ 6300, 'Freizeitkarte_GRC',                    'http://download.geofabrik.de/europe/greece-latest.osm.pbf',                                         'GRC',                      'en', 'Freizeitkarte_Griechenland'              ],
-  [ 6833, 'Freizeitkarte_IMN',                    'http://download.geofabrik.de/europe/isle-of-man-latest.osm.pbf',                                    'IMN',                      'en', 'Freizeitkarte_Insel-Man'                 ],
-  [ 6372, 'Freizeitkarte_IRL',                    'http://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf',                   'IRL',                      'en', 'Freizeitkarte_Irland'                    ],
-  [ 6352, 'Freizeitkarte_ISL',                    'http://download.geofabrik.de/europe/iceland-latest.osm.pbf',                                        'ISL',                      'en', 'Freizeitkarte_Island'                    ],
-  [ 6380, 'Freizeitkarte_ITA',                    'http://download.geofabrik.de/europe/italy-latest.osm.pbf',                                          'ITA',                      'en', 'Freizeitkarte_Italien'                   ],
-  [ 6680, 'Freizeitkarte_KOSOVO',                 'http://download.geofabrik.de/europe/kosovo-latest.osm.pbf',                                         'KOSOSVO',                  'en', 'Freizeitkarte_Kosovo'                    ],
-  [ 6191, 'Freizeitkarte_HRV',                    'http://download.geofabrik.de/europe/croatia-latest.osm.pbf',                                        'HRV',                      'en', 'Freizeitkarte_Kroatien'                  ],
-  [ 6428, 'Freizeitkarte_LVA',                    'http://download.geofabrik.de/europe/latvia-latest.osm.pbf',                                         'LVA',                      'en', 'Freizeitkarte_Lettland'                  ],
-  [ 6438, 'Freizeitkarte_LIE',                    'http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf',                                  'LIE',                      'en', 'Freizeitkarte_Liechtenstein'             ],
-  [ 6440, 'Freizeitkarte_LTU',                    'http://download.geofabrik.de/europe/lithuania-latest.osm.pbf',                                      'LTU',                      'en', 'Freizeitkarte_Litauen'                   ],
-  [ 6442, 'Freizeitkarte_LUX',                    'http://download.geofabrik.de/europe/luxembourg-latest.osm.pbf',                                     'LUX',                      'en', 'Freizeitkarte_Luxemburg'                 ],
-  [ 6807, 'Freizeitkarte_MKD',                    'http://download.geofabrik.de/europe/macedonia-latest.osm.pbf',                                      'MKD',                      'en', 'Freizeitkarte_Mazedonien'                ],
-  [ 6470, 'Freizeitkarte_MLT',                    'http://download.geofabrik.de/europe/malta-latest.osm.pbf',                                          'MLT',                      'en', 'Freizeitkarte_Malta'                     ],
-  [ 6498, 'Freizeitkarte_MDA',                    'http://download.geofabrik.de/europe/moldova-latest.osm.pbf',                                        'MDA',                      'en', 'Freizeitkarte_Moldawien'                 ],
-  [ 6492, 'Freizeitkarte_MCO',                    'http://download.geofabrik.de/europe/monaco-latest.osm.pbf',                                         'MCO',                      'en', 'Freizeitkarte_Monaco'                    ],
-  [ 6499, 'Freizeitkarte_MNE',                    'http://download.geofabrik.de/europe/montenegro-latest.osm.pbf',                                     'MNE',                      'en', 'Freizeitkarte_Montenegro'                ],
-  [ 6504, 'Freizeitkarte_MAR',                    'http://download.geofabrik.de/africa/morocco-latest.osm.pbf',                                        'MAR',                      'en', 'Freizeitkarte_Marokko'                   ],
-  [ 6528, 'Freizeitkarte_NLD',                    'http://download.geofabrik.de/europe/netherlands-latest.osm.pbf',                                    'NLD',                      'en', 'Freizeitkarte_Niederlande'               ],
-  [ 6578, 'Freizeitkarte_NOR',                    'http://download.geofabrik.de/europe/norway-latest.osm.pbf',                                         'NOR',                      'en', 'Freizeitkarte_Norwegen'                  ],
-  [ 6040, 'Freizeitkarte_AUT',                    'http://download.geofabrik.de/europe/austria-latest.osm.pbf',                                        'AUT',                      'de', 'Freizeitkarte_Oesterreich'               ],
-  [ 6616, 'Freizeitkarte_POL',                    'http://download.geofabrik.de/europe/poland-latest.osm.pbf',                                         'POL',                      'en', 'Freizeitkarte_Polen'                     ],
-  [ 6620, 'Freizeitkarte_PRT',                    'http://download.geofabrik.de/europe/portugal-latest.osm.pbf',                                       'PRT',                      'en', 'Freizeitkarte_Portugal'                  ],
-  [ 6642, 'Freizeitkarte_ROU',                    'http://download.geofabrik.de/europe/romania-latest.osm.pbf',                                        'ROU',                      'en', 'Freizeitkarte_Rumaenien'                 ],
-  [ 6752, 'Freizeitkarte_SWE',                    'http://download.geofabrik.de/europe/sweden-latest.osm.pbf',                                         'SWE',                      'en', 'Freizeitkarte_Schweden'                  ],
-  [ 6756, 'Freizeitkarte_CHE',                    'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE',                      'de', 'Freizeitkarte_Schweiz'                   ],
-  [ 6688, 'Freizeitkarte_SRB',                    'http://download.geofabrik.de/europe/serbia-latest.osm.pbf',                                         'SRB',                      'en', 'Freizeitkarte_Serbien'                   ],
-  [ 6703, 'Freizeitkarte_SVK',                    'http://download.geofabrik.de/europe/slovakia-latest.osm.pbf',                                       'SVK',                      'en', 'Freizeitkarte_Slowakei'                  ],
-  [ 6705, 'Freizeitkarte_SVN',                    'http://download.geofabrik.de/europe/slovenia-latest.osm.pbf',                                       'SVN',                      'en', 'Freizeitkarte_Slowenien'                 ],
-  [ 6724, 'Freizeitkarte_ESP',                    'http://download.geofabrik.de/europe/spain-latest.osm.pbf',                                          'ESP',                      'en', 'Freizeitkarte_Spanien'                   ],
-  [ 6203, 'Freizeitkarte_CZE',                    'http://download.geofabrik.de/europe/czech-republic-latest.osm.pbf',                                 'CZE',                      'en', 'Freizeitkarte_Tschechien'                ],
-  [ 6792, 'Freizeitkarte_TUR',                    'http://download.geofabrik.de/europe/turkey-latest.osm.pbf',                                         'TUR',                      'en', 'Freizeitkarte_Tuerkei'                   ],
-  [ 6804, 'Freizeitkarte_UKR',                    'http://download.geofabrik.de/europe/ukraine-latest.osm.pbf',                                        'UKR',                      'en', 'Freizeitkarte_Ukraine'                   ],
-  [ 6348, 'Freizeitkarte_HUN',                    'http://download.geofabrik.de/europe/hungary-latest.osm.pbf',                                        'HUN',                      'en', 'Freizeitkarte_Ungarn'                    ],
-  [ 6196, 'Freizeitkarte_CYP',                    'http://download.geofabrik.de/europe/cyprus-latest.osm.pbf',                                         'CYP',                      'en', 'Freizeitkarte_Zypern'                    ],
-
-  [ -1,   'Andere Laender',                       'URL',                                                                                               'Name',                     'Language', 'oldName'                           ],
-  [ 6196, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'Freizeitkarte_Argentinien'                    ],
+  [ -1,   'Europaeische Laender',                 'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 6008, 'Freizeitkarte_ALB',                    'http://download.geofabrik.de/europe/albania-latest.osm.pbf',                                        'ALB',                      'en', 'Freizeitkarte_Albanien',                  3, 'NA'             ],
+  [ 6020, 'Freizeitkarte_AND',                    'http://download.geofabrik.de/europe/andorra-latest.osm.pbf',                                        'AND',                      'en', 'Freizeitkarte_Andorra',                   3, 'NA'             ],
+  [ 6112, 'Freizeitkarte_BLR',                    'http://download.geofabrik.de/europe/belarus-latest.osm.pbf',                                        'BLR',                      'en', 'Freizeitkarte_Belarus',                   3, 'NA'             ],
+  [ 6056, 'Freizeitkarte_BEL',                    'http://download.geofabrik.de/europe/belgium-latest.osm.pbf',                                        'BEL',                      'en', 'Freizeitkarte_Belgien',                   3, 'NA'             ],
+  [ 6070, 'Freizeitkarte_BIH',                    'http://download.geofabrik.de/europe/bosnia-herzegovina-latest.osm.pbf',                             'BIH',                      'en', 'Freizeitkarte_Bosnien-Herzegowina',       3, 'NA'             ],
+  [ 6100, 'Freizeitkarte_BGR',                    'http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf',                                       'BGR',                      'en', 'Freizeitkarte_Bulgarien',                 3, 'NA'             ],
+  [ 6208, 'Freizeitkarte_DNK',                    'http://download.geofabrik.de/europe/denmark-latest.osm.pbf',                                        'DNK',                      'en', 'Freizeitkarte_Daenemark',                 3, 'NA'             ],
+  [ 6276, 'Freizeitkarte_DEU',                    'http://download.geofabrik.de/europe/germany-latest.osm.pbf',                                        'DEU',                      'de', 'Freizeitkarte_Deutschland',               3, 'NA'             ],
+  [ 6233, 'Freizeitkarte_EST',                    'http://download.geofabrik.de/europe/estonia-latest.osm.pbf',                                        'EST',                      'en', 'Freizeitkarte_Estland',                   3, 'NA'             ],
+  [ 6234, 'Freizeitkarte_FRO',                    'http://download.geofabrik.de/europe/faroe-islands-latest.osm.pbf',                                  'FRO',                      'en', 'Freizeitkarte_Faeroeer',                  3, 'NA'             ],
+  [ 6246, 'Freizeitkarte_FIN',                    'http://download.geofabrik.de/europe/finland-latest.osm.pbf',                                        'FIN',                      'en', 'Freizeitkarte_Finnland',                  3, 'NA'             ],
+  [ 6250, 'Freizeitkarte_FRA',                    'http://download.geofabrik.de/europe/france-latest.osm.pbf',                                         'FRA',                      'en', 'Freizeitkarte_Frankreich',                3, 'NA'             ],
+  [ 6826, 'Freizeitkarte_GBR',                    'http://download.geofabrik.de/europe/great-britain-latest.osm.pbf',                                  'GBR',                      'en', 'Freizeitkarte_Grossbritannien',           3, 'NA'             ],
+  [ 6300, 'Freizeitkarte_GRC',                    'http://download.geofabrik.de/europe/greece-latest.osm.pbf',                                         'GRC',                      'en', 'Freizeitkarte_Griechenland',              3, 'NA'             ],
+  [ 6833, 'Freizeitkarte_IMN',                    'http://download.geofabrik.de/europe/isle-of-man-latest.osm.pbf',                                    'IMN',                      'en', 'Freizeitkarte_Insel-Man',                 3, 'NA'             ],
+  [ 6372, 'Freizeitkarte_IRL',                    'http://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf',                   'IRL',                      'en', 'Freizeitkarte_Irland',                    3, 'NA'             ],
+  [ 6352, 'Freizeitkarte_ISL',                    'http://download.geofabrik.de/europe/iceland-latest.osm.pbf',                                        'ISL',                      'en', 'Freizeitkarte_Island',                    3, 'NA'             ],
+  [ 6380, 'Freizeitkarte_ITA',                    'http://download.geofabrik.de/europe/italy-latest.osm.pbf',                                          'ITA',                      'en', 'Freizeitkarte_Italien',                   3, 'NA'             ],
+  [ 6680, 'Freizeitkarte_KOSOVO',                 'http://download.geofabrik.de/europe/kosovo-latest.osm.pbf',                                         'KOSOSVO',                  'en', 'Freizeitkarte_Kosovo',                    3, 'NA'             ],
+  [ 6191, 'Freizeitkarte_HRV',                    'http://download.geofabrik.de/europe/croatia-latest.osm.pbf',                                        'HRV',                      'en', 'Freizeitkarte_Kroatien',                  3, 'NA'             ],
+  [ 6428, 'Freizeitkarte_LVA',                    'http://download.geofabrik.de/europe/latvia-latest.osm.pbf',                                         'LVA',                      'en', 'Freizeitkarte_Lettland',                  3, 'NA'             ],
+  [ 6438, 'Freizeitkarte_LIE',                    'http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf',                                  'LIE',                      'en', 'Freizeitkarte_Liechtenstein',             3, 'NA'             ],
+  [ 6440, 'Freizeitkarte_LTU',                    'http://download.geofabrik.de/europe/lithuania-latest.osm.pbf',                                      'LTU',                      'en', 'Freizeitkarte_Litauen',                   3, 'NA'             ],
+  [ 6442, 'Freizeitkarte_LUX',                    'http://download.geofabrik.de/europe/luxembourg-latest.osm.pbf',                                     'LUX',                      'en', 'Freizeitkarte_Luxemburg',                 3, 'NA'             ],
+  [ 6807, 'Freizeitkarte_MKD',                    'http://download.geofabrik.de/europe/macedonia-latest.osm.pbf',                                      'MKD',                      'en', 'Freizeitkarte_Mazedonien',                3, 'NA'             ],
+  [ 6470, 'Freizeitkarte_MLT',                    'http://download.geofabrik.de/europe/malta-latest.osm.pbf',                                          'MLT',                      'en', 'Freizeitkarte_Malta',                     3, 'NA'             ],
+  [ 6498, 'Freizeitkarte_MDA',                    'http://download.geofabrik.de/europe/moldova-latest.osm.pbf',                                        'MDA',                      'en', 'Freizeitkarte_Moldawien',                 3, 'NA'             ],
+  [ 6492, 'Freizeitkarte_MCO',                    'http://download.geofabrik.de/europe/monaco-latest.osm.pbf',                                         'MCO',                      'en', 'Freizeitkarte_Monaco',                    3, 'NA'             ],
+  [ 6499, 'Freizeitkarte_MNE',                    'http://download.geofabrik.de/europe/montenegro-latest.osm.pbf',                                     'MNE',                      'en', 'Freizeitkarte_Montenegro',                3, 'NA'             ],
+  [ 6504, 'Freizeitkarte_MAR',                    'http://download.geofabrik.de/africa/morocco-latest.osm.pbf',                                        'MAR',                      'en', 'Freizeitkarte_Marokko',                   3, 'NA'             ],
+  [ 6528, 'Freizeitkarte_NLD',                    'http://download.geofabrik.de/europe/netherlands-latest.osm.pbf',                                    'NLD',                      'en', 'Freizeitkarte_Niederlande',               3, 'NA'             ],
+  [ 6578, 'Freizeitkarte_NOR',                    'http://download.geofabrik.de/europe/norway-latest.osm.pbf',                                         'NOR',                      'en', 'Freizeitkarte_Norwegen',                  3, 'NA'             ],
+  [ 6040, 'Freizeitkarte_AUT',                    'http://download.geofabrik.de/europe/austria-latest.osm.pbf',                                        'AUT',                      'de', 'Freizeitkarte_Oesterreich',               3, 'NA'             ],
+  [ 6616, 'Freizeitkarte_POL',                    'http://download.geofabrik.de/europe/poland-latest.osm.pbf',                                         'POL',                      'en', 'Freizeitkarte_Polen',                     3, 'NA'             ],
+  [ 6620, 'Freizeitkarte_PRT',                    'http://download.geofabrik.de/europe/portugal-latest.osm.pbf',                                       'PRT',                      'en', 'Freizeitkarte_Portugal',                  3, 'NA'             ],
+  [ 6642, 'Freizeitkarte_ROU',                    'http://download.geofabrik.de/europe/romania-latest.osm.pbf',                                        'ROU',                      'en', 'Freizeitkarte_Rumaenien',                 3, 'NA'             ],
+  [ 6752, 'Freizeitkarte_SWE',                    'http://download.geofabrik.de/europe/sweden-latest.osm.pbf',                                         'SWE',                      'en', 'Freizeitkarte_Schweden',                  3, 'NA'             ],
+  [ 6756, 'Freizeitkarte_CHE',                    'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE',                      'de', 'Freizeitkarte_Schweiz',                   3, 'NA'             ],
+  [ 6688, 'Freizeitkarte_SRB',                    'http://download.geofabrik.de/europe/serbia-latest.osm.pbf',                                         'SRB',                      'en', 'Freizeitkarte_Serbien',                   3, 'NA'             ],
+  [ 6703, 'Freizeitkarte_SVK',                    'http://download.geofabrik.de/europe/slovakia-latest.osm.pbf',                                       'SVK',                      'en', 'Freizeitkarte_Slowakei',                  3, 'NA'             ],
+  [ 6705, 'Freizeitkarte_SVN',                    'http://download.geofabrik.de/europe/slovenia-latest.osm.pbf',                                       'SVN',                      'en', 'Freizeitkarte_Slowenien',                 3, 'NA'             ],
+  [ 6724, 'Freizeitkarte_ESP',                    'http://download.geofabrik.de/europe/spain-latest.osm.pbf',                                          'ESP',                      'en', 'Freizeitkarte_Spanien',                   3, 'NA'             ],
+  [ 6203, 'Freizeitkarte_CZE',                    'http://download.geofabrik.de/europe/czech-republic-latest.osm.pbf',                                 'CZE',                      'en', 'Freizeitkarte_Tschechien',                3, 'NA'             ],
+  [ 6792, 'Freizeitkarte_TUR',                    'http://download.geofabrik.de/europe/turkey-latest.osm.pbf',                                         'TUR',                      'en', 'Freizeitkarte_Tuerkei',                   3, 'NA'             ],
+  [ 6804, 'Freizeitkarte_UKR',                    'http://download.geofabrik.de/europe/ukraine-latest.osm.pbf',                                        'UKR',                      'en', 'Freizeitkarte_Ukraine',                   3, 'NA'             ],
+  [ 6348, 'Freizeitkarte_HUN',                    'http://download.geofabrik.de/europe/hungary-latest.osm.pbf',                                        'HUN',                      'en', 'Freizeitkarte_Ungarn',                    3, 'NA'             ],
+  [ 6196, 'Freizeitkarte_CYP',                    'http://download.geofabrik.de/europe/cyprus-latest.osm.pbf',                                         'CYP',                      'en', 'Freizeitkarte_Zypern',                    3, 'NA'             ],
+  
+  [ -1,   'Andere Laender',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 6196, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'no_old_name',                             3, 'NA'             ],
 
 
   # Andere Regionen
-#  [ -1,   'Andere Regionen',                      'URL' ,                                                                                                     'Name',               'Language', 'oldName'                                 ],
-#  [ 7010, 'Freizeitkarte_ALPS-SMALL',             'http://download.geofabrik.de/europe/alps-latest.osm.pbf',                                           'ALPS-SMALL',               'en', 'Freizeitkarte_Alpen'                     ],
-#  [ 7020, 'Freizeitkarte_AZORES',                 'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                   'en', 'Freizeitkarte_Azoren'                    ],
-#  [ 7030, 'Freizeitkarte_BRITISH-ISLES',          'http://download.geofabrik.de/europe/british-isles-latest.osm.pbf',                                  'BRITISH-ISLES',            'en', 'Freizeitkarte_Britische-Inseln'          ],
-#  [ 7040, 'Freizeitkarte_IRELAND-ISLAND',         'http://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf',                   'IRELAND-ISLAND',           'en', 'Freizeitkarte_Irland-Insel'              ],
-#  [ 7050, 'Freizeitkarte_EUROP-RUSSIA',           'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'EUROP-RUSSIA',             'en', 'Freizeitkarte_Euro-Russland'             ],
-#  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln'         ],
+#  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+#  [ 7010, 'Freizeitkarte_ALPS-SMALL',             'http://download.geofabrik.de/europe/alps-latest.osm.pbf',                                           'ALPS-SMALL',               'en', 'Freizeitkarte_Alpen',                     3, 'NA'             ],
+#  [ 7020, 'Freizeitkarte_AZORES',                 'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                   'en', 'Freizeitkarte_Azoren',                    3, 'NA'             ],
+#  [ 7030, 'Freizeitkarte_BRITISH-ISLES',          'http://download.geofabrik.de/europe/british-isles-latest.osm.pbf',                                  'BRITISH-ISLES',            'en', 'Freizeitkarte_Britische-Inseln',          3, 'NA'             ],
+#  [ 7040, 'Freizeitkarte_IRELAND-ISLAND',         'http://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf',                   'IRELAND-ISLAND',           'en', 'Freizeitkarte_Irland-Insel',              3, 'NA'             ],
+#  [ 7050, 'Freizeitkarte_EUROP-RUSSIA',           'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'EUROP-RUSSIA',             'en', 'Freizeitkarte_Euro-Russland',             3, 'NA'             ],
+#  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
 
   # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
-  [ -1,   'Freizeitkarte PLUS Länder',             'URL',                                                                                               'Name',               'Language', 'oldName'                                 ],
-  [ 7040, 'Freizeitkarte_AUT+',                    'NA',                                        														'AUT+',                      'de', 'no_old_name'               				],
-  [ 7756, 'Freizeitkarte_CHE+',                    'NA',                                    															'CHE+',                      'de', 'no_old_name'                            ],
-  [ 7276, 'Freizeitkarte_DEU+',                    'NA',                                        														'DEU+',                      'de', 'no_old_name'                            ],
-  [ 7196, 'Freizeitkarte_ARG+',                    'NA',                                        														'ARG+',                      'en', 'no_old_name'                            ],
+  [ -1,   'Freizeitkarte PLUS Länder',            'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                        														   'AUT+',                     'de', 'no_old_name',               			    2, 'EUROPE'         ],
+  [ 7756, 'Freizeitkarte_CHE+',                   'NA',                                    															   'CHE+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7276, 'Freizeitkarte_DEU+',                   'NA',                                        														   'DEU+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7196, 'Freizeitkarte_ARG+',                   'NA',                                        														   'ARG+',                     'en', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
 
 
 
   # Sonderkarten wie z.B. FZK-eigene Extrakte (alle ohne geofabrik-Download (NA = Not Applicable); Ausnahme Europa)
-  [ -1,   'Freizeitkarte Regionen',               'URL',                                                                                                      'Name',               'Language', 'oldName'                                 ],
-  [ 8888, 'Freizeitkarte_EUROPE',                 'http://download.geofabrik.de/europe-latest.osm.pbf',                                                'EUROPE',                   'en', 'no_old_name'                             ],
-  [ 8010, 'Freizeitkarte_GBR_IRL',                'NA',                                                                                                       'GBR_IRL',                  'en', 'no_old_name'                             ],
-  [ 8020, 'Freizeitkarte_ALPS',                   'NA',                                                                                                       'ALPS',                     'en', 'no_old_name'                             ],
-  [ 8030, 'Freizeitkarte_DNK_NOR_SWE_FIN',        'NA',                                                                                                       'DNK_NOR_SWE_FIN',          'en', 'no_old_name'                             ],
-  [ 8040, 'Freizeitkarte_BEL_NLD_LUX',            'NA',                                                                                                       'BEL_NLD_LUX',              'en', 'no_old_name'                             ],
-  [ 8050, 'Freizeitkarte_ESP_PRT',                'NA',                                                                                                       'ESP_PRT',                  'en', 'no_old_name'                             ],
+  [ -1,   'Freizeitkarte Regionen',               'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 8888, 'Freizeitkarte_EUROPE',                 'http://download.geofabrik.de/europe-latest.osm.pbf',                                                'EUROPE',                   'en', 'no_old_name',                             1, 'NA'             ],
+  [ 8010, 'Freizeitkarte_GBR_IRL',                'NA',                                                                                                'GBR_IRL',                  'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8020, 'Freizeitkarte_ALPS',                   'NA',                                                                                                'ALPS',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8030, 'Freizeitkarte_DNK_NOR_SWE_FIN',        'NA',                                                                                                'DNK_NOR_SWE_FIN',          'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8040, 'Freizeitkarte_BEL_NLD_LUX',            'NA',                                                                                                'BEL_NLD_LUX',              'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8050, 'Freizeitkarte_ESP_PRT',                'NA',                                                                                                'ESP_PRT',                  'en', 'no_old_name',                             2, 'EUROPE'         ],
 
-  [ 8889, 'Freizeitkarte_SOUTHAMERICA',           'http://download.geofabrik.de/south-america-latest.osm.pbf',                                                'SOUTHAMERICA',             'en', 'no_old_name'                             ],
-  [ 8510, 'Freizeitkarte_MISIONES',               'NA',                                                                                                       'MISIONES',                 'en', 'no_old_name'                             ],
-  [ 8520, 'Freizeitkarte_SAOPAULO',               'NA',                                                                                                       'SAOPAULO',                 'en', 'no_old_name'                             ],
+  [ 8889, 'Freizeitkarte_SOUTHAMERICA',           'http://download.geofabrik.de/south-america-latest.osm.pbf',                                         'SOUTHAMERICA',             'en', 'no_old_name',                             1, 'NA'             ],
+  [ 8510, 'Freizeitkarte_MISIONES',               'NA',                                                                                                'MISIONES',                 'de', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
+  [ 8520, 'Freizeitkarte_SAOPAULO',               'NA',                                                                                                'SAOPAULO',                 'de', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
 
 );
 
@@ -218,6 +218,8 @@ my $OSMURL     = 2;
 my $MAPCODE    = 3;
 my $MAPLANG    = 4;
 my $MAPNAMEOLD = 5;
+my $MAPTYPE    = 6;
+my $MAPPARENT  = 7;
 
 my $ACTIONNAME = 0;
 my $ACTIONDESC = 1;
@@ -270,6 +272,8 @@ my $mapnameold = $EMPTY;
 my $osmurl     = $EMPTY;
 my $mapcode    = $EMPTY;
 my $maplang    = $EMPTY;
+my $maptype    = $EMPTY;
+my $mapparent  = $EMPTY;
 my $langdesc   = $EMPTY;
 my $maptypfile = "freizeit.TYP";
 
@@ -339,6 +343,8 @@ for my $mapdata ( @maps ) {
     $mapcode    = @$mapdata[ $MAPCODE ];
     $maplang    = @$mapdata[ $MAPLANG ];
     $mapnameold = @$mapdata[ $MAPNAMEOLD ];
+    $maptype    = @$mapdata[ $MAPTYPE ];
+    $mapparent  = @$mapdata[ $MAPPARENT ];
     $error      = 0;
     last;
   }
@@ -2537,106 +2543,211 @@ sub check_osmpbf {
 # -----------------------------------------
 sub extract_regions {
 
-  my $filename_quelldaten = "$WORKDIR/$mapname.osm.pbf";
-  my $osmosis_parameter = "";
+  # If this map is a downloaded extract from which we extract further regions, continue
+  if ( $maptype == 1 ) {
+  
+     # Initialisations
+     my $source_filename = "$WORKDIR/$mapname.osm.pbf";
+     my $osmosis_parameter = "";
+     my $osmosis_parameter_bw = "";
+     my $max_tee = 5;
+     my @childmapnames = ();
+     my $osmosis_runs = 0;
+     my $actual_tee = 0;
+   
+     # Check if the source file exists and is a valid osm.pbf file
+     if ( -e $source_filename ) {
+       if ( !check_osmpbf ( $source_filename ) ) {
+         printf { *STDERR } ( "\nError: Resulting data file <$source_filename> is not a valid osm.pbf file.\n" );
+         return ( 1 );
+       }
+     }
+     else {
+       printf { *STDERR } ( "\nError: Source data file <$source_filename> does not exists.\n" );
+       return ( 1 );
+     }
+   
+     # Java-Optionen in Osmosis-Aufruf einbringen
+     my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
+     $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
 
-  if ( -e $filename_quelldaten ) {
-    # auf gültige osm.pbf-Datei prüfen
-    if ( !check_osmpbf ( $filename_quelldaten ) ) {
-      printf { *STDERR } ( "\nError: Resulting data file <$filename_quelldaten> is not a valid osm.pbf file.\n" );
-      return ( 1 );
-    }
+     # Run through the mapArray and check for regions belonging to that map -> fill array childmapnames
+	 for my $tmp_mapdata ( @maps ) {
+	    if ( @$tmp_mapdata[ $MAPPARENT ] eq $mapcode ) {
+		   push(@childmapnames, @$tmp_mapdata[ $MAPNAME ]);
+		}
+	 }
+     
+     # Check how many times we'll have to run osmosis
+     $osmosis_runs = int ( ( scalar @childmapnames - 1 ) / $max_tee ) + 1;
+     
+     # Loop for the possibly multiple 
+     for (my $i=1 ; $i <= $osmosis_runs; $i++ ) {
+		        
+        #Initialisation
+        $osmosis_parameter_bw = "";
+        my $childmapname = "";
+        $actual_tee = 0;
+                
+        # Loop through the the childmaps until max is reached or we're finished
+        for (my $j=1 ; ( $j <= $max_tee and scalar @childmapnames >= 1 ) ; $j++ ) {
+
+           # keep the current counter
+           $actual_tee = $j;
+           
+           # Get the actual childmapname
+           $childmapname = shift(@childmapnames);
+           
+           # Add the needed arguments for the osmosis run for this childmap
+           $osmosis_parameter_bw = $osmosis_parameter_bw
+             . " --bounding-polygon file=$BASEPATH/poly/$childmapname.poly"
+             . " --write-pbf file=$WORKDIR/$childmapname.osm.pbf omitmetadata=yes";
+		   		   
+		}
+		
+    	# ok, enough together, let's run it (MISSING: IS IT THE LAST ?)
+		printf { *STDERR } ( "\nExtracting Freizeitkarte regions ...\n" );
+
+        # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
+        $osmosis_parameter =
+            " --read-pbf file=$source_filename"
+          . " --tee $actual_tee"
+          . " $osmosis_parameter_bw"
+          ;
+
+        if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+          # OS X, Linux, FreeBSD, OpenBSD
+          $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
+          process_command ( $command );
+        }
+        elsif ( $OSNAME eq 'MSWin32' ) {
+          # Windows
+          $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
+          process_command ( $command );
+        }
+        else {
+          printf { *STDERR } ( "\nFehler: Betriebssystem $OSNAME nicht unterstuetzt.\n" );
+        }	
+ 
+     }
   }
   else {
-    printf { *STDERR } ( "\nError: Source data file <$filename_quelldaten> does not exists.\n" );
-    return ( 1 );
-  }
-
-  printf { *STDERR } ( "\nExtracting Freizeitkarte regions ...\n" );
-
-  # Java-Optionen in Osmosis-Aufruf einbringen
-  my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
-  $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
-
-  if ( $mapcode eq 'EUROPE' ) {
-     # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
-     $osmosis_parameter =
-         " --read-pbf file=$filename_quelldaten"
-       . " --tee 8"
-       . " --bounding-polygon file=$BASEPATH/poly/fzk_alps.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_ALPS.osm.pbf omitmetadata=yes"
-       . " --bounding-polygon file=$BASEPATH/poly/fzk_esp_prt.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_ESP_PRT.osm.pbf omitmetadata=yes"
-       . " --bounding-polygon file=$BASEPATH/poly/fzk_gbr_irl.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_GBR_IRL.osm.pbf omitmetadata=yes"
-       . " --bounding-polygon file=$BASEPATH/poly/fzk_bel_nld_lux.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_BEL_NLD_LUX.osm.pbf omitmetadata=yes"
-       . " --bounding-polygon file=$BASEPATH/poly/fzk_dnk_nor_swe_fin.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_DNK_NOR_SWE_FIN.osm.pbf omitmetadata=yes"
-       . " --bounding-polygon file=$BASEPATH/poly/fzk_AUT+.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_AUT+.osm.pbf omitmetadata=yes"
-       . " --bounding-polygon file=$BASEPATH/poly/fzk_CHE+.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_CHE+.osm.pbf omitmetadata=yes"
-       . " --bounding-polygon file=$BASEPATH/poly/fzk_DEU+.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_DEU+.osm.pbf omitmetadata=yes"
-       ;
-  }
-  elsif ( $mapcode eq 'SOUTHAMERICA' ) {
-     # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
-     $osmosis_parameter =
-         " --read-pbf file=$filename_quelldaten"
-       . " --tee 3"
-       . " --bounding-polygon file=$BASEPATH/poly/fzk_ARG+.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_ARG+.osm.pbf omitmetadata=yes"	  
-       . " --bounding-polygon file=$BASEPATH/poly/fzk_saopaulo.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_SAOPAULO.osm.pbf omitmetadata=yes"	  
-       . " --bounding-polygon file=$BASEPATH/poly/fzk_misiones.poly"
-       . " --write-pbf file=$WORKDIR/Freizeitkarte_MISIONES.osm.pbf omitmetadata=yes";	  
-  }
-  else {
-    printf { *STDERR } ( "\nERROR: $mapname is not a region.\n" );
+     printf { *STDERR } ( "\nERROR: $mapname is not an extract from which we create our own regions \n" );
   }
   
-  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-    # OS X, Linux, FreeBSD, OpenBSD
-    $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
-    process_command ( $command );
-  }
-  elsif ( $OSNAME eq 'MSWin32' ) {
-    # Windows
-    $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
-    process_command ( $command );
-  }
-  else {
-    printf { *STDERR } ( "\nFehler: Betriebssystem $OSNAME nicht unterstuetzt.\n" );
-  }
+
+#  my $filename_quelldaten = "$WORKDIR/$mapname.osm.pbf";
+#  my $osmosis_parameter = "";
+
+#  if ( -e $filename_quelldaten ) {
+#    # auf gültige osm.pbf-Datei prüfen
+#    if ( !check_osmpbf ( $filename_quelldaten ) ) {
+#      printf { *STDERR } ( "\nError: Resulting data file <$filename_quelldaten> is not a valid osm.pbf file.\n" );
+#      return ( 1 );
+#    }
+#  }
+#  else {
+#    printf { *STDERR } ( "\nError: Source data file <$filename_quelldaten> does not exists.\n" );
+#    return ( 1 );
+#  }
+
+#  printf { *STDERR } ( "\nExtracting Freizeitkarte regions ...\n" );
+#
+#  # Java-Optionen in Osmosis-Aufruf einbringen
+#  my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
+#  $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
+
+#  if ( $mapcode eq 'EUROPE' ) {
+#     # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
+#     $osmosis_parameter =
+#         " --read-pbf file=$filename_quelldaten"
+#       . " --tee 8"
+#       . " --bounding-polygon file=$BASEPATH/poly/fzk_alps.poly"
+#       . " --write-pbf file=$WORKDIR/Freizeitkarte_ALPS.osm.pbf omitmetadata=yes"
+#       . " --bounding-polygon file=$BASEPATH/poly/fzk_esp_prt.poly"
+#       . " --write-pbf file=$WORKDIR/Freizeitkarte_ESP_PRT.osm.pbf omitmetadata=yes"
+#       . " --bounding-polygon file=$BASEPATH/poly/fzk_gbr_irl.poly"
+#       . " --write-pbf file=$WORKDIR/Freizeitkarte_GBR_IRL.osm.pbf omitmetadata=yes"
+#       . " --bounding-polygon file=$BASEPATH/poly/fzk_bel_nld_lux.poly"
+#       . " --write-pbf file=$WORKDIR/Freizeitkarte_BEL_NLD_LUX.osm.pbf omitmetadata=yes"
+#       . " --bounding-polygon file=$BASEPATH/poly/fzk_dnk_nor_swe_fin.poly"
+#       . " --write-pbf file=$WORKDIR/Freizeitkarte_DNK_NOR_SWE_FIN.osm.pbf omitmetadata=yes"
+#       . " --bounding-polygon file=$BASEPATH/poly/fzk_AUT+.poly"
+#       . " --write-pbf file=$WORKDIR/Freizeitkarte_AUT+.osm.pbf omitmetadata=yes"
+#       . " --bounding-polygon file=$BASEPATH/poly/fzk_CHE+.poly"
+#       . " --write-pbf file=$WORKDIR/Freizeitkarte_CHE+.osm.pbf omitmetadata=yes"
+#       . " --bounding-polygon file=$BASEPATH/poly/fzk_DEU+.poly"
+#       . " --write-pbf file=$WORKDIR/Freizeitkarte_DEU+.osm.pbf omitmetadata=yes"
+#       ;
+#  }
+#  elsif ( $mapcode eq 'SOUTHAMERICA' ) {
+#     # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
+#     $osmosis_parameter =
+#         " --read-pbf file=$filename_quelldaten"
+#       . " --tee 3"
+#       . " --bounding-polygon file=$BASEPATH/poly/fzk_ARG+.poly"
+#       . " --write-pbf file=$WORKDIR/Freizeitkarte_ARG+.osm.pbf omitmetadata=yes"	  
+#       . " --bounding-polygon file=$BASEPATH/poly/fzk_saopaulo.poly"
+#       . " --write-pbf file=$WORKDIR/Freizeitkarte_SAOPAULO.osm.pbf omitmetadata=yes"	  
+#       . " --bounding-polygon file=$BASEPATH/poly/fzk_misiones.poly"
+#       . " --write-pbf file=$WORKDIR/Freizeitkarte_MISIONES.osm.pbf omitmetadata=yes";	  
+#  }
+#  else {
+#    printf { *STDERR } ( "\nERROR: $mapname is not a region.\n" );
+#  }
+#  
+#  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+#    # OS X, Linux, FreeBSD, OpenBSD
+#    $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
+#    process_command ( $command );
+#  }
+#  elsif ( $OSNAME eq 'MSWin32' ) {
+#    # Windows
+#    $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
+#    process_command ( $command );
+#  }
+#  else {
+#    printf { *STDERR } ( "\nFehler: Betriebssystem $OSNAME nicht unterstuetzt.\n" );
+#  }
 
   return;
 }
 
 
-# -----------------------------------------
+# -----------------------------------------------
 # Bereits passend vorbereitete Kartendaten laden.
-# -----------------------------------------
+# -----------------------------------------------
 sub fetch_mapdata {
+	
+  # If this map is a regions that needed to be extracted, try to fetch the extracted region
+  if ( $maptype == 2 ) {
 
-  # Maps based on the Europe Extract
-  if ( $mapcode eq 'GBR_IRL' or $mapcode eq 'ALPS' or $mapcode eq 'DNK_NOR_SWE_FIN' or $mapcode eq 'BEL_NLD_LUX' or $mapcode eq 'ESP_PRT' or $mapcode eq 'AUT+'or $mapcode eq 'CHE+' or $mapcode eq 'DEU+' ) {
-     # Source file path hardcoded... suboptimal... to be changed later
-     my $source_filename      = "$BASEPATH/work/Freizeitkarte_EUROPE/$mapname.osm.pbf";
+     # Initialisation
+     my $mapparentname = $EMPTY;
+	 
+	 # Get the proper Map Parent's Name
+	 for my $tmp_mapdata ( @maps ) {
+	    if ( @$tmp_mapdata[ $MAPCODE ] eq $mapparent ) {
+		   $mapparentname = @$tmp_mapdata[ $MAPNAME ];
+		   last;
+		}
+	 }
+
+     # fill out source and destination variables
+     my $source_filename      = "$BASEPATH/work/$mapparentname/$mapname.osm.pbf";
      my $destination_filename = "$WORKDIR/$mapname.osm.pbf";
 
-     copy ( "$source_filename", "$destination_filename" ) or die ( "copy() failed: $!\n" );
-  }
-  elsif ( $mapcode eq 'MISIONES' or $mapcode eq 'ARG+' or $mapcode eq 'SAOPAULO' ) {
-     # Source file path hardcoded... suboptimal... to be changed later
-     my $source_filename      = "$BASEPATH/work/Freizeitkarte_SOUTHAMERICA/$mapname.osm.pbf";
-     my $destination_filename = "$WORKDIR/$mapname.osm.pbf";
-
-     copy ( "$source_filename", "$destination_filename" ) or die ( "copy() failed: $!\n" );
+     # Check if the source file does exist (means that the regions have been prepared properly)
+     if ( !( -e $source_filename ) ) { 
+	    die ( "Can't find the source map file $source_filename !\n... looks like something is not prepared properly\n" );
+     }
+  
+     # Source file exists, therefore fetch it
+     copy ( "$source_filename", "$destination_filename" ) or die ( "copy($source_filename , $destination_filename) failed: $!\n" );
+	  
   }
   else {
-    printf { *STDERR } ( "\nERROR: $mapname is not a region.\n" );
+     printf { *STDERR } ( "\nERROR: $mapname is not a region that needed local extraction.\n" );
   }
 
   return;
