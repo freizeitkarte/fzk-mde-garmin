@@ -414,14 +414,17 @@ printf { *STDOUT } ( "Action = %s\n", $actiondesc );
 printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
 
 # Create the WORKDIR and the INSTALLDIR variables, used at a lot of places
-# (Freizeitkarte_EUROPE can't be built, only used for cutting the regions, therefore we have a special treatment here)
 my $WORKDIR    = '';
 my $INSTALLDIR = '';
-if ( $mapcode eq 'EUROPE' or $mapcode eq 'SOUTHAMERICA' ) {
+
+# If this map is a downloaded extract from which we extract further regions
+if ( $maptype == 1 ) {
+  # no language code added as this map itself isn't thought to be built up to the end
   $WORKDIR    = "$BASEPATH/work/$mapname";
   $INSTALLDIR = "$BASEPATH/install/$mapname";
 }
 else {
+  # Normal map, add language code to WORKDIR and INSTALLDIR
   $WORKDIR    = "$BASEPATH/work/$mapname" . "_$maplang";
   $INSTALLDIR = "$BASEPATH/install/$mapname" . "_$maplang";
 }
@@ -2550,7 +2553,7 @@ sub extract_regions {
      my $source_filename = "$WORKDIR/$mapname.osm.pbf";
      my $osmosis_parameter = "";
      my $osmosis_parameter_bw = "";
-     my $max_tee = 5;
+     my $max_tee = 10;
      my @childmapnames = ();
      my $osmosis_runs = 0;
      my $actual_tee = 0;
@@ -2634,81 +2637,6 @@ sub extract_regions {
   else {
      printf { *STDERR } ( "\nERROR: $mapname is not an extract from which we create our own regions \n" );
   }
-  
-
-#  my $filename_quelldaten = "$WORKDIR/$mapname.osm.pbf";
-#  my $osmosis_parameter = "";
-
-#  if ( -e $filename_quelldaten ) {
-#    # auf gültige osm.pbf-Datei prüfen
-#    if ( !check_osmpbf ( $filename_quelldaten ) ) {
-#      printf { *STDERR } ( "\nError: Resulting data file <$filename_quelldaten> is not a valid osm.pbf file.\n" );
-#      return ( 1 );
-#    }
-#  }
-#  else {
-#    printf { *STDERR } ( "\nError: Source data file <$filename_quelldaten> does not exists.\n" );
-#    return ( 1 );
-#  }
-
-#  printf { *STDERR } ( "\nExtracting Freizeitkarte regions ...\n" );
-#
-#  # Java-Optionen in Osmosis-Aufruf einbringen
-#  my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
-#  $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
-
-#  if ( $mapcode eq 'EUROPE' ) {
-#     # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
-#     $osmosis_parameter =
-#         " --read-pbf file=$filename_quelldaten"
-#       . " --tee 8"
-#       . " --bounding-polygon file=$BASEPATH/poly/fzk_alps.poly"
-#       . " --write-pbf file=$WORKDIR/Freizeitkarte_ALPS.osm.pbf omitmetadata=yes"
-#       . " --bounding-polygon file=$BASEPATH/poly/fzk_esp_prt.poly"
-#       . " --write-pbf file=$WORKDIR/Freizeitkarte_ESP_PRT.osm.pbf omitmetadata=yes"
-#       . " --bounding-polygon file=$BASEPATH/poly/fzk_gbr_irl.poly"
-#       . " --write-pbf file=$WORKDIR/Freizeitkarte_GBR_IRL.osm.pbf omitmetadata=yes"
-#       . " --bounding-polygon file=$BASEPATH/poly/fzk_bel_nld_lux.poly"
-#       . " --write-pbf file=$WORKDIR/Freizeitkarte_BEL_NLD_LUX.osm.pbf omitmetadata=yes"
-#       . " --bounding-polygon file=$BASEPATH/poly/fzk_dnk_nor_swe_fin.poly"
-#       . " --write-pbf file=$WORKDIR/Freizeitkarte_DNK_NOR_SWE_FIN.osm.pbf omitmetadata=yes"
-#       . " --bounding-polygon file=$BASEPATH/poly/fzk_AUT+.poly"
-#       . " --write-pbf file=$WORKDIR/Freizeitkarte_AUT+.osm.pbf omitmetadata=yes"
-#       . " --bounding-polygon file=$BASEPATH/poly/fzk_CHE+.poly"
-#       . " --write-pbf file=$WORKDIR/Freizeitkarte_CHE+.osm.pbf omitmetadata=yes"
-#       . " --bounding-polygon file=$BASEPATH/poly/fzk_DEU+.poly"
-#       . " --write-pbf file=$WORKDIR/Freizeitkarte_DEU+.osm.pbf omitmetadata=yes"
-#       ;
-#  }
-#  elsif ( $mapcode eq 'SOUTHAMERICA' ) {
-#     # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
-#     $osmosis_parameter =
-#         " --read-pbf file=$filename_quelldaten"
-#       . " --tee 3"
-#       . " --bounding-polygon file=$BASEPATH/poly/fzk_ARG+.poly"
-#       . " --write-pbf file=$WORKDIR/Freizeitkarte_ARG+.osm.pbf omitmetadata=yes"	  
-#       . " --bounding-polygon file=$BASEPATH/poly/fzk_saopaulo.poly"
-#       . " --write-pbf file=$WORKDIR/Freizeitkarte_SAOPAULO.osm.pbf omitmetadata=yes"	  
-#       . " --bounding-polygon file=$BASEPATH/poly/fzk_misiones.poly"
-#       . " --write-pbf file=$WORKDIR/Freizeitkarte_MISIONES.osm.pbf omitmetadata=yes";	  
-#  }
-#  else {
-#    printf { *STDERR } ( "\nERROR: $mapname is not a region.\n" );
-#  }
-#  
-#  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-#    # OS X, Linux, FreeBSD, OpenBSD
-#    $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
-#    process_command ( $command );
-#  }
-#  elsif ( $OSNAME eq 'MSWin32' ) {
-#    # Windows
-#    $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
-#    process_command ( $command );
-#  }
-#  else {
-#    printf { *STDERR } ( "\nFehler: Betriebssystem $OSNAME nicht unterstuetzt.\n" );
-#  }
 
   return;
 }
