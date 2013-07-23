@@ -1998,26 +1998,46 @@ sub create_nsis_nsifile {
   printf { $fh } ( "    call InstallError\n" );
 
   printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; delete unpacked zip file again to safe space\n" );
+  printf { $fh } ( "  Delete \"\$MyTempDir\\\${MAPNAME}_InstallFiles.zip\"\n" );
+
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Clear Errors and continue\n" );
   printf { $fh } ( "  ClearErrors\n" );
   printf { $fh } ( "\n" );
 
+  printf { $fh } ( "  ; Create the Install Directory\n" );
   printf { $fh } ( "  CreateDirectory \"\$INSTDIR\"\n" );
   printf { $fh } ( "\n" );
 
+  printf { $fh } ( "  ; Copy TYP and other files\n" );
+
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}.img\" \"\$INSTDIR\\\${MAPNAME}.img\"\n" );
+  printf { $fh } ( "  Delete \"\$MyTempDir\\\${MAPNAME}.img\"\n" );
+
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}_mdr.img\" \"\$INSTDIR\\\${MAPNAME}_mdr.img\"\n" );
+  printf { $fh } ( "  Delete \"\$MyTempDir\\\${MAPNAME}_mdr.img\"\n" );
+  
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}.mdx\" \"\$INSTDIR\\\${MAPNAME}.mdx\"\n" );
-#  printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${TYPNAME}\" \"\$INSTDIR\\\${TYPNAME}\"\n" );
+  printf { $fh } ( "  Delete \"\$MyTempDir\\\${MAPNAME}.mdx\"\n" );
+  
   for my $thistypfile ( @typfiles ) {
     printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\%s\" \"\$INSTDIR\\\%s\"\n", $thistypfile, $thistypfile );
+    printf { $fh } ( "  Delete \"\$MyTempDir\\\%s\"\n", $thistypfile );
   }
+  
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}.tdb\" \"\$INSTDIR\\\${MAPNAME}.tdb\"\n" );
+  printf { $fh } ( "  Delete \"\$MyTempDir\\\${MAPNAME}.tdb\"\n" );
+  
   printf { $fh } ( "\n" );
 
+  printf { $fh } ( "  ; Copy the tiles\n" );
   for my $imgfile ( @imgfiles ) {
     printf { $fh } ( "  CopyFiles \"\$MyTempDir\\%s\" \"\$INSTDIR\\%s\"\n", $imgfile, $imgfile );
+    printf { $fh } ( "  Delete \"\$MyTempDir\\%s\"\n", $imgfile );
   }
 
+  printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Check for errors\n" );
   printf { $fh } ( "  IfErrors 0 +2\n" );
   printf { $fh } ( "    Call InstallError\n" );
