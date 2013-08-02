@@ -1619,6 +1619,14 @@ railway = light_rail & tunnel = yes     [0x010115 resolution 22]
 ### railway = light_rail & embankment = yes [0x011f05 resolution 24 continue]
 railway = light_rail                    [0x010112 resolution 22]
 
+# Monorail (wie Eisenbahn; kann auch teilweise unterirdisch verkehren).
+# 0x010115 = Bitmap 2 (Label, SmallFont)
+# 0x010112 = 2 (Label, SmallFont)
+railway = monorail & bridge = yes     [0x010407 resolution 24 continue]
+railway = monorail & tunnel = yes     [0x010115 resolution 22]
+### railway = light_rail & embankment = yes [0x011f05 resolution 24 continue]
+railway = monorail                    [0x010112 resolution 22]
+
 # U-Bahn (Untergrundbahn; kann auch teilweise oberirdisch verkehren).
 # 0x010113 = Bitmap 2 (Label, SmallFont)
 # 0x010117 = 2 (Label, SmallFont)
