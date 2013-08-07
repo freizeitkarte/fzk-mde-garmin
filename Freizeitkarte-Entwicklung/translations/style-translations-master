@@ -47,24 +47,28 @@
 #define $__ALPINEHUT__DE Berghütte
 #define $__ALPINEHUT__EN Alpine hut
 #define $__ALPINEHUT__FR Berghütte
+#define $__ALPINEHUT__RU Alpine hut
 
 ## Aquarium.
 #define $__AQUARIUM__ Aquarium
 #define $__AQUARIUM__DE Aquarium
 #define $__AQUARIUM__EN Aquarium 
 #define $__AQUARIUM__FR Aquarium
+#define $__AQUARIUM__RU Aquarium 
 
 ## Sehenswürdigkeit. [point, closedway]
 #define $__ATTRACTION__ Attraktion
 #define $__ATTRACTION__DE Attraktion
 #define $__ATTRACTION__EN Attraction
 #define $__ATTRACTION__FR Attraktion
+#define $__ATTRACTION__RU Attraction
 
 ## Kunstwerk, Kunstobjekt. [point, closedway]
 #define $__ARTWORK__ Kunstobjekt
 #define $__ARTWORK__DE Kunstobjekt
 #define $__ARTWORK__EN Work of Art
 #define $__ARTWORK__FR Kunstobjekt
+#define $__ARTWORK__RU Work of Art
 
 ## Basic hut (Schutzhütte, Berghütte). [point, closedway]
 ## A basic hut is a building located in the mountains or into the wild intended
@@ -73,42 +77,49 @@
 #define $__BASICHUT__DE Basic Hut
 #define $__BASICHUT__EN Basic hut
 #define $__BASICHUT__FR Basic Hut
+#define $__BASICHUT__RU Basic hut
 
 ## Bed & Breakfast. [point, closedway]
 #define $__BEDANDBREAKFAST__ Bed & Breakfast
 #define $__BEDANDBREAKFAST__DE Bed & Breakfast
 #define $__BEDANDBREAKFAST__EN Bed & Breakfast
 #define $__BEDANDBREAKFAST__FR Bed & Breakfast
+#define $__BEDANDBREAKFAST__RU Bed & Breakfast
 
 ## Campingplatz. [point, closedway]
 #define $__CAMPSITE__ Camping
 #define $__CAMPSITE__DE Camping
 #define $__CAMPSITE__EN Campsite
 #define $__CAMPSITE__FR Camping
+#define $__CAMPSITE__RU Campsite
 
 ## Stellplatz für Wohnmobile (Reisemobile). [point, closedway]
 #define $__CARAVANSITE__ Caravan
 #define $__CARAVANSITE__DE Caravan
 #define $__CARAVANSITE__EN Caravan Site
 #define $__CARAVANSITE__FR Caravan
+#define $__CARAVANSITE__RU Caravan Site
 
 ## Ferienwohnung, Ferienhaus, Sennhütte. [point, closedway]
 #define $__CHALET__ Ferienhaus
 #define $__CHALET__DE Ferienhaus
 #define $__CHALET__EN Chalet
 #define $__CHALET__FR Ferienhaus
+#define $__CHALET__RU Chalet
 
 ## Pension, Gasthaus. [point, closedway]
 #define $__GUESTHOUSE__ Gasthaus
 #define $__GUESTHOUSE__DE Gasthaus
 #define $__GUESTHOUSE__EN Guest House
 #define $__GUESTHOUSE__FR Gasthaus
+#define $__GUESTHOUSE__RU Guest House
 
 ## Jugendherberge, Herberge, Naturfreundehaus usw. [point, closedway]
 #define $__HOSTEL__ Herberge
 #define $__HOSTEL__DE Herberge
 #define $__HOSTEL__EN Hostel
 #define $__HOSTEL__FR Herberge
+#define $__HOSTEL__RU Hostel
 
 ## Hotel. [point, closedway]
 ## Das Restaurant enthält dann auch den Namenszusatz (Hotel) (Beispiel: 3* Gasthof Stern (Hotel)).
@@ -116,6 +127,7 @@
 #define $__HOTEL__DE Hotel
 #define $__HOTEL__EN Hotel
 #define $__HOTEL__FR Hotel
+#define $__HOTEL__RU Hotel
 
 ## Lean-to (Schutzhütte, Berghütte). [point, closedway]
 ## A lean-to is a building located in the mountains or into the wild intended to provide shelter against rain.
@@ -123,30 +135,35 @@
 #define $__LEANTO__DE Lean-to
 #define $__LEANTO__EN Lean-to
 #define $__LEANTO__FR Lean-to
+#define $__LEANTO__RU Lean-to
 
 ## Motel. [point, closedway]
 #define $__MOTEL__ Motel
 #define $__MOTEL__DE Motel
 #define $__MOTEL__EN Motel
 #define $__MOTEL__FR Motel
+#define $__MOTEL__RU Motel
 
 ## Museum.
 #define $__MUSEUM__ Museum
 #define $__MUSEUM__DE Museum
 #define $__MUSEUM__EN Museum
 #define $__MUSEUM__FR Museum
+#define $__MUSEUM__RU Museum
 
 ## Rastplatz (Picknick). [point, closedway]
 #define $__PICNICSITE__ Picknick
 #define $__PICNICSITE__DE Picknick
 #define $__PICNICSITE__EN Picnic Place
 #define $__PICNICSITE__FR Picknick
+#define $__PICNICSITE__RU Picnic Place
 
 ## Freizeitpark, Themenpark. [point, closedway]
 #define $__THEMEPARK__ Freizeitpark
 #define $__THEMEPARK__DE Freizeitpark
 #define $__THEMEPARK__EN Amusement/Theme Park
 #define $__THEMEPARK__FR Freizeitpark
+#define $__THEMEPARK__RU Amusement/Theme Park
 
 ## Wilderness hut (Schutzhütte, Berghütte). [point, closedway]
 ## A wilderness hut is a building located in the mountains or into the wild intended
@@ -155,6 +172,7 @@
 #define $__WILDERNESSHUT__DE Wilderness Hut
 #define $__WILDERNESSHUT__EN Wilderness Hut
 #define $__WILDERNESSHUT__FR Wilderness Hut
+#define $__WILDERNESSHUT__RU Wilderness Hut
 
 ## Zoologischer Garten (Zoo), Tierpark. [point, closedway]
 ## Points
@@ -162,12 +180,14 @@
 #define $__ZOO__DE Zoo
 #define $__ZOO__EN Zoo
 #define $__ZOO__FR Zoo
+#define $__ZOO__RU Zoo
 
 ## Gehege (im Zoo). [point, closedway]
 #define $__COMPOUND__ Gehege
 #define $__COMPOUND__DE Gehege
 #define $__COMPOUND__EN Zoo Enlosure
 #define $__COMPOUND__FR Gehege
+#define $__COMPOUND__RU Zoo Enlosure
 
 
 ## ------------------------------------------------------------
@@ -180,84 +200,98 @@
 #define $__BAY__DE Meeresbucht
 #define $__BAY__EN Bay
 #define $__BAY__FR Meeresbucht
+#define $__BAY__RU Bay
 
 ## Strand. [point, closedway]
 #define $__BEACH__ Strand
 #define $__BEACH__DE Strand
 #define $__BEACH__EN Beach
 #define $__BEACH__FR Strand
+#define $__BEACH__RU Beach
 
 ## Eingang zu einer Höhle. [point, closedway]
 #define $__CAVEENTRANCE__ Höhle
 #define $__CAVEENTRANCE__DE Höhle
 #define $__CAVEENTRANCE__EN Cave
 #define $__CAVEENTRANCE__FR Höhle
+#define $__CAVEENTRANCE__RU Cave
 
 ## Klippe. [point, way, closedway]
 #define $__CLIFF__ Klippe
 #define $__CLIFF__DE Klippe
 #define $__CLIFF__EN Cliff 
 #define $__CLIFF__FR Klippe
+#define $__CLIFF__RU Cliff 
 
 ## Alm, Matten: Bereich oberhalb der Baumgrenze. [point, closedway]
 #define $__FELL__ Alm, Matten
 #define $__FELL__DE Alm, Matten
 #define $__FELL__EN Open Fell
 #define $__FELL__FR Alm, Matten
+#define $__FELL__RU Open Fell
 
 ## Gebiet (auch Bergspitze), das ganzjährig mit Eis bedeckt ist. [point, closedway]
 #define $__GLACIER__ Gletscher
 #define $__GLACIER__DE Gletscher
 #define $__GLACIER__EN Glacier
 #define $__GLACIER__FR Gletscher
+#define $__GLACIER__RU Glacier
 
 ## Heide. [point, closedway]
 #define $__HEATH__ Heide
 #define $__HEATH__DE Heide
 #define $__HEATH__EN Heath or Heathland
 #define $__HEATH__FR Heide
+#define $__HEATH__RU Heath or Heathland
 
 ## Marsch (Feuchtgebiet, Sumpf, Moor, etc.) veraltet, siehe natural=wetland). [point, closedway]
 #define $__MARSH__ Marsch
 #define $__MARSH__DE Marsch
 #define $__MARSH__EN Marsh
 #define $__MARSH__FR Marsch
+#define $__MARSH__RU Marsh
 
 ## Schlick / Moor. [point, closedway]
 #define $__MUD__ Schlick/Moor
 #define $__MUD__DE Schlick/Moor
 #define $__MUD__EN Bog 
 #define $__MUD__FR Schlick/Moor
+#define $__MUD__RU Bog 
 
 ## Boden mit Sand bedeckt, kein oder nur spärlicher Bewuchs. [point, closedway]
 #define $__SAND__ Sand
 #define $__SAND__DE Sand
 #define $__SAND__EN Sand
 #define $__SAND__FR Sand
+#define $__SAND__RU Sand
 
 ## (Loses) Geröll. [point, closedway]
 #define $__SCREE__ Geröll
 #define $__SCREE__DE Geröll
 #define $__SCREE__EN Scree 
 #define $__SCREE__FR Geröll
+#define $__SCREE__RU Scree 
 
 ## Unkultiviertes Land: Unterholz / Busch. [point, closedway]
 #define $__SCRUB__ Unkultiviertes Land
 #define $__SCRUB__DE Unkultiviertes Land
 #define $__SCRUB__EN Scrubland
 #define $__SCRUB__FR Unkultiviertes Land
+#define $__SCRUB__RU Scrubland
 
 ## Quelle. [point]
 #define $__SPRING__ Quelle
 #define $__SPRING__DE Quelle
 #define $__SPRING__EN Spring
 #define $__SPRING__FR Quelle
+#define $__SPRING__RU Spring
 
 ## Großer Stein, Findling. [point]
 #define $__STONE__ Findling
 #define $__STONE__DE Findling
 #define $__STONE__EN Boulder
 #define $__STONE__FR Findling
+#define $__STONE__RU Boulder
 
 ## Einzelner oder signifikanter Baum. [point]
 ## Der Baum muss als Landmarke ausgewiesen sein.
@@ -265,24 +299,28 @@
 #define $__TREE__DE Baum
 #define $__TREE__EN Tree 
 #define $__TREE__FR Baum
+#define $__TREE__RU Tree 
 
 ## Vulkan, entweder ruhend, erloschen oder aktiv. [point]
 #define $__VOLCANO__ Vulkan
 #define $__VOLCANO__DE Vulkan
 #define $__VOLCANO__EN Volcano
 #define $__VOLCANO__FR Vulkan
+#define $__VOLCANO__RU Volcano
 
 ## Wasser, Seen, Teiche usw. [point, closedway]
 #define $__WATER__ See, Teich
 #define $__WATER__DE See, Teich
 #define $__WATER__EN Lake/Pond
 #define $__WATER__FR See, Teich
+#define $__WATER__RU Lake/Pond
 
 ## Wasserfall. [point]
 #define $__WATERFALL__ Wasserfall
 #define $__WATERFALL__DE Wasserfall
 #define $__WATERFALL__EN Waterfall
 #define $__WATERFALL__FR Wasserfall
+#define $__WATERFALL__RU Waterfall
 
 ## Feuchtgebiet wie Sumpf, Moor, Ried, Marsch, Aue, Röhricht, Watt, Salzwiese oder Mangrove.
 ## Naturbelassene Flächen, die Überflutungen ausgesetzt sind oder staunasse Böden aufweisen. [point, closedway]
@@ -290,12 +328,14 @@
 #define $__WETLAND__DE Feuchtgebiet
 #define $__WETLAND__EN Wetland (Marsh, reeds or saltings) 
 #define $__WETLAND__FR Feuchtgebiet
+#define $__WETLAND__RU Wetland (Marsh, reeds or saltings) 
 
 ## Naturwald oder vollkommen unbewirtschaftete Wälder. [point, closedway]
 #define $__WOOD__ Naturwald
 #define $__WOOD__DE Naturwald
 #define $__WOOD__EN Wood/Forest 
 #define $__WOOD__FR Naturwald
+#define $__WOOD__RU Wood/Forest 
 
 
 ## ------------------------------------------------------------
@@ -308,18 +348,21 @@
 #define $__ISLET__DE Kleine Insel
 #define $__ISLET__EN Island/Islet
 #define $__ISLET__FR Kleine Insel
+#define $__ISLET__RU Island/Islet
 
 ## Isolated_dwelling: Smallest rural settlement, smaller than a hamlet, usually just one house. [point, closedway]
 #define $__ISOLATEDDWELLING__ Einöde
 #define $__ISOLATEDDWELLING__DE Einöde
 #define $__ISOLATEDDWELLING__EN Isolated Dwelling
 #define $__ISOLATEDDWELLING__FR Einöde
+#define $__ISOLATEDDWELLING__RU Isolated Dwelling
 
 ## Ortsbezeichnung ohne Bezug auf Bevölkerung (z.B. "Wiesengrund", "Deutsches Eck"). [point, closedway]
 #define $__LOCALITY__ Ortsbezeichnung
 #define $__LOCALITY__DE Ortsbezeichnung
 #define $__LOCALITY__EN Locality
 #define $__LOCALITY__FR Ortsbezeichnung
+#define $__LOCALITY__RU Locality
 
 ## ------------------------------------------
 ## Energieversorgung / power:
@@ -330,6 +373,7 @@
 #define $__POWERTOWER__DE Strommast
 #define $__POWERTOWER__EN Pylon
 #define $__POWERTOWER__FR Strommast
+#define $__POWERTOWER__RU Pylon
 
 ## Umspannwerk: bezeichnet eine Umspannanlage, die ein Höchst- oder Hochspannungs- mit einem weiteren
 ## Hochspannungs- oder einem Mittelspannungsnetz verbindet. [point, closedway]
@@ -337,6 +381,7 @@
 #define $__POWERSTATION__DE Umspannwerk
 #define $__POWERSTATION__EN Power Station
 #define $__POWERSTATION__FR Umspannwerk
+#define $__POWERSTATION__RU Power Station
 
 ## Umspannstation, kleiner als station, verbindet ein Mittel- mit einem Niederspannungsnetz,
 ## z.B. Mini-Umspannwerk, Trafohäuschen oder großer Trafokasten. [point, closedway]
@@ -344,18 +389,21 @@
 #define $__POWERSUBSTATION__DE Umspannstation
 #define $__POWERSUBSTATION__EN Substation
 #define $__POWERSUBSTATION__FR Umspannstation
+#define $__POWERSUBSTATION__RU Substation
 
 ## Windenergieanlage. [point, closedway]
 #define $__WINDGENERATOR__ Windenergieanlage
 #define $__WINDGENERATOR__DE Windenergieanlage
 #define $__WINDGENERATOR__EN Wind Turbine
 #define $__WINDGENERATOR__FR Windenergieanlage
+#define $__WINDGENERATOR__RU Wind Turbine
 
 ## Kraftwerk: dient der Erzeugung von Strom oder Wärme. [point, closedway]
 #define $__POWERGENERATOR__ Kraftwerk
 #define $__POWERGENERATOR__DE Kraftwerk
 #define $__POWERGENERATOR__EN Power Plant
 #define $__POWERGENERATOR__FR Kraftwerk
+#define $__POWERGENERATOR__RU Power Plant
 
 
 ## ------------------------------------------------------------
@@ -367,18 +415,21 @@
 #define $__AIRPORT__DE Flughafen
 #define $__AIRPORT__EN Airport
 #define $__AIRPORT__FR Flughafen
+#define $__AIRPORT__RU Airport
 
 ## Hubschrauberlandeplatz. [point, closedway]
 #define $__HELIPAD__ Hubschrauberlandeplatz
 #define $__HELIPAD__DE Hubschrauberlandeplatz
 #define $__HELIPAD__EN Helipad
 #define $__HELIPAD__FR Hubschrauberlandeplatz
+#define $__HELIPAD__RU Helipad
 
 ## Flughafengebäude. [point, closedway]
 #define $__TERMINAL__ Terminal
 #define $__TERMINAL__DE Terminal
 #define $__TERMINAL__EN Airport Building/Terminal 
 #define $__TERMINAL__FR Terminal
+#define $__TERMINAL__RU Airport Building/Terminal 
 
 
 ## ------------------------------------------------------------
@@ -393,18 +444,21 @@
 #define $__BAR__DE Bar
 #define $__BAR__EN Bar
 #define $__BAR__FR Bar
+#define $__BAR__RU Bar
 
 ## Biergarten. [point, closedway]
 #define $__BIERGARTEN__ Biergarten
 #define $__BIERGARTEN__DE Biergarten
 #define $__BIERGARTEN__EN Beer Garden 
 #define $__BIERGARTEN__FR Biergarten
+#define $__BIERGARTEN__RU Beer Garden 
 
 ## Café, Bistro. [point, closedway]
 #define $__CAFE__ Café
 #define $__CAFE__DE Café
 #define $__CAFE__EN Cafe
 #define $__CAFE__FR Café
+#define $__CAFE__RU Cafe
 
 ## Schnell-Restaurant, Imbiss. Die Art kann mit cuisine=* angegeben werden, als Wert z.B. =burger
 ## für ein Burgerrestaurant oder =kebab für einen Dönerimbiss. [point, closedway]
@@ -412,18 +466,21 @@
 #define $__FASTFOOD__DE Fastfood
 #define $__FASTFOOD__EN Fast-Food Restaurant/Takeaway
 #define $__FASTFOOD__FR Fastfood
+#define $__FASTFOOD__RU Fast-Food Restaurant/Takeaway
 
 # Eiscafé, Eisdiele. [point, closedway]
 #define $__ICECREAM__ Eiscafé
 #define $__ICECREAM__DE Eiscafé
 #define $__ICECREAM__EN Ice Cream Parlour
 #define $__ICECREAM__FR Eiscafé
+#define $__ICECREAM__RU Ice Cream Parlour
 
 ## Kneipe. [point, closedway]
 #define $__PUB__ Kneipe
 #define $__PUB__DE Kneipe
 #define $__PUB__EN Pub
 #define $__PUB__FR Kneipe
+#define $__PUB__RU Pub
 
 ## Restaurant (ohne Fast-Food). Die Art der Küche kann mit "cuisine=*" angegeben werden,
 ## als Wert z.B. "italian" für italienische oder "greek" für griechische Küche. [point, closedway]
@@ -431,118 +488,141 @@
 #define $__RESTAURANT__DE Restaurant
 #define $__RESTAURANT__EN Restaurant
 #define $__RESTAURANT__FR Restaurant
+#define $__RESTAURANT__RU Restaurant
 
 ## Amerikanisch.
 #define $__AMERICAN__ Amerikanisch
 #define $__AMERICAN__DE Amerikanisch
 #define $__AMERICAN__EN American
 #define $__AMERICAN__FR Amerikanisch
+#define $__AMERICAN__RU American
 #define $__BURGER__ Hamburger
 #define $__BURGER__DE Hamburger
 #define $__BURGER__EN Burger Bar 
 #define $__BURGER__FR Hamburger
+#define $__BURGER__RU Burger Bar 
 
 ## Asiatisch.
 #define $__THAI__ Thailändisch
 #define $__THAI__DE Thailändisch
 #define $__THAI__EN Thai
 #define $__THAI__FR Thailändisch
+#define $__THAI__RU Thai
 #define $__ASIAN__ Asiatisch
 #define $__ASIAN__DE Asiatisch
 #define $__ASIAN__EN Asian
 #define $__ASIAN__FR Asiatisch
+#define $__ASIAN__RU Asian
 #define $__JAPANESE__ Japanisch
 #define $__JAPANESE__DE Japanisch
 #define $__JAPANESE__EN Japanese
 #define $__JAPANESE__FR Japanisch
+#define $__JAPANESE__RU Japanese
 #define $__KOREAN__ Koreanisch
 #define $__KOREAN__DE Koreanisch
 #define $__KOREAN__EN Korean
 #define $__KOREAN__FR Koreanisch
+#define $__KOREAN__RU Korean
 #define $__VIETNAMESE__ Vietnamesisch
 #define $__VIETNAMESE__DE Vietnamesisch
 #define $__VIETNAMESE__EN Vietnamese
 #define $__VIETNAMESE__FR Vietnamesisch
+#define $__VIETNAMESE__RU Vietnamese
 
 ## Chinesisch.
 #define $__CHINESE__ Chinesisch
 #define $__CHINESE__DE Chinesisch
 #define $__CHINESE__EN Chinese
 #define $__CHINESE__FR Chinesisch
+#define $__CHINESE__RU Chinese
 
 ## Italienisch.
 #define $__ITALIAN__ Italienisch
 #define $__ITALIAN__DE Italienisch
 #define $__ITALIAN__EN Italian
 #define $__ITALIAN__FR Italienisch
+#define $__ITALIAN__RU Italian
 #define $__MEDITERRANEAN__ Mediteran
 #define $__MEDITERRANEAN__DE Mediteran
 #define $__MEDITERRANEAN__EN Mediterranean
 #define $__MEDITERRANEAN__FR Mediteran
+#define $__MEDITERRANEAN__RU Mediterranean
 
 ## Pizza.
 #define $__PIZZA__ Pizza
 #define $__PIZZA__DE Pizza
 #define $__PIZZA__EN Pizza
 #define $__PIZZA__FR Pizza
+#define $__PIZZA__RU Pizza
 
 ## Mexikanisch.
 #define $__MEXICAN__ Mexikanisch
 #define $__MEXICAN__DE Mexikanisch
 #define $__MEXICAN__EN Mexican
 #define $__MEXICAN__FR Mexikanisch
+#define $__MEXICAN__RU Mexican
 
 ## Spanisch
 #define $__SPANISH__ Spanisch
 #define $__SPANISH__DE Spanisch
 #define $__SPANISH__EN Spanish
 #define $__SPANISH__FR Spanisch
+#define $__SPANISH__RU Spanish
 
 ## Meeresfrüchte.
 #define $__SEAFOOD__ Fisch
 #define $__SEAFOOD__DE Fisch
 #define $__SEAFOOD__EN Seafood
 #define $__SEAFOOD__FR Fisch
+#define $__SEAFOOD__RU Seafood
 #define $__FISH__ Fisch
 #define $__FISH__DE Fisch
 #define $__FISH__EN Fish/Fish & Chips Restaurant
 #define $__FISH__FR Fisch
+#define $__FISH__RU Fish/Fish & Chips Restaurant
 #define $__SUSHI__ Sushi
 #define $__SUSHI__DE Sushi
 #define $__SUSHI__EN Sushi
 #define $__SUSHI__FR Sushi
+#define $__SUSHI__RU Sushi
 
 ## Steak / Grill.
 #define $__STEAKHOUSE__ Steak-House
 #define $__STEAKHOUSE__DE Steak-House
 #define $__STEAKHOUSE__EN Steak House 
 #define $__STEAKHOUSE__FR Steak-House
+#define $__STEAKHOUSE__RU Steak House 
 
 ## Cafe / Bar.
 #define $__COFFEESHOP__ Coffee-Shop
 #define $__COFFEESHOP__DE Coffee-Shop
 #define $__COFFEESHOP__EN Coffee Shop
 #define $__COFFEESHOP__FR Coffee-Shop
+#define $__COFFEESHOP__RU Coffee Shop
 
 ## Französisch.
 #define $__FRENCH__ Französisch
 #define $__FRENCH__DE Französisch
 #define $__FRENCH__EN French
 #define $__FRENCH__FR Französisch
+#define $__FRENCH__RU French
 
 ## Deutsch.
 #define $__GERMAN__ Deutsch
 #define $__GERMAN__DE Deutsch
 #define $__GERMAN__EN German
 #define $__GERMAN__FR Deutsch
+#define $__GERMAN__RU German
 #define $__BAVARIAN__ Bayrisch
 #define $__BAVARIAN__DE Bayrisch
 #define $__BAVARIAN__EN Bavarian
 #define $__BAVARIAN__FR Bayrisch
+#define $__BAVARIAN__RU Bavarian
 #define $__SWABIAN__ Schwäbisch
 #define $__SWABIAN__DE Schwäbisch
 #define $__SWABIAN__EN Swabian
 #define $__SWABIAN__FR Schwäbisch
+#define $__SWABIAN__RU Swabian
 
 ## Britisch.
 ## Gibt es in Deutschland nicht (Stand 10/2011).
@@ -550,78 +630,96 @@
 #define $__BRITISH__DE Britisch
 #define $__BRITISH__EN British
 #define $__BRITISH__FR Britisch
+#define $__BRITISH__RU British
 
 ## Spezialitäten.
 #define $__SPECIALITY__ Spezialitäten
 #define $__SPECIALITY__DE Spezialitäten
 #define $__SPECIALITY__EN Speciality
 #define $__SPECIALITY__FR Spezialitäten
+#define $__SPECIALITY__RU Speciality
 #define $__GREEK__ Griechisch
 #define $__GREEK__DE Griechisch
 #define $__GREEK__EN Greek
 #define $__GREEK__FR Griechisch
+#define $__GREEK__RU Greek
 #define $__TURKISH__ Türkisch
 #define $__TURKISH__DE Türkisch
 #define $__TURKISH__EN Turkish
 #define $__TURKISH__FR Türkisch
+#define $__TURKISH__RU Turkish
 #define $__INDIAN__ Indisch
 #define $__INDIAN__DE Indisch
 #define $__INDIAN__EN Indian
 #define $__INDIAN__FR Indisch
+#define $__INDIAN__RU Indian
 #define $__ARAB__ Arabisch
 #define $__ARAB__DE Arabisch
 #define $__ARAB__EN Arabic
 #define $__ARAB__FR Arabisch
+#define $__ARAB__RU Arabic
 #define $__PORTUGUESE__ Portugiesisch
 #define $__PORTUGUESE__DE Portugiesisch
 #define $__PORTUGUESE__EN Portugese
 #define $__PORTUGUESE__FR Portugiesisch
+#define $__PORTUGUESE__RU Portugese
 #define $__VEGETARIAN__ Vegetarisch
 #define $__VEGETARIAN__DE Vegetarisch
 #define $__VEGETARIAN__EN Vegetarian
 #define $__VEGETARIAN__FR Vegetarisch
+#define $__VEGETARIAN__RU Vegetarian
 #define $__AUSTRIAN__ Österreichisch
 #define $__AUSTRIAN__DE Österreichisch
 #define $__AUSTRIAN__EN Austrian
 #define $__AUSTRIAN__FR Österreichisch
+#define $__AUSTRIAN__RU Austrian
 #define $__PERSIAN__ Persisch
 #define $__PERSIAN__DE Persisch
 #define $__PERSIAN__EN Persian
 #define $__PERSIAN__FR Persisch
+#define $__PERSIAN__RU Persian
 #define $__LEBANESE__ Libanesisch
 #define $__LEBANESE__DE Libanesisch
 #define $__LEBANESE__EN Lebanese
 #define $__LEBANESE__FR Libanesisch
+#define $__LEBANESE__RU Lebanese
 #define $__AFRICAN__ Afrikanisch
 #define $__AFRICAN__DE Afrikanisch
 #define $__AFRICAN__EN African
 #define $__AFRICAN__FR Afrikanisch
+#define $__AFRICAN__RU African
 #define $__RUSSIAN__ Russisch
 #define $__RUSSIAN__DE Russisch
 #define $__RUSSIAN__EN Russian
 #define $__RUSSIAN__FR Russisch
+#define $__RUSSIAN__RU Russian
 #define $__YUGOSLAVIAN__ Jugoslawisch
 #define $__YUGOSLAVIAN__DE Jugoslawisch
 #define $__YUGOSLAVIAN__EN Yugoslavian
 #define $__YUGOSLAVIAN__FR Jugoslawisch
+#define $__YUGOSLAVIAN__RU Yugoslavian
 #define $__BALKAN__ Balkan
 #define $__BALKAN__DE Balkan
 #define $__BALKAN__EN Balkan
 #define $__BALKAN__FR Balkan
+#define $__BALKAN__RU Balkan
 #define $__REGIONAL__ Regional
 #define $__REGIONAL__DE Regional
 #define $__REGIONAL__EN Regional
 #define $__REGIONAL__FR Regional
+#define $__REGIONAL__RU Regional
 #define $__INTERNATIONAL__ International
 #define $__INTERNATIONAL__DE International
 #define $__INTERNATIONAL__EN International
 #define $__INTERNATIONAL__FR International
+#define $__INTERNATIONAL__RU International
 
 ## Eiscafé, Eisdiele.
 #define $__ICECREAMRESTAURANT__ Eis
 #define $__ICECREAMRESTAURANT__DE Eis
 #define $__ICECREAMRESTAURANT__EN Ice Cream Parlour
 #define $__ICECREAMRESTAURANT__FR Eis
+#define $__ICECREAMRESTAURANT__RU Ice Cream Parlour
 
 ## Kategorie "Bildung"
 ## -------------------
@@ -631,30 +729,35 @@
 #define $__KINDERGARTEN__DE Kindergarten
 #define $__KINDERGARTEN__EN Kindergarten
 #define $__KINDERGARTEN__FR Kindergarten
+#define $__KINDERGARTEN__RU Kindergarten
 
 ## Schule. [point, closedway]
 #define $__SCHOOL__ Schule
 #define $__SCHOOL__DE Schule
 #define $__SCHOOL__EN School
 #define $__SCHOOL__FR Schule
+#define $__SCHOOL__RU School
 
 ## Hochschule. [point, closedway]
 #define $__COLLEGE__ Hochschule
 #define $__COLLEGE__DE Hochschule
 #define $__COLLEGE__EN College
 #define $__COLLEGE__FR Hochschule
+#define $__COLLEGE__RU College
 
 ## Bibliothek, Bücherei. [point, closedway]
 #define $__LIBRARY__ Bibliothek
 #define $__LIBRARY__DE Bibliothek
 #define $__LIBRARY__EN Library
 #define $__LIBRARY__FR Bibliothek
+#define $__LIBRARY__RU Library
 
 ## Universität (Campus oder Gebäude). [point, closedway]
 #define $__UNIVERSITY__ Universität
 #define $__UNIVERSITY__DE Universität
 #define $__UNIVERSITY__EN University
 #define $__UNIVERSITY__FR Universität
+#define $__UNIVERSITY__RU University
 
 ## Kategorie "Transport, Verkehr"
 ## ------------------------------
@@ -664,58 +767,68 @@
 #define $__BICYCLERENTAL__DE Fahrradverleih
 #define $__BICYCLERENTAL__EN Bicycle Hire/Rental
 #define $__BICYCLERENTAL__FR Fahrradverleih
+#define $__BICYCLERENTAL__RU Bicycle Hire/Rental
 
 ## Busbahnhof (große Haltestelle). [point, closedway] (s.a. highway = bus_stop)
 #define $__BUSSTATION__ Busbahnhof
 #define $__BUSSTATION__DE Busbahnhof
 #define $__BUSSTATION__EN Bus Station 
 #define $__BUSSTATION__FR Busbahnhof
+#define $__BUSSTATION__RU Bus Station 
 
 ## Automobil-Club. [point, closedway]
 #define $__CARCLUB__ Automobil-Club
 #define $__CARCLUB__DE Automobil-Club
 #define $__CARCLUB__EN Car Club
 #define $__CARCLUB__FR Automobil-Club
+#define $__CARCLUB__RU Car Club
 
 ## Autoverleih. [point, closedway]
 #define $__CARRENTAL__ Autoverleih
 #define $__CARRENTAL__DE Autoverleih
 #define $__CARRENTAL__EN Car Hire/Rental
 #define $__CARRENTAL__FR Autoverleih
+#define $__CARRENTAL__RU Car Hire/Rental
 
 ## Carsharing-Station. [point, closedway]
 #define $__CARSHARING__ Carsharing-Station
 #define $__CARSHARING__DE Carsharing-Station
 #define $__CARSHARING__EN Car Sharing Point
 #define $__CARSHARING__FR Carsharing-Station
+#define $__CARSHARING__RU Car Sharing Point
 
 ## Autowaschanlage. [point, closedway]
 #define $__CARWASH__ Autowaschanlage
 #define $__CARWASH__DE Autowaschanlage
 #define $__CARWASH__EN Car Wash
 #define $__CARWASH__FR Autowaschanlage
+#define $__CARWASH__RU Car Wash
 
 ## Fährterminal. [point, closedway]
 #define $__FERRYTERMINAL__ Fährterminal
 #define $__FERRYTERMINAL__DE Fährterminal
 #define $__FERRYTERMINAL__EN Ferry Terminal
 #define $__FERRYTERMINAL__FR Fährterminal
+#define $__FERRYTERMINAL__RU Ferry Terminal
 
 ## Tankstelle. [point, closedway]
 #define $__FUELSTATION__ Tankstelle
 #define $__FUELSTATION__DE Tankstelle
 #define $__FUELSTATION__EN Petrol Station 
 #define $__FUELSTATION__FR Tankstelle
+#define $__FUELSTATION__RU Petrol Station 
 
 ## Parkplatz. [point, closedway]
 #define $__PARKING__ Parken
 #define $__PARKING__DE Parken
 #define $__PARKING__EN Parking
 #define $__PARKING__FR Parken
+#define $__PARKING__RU Parking
 #define $__RESTRICTED__ eingeschränkt
 #define $__RESTRICTED__DE eingeschränkt
 #define $__RESTRICTED__EN Restricted
 #define $__RESTRICTED__FR eingeschränkt
+#define $__RESTRICTED__RU Restricted
 
 ## Kategorie "Finanzen"
 ## --------------------
@@ -725,12 +838,14 @@
 #define $__ATM__DE Geldautomat
 #define $__ATM__EN ATM
 #define $__ATM__FR Geldautomat
+#define $__ATM__RU ATM
 
 ## Bank. [point, closedway]
 #define $__BANK__ Bank
 #define $__BANK__DE Bank
 #define $__BANK__EN Bank
 #define $__BANK__FR Bank
+#define $__BANK__RU Bank
 
 ## Kategorie "Gesundheitswesen"
 ## ----------------------------
@@ -740,12 +855,14 @@
 #define $__PHARMACY__DE Apotheke
 #define $__PHARMACY__EN Pharmacy
 #define $__PHARMACY__FR Apotheke
+#define $__PHARMACY__RU Pharmacy
 
 ## Krankenhaus. [point, closedway]
 #define $__HOSPITAL__ Krankenhaus
 #define $__HOSPITAL__DE Krankenhaus
 #define $__HOSPITAL__EN Hospital
 #define $__HOSPITAL__FR Krankenhaus
+#define $__HOSPITAL__RU Hospital
 
 ## Kategorie "Unterhaltung, Kunst, Kultur"
 ## ---------------------------------------
@@ -755,58 +872,68 @@
 #define $__ARTSCENTRE__DE Kunstzentrum
 #define $__ARTSCENTRE__EN Art Gallery
 #define $__ARTSCENTRE__FR Kunstzentrum
+#define $__ARTSCENTRE__RU Art Gallery
 
 ## Casino. [point, closedway]
 #define $__CASINO__ Casino
 #define $__CASINO__DE Casino
 #define $__CASINO__EN Casino
 #define $__CASINO__FR Casino
+#define $__CASINO__RU Casino
 
 ## Kino. [point, closedway]
 #define $__CINEMA__ Kino
 #define $__CINEMA__DE Kino
 #define $__CINEMA__EN Cinema
 #define $__CINEMA__FR Kino
+#define $__CINEMA__RU Cinema
 
 ## Lokale Veranstaltungshalle. [point, closedway]
 #define $__COMMUNITYCENTRE__ Lokale Veranstaltungshalle
 #define $__COMMUNITYCENTRE__DE Lokale Veranstaltungshalle
 #define $__COMMUNITYCENTRE__EN Community/Village Hall
 #define $__COMMUNITYCENTRE__FR Lokale Veranstaltungshalle
+#define $__COMMUNITYCENTRE__RU Community/Village Hall
 
 ## Konzerthalle. [point, closedway]
 #define $__CONCERTHALL__ Konzerthalle
 #define $__CONCERTHALL__DE Konzerthalle
 #define $__CONCERTHALL__EN Concert Hall
 #define $__CONCERTHALL__FR Konzerthalle
+#define $__CONCERTHALL__RU Concert Hall
 
 ## Messe, Konferenzcenter. [point, closedway]
 #define $__CONFERENCECENTRE__ Messe, Konferenzcenter
 #define $__CONFERENCECENTRE__DE Messe, Konferenzcenter
 #define $__CONFERENCECENTRE__EN Conference Center
 #define $__CONFERENCECENTRE__FR Messe, Konferenzcenter
+#define $__CONFERENCECENTRE__RU Conference Center
 
 ## Nachtclub, Disco. [point, closedway]
 #define $__NIGHTCLUB__ Disco
 #define $__NIGHTCLUB__DE Disco
 #define $__NIGHTCLUB__EN Nightclub/Discoteque 
 #define $__NIGHTCLUB__FR Disco
+#define $__NIGHTCLUB__RU Nightclub/Discoteque 
 
 ## A place for free and not-for-profit activities.
 #define $__SOCIALCENTRE__ Sozialeinrichtung
 #define $__SOCIALCENTRE__DE Sozialeinrichtung
 #define $__SOCIALCENTRE__EN Social Center 
 #define $__SOCIALCENTRE__FR Sozialeinrichtung
+#define $__SOCIALCENTRE__RU Social Center 
 #define $__SOCIALFACILITY__ Sozialeinrichtung
 #define $__SOCIALFACILITY__DE Sozialeinrichtung
 #define $__SOCIALFACILITY__EN Social Facility
 #define $__SOCIALFACILITY__FR Sozialeinrichtung
+#define $__SOCIALFACILITY__RU Social Facility
 
 ## Theater, Oper, Schauspielhaus. [point, closedway]
 #define $__THEATRE__ Theater
 #define $__THEATRE__DE Theater
 #define $__THEATRE__EN Theatre
 #define $__THEATRE__FR Theater
+#define $__THEATRE__RU Theatre
 
 ## Kategorie "Andere"
 ## ------------------
@@ -816,72 +943,85 @@
 #define $__COURTHOUSE__DE Gericht
 #define $__COURTHOUSE__EN Courthouse
 #define $__COURTHOUSE__FR Gericht
+#define $__COURTHOUSE__RU Courthouse
 
 ## Trinkwasserstelle: Eine öffentlich zugängliche Trinkwasserstelle.
 #define $__DRINKINGWATER__ Trinkwasser
 #define $__DRINKINGWATER__DE Trinkwasser
 #define $__DRINKINGWATER__EN Drinking Water/Fountain
 #define $__DRINKINGWATER__FR Trinkwasser
+#define $__DRINKINGWATER__RU Drinking Water/Fountain
 
 ## Botschaft, Botschaftsgebäude. [point, closedway]
 #define $__EMBASSY__ Botschaft
 #define $__EMBASSY__DE Botschaft
 #define $__EMBASSY__EN Embassy
 #define $__EMBASSY__FR Botschaft
+#define $__EMBASSY__RU Embassy
 
 ## Feuerwache. [point, closedway]
 #define $__FIRESTATION__ Feuerwache
 #define $__FIRESTATION__DE Feuerwache
 #define $__FIRESTATION__EN Fire Station
 #define $__FIRESTATION__FR Feuerwache
+#define $__FIRESTATION__RU Fire Station
 
 ## Anbetungsort (Kirche, Moschee, Synagoge). [point, closedway]
 #define $__PLACEOFWORSHIP__ Anbetungsort
 #define $__PLACEOFWORSHIP__DE Anbetungsort
 #define $__PLACEOFWORSHIP__EN Place of Worship
 #define $__PLACEOFWORSHIP__FR Anbetungsort
+#define $__PLACEOFWORSHIP__RU Place of Worship
 #define $__CHRISTIAN__ Kirche
 #define $__CHRISTIAN__DE Kirche
 #define $__CHRISTIAN__EN Church
 #define $__CHRISTIAN__FR Kirche
+#define $__CHRISTIAN__RU Church
 #define $__MUSLIM__ Moschee
 #define $__MUSLIM__DE Moschee
 #define $__MUSLIM__EN Mosque 
 #define $__MUSLIM__FR Moschee
+#define $__MUSLIM__RU Mosque 
 #define $__JEWISH__ Synagoge
 #define $__JEWISH__DE Synagoge
 #define $__JEWISH__EN Synagogue
 #define $__JEWISH__FR Synagoge
+#define $__JEWISH__RU Synagogue
 
 ## Polizeistation. [point, closedway]
 #define $__POLICE__ Polizeistation
 #define $__POLICE__DE Polizeistation
 #define $__POLICE__EN Police Station
 #define $__POLICE__FR Polizeistation
+#define $__POLICE__RU Police Station
 
 ## Postamt. [point, closedway]
 #define $__POSTOFFICE__ Post
 #define $__POSTOFFICE__DE Post
 #define $__POSTOFFICE__EN Post Office
 #define $__POSTOFFICE__FR Post
+#define $__POSTOFFICE__RU Post Office
 
 ## Öffentliches Gebäude.
 #define $__PUBLICBUILDING__ Öffentl. Gebäude
 #define $__PUBLICBUILDING__DE Öffentl. Gebäude
 #define $__PUBLICBUILDING__EN Public Building
 #define $__PUBLICBUILDING__FR Öffentl. Gebäude
+#define $__PUBLICBUILDING__RU Public Building
 
 ## Ein Unterstand ist ein überdachter offener Platz als Schutz vor der Witterung. [point, closedway]
 #define $__SHELTER__ Unterstand
 #define $__SHELTER__DE Unterstand
 #define $__SHELTER__EN Shelter 
 #define $__SHELTER__FR Unterstand
+#define $__SHELTER__RU Shelter 
 
 ## Rathaus. [point, closedway]
 #define $__TOWNHALL__ Rathaus
 #define $__TOWNHALL__DE Rathaus
 #define $__TOWNHALL__EN Town Hall
 #define $__TOWNHALL__FR Rathaus
+#define $__TOWNHALL__RU Town Hall
 
 
 ## ------------------------------------------------------------
@@ -893,42 +1033,49 @@
 #define $__ADIT__DE Stollen
 #define $__ADIT__EN Adit/Mine Entrance
 #define $__ADIT__FR Stollen
+#define $__ADIT__RU Adit/Mine Entrance
 
 ## Blinklicht / Bake / Leuchtfeuer. [point]
 #define $__BEACON__ Bake, Leuchtfeuer
 #define $__BEACON__DE Bake, Leuchtfeuer
 #define $__BEACON__EN Beacon 
 #define $__BEACON__FR Bake, Leuchtfeuer
+#define $__BEACON__RU Beacon 
 
 ## Leuchtturm. [point]
 #define $__LIGHTHOUSE__ Leuchtturm
 #define $__LIGHTHOUSE__DE Leuchtturm
 #define $__LIGHTHOUSE__EN Lighthouse 
 #define $__LIGHTHOUSE__FR Leuchtturm
+#define $__LIGHTHOUSE__RU Lighthouse 
 
 ## Mast (z.B. Telekommunkations- / Funkmast)
 #define $__MAST__ Funkmast
 #define $__MAST__DE Funkmast
 #define $__MAST__EN Radio Mast
 #define $__MAST__FR Funkmast
+#define $__MAST__RU Radio Mast
 
 ## Schacht. [point, closedway]
 #define $__MINESHAFT__ Schacht
 #define $__MINESHAFT__DE Schacht
 #define $__MINESHAFT__EN Mine Shaft
 #define $__MINESHAFT__FR Schacht
+#define $__MINESHAFT__RU Mine Shaft
 
 ## Ölfördereinrichtung. [point]
 #define $__PETROLEUMWELL__ Ölfördereinrichtung
 #define $__PETROLEUMWELL__DE Ölfördereinrichtung
 #define $__PETROLEUMWELL__EN Oil Well
 #define $__PETROLEUMWELL__FR Ölfördereinrichtung
+#define $__PETROLEUMWELL__RU Oil Well
 
 ## Überdecktes Speicherbasin. [point, closedway]
 #define $__RESERVOIRCOVERED__ Überdecktes Speicherbecken
 #define $__RESERVOIRCOVERED__DE Überdecktes Speicherbecken
 #define $__RESERVOIRCOVERED__EN Covered Reservoir
 #define $__RESERVOIRCOVERED__FR Überdecktes Speicherbecken
+#define $__RESERVOIRCOVERED__RU Covered Reservoir
 
 ## Trigonometrischer Punkt (Tageszeichen). [point]
 ## mit Höhenangabe
@@ -936,6 +1083,7 @@
 #define $__SURVEYPOINT__DE Trig. Pt.
 #define $__SURVEYPOINT__EN Trig Point
 #define $__SURVEYPOINT__FR Trig. Pt.
+#define $__SURVEYPOINT__RU Trig Point
 
 ## Turm. [point, closedway]
 ## Beobachtungsturm
@@ -943,60 +1091,70 @@
 #define $__OBSERVATIONTOWER__DE Beobachtungsturm
 #define $__OBSERVATIONTOWER__EN Observation Tower
 #define $__OBSERVATIONTOWER__FR Beobachtungsturm
+#define $__OBSERVATIONTOWER__RU Observation Tower
 
 ## Funkturm (s.a. "mast")
 #define $__COMMUNICATIONTOWER__ Funkmast
 #define $__COMMUNICATIONTOWER__DE Funkmast
 #define $__COMMUNICATIONTOWER__EN Radio Mast
 #define $__COMMUNICATIONTOWER__FR Funkmast
+#define $__COMMUNICATIONTOWER__RU Radio Mast
 
 ## allgemeiner Turm (z.B. auch Kirchturm)
 #define $__TOWER__ Turm
 #define $__TOWER__DE Turm
 #define $__TOWER__EN Tower
 #define $__TOWER__FR Turm
+#define $__TOWER__RU Tower
 
 ## Kläranlage. [point, closedway]
 #define $__WASTEWATERPLANT__ Kläranlage
 #define $__WASTEWATERPLANT__DE Kläranlage
 #define $__WASTEWATERPLANT__EN Water Treatment Plant
 #define $__WASTEWATERPLANT__FR Kläranlage
+#define $__WASTEWATERPLANT__RU Water Treatment Plant
 
 ## Wassermühle. [point, closedway]
 #define $__WATERMILL__ Wassermühle
 #define $__WATERMILL__DE Wassermühle
 #define $__WATERMILL__EN Watermill
 #define $__WATERMILL__FR Wassermühle
+#define $__WATERMILL__RU Watermill
 
 ## Wasserturm. [point, closedway]
 #define $__WATERTOWER__ Wasserturm
 #define $__WATERTOWER__DE Wasserturm
 #define $__WATERTOWER__EN Water Tower
 #define $__WATERTOWER__FR Wasserturm
+#define $__WATERTOWER__RU Water Tower
 
 ## Wasserwerk. [point, closedway]
 #define $__WATERWORKS__ Wasserwerk
 #define $__WATERWORKS__DE Wasserwerk
 #define $__WATERWORKS__EN Waterworks
 #define $__WATERWORKS__FR Wasserwerk
+#define $__WATERWORKS__RU Waterworks
 
 ## (Tief-)Brunnen, (Wikipedia) ein Bauwerk zur Wassergewinnung aus einem Grundwasserleiter (Aquifer). [point, closedway]
 #define $__WATERWELL__ Tiefbrunnen
 #define $__WATERWELL__DE Tiefbrunnen
 #define $__WATERWELL__EN Well
 #define $__WATERWELL__FR Tiefbrunnen
+#define $__WATERWELL__RU Well
 
 ## Historische Windmühle. [point, closedway]
 #define $__WINDMILL__ Hist. Windmühle
 #define $__WINDMILL__DE Hist. Windmühle
 #define $__WINDMILL__EN hist. Windmill
 #define $__WINDMILL__FR Hist. Windmühle
+#define $__WINDMILL__RU hist. Windmill
 
 ## Industriebauten (Anlage, Werk). [point, closedway]
 #define $__INDUSTRIALPLANT__ Industrieanlage
 #define $__INDUSTRIALPLANT__DE Industrieanlage
 #define $__INDUSTRIALPLANT__EN Industrial Plant
 #define $__INDUSTRIALPLANT__FR Industrieanlage
+#define $__INDUSTRIALPLANT__RU Industrial Plant
 
 
 ## ------------------------------------
@@ -1009,24 +1167,28 @@
 #define $__RAILWAYHALT__DE Haltepunkt
 #define $__RAILWAYHALT__EN Railway Halt
 #define $__RAILWAYHALT__FR Haltepunkt
+#define $__RAILWAYHALT__RU Railway Halt
 
 ## Bahnhof (mit mindestens einer Weiche). [point, closedway]
 #define $__RAILWAYSTATION__ Bahnhof
 #define $__RAILWAYSTATION__DE Bahnhof
 #define $__RAILWAYSTATION__EN Station
 #define $__RAILWAYSTATION__FR Bahnhof
+#define $__RAILWAYSTATION__RU Station
 
 ## U-Bahn Eingang. [point]
 #define $__SUBWAYENTRANCE__ U-Bahn-Eingang
 #define $__SUBWAYENTRANCE__DE U-Bahn-Eingang
 #define $__SUBWAYENTRANCE__EN Subway Entrance
 #define $__SUBWAYENTRANCE__FR U-Bahn-Eingang
+#define $__SUBWAYENTRANCE__RU Subway Entrance
 
 ## Straßenbahnhaltestelle: Ein Ort an dem Pasagiere in Straßenbahnen ein- oder aussteigen können. [point]
 #define $__TRAMSTOP__ Haltestelle
 #define $__TRAMSTOP__DE Haltestelle
 #define $__TRAMSTOP__EN Tram Stop
 #define $__TRAMSTOP__FR Haltestelle
+#define $__TRAMSTOP__RU Tram Stop
 
 
 ## ------------------------------------------------------------
@@ -1038,374 +1200,454 @@
 #define $__BAKERY__DE Bäckerei
 #define $__BAKERY__EN Bakery
 #define $__BAKERY__FR Bäckerei
+#define $__BAKERY__RU Bakery
 
 ## Schönheitssalon, Kosmetiksalon, Damensalon, Nagelstudio, Parfümerie, Wellness-Center. [point, closedway]
 #define $__COSMETICS__ Kosmetik
 #define $__COSMETICS__DE Kosmetik
 #define $__COSMETICS__EN Beauty Salon
 #define $__COSMETICS__FR Kosmetik
+#define $__COSMETICS__RU Beauty Salon
 
 ## Fahrradgeschäft, Fahrradwerkstatt, Fahrradverleih, Fahrradservice. [point, closedway]
 #define $__BICYCLESHOP__ Fahrrad
 #define $__BICYCLESHOP__DE Fahrrad
 #define $__BICYCLESHOP__EN Bicycle Shop (Sales, Rental & Service)
 #define $__BICYCLESHOP__FR Fahrrad
+#define $__BICYCLESHOP__RU Bicycle Shop (Sales, Rental & Service)
 
 ## Metzgerei, Fleischerei, Schlachterei. [point, closedway]
 #define $__BUTCHER__ Metzgerei
 #define $__BUTCHER__DE Metzgerei
 #define $__BUTCHER__EN Butcher Shop
 #define $__BUTCHER__FR Metzgerei
+#define $__BUTCHER__RU Butcher Shop
 
 ## Autohaus. [point, closedway]
 #define $__CARSHOP__ Autohaus
 #define $__CARSHOP__DE Autohaus
 #define $__CARSHOP__EN Garage
 #define $__CARSHOP__FR Autohaus
+#define $__CARSHOP__RU Garage
 
 ## Autowerkstatt, Autoreparatur. [point, closedway]
 #define $__CARREPAIR__ Autowerkstatt
 #define $__CARREPAIR__DE Autowerkstatt
 #define $__CARREPAIR__EN Car Repair (Garage)
 #define $__CARREPAIR__FR Autowerkstatt
+#define $__CARREPAIR__RU Car Repair (Garage)
 
 ## Drogerie. [point, closedway]
 #define $__CHEMIST__ Drogerie
 #define $__CHEMIST__DE Drogerie
 #define $__CHEMIST__EN Chemist
 #define $__CHEMIST__FR Drogerie
+#define $__CHEMIST__RU Chemist
 
 ## Bekleidungsgeschäfte. [point, closedway] clothing stores
 #define $__BOUTIQUE__ Boutique
 #define $__BOUTIQUE__DE Boutique
 #define $__BOUTIQUE__EN Boutique
 #define $__BOUTIQUE__FR Boutique
+#define $__BOUTIQUE__RU Boutique
 #define $__CLOTHES__ Bekleidung
 #define $__CLOTHES__DE Bekleidung
 #define $__CLOTHES__EN Clothes Shop
 #define $__CLOTHES__FR Bekleidung
+#define $__CLOTHES__RU Clothes Shop
 #define $__FASION__ Mode
 #define $__FASION__DE Mode
 #define $__FASION__EN Fashion Boutique
 #define $__FASION__FR Mode
+#define $__FASION__RU Fashion Boutique
 
 ## Computer-Fachhandel. [point, closedway]
 #define $__COMPUTER__ Computer
 #define $__COMPUTER__DE Computer
 #define $__COMPUTER__EN Computer Store
 #define $__COMPUTER__FR Computer
+#define $__COMPUTER__RU Computer Store
 
 ## Süßwarenhändler, Confiserie, Konditorei. [point, closedway]
 #define $__CONFECTIONERY__ Konditorei, Süßwaren
 #define $__CONFECTIONERY__DE Konditorei, Süßwaren
 #define $__CONFECTIONERY__EN Confectionery
 #define $__CONFECTIONERY__FR Konditorei, Süßwaren
+#define $__CONFECTIONERY__RU Confectionery
 
 ## Nachbarschaftsladen, Lebensmittelgeschäft, Tante-Emma-Laden. [point, closedway]
 #define $__CONVENIENCE__ Lebensmittel
 #define $__CONVENIENCE__DE Lebensmittel
 #define $__CONVENIENCE__EN Convenience Store
 #define $__CONVENIENCE__FR Lebensmittel
+#define $__CONVENIENCE__RU Convenience Store
 
 ## Feinkostladen. [point, closedway]
 #define $__DELICACY__ Feinkost
 #define $__DELICACY__DE Feinkost
 #define $__DELICACY__EN Deli (Delicatessen) 
 #define $__DELICACY__FR Feinkost
+#define $__DELICACY__RU Deli (Delicatessen) 
 
 ## Warenhaus, in der Regel mehrstöckiges Kaufhaus mit breitem Sortiment. [point, closedway]
 #define $__DEPARTMENTSTORE__ Kaufhaus
 #define $__DEPARTMENTSTORE__DE Kaufhaus
 #define $__DEPARTMENTSTORE__EN Department Store
 #define $__DEPARTMENTSTORE__FR Kaufhaus
+#define $__DEPARTMENTSTORE__RU Department Store
 
 ## Baumarkt, Heimwerkergeschäft (Verkauf von Werkzeug und Baumaterial). [point, closedway]
 #define $__DOITYOURSELF__ Baumarkt
 #define $__DOITYOURSELF__DE Baumarkt
 #define $__DOITYOURSELF__EN DIY Store
 #define $__DOITYOURSELF__FR Baumarkt
+#define $__DOITYOURSELF__RU DIY Store
 
 ## Möbelhaus, Einrichtungshaus. [point, closedway]
 #define $__FURNITURE__ Möbelhaus
 #define $__FURNITURE__DE Möbelhaus
 #define $__FURNITURE__EN Furniture Store
 #define $__FURNITURE__FR Möbelhaus
+#define $__FURNITURE__RU Furniture Store
 
 # Garten-Center. [point, closedway]
 #define $__GARDENCENTRE__ Garten
 #define $__GARDENCENTRE__DE Garten
 #define $__GARDENCENTRE__EN Garden Centre
 #define $__GARDENCENTRE__FR Garten
+#define $__GARDENCENTRE__RU Garden Centre
 
 ## Gemischtwarenhandlung, Dorfladen, mit breitem Warensortiment des täglichen Bedarfs. [point, closedway]
 #define $__GENERALSHOP__ Gemischtwaren
 #define $__GENERALSHOP__DE Gemischtwaren
 #define $__GENERALSHOP__EN General Store
 #define $__GENERALSHOP__FR Gemischtwaren
+#define $__GENERALSHOP__RU General Store
 
 ## Friseur. [point, closedway]
 #define $__HAIRDRESSER__ Friseur
 #define $__HAIRDRESSER__DE Friseur
 #define $__HAIRDRESSER__EN Hairdresser
 #define $__HAIRDRESSER__FR Friseur
+#define $__HAIRDRESSER__RU Hairdresser
 
 ## Eisenwaren. [point, closedway]
 #define $__HARDWARE__ Eisenwaren
 #define $__HARDWARE__DE Eisenwaren
 #define $__HARDWARE__EN Hardware Store
 #define $__HARDWARE__FR Eisenwaren
+#define $__HARDWARE__RU Hardware Store
 
 ## Eis, Eisdiele, Eiscaffee. [point, closedway] (s.a. amenity)
 #define $__ICECREAMSHOP__ Eis, Shop
 #define $__ICECREAMSHOP__DE Eis, Shop
 #define $__ICECREAMSHOP__EN Ice Cream Parlour
 #define $__ICECREAMSHOP__FR Eis, Shop
+#define $__ICECREAMSHOP__RU Ice Cream Parlour
 
 ## Einkaufszentrum. [point, closedway]
 #define $__MALL__ Einkaufszentrum
 #define $__MALL__DE Einkaufszentrum
 #define $__MALL__EN Shopping Centre
 #define $__MALL__FR Einkaufszentrum
+#define $__MALL__RU Shopping Centre
 
 ## Bio-Laden, Reformhaus. [point, closedway]
 #define $__ORGANICSHOP__ Bio-Laden
 #define $__ORGANICSHOP__DE Bio-Laden
 #define $__ORGANICSHOP__EN Health Food Store
 #define $__ORGANICSHOP__FR Bio-Laden
+#define $__ORGANICSHOP__RU Health Food Store
 
 ## Schuhfachgeschäft. [point, closedway]
 #define $__SHOES__ Schuhe
 #define $__SHOES__DE Schuhe
 #define $__SHOES__EN Shoe Shop
 #define $__SHOES__FR Schuhe
+#define $__SHOES__RU Shoe Shop
 
 ## Supermarkt (großes Lebensmittelgeschäft). [point, closedway]
 #define $__SUPERMARKET__ Supermarkt
 #define $__SUPERMARKET__DE Supermarkt
 #define $__SUPERMARKET__EN Supermarket
 #define $__SUPERMARKET__FR Supermarkt
+#define $__SUPERMARKET__RU Supermarket
 
 ## Baustoffhandel, Baumaterial: Steine,Holz, Zement ,etc. [point, closedway]
 #define $__TRADESHOP__ Baustoffhandel
 #define $__TRADESHOP__DE Baustoffhandel
 #define $__TRADESHOP__EN Builders Merchants
 #define $__TRADESHOP__FR Baustoffhandel
+#define $__TRADESHOP__RU Builders Merchants
 
 ## Reifenhandel. [point, closedway]
 #define $__TYRES__ Reifenhandel
 #define $__TYRES__DE Reifenhandel
 #define $__TYRES__EN Tyre Retailers/Fitters
 #define $__TYRES__FR Reifenhandel
+#define $__TYRES__RU Tyre Retailers/Fitters
 
 ## Spezialitäteneinzelhandel. [point, closedway]
 #define $__ALCOHOL__ Spirituosen
 #define $__ALCOHOL__DE Spirituosen
 #define $__ALCOHOL__EN Off Licence
 #define $__ALCOHOL__FR Spirituosen
+#define $__ALCOHOL__RU Off Licence
 #define $__ARTSHOP__ Kunsthandlung
 #define $__ARTSHOP__DE Kunsthandlung
 #define $__ARTSHOP__EN Art Dealers/Art Gallery
 #define $__ARTSHOP__FR Kunsthandlung
+#define $__ARTSHOP__RU Art Dealers/Art Gallery
 #define $__BEDSHOP__ Bettengeschäft
 #define $__BEDSHOP__DE Bettengeschäft
 #define $__BEDSHOP__EN Bed Shop 
 #define $__BEDSHOP__FR Bettengeschäft
+#define $__BEDSHOP__RU Bed Shop 
 #define $__BEVERAGES__ Getränkemarkt
 #define $__BEVERAGES__DE Getränkemarkt
 #define $__BEVERAGES__EN Beverages/Off License
 #define $__BEVERAGES__FR Getränkemarkt
+#define $__BEVERAGES__RU Beverages/Off License
 #define $__BOOKS__ Buchhandlung
 #define $__BOOKS__DE Buchhandlung
 #define $__BOOKS__EN Book Store
 #define $__BOOKS__FR Buchhandlung
+#define $__BOOKS__RU Book Store
 #define $__COPYSHOOP__ Copy-Shop
 #define $__COPYSHOOP__DE Copy-Shop
 #define $__COPYSHOOP__EN Photocopy Shop
 #define $__COPYSHOOP__FR Copy-Shop
+#define $__COPYSHOOP__RU Photocopy Shop
 #define $__CARPET__ Teppichhandel
 #define $__CARPET__DE Teppichhandel
 #define $__CARPET__EN Carpet Store
 #define $__CARPET__FR Teppichhandel
+#define $__CARPET__RU Carpet Store
 #define $__COFFEESHOP__ Kaffeeladen
 #define $__COFFEESHOP__DE Kaffeeladen
 #define $__COFFEESHOP__EN Coffee shop
 #define $__COFFEESHOP__FR Kaffeeladen
+#define $__COFFEESHOP__RU Coffee shop
 #define $__DRYCLEANING__ Chemische Reinigung
 #define $__DRYCLEANING__DE Chemische Reinigung
 #define $__DRYCLEANING__EN Dry Cleaners
 #define $__DRYCLEANING__FR Chemische Reinigung
+#define $__DRYCLEANING__RU Dry Cleaners
 #define $__ELECTRONICS__ Elektronik-Markt
 #define $__ELECTRONICS__DE Elektronik-Markt
 #define $__ELECTRONICS__EN Electrical Store
 #define $__ELECTRONICS__FR Elektronik-Markt
+#define $__ELECTRONICS__RU Electrical Store
 #define $__EROTIC__ Erotikhandel
 #define $__EROTIC__DE Erotikhandel
 #define $__EROTIC__EN Sex Shop
 #define $__EROTIC__FR Erotikhandel
+#define $__EROTIC__RU Sex Shop
 #define $__FABRIC__ Stoffgeschäft
 #define $__FABRIC__DE Stoffgeschäft
 #define $__FABRIC__EN Fabric Shop
 #define $__FABRIC__FR Stoffgeschäft
+#define $__FABRIC__RU Fabric Shop
 #define $__FARMSHOP__ Hofladen
 #define $__FARMSHOP__DE Hofladen
 #define $__FARMSHOP__EN Farm Shop
 #define $__FARMSHOP__FR Hofladen
+#define $__FARMSHOP__RU Farm Shop
 #define $__FISHMONGER__ Fischfachgeschäft
 #define $__FISHMONGER__DE Fischfachgeschäft
 #define $__FISHMONGER__EN Fishmonger
 #define $__FISHMONGER__FR Fischfachgeschäft
+#define $__FISHMONGER__RU Fishmonger
 #define $__FLORIST__ Florist
 #define $__FLORIST__DE Florist
 #define $__FLORIST__EN Florist
 #define $__FLORIST__FR Florist
+#define $__FLORIST__RU Florist
 #define $__FUNERALDIRECTORS__ Bestatter
 #define $__FUNERALDIRECTORS__DE Bestatter
 #define $__FUNERALDIRECTORS__EN Funeral Directors
 #define $__FUNERALDIRECTORS__FR Bestatter
+#define $__FUNERALDIRECTORS__RU Funeral Directors
 #define $__GIFTSHOP__ Andenken
 #define $__GIFTSHOP__DE Andenken
 #define $__GIFTSHOP__EN Gift Shop
 #define $__GIFTSHOP__FR Andenken
+#define $__GIFTSHOP__RU Gift Shop
 #define $__GREENGROCER__ Obst-/Gemüsehandel
 #define $__GREENGROCER__DE Obst-/Gemüsehandel
 #define $__GREENGROCER__EN Greengrocer
 #define $__GREENGROCER__FR Obst-/Gemüsehandel
+#define $__GREENGROCER__RU Greengrocer
 #define $__HEARINGAIDS__ Hörgeräteakustiker
 #define $__HEARINGAIDS__DE Hörgeräteakustiker
 #define $__HEARINGAIDS__EN Hearing Aid Shop
 #define $__HEARINGAIDS__FR Hörgeräteakustiker
+#define $__HEARINGAIDS__RU Hearing Aid Shop
 #define $__HIFI__ Hifi-Fachhandel
 #define $__HIFI__DE Hifi-Fachhandel
 #define $__HIFI__EN Hifi Dealers
 #define $__HIFI__FR Hifi-Fachhandel
+#define $__HIFI__RU Hifi Dealers
 #define $__INSURANCE__ Versicherungsbüro
 #define $__INSURANCE__DE Versicherungsbüro
 #define $__INSURANCE__EN Insurance Brokers
 #define $__INSURANCE__FR Versicherungsbüro
+#define $__INSURANCE__RU Insurance Brokers
 #define $__INTERIORDECORATION__ Raumausstatter
 #define $__INTERIORDECORATION__DE Raumausstatter
 #define $__INTERIORDECORATION__EN Interior Decoration Shop
 #define $__INTERIORDECORATION__FR Raumausstatter
+#define $__INTERIORDECORATION__RU Interior Decoration Shop
 #define $__JEWELRY__ Juwelier
 #define $__JEWELRY__DE Juwelier
 #define $__JEWELRY__EN Jewellers
 #define $__JEWELRY__FR Juwelier
+#define $__JEWELRY__RU Jewellers
 #define $__KITCHEN__ Küchenstudio
 #define $__KITCHEN__DE Küchenstudio
 #define $__KITCHEN__EN Kitchen Studio 
 #define $__KITCHEN__FR Küchenstudio
+#define $__KITCHEN__RU Kitchen Studio 
 #define $__KIOSK__ Kiosk
 #define $__KIOSK__DE Kiosk
 #define $__KIOSK__EN Kiosk
 #define $__KIOSK__FR Kiosk
+#define $__KIOSK__RU Kiosk
 #define $__LOUNDRY__ Wäscherei
 #define $__LOUNDRY__DE Wäscherei
 #define $__LOUNDRY__EN Laundry
 #define $__LOUNDRY__FR Wäscherei
+#define $__LOUNDRY__RU Laundry
 #define $__MASSAGE__ Massagesalon
 #define $__MASSAGE__DE Massagesalon
 #define $__MASSAGE__EN Massage Parlour
 #define $__MASSAGE__FR Massagesalon
+#define $__MASSAGE__RU Massage Parlour
 #define $__MOBILEPHONE__ Handy-Shop
 #define $__MOBILEPHONE__DE Handy-Shop
 #define $__MOBILEPHONE__EN Phone Shop
 #define $__MOBILEPHONE__FR Handy-Shop
+#define $__MOBILEPHONE__RU Phone Shop
 #define $__MOTORCYCLE__ Motorrad-Geschäft
 #define $__MOTORCYCLE__DE Motorrad-Geschäft
 #define $__MOTORCYCLE__EN Motorcycle Shop
 #define $__MOTORCYCLE__FR Motorrad-Geschäft
+#define $__MOTORCYCLE__RU Motorcycle Shop
 #define $__MUSICSHOP__ Musikhaus
 #define $__MUSICSHOP__DE Musikhaus
 #define $__MUSICSHOP__EN Music Store
 #define $__MUSICSHOP__FR Musikhaus
+#define $__MUSICSHOP__RU Music Store
 #define $__MUSICALINSTRUMENT__ Musikinstrumente
 #define $__MUSICALINSTRUMENT__DE Musikinstrumente
 #define $__MUSICALINSTRUMENT__EN Musical Instrument Shop
 #define $__MUSICALINSTRUMENT__FR Musikinstrumente
+#define $__MUSICALINSTRUMENT__RU Musical Instrument Shop
 #define $__NEWSAGENT__ Zeitungshandel
 #define $__NEWSAGENT__DE Zeitungshandel
 #define $__NEWSAGENT__EN Newsagent
 #define $__NEWSAGENT__FR Zeitungshandel
+#define $__NEWSAGENT__RU Newsagent
 #define $__OPTICIAN__ Optiker
 #define $__OPTICIAN__DE Optiker
 #define $__OPTICIAN__EN Optician
 #define $__OPTICIAN__FR Optiker
+#define $__OPTICIAN__RU Optician
 #define $__OUTDOOR__ Outdoor-Shop
 #define $__OUTDOOR__DE Outdoor-Shop
 #define $__OUTDOOR__EN Outdoor Shop/Store
 #define $__OUTDOOR__FR Outdoor-Shop
+#define $__OUTDOOR__RU Outdoor Shop/Store
 #define $__PAINT__ Farbenfachgeschäft
 #define $__PAINT__DE Farbenfachgeschäft
 #define $__PAINT__EN Specialist Paint Shop
 #define $__PAINT__FR Farbenfachgeschäft
+#define $__PAINT__RU Specialist Paint Shop
 #define $__PETSHOP__ Zoohandlung
 #define $__PETSHOP__DE Zoohandlung
 #define $__PETSHOP__EN Pet Shop
 #define $__PETSHOP__FR Zoohandlung
+#define $__PETSHOP__RU Pet Shop
 #define $__PHOTO__ Foto-Fachgeschäft
 #define $__PHOTO__DE Foto-Fachgeschäft
 #define $__PHOTO__EN Photo Shop
 #define $__PHOTO__FR Foto-Fachgeschäft
+#define $__PHOTO__RU Photo Shop
 #define $__SEAFOODSHOP__ Fischfachgeschäft
 #define $__SEAFOODSHOP__DE Fischfachgeschäft
 #define $__SEAFOODSHOP__EN Fish Shop
 #define $__SEAFOODSHOP__FR Fischfachgeschäft
+#define $__SEAFOODSHOP__RU Fish Shop
 #define $__SECONDHAND__ Second-Hand-Shop
 #define $__SECONDHAND__DE Second-Hand-Shop
 #define $__SECONDHAND__EN Second Hand Shop
 #define $__SECONDHAND__FR Second-Hand-Shop
+#define $__SECONDHAND__RU Second Hand Shop
 #define $__SOLARIUM__ Sonnenstudio
 #define $__SOLARIUM__DE Sonnenstudio
 #define $__SOLARIUM__EN Tanning Salon
 #define $__SOLARIUM__FR Sonnenstudio
+#define $__SOLARIUM__RU Tanning Salon
 #define $__SPORTSSHOP__ Sporthandel
 #define $__SPORTSSHOP__DE Sporthandel
 #define $__SPORTSSHOP__EN Sports Shop
 #define $__SPORTSSHOP__FR Sporthandel
+#define $__SPORTSSHOP__RU Sports Shop
 #define $__STATIONERY__ Schreibwaren
 #define $__STATIONERY__DE Schreibwaren
 #define $__STATIONERY__EN Stationers
 #define $__STATIONERY__FR Schreibwaren
+#define $__STATIONERY__RU Stationers
 #define $__TATTOO__ Tätowierstube
 #define $__TATTOO__DE Tätowierstube
 #define $__TATTOO__EN Tattoo Parlour
 #define $__TATTOO__FR Tätowierstube
+#define $__TATTOO__RU Tattoo Parlour
 #define $__TAILOR__ Schneider
 #define $__TAILOR__DE Schneider
 #define $__TAILOR__EN Tailor
 #define $__TAILOR__FR Schneider
+#define $__TAILOR__RU Tailor
 #define $__TEASHOP__ Teeladen
 #define $__TEASHOP__DE Teeladen
 #define $__TEASHOP__EN Tea Shop
 #define $__TEASHOP__FR Teeladen
+#define $__TEASHOP__RU Tea Shop
 #define $__TOBACCO__ Tabakwaren
 #define $__TOBACCO__DE Tabakwaren
 #define $__TOBACCO__EN Tobacconist
 #define $__TOBACCO__FR Tabakwaren
+#define $__TOBACCO__RU Tobacconist
 #define $__TOYS__ Spielzeuggeschäft
 #define $__TOYS__DE Spielzeuggeschäft
 #define $__TOYS__EN Toy Shop
 #define $__TOYS__FR Spielzeuggeschäft
+#define $__TOYS__RU Toy Shop
 #define $__TRAVELAGENCY__ Reisebüro
 #define $__TRAVELAGENCY__DE Reisebüro
 #define $__TRAVELAGENCY__EN Travel Agency
 #define $__TRAVELAGENCY__FR Reisebüro
+#define $__TRAVELAGENCY__RU Travel Agency
 #define $__VACANT__ Leerstehend
 #define $__VACANT__DE Leerstehend
 #define $__VACANT__EN Vacant/Empty
 #define $__VACANT__FR Leerstehend
+#define $__VACANT__RU Vacant/Empty
 #define $__VARIETYSTORE__ Restpostenladen
 #define $__VARIETYSTORE__DE Restpostenladen
 #define $__VARIETYSTORE__EN Clearance Store
 #define $__VARIETYSTORE__FR Restpostenladen
+#define $__VARIETYSTORE__RU Clearance Store
 #define $__VIDEO__ Videothek
 #define $__VIDEO__DE Videothek
 #define $__VIDEO__EN Video Library
 #define $__VIDEO__FR Videothek
+#define $__VIDEO__RU Video Library
 #define $__WINESHOP__ Weinhandlung
 #define $__WINESHOP__DE Weinhandlung
 #define $__WINESHOP__EN Specialist Wine Shop
 #define $__WINESHOP__FR Weinhandlung
+#define $__WINESHOP__RU Specialist Wine Shop
 
 
 ## --------------------------------------------
@@ -1417,6 +1659,7 @@
 #define $__BUSSTOP__DE Haltestelle
 #define $__BUSSTOP__EN Bus Stop
 #define $__BUSSTOP__FR Haltestelle
+#define $__BUSSTOP__RU Bus Stop
 
 ## Autobahnausfahrt. ref sollte die Nummer oder andere ID der Ausfahrt enthalten.
 ## Kann auch für nicht-Autobahnen verwendet werden. Beispiel: name=Ascheberg, ref=79
@@ -1424,18 +1667,21 @@
 #define $__MOTORWAYJUNCTION__DE Ausfahrt
 #define $__MOTORWAYJUNCTION__EN Highway/Motorway Exit/Junction
 #define $__MOTORWAYJUNCTION__FR Ausfahrt
+#define $__MOTORWAYJUNCTION__RU Highway/Motorway Exit/Junction
 
 ## Place where drivers can leave the road to rest, but not refuel. [point, closedway]
 #define $__HIGHWAYRESTAREA__ Rastplatz
 #define $__HIGHWAYRESTAREA__DE Rastplatz
 #define $__HIGHWAYRESTAREA__EN Rest Area
 #define $__HIGHWAYRESTAREA__FR Rastplatz
+#define $__HIGHWAYRESTAREA__RU Rest Area
 
 ## Raststätte, auch Autobahnraststätte. [point, closedway]
 #define $__HIGHWAYSERVICEAREA__ Raststätte
 #define $__HIGHWAYSERVICEAREA__DE Raststätte
 #define $__HIGHWAYSERVICEAREA__EN Motorway Services
 #define $__HIGHWAYSERVICEAREA__FR Raststätte
+#define $__HIGHWAYSERVICEAREA__RU Motorway Services
 
 
 ## --------------------------------------------
@@ -1447,18 +1693,21 @@
 #define $__COMMON__DE Öffentl. Grünfläche
 #define $__COMMON__EN Public Green Space
 #define $__COMMON__FR Öffentl. Grünfläche
+#define $__COMMON__RU Public Green Space
 
 ## Tanzen: Eine Örtlichkeit, speziell zum regelmäßigen Tanzen. [point, closedway]
 #define $__DANCE__ Tanzen
 #define $__DANCE__DE Tanzen
 #define $__DANCE__EN Dance Studio
 #define $__DANCE__FR Tanzen
+#define $__DANCE__RU Dance Studio
 
 ## Ein Hundepark ist ein Gebiet, mit oder ohne Umzäunung, wo Hunde ohne Leine laufen dürfen. [point, closedway]
 #define $__DOGPARK__ Hundepark
 #define $__DOGPARK__DE Hundepark
 #define $__DOGPARK__EN Dog park
 #define $__DOGPARK__FR Hundepark
+#define $__DOGPARK__RU Dog park
 
 ## Ein Garten ist ein Gelände, in dem Blumen und andere Pflanzen in dekorativer und strukturierter Form
 ## wachsen oder zu Forschungszwecken gezogen werden, zum Beispiel ein Botanischer Garten. [point, closedway]
@@ -1466,30 +1715,35 @@
 #define $__GARDEN__DE Garten
 #define $__GARDEN__EN Garden
 #define $__GARDEN__FR Garten
+#define $__GARDEN__RU Garden
 
 ## Golfanlage. [point, closedway]
 #define $__GOLFCOURSE__ Golfanlage
 #define $__GOLFCOURSE__DE Golfanlage
 #define $__GOLFCOURSE__EN Golf Course
 #define $__GOLFCOURSE__FR Golfanlage
+#define $__GOLFCOURSE__RU Golf Course
 
 ## Eislaufplatz, Eislaufbahn (in Deutschland typischerweise ein Gebäude). [point, closedway]
 #define $__ICERINK__ Eislaufen
 #define $__ICERINK__DE Eislaufen
 #define $__ICERINK__EN Ice Rink
 #define $__ICERINK__FR Eislaufen
+#define $__ICERINK__RU Ice Rink
 
 ## Jachthafen: Liegeplatz für Jachten und Motorboote (bzw. Boote allgemein). [point, closedway]
 #define $__MARINA__ Jachthafen
 #define $__MARINA__DE Jachthafen
 #define $__MARINA__EN Marina
 #define $__MARINA__FR Jachthafen
+#define $__MARINA__RU Marina
 
 ## Minigolf (siehe auch Golfanlage). [point, closedway]
 #define $__MINIATUREGOLF__ Minigolf
 #define $__MINIATUREGOLF__DE Minigolf
 #define $__MINIATUREGOLF__EN Miniature Golf
 #define $__MINIATUREGOLF__FR Minigolf
+#define $__MINIATUREGOLF__RU Miniature Golf
 
 ## Naturschutzgebiet (NSG), dieser Tag ist ausschließlich für Naturschutzgebiete zu nutzen.
 ## Andere Gebiete – wie z. B. Nationalpark, Biosphärenreservat, Landschaftsschutzgebiet, etc.
@@ -1498,60 +1752,70 @@
 #define $__NATURERESERVE__DE Naturschutzgebiet
 #define $__NATURERESERVE__EN Nature Reserve
 #define $__NATURERESERVE__FR Naturschutzgebiet
+#define $__NATURERESERVE__RU Nature Reserve
 
 ## Park, Grünanlage. [point, closedway]
 #define $__PARK__ Park
 #define $__PARK__DE Park
 #define $__PARK__EN Park
 #define $__PARK__FR Park
+#define $__PARK__RU Park
 
 ## Spielfeld z.B. Fußball, Tennis, Handball, Hockey. [point, closedway]
 #define $__PITCH__ Spielfeld
 #define $__PITCH__DE Spielfeld
 #define $__PITCH__EN Field/Pitch
 #define $__PITCH__FR Spielfeld
+#define $__PITCH__RU Field/Pitch
 
 ## Spielplatz für Kinder. [point, closedway]
 #define $__PLAYGROUND__ Spielplatz
 #define $__PLAYGROUND__DE Spielplatz
 #define $__PLAYGROUND__EN Playground
 #define $__PLAYGROUND__FR Spielplatz
+#define $__PLAYGROUND__RU Playground
 
 ## Gibt es nur in den Commenwealth-Staaten - hier eher identisch mit landuse=village_green.
 #define $__RECREATIONGROUND__ Erholungsgebiet
 #define $__RECREATIONGROUND__DE Erholungsgebiet
 #define $__RECREATIONGROUND__EN Recreation Ground
 #define $__RECREATIONGROUND__FR Erholungsgebiet
+#define $__RECREATIONGROUND__RU Recreation Ground
 
 ## Sportzentrum, auch kommerzielle Freizeitsportanbieter, Fitnesscenter u.ä. [point, closedway]
 #define $__SPORTSCENTRE__ Sportzentrum
 #define $__SPORTSCENTRE__DE Sportzentrum
 #define $__SPORTSCENTRE__EN Sports Centre
 #define $__SPORTSCENTRE__FR Sportzentrum
+#define $__SPORTSCENTRE__RU Sports Centre
 
 ## Stadion: Eine größere Sportanlage mit permanenten, gestaffelten Sitzreihen. [point, closedway]
 #define $__STADIUM__ Stadion
 #define $__STADIUM__DE Stadion
 #define $__STADIUM__EN Stadium
 #define $__STADIUM__FR Stadion
+#define $__STADIUM__RU Stadium
 
 ## Laufbahn oder Rennbahn zum Beispiel für Wett-, Rad-, Hunde- oder Pferderennen. [point, way, closedway]
 #define $__TRACK__ Rennbahn
 #define $__TRACK__DE Rennbahn
 #define $__TRACK__EN Track
 #define $__TRACK__FR Rennbahn
+#define $__TRACK__RU Track
 
 ## Schwimmbecken. [point, closedway]
 #define $__SWIMMINGPOOL__ Schwimmbecken
 #define $__SWIMMINGPOOL__DE Schwimmbecken
 #define $__SWIMMINGPOOL__EN Swimming Pool
 #define $__SWIMMINGPOOL__FR Schwimmbecken
+#define $__SWIMMINGPOOL__RU Swimming Pool
 
 ## Wasserpark: Vergnügnungsstätte mit Wasserrutschen, Schwimmbecken und Umkleiden. [point, closedway]
 #define $__WATERPARK__ Wasserpark
 #define $__WATERPARK__DE Wasserpark
 #define $__WATERPARK__EN Water Park
 #define $__WATERPARK__FR Wasserpark
+#define $__WATERPARK__RU Water Park
 
 
 ## --------------------------------------------
@@ -1563,75 +1827,88 @@
 #define $__ARCHAELOGICALSITE__DE Bodendenkmal
 #define $__ARCHAELOGICALSITE__EN Archeological Site
 #define $__ARCHAELOGICALSITE__FR Bodendenkmal
+#define $__ARCHAELOGICALSITE__RU Archeological Site
 
 ## Schlachtfeld. [point, closedway]
 #define $__BATTLEFIELD__ Schlachtfeld
 #define $__BATTLEFIELD__DE Schlachtfeld
 #define $__BATTLEFIELD__EN Battlefield
 #define $__BATTLEFIELD__FR Schlachtfeld
+#define $__BATTLEFIELD__RU Battlefield
 
 #define $__BOUNDARYSTONE__ Hist. Grenzstein
 #define $__BOUNDARYSTONE__DE Hist. Grenzstein
 #define $__BOUNDARYSTONE__EN hist. Boundary Stone
 #define $__BOUNDARYSTONE__FR Hist. Grenzstein
+#define $__BOUNDARYSTONE__RU hist. Boundary Stone
 
 ## Burg oder Schloss. [point, closedway]
 #define $__CASTLE__ Burg, Schloss
 #define $__CASTLE__DE Burg, Schloss
 #define $__CASTLE__EN Castle
 #define $__CASTLE__FR Burg, Schloss
+#define $__CASTLE__RU Castle
 
 ## Militärisches Fort (ist gegenüber einer Burg moderner). [point, closedway]
 #define $__FORT__ Mil. Fort
 #define $__FORT__DE Mil. Fort
 #define $__FORT__EN Fort
 #define $__FORT__FR Mil. Fort
+#define $__FORT__RU Fort
 
 ## Gedenkstätte: Ähnlich wie historic=monument, aber üblicherweise kleiner. [point, closedway]
 #define $__MEMORIAL__ Gedenkstätte
 #define $__MEMORIAL__DE Gedenkstätte
 #define $__MEMORIAL__EN Memorial
 #define $__MEMORIAL__FR Gedenkstätte
+#define $__MEMORIAL__RU Memorial
 
 ## Denkmal, Standbild [point, closedway]
 #define $__MONUMENT__ Denkmal
 #define $__MONUMENT__DE Denkmal
 #define $__MONUMENT__EN Monument
 #define $__MONUMENT__FR Denkmal
+#define $__MONUMENT__RU Monument
 
 ## Ruine. [point, closedway]
 #define $__RUINS__ Ruine
 #define $__RUINS__DE Ruine
 #define $__RUINS__EN Ruin
 #define $__RUINS__FR Ruine
+#define $__RUINS__RU Ruin
 #define $__BUNKER__ Bunker
 #define $__BUNKER__DE Bunker
 #define $__BUNKER__EN Bunker
 #define $__BUNKER__FR Bunker
+#define $__BUNKER__RU Bunker
 
 ## Runestone (typically a raised stone with a runic inscription). [point]
 #define $__RUNESTONE__ Runenstein
 #define $__RUNESTONE__DE Runenstein
 #define $__RUNESTONE__EN Rune Stone
 #define $__RUNESTONE__FR Runenstein
+#define $__RUNESTONE__RU Rune Stone
 
 ## Historisches (üblicherweise christliches) Wegkreuz. [point, closedway]
 #define $__WAYSIDECROSS__ Hist. Wegkreuz
 #define $__WAYSIDECROSS__DE Hist. Wegkreuz
 #define $__WAYSIDECROSS__EN hist. Wayside Cross
 #define $__WAYSIDECROSS__FR Hist. Wegkreuz
+#define $__WAYSIDECROSS__RU hist. Wayside Cross
 
 ## Ein historischer Schrein, oftmals mit religiöser Darstellung. [point, closedway]
 #define $__WAYSIDESHRINE__ Hist. Schrein
 #define $__WAYSIDESHRINE__DE Hist. Schrein
 #define $__WAYSIDESHRINE__EN hist. Shrine
 #define $__WAYSIDESHRINE__FR Hist. Schrein
+#define $__WAYSIDESHRINE__RU hist. Shrine
 
 ## Wrack (gesunkenes Schiff). [point, closedway]
 #define $__WRECK__ Wrack
 #define $__WRECK__DE Wrack
 #define $__WRECK__EN Wreck
 #define $__WRECK__FR Wrack
+#define $__WRECK__RU Wreck
 
 
 ## --------------------------------------------
@@ -1643,42 +1920,49 @@
 #define $__ALLOTMENTS__DE Kleingärten
 #define $__ALLOTMENTS__EN Allotments
 #define $__ALLOTMENTS__FR Kleingärten
+#define $__ALLOTMENTS__RU Allotments
 
 ## Bassin, Wasserbecken (zusammen mit basin=* für Hoch-/Regenwassersicker-/-rückhaltebecken). [point, closedway]
 #define $__BASIN__ Bassin
 #define $__BASIN__DE Bassin
 #define $__BASIN__EN Water Basin
 #define $__BASIN__FR Bassin
+#define $__BASIN__RU Water Basin
 
 ## Vorher bebautes Land (für Wiederbebauung vorgesehen), Industrie- und Gewerbebrache, Sanierungsgebiet, Altlast. [point, closedway]
 #define $__BROWNFIELD__ Brachland
 #define $__BROWNFIELD__DE Brachland
 #define $__BROWNFIELD__EN Brownfield Site
 #define $__BROWNFIELD__FR Brachland
+#define $__BROWNFIELD__RU Brownfield Site
 
 ## Friedhof. [closedway]
 #define $__CEMETERY__ Friedhof
 #define $__CEMETERY__DE Friedhof
 #define $__CEMETERY__EN Cemetery
 #define $__CEMETERY__FR Friedhof
+#define $__CEMETERY__RU Cemetery
 
 ## Überwiegend Büros, Business Parks. [point, closedway]
 #define $__COMMERCIAL__ Business Park
 #define $__COMMERCIAL__DE Business Park
 #define $__COMMERCIAL__EN Business Park 
 #define $__COMMERCIAL__FR Business Park
+#define $__COMMERCIAL__RU Business Park 
 
 ## Conservation land is land protected from development. [?]
 #define $__CONSERVATION__ Geschütztes Gebiet
 #define $__CONSERVATION__DE Geschütztes Gebiet
 #define $__CONSERVATION__EN Conservation Area
 #define $__CONSERVATION__FR Geschütztes Gebiet
+#define $__CONSERVATION__RU Conservation Area
 
 ## Baugebiet. [point, closedway]
 #define $__CONSTRUCTION__ Baugebiet
 #define $__CONSTRUCTION__DE Baugebiet
 #define $__CONSTRUCTION__EN Construction Site
 #define $__CONSTRUCTION__FR Baugebiet
+#define $__CONSTRUCTION__RU Construction Site
 
 ## Landwirtschaftlich genutzte Flächen mit Gebäuden wie Häuser, Unterkünften, Ställen, Fahrzeughallen, Futterspeichern usw.
 ## Ebenso die Flächen zwischen den Gebäuden, sowie nahe Bäume, Hecken und Grünflächen. [closedway]
@@ -1686,24 +1970,28 @@
 #define $__FARMYARD__DE Gehöft
 #define $__FARMYARD__EN Farmyard
 #define $__FARMYARD__FR Gehöft
+#define $__FARMYARD__RU Farmyard
 
 ## Forst, landwirtschaftlich genutzter Wald (siehe auch natural=wood). [point, closedway]
 #define $__FOREST__ Forst
 #define $__FOREST__DE Forst
 #define $__FOREST__EN Forest
 #define $__FOREST__FR Forst
+#define $__FOREST__RU Forest
 
 ## Rasenfläche (vorzugsweise innerorts). [point, closedway]
 #define $__GRASSAREA__ Rasenfläche
 #define $__GRASSAREA__DE Rasenfläche
 #define $__GRASSAREA__EN Park/Village Green 
 #define $__GRASSAREA__FR Rasenfläche
+#define $__GRASSAREA__RU Park/Village Green 
 
 ## Bauerwartungsland, unerschlossenes, für Bebauung vorgesehenes Land (keine vorherige Bebauung). [point, closedway]
 #define $__GREENFIELD__ Bauerwartungsland
 #define $__GREENFIELD__DE Bauerwartungsland
 #define $__GREENFIELD__EN Greenfield Site
 #define $__GREENFIELD__FR Bauerwartungsland
+#define $__GREENFIELD__RU Greenfield Site
 
 ## Großes Hafengebiet / -areal: The harbour site (land area, not area of water), mostly fenced or
 ## outlined by hedge, barrier or access restriction is tagged on land using "landuse=harbour". [?]
@@ -1711,77 +1999,90 @@
 #define $__HARBOUR__DE Hafengebiet
 #define $__HARBOUR__EN Harbour
 #define $__HARBOUR__FR Hafengebiet
+#define $__HARBOUR__RU Harbour
 
 ## Gewerbe-/Industriegebiet (überwiegend Werkstätten, Fabriken oder Lagerhallen). [point, closedway]
 #define $__INDUSTRIALAREA__ Industriegebiet
 #define $__INDUSTRIALAREA__DE Industriegebiet
 #define $__INDUSTRIALAREA__EN Industrial Estate
 #define $__INDUSTRIALAREA__FR Industriegebiet
+#define $__INDUSTRIALAREA__RU Industrial Estate
 
 ## Deponie, Aufschüttung, Müllhalde. [point, closedway]
 #define $__LANDFILL__ Deponie
 #define $__LANDFILL__DE Deponie
 #define $__LANDFILL__EN Landfill Site
 #define $__LANDFILL__FR Deponie
+#define $__LANDFILL__RU Landfill Site
 
 ## Wiese (meist außerorts; nicht für öffentliche Zwecke). [point, closedway]
 #define $__MEADOW__ Wiese
 #define $__MEADOW__DE Wiese
 #define $__MEADOW__EN Meadow
 #define $__MEADOW__FR Wiese
+#define $__MEADOW__RU Meadow
 
 ## Militärisch genutztes Gebiet (Kasernen, Truppenübungsplätze, use.). [point, closedway]
 #define $__MILITARY__ Mil. Gebiet
 #define $__MILITARY__DE Mil. Gebiet
 #define $__MILITARY__EN Military Area
 #define $__MILITARY__FR Mil. Gebiet
+#define $__MILITARY__RU Military Area
 
 ## Obstplantage, Obstgarten, Gemüseanbau, Anpflanzung von Bäumen oder Sträuchern zur Lebensmittelproduktion. [point, closedway]
 #define $__ORCHARD__ Obst-, Gemüsepflanzung
 #define $__ORCHARD__DE Obst-, Gemüsepflanzung
 #define $__ORCHARD__EN Orchard
 #define $__ORCHARD__FR Obst-, Gemüsepflanzung
+#define $__ORCHARD__RU Orchard
 
 ## Steinbruch, Grube (Kies, Ton, ...), oberflächlicher Abbau von Rohstoffen (Tagebau). [point, closedway]
 #define $__QUARRY__ Rohstoffabbau
 #define $__QUARRY__DE Rohstoffabbau
 #define $__QUARRY__EN Quarry
 #define $__QUARRY__FR Rohstoffabbau
+#define $__QUARRY__RU Quarry
 
 ## Speicherbecken (auch Talsperren; siehe auch landuse=basin). [point, closedway]
 #define $__RESERVOIR__ Speicherbecken
 #define $__RESERVOIR__DE Speicherbecken
 #define $__RESERVOIR__EN Reservoir
 #define $__RESERVOIR__FR Speicherbecken
+#define $__RESERVOIR__RU Reservoir
 
 #define $__RESIDENTIAL__ Wohngebiet
 #define $__RESIDENTIAL__DE Wohngebiet
 #define $__RESIDENTIAL__EN Residential Area
 #define $__RESIDENTIAL__FR Wohngebiet
+#define $__RESIDENTIAL__RU Residential Area
 
 ## Einkaufszentrum oder überwiegend Einzelhandelsgeschäfte. [point, closedway]
 #define $__RETAIL__ Einkaufszentrum
 #define $__RETAIL__DE Einkaufszentrum
 #define $__RETAIL__EN Shopping Centre
 #define $__RETAIL__FR Einkaufszentrum
+#define $__RETAIL__RU Shopping Centre
 
 ## Meerwassersaline, angelegter oder natürlicher Salzgarten, der das Salz durch Verdunstung von Meerwasser freigibt. [closedway]
 #define $__SALTPOND__ Saline
 #define $__SALTPOND__DE Saline
 #define $__SALTPOND__EN Salt Evaporation Pond
 #define $__SALTPOND__FR Saline
+#define $__SALTPOND__RU Salt Evaporation Pond
 
 ## Dorfanger/-wiese (innerorts). [point, closedway]
 #define $__VILLAGEGREEN__ Dorfanger
 #define $__VILLAGEGREEN__DE Dorfanger
 #define $__VILLAGEGREEN__EN Village Green
 #define $__VILLAGEGREEN__FR Dorfanger
+#define $__VILLAGEGREEN__RU Village Green
 
 ## Weinberg, Wengert. [point, closedway]
 #define $__VINEYARD__ Weinberg
 #define $__VINEYARD__DE Weinberg
 #define $__VINEYARD__EN Vineyard
 #define $__VINEYARD__FR Weinberg
+#define $__VINEYARD__RU Vineyard
 
 
 ## --------------------------------------------
@@ -1793,36 +2094,42 @@
 #define $__AIRFIELD__DE Mil. Flugplatz
 #define $__AIRFIELD__EN mil. Airbase/Airfield
 #define $__AIRFIELD__FR Mil. Flugplatz
+#define $__AIRFIELD__RU mil. Airbase/Airfield
 
 ## Gebäude: Kaserne, Unterkünfte und Arbeitsgebäude für Soldaten. [point, closedway]
 #define $__BARRACKS__ Mil. Kaserne
 #define $__BARRACKS__DE Mil. Kaserne
 #define $__BARRACKS__EN mil. Barracks
 #define $__BARRACKS__FR Mil. Kaserne
+#define $__BARRACKS__RU mil. Barracks
 
 ## Gebäude: Bunker, Gebäude mit sehr dicken Mauern, die auch schweren Beschuss stand halten. [point, closedway]
 #define $__MILITARYBUNKER__ Mil. Bunker
 #define $__MILITARYBUNKER__DE Mil. Bunker
 #define $__MILITARYBUNKER__EN mil. Bunker
 #define $__MILITARYBUNKER__FR Mil. Bunker
+#define $__MILITARYBUNKER__RU mil. Bunker
 
 ## Gefahrenzone, in der man sich nicht aufhalten sollte. [point, closedway]
 #define $__MILITARYDANGERAREA__ Mil. Gefahrenzone
 #define $__MILITARYDANGERAREA__DE Mil. Gefahrenzone
 #define $__MILITARYDANGERAREA__EN Military Danger/Restricted Area
 #define $__MILITARYDANGERAREA__FR Mil. Gefahrenzone
+#define $__MILITARYDANGERAREA__RU Military Danger/Restricted Area
 
 ## Waffenübungsplatz (z.B. ein Schießstand, aber auch größere Truppenübungsplätze). [point, closedway]
 #define $__MILITARYRANGE__ Mil. Übungsplatz
 #define $__MILITARYRANGE__DE Mil. Übungsplatz
 #define $__MILITARYRANGE__EN mil. Weapons Training Area/Range
 #define $__MILITARYRANGE__FR Mil. Übungsplatz
+#define $__MILITARYRANGE__RU mil. Weapons Training Area/Range
 
 ## Marinestützpunkt. [point, closedway]
 #define $__NAVALBASE__ Mil. Marinestützpunkt
 #define $__NAVALBASE__DE Mil. Marinestützpunkt
 #define $__NAVALBASE__EN Naval Base
 #define $__NAVALBASE__FR Mil. Marinestützpunkt
+#define $__NAVALBASE__RU Naval Base
 
 
 ## --------------------------------------------
@@ -1835,6 +2142,7 @@
 #define $__PALEONTOLOGICALSITE__DE Fossillienlagerstätte
 #define $__PALEONTOLOGICALSITE__EN Palaeontological site
 #define $__PALEONTOLOGICALSITE__FR Fossillienlagerstätte
+#define $__PALEONTOLOGICALSITE__RU Palaeontological site
 
 ## A outcrop site is a place where is absent in the coverage of alteration due to exogenous agents
 ## or vegetation, and where, therefore, the rock macroscopic surfaces by being directly accessible
@@ -1843,6 +2151,7 @@
 #define $__OUTCROP__DE Geol. Aufschluss
 #define $__OUTCROP__EN geol. Outcrop
 #define $__OUTCROP__FR Geol. Aufschluss
+#define $__OUTCROP__RU geol. Outcrop
 
 
 ## --------------------------------------------
@@ -1854,66 +2163,77 @@
 #define $__SPORT9PIN__DE Kegelbahn
 #define $__SPORT9PIN__EN 9 Pin Bowling Alley
 #define $__SPORT9PIN__FR Kegelbahn
+#define $__SPORT9PIN__RU 9 Pin Bowling Alley
 
 ## Bowlingbahn. [point, closedway]
 #define $__SPORT10PIN__ Bowlingbahn
 #define $__SPORT10PIN__DE Bowlingbahn
 #define $__SPORT10PIN__EN 10 Pin Bowling Alley
 #define $__SPORT10PIN__FR Bowlingbahn
+#define $__SPORT10PIN__RU 10 Pin Bowling Alley
 
 ## Radrennbahn, Radsporthalle. [point, closedway]
 #define $__CYCLING__ Radrennbahn, -sporthalle
 #define $__CYCLING__DE Radrennbahn, -sporthalle
 #define $__CYCLING__EN Velodrome
 #define $__CYCLING__FR Radrennbahn, -sporthalle
+#define $__CYCLING__RU Velodrome
 
 ## Hunderennbahn. [point, closedway]
 #define $__DOGRACING__ Hunderennbahn
 #define $__DOGRACING__DE Hunderennbahn
 #define $__DOGRACING__EN Dog Track
 #define $__DOGRACING__FR Hunderennbahn
+#define $__DOGRACING__RU Dog Track
 
 ## Reitsporthalle, Reitplatz. [point, closedway]
 #define $__EQUESTRIAN__ Reithalle, -platz
 #define $__EQUESTRIAN__DE Reithalle, -platz
 #define $__EQUESTRIAN__EN Equestrian Centre
 #define $__EQUESTRIAN__FR Reithalle, -platz
+#define $__EQUESTRIAN__RU Equestrian Centre
 
 ## Golfplatz. [point, closedway]
 #define $__SPORTGOLF__ Golfplatz
 #define $__SPORTGOLF__DE Golfplatz
 #define $__SPORTGOLF__EN Golf Course
 #define $__SPORTGOLF__FR Golfplatz
+#define $__SPORTGOLF__RU Golf Course
 
 ## Pferderennbahn. [point, closedway]
 #define $__HORSERACING__ Pferderennbahn
 #define $__HORSERACING__DE Pferderennbahn
 #define $__HORSERACING__EN Racecourse
 #define $__HORSERACING__FR Pferderennbahn
+#define $__HORSERACING__RU Racecourse
 
 ## Mehrzweckhalle, Mehrzweckanlage.
 #define $__SPORTMULTI__ Mehrzweckhalle
 #define $__SPORTMULTI__DE Mehrzweckhalle
 #define $__SPORTMULTI__EN Multi-Purpose hall
 #define $__SPORTMULTI__FR Mehrzweckhalle
+#define $__SPORTMULTI__RU Multi-Purpose hall
 
 ## Eislaufplatz, Eishalle. [point, closedway]
 #define $__SPORTSKATING__ Eishalle
 #define $__SPORTSKATING__DE Eishalle
 #define $__SPORTSKATING__EN Ice Rink
 #define $__SPORTSKATING__FR Eishalle
+#define $__SPORTSKATING__RU Ice Rink
 
 ## Skipiste, Skihalle. [point, closedway]
 #define $__SKIING__ Skipiste, -halle
 #define $__SKIING__DE Skipiste, -halle
 #define $__SKIING__EN Ski Area/Ski Dome
 #define $__SKIING__FR Skipiste, -halle
+#define $__SKIING__RU Ski Area/Ski Dome
 
 ## Schwimmbad. [point, closedway]
 #define $__SPORTSWIMMING__ Schwimmbad
 #define $__SPORTSWIMMING__DE Schwimmbad
 #define $__SPORTSWIMMING__EN Swimming Pool
 #define $__SPORTSWIMMING__FR Schwimmbad
+#define $__SPORTSWIMMING__RU Swimming Pool
 
 
 ## --------------------------------------------
@@ -1925,6 +2245,7 @@
 #define $__WEIR__DE Wehr
 #define $__WEIR__EN Weir
 #define $__WEIR__FR Wehr
+#define $__WEIR__RU Weir
 
 
 ## --------------------------------------------
@@ -1936,12 +2257,14 @@
 #define $__AERIALWAYSTATION__DE Seilbahnstation
 #define $__AERIALWAYSTATION__EN Cablecar Station
 #define $__AERIALWAYSTATION__FR Seilbahnstation
+#define $__AERIALWAYSTATION__RU Cablecar Station
 
 ## Mast einer Liftanlage. [point]
 #define $__PYLON__ Pylon
 #define $__PYLON__DE Pylon
 #define $__PYLON__EN Cablecar Pylon
 #define $__PYLON__FR Pylon
+#define $__PYLON__RU Cablecar Pylon
 
 
 ## --------------------------------------------
@@ -1953,30 +2276,35 @@
 #define $__ADMINISTRATIVE__DE Lokale Verwaltung
 #define $__ADMINISTRATIVE__EN Local Authorities
 #define $__ADMINISTRATIVE__FR Lokale Verwaltung
+#define $__ADMINISTRATIVE__RU Local Authorities
 
 ## Job-Center / Arbeitsvermittlung. [point, closedway]
 #define $__EMPLOYMENTAGENCY__ Arbeitsvermittlung
 #define $__EMPLOYMENTAGENCY__DE Arbeitsvermittlung
 #define $__EMPLOYMENTAGENCY__EN employment agency
 #define $__EMPLOYMENTAGENCY__FR Arbeitsvermittlung
+#define $__EMPLOYMENTAGENCY__RU employment agency
 
 ## Büro einer Regierung / Behörde / Regierungseinrichtung. [point, closedway]
 #define $__GOVERNMENT__ Amt, Behörde
 #define $__GOVERNMENT__DE Amt, Behörde
 #define $__GOVERNMENT__EN Government Authority
 #define $__GOVERNMENT__FR Amt, Behörde
+#define $__GOVERNMENT__RU Government Authority
 
 ## Büro einer Nichtregierungsorganisation. [point, closedway]
 #define $__NGO__ Nichtstaatl. Organisation
 #define $__NGO__DE Nichtstaatl. Organisation
 #define $__NGO__EN NGO (Non-Governmental Organisation)
 #define $__NGO__FR Nichtstaatl. Organisation
+#define $__NGO__RU NGO (Non-Governmental Organisation)
 
 ## Büro oder Sitz einer halbstaatlichen Organisation. [point, closedway]
 #define $__QUANGO__ Halbstaatl. Organisation
 #define $__QUANGO__DE Halbstaatl. Organisation
 #define $__QUANGO__EN Quango
 #define $__QUANGO__FR Halbstaatl. Organisation
+#define $__QUANGO__RU Quango
 
 
 ## ------------------------------------------------------------
@@ -1988,6 +2316,7 @@
 #define $__GRAVE__DE Ruhestaette
 #define $__GRAVE__EN Grave
 #define $__GRAVE__FR Ruhestaette
+#define $__GRAVE__RU Grave
 
 
 
