@@ -875,34 +875,34 @@ highway = tertiary {set name = '${ref}' | ''}             [0x010f13 resolution 2
 # Die Strasse gehoert keiner anderen Strassenklasse an.
 
 # Bruecke / Tunnel / Deich
-highway = residential & area != * & bridge = yes     [0x01040b resolution 24 continue]
-highway = residential & area != * & tunnel = yes     [0x01040c resolution 24 continue]
-highway = residential & area != * & man_made = dyke  [0x011f03 resolution 24 continue]
-### highway = residential & area != * & embankment = yes [0x011f03 resolution 24 continue]
+highway = residential & (area != * | area = no) & bridge = yes     [0x01040b resolution 24 continue]
+highway = residential & (area != * | area = no) & tunnel = yes     [0x01040c resolution 24 continue]
+highway = residential & (area != * | area = no) & man_made = dyke  [0x011f03 resolution 24 continue]
+### highway = residential & (area != * | area = no) & embankment = yes [0x011f03 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
 # 0x010f16 = 4/1 (breit, NoLabel)
 # 0x010f17 = 2/1 (mittel, NoLabel)
 # 0x010105 = 1/1 (schmal, NoLabel)
-highway = residential & area != * & highwaytype = 8 [0x010f16 resolution 24 continue]
-highway = residential & area != * & highwaytype = 8 [0x010f17 resolution 23-23 continue]
-highway = residential & area != * & highwaytype = 8 [0x010105 resolution 21-22]
+highway = residential & (area != * | area = no) & highwaytype = 8 [0x010f16 resolution 24 continue]
+highway = residential & (area != * | area = no) & highwaytype = 8 [0x010f17 resolution 23-23 continue]
+highway = residential & (area != * | area = no) & highwaytype = 8 [0x010105 resolution 21-22]
 
 # Nicht allgemein oeffentlich (es duerfen keine Autos fahren)
 # 0x010f16 = 4/1 (breit, NoLabel)
 # 0x010f17 = 2/1 (mittel, NoLabel)
 # 0x010105 = 1/1 (schmal, NoLabel)
-highway = residential & area != * & routinghighwaytype != 1 [0x010f16 resolution 24 continue]
-highway = residential & area != * & routinghighwaytype != 1 [0x010f17 resolution 23-23 continue]
-highway = residential & area != * & routinghighwaytype != 1 [0x010105 resolution 21-22]
+highway = residential & (area != * | area = no) & routinghighwaytype != 1 [0x010f16 resolution 24 continue]
+highway = residential & (area != * | area = no) & routinghighwaytype != 1 [0x010f17 resolution 23-23 continue]
+highway = residential & (area != * | area = no) & routinghighwaytype != 1 [0x010105 resolution 21-22]
 
 # Allgemein oeffentlich
 # 0x011f17 = 4/1 (breit, NoLabel)
 # 0x010f14 = 2/1 (mittel, NoLabel)
 # 0x010f15 = 1/1 (schmal, NoLabel)
-highway = residential & area != * [0x011f17 resolution 24 continue]
-highway = residential & area != * [0x010f14 resolution 23-23 continue]
-highway = residential & area != * [0x010f15 resolution 21-22]
+highway = residential & (area != * | area = no) [0x011f17 resolution 24 continue]
+highway = residential & (area != * | area = no) [0x010f14 resolution 23-23 continue]
+highway = residential & (area != * | area = no) [0x010f15 resolution 21-22]
 
 
 # Oeffentlich befahrbare Nebenstrasse:
@@ -911,34 +911,34 @@ highway = residential & area != * [0x010f15 resolution 21-22]
 # Z.B. Gemeindestrassen mit Verbindungscharakter, die zu schmal sind, um als Kreisstrasse zu gelten.
 
 # Bruecke / Tunnel / Deich
-highway = unclassified & area != * & bridge = yes     [0x01040b resolution 24 continue]
-highway = unclassified & area != * & tunnel = yes     [0x01040c resolution 24 continue]
-highway = unclassified & area != * & man_made = dyke  [0x011f03 resolution 24 continue]
-### highway = unclassified & area != * & embankment = yes [0x011f03 resolution 24 continue]
+highway = unclassified & (area != * | area = no) & bridge = yes     [0x01040b resolution 24 continue]
+highway = unclassified & (area != * | area = no) & tunnel = yes     [0x01040c resolution 24 continue]
+highway = unclassified & (area != * | area = no) & man_made = dyke  [0x011f03 resolution 24 continue]
+### highway = unclassified & (area != * | area = no) & embankment = yes [0x011f03 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
 # 0x010f1a = 3/1 (breit, NoLabel)
 # 0x010f1b = 2/1 (mittel, NoLabel)
 # 0x010f19 = 1/1 (schmal, NoLabel)
-highway = unclassified & area != * & highwaytype = 8 [0x010f1a resolution 24 continue]
-highway = unclassified & area != * & highwaytype = 8 [0x010f1b resolution 23-23 continue]
-highway = unclassified & area != * & highwaytype = 8 [0x010f19 resolution 21-22]
+highway = unclassified & (area != * | area = no) & highwaytype = 8 [0x010f1a resolution 24 continue]
+highway = unclassified & (area != * | area = no) & highwaytype = 8 [0x010f1b resolution 23-23 continue]
+highway = unclassified & (area != * | area = no) & highwaytype = 8 [0x010f19 resolution 21-22]
 
 # Nicht allgemein oeffentlich (es duerfen keine Autos fahren)
 # 0x010f1a = 3/1 (breit, NoLabel)
 # 0x010f1b = 2/1 (mittel, NoLabel)
 # 0x010f19 = 1/1 (schmal, NoLabel)
-highway = unclassified & area != * & routinghighwaytype != 1 [0x010f1a resolution 24 continue]
-highway = unclassified & area != * & routinghighwaytype != 1 [0x010f1b resolution 23-23 continue]
-highway = unclassified & area != * & routinghighwaytype != 1 [0x010f19 resolution 21-22]
+highway = unclassified & (area != * | area = no) & routinghighwaytype != 1 [0x010f1a resolution 24 continue]
+highway = unclassified & (area != * | area = no) & routinghighwaytype != 1 [0x010f1b resolution 23-23 continue]
+highway = unclassified & (area != * | area = no) & routinghighwaytype != 1 [0x010f19 resolution 21-22]
 
 # Allgemein oeffentlich
 # 0x011f18 = 3/1 (breit, NoLabel)
 # 0x010f18 = 2/1 (mittel, NoLabel)
 # 0x010106 = 1/1 (schmal, NoLabel)
-highway = unclassified & area != * [0x011f18 resolution 24 continue]
-highway = unclassified & area != * [0x010f18 resolution 23-23 continue]
-highway = unclassified & area != * [0x010106 resolution 21-22]
+highway = unclassified & (area != * | area = no) [0x011f18 resolution 24 continue]
+highway = unclassified & (area != * | area = no) [0x010f18 resolution 23-23 continue]
+highway = unclassified & (area != * | area = no) [0x010106 resolution 21-22]
 
 
 # Erschliessungsweg zu Einrichtungen:
@@ -946,34 +946,34 @@ highway = unclassified & area != * [0x010106 resolution 21-22]
 # Erschliessungsweg z.B. zu Sportanlagen, Straenden, Autobahnraststaetten oder allgemein zu Gebaeuden.
 
 # Bruecke / Tunnel / Deich
-highway = service & area != * & bridge = yes     [0x01040b resolution 24 continue]
-highway = service & area != * & tunnel = yes     [0x01040c resolution 24 continue]
-highway = service & area != * & man_made = dyke  [0x011f03 resolution 24 continue]
-### highway = service & area != * & embankment = yes [0x011f03 resolution 24 continue]
+highway = service & (area != * | area = no) & bridge = yes     [0x01040b resolution 24 continue]
+highway = service & (area != * | area = no) & tunnel = yes     [0x01040c resolution 24 continue]
+highway = service & (area != * | area = no) & man_made = dyke  [0x011f03 resolution 24 continue]
+### highway = service & (area != * | area = no) & embankment = yes [0x011f03 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
 # 0x010f1e = 3/1 (breit, NoLabel)
 # 0x010f1f = 2/1 (mittel, NoLabel)
 # 0x010f1d = 1/1 (schmal, NoLabel)
-highway = service & area != * & highwaytype = 8 [0x010f1e resolution 24 continue]
-highway = service & area != * & highwaytype = 8 [0x010f1f resolution 23-23 continue]
-highway = service & area != * & highwaytype = 8 [0x010f1d resolution 21-22]
+highway = service & (area != * | area = no) & highwaytype = 8 [0x010f1e resolution 24 continue]
+highway = service & (area != * | area = no) & highwaytype = 8 [0x010f1f resolution 23-23 continue]
+highway = service & (area != * | area = no) & highwaytype = 8 [0x010f1d resolution 21-22]
 
 # Nicht allgemein oeffentlich (es duerfen keine Autos fahren)
 # 0x010f1e = 3/1 (breit, NoLabel)
 # 0x010f1f = 2/1 (mittel, NoLabel)
 # 0x010f1d = 1/1 (schmal, NoLabel)
-highway = service & area != * & routinghighwaytype != 1 [0x010f1e resolution 24 continue]
-highway = service & area != * & routinghighwaytype != 1 [0x010f1f resolution 23-23 continue]
-highway = service & area != * & routinghighwaytype != 1 [0x010f1d resolution 21-22]
+highway = service & (area != * | area = no) & routinghighwaytype != 1 [0x010f1e resolution 24 continue]
+highway = service & (area != * | area = no) & routinghighwaytype != 1 [0x010f1f resolution 23-23 continue]
+highway = service & (area != * | area = no) & routinghighwaytype != 1 [0x010f1d resolution 21-22]
 
 # Allgemein oeffentlich
 # 0x011f19 = 3/1 (breit, NoLabel)
 # 0x010f1c = 2/1 (mittel, NoLabel)
 # 0x010107 = 1/1 (schmal, NoLabel)
-highway = service & area != * [0x011f19 resolution 24 continue]
-highway = service & area != * [0x010f1c resolution 23-23 continue]
-highway = service & area != * [0x010107 resolution 21-22]
+highway = service & (area != * | area = no) [0x011f19 resolution 24 continue]
+highway = service & (area != * | area = no) [0x010f1c resolution 23-23 continue]
+highway = service & (area != * | area = no) [0x010107 resolution 21-22]
 
 
 # Verkehrsberuhigter Bereich:
@@ -982,34 +982,34 @@ highway = service & area != * [0x010107 resolution 21-22]
 # bevorzugt behandelt werden und nur Schrittgeschwindigkeit erlaubt ist.
 
 # Bruecke / Tunnel / Deich
-highway = living_street & area != * & bridge = yes     [0x01040b resolution 24 continue]
-highway = living_street & area != * & tunnel = yes     [0x01040c resolution 24 continue]
-highway = living_street & area != * & man_made = dyke  [0x011f03 resolution 24 continue]
-### highway = living_street & area != * & embankment = yes [0x011f03 resolution 24 continue]
+highway = living_street & (area != * | area = no) & bridge = yes     [0x01040b resolution 24 continue]
+highway = living_street & (area != * | area = no) & tunnel = yes     [0x01040c resolution 24 continue]
+highway = living_street & (area != * | area = no) & man_made = dyke  [0x011f03 resolution 24 continue]
+### highway = living_street & (area != * | area = no) & embankment = yes [0x011f03 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
 # 0x010f05 = 4/1 (breit, NoLabel)
 # 0x010f06 = 2/1 (mittel, NoLabel)
 # 0x010108 = 1/1 (schmal, NoLabel)
-highway = living_street & area != * & highwaytype = 8 [0x010f05 resolution 24 continue]
-highway = living_street & area != * & highwaytype = 8 [0x010f06 resolution 23-23 continue]
-highway = living_street & area != * & highwaytype = 8 [0x010108 resolution 21-22]
+highway = living_street & (area != * | area = no) & highwaytype = 8 [0x010f05 resolution 24 continue]
+highway = living_street & (area != * | area = no) & highwaytype = 8 [0x010f06 resolution 23-23 continue]
+highway = living_street & (area != * | area = no) & highwaytype = 8 [0x010108 resolution 21-22]
 
 # Nicht allgemein oeffentlich (es duerfen keine Autos fahren)
 # 0x010f05 = 4/1 (breit, NoLabel)
 # 0x010f06 = 2/1 (mittel, NoLabel)
 # 0x010108 = 1/1 (schmal, NoLabel)
-highway = living_street & area != * & routinghighwaytype != 1 [0x010f05 resolution 24 continue]
-highway = living_street & area != * & routinghighwaytype != 1 [0x010f06 resolution 23-23 continue]
-highway = living_street & area != * & routinghighwaytype != 1 [0x010108 resolution 21-22]
+highway = living_street & (area != * | area = no) & routinghighwaytype != 1 [0x010f05 resolution 24 continue]
+highway = living_street & (area != * | area = no) & routinghighwaytype != 1 [0x010f06 resolution 23-23 continue]
+highway = living_street & (area != * | area = no) & routinghighwaytype != 1 [0x010108 resolution 21-22]
 
 # Allgemein oeffentlich
 # 0x011f1a = 4/1 (breit, NoLabel)
 # 0x010f03 = 2/1 (mittel, NoLabel)
 # 0x010f04 = 1/1 (schmal, NoLabel)
-highway = living_street & area != * [0x011f1a resolution 24 continue]
-highway = living_street & area != * [0x010f03 resolution 23-23 continue]
-highway = living_street & area != * [0x010f04 resolution 21-22]
+highway = living_street & (area != * | area = no) [0x011f1a resolution 24 continue]
+highway = living_street & (area != * | area = no) [0x010f03 resolution 23-23 continue]
+highway = living_street & (area != * | area = no) [0x010f04 resolution 21-22]
 
 
 #======================================================================================
@@ -1149,18 +1149,18 @@ highway = steps [0x011f11 resolution 24 continue]
 # Z.B. Fussgaengerstrasse, -zone, typisch fuer Einkaufspassagen.
 
 # Bruecke / Tunnel / Deich
-highway = pedestrian & area != * & bridge = yes     [0x01040b resolution 24 continue]
-highway = pedestrian & area != * & tunnel = yes     [0x01040c resolution 24 continue]
-highway = pedestrian & area != * & man_made = dyke  [0x011f03 resolution 24 continue]
-### highway = pedestrian & area != * & embankment = yes [0x011f03 resolution 24 continue]
+highway = pedestrian & (area != * | area = no) & bridge = yes     [0x01040b resolution 24 continue]
+highway = pedestrian & (area != * | area = no) & tunnel = yes     [0x01040c resolution 24 continue]
+highway = pedestrian & (area != * | area = no) & man_made = dyke  [0x011f03 resolution 24 continue]
+### highway = pedestrian & (area != * | area = no) & embankment = yes [0x011f03 resolution 24 continue]
 
 # Allgemein oeffentlich
 # 0x011f1b = 3/1 (breit, NoLabel)
 # 0x010f08 = 2/1 (mittel, NoLabel)
 # 0x010f09 = 1/1 (schmal, NoLabel)
-highway = pedestrian & area != * [0x011f1b resolution 24 continue]
-highway = pedestrian & area != * [0x010f08 resolution 23-23 continue]
-highway = pedestrian & area != * [0x010f09 resolution 21-22]
+highway = pedestrian & (area != * | area = no) [0x011f1b resolution 24 continue]
+highway = pedestrian & (area != * | area = no) [0x010f08 resolution 23-23 continue]
+highway = pedestrian & (area != * | area = no) [0x010f09 resolution 21-22]
 
 
 # Bergwanderweg, typischerweise im Gebirge:
@@ -1398,7 +1398,7 @@ highway = via_ferrata [0x010119 resolution 23-23]
 # ---------
 # Wie Bahnsteig.
 # 0x010e1d = 2 (NoLabel)
-highway = platform & area != * [0x010e1d resolution 24]
+highway = platform & (area != * | area = no) [0x010e1d resolution 24]
 
 
 # --------------------------------------------------------
@@ -1601,7 +1601,7 @@ railway = abandoned                    [0x010110 resolution 24]
 
 # Der Bahnsteig verlaeuft parallel zu den Gleisen. [point, way, closedway]
 # 0x010e1d = 2 (NoLabel)
-railway = platform & area != * [0x010e1d resolution 24]
+railway = platform & (area != * | area = no) [0x010e1d resolution 24]
 
 # Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
 # 0x010116 = Bitmap 2 (NoLabel)
