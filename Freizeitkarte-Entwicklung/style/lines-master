@@ -1502,7 +1502,7 @@ boundary = administrative & admin_level = 2 [0x1e resolution 17]
 
 # Nationalparkgrenze
 # 0x1d = Bitmap 2
-schutzgebiet = national_park [0x1d resolution 19-23]
+schutzgebiet = national_park [0x1d resolution 21-23]
 
 
 # ------------------------------------------------------------------
