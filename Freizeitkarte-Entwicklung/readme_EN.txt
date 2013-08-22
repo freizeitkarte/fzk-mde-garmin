@@ -19,7 +19,7 @@ Pre-conditions:
 Terminal:
 - the procedures of creating a map are carried out using a terminal window
 - each input command has to be executed one by one 
-  alternatively it is possible to create your own batchfile for processing
+  alternatively you can create your own batch file
 
 
 Executing "perl mt.pl" (MapTool) without any parameters, will lead to a minimum help output.
@@ -159,7 +159,8 @@ for all directly installable data
 - gmapsupp.img = image for (Garmin)GPS device
 
 Freizeitkarte-Entwicklung/work:
-For each map generated a distinct subdirectory is created here.The directory names correspond to the names of the maps generated.
+For each map generated a distinct subdirectory is created here.
+The directory names correspond to the names of the maps generated.
 
 Freizeitkarte-Entwicklung/work/"Kartenname":
 Repository and clipboard for all data needed and produced during map generation
