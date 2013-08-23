@@ -994,7 +994,8 @@ man_made = beacon & name = * {name '${name} ($__BEACON__)'} [0x6500 resolution 2
 man_made = lighthouse {name '${name} ($__LIGHTHOUSE__)' | '$__LIGHTHOUSE__'} [0x1206 resolution 24]
 
 # Mast (z.B. Telekommunkations- / Funkmast)
-man_made = mast {name '${name} ($__MAST__)' | '$__MAST__'} [0x2f12 resolution 24]
+#man_made = mast {name '${name} ($__MAST__)' | '$__MAST__'} [0x2f12 resolution 24]
+man_made = mast {name '${name} ($__MAST__)' | '$__MAST__'} [0x2f11 resolution 24]
 
 # Schacht. [point, closedway]
 man_made = mineshaft & name = * {name '${name} ($__MINESHAFT__)'} [0x6600 resolution 24]
@@ -1022,8 +1023,13 @@ man_made = reservoir_covered & name = * {name '${name} ($__RESERVOIRCOVERED__)'}
 # Turm. [point, closedway]
 # Beobachtungsturm
 man_made = tower & tower:type = observation {name '${name} ($__OBSERVATIONTOWER__)' | '$__OBSERVATIONTOWER__'} [0x661f resolution 24]
+
 # Funkturm (s.a. "mast")
-man_made = tower & tower:type = communication {name '${name} ($__COMMUNICATIONTOWER__)' | '$__COMMUNICATIONTOWER__'} [0x2f12 resolution 24]
+#man_made = tower & tower:type = communication {name '${name} ($__COMMUNICATIONTOWER__)' | '$__COMMUNICATIONTOWER__'} [0x2f12 resolution 24]
+man_made = tower & tower:type = communication & ( communication:radio!=no | communication:television!=no ) {name '${name} ($__COMMUNICATIONTOWER__)' | '$__COMMUNICATIONTOWER__'} [0x2f12 resolution 24]
+man_made = tower & tower:type = communication & ( communication:mobile!=no ) {name '${name} ($__COMMUNICATIONTOWER__)' | '$__COMMUNICATIONTOWER__'} [0x2f11 resolution 24]
+man_made =  communications_tower  {name '${name} ($__COMMUNICATIONTOWER__)' | '$__COMMUNICATIONTOWER__'} [0x2f12 resolution 24]
+
 # allgemeiner Turm (z.B. auch Kirchturm)
 man_made = tower & name = * {name '${name} ($__TOWER__)'} [0x6500 resolution 24]
 
