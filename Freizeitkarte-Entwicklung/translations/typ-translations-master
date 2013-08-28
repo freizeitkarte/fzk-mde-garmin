@@ -3526,6 +3526,17 @@ String4=0x04,Shop: Hairdresser
 String5=0x19,Shop: Hairdresser
 [end]
 
+; Radio Mast, small <=> Funkmast, klein
+[_point]
+Type=0x02f
+SubType=0x11
+String1=0x00,Funkmast, klein
+String2=0x01,Funkmast, klein
+String3=0x02,Funkmast, klein
+String4=0x04,Radio Mast, small
+String5=0x19,Radio Mast, small
+[end]
+
 ; Radio Mast <=> Funkmast
 [_point]
 Type=0x02f
