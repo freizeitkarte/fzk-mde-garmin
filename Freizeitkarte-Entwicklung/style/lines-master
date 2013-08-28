@@ -1499,6 +1499,7 @@ waterway = weir & building != * [0x01010c resolution 22 continue]
 # Staatsgrenze - admin_level=2
 # 0x1e = Bitmap 2 (NoLabel)
 boundary = administrative & admin_level = 2 [0x1e resolution 17]
+#boundary = administrative & admin_level = 2 [0x1e resolution 8-17]
 
 # Nationalparkgrenze
 # 0x1d = Bitmap 2

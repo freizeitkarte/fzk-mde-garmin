@@ -1000,6 +1000,67 @@ sub create_cfgfile {
       # . "location-autofill=bounds,is_in,nearest\n" );
       . "location-autofill=is_in,nearest\n" );
 
+  printf { $fh }
+     (   "\n"
+       . "#--housenumbers\n"
+       . "#  Enables house number search for OSM input files.\n"
+       . "#  All nodes and polygons having addr:housenumber and addr:street set are matched\n"
+       . "#  to streets. A match between house number element and street is created if\n"
+       . "#  the street is located within a radius of 150m and the addr:street tag of the\n"
+       . "#  house number element\n"
+       . "#    - equals the mgkmap:street tag of the street. mkgmap:streets should be set\n"
+       . "#      in the style file.\n"
+       . "#    - or it equals the name of the street stripped by garmin shields and all text\n"
+       . "#      within round brackets.\n"
+       . "#  Example:\n"
+       . "#     Node -  addr:street=Main Street addr:housenumber=2\n"
+       . "#     Way 1 - mkgmap:street=Main Street\n"
+       . "#     Way 2 - name=Main Street (A504)\n"
+       . "#     Way 3 - mkgmap:street=Mainstreet\n"
+       . "#     Way 4 - name=Main Street [A504]\n"
+       . "#    The node matches to way 1 and way 2 but not to way 3 (does not equal exactly)\n"
+       . "#    and not to way 4 (only text in round brackets is ignored)\n"
+       . "housenumbers\n" );
+
+  printf { $fh } ( "\n# Overview map options:\n" );
+  printf { $fh } ( "# ---------------------\n" );
+
+  printf { $fh } (
+    "\n"
+      . "# --overview-mapname=name\n"
+      . "#   If --tdbfile is enabled, this gives the name of the overview\n"
+      . "#   .img and .tdb files. The default map name is osmmap.\n"
+      . "overview-mapname=%s\n",
+      $mapname );
+
+  printf { $fh }
+    (   "\n"
+      . "# --overview-mapnumber=8 digit number\n"
+      . "#   If --tdbfile is enabled, this gives the internal 8 digit\n"
+      . "#   number used in the overview map and tdb file. The default\n"
+      . "#   number is 63240000.\n"
+      . "overview-mapnumber=%s0000\n",
+      $mapid );
+
+  printf { $fh }
+    (   "\n"
+      . "#--overview-levels\n"
+      . "#  like levels, specifies additional levels that are to be written to the\n"
+      . "#  overview map. Counting of the levels should continue. Up to 8 additional\n"
+      . "#  levels may be specified, but the lowest usable resolution with MapSource\n"
+      . "#  seems to be 11. The hard coded default is empty.\n"
+      );
+
+  printf { $fh }
+    (   "\n"
+      . "#--remove-ovm-work-files\n"
+      . "#  If overview-levels is used, mkgmap creates one additional file\n"
+      . "#  with the prefix ovm_ for each map (*.img) file.\n"
+      . "#  These files are used to create the overview map.\n"
+      . "#  With option --remove-ovm-work-files=true the files are removed\n"
+      . "#  after the overview map was created. The default is to keep the files.\n"
+      . "remove-ovm-work-files\n" );
+
   printf { $fh } ( "\n# Style options:\n" );
   printf { $fh } ( "# -------------\n" );
 
@@ -1054,23 +1115,6 @@ sub create_cfgfile {
       . "#   drop-down. The default is \"OSM map\".\n"
       . "series-name=%s\n",
       $mapname );
-
-  printf { $fh } (
-    "\n"
-      . "# --overview-mapname=name\n"
-      . "#   If --tdbfile is enabled, this gives the name of the overview\n"
-      . "#   .img and .tdb files. The default map name is osmmap.\n"
-      . "overview-mapname=%s\n",
-      $mapname );
-
-  printf { $fh }
-    (   "\n"
-      . "# --overview-mapnumber=8 digit number\n"
-      . "#   If --tdbfile is enabled, this gives the internal 8 digit\n"
-      . "#   number used in the overview map and tdb file. The default\n"
-      . "#   number is 63240000.\n"
-      . "overview-mapnumber=%s0000\n",
-      $mapid );
 
   printf { $fh }
     (   "\n"
@@ -1201,14 +1245,14 @@ sub create_cfgfile {
       . "#   Makes some operations more verbose. Mostly used with --list-styles.\n" 
       . "verbose\n" );
 
-  printf { $fh }
-    (   "\n" 
-      . "# --x-housenumbers\n"
-      . "#   Housenumbers that are tagged with addr:housenumber and addr:street are now\n"
-      . "#   applied. It can be enabled with the undocumented parameter --x-housenumbers.\n"
-      . "#   It's not yet an official parameter because it handles only a small\n"
-      . "# subset of housenumbers.\n"
-      . "x-housenumbers\n" );
+#  printf { $fh }
+#    (   "\n" 
+#      . "# --x-housenumbers\n"
+#      . "#   Housenumbers that are tagged with addr:housenumber and addr:street are now\n"
+#      . "#   applied. It can be enabled with the undocumented parameter --x-housenumbers.\n"
+#      . "#   It's not yet an official parameter because it handles only a small\n"
+#      . "# subset of housenumbers.\n"
+#      . "x-housenumbers\n" );
 
   # Kartenkacheln anhaengen
   # mapname: 58100003
