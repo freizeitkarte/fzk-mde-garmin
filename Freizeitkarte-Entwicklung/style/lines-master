@@ -1320,16 +1320,23 @@ highway = feldweg45 & man_made = dyke  [0x011f05 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
 # 0x010e17 = Bitmap 2 (breit, NoLabel)
-highway = feldweg45 & highwaytype = 8 [0x010e17 resolution 24]
+# 0x010e1e = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
+highway = feldweg45 & highwaytype = 8 [0x010e17 resolution 24 continue]
+highway = feldweg45 & highwaytype = 8 [0x010e1e resolution 23-23]
+
 
 # Nicht fuer Autos freigegeben
 # 0x010109 = Bitmap 2 (breit, NoLabel)
 # 0x01011d = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = feldweg45 & routinghighwaytype != 1 [0x010109 resolution 24]
+highway = feldweg45 & routinghighwaytype != 1 [0x010109 resolution 24 continue]
+highway = feldweg45 & routinghighwaytype != 1 [0x01011d resolution 23-23]
+
 
 # Allgemein oeffentlich
+# 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
 # 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
-highway = feldweg45 [0x010106 resolution 24]
+highway = feldweg45 [0x010f18 resolution 24 continue]
+highway = feldweg45 [0x010106 resolution 23-23]
 
 
 # Strasse unbekannter Klassifikation:
