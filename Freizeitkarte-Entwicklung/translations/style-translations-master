@@ -30,6 +30,11 @@
 ###* and will be included into the different style files during another
 ###* subroutine of the perl script mt.pl
 
+###* Version: 0.1 - 26.03.2013:  Initial Version
+###* Version: 0.2 - 28.04.2013:  Changes regarding Busstation (Bushbahnhof) and Busstop (Haltestelle)
+###* Version: 0.3 - 28.05.2013:  Removed word 'Restaurant' from different subcategories of Restaurant
+###* Version: 0.4 - 07.08.2013:  Preparations for Russian translation
+
 
 
 ## ------------------------------------------------------------

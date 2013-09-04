@@ -12,8 +12,9 @@
 # Version : 0.8 - 09.06.2012: Anleger (Pier) auch als Flaeche moeglich; PPP-Schalter fuer Kulturland eingeführt
 #                             Darstellung von Häfen die als Dock getaggt sind
 # Version : 0.9 - 21.07.2012: Änderung bei Naturschutzgebieten
-# Version : 0.10- 02.04.2014: Resolution bei waterway=riverbank von 19 auf 17 geändert
+# Version : 0.10- 02.04.2013: Resolution bei waterway=riverbank von 19 auf 17 geändert
 #                             Darstellung von Bussteigen (highway=platform) wie Bahnsteige.
+# Version : 0.11- 10.05.2013: Disable display of gardens with garden:type=residential
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
 #

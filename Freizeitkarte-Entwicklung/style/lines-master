@@ -28,6 +28,10 @@
 #                             Wege die als "abandoned" getaggt sind, werden nicht mehr dargestellt
 # Version : 0.16 -21.12.2012: Darstellung der Strecken von Standseilbahnen (Funicular), Darstellung von Zäunen (fence)
 # Version : 0.17 -04.04.2013: Darstellung von Bussteigen (highway = platform)
+# Version : 0.18 -04.09.2013: - Added Monorail (Same as ligh_rail, S-Bahn)
+#                             - fixed a problem with streets not shown due to area=no
+#                             - boundaries of nationalparcs are shown later (starting at 21 instead of 19)
+#                             - adaptions for tracks with trackgrade 4 & 5, displaying them as others with resolution 23 and smaller line
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
 # - Verbesserung der Adresssuchregeln in Zusammenarbeit mit Ludwich und Georg V.
