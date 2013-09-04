@@ -2761,7 +2761,8 @@ sub show_usage {
     "Usage:\n"
       . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
       . "  or for getting help:\n"
-      . "  perl $programName -? | -h | -o\n"
+#      . "  perl $programName -? | -h | -o\n"
+      . "  perl $programName -? | -h\n"
       . "\n\n"
   );
 
