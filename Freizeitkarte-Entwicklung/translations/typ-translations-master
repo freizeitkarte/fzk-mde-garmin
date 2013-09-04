@@ -1820,6 +1820,15 @@ String4=0x04,Platform
 String5=0x19,Platform
 [end]
 
+; Track/Dirt Road (4,5) (restricted) <=> Feld- / Waldweg (4,5) (Eingeschränkt) schmal
+[_line]
+Type=0x10e1e
+String1=0x00,Feld- / Waldweg (4,5) (Eingeschränkt) schmal
+String2=0x01,Feld- / Waldweg (4,5) (Eingeschränkt) schmal
+String3=0x02,Feld- / Waldweg (4,5) (Eingeschränkt)
+String4=0x04,Track/Dirt Road (4,5) (restricted)
+[end]
+
 ; Groyne/Breakwater <=> Buhne
 [_line]
 Type=0x10e1f

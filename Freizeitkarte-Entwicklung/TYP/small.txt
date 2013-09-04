@@ -4051,6 +4051,24 @@ CustomColor=No
 
 
 [_line]
+Type=0x10e1e
+UseOrientation=Y
+Xpm="32 1 2  1"
+"! c #7B0000"
+"  c none"
+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+;12345678901234567890123456789012
+String1=0x00,Track/Dirt Road (4,5) (restricted)
+String2=0x01,Track/Dirt Road (4,5) (restricted)
+String3=0x02,Feld- / Waldweg (4,5) (Eingeschränkt)
+String4=0x04,Track/Dirt Road (4,5) (restricted)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
 Type=0x10e1f
 UseOrientation=Y
 LineWidth=2
