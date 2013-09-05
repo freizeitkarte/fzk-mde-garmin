@@ -7319,24 +7319,23 @@ String4=0x04,Radio Mast, small
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="17 13 3 1"   Colormode=16
+DayXpm="9 12 3 1"   Colormode=16
 "!	c #000000"
 "#	c #808080"
-" 	c none"
-"   #    !    #   "
-"  #     !     #  "
-" #  #   !   #  # "
-"#  #    !    #  #"
-"#  # #  !  # #  #"
-"#  #    !    #  #"
-" #  #   !   #  # "
-"  #     !     #  "
-"   #    !    #   "
-"        !        "
-"        !        "
-"       !!!       "
-"      !!!!!      "
-;12345678901234567
+"  	c none"
+"#       #"
+"#       #"
+"# #   # #"
+"# # ! # #"
+"# # ! # #"
+"#   !   #"
+"    !    "
+"    !    "
+"    !    "
+"    !    "
+"    !    "
+"    !    "
+;123456789
 [end]
 
 
