@@ -5438,6 +5438,123 @@ ExtendedLabels=N
 [end]
 
 
+[_line]
+Type=0x12015
+UseOrientation=N
+Xpm="32 1 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Wassertunnel
+String2=0x02,
+String3=0x04,
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12016
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Wassertunnel
+String2=0x02,
+String3=0x04,
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12017
+UseOrientation=N
+Xpm="32 3 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"                                "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Wassertunnel
+String2=0x02,
+String3=0x04,
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12018
+UseOrientation=N
+Xpm="32 4 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"                                "
+"                                "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Wassertunnel
+String2=0x02,
+String3=0x04,
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12019
+UseOrientation=N
+Xpm="32 5 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"                                "
+"                                "
+"                                "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Wassertunnel
+String2=0x02,
+String3=0x04,
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1201a
+UseOrientation=N
+Xpm="32 6 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"                                "
+"                                "
+"                                "
+"                                "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Wassertunnel
+String2=0x02,
+String3=0x04,
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
 ;====================== POINTS ==========================
 
 
