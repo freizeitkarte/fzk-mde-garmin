@@ -589,11 +589,15 @@ natural = wood & name = * {name '${name} ($__WOOD__)'} [0x660A resolution 24]
 # place = county (wird derzeit nicht unterstützt)
 
 # Megastadt (>1.000.000 Einwohner) oder Landeshauptstadt. [point, closedway]
-place = city & (population > 1000000 | capital = true) [0x0100 resolution 17]
+#place = city & (population > 1000000 | capital = true) [0x0100 resolution 17]
+# starting at 14 for overviewmap
+place = city & (population > 1000000 | capital = true) [0x0100 resolution 14]
 
 # Großstadt (wie von der zuständigen Behörde definiert, häufig > 100.000 Einwohner),
 # Landeshauptstadt, Provinzhauptstadt. [point, closedway]
-place = city [0x0200 resolution 17]
+#place = city [0x0200 resolution 17]
+# starting at 14 for overviewmap
+place = city [0x0200 resolution 14]
 
 # Weiler, Bauernschaft, Einöde (Ansammlung einiger Häuser). [point, closedway]
 place = hamlet [0x0d00 resolution 24]
