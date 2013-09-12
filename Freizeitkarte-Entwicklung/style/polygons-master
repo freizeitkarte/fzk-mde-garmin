@@ -243,6 +243,7 @@ natural = farmyard {set landuse=farmyard; delete natural}
 natural = forest {set landuse=forest; delete natural}
 natural = garages {set landuse=garages; delete natural}
 natural = grass {set landuse=grass; delete natural}
+natural = grassland {set landuse=grass; delete natural}
 natural = greenfield {set landuse=greenfield; delete natural}
 natural = greenhouse_horticulture {set landuse=greenhouse_horticulture; delete natural}
 natural = industrial {set landuse=industrial; delete natural} 
