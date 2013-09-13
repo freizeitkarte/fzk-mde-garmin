@@ -785,8 +785,8 @@ highway = motorway [0x011f13 resolution 24 continue]
 highway = motorway [0x010f0a resolution 22-23 continue]
 highway = motorway [0x010f0b resolution 20-21 continue]
 #highway = motorway [0x010e0a resolution 17-19]
-# starting at 12 for overviewmap
-highway = motorway [0x010e0a resolution 12-19]
+# starting at 14 for overviewmap
+highway = motorway [0x010e0a resolution 14-19]
 
 
 # Autobahnaehnliche Strasse:
