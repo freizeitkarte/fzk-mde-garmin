@@ -2799,6 +2799,7 @@ sub bootstrap_environment {
 
   # Set check variable to 'false'
   $success = 0;
+
   # First we take the boundaries (bigger file)
   foreach $actualurl ( @boundariesurl ) {
     
@@ -2828,30 +2829,89 @@ sub bootstrap_environment {
         $success = 1;
         last;
     }
-    
+  }
+  
+  # Loop finished let's check if we need to exit or can continue
+  unless ( $success ) {
+	  die ( "\n\nERROR: Unable to download the boundaries from any of the given URLs\n");
   }
 
-  
-#  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-#    # OS X, Linux, FreeBSD, OpenBSD
-#    $command = "curl --location --url \"$eleurl\" --output \"$filename\"";
-#    process_command ( $command );
-#  }
-#  elsif ( $OSNAME eq 'MSWin32' ) {
-#    # Windows
-#    chdir "$BASEPATH/windows/wget";
-#    $command = "wget.exe --output-document=\"$filename\" \"$eleurl\"";
-#    process_command ( $command );
-#  }
-#  else {
-#    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
-#  }
+  # Set check variable back to 'false'
+  $success = 0;
 
+  # Now we take the seatiles (smaller file)
+  foreach $actualurl ( @seaboundariesurl ) {
+    
+    # Set the commands according to the OS we're running on  
+    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # OS X, Linux, FreeBSD, OpenBSD
+      $command = "curl --location --url \"$actualurl\" --output \"bounds.zip\"";
+    }
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $command = "$BASEPATH/windows/wget/wget.exe --output-document=\"sea.zip\" \"$actualurl\"";
+    }
+    else {
+      printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    }
+      
+    # Now run the command to download it
+    process_command ( $command );
+    
+    # Check Return Value
+    if ( $? != 0 ) {
+        printf "\n\nWARNING: Downloadurl $actualurl seems not to work .... \n";
+        printf "         trying anotherone if existing.\n";
+    }
+    else {
+        printf "\n\nOK:      Downloadurl $actualurl worked.\n";
+        $success = 1;
+        last;
+    }
+  }
   
-  
+  # Loop finished let's check if we need to exit or can continue
+  unless ( $success ) {
+	  die ( "\n\nERROR: Unable to download the seaboundaries from any of the given URLs\n");
+  }
+    
   # Extract it into the correct location (after cleaning up the old stuff there)
   # ----------------------------------------------------------------------------  
+  foreach my $directory ( "sea", "bounds" ) {
+	  
+	# Recreate the needed directory in an empty state
+	# -----------------------------------------------
+    rmtree ( "$BASEPATH/$directory",    0, 1 );
+    sleep 1;
+    mkpath ( "$BASEPATH/$directory" );
+	
+	# Unzip the stuff
+	# ----------------
+	# Set the commands depending on the OS we're running on
+	if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+       # OS X, Linux, FreeBSD, OpenBSD
+       $command = "unzip -j $bootstrapdir/$directory.zip -d $BASEPATH/$directory";
+    }
+    elsif ( $OSNAME eq 'MSWin32' ) {
+       # Windows
+       $command = "$BASEPATH/tools/zip/windows/7-Zip/7za.exe e $bootstrapdir/$directory.zip -y -o$BASEPATH/$directory";
+    }
+    else {
+       printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    }
     
+    # Run the command
+    process_command ( $command );
+
+	# Clean an eventually created unneeded subdirectory
+	if ( -e "$BASEPATH/$directory/$directory" ) {
+       rmtree ( "$BASEPATH/$directory/$directory", 0, 0 );
+    }
+
+    # Cleanup the files we've downloaded
+    unlink ( "$bootstrapdir/$directory.zip" );
+
+  }
 }
 
 
