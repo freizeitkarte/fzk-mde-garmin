@@ -21,7 +21,9 @@ use Getopt::Long;
 #use Data::Dumper;
 
 my @actions = (
-  # 'Aktion',  'Beschreibung'
+  # Normal User Actions for maps
+  # (This actions should not be deleted/changed)
+  # 'Action',    'Description'
   [ 'create',    '1.  (re)create all directories' ,                        '-' ],
   [ 'fetch_osm', '2a. fetch osm data from url' ,                           '-' ],
   [ 'fetch_ele', '2b. fetch elevation data from url' ,                     '-' ],
@@ -33,7 +35,9 @@ my @actions = (
   [ 'gmapsupp',  '6.  create gmapsupp image (for GPS receiver)' ,          '-' ],
   [ 'imagedir',  '6.  create image directory (e.g. for QLandkarte)' ,      '-' ],
 
-  # Optional
+  # Optional Actions for maps (Hidden from normal users) 
+  # (This might change without notification)
+  # 'Action',     'Description'
   [ 'cfg',        'A. create individual cfg file' ,                        'optional' ],
   [ 'typ',        'B. create individual typ file from master' ,            'optional' ],
   [ 'compiletyp', 'B. compile TYP files out of text files' ,               'optional' ],
@@ -45,7 +49,12 @@ my @actions = (
   [ 'zip',        'G. zip all maps' ,                                      'optional' ],
   [ 'regions',    'H. extract regions from Europe data' ,                  'optional' ],
   [ 'fetch_map',  'I. fetch map data from Europe directory' ,              'optional' ],
-  [ 'checkurl',   'J. Check all download URLs for existence' ,             'optional' ],
+
+  # Hidden Actions not related to maps 
+  # (This might change without notification)
+  # 'Action',     'Description'
+  [ 'checkurl',   '   Check all download URLs for existence' ,             'optional' ],
+  [ 'bootstrap',  '   Complete the Environment with needed downloads' ,    'optional' ],
 );
 
 my @supportedlanguages = (
@@ -69,6 +78,17 @@ my %elevationbaseurl = (
   'ele10' => "http://freizeitkarte-osm.de/maps/Development/ele_10_100_200",
   'ele25' => "http://freizeitkarte-osm.de/maps/Development/ele_25_250_500",
   );
+  
+# Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
+my @boundariesurl = (
+  'http://www.navmaps.eu/boundaries?task=weblink.go&id=1',
+  'http://www.navmaps.eu/boundaries?task=weblink.go&id=1', 
+  );
+my @seaboundariesurl = (
+  'http://www.navmaps.eu/boundaries?task=weblink.go&id=2',
+  'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
+  );
+
 
 my @maps = (
   # ID, 'Karte', 'URL der Quelle', 'Code', 'language'
@@ -536,6 +556,9 @@ elsif ( $actionname eq 'fetch_map' ) {
 }
 elsif ( $actionname eq 'checkurl' ) {
   check_downloadurls ();
+}
+elsif ( $actionname eq 'bootstrap' ) {
+  bootstrap_environment ();
 }
 
 exit ( 0 );
@@ -2748,6 +2771,87 @@ sub fetch_mapdata {
   }
 
   return;
+}
+
+
+# --------------------------------------------------------
+# Bootstrap: load 'missing' big chunks from the Internet
+# --------------------------------------------------------
+sub bootstrap_environment {
+  
+  # Some local variables
+  my $bootstrapdir = "$BASEPATH/work/bootstrap";
+  my $actualurl = "";
+  my $success = 0;
+  
+  # Check if the bootstrap directory exists, else create it and go to it
+  # --------------------------------------------------------------------
+  if ( !( -e $bootstrapdir ) ) {
+    mkdir ( $bootstrapdir );
+    printf { *STDOUT } ( "Directory %s created.\n\n", $bootstrapdir );
+  }
+  
+  chdir $bootstrapdir;
+  
+  
+  # Try to download the latest version of the boundaries
+  # ----------------------------------------------------
+
+  # Set check variable to 'false'
+  $success = 0;
+  # First we take the boundaries (bigger file)
+  foreach $actualurl ( @boundariesurl ) {
+    
+    # Set the commands according to the OS we're running on  
+    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # OS X, Linux, FreeBSD, OpenBSD
+      $command = "curl --location --url \"$actualurl\" --output \"bounds.zip\"";
+    }
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $command = "$BASEPATH/windows/wget/wget.exe --output-document=\"bounds.zip\" \"$actualurl\"";
+    }
+    else {
+      printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    }
+      
+    # Now run the command to download it
+    process_command ( $command );
+    
+    # Check Return Value
+    if ( $? != 0 ) {
+        printf "\n\nWARNING: Downloadurl $actualurl seems not to work .... \n";
+        printf "         trying anotherone if existing.\n";
+    }
+    else {
+        printf "\n\nOK:      Downloadurl $actualurl worked.\n";
+        $success = 1;
+        last;
+    }
+    
+  }
+
+  
+#  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+#    # OS X, Linux, FreeBSD, OpenBSD
+#    $command = "curl --location --url \"$eleurl\" --output \"$filename\"";
+#    process_command ( $command );
+#  }
+#  elsif ( $OSNAME eq 'MSWin32' ) {
+#    # Windows
+#    chdir "$BASEPATH/windows/wget";
+#    $command = "wget.exe --output-document=\"$filename\" \"$eleurl\"";
+#    process_command ( $command );
+#  }
+#  else {
+#    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+#  }
+
+  
+  
+  # Extract it into the correct location (after cleaning up the old stuff there)
+  # ----------------------------------------------------------------------------  
+    
 }
 
 
