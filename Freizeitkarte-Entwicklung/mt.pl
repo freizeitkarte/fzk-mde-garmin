@@ -2845,7 +2845,7 @@ sub bootstrap_environment {
     # Set the commands according to the OS we're running on  
     if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # OS X, Linux, FreeBSD, OpenBSD
-      $command = "curl --location --url \"$actualurl\" --output \"bounds.zip\"";
+      $command = "curl --location --url \"$actualurl\" --output \"sea.zip\"";
     }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
@@ -2909,7 +2909,7 @@ sub bootstrap_environment {
     }
 
     # Cleanup the files we've downloaded
-    unlink ( "$bootstrapdir/$directory.zip" );
+#    unlink ( "$bootstrapdir/$directory.zip" );
 
   }
 }
