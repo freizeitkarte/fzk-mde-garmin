@@ -2879,6 +2879,9 @@ sub bootstrap_environment {
   # ----------------------------------------------------------------------------  
   foreach my $directory ( "sea", "bounds" ) {
 	  
+# unzip -t -q work/bootstrap/bounds.zip
+# .\tools\zip\windows\7-Zip\7za.exe t .\work\bootstrap\bounds.zip
+	  
 	# Recreate the needed directory in an empty state
 	# -----------------------------------------------
     rmtree ( "$BASEPATH/$directory",    0, 1 );
