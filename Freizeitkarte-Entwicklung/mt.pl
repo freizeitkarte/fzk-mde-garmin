@@ -2782,6 +2782,7 @@ sub bootstrap_environment {
   # Some local variables
   my $bootstrapdir = "$BASEPATH/work/bootstrap";
   my $actualurl = "";
+  my $directory = "";
   my $success = 0;
   
   # Check if the bootstrap directory exists, else create it and go to it
@@ -2874,14 +2875,39 @@ sub bootstrap_environment {
   unless ( $success ) {
 	  die ( "\n\nERROR: Unable to download the seaboundaries from any of the given URLs\n");
   }
+  
+  # Check the downloaded zip files for consistency
+  # -----------------------------------------------
+  foreach $directory ( "bounds", "sea" ) {
+  
+	# Test the Archive
+	# ----------------
+	# Set the commands depending on the OS we're running on
+	if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+       # OS X, Linux, FreeBSD, OpenBSD
+       $command = "unzip -t -q $bootstrapdir/$directory.zip";
+    }
+    elsif ( $OSNAME eq 'MSWin32' ) {
+       # Windows
+       $command = "$BASEPATH/tools/zip/windows/7-Zip/7za.exe t $bootstrapdir/$directory.zip";
+    }
+    else {
+       printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    }
+    
+    # Run the command
+    process_command ( $command );
+
+    # Check Return Value
+    if ( $? != 0 ) {
+        die "\n\nERROR: Downloaded Archive $directory.zip seems be corrupt .... exiting now\n";
+    }
+  }
     
   # Extract it into the correct location (after cleaning up the old stuff there)
   # ----------------------------------------------------------------------------  
-  foreach my $directory ( "sea", "bounds" ) {
-	  
-# unzip -t -q work/bootstrap/bounds.zip
-# .\tools\zip\windows\7-Zip\7za.exe t .\work\bootstrap\bounds.zip
-	  
+  foreach $directory ( "bounds", "sea" ) {
+	  	  
 	# Recreate the needed directory in an empty state
 	# -----------------------------------------------
     rmtree ( "$BASEPATH/$directory",    0, 1 );
@@ -2912,7 +2938,7 @@ sub bootstrap_environment {
     }
 
     # Cleanup the files we've downloaded
-#    unlink ( "$bootstrapdir/$directory.zip" );
+    unlink ( "$bootstrapdir/$directory.zip" );
 
   }
 }
