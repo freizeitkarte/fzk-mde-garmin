@@ -2873,7 +2873,7 @@ sub bootstrap_environment {
   
   # Loop finished let's check if we need to exit or can continue
   unless ( $success ) {
-	  die ( "\n\nERROR: Unable to download the seaboundaries from any of the given URLs\n");
+	  die ( "\n\nERROR: Unable to download the seaboundaries from any of the given URLs\n\n");
   }
   
   # Check the downloaded zip files for consistency
@@ -2900,7 +2900,7 @@ sub bootstrap_environment {
 
     # Check Return Value
     if ( $? != 0 ) {
-        die "\n\nERROR: Downloaded Archive $directory.zip seems be corrupt .... exiting now\n";
+        die "\n\nERROR: Downloaded Archive $directory.zip seems be corrupt .... exiting now\n\n";
     }
   }
     
