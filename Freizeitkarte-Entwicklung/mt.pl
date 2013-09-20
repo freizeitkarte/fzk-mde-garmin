@@ -2763,21 +2763,157 @@ sub show_fingerprint {
 	my $cmdoutput = "";
 	my $output = "";
 	
-	printf "\n\n";
-	
+	printf "\n\n\n";
+    printf "================================================\n";
+    printf "+                                              +\n";
+    printf "+ Fingerprint:                                 +\n";
+    printf "+ ------------                                 +\n";    
+    printf "+ Show versions of used tools                  +\n";    
+    printf "+                                              +\n";    
+    printf "================================================\n";
+    printf "\n";
+    	
+
 	# java
 	# ----
-	$cmdoutput = qx/java -version/;
+    printf "Java\n";
+    printf "======================================\n";
+	$cmdoutput = `java -version 2>&1`;
 	printf "$cmdoutput\n\n";
 	
+
 	# osmosis
 	# -------
-	#$cmdoutput = grep { /Version/ } qx(tools\\osmosis\\bin\\osmosis.bat -v 2>&1);
-    $cmdoutput = `tools\\osmosis\\bin\\osmosis.bat -v 2>&1`;
-    ($output) = ( $cmdoutput =~ /INFO/ );
-	printf "$output\n\n";
+    printf "osmosis\n";
+    printf "======================================\n";
+    # OS X, Linux, FreeBSD, OpenBSD
+    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+       $cmdoutput = `sh $BASEPATH/tools/osmosis/bin/osmosis -v 2>&1`;
+    }
+    # Windows
+    elsif ( $OSNAME eq 'MSWin32' ) {
+       $cmdoutput = `$BASEPATH\\tools\\osmosis\\bin\\osmosis.bat -v 2>&1`;
+    }
+    $cmdoutput =~ /INFO: (.* Version .*)/;
+	printf "$1\n\n\n";
 
 
+    # splitter
+    # --------
+    printf "splitter\n";
+    printf "======================================\n";
+    $cmdoutput = `java -jar tools/splitter/splitter.jar --version 2>&1`;
+	printf "$cmdoutput\n\n";
+    
+
+    # mkgmap
+    # ------
+    printf "mkgmap\n";
+    printf "======================================\n";    
+    $cmdoutput = `java -jar tools/mkgmap/mkgmap.jar --version 2>&1`;
+    $cmdoutput =~ /^(\d{4,})/m;
+    printf "mkgmap r$1\n\n\n";
+
+
+    # PPP
+    
+    # gmapi-builder.py
+    
+
+    # 7za (Windows only)
+    # ------------------
+    printf "7-Zip CLI (7za) - Windows only\n";
+    printf "======================================\n";
+    # Windows
+    if ( $OSNAME eq 'MSWin32' ) {
+       $cmdoutput = `$BASEPATH\\tools\\zip\\windows\\7-Zip\\7za.exe 2>&1`;
+       $cmdoutput =~ /(7-Zip .*)$/m;
+       printf "$1\n";
+    }
+    printf "\n\n";
+
+    
+    # jmc_cli
+    # ------------
+    printf "jmc_cli\n";
+    printf "======================================\n";
+    if ( $OSNAME eq 'darwin' ) {
+      # OS X
+      $cmdoutput = `$BASEPATH/tools/jmc/osx/jmc_cli 2>&1`;
+    }	
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $cmdoutput = `$BASEPATH\\tools\\jmc\\windows\\jmc_cli.exe 2>&1`;
+    }
+    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+      $cmdoutput = `$BASEPATH/tools/jmc/linux/jmc_cli 2>&1`;
+    }
+    $cmdoutput =~ /^(.*version.*)$/m;
+    printf "$1\n\n\n";
+    
+
+    # osmconvert (not triggered)
+    printf "osmconvert - not used during build\n";
+    printf "======================================\n";
+    if ( $OSNAME eq 'darwin' ) {
+      # OS X
+      $cmdoutput = `$BASEPATH/tools/osmconvert/osx/osmconvert --help 2>&1`;
+    }	
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $cmdoutput = `$BASEPATH\\tools\\osmconvert\\windows\\osmconvert.exe --help 2>&1`;
+    }
+    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+      $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
+    }
+    $cmdoutput =~ /^(osmconvert .*)$/m;
+    printf "$1\n\n\n";
+
+    
+    # osmfilter (not triggered)
+    printf "osmfilter - not used during build\n";
+    printf "======================================\n";
+    if ( $OSNAME eq 'darwin' ) {
+      # OS X
+      $cmdoutput = `$BASEPATH/tools/osmfilter/osx/osmfilter --help 2>&1`;
+    }	
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $cmdoutput = `$BASEPATH\\tools\\osmfilter\\windows\\osmfilter.exe --help 2>&1`;
+    }
+    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+      $cmdoutput = `$BASEPATH/tools/osmfilter/linux/osmfilter32 --help 2>&1`;
+    }
+    $cmdoutput =~ /^(osmfilter .*)$/m;
+    printf "$1\n\n\n";
+    
+
+    # wget (windows directory)
+    printf "GNU Wget - Windows only\n";
+    printf "======================================\n";
+    # Windows
+    if ( $OSNAME eq 'MSWin32' ) {
+       $cmdoutput = `$BASEPATH\\windows\\wget\\wget.exe --version 2>&1`;
+       $cmdoutput =~ /(GNU Wget .*)$/m;
+       printf "$1\n";
+       $cmdoutput =~ /^(\+.*)$/m;
+       printf "$1\n";
+    }
+    printf "\n\n";
+    
+    # TYPViewer (windows directory), not used, just there for convenience
+
+    # IMGinfo (not triggered)
+    
+    # NSIS (windows directory)
+    
+    # bounds and sea
+    
+    
+    printf "\n\n";
 }
 
 # -----------------------------------------
