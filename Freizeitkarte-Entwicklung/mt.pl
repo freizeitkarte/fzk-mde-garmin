@@ -46,6 +46,7 @@ my @actions = (
   [ 'regions',    'H. extract regions from Europe data' ,                  'optional' ],
   [ 'fetch_map',  'I. fetch map data from Europe directory' ,              'optional' ],
   [ 'checkurl',   'J. Check all download URLs for existence' ,             'optional' ],
+  [ 'fingerprint','   Show the versions of the different tools' ,          'optional' ],
 );
 
 my @supportedlanguages = (
@@ -536,6 +537,9 @@ elsif ( $actionname eq 'fetch_map' ) {
 }
 elsif ( $actionname eq 'checkurl' ) {
   check_downloadurls ();
+}
+elsif ( $actionname eq 'fingerprint' ) {
+  show_fingerprint ();
 }
 
 exit ( 0 );
@@ -2750,6 +2754,31 @@ sub fetch_mapdata {
   return;
 }
 
+# -----------------------------------------------
+# Show fingerprint: versions of tools and files
+# -----------------------------------------------
+sub show_fingerprint {
+	
+	my $versioncmd = "";
+	my $cmdoutput = "";
+	my $output = "";
+	
+	printf "\n\n";
+	
+	# java
+	# ----
+	$cmdoutput = qx/java -version/;
+	printf "$cmdoutput\n\n";
+	
+	# osmosis
+	# -------
+	#$cmdoutput = grep { /Version/ } qx(tools\\osmosis\\bin\\osmosis.bat -v 2>&1);
+    $cmdoutput = `tools\\osmosis\\bin\\osmosis.bat -v 2>&1`;
+    ($output) = ( $cmdoutput =~ /INFO/ );
+	printf "$output\n\n";
+
+
+}
 
 # -----------------------------------------
 # Show short usage
