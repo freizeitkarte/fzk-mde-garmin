@@ -2761,7 +2761,6 @@ sub show_fingerprint {
 	
 	my $versioncmd = "";
 	my $cmdoutput = "";
-	my $output = "";
 	
 	printf "\n\n\n";
     printf "================================================\n";
@@ -2794,8 +2793,17 @@ sub show_fingerprint {
     elsif ( $OSNAME eq 'MSWin32' ) {
        $cmdoutput = `$BASEPATH\\tools\\osmosis\\bin\\osmosis.bat -v 2>&1`;
     }
-    $cmdoutput =~ /INFO: (.* Version .*)/;
-	printf "$1\n\n\n";
+    # Try to match
+    if ( $cmdoutput =~ /INFO: (.* Version .*)/ ) {
+	  printf "$1\n\n\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
 
 
     # splitter
@@ -2811,13 +2819,40 @@ sub show_fingerprint {
     printf "mkgmap\n";
     printf "======================================\n";    
     $cmdoutput = `java -jar tools/mkgmap/mkgmap.jar --version 2>&1`;
-    $cmdoutput =~ /^(\d{4,})/m;
-    printf "mkgmap r$1\n\n\n";
+    # Try to match
+    if ( $cmdoutput =~ /^(\d{4,})/m ) {
+	  printf "mkgmap r$1\n\n\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
+    
 
 
     # PPP
-    
-    # gmapi-builder.py
+    # ----------------
+    printf "PPP - Perl Preprocessor\n";
+    printf "======================================\n";
+    $cmdoutput = `perl $BASEPATH/tools/ppp/ppp.pl 2>&1`;
+    # Try to match
+    if ( $cmdoutput =~ /^(PERL .*)$/m ) {
+	  printf "$1\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
+    if ( $cmdoutput =~ /^(.*Copyright.*)$/m ) {
+        printf "$1\n";
+    }
+    printf "\n\n";
     
 
     # 7za (Windows only)
@@ -2827,8 +2862,17 @@ sub show_fingerprint {
     # Windows
     if ( $OSNAME eq 'MSWin32' ) {
        $cmdoutput = `$BASEPATH\\tools\\zip\\windows\\7-Zip\\7za.exe 2>&1`;
-       $cmdoutput =~ /(7-Zip .*)$/m;
-       printf "$1\n";
+       # Try to match
+       if ( $cmdoutput =~ /(7-Zip .*)$/m ) {
+    	  printf "$1\n";
+       }
+       else {
+           printf "PROBLEM: either tool not found or no match for version string.\n";
+           printf "         see detailed command output below:\n";
+           printf "----------------------------\n";
+           printf "$cmdoutput\n";
+           printf "----------------------------\n\n\n";
+       }
     }
     printf "\n\n";
 
@@ -2849,11 +2893,21 @@ sub show_fingerprint {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
       $cmdoutput = `$BASEPATH/tools/jmc/linux/jmc_cli 2>&1`;
     }
-    $cmdoutput =~ /^(.*version.*)$/m;
-    printf "$1\n\n\n";
+    # Try to match
+    if ( $cmdoutput =~ /^(.*version.*)$/m ) {
+	  printf "$1\n\n\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
     
 
     # osmconvert (not triggered)
+    # --------------------------
     printf "osmconvert - not used during build\n";
     printf "======================================\n";
     if ( $OSNAME eq 'darwin' ) {
@@ -2868,11 +2922,21 @@ sub show_fingerprint {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
       $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
     }
-    $cmdoutput =~ /^(osmconvert .*)$/m;
-    printf "$1\n\n\n";
+    # Try to match
+    if ( $cmdoutput =~ /^(osmconvert .*)$/m ) {
+	  printf "$1\n\n\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
 
     
     # osmfilter (not triggered)
+    # -------------------------
     printf "osmfilter - not used during build\n";
     printf "======================================\n";
     if ( $OSNAME eq 'darwin' ) {
@@ -2887,30 +2951,66 @@ sub show_fingerprint {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
       $cmdoutput = `$BASEPATH/tools/osmfilter/linux/osmfilter32 --help 2>&1`;
     }
-    $cmdoutput =~ /^(osmfilter .*)$/m;
-    printf "$1\n\n\n";
+    # Try to match
+    if ( $cmdoutput =~ /^(osmfilter .*)$/m ) {
+	  printf "$1\n\n\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
     
 
     # wget (windows directory)
+    # ------------------------
     printf "GNU Wget - Windows only\n";
     printf "======================================\n";
     # Windows
     if ( $OSNAME eq 'MSWin32' ) {
        $cmdoutput = `$BASEPATH\\windows\\wget\\wget.exe --version 2>&1`;
-       $cmdoutput =~ /(GNU Wget .*)$/m;
-       printf "$1\n";
-       $cmdoutput =~ /^(\+.*)$/m;
-       printf "$1\n";
+       # Try to match
+       if ( $cmdoutput =~ /(GNU Wget .*)$/m ) {
+   	       printf "$1\n";
+       }
+       else {
+           printf "PROBLEM: either tool not found or no match for version string.\n";
+           printf "         see detailed command output below:\n";
+           printf "----------------------------\n";
+           printf "$cmdoutput\n";
+           printf "----------------------------\n\n\n";
+       }
+       if ( $cmdoutput =~ /^(\+.*)$/m ) {
+   	       printf "$1\n";
+       }
     }
     printf "\n\n";
     
-    # TYPViewer (windows directory), not used, just there for convenience
 
-    # IMGinfo (not triggered)
-    
-    # NSIS (windows directory)
-    
+    # NSIS (windows directory), has to be installed on Linux
+	# -------------------------------------------------------
+    printf "NSIS: makensis - Windows and linux\n";
+    printf "======================================\n";
+    # Linux, FreeBSD, OpenBSD
+    if ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+       $cmdoutput = `makensis -version 2>&1`;
+    }
+    # Windows
+    elsif ( $OSNAME eq 'MSWin32' ) {
+       $cmdoutput = `$BASEPATH\\windows\\NSIS\\makensis.exe /Version 2>&1`;
+    }
+	printf "MakeNSIS $cmdoutput\n\n\n";
+
+
     # bounds and sea
+    
+    # TYPViewer (windows directory), GUI tool, not used, just there for convenience
+
+    # IMGinfo (not triggered, GUI tool)
+        
+    # gmapi-builder.py
     
     
     printf "\n\n";
