@@ -547,7 +547,9 @@ natural = scree [0x43 resolution 20]
 natural = scrub [0x4f resolution 20]
 
 # Wasser - Seen, Teiche usw. [point, closedway]
-natural = water [0x3c resolution 17]
+#natural = water [0x3c resolution 17]
+# Starting at 16 for overviewmap
+natural = water [0x3c resolution 16]
 
 # Feuchtgebiet (Sumpf, Moor, Ried, Marsch, Aue, Röhricht, Watt, Salzwiese, Magrove, naturbelassene Flächen,
 #  die Überflutungen ausgesetzt sind oder staunasse Böden aufweisen. [point, closedway]
@@ -884,7 +886,9 @@ man_made = pier [0x39 resolution 20]
 # ------------------------------------------------
 
 # Meer
-natural = sea [0x32 resolution 17]
+#natural = sea [0x32 resolution 17]
+# Starting at 16 for overviewmap
+natural = sea [0x32 resolution 16]
 
 # Land
 natural = land [0x3a resolution 17]

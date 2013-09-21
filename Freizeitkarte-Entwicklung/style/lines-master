@@ -784,7 +784,9 @@ highway = motorway & man_made = dyke  [0x011f02 resolution 24 continue]
 highway = motorway [0x011f13 resolution 24 continue]
 highway = motorway [0x010f0a resolution 22-23 continue]
 highway = motorway [0x010f0b resolution 20-21 continue]
-highway = motorway [0x010e0a resolution 17-19]
+#highway = motorway [0x010e0a resolution 17-19]
+# starting at 14 for overviewmap
+highway = motorway [0x010e0a resolution 14-19]
 
 
 # Autobahnaehnliche Strasse:
@@ -1527,8 +1529,9 @@ waterway = weir & building != * [0x01010c resolution 22 continue]
 
 # Staatsgrenze - admin_level=2
 # 0x1e = Bitmap 2 (NoLabel)
-boundary = administrative & admin_level = 2 [0x1e resolution 17]
-#boundary = administrative & admin_level = 2 [0x1e resolution 8-17]
+#boundary = administrative & admin_level = 2 [0x1e resolution 17]
+# starting from 11 for the overviewmap
+boundary = administrative & admin_level = 2 [0x1e resolution 11]
 
 # Nationalparkgrenze
 # 0x1d = Bitmap 2
