@@ -271,6 +271,9 @@ my $language = $EMPTY;
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
 
+# The argument containing MapID, MapName or MapCode comes first into this Variable
+my $mapinput   = $EMPTY;
+
 my $mapid      = -1;
 my $mapname    = $EMPTY;
 my $mapnameold = $EMPTY;
@@ -294,13 +297,6 @@ if ( ( $help ) || ( $optional ) ) {
   exit(0);
 }
 
-# Definitely not enough arguments
-if ( ( $#ARGV + 1 ) < 2 ) {
-  printf { *STDOUT } ( "ERROR:\n  Not enough Arguments\n\n\n" );
-  show_usage ();
-  exit(1);
-}
-
 if ( $ram ne $EMPTY ) {
   $javaheapsize = $ram;
 }
@@ -315,10 +311,8 @@ else {
   $max_threads = ' --max-threads=' . $cores;
 }
 
+# Fetch first only the actionname from the Arguments, there are some actions not needing map
 $actionname = $ARGV[ 0 ];
-$mapid      = $ARGV[ 1 ];
-$mapcode    = $ARGV[ 1 ];
-$mapname    = $ARGV[ 1 ];
 
 # Checking Arguments for valid actions
 $error = 1;
@@ -338,10 +332,39 @@ if ( $error ) {
   exit(1);
 }
 
+# Now we have to handle here the actions that do not need a map
+
+if ( $actionname eq 'checkurl' ) {
+  check_downloadurls ();
+}
+
+# Here we start with actions that need a map and therefore an additional argument
+
+# Definitely not enough arguments
+if ( ( $#ARGV + 1 ) < 2 ) {
+  printf { *STDOUT } ( "ERROR:\n  Not enough Arguments for the action '" . $actionname . "'\n\n\n" );
+  show_usage ();
+  exit(1);
+}
+
+# Now get the mapinput containing either mapid, mapcode or mapname
+$mapinput    = $ARGV[ 1 ];
+#$mapid      = $ARGV[ 1 ];
+#$mapcode    = $ARGV[ 1 ];
+#$mapname    = $ARGV[ 1 ];
+
+
+# Definitely not enough arguments
+if ( ( $#ARGV + 1 ) < 2 ) {
+  printf { *STDOUT } ( "ERROR:\n  Not enough Arguments\n\n\n" );
+  show_usage ();
+  exit(1);
+}
+
 # Checking arguments for valid maps
 $error = 1;
 for my $mapdata ( @maps ) {
-  if ( ( @$mapdata[ $MAPNAME ] eq $mapname ) || ( @$mapdata[ $MAPID ] eq $mapid ) || ( @$mapdata[ $MAPCODE ] eq $mapcode ) ) {
+  if ( ( lc @$mapdata[ $MAPNAME ] eq lc $mapinput ) || ( lc @$mapdata[ $MAPID ] eq lc $mapinput ) || ( lc @$mapdata[ $MAPCODE ] eq lc $mapinput ) ) {
     $mapid      = @$mapdata[ $MAPID ];
     $mapname    = @$mapdata[ $MAPNAME ];
     $osmurl     = @$mapdata[ $OSMURL ];
@@ -533,9 +556,6 @@ elsif ( $actionname eq 'regions' ) {
 }
 elsif ( $actionname eq 'fetch_map' ) {
   fetch_mapdata ();
-}
-elsif ( $actionname eq 'checkurl' ) {
-  check_downloadurls ();
 }
 
 exit ( 0 );
