@@ -336,13 +336,14 @@ if ( $error ) {
 
 if ( $actionname eq 'checkurl' ) {
   check_downloadurls ();
+  exit(0);
 }
 
 # Here we start with actions that need a map and therefore an additional argument
 
 # Definitely not enough arguments
 if ( ( $#ARGV + 1 ) < 2 ) {
-  printf { *STDOUT } ( "ERROR:\n  Not enough Arguments for the action '" . $actionname . "'\n\n\n" );
+  printf { *STDOUT } ( "ERROR:\n  Not enough Arguments for the action '" . $actionname . "'. MapID, MapName or MapCode needed too.\n\n\n" );
   show_usage ();
   exit(1);
 }
@@ -706,6 +707,8 @@ sub check_downloadurls {
 	  
   }
 	
+  print "\n\n";
+  
 }
 
 # -----------------------------------------
