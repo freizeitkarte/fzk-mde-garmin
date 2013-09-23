@@ -784,7 +784,9 @@ highway = motorway & man_made = dyke  [0x011f02 resolution 24 continue]
 highway = motorway [0x011f13 resolution 24 continue]
 highway = motorway [0x010f0a resolution 22-23 continue]
 highway = motorway [0x010f0b resolution 20-21 continue]
-highway = motorway [0x010e0a resolution 17-19]
+#highway = motorway [0x010e0a resolution 17-19]
+# starting at 14 for overviewmap
+highway = motorway [0x010e0a resolution 14-19]
 
 
 # Autobahnaehnliche Strasse:
@@ -1471,12 +1473,12 @@ route = ferry [0x011f10 resolution 20 continue with_actions]
 # 0x012018 = 4 (mittel, gestrichelt, NoLabel) Tunnel
 # 0x010103 = 2 (schmal, NoLabel)
 # 0x012016 = 2 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = canal                                      [0x26     resolution 24 continue]
-waterway = canal & ( tunnel = yes | tunnel = culvert) [0x01201a resolution 24 continue]
-waterway = canal                                      [0x010102 resolution 23-23 continue]
-waterway = canal & ( tunnel = yes | tunnel = culvert) [0x012018 resolution 23-23 continue]
-waterway = canal                                      [0x010103 resolution 21-22 continue]
-waterway = canal & ( tunnel = yes | tunnel = culvert) [0x012016 resolution 21-22 continue]
+waterway = canal & ( tunnel != yes & tunnel != culvert) [0x26     resolution 24 continue]
+waterway = canal & ( tunnel = yes | tunnel = culvert)   [0x01201a resolution 24 continue]
+waterway = canal & ( tunnel != yes & tunnel != culvert) [0x010102 resolution 23-23 continue]
+waterway = canal & ( tunnel = yes | tunnel = culvert)   [0x012018 resolution 23-23 continue]
+waterway = canal & ( tunnel != yes & tunnel != culvert) [0x010103 resolution 21-22 continue]
+waterway = canal & ( tunnel = yes | tunnel = culvert)   [0x012016 resolution 21-22 continue]
 
 # Staudamm oder Staumauer fuer Speichersee und aehnliches. [way, aber auch closedway]
 # 0x01010c = 2 (NoLabel)
@@ -1485,14 +1487,14 @@ waterway = dam [0x01010c resolution 23 continue]
 # Wassergraben.
 # 0x01010a = 2 (NoLabel)
 # 0x012016 = 2 (NoLabel, gestrichelt) Tunnel
-waterway = ditch                                      [0x01010a resolution 24 continue]
-waterway = ditch & ( tunnel = yes | tunnel = culvert) [0x012016 resolution 24 continue]
+waterway = ditch & ( tunnel != yes & tunnel != culvert) [0x01010a resolution 24 continue]
+waterway = ditch & ( tunnel = yes | tunnel = culvert)   [0x012016 resolution 24 continue]
 
 # Abwassergraben, Abfluss - Bauwerk, das z.B. Regen- oder Industrieabwaesser aufnimmt.
 # 0x01010b = 2 (NoLabel)
 # 0x012016 = 2 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = drain                                      [0x01010b resolution 24]
-waterway = drain & ( tunnel = yes | tunnel = culvert) [0x012016 resolution 24]
+waterway = drain & ( tunnel != yes & tunnel != culvert) [0x01010b resolution 24]
+waterway = drain & ( tunnel = yes | tunnel = culvert)   [0x012016 resolution 24]
 
 # Fluss
 # 0x1f     = 5 (breit, Label, SmallFont)
@@ -1501,18 +1503,18 @@ waterway = drain & ( tunnel = yes | tunnel = culvert) [0x012016 resolution 24]
 # 0x012017 = 3 (mittel, gestrichelt, NoLabel) Tunnel
 # 0x010101 = 1 (schmal, NoLabel)
 # 0x012015 = 1 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = river                                      [0x1f     resolution 24 continue]
-waterway = river & ( tunnel = yes | tunnel = culvert) [0x012019 resolution 24 continue]
-waterway = river                                      [0x010100 resolution 23-23 continue]
-waterway = river & ( tunnel = yes | tunnel = culvert) [0x012017 resolution 23-23 continue]
-waterway = river                                      [0x010101 resolution 21-22]
-waterway = river & ( tunnel = yes | tunnel = culvert) [0x012015 resolution 21-22]
+waterway = river & ( tunnel != yes & tunnel != culvert) [0x1f     resolution 24 continue]
+waterway = river & ( tunnel = yes | tunnel = culvert)   [0x012019 resolution 24 continue]
+waterway = river & ( tunnel != yes & tunnel != culvert) [0x010100 resolution 23-23 continue]
+waterway = river & ( tunnel = yes | tunnel = culvert)   [0x012017 resolution 23-23 continue]
+waterway = river & ( tunnel != yes & tunnel != culvert) [0x010101 resolution 21-22]
+waterway = river & ( tunnel = yes | tunnel = culvert)   [0x012015 resolution 21-22]
 
 # Bach - natuerliches schmales Gewaesser, zu klein fuer die Bezeichnung Fluss.
 # 0x18     = 2 (NoLabel)
 # 0x012016 = 2 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = stream                                      [0x18     resolution 24]
-waterway = stream & ( tunnel = yes | tunnel = culvert) [0x012016 resolution 24]
+waterway = stream & ( tunnel != yes & tunnel != culvert) [0x18     resolution 24]
+waterway = stream & ( tunnel = yes | tunnel = culvert)   [0x012016 resolution 24]
 
 # Wehr (auch als Gebaeude moeglich, s.a. Staudamm / -mauer)
 # 0x01010c = 2 (NoLabel)
@@ -1527,8 +1529,9 @@ waterway = weir & building != * [0x01010c resolution 22 continue]
 
 # Staatsgrenze - admin_level=2
 # 0x1e = Bitmap 2 (NoLabel)
-boundary = administrative & admin_level = 2 [0x1e resolution 17]
-#boundary = administrative & admin_level = 2 [0x1e resolution 8-17]
+#boundary = administrative & admin_level = 2 [0x1e resolution 17]
+# starting from 11 for the overviewmap
+boundary = administrative & admin_level = 2 [0x1e resolution 11]
 
 # Nationalparkgrenze
 # 0x1d = Bitmap 2

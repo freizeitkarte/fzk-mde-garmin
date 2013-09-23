@@ -243,6 +243,7 @@ natural = farmyard {set landuse=farmyard; delete natural}
 natural = forest {set landuse=forest; delete natural}
 natural = garages {set landuse=garages; delete natural}
 natural = grass {set landuse=grass; delete natural}
+natural = grassland {set landuse=meadow; delete natural}
 natural = greenfield {set landuse=greenfield; delete natural}
 natural = greenhouse_horticulture {set landuse=greenhouse_horticulture; delete natural}
 natural = industrial {set landuse=industrial; delete natural} 
@@ -546,7 +547,9 @@ natural = scree [0x43 resolution 20]
 natural = scrub [0x4f resolution 20]
 
 # Wasser - Seen, Teiche usw. [point, closedway]
-natural = water [0x3c resolution 17]
+#natural = water [0x3c resolution 17]
+# Starting at 16 for overviewmap
+natural = water [0x3c resolution 16]
 
 # Feuchtgebiet (Sumpf, Moor, Ried, Marsch, Aue, Röhricht, Watt, Salzwiese, Magrove, naturbelassene Flächen,
 #  die Überflutungen ausgesetzt sind oder staunasse Böden aufweisen. [point, closedway]
@@ -883,7 +886,9 @@ man_made = pier [0x39 resolution 20]
 # ------------------------------------------------
 
 # Meer
-natural = sea [0x32 resolution 17]
+#natural = sea [0x32 resolution 17]
+# Starting at 16 for overviewmap
+natural = sea [0x32 resolution 16]
 
 # Land
 natural = land [0x3a resolution 17]
