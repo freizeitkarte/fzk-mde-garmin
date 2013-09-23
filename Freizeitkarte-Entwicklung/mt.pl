@@ -309,6 +309,23 @@ my $maptypfile = "freizeit.TYP";
 my $error   = -1;
 my $command = $EMPTY;
 
+# Very basic check of the Environment (possibly to be solved differently)
+my $directory = 'install';
+if ( !( -e $directory ) ) {
+  mkdir ( $directory );
+  printf { *STDOUT } ( "Directory %s created.\n", $directory );
+}
+
+$directory = 'work';
+if ( !( -e $directory ) ) {
+  mkdir ( $directory );
+  printf { *STDOUT } ( "Directory %s created.\n\n", $directory );
+}
+
+printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
+
+
 # get the command line parameters
 GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language );
 
@@ -456,21 +473,21 @@ if ( $error ) {
   exit(1);
 }
 
-# Entwicklungsumgebung auf Konsistenz pruefen.
-my $directory = 'install';
-if ( !( -e $directory ) ) {
-  mkdir ( $directory );
-  printf { *STDOUT } ( "Directory %s created.\n", $directory );
-}
-
-$directory = 'work';
-if ( !( -e $directory ) ) {
-  mkdir ( $directory );
-  printf { *STDOUT } ( "Directory %s created.\n\n", $directory );
-}
-
-printf { *STDOUT } ( "Action = %s\n", $actiondesc );
-printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
+## Entwicklungsumgebung auf Konsistenz pruefen.
+#my $directory = 'install';
+#if ( !( -e $directory ) ) {
+#  mkdir ( $directory );
+#  printf { *STDOUT } ( "Directory %s created.\n", $directory );
+#}
+#
+#$directory = 'work';
+#if ( !( -e $directory ) ) {
+#  mkdir ( $directory );
+#  printf { *STDOUT } ( "Directory %s created.\n\n", $directory );
+#}
+#
+#printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+#printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
 
 # Create the WORKDIR and the INSTALLDIR variables, used at a lot of places
 my $WORKDIR    = '';
