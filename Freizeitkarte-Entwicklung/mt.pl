@@ -3051,12 +3051,14 @@ sub show_fingerprint {
     # Linux, FreeBSD, OpenBSD
     if ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
        $cmdoutput = `makensis -version 2>&1`;
+       printf "MakeNSIS $cmdoutput\n";
     }
     # Windows
     elsif ( $OSNAME eq 'MSWin32' ) {
        $cmdoutput = `$BASEPATH\\tools\\NSIS\\windows\\makensis.exe /Version 2>&1`;
+       printf "MakeNSIS $cmdoutput\n";
     }
-	printf "MakeNSIS $cmdoutput\n\n\n";
+    printf "\n\n";
 
 
     # bounds and sea

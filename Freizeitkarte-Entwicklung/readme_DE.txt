@@ -30,7 +30,16 @@ Ein umfangreicher Hilfetext wird durch "perl mt.pl -?" erzeugt.
 Minimaler Befehlsaufruf zur Erstellung einer Freizeitkarte (Beispiel: Freizeitkarte_Saarland):
 
 Wechseln Sie zunächst in das Hauptverzeichnis der Entwicklungsumgebung:
-  cd Freizeitkarte-Entwicklung (o.ä.)
+ 
+   cd Freizeitkarte-Entwicklung (o.ä.)
+
+Um eine lauffähige Entwicklungsumgebung zu kriegen, müssen noch die sogenannten boundary files nachgeladen werden (ca 450 MB).
+Dies ist nur beim ersten mal nötig, danach sind die Dateien in der Entwicklungsumgebung vorhanden.
+Dafür wird das folgende Kommando benötigt:
+
+   perl mt.pl bootstrap
+
+Nun können die Karten gebildet werden:
 
 1. perl mt.pl create Freizeitkarte_Saarland
 2. perl mt.pl fetch_osm Freizeitkarte_Saarland
@@ -81,6 +90,7 @@ Diese Verzeichnisse entstehen automatisch im Hauptverzeichnis beim Entpacken der
 
 Freizeitkarte-Entwicklung/bounds:
 Ablageort der Grenzdaten, die bei der Indexierung (z.B. für Adresssuche) benötigt werden.
+Diese Dateien werden mit dem 'boostrap' Befehl in die Entwicklungsumgebung nachgeladen und integriert.
 
 Freizeitkarte-Entwicklung/cities:
 Ablageort der Geodaten aller Städte mit mehr als 15000 Einwohner.
@@ -95,6 +105,7 @@ Ablageort der Polygone von Sonderkarten (Skandinavien, Alpen, BeNeLux etc.)
 Freizeitkarte-Entwicklung/seas:
 Ablageort der Küstenlinien Europas.
 Diese Datei wird beim Build-Prozeß für die Darstellung der Meere benötigt.
+Diese Dateien werden mit dem 'boostrap' Befehl in die Entwicklungsumgebung nachgeladen und integriert.
 
 Freizeitkarte-Entwicklung/style:
 Ablageort für alle Dateien über die der Karteninhalt definiert wird:
@@ -109,6 +120,12 @@ Ablageort aller Tools für die eigentliche Kartenerzeugung:
 - mkgmap
 - ...
 
+Freizeitkarte-Entwicklung/tools/TYPViewer/windows:
+Ablageort der Installationsdatei für den lokalen TYP-Editor "TYPViewer".
+Der TYP-Editor ist nur in einer Windowsumgebung lauffähig. Er ist aber für die Erstellung der Karten nicht nötig.
+Vor der eigentlichen Benutzung, muss er durch Aufruf des Programmes "Setup" installiert werden.
+Dieses Programm besitzt aktuell eine englische oder französische Menüführung.
+
 Freizeitkarte-Entwicklung/translations:
 Ablageort für Übersetzungen verwendeter Begriffe in Master-STYLE- bzw. Master-TYP-Dateien.
 Diese werden je nach Sprachgrundeinstellung der Zielkarte bzw. Sprachauswahl beim Aufruf des MapTools verwendet.
@@ -119,20 +136,6 @@ Hier liegt zunächst lediglich verschiedene Master-TYP-Datei (freizeit.TYP, cont
 Für das abweichende Design einer Zielkarte ist eine spezifische TYP-Datei (mit korrekter Family-ID) erforderlich.
 Diese wird im Erstellungsprozess via "set-typ.pl"-Utility aus der jeweils ausgewählten Master-TYP-Datei abgeleitet.
 Daraus folgt: Eigenständige Veränderungen an TYP-Datei sind immer an einer/allen Master-TYP-Datei/en vorzunehmen.
-
-Freizeitkarte-Entwicklung/windows
-Ablageort für spezielle Programme, welche in einer Windowsumgebung zum Einsatz kommen. 
-MapTool erkennt das zugrunde liegende Betriebssystem selbständig und wählt automatisch das passende Utility.
-
-Freizeitkarte-Entwicklung/windows/NSIS:
-Ablageort für den NSIS-Compiler zur Erzeugung einer Installerdatei, die unter Windows nutzbar ist.
-Der Compiler wird intern aufgerufen und ist nur in einer Windowsumgebung lauffähig.
-
-Freizeitkarte-Entwicklung/windows/TYPViewer:
-Ablageort der Installationsdatei für den lokalen TYP-Editor "TYPViewer".
-Der TYP-Editor ist nur in einer Windowsumgebung lauffähig. 
-Vor der eigentlichen Benutzung, muss er durch Aufruf des Programmes "Setup" installiert werden.
-Dieses Programm besitzt aktuell eine englische oder französische Menüführung.
 
 Freizeitkarte-Entwicklung/windows/wget:
 Ablageort für das Utility "wget".

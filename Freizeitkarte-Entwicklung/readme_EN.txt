@@ -28,8 +28,17 @@ An extensive help output is produced by "perl mt.pl -?"
 
 Minimum commands to be executed for creating a leisure activity map (used example: Freizeitkarte_LUX)
 Change first to the root directory of the development environment:
+
   cd Freizeitkarte-Entwicklung     (or similar)
-  
+
+For completing the development environment additonal boundary files (around 450 MB) need to be 
+downloaded and incorporated once (only the first time you use the development environment). 
+For this you have to issue the command:
+
+1. perl mt.pl bootstrap
+
+Now you can build the map
+
 1. perl mt.pl create Freizeitkarte_LUX
 2. perl mt.pl fetch_osm Freizeitkarte_LUX
    perl mt.pl fetch_ele Freizeitkarte_LUX
@@ -77,7 +86,8 @@ These directories are automatically created in the root directory when unpacking
 
 
 Freizeitkarte-Entwicklung/bounds:
-Repository for bounds/boundary data, which are needed for indexing (e.g. address-search)
+Repository for bounds/boundary data, which are needed for indexing (e.g. address-search).
+This datafiles will be downloaded when you issue the 'bootstrap' command.
 
 Freizeitkarte-Entwicklung/cities:
 Repository of geodata about all cities with more than 15000 inhabitants
@@ -91,7 +101,9 @@ Repository of polygons for special maps (Scandinavia, Alps, BeNeLux etc.)
 
 Freizeitkarte-Entwicklung/seas:
 Repository of the european coast-line
-Used during build-process for displaying the sea propperly
+Used during build-process for displaying the sea propperly.
+This datafiles will be downloaded when you issue the 'bootstrap' command.
+
 
 Freizeitkarte-Entwicklung/style:
 Repository for all data defining the looks of our maps
@@ -106,6 +118,12 @@ Repository for all tools needed for map creation
 - mkgmap
 - ...
 
+Freizeitkarte-Entwicklung/tools/TYPViewer/windows:
+Repository for "TYPViewer"-Installer.
+This TYP-Editor is working solely in an Windows OS surrounding and is not used for creating maps.
+Before being used, the TYPViewer has to be installed on your Windows using the "Setup.exe".
+TYPViewer can be used with english or frensh navigation only.
+
 Freizeitkarte-Entwicklung/translations:
 Repository for translations of used notions in Master-STYLE- or Master-TYP-files
 Used corresponding to the language base setting of the target map or 
@@ -118,27 +136,11 @@ For other than the default design of a target map, a specific TYP-file (with cor
 It will derive from the choosen Master-TYP-file via "set-typ.pl"-utility 
 From this it follows that: Autonomous changes of an TYP-file have to be made with all Master-TYP-files applicable
 
-Freizeitkarte-Entwicklung/windows
-Repository for particular programs, needed in Windows OS surrounding 
-MapTool recognizes the OS it is executed in and finds the fitting utilites itself
-
-Freizeitkarte-Entwicklung/windows/NSIS:
-Repository for the NSIS-Compiler to use in Windows OS surrounding
-This compiler is called as a subrountine and runs solely in an Windows OS surrounding
-
 Freizeitkarte-Entwicklung/windows/TYPViewer:
 Repository for "TYPViewer"-Installer.
 This TYP-Editor is working solely in an Windows OS surrounding 
 Before being used, the TYPViewer has to be installed on your Windows using the "Setup.exe".
 TYPViewer can be used with english or frensh navigation only
-
-Freizeitkarte-Entwicklung/windows/wget:
-Repository for "wget"-utility
-Needed for downloading OSM-data-extracts 
-This utility is working solely in an Windows OS surrounding
-With OS X und Linux the utility "curl" is applied, which already is part of the OS
-
-
 
 
 Work directories:
