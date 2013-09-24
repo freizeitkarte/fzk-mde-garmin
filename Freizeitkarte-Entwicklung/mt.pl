@@ -2096,7 +2096,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  SetOutPath \"\$MyTempDir\"\n" );
   printf { $fh } ( "  File \"\${MAPNAME}_InstallFiles.zip\"\n" );
 
-  printf { $fh } ( "  !addplugindir \"\%s\\windows\\NSIS\\Plugins\"\n", $BASEPATH );
+  printf { $fh } ( "  !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\"\n", $BASEPATH );
 
   printf { $fh } ( "  nsisunz::UnzipToLog \"\$MyTempDir\\\${MAPNAME}_InstallFiles.zip\" \"\$MyTempDir\"\n" );
   printf { $fh } ( "  Pop \$0\n" );
@@ -2321,7 +2321,7 @@ sub create_nsis_exefile {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    $command = "$BASEPATH/windows/NSIS/makensis.exe $mapname" . ".nsi";
+    $command = "$BASEPATH/tools/NSIS/windows/makensis.exe $mapname" . ".nsi";
   }
   elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
@@ -3054,7 +3054,7 @@ sub show_fingerprint {
     }
     # Windows
     elsif ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\windows\\NSIS\\makensis.exe /Version 2>&1`;
+       $cmdoutput = `$BASEPATH\\tools\\NSIS\\windows\\makensis.exe /Version 2>&1`;
     }
 	printf "MakeNSIS $cmdoutput\n\n\n";
 
