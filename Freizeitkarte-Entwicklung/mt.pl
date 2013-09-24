@@ -309,22 +309,6 @@ my $maptypfile = "freizeit.TYP";
 my $error   = -1;
 my $command = $EMPTY;
 
-# Very basic check of the Environment (possibly to be solved differently)
-my $directory = 'install';
-if ( !( -e $directory ) ) {
-  mkdir ( $directory );
-  printf { *STDOUT } ( "Directory %s created.\n", $directory );
-}
-
-$directory = 'work';
-if ( !( -e $directory ) ) {
-  mkdir ( $directory );
-  printf { *STDOUT } ( "Directory %s created.\n\n", $directory );
-}
-
-printf { *STDOUT } ( "Action = %s\n", $actiondesc );
-printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
-
 
 # get the command line parameters
 GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language );
@@ -370,17 +354,26 @@ if ( $error ) {
   exit(1);
 }
 
-# Now we have to handle here the actions that do not need a map
 
-if ( $actionname eq 'checkurl' ) {
-  check_downloadurls ();
-  exit(0);
-}
-elsif ( $actionname eq 'bootstrap' ) {
+# Are we doing bootstrapping for completing the environment ?
+if ( $actionname eq 'bootstrap' ) {
+  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
   bootstrap_environment ();
   exit(0);
 }
+
+# Not bootstrapping, therefore we should now perform some checks of the environment
+check_environment ();
+
+
+# Now let's handle other actions that do not need maps
+if ( $actionname eq 'checkurl' ) {
+  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  check_downloadurls ();
+  exit(0);
+}
 elsif ( $actionname eq 'fingerprint' ) {
+  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
   show_fingerprint ();
   exit(0);
 }
@@ -473,21 +466,9 @@ if ( $error ) {
   exit(1);
 }
 
-## Entwicklungsumgebung auf Konsistenz pruefen.
-#my $directory = 'install';
-#if ( !( -e $directory ) ) {
-#  mkdir ( $directory );
-#  printf { *STDOUT } ( "Directory %s created.\n", $directory );
-#}
-#
-#$directory = 'work';
-#if ( !( -e $directory ) ) {
-#  mkdir ( $directory );
-#  printf { *STDOUT } ( "Directory %s created.\n\n", $directory );
-#}
-#
-#printf { *STDOUT } ( "Action = %s\n", $actiondesc );
-#printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
+# Print out the Information about the choosen action and map
+printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
 
 # Create the WORKDIR and the INSTALLDIR variables, used at a lot of places
 my $WORKDIR    = '';
@@ -608,6 +589,12 @@ elsif ( $actionname eq 'fetch_map' ) {
 
 exit ( 0 );
 
+# ==================================================================
+#
+# Start of Subroutines 
+# --------------------
+#
+# ==================================================================
 
 # -----------------------------------------
 # Systembefehl ausfuehren
@@ -2654,6 +2641,7 @@ sub zip_maps {
   return;
 }
 
+
 # -----------------------------------------
 # Prüfen, ob Datei im osm.pbf-Format vorliegt.
 # - nach String 'OSMHeader' im Dateiheader suchen
@@ -2819,6 +2807,7 @@ sub fetch_mapdata {
 
   return;
 }
+
 
 # -----------------------------------------------
 # Show fingerprint: versions of tools and files
@@ -3082,6 +3071,7 @@ sub show_fingerprint {
     printf "\n\n";
 }
 
+
 # --------------------------------------------------------
 # Bootstrap: load 'missing' big chunks from the Internet
 # --------------------------------------------------------
@@ -3095,9 +3085,13 @@ sub bootstrap_environment {
   
   # Check if the bootstrap directory exists, else create it and go to it
   # --------------------------------------------------------------------
+  if ( !( -e "$BASEPATH/work" ) ) {
+    mkdir ( "$BASEPATH/work" );
+    printf { *STDOUT } ( "\nDirectory %s created.\n\n", "$BASEPATH/work" );
+  }
   if ( !( -e $bootstrapdir ) ) {
     mkdir ( $bootstrapdir );
-    printf { *STDOUT } ( "Directory %s created.\n\n", $bootstrapdir );
+    printf { *STDOUT } ( "\nDirectory %s created.\n\n", $bootstrapdir );
   }
   
   chdir $bootstrapdir;
@@ -3249,6 +3243,59 @@ sub bootstrap_environment {
     unlink ( "$bootstrapdir/$directory.zip" );
 
   }
+}
+
+
+# -----------------------------------------
+# Basic Check of the Environment
+# -----------------------------------------
+sub check_environment {
+ 
+  my $directory = "";
+  my $count = 0;
+    
+  # Print out what we're doing
+  printf { *STDOUT } ( "\nChecking the Development Environment...\n", $directory );
+
+  # Check the existence of the 'install' directory and create it if necessary
+  $directory = "$BASEPATH/install";
+  if ( !( -e $directory ) ) {
+     mkdir ( $directory );
+     printf { *STDOUT } ( "Directory %s created.\n", $directory );
+  }
+
+  # Check the existence of the 'work' directory and create it if necessary
+  $directory = "$BASEPATH/work";
+  if ( !( -e $directory ) ) {
+     mkdir ( $directory );
+     printf { *STDOUT } ( "Directory %s created.\n", $directory );
+  }
+
+  # Check for the existence of the bounds directory and the needed files in it
+  $directory = "$BASEPATH/bounds";
+  if ( !( -e $directory ) ) {
+      die ( "\nERROR:\nThe directory $directory is missing.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );
+  }
+  $count = 0;
+  ++$count while glob "$directory/bounds_*_*.bnd";
+  if ( $count < 10000 ) {
+    die ( "\nERROR:\nThere are only $count bounds_*_*.bnd files in $directory.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );  
+  }
+
+  # Check for the existence of the sea directory and the needed files in it
+  $directory = "$BASEPATH/sea";
+  if ( !( -e $directory ) ) {
+      die ( "\nERROR:\nThe directory $directory is missing.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );
+  }
+  $count = 0;
+  ++$count while glob "$directory/sea_*_*.osm.pbf";
+  if ( $count < 5000 ) {
+    die ( "\nERROR:\nThere are only $count sea_*_*.osm.pbf files in $directory.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );  
+  }
+
+  # Get an empty line before continuing
+  printf { *STDOUT } ( "\n" );
+
 }
 
 
