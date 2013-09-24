@@ -691,7 +691,7 @@ sub check_downloadurls {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    $command = "$BASEPATH/windows/wget/wget.exe -q --spider ";
+    $command = "$BASEPATH/tools/wget/windows/wget.exe -q --spider ";
   }
   else {
     printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
@@ -759,7 +759,7 @@ sub fetch_osmdata {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    chdir "$BASEPATH/windows/wget";
+    chdir "$BASEPATH/tools/wget/windows";
     $command = "wget.exe --output-document=\"$filename\" \"$osmurl\"";
     process_command ( $command );
   }
@@ -801,7 +801,7 @@ sub fetch_eledata {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    chdir "$BASEPATH/windows/wget";
+    chdir "$BASEPATH/tools/wget/windows";
     $command = "wget.exe --output-document=\"$filename\" \"$eleurl\"";
     process_command ( $command );
   }
@@ -3025,7 +3025,7 @@ sub show_fingerprint {
     printf "======================================\n";
     # Windows
     if ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\windows\\wget\\wget.exe --version 2>&1`;
+       $cmdoutput = `$BASEPATH\\tools\\wget\\windows\\wget.exe --version 2>&1`;
        # Try to match
        if ( $cmdoutput =~ /(GNU Wget .*)$/m ) {
    	       printf "$1\n";
@@ -3113,7 +3113,7 @@ sub bootstrap_environment {
     }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
-      $command = "$BASEPATH/windows/wget/wget.exe --output-document=\"bounds.zip\" \"$actualurl\"";
+      $command = "$BASEPATH/tools/wget/windows/wget.exe --output-document=\"bounds.zip\" \"$actualurl\"";
     }
     else {
       printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
@@ -3152,7 +3152,7 @@ sub bootstrap_environment {
     }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
-      $command = "$BASEPATH/windows/wget/wget.exe --output-document=\"sea.zip\" \"$actualurl\"";
+      $command = "$BASEPATH/tools/wget/windows/wget.exe --output-document=\"sea.zip\" \"$actualurl\"";
     }
     else {
       printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
