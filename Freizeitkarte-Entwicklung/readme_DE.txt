@@ -1,5 +1,5 @@
 ﻿Freizeitkarte-OSM.de - Entwicklungsumgebung
-Readme.txt zu Ausgabe 13.07 vom 25.07.2013 - Klaus Tockloth
+Readme.txt - 26.09.2013 - Klaus Tockloth
 
 Diese  Entwicklungsumgebung ist lauffähig unter OS X, Windows und Linux
 Das Hauptverzeichnis in dem die komplette Entwicklungsumgebung beim Entpacken abgelegt wird lautet:

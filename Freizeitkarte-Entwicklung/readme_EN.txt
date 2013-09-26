@@ -1,5 +1,5 @@
 ﻿Freizeitkarte-OSM.de - Development Environment
-Readme_EN.txt for release 13.07 from 25.07.2013 - Klaus Tockloth translated by butterscotchmuffin
+Readme_EN.txt - 26.09.2013 - Klaus Tockloth translated by butterscotchmuffin
 
 This development environment is executable with OS X, Windows & Linux
 The root directory, built when the development environment is unpacked from the archive, will be named:
