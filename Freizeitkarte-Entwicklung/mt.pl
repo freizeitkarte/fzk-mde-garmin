@@ -309,6 +309,7 @@ my $maptypfile = "freizeit.TYP";
 my $error   = -1;
 my $command = $EMPTY;
 
+
 # get the command line parameters
 GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language );
 
@@ -353,17 +354,26 @@ if ( $error ) {
   exit(1);
 }
 
-# Now we have to handle here the actions that do not need a map
 
-if ( $actionname eq 'checkurl' ) {
-  check_downloadurls ();
-  exit(0);
-}
-elsif ( $actionname eq 'bootstrap' ) {
+# Are we doing bootstrapping for completing the environment ?
+if ( $actionname eq 'bootstrap' ) {
+  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
   bootstrap_environment ();
   exit(0);
 }
+
+# Not bootstrapping, therefore we should now perform some checks of the environment
+check_environment ();
+
+
+# Now let's handle other actions that do not need maps
+if ( $actionname eq 'checkurl' ) {
+  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  check_downloadurls ();
+  exit(0);
+}
 elsif ( $actionname eq 'fingerprint' ) {
+  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
   show_fingerprint ();
   exit(0);
 }
@@ -456,19 +466,7 @@ if ( $error ) {
   exit(1);
 }
 
-# Entwicklungsumgebung auf Konsistenz pruefen.
-my $directory = 'install';
-if ( !( -e $directory ) ) {
-  mkdir ( $directory );
-  printf { *STDOUT } ( "Directory %s created.\n", $directory );
-}
-
-$directory = 'work';
-if ( !( -e $directory ) ) {
-  mkdir ( $directory );
-  printf { *STDOUT } ( "Directory %s created.\n\n", $directory );
-}
-
+# Print out the Information about the choosen action and map
 printf { *STDOUT } ( "Action = %s\n", $actiondesc );
 printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
 
@@ -591,6 +589,12 @@ elsif ( $actionname eq 'fetch_map' ) {
 
 exit ( 0 );
 
+# ==================================================================
+#
+# Start of Subroutines 
+# --------------------
+#
+# ==================================================================
 
 # -----------------------------------------
 # Systembefehl ausfuehren
@@ -687,7 +691,7 @@ sub check_downloadurls {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    $command = "$BASEPATH/windows/wget/wget.exe -q --spider ";
+    $command = "$BASEPATH/tools/wget/windows/wget.exe -q --spider ";
   }
   else {
     printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
@@ -755,7 +759,7 @@ sub fetch_osmdata {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    chdir "$BASEPATH/windows/wget";
+    chdir "$BASEPATH/tools/wget/windows";
     $command = "wget.exe --output-document=\"$filename\" \"$osmurl\"";
     process_command ( $command );
   }
@@ -797,7 +801,7 @@ sub fetch_eledata {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    chdir "$BASEPATH/windows/wget";
+    chdir "$BASEPATH/tools/wget/windows";
     $command = "wget.exe --output-document=\"$filename\" \"$eleurl\"";
     process_command ( $command );
   }
@@ -2092,7 +2096,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  SetOutPath \"\$MyTempDir\"\n" );
   printf { $fh } ( "  File \"\${MAPNAME}_InstallFiles.zip\"\n" );
 
-  printf { $fh } ( "  !addplugindir \"\%s\\windows\\NSIS\\Plugins\"\n", $BASEPATH );
+  printf { $fh } ( "  !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\"\n", $BASEPATH );
 
   printf { $fh } ( "  nsisunz::UnzipToLog \"\$MyTempDir\\\${MAPNAME}_InstallFiles.zip\" \"\$MyTempDir\"\n" );
   printf { $fh } ( "  Pop \$0\n" );
@@ -2317,7 +2321,7 @@ sub create_nsis_exefile {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    $command = "$BASEPATH/windows/NSIS/makensis.exe $mapname" . ".nsi";
+    $command = "$BASEPATH/tools/NSIS/windows/makensis.exe $mapname" . ".nsi";
   }
   elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
@@ -2637,6 +2641,7 @@ sub zip_maps {
   return;
 }
 
+
 # -----------------------------------------
 # Prüfen, ob Datei im osm.pbf-Format vorliegt.
 # - nach String 'OSMHeader' im Dateiheader suchen
@@ -2802,6 +2807,7 @@ sub fetch_mapdata {
 
   return;
 }
+
 
 # -----------------------------------------------
 # Show fingerprint: versions of tools and files
@@ -3019,7 +3025,7 @@ sub show_fingerprint {
     printf "======================================\n";
     # Windows
     if ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\windows\\wget\\wget.exe --version 2>&1`;
+       $cmdoutput = `$BASEPATH\\tools\\wget\\windows\\wget.exe --version 2>&1`;
        # Try to match
        if ( $cmdoutput =~ /(GNU Wget .*)$/m ) {
    	       printf "$1\n";
@@ -3045,12 +3051,14 @@ sub show_fingerprint {
     # Linux, FreeBSD, OpenBSD
     if ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
        $cmdoutput = `makensis -version 2>&1`;
+       printf "MakeNSIS $cmdoutput\n";
     }
     # Windows
     elsif ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\windows\\NSIS\\makensis.exe /Version 2>&1`;
+       $cmdoutput = `$BASEPATH\\tools\\NSIS\\windows\\makensis.exe /Version 2>&1`;
+       printf "MakeNSIS $cmdoutput\n";
     }
-	printf "MakeNSIS $cmdoutput\n\n\n";
+    printf "\n\n";
 
 
     # bounds and sea
@@ -3065,6 +3073,7 @@ sub show_fingerprint {
     printf "\n\n";
 }
 
+
 # --------------------------------------------------------
 # Bootstrap: load 'missing' big chunks from the Internet
 # --------------------------------------------------------
@@ -3078,9 +3087,13 @@ sub bootstrap_environment {
   
   # Check if the bootstrap directory exists, else create it and go to it
   # --------------------------------------------------------------------
+  if ( !( -e "$BASEPATH/work" ) ) {
+    mkdir ( "$BASEPATH/work" );
+    printf { *STDOUT } ( "\nDirectory %s created.\n\n", "$BASEPATH/work" );
+  }
   if ( !( -e $bootstrapdir ) ) {
     mkdir ( $bootstrapdir );
-    printf { *STDOUT } ( "Directory %s created.\n\n", $bootstrapdir );
+    printf { *STDOUT } ( "\nDirectory %s created.\n\n", $bootstrapdir );
   }
   
   chdir $bootstrapdir;
@@ -3102,7 +3115,7 @@ sub bootstrap_environment {
     }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
-      $command = "$BASEPATH/windows/wget/wget.exe --output-document=\"bounds.zip\" \"$actualurl\"";
+      $command = "$BASEPATH/tools/wget/windows/wget.exe --output-document=\"bounds.zip\" \"$actualurl\"";
     }
     else {
       printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
@@ -3141,7 +3154,7 @@ sub bootstrap_environment {
     }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
-      $command = "$BASEPATH/windows/wget/wget.exe --output-document=\"sea.zip\" \"$actualurl\"";
+      $command = "$BASEPATH/tools/wget/windows/wget.exe --output-document=\"sea.zip\" \"$actualurl\"";
     }
     else {
       printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
@@ -3232,6 +3245,59 @@ sub bootstrap_environment {
     unlink ( "$bootstrapdir/$directory.zip" );
 
   }
+}
+
+
+# -----------------------------------------
+# Basic Check of the Environment
+# -----------------------------------------
+sub check_environment {
+ 
+  my $directory = "";
+  my $count = 0;
+    
+  # Print out what we're doing
+  printf { *STDOUT } ( "\nChecking the Development Environment...\n", $directory );
+
+  # Check the existence of the 'install' directory and create it if necessary
+  $directory = "$BASEPATH/install";
+  if ( !( -e $directory ) ) {
+     mkdir ( $directory );
+     printf { *STDOUT } ( "Directory %s created.\n", $directory );
+  }
+
+  # Check the existence of the 'work' directory and create it if necessary
+  $directory = "$BASEPATH/work";
+  if ( !( -e $directory ) ) {
+     mkdir ( $directory );
+     printf { *STDOUT } ( "Directory %s created.\n", $directory );
+  }
+
+  # Check for the existence of the bounds directory and the needed files in it
+  $directory = "$BASEPATH/bounds";
+  if ( !( -e $directory ) ) {
+      die ( "\nERROR:\nThe directory $directory is missing.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );
+  }
+  $count = 0;
+  ++$count while glob "$directory/bounds_*_*.bnd";
+  if ( $count < 10000 ) {
+    die ( "\nERROR:\nThere are only $count bounds_*_*.bnd files in $directory.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );  
+  }
+
+  # Check for the existence of the sea directory and the needed files in it
+  $directory = "$BASEPATH/sea";
+  if ( !( -e $directory ) ) {
+      die ( "\nERROR:\nThe directory $directory is missing.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );
+  }
+  $count = 0;
+  ++$count while glob "$directory/sea_*_*.osm.pbf";
+  if ( $count < 5000 ) {
+    die ( "\nERROR:\nThere are only $count sea_*_*.osm.pbf files in $directory.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );  
+  }
+
+  # Get an empty line before continuing
+  printf { *STDOUT } ( "\n" );
+
 }
 
 
