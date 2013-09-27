@@ -173,6 +173,17 @@ String5=0x10,Nature Reserve
 String6=0x19,Nature Reserve
 [end]
 
+; Runway <=> Landebahn
+[_polygon]
+Type=0x0e
+String1=0x00,Runway
+String2=0x01,Runway
+String3=0x02,Start- / Landebahn
+String4=0x04,Runway
+String5=0x10,Runway
+String6=0x19,Runway
+[end]
+
 ; Playground <=> Spielplatz
 [_polygon]
 Type=0x0f
@@ -2826,6 +2837,72 @@ String3=0x02,Funpark
 String4=0x04,Funpark
 String5=0x10,Funpark
 String6=0x19,Funpark
+[end]
+
+; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+[_line]
+Type=0x12015
+String1=0x00,Waterway (Tunnel)
+String2=0x01,Waterway (Tunnel)
+String3=0x02,Fließgewässer / Wasserweg (Tunnel)
+String4=0x04,Waterway (Tunnel)
+String5=0x10,Waterway (Tunnel)
+String6=0x19,Waterway (Tunnel)
+[end]
+
+; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+[_line]
+Type=0x12016
+String1=0x00,Waterway (Tunnel)
+String2=0x01,Waterway (Tunnel)
+String3=0x02,Fließgewässer / Wasserweg (Tunnel)
+String4=0x04,Waterway (Tunnel)
+String5=0x10,Waterway (Tunnel)
+String6=0x19,Waterway (Tunnel)
+[end]
+
+; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+[_line]
+Type=0x12017
+String1=0x00,Waterway (Tunnel)
+String2=0x01,Waterway (Tunnel)
+String3=0x02,Fließgewässer / Wasserweg (Tunnel)
+String4=0x04,Waterway (Tunnel)
+String5=0x10,Waterway (Tunnel)
+String6=0x19,Waterway (Tunnel)
+[end]
+
+; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+[_line]
+Type=0x12018
+String1=0x00,Waterway (Tunnel)
+String2=0x01,Waterway (Tunnel)
+String3=0x02,Fließgewässer / Wasserweg (Tunnel)
+String4=0x04,Waterway (Tunnel)
+String5=0x10,Waterway (Tunnel)
+String6=0x19,Waterway (Tunnel)
+[end]
+
+; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+[_line]
+Type=0x12019
+String1=0x00,Waterway (Tunnel)
+String2=0x01,Waterway (Tunnel)
+String3=0x02,Fließgewässer / Wasserweg (Tunnel)
+String4=0x04,Waterway (Tunnel)
+String5=0x10,Waterway (Tunnel)
+String6=0x19,Waterway (Tunnel)
+[end]
+
+; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+[_line]
+Type=0x1201a
+String1=0x00,Waterway (Tunnel)
+String2=0x01,Waterway (Tunnel)
+String3=0x02,Fließgewässer / Wasserweg (Tunnel)
+String4=0x04,Waterway (Tunnel)
+String5=0x10,Waterway (Tunnel)
+String6=0x19,Waterway (Tunnel)
 [end]
 
 
