@@ -5446,9 +5446,10 @@ Xpm="32 1 2  1"
 "  c none"
 "!!!!!   !!!!!   !!!!!   !!!!!   "
 ;12345678901234567890123456789012
-String1=0x00,Wassertunnel
-String2=0x02,
-String3=0x04,
+String1=0x00,Fluss (schmal, Tunnel)
+String2=0x01,Fluss (schmal, Tunnel)
+String3=0x02,Fluss (Tunnel)
+String4=0x04,Stream (Tunnel)
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
@@ -5464,9 +5465,10 @@ Xpm="32 2 2  1"
 "!!!!!   !!!!!   !!!!!   !!!!!   "
 "!!!!!   !!!!!   !!!!!   !!!!!   "
 ;12345678901234567890123456789012
-String1=0x00,Wassertunnel
-String2=0x02,
-String3=0x04,
+String1=0x00,Kanal (schmal, Tunnel)
+String2=0x01,Kanal (schmal, Tunnel)
+String3=0x02,Kanal (Tunnel)
+String4=0x04,Canal (Tunnel)
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
@@ -5483,9 +5485,10 @@ Xpm="32 3 2  1"
 "                                "
 "!!!!!   !!!!!   !!!!!   !!!!!   "
 ;12345678901234567890123456789012
-String1=0x00,Wassertunnel
-String2=0x02,
-String3=0x04,
+String1=0x00,Fluss (mittel, Tunnel)
+String2=0x01,Fluss (mittel, Tunnel)
+String3=0x02,Fluss (Tunnel)
+String4=0x04,River (Tunnel)
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
@@ -5503,9 +5506,10 @@ Xpm="32 4 2  1"
 "                                "
 "!!!!!   !!!!!   !!!!!   !!!!!   "
 ;12345678901234567890123456789012
-String1=0x00,Wassertunnel
-String2=0x02,
-String3=0x04,
+String1=0x00,Kanal (mittel, Tunnel)
+String2=0x01,Kanal (mittel, Tunnel)
+String3=0x02,Kanal (Tunnel)
+String4=0x04,Canal (Tunnel)
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
@@ -5524,9 +5528,10 @@ Xpm="32 5 2  1"
 "                                "
 "!!!!!   !!!!!   !!!!!   !!!!!   "
 ;12345678901234567890123456789012
-String1=0x00,Wassertunnel
-String2=0x02,
-String3=0x04,
+String1=0x00,Fluss (breit, Tunnel)
+String2=0x01,Fluss (breit, Tunnel)
+String3=0x02,Fluss (Tunnel)
+String4=0x04,River (Tunnel)
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
@@ -5546,9 +5551,64 @@ Xpm="32 6 2  1"
 "                                "
 "!!!!!   !!!!!   !!!!!   !!!!!   "
 ;12345678901234567890123456789012
-String1=0x00,Wassertunnel
-String2=0x02,
-String3=0x04,
+String1=0x00,Kanal (breit, Tunnel)
+String2=0x01,Kanal (breit, Tunnel)
+String3=0x02,Kanal (Tunnel)
+String4=0x04,Canal (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+[_line]
+Type=0x1201b
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Wassergraben (Tunnel)
+String2=0x01,Wassergraben (Tunnel)
+String3=0x02,Wassergraben (Tunnel)
+String4=0x04,Ditch (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+[_line]
+Type=0x1201c
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Abwassergraben (Tunnel)
+String2=0x01,Abwassergraben (Tunnel)
+String3=0x02,Abwassergraben (Tunnel)
+String4=0x04,Drainage Ditch/Drain (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+[_line]
+Type=0x1201d
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Bach (Tunnel)
+String2=0x01,Bach (Tunnel)
+String3=0x02,Bach (Tunnel)
+String4=0x04,Stream (Tunnel)
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No

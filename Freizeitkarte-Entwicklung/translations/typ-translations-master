@@ -2839,75 +2839,107 @@ String5=0x10,Funpark
 String6=0x19,Funpark
 [end]
 
-; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+; Stream (Tunnel) <=> Fluss (Tunnel)
 [_line]
 Type=0x12015
-String1=0x00,Waterway (Tunnel)
-String2=0x01,Waterway (Tunnel)
-String3=0x02,Fließgewässer / Wasserweg (Tunnel)
-String4=0x04,Waterway (Tunnel)
-String5=0x10,Waterway (Tunnel)
-String6=0x19,Waterway (Tunnel)
+String1=0x00,Stream (Tunnel)
+String2=0x01,Stream (Tunnel)
+String3=0x02,Fluss (Tunnel)
+String4=0x04,Stream (Tunnel)
+String5=0x10,Stream (Tunnel)
+String6=0x19,Stream (Tunnel)
 [end]
 
-; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+; Canal (Tunnel) <=> Kanal (Tunnel)
 [_line]
 Type=0x12016
-String1=0x00,Waterway (Tunnel)
-String2=0x01,Waterway (Tunnel)
-String3=0x02,Fließgewässer / Wasserweg (Tunnel)
-String4=0x04,Waterway (Tunnel)
-String5=0x10,Waterway (Tunnel)
-String6=0x19,Waterway (Tunnel)
+String1=0x00,Canal (Tunnel)
+String2=0x01,Canal (Tunnel)
+String3=0x02,Kanal (Tunnel)
+String4=0x04,Canal (Tunnel)
+String5=0x10,Canal (Tunnel)
+String6=0x19,Canal (Tunnel)
 [end]
 
-; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+; River (Tunnel) <=> Fluss (Mittel, Tunnel)
 [_line]
 Type=0x12017
-String1=0x00,Waterway (Tunnel)
-String2=0x01,Waterway (Tunnel)
-String3=0x02,Fließgewässer / Wasserweg (Tunnel)
-String4=0x04,Waterway (Tunnel)
-String5=0x10,Waterway (Tunnel)
-String6=0x19,Waterway (Tunnel)
+String1=0x00,River (Tunnel)
+String2=0x01,River (Tunnel)
+String3=0x02,Fluss (Tunnel)
+String4=0x04,River (Tunnel)
+String5=0x10,River (Tunnel)
+String6=0x19,River (Tunnel)
 [end]
 
-; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+; Canal (Tunnel) <=> Kanal (mittel, Tunnel)
 [_line]
 Type=0x12018
-String1=0x00,Waterway (Tunnel)
-String2=0x01,Waterway (Tunnel)
-String3=0x02,Fließgewässer / Wasserweg (Tunnel)
-String4=0x04,Waterway (Tunnel)
-String5=0x10,Waterway (Tunnel)
-String6=0x19,Waterway (Tunnel)
+String1=0x00,Canal (Tunnel)
+String2=0x01,Canal (Tunnel)
+String3=0x02,Kanal (Tunnel)
+String4=0x04,Canal (Tunnel)
+String5=0x10,Canal (Tunnel)
+String6=0x19,Canal (Tunnel)
 [end]
 
-; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+; River (Tunnel) <=> Fluss (Breit, Tunnel)
 [_line]
 Type=0x12019
-String1=0x00,Waterway (Tunnel)
-String2=0x01,Waterway (Tunnel)
-String3=0x02,Fließgewässer / Wasserweg (Tunnel)
-String4=0x04,Waterway (Tunnel)
-String5=0x10,Waterway (Tunnel)
-String6=0x19,Waterway (Tunnel)
+String1=0x00,River (Tunnel)
+String2=0x01,River (Tunnel)
+String3=0x02,Fluss (Tunnel)
+String4=0x04,River (Tunnel)
+String5=0x10,River (Tunnel)
+String6=0x19,River (Tunnel)
 [end]
 
-; Waterway (Tunnel) <=> Wasserweg (Tunnel)
+; Canal (Tunnel) <=> Kanal (breit, Tunnel)
 [_line]
 Type=0x1201a
-String1=0x00,Waterway (Tunnel)
-String2=0x01,Waterway (Tunnel)
-String3=0x02,Fließgewässer / Wasserweg (Tunnel)
-String4=0x04,Waterway (Tunnel)
-String5=0x10,Waterway (Tunnel)
-String6=0x19,Waterway (Tunnel)
+String1=0x00,Canal (Tunnel)
+String2=0x01,Canal (Tunnel)
+String3=0x02,Kanal (Tunnel)
+String4=0x04,Canal (Tunnel)
+String5=0x10,Canal (Tunnel)
+String6=0x19,Canal (Tunnel)
+[end]
+
+; Ditch (Tunnel) <=> Wassergraben (Tunnel)
+[_line]
+Type=0x1201b
+String1=0x00,Ditch (Tunnel)
+String2=0x01,Ditch (Tunnel)
+String3=0x02,Wassergraben (Tunnel)
+String4=0x04,Ditch (Tunnel)
+String5=0x10,Ditch (Tunnel)
+String6=0x19,Ditch (Tunnel)
+[end]
+
+; Drainage Ditch/Drain (Tunnel) <=> Abwassergraben (Tunnel)
+[_line]
+Type=0x1201c
+String1=0x00,Drainage Ditch/Drain (Tunnel)
+String2=0x01,Drainage Ditch/Drain (Tunnel)
+String3=0x02,Abwassergraben (Tunnel)
+String4=0x04,Drainage Ditch/Drain (Tunnel)
+String5=0x10,Drainage Ditch/Drain (Tunnel)
+String6=0x19,Drainage Ditch/Drain (Tunnel)
+[end]
+
+; Stream (Tunnel) <=> Bach (Tunnel)
+[_line]
+Type=0x1201d
+String1=0x00,Stream (Tunnel)
+String2=0x01,Stream (Tunnel)
+String3=0x02,Bach (Tunnel)
+String4=0x04,Stream (Tunnel)
+String5=0x10,Stream (Tunnel)
+String6=0x19,Stream (Tunnel)
 [end]
 
 
 ;====================== POINTS ==========================
-
 
 ; Mega City <=> Megastadt
 [_point]
