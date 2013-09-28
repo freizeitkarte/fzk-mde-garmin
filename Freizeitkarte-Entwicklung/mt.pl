@@ -752,6 +752,11 @@ sub fetch_osmdata {
 
   my $filename = "$WORKDIR/Kartendaten_$mapname.osm.pbf";
 
+  # Check for existence of WORKDIR
+  if ( !( -e $WORKDIR ) ) {
+    die ( "\nERROR:\nThe directory $WORKDIR is missing.\nDid you run the Action 'create' for creating the necessary directories ?\n\n" );
+  }    
+
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # OS X, Linux, FreeBSD, OpenBSD
     $command = "curl --location --url \"$osmurl\" --output \"$filename\"";
@@ -783,6 +788,11 @@ sub fetch_osmdata {
 sub fetch_eledata {
 
   my $filename = "$WORKDIR/Hoehendaten_$mapname.osm.pbf";
+
+  # Check for existence of WORKDIR
+  if ( !( -e $WORKDIR ) ) {
+    die ( "\nERROR:\nThe directory $WORKDIR is missing.\nDid you run the Action 'create' for creating the necessary directories ?\n\n" );
+  }    
 
   # Download-URL
   my $eleurl = '';
