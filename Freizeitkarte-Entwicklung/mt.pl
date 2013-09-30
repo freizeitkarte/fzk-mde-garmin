@@ -69,10 +69,19 @@ my @supportedlanguages = (
 # languages that are always in the TYP files (FR falls out if another language has to go in)
 my @typfilelangfixed = (
   "xx",    # Unspecified
-  "de",    # Deutsch
-  "en",    # Englisch
-  "fr"     # Französich
+  "de",    # Deutsch / German
+  "en",    # Englisch / English
+  "fr",    # Französich / French
+  "ru"     # Russisch / Russian
 );
+
+# Relation from languages to codepages
+my %langcodepage = (
+   'de' => '1252' ,
+   'en' => '1252' ,
+   'fr' => '1252' ,
+   'ru' => '1251' ,
+   );
 
 # Define the download base URLs for the Elevation Data
 my %elevationbaseurl = (
@@ -1028,7 +1037,16 @@ sub create_cfgfile {
     (   "\n" 
       . "# --latin1\n" 
       . "#   This is equivalent to --code-page=1252.\n" 
-      . "latin1\n" );
+      . "# latin1\n" 
+      . "code-page=" . $langcodepage{$maplang} . "\n" );
+      
+  printf { $fh }
+    (   "\n"
+      . "# --name-tag-list=list"
+      . "#   Changes the tag that will be used to supply the name, normally it is just 'name'.\n"
+      . "#   Useful for language variations. You can supply a list and the first one will be used.\n"
+      . "#   Example: --name-tag-list=name:en,int_name,name\n"
+      . "#name-tag-list=name:$maplang,name,int_name,name:en\n" );
 
   printf { $fh } ( "\n# Address search options:\n" );
   printf { $fh } ( "# ----------------------\n" );
@@ -1646,7 +1664,7 @@ sub compile_typfiles {
   for my $thistypfile ( @typfilelist ) {
 
     # run that file through the compiler
-    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=1252 --product-id=1 --family-id=$mapid $thistypfile";
+    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$langcodepage{$maplang} --product-id=1 --family-id=$mapid $thistypfile";
     process_command ( $command );
 
     #Rename .typ to .TYP
