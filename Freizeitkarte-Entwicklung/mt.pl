@@ -64,15 +64,16 @@ my @supportedlanguages = (
   [ 'de', 'Deutsch' ],
   [ 'en', 'English' ],
   [ 'fr', 'French' ],
-  [ 'pt', 'Portuguese' ]);
+  [ 'pt', 'Portuguese' ],
+  [ 'ru', 'Russian' ]
+);
 
 # languages that are always in the TYP files (FR falls out if another language has to go in)
 my @typfilelangfixed = (
   "xx",    # Unspecified
   "de",    # Deutsch / German
   "en",    # Englisch / English
-  "fr",    # Französich / French
-  "ru"     # Russisch / Russian
+  "fr"     # Französich / French
 );
 
 # Relation from languages to codepages
@@ -1494,7 +1495,7 @@ sub create_typtranslations {
     }
   }
   %typfilestringhex = reverse %typfilestringindex;
-
+  
 
   # 2) Read all TYP file translations into hashes
   # ----------------------------------------------
