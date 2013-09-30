@@ -73,8 +73,7 @@ my @typfilelangfixed = (
   "xx",    # Unspecified
   "de",    # Deutsch / German
   "en",    # Englisch / English
-  "fr",    # Französich / French
-  "ru"     # Russisch / Russian
+  "fr"     # Französich / French
 );
 
 # Relation from languages to codepages
