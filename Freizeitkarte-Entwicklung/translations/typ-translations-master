@@ -2012,6 +2012,8 @@ String1=0x00,Feld- / Waldweg (4,5) (Eingeschränkt) schmal
 String2=0x01,Feld- / Waldweg (4,5) (Eingeschränkt) schmal
 String3=0x02,Feld- / Waldweg (4,5) (Eingeschränkt)
 String4=0x04,Track/Dirt Road (4,5) (restricted)
+String5=0x10,Track/Dirt Road (4,5) (restricted)
+String6=0x19,Track/Dirt Road (4,5) (restricted)
 [end]
 
 ; Groyne/Breakwater <=> Buhne

@@ -1507,7 +1507,7 @@ sub create_typtranslations {
         last if /^\[end\]/;    # Object finished, get on
         $inputline = $_;
         # Check for strings
-        if ( $inputline =~ /^String[0-4]*=(0x[0-9A-F]{2}),(.*)$/i ) {
+        if ( $inputline =~ /^String[0-9]*=(0x[0-9A-F]{2}),(.*)$/i ) {
           $thisobjectstringhash = $thisobjectid . "_$1";
           $objecttranslations{ $thisobjectstringhash } = $2;
         }
