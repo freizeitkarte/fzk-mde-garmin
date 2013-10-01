@@ -63,8 +63,8 @@ my @supportedlanguages = (
   # Iso639-1
   [ 'de', 'Deutsch' ],
   [ 'en', 'English' ],
-  [ 'fr', 'French' ]
-);
+  [ 'fr', 'French' ],
+  [ 'pt', 'Portuguese' ]);
 
 # languages that are always in the TYP files (FR falls out if another language has to go in)
 my @typfilelangfixed = (
@@ -179,7 +179,7 @@ my @maps = (
   [ 6578, 'Freizeitkarte_NOR',                    'http://download.geofabrik.de/europe/norway-latest.osm.pbf',                                         'NOR',                      'en', 'Freizeitkarte_Norwegen',                  3, 'NA'             ],
   [ 6040, 'Freizeitkarte_AUT',                    'http://download.geofabrik.de/europe/austria-latest.osm.pbf',                                        'AUT',                      'de', 'Freizeitkarte_Oesterreich',               3, 'NA'             ],
   [ 6616, 'Freizeitkarte_POL',                    'http://download.geofabrik.de/europe/poland-latest.osm.pbf',                                         'POL',                      'en', 'Freizeitkarte_Polen',                     3, 'NA'             ],
-  [ 6620, 'Freizeitkarte_PRT',                    'http://download.geofabrik.de/europe/portugal-latest.osm.pbf',                                       'PRT',                      'en', 'Freizeitkarte_Portugal',                  3, 'NA'             ],
+  [ 6620, 'Freizeitkarte_PRT',                    'http://download.geofabrik.de/europe/portugal-latest.osm.pbf',                                       'PRT',                      'pt', 'Freizeitkarte_Portugal',                  3, 'NA'             ],
   [ 6642, 'Freizeitkarte_ROU',                    'http://download.geofabrik.de/europe/romania-latest.osm.pbf',                                        'ROU',                      'en', 'Freizeitkarte_Rumaenien',                 3, 'NA'             ],
   [ 6752, 'Freizeitkarte_SWE',                    'http://download.geofabrik.de/europe/sweden-latest.osm.pbf',                                         'SWE',                      'en', 'Freizeitkarte_Schweden',                  3, 'NA'             ],
   [ 6756, 'Freizeitkarte_CHE',                    'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE',                      'de', 'Freizeitkarte_Schweiz',                   3, 'NA'             ],
