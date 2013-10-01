@@ -1504,10 +1504,10 @@ String6=0x19,Track/Dirt Road (4,5)
 Type=0x10201
 String1=0x00,Track/Dirt Road (4,5)
 String2=0x01,Track/Dirt Road (4,5)
-String3=0x02,
-String4=0x04,
+String3=0x02,Feld- / Waldweg (4,5)
+String4=0x04,Track/Dirt Road (4,5)
 String5=0x10,Trilha (4,5)
-String6=0x19,
+String6=0x19,Track/Dirt Road (4,5)
 [end]
 
 ; Track/Dirt Road (4,5) <=> Feld- / Waldweg (4,5) schmal
@@ -1515,10 +1515,10 @@ String6=0x19,
 Type=0x10202
 String1=0x00,Track/Dirt Road (4,5)
 String2=0x01,Track/Dirt Road (4,5)
-String3=0x02,
-String4=0x04,
+String3=0x02,Feld- / Waldweg (4,5)
+String4=0x04,Track/Dirt Road (4,5)
 String5=0x10,Trilha (4,5)
-String6=0x19,
+String6=0x19,Track/Dirt Road (4,5)
 [end]
 
 ; Bridge <=> Brücke
