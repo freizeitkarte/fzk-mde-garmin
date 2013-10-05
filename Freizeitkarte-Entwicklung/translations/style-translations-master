@@ -209,9 +209,9 @@
 ## Gehege (im Zoo). [point, closedway]
 #define $__COMPOUND__ Gehege
 #define $__COMPOUND__DE Gehege
-#define $__COMPOUND__EN Zoo Enlosure
+#define $__COMPOUND__EN Zoo Enclosure
 #define $__COMPOUND__FR Gehege
-#define $__COMPOUND__RU Zoo Enlosure
+#define $__COMPOUND__RU Zoo Enclosure
 #define $__COMPOUND__PT Recinto
 
 
