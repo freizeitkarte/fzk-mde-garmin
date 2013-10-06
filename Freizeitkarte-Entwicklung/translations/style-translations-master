@@ -101,7 +101,7 @@
 
 ## Campingplatz. [point, closedway]
 #define $__CAMPSITE__ Camping
-#define $__CAMPSITE__DE Camping
+#define $__CAMPSITE__DE Campingplatz
 #define $__CAMPSITE__EN Campsite
 #define $__CAMPSITE__FR Camping
 #define $__CAMPSITE__RU Палаточный лагерь
@@ -224,7 +224,7 @@
 
 ## Meeresbucht. [point, closedway]
 #define $__BAY__ Meeresbucht
-#define $__BAY__DE Meeresbucht
+#define $__BAY__DE Bucht
 #define $__BAY__EN Bay
 #define $__BAY__FR Meeresbucht
 #define $__BAY__RU Залив/Бухта
@@ -312,7 +312,7 @@
 
 ## Unkultiviertes Land: Unterholz / Busch. [point, closedway]
 #define $__SCRUB__ Unkultiviertes Land
-#define $__SCRUB__DE Unkultiviertes Land
+#define $__SCRUB__DE Unterholz/Gebüsch
 #define $__SCRUB__EN Scrubland
 #define $__SCRUB__FR Unkultiviertes Land
 #define $__SCRUB__RU Подлесок/кустарник
@@ -378,7 +378,7 @@
 
 ## Naturwald oder vollkommen unbewirtschaftete Wälder. [point, closedway]
 #define $__WOOD__ Naturwald
-#define $__WOOD__DE Naturwald
+#define $__WOOD__DE Urwald
 #define $__WOOD__EN Wood/Forest 
 #define $__WOOD__FR Naturwald
 #define $__WOOD__RU Лес
@@ -446,7 +446,7 @@
 
 ## Windenergieanlage. [point, closedway]
 #define $__WINDGENERATOR__ Windenergieanlage
-#define $__WINDGENERATOR__DE Windenergieanlage
+#define $__WINDGENERATOR__DE Windkraftanlage
 #define $__WINDGENERATOR__EN Wind Turbine
 #define $__WINDGENERATOR__FR Windenergieanlage
 #define $__WINDGENERATOR__RU Ветрогенератор 
@@ -1225,7 +1225,7 @@
 
 ## Überdecktes Speicherbasin. [point, closedway]
 #define $__RESERVOIRCOVERED__ Überdecktes Speicherbecken
-#define $__RESERVOIRCOVERED__DE Überdecktes Speicherbecken
+#define $__RESERVOIRCOVERED__DE Überdachtes Speicherbecken
 #define $__RESERVOIRCOVERED__EN Covered Reservoir
 #define $__RESERVOIRCOVERED__FR Überdecktes Speicherbecken
 #define $__RESERVOIRCOVERED__RU Резервуар
@@ -1905,7 +1905,7 @@
 
 ## Bushaltestelle. [point] (s.a. amenity = bus_station)
 #define $__BUSSTOP__ Haltestelle
-#define $__BUSSTOP__DE Haltestelle
+#define $__BUSSTOP__DE Bushaltestelle
 #define $__BUSSTOP__EN Bus Stop
 #define $__BUSSTOP__FR Haltestelle
 #define $__BUSSTOP__RU Автобусная остановка
@@ -2249,7 +2249,7 @@
 
 ## Baugebiet. [point, closedway]
 #define $__CONSTRUCTION__ Baugebiet
-#define $__CONSTRUCTION__DE Baugebiet
+#define $__CONSTRUCTION__DE Baustelle
 #define $__CONSTRUCTION__EN Construction Site
 #define $__CONSTRUCTION__FR Baugebiet
 #define $__CONSTRUCTION__RU Стройка
@@ -2258,7 +2258,7 @@
 ## Landwirtschaftlich genutzte Flächen mit Gebäuden wie Häuser, Unterkünften, Ställen, Fahrzeughallen, Futterspeichern usw.
 ## Ebenso die Flächen zwischen den Gebäuden, sowie nahe Bäume, Hecken und Grünflächen. [closedway]
 #define $__FARMYARD__ Gehöft
-#define $__FARMYARD__DE Gehöft
+#define $__FARMYARD__DE Bauernhof
 #define $__FARMYARD__EN Farmyard
 #define $__FARMYARD__FR Gehöft
 #define $__FARMYARD__RU Фермерские угодья
@@ -2266,7 +2266,7 @@
 
 ## Forst, landwirtschaftlich genutzter Wald (siehe auch natural=wood). [point, closedway]
 #define $__FOREST__ Forst
-#define $__FOREST__DE Forst
+#define $__FOREST__DE Wald
 #define $__FOREST__EN Forest
 #define $__FOREST__FR Forst
 #define $__FOREST__RU Лес
@@ -2491,8 +2491,8 @@
 #define $__SPORT10PIN__PT Boliche
 
 ## Radrennbahn, Radsporthalle. [point, closedway]
-#define $__CYCLING__ Radrennbahn, -sporthalle
-#define $__CYCLING__DE Radrennbahn, -sporthalle
+#define $__CYCLING__ Radrennbahn, sporthalle
+#define $__CYCLING__DE Radrennbahn, Radsporthalle
 #define $__CYCLING__EN Velodrome
 #define $__CYCLING__FR Radrennbahn, -sporthalle
 #define $__CYCLING__RU Велодром
@@ -2507,7 +2507,7 @@
 #define $__DOGRACING__PT Corrida de cachorros
 
 ## Reitsporthalle, Reitplatz. [point, closedway]
-#define $__EQUESTRIAN__ Reithalle, -platz
+#define $__EQUESTRIAN__ Reithalle, Reitplatz
 #define $__EQUESTRIAN__DE Reithalle, -platz
 #define $__EQUESTRIAN__EN Equestrian Centre
 #define $__EQUESTRIAN__FR Reithalle, -platz
@@ -2547,7 +2547,7 @@
 #define $__SPORTSKATING__PT Pista de patinação
 
 ## Skipiste, Skihalle. [point, closedway]
-#define $__SKIING__ Skipiste, -halle
+#define $__SKIING__ Skipiste, Skihalle
 #define $__SKIING__DE Skipiste, -halle
 #define $__SKIING__EN Ski Area/Ski Dome
 #define $__SKIING__FR Skipiste, -halle
