@@ -1288,7 +1288,7 @@
 #define $__WATERTOWER__FR Wasserturm
 #define $__WATERTOWER__RU Водонапорная башня
 ##define $__WATERTOWER__PT Caixa d'água
-#define $__WATERTOWER__PT Caixa d''água
+#define $__WATERTOWER__PT Caixa d`água
 
 ## Wasserwerk. [point, closedway]
 #define $__WATERWORKS__ Wasserwerk
