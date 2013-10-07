@@ -1991,10 +1991,10 @@
 #define $__ICERINK__PT Patinação no gelo
 
 ## Jachthafen: Liegeplatz für Jachten und Motorboote (bzw. Boote allgemein). [point, closedway]
-#define $__MARINA__ Jachthafen
+#define $__MARINA__ Yachthafen
 #define $__MARINA__DE Yachthafen
 #define $__MARINA__EN Marina
-#define $__MARINA__FR Jachthafen
+#define $__MARINA__FR Yachthafen
 #define $__MARINA__RU Причал
 #define $__MARINA__PT Marina
 
