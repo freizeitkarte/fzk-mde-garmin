@@ -1643,6 +1643,36 @@ sub create_typtranslations {
           }
         }
       }
+ 
+      # we have to filter out and adapt some strings inside the [_id] section
+      elsif ( $inputline =~ /^\[_(id)\]$/ ) {
+	     print OUT $inputline;	 
+	     
+        # Get strings
+        while ( <IN> ) {
+          $inputline = $_;
+
+          # Check for strings
+          if ( $inputline =~ /^ProductCode=.*$/i ) {
+		     print OUT "ProductCode=1\n";
+          }
+          elsif ( $inputline =~ /^FID=.*$/i ) {
+		     print OUT "FID=$mapid\n";
+          }
+          elsif ( $inputline =~ /^CodePage=.*$/i ) {
+		     print OUT ";$inputline";
+          }
+          elsif ( $inputline =~ /^\[end\]/ ) {
+            print OUT $inputline;
+            last;
+          }
+          else {
+            print OUT $inputline;
+          }
+        }
+
+	      
+	  }
       else {
         print OUT $inputline;
       }
