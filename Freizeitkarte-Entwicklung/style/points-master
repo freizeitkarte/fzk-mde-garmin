@@ -602,6 +602,10 @@ place = city [0x0200 resolution 14]
 # Weiler, Bauernschaft, Einöde (Ansammlung einiger Häuser). [point, closedway]
 place = hamlet [0x0d00 resolution 24]
 
+# Special treatment for Russia where place=allotments is heavily used... 
+# Same treatment like above place=hamlet
+place = allotments [0x0d00 resolution 24]
+
 # "Bedeutende" Inseln werden auch in niedrigen Zoomstufen ausgewiesen.
 
 # Insel (Nordsee, Helgoland). [point, closedway]
@@ -1045,7 +1049,7 @@ man_made = wastewater_plant & name = * {name '${name} ($__WASTEWATERPLANT__)'} [
 man_made = watermill & name = * {name '${name} ($__WATERMILL__)'} [0x6500 resolution 24]
 
 # Wasserturm. [point, closedway]
-man_made = water_tower & name = * {name '${name} ($__WATERTOWER__)'} [0x6500 resolution 24]
+man_made = water_tower & name = * {name "${name} ($__WATERTOWER__)"} [0x6500 resolution 24]
 
 # Wasserwerk. [point, closedway]
 man_made = water_works & name = * {name '${name} ($__WATERWORKS__)'} [0x6500 resolution 24]
