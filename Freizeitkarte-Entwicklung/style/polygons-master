@@ -900,4 +900,4 @@ natural = land [0x3a resolution 17]
 # ------------------------------------------------
 
 # Gehege (im Zoo). [point, closedway]
-zoo = enclosure {name '${name} ($__COMPOUND__)' | '$__COMPOUND__'} [0x41 resolution 20]
+zoo = enclosure {name "${name} ($__COMPOUND__)" | "$__COMPOUND__"} [0x41 resolution 20]
