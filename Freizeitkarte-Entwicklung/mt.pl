@@ -1487,12 +1487,13 @@ sub create_typtranslations {
 
   ## FIX for Russia: cyrillic in Typ Source file gives problem with mkgmap typcompiler
   ## Overwrite the array typfilelangcode and hash typfilestringindex again
+  ## (actually it works with 'special build'.... for cp1251 we empty the string again, needs to be implemented nicely lateron
   if ( $langcode eq 'ru' ) {
 	  @typfilelangcode = ();
 	  %typfilestringindex = ();
 	  $stringindex = 1;
-	  push ( @typfilelangcode, $typlanguages{ 'en' } );
-      $typfilestringindex{ $typlanguages{ 'en' } } = $stringindex;
+	  push ( @typfilelangcode, $typlanguages{ 'ru' } );
+      $typfilestringindex{ $typlanguages{ 'ru' } } = $stringindex;
       $stringindex++;
   }
   ## ENDFIX (can be deleted again/or adapted for codepage1251 only if mkgmap compiles properly)
@@ -1712,9 +1713,9 @@ sub compile_typfiles {
 
     ## FIX for Russia/Cyrillic... actually mkgmap doesn't compile UTF8 files containing cyrillic strings... let's choose english only
     ## Just to let everything run through properly for the moment
-    if ( $maplang eq 'ru' ) {
-		$command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$langcodepage{'en'} --product-id=1 --family-id=$mapid $thistypfile";
-	}
+#    if ( $maplang eq 'ru' ) {
+#		$command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$langcodepage{'en'} --product-id=1 --family-id=$mapid $thistypfile";
+#	}
 	## ENDFIX (can be deleted if problem with mkgmap is fixed
 
 
