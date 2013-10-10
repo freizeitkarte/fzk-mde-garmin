@@ -1661,9 +1661,11 @@ sub create_typtranslations {
 		     print OUT "FID=$mapid\n";
           }
           elsif ( $inputline =~ /^CodePage=.*$/i ) {
-		     print OUT ";$inputline";
+#             print OUT "$inputline";
+#		     print OUT ";$inputline";
+            print OUT "CodePage=$langcodepage{$maplang}\n";
           }
-          elsif ( $inputline =~ /^\[end\]/ ) {
+          elsif ( $inputline =~ /^\s*\[end\]/i ) {
             print OUT $inputline;
             last;
           }
