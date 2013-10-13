@@ -1,4 +1,4 @@
-﻿; freizeit.TYP
+; freizeit.TYP
 ; Longueur: 38371 octets
 ; Fichier TYP compilé     02.03.2013     22:34:54
 ; Décompilé le 18.03.2013 à 19:34:16
@@ -6398,7 +6398,7 @@ Type=0x02b
 SubType=0x02
 String1=0x00,Gasthaus
 String2=0x01,Gasthaus
-String3=0x02,Gasthaus
+String3=0x02,Pension
 String4=0x04,Guest House
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
