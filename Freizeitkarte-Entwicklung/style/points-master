@@ -1397,7 +1397,7 @@ historic = castle & name = * {name "${name} ($__CASTLE__)"} [0x6600 resolution 2
 historic = fort & name = * {name "${name} ($__FORT__)"} [0x6600 resolution 24]
 
 # Gedenkstätte: Ähnlich wie historic=monument, aber üblicherweise kleiner. [point, closedway]
-historic = memorial & name = * {name "${name} ($__MEMORIAL__)"} [0x6405 resolution 24]
+historic = memorial & name = * & memorial:type!=stolperstein & memorial:type!=plate & memorial:type!=plaque  {name "${name} ($__MEMORIAL__)"} [0x6405 resolution 24]
 
 # Denkmal, Standbild [point, closedway]
 historic = monument & name = * {name "${name} ($__MONUMENT__)"} [0x6405 resolution 24]
