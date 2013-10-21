@@ -78,6 +78,7 @@ my @typfilelangfixed = (
 
 # Relation from languages to codepages
 my %langcodepage = (
+   'xx' => '1252' ,
    'de' => '1252' ,
    'en' => '1252' ,
    'fr' => '1252' ,
@@ -1479,7 +1480,7 @@ sub create_typtranslations {
   $typfilestringindex{ $typlanguages{ $langcode } } = $stringindex;
   $stringindex++;
   foreach my $tmp ( @typfilelangfixed ) {
-    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) ) {
+    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) && ( $langcodepage{$langcode} eq $langcodepage{$tmp} ) ) {
       push ( @typfilelangcode, $typlanguages{ $tmp } );
       $stringindex++;
     }
@@ -1488,15 +1489,15 @@ sub create_typtranslations {
   ## FIX for Russia: cyrillic in Typ Source file gives problem with mkgmap typcompiler
   ## Overwrite the array typfilelangcode and hash typfilestringindex again
   ## (actually it works with 'special build'.... for cp1251 we empty the string again, needs to be implemented nicely lateron
-  if ( $langcode eq 'ru' ) {
-	  @typfilelangcode = ();
-	  %typfilestringindex = ();
-	  $stringindex = 1;
-	  push ( @typfilelangcode, $typlanguages{ 'ru' } );
-      $typfilestringindex{ $typlanguages{ 'ru' } } = $stringindex;
-      $stringindex++;
-  }
-  ## ENDFIX (can be deleted again/or adapted for codepage1251 only if mkgmap compiles properly)
+#  if ( $langcode eq 'ru' ) {
+#	  @typfilelangcode = ();
+#	  %typfilestringindex = ();
+#	  $stringindex = 1;
+#	  push ( @typfilelangcode, $typlanguages{ 'ru' } );
+#      $typfilestringindex{ $typlanguages{ 'ru' } } = $stringindex;
+#      $stringindex++;
+#  }
+#  ## ENDFIX (can be deleted again/or adapted for codepage1251 only if mkgmap compiles properly)
 
   # Fill the hash with the languages and the stringindex (properly sorted)
   $stringindex = 1;
