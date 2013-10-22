@@ -1268,7 +1268,7 @@ sub create_cfgfile {
       . "#   problems. If MinLength is specified (in metres), arcs shorter\n"
       . "#   than that length will be removed. If a length is not\n"
       . "#   specified, only zero-length arcs will be removed.\n"
-      . "remove-short-arcs=3\n" );
+      . "#remove-short-arcs=3\n" );
 
   printf { $fh }
     (   "\n"
