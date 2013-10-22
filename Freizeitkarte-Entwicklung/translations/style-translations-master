@@ -1265,6 +1265,46 @@
 #define $__TOWER__RU Башня/вышка
 #define $__TOWER__PT Torre
 
+## Aussichtspunkt
+#define $__VIEWPOINT__ Aussichtspunkt
+#define $__VIEWPOINT__DE Aussichtspunkt
+#define $__VIEWPOINT__EN Viewpoint
+#define $__VIEWPOINT__FR Aussichtspunkt
+#define $__VIEWPOINT__RU точка зрения
+#define $__VIEWPOINT__PT Ponto de vista
+
+## Information
+#define $__INFORMATION__ Information
+#define $__INFORMATION__DE Info
+#define $__INFORMATION__EN Info
+#define $__INFORMATION__FR Info
+#define $__INFORMATION__RU информация
+#define $__INFORMATION__PT Informações
+
+## Privat
+#define $__PRIVATE__ Privat
+#define $__PRIVATE__DE Privat
+#define $__PRIVATE__EN Private
+#define $__PRIVATE__FR Privat
+#define $__PRIVATE__RU частный
+#define $__PRIVATE__PT Privado
+
+## Springbrunnen
+#define $__FOUNTAIN__ Springbrunnen
+#define $__FOUNTAIN__DE Springbrunnen
+#define $__FOUNTAIN__EN Fountain
+#define $__FOUNTAIN__FR Springbrunnen
+#define $__FOUNTAIN__RU фонтан
+#define $__FOUNTAIN__PT Fonte
+
+## Toilette
+#define $__TOILETS__ Toilette
+#define $__TOILETS__DE Toilette
+#define $__TOILETS__EN Toilets
+#define $__TOILETS__FR Toilette
+#define $__TOILETS__RU туалет
+#define $__TOILETS__PT Banheiro
+
 ## Kläranlage. [point, closedway]
 #define $__WASTEWATERPLANT__ Kläranlage
 #define $__WASTEWATERPLANT__DE Kläranlage
@@ -2655,5 +2695,8 @@
 #define $__GRAVE__PT Túmulo
 
 
+## ------------------------------------------------------------
+## Android only: (to be renedered also for garmin in the future ?)
+## ------------------------------------------------------------
 
 
