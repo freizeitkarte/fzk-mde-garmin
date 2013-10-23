@@ -253,8 +253,9 @@ my @maps = (
 
   # Andere Regionen
 #  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
-  [ 9010, 'Freizeitkarte_RUS_EUR',                 'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'RUS_EUR',                 'en', 'Freizeitkarte_Euro-Russland',             3, 'NA'             ],
+  [ 9010, 'Freizeitkarte_RUS_EUR',                 'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'RUS_EUR',                 'en', 'Freizeitkarte_Euro-Russland',             1, 'NA'             ],
   [ 9020, 'Freizeitkarte_ESP_CANARIAS',            'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'ESP_CANARIAS',            'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
+  [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'en', 'no_old_name',                             2, 'RUS_EUR'        ],
 
 );
 
@@ -334,7 +335,11 @@ my $command = $EMPTY;
 
 
 # get the command line parameters
-GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language );
+if ( ! GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language ) ) {
+  printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
+  show_usage ();
+  exit(1);   
+ }
 
 # Show help if wished
 if ( ( $help ) || ( $optional ) ) {
