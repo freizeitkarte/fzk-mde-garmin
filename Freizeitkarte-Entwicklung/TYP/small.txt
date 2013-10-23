@@ -8773,30 +8773,6 @@ DayXpm="11 5 2 1"   Colormode=16
 
 [_point]
 Type=0x066
-SubType=0x1b
-String1=0x00,Saddle
-String2=0x01,Saddle
-String3=0x02,Joch, Sattel, Scharte
-String4=0x04,Saddle
-ExtendedLabels=Y
-FontStyle=Default
-CustomColor=DayAndNight
-DaycustomColor:#006541
-NightcustomColor:#006541
-DayXpm="11 5 2 1"   Colormode=16
-"!	c #333333"
-"  	c none"
-"!!       !!"
-"!!!     !!!"
-" !!!   !!! "
-"  !!!!!!!  "
-"   !!!!!   "
-;12345678901
-[end]
-
-
-[_point]
-Type=0x066
 SubType=0x1c
 String1=0x00,Cablecar Station
 String2=0x01,Cablecar Station
@@ -8812,49 +8788,6 @@ DayXpm="4 4 1 1"   Colormode=0
 "!!!!"
 "!!!!"
 ;1234
-[end]
-
-
-[_point]
-Type=0x066
-SubType=0x1c
-String1=0x00,Cablecar Station
-String2=0x01,Cablecar Station
-String3=0x02,Seilbahnstation
-String4=0x04,Cablecar Station
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-DayXpm="4 4 1 1"   Colormode=0
-"!	c #3995FF"
-"!!!!"
-"!!!!"
-"!!!!"
-"!!!!"
-;1234
-[end]
-
-
-[_point]
-Type=0x066
-SubType=0x1d
-String1=0x00,Bunker
-String2=0x01,Bunker
-String3=0x02,Mil. Bunker
-String4=0x04,Bunker
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-DayXpm="12 5 3 1"   Colormode=16
-"!	c #FFFFFF"
-"#	c #734A08"
-"  	c none"
-"   ######   "
-"  ########  "
-" ####!!#### "
-"############"
-"############"
-;123456789012
 [end]
 
 
@@ -8902,63 +8835,6 @@ DayXpm="9 7 2 1"   Colormode=16
 "!!!!! !!!"
 "!!!!! !!!"
 ;123456789
-[end]
-
-
-[_point]
-Type=0x066
-SubType=0x1e
-String1=0x00,Ruin
-String2=0x01,Ruin
-String3=0x02,Ruine
-String4=0x04,Ruin
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-DayXpm="9 7 2 1"   Colormode=16
-"!	c #734A08"
-"  	c none"
-"  !!!    "
-"  !!!    "
-"  !!! !!!"
-" !!!! !!!"
-"!!!!! !!!"
-"!!!!! !!!"
-"!!!!! !!!"
-;123456789
-[end]
-
-
-[_point]
-Type=0x066
-SubType=0x1f
-String1=0x00,Tower, Platform
-String2=0x01,Tower, Platform
-String3=0x02,Turm, Plattform
-String4=0x04,Tower, Platform
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-DayXpm="5 16 2 1"   Colormode=16
-"!	c #202020"
-"  	c none"
-"!   !"
-"!   !"
-"!!!!!"
-" !!! "
-" ! ! "
-" ! ! "
-" !!! "
-" ! ! "
-" ! ! "
-" !!! "
-" ! ! "
-" ! ! "
-" !!! "
-" ! ! "
-" ! ! "
-"!! !!"
-;12345
 [end]
 
 
