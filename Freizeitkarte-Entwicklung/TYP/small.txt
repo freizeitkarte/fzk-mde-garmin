@@ -8422,6 +8422,38 @@ DayXpm="3 3 2 1"   Colormode=16
 
 
 [_point]
+Type=0x065
+SubType=0x14
+String1=0x00,Information Office
+String2=0x01,Information Office
+String3=0x02,Information Office
+String4=0x04,Information Office
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+DayXpm="9 15 2 1"   Colormode=16
+"!	c #FFFFFF"
+"#	c #0080C0"
+"#########"
+"#!!!!!!!#"
+"#!!!!!!!#"
+"#!!##!!!#"
+"#!!##!!!#"
+"#!!!!!!!#"
+"#!!##!!!#"
+"#!!##!!!#"
+"#!!##!!!#"
+"#!!##!!!#"
+"#!!###!!#"
+"#!!###!!#"
+"#!!!!!!!#"
+"#!!!!!!!#"
+"#########"
+;123456789
+[end]
+
+
+[_point]
 Type=0x066
 SubType=0x00
 String1=0x00,Identified Area (Land)

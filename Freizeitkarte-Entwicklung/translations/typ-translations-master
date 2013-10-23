@@ -4445,6 +4445,18 @@ String5=0x10,Brejo
 String6=0x19,Заболоченная местность
 [end]
 
+; Information Office
+[_point]
+Type=0x065
+SubType=0x14
+String1=0x00,Information Office
+String2=0x01,Information Office
+String3=0x02,Information Office
+String4=0x04,Information Office
+String5=0x10,Gabinete de Informação
+String6=0x19,Информационное бюро
+[end]
+
 ; Identified Area (Land) <=> Bezeichnetes Gebiet (Land)
 [_point]
 Type=0x066
@@ -4684,3 +4696,4 @@ String4=0x04,Tower, Platform
 String5=0x10,Torre, Plataforma
 String6=0x19,Вышка, платформа
 [end]
+
