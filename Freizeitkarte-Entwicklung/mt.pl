@@ -449,7 +449,7 @@ for my $mapdata ( @maps ) {
 
 # Error due to invalid map name/code
 if ( $error ) {
-  printf { *STDOUT } ( "ERROR:\n  Map '" . $mapid . "' not valid (invalid ID, code or name).\n\n\n" );
+  printf { *STDOUT } ( "ERROR:\n  Map '" . $mapinput . "' not valid (invalid ID, code or name).\n\n\n" );
   show_usage ();
   exit(1);
 }
