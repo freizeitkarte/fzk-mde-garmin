@@ -64,15 +64,27 @@ my @supportedlanguages = (
   [ 'de', 'Deutsch' ],
   [ 'en', 'English' ],
   [ 'fr', 'French' ],
-  [ 'pt', 'Portuguese' ]);
+  [ 'pt', 'Portuguese' ],
+  [ 'ru', 'Russian' ]
+);
 
 # languages that are always in the TYP files (FR falls out if another language has to go in)
 my @typfilelangfixed = (
   "xx",    # Unspecified
-  "de",    # Deutsch
-  "en",    # Englisch
-  "fr"     # Französich
+  "de",    # Deutsch / German
+  "en",    # Englisch / English
+  "fr"     # Französisch / French
 );
+
+# Relation from languages to codepages
+my %langcodepage = (
+   'xx' => '1252' ,
+   'de' => '1252' ,
+   'en' => '1252' ,
+   'fr' => '1252' ,
+   'pt' => '1252' ,   
+   'ru' => '1251' ,
+   );
 
 # Define the download base URLs for the Elevation Data
 my %elevationbaseurl = (
@@ -241,8 +253,9 @@ my @maps = (
 
   # Andere Regionen
 #  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
-  [ 9010, 'Freizeitkarte_RUS_EUR',                 'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'RUS_EUR',                 'en', 'Freizeitkarte_Euro-Russland',             3, 'NA'             ],
+  [ 9010, 'Freizeitkarte_RUS_EUR',                 'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'RUS_EUR',                 'ru', 'Freizeitkarte_Euro-Russland',             1, 'NA'             ],
   [ 9020, 'Freizeitkarte_ESP_CANARIAS',            'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'ESP_CANARIAS',            'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
+  [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS_EUR'        ],
 
 );
 
@@ -322,7 +335,11 @@ my $command = $EMPTY;
 
 
 # get the command line parameters
-GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language );
+if ( ! GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language ) ) {
+  printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
+  show_usage ();
+  exit(1);   
+ }
 
 # Show help if wished
 if ( ( $help ) || ( $optional ) ) {
@@ -432,7 +449,7 @@ for my $mapdata ( @maps ) {
 
 # Error due to invalid map name/code
 if ( $error ) {
-  printf { *STDOUT } ( "ERROR:\n  Map '" . $mapid . "' not valid (invalid ID, code or name).\n\n\n" );
+  printf { *STDOUT } ( "ERROR:\n  Map '" . $mapinput . "' not valid (invalid ID, code or name).\n\n\n" );
   show_usage ();
   exit(1);
 }
@@ -1028,7 +1045,16 @@ sub create_cfgfile {
     (   "\n" 
       . "# --latin1\n" 
       . "#   This is equivalent to --code-page=1252.\n" 
-      . "latin1\n" );
+      . "# latin1\n" 
+      . "code-page=" . $langcodepage{$maplang} . "\n" );
+      
+  printf { $fh }
+    (   "\n"
+      . "# --name-tag-list=list"
+      . "#   Changes the tag that will be used to supply the name, normally it is just 'name'.\n"
+      . "#   Useful for language variations. You can supply a list and the first one will be used.\n"
+      . "#   Example: --name-tag-list=name:en,int_name,name\n"
+      . "#name-tag-list=name:$maplang,name,int_name,name:en\n" );
 
   printf { $fh } ( "\n# Address search options:\n" );
   printf { $fh } ( "# ----------------------\n" );
@@ -1247,7 +1273,7 @@ sub create_cfgfile {
       . "#   problems. If MinLength is specified (in metres), arcs shorter\n"
       . "#   than that length will be removed. If a length is not\n"
       . "#   specified, only zero-length arcs will be removed.\n"
-      . "remove-short-arcs=3\n" );
+      . "#remove-short-arcs=3\n" );
 
   printf { $fh }
     (   "\n"
@@ -1459,11 +1485,24 @@ sub create_typtranslations {
   $typfilestringindex{ $typlanguages{ $langcode } } = $stringindex;
   $stringindex++;
   foreach my $tmp ( @typfilelangfixed ) {
-    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) ) {
+    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) && ( $langcodepage{$langcode} eq $langcodepage{$tmp} ) ) {
       push ( @typfilelangcode, $typlanguages{ $tmp } );
       $stringindex++;
     }
   }
+
+  ## FIX for Russia: cyrillic in Typ Source file gives problem with mkgmap typcompiler
+  ## Overwrite the array typfilelangcode and hash typfilestringindex again
+  ## (actually it works with 'special build'.... for cp1251 we empty the string again, needs to be implemented nicely lateron
+#  if ( $langcode eq 'ru' ) {
+#	  @typfilelangcode = ();
+#	  %typfilestringindex = ();
+#	  $stringindex = 1;
+#	  push ( @typfilelangcode, $typlanguages{ 'ru' } );
+#      $typfilestringindex{ $typlanguages{ 'ru' } } = $stringindex;
+#      $stringindex++;
+#  }
+#  ## ENDFIX (can be deleted again/or adapted for codepage1251 only if mkgmap compiles properly)
 
   # Fill the hash with the languages and the stringindex (properly sorted)
   $stringindex = 1;
@@ -1476,7 +1515,7 @@ sub create_typtranslations {
     }
   }
   %typfilestringhex = reverse %typfilestringindex;
-
+  
 
   # 2) Read all TYP file translations into hashes
   # ----------------------------------------------
@@ -1611,6 +1650,38 @@ sub create_typtranslations {
           }
         }
       }
+ 
+      # we have to filter out and adapt some strings inside the [_id] section
+      elsif ( $inputline =~ /^\[_(id)\]$/ ) {
+	     print OUT $inputline;	 
+	     
+        # Get strings
+        while ( <IN> ) {
+          $inputline = $_;
+
+          # Check for strings
+          if ( $inputline =~ /^ProductCode=.*$/i ) {
+		     print OUT "ProductCode=1\n";
+          }
+          elsif ( $inputline =~ /^FID=.*$/i ) {
+		     print OUT "FID=$mapid\n";
+          }
+          elsif ( $inputline =~ /^CodePage=.*$/i ) {
+#             print OUT "$inputline";
+#		     print OUT ";$inputline";
+            print OUT "CodePage=$langcodepage{$maplang}\n";
+          }
+          elsif ( $inputline =~ /^\s*\[end\]/i ) {
+            print OUT $inputline;
+            last;
+          }
+          else {
+            print OUT $inputline;
+          }
+        }
+
+	      
+	  }
       else {
         print OUT $inputline;
       }
@@ -1646,7 +1717,16 @@ sub compile_typfiles {
   for my $thistypfile ( @typfilelist ) {
 
     # run that file through the compiler
-    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=1252 --product-id=1 --family-id=$mapid $thistypfile";
+    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$langcodepage{$maplang} --product-id=1 --family-id=$mapid $thistypfile";
+
+    ## FIX for Russia/Cyrillic... actually mkgmap doesn't compile UTF8 files containing cyrillic strings... let's choose english only
+    ## Just to let everything run through properly for the moment
+#    if ( $maplang eq 'ru' ) {
+#		$command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$langcodepage{'en'} --product-id=1 --family-id=$mapid $thistypfile";
+#	}
+	## ENDFIX (can be deleted if problem with mkgmap is fixed
+
+
     process_command ( $command );
 
     #Rename .typ to .TYP
