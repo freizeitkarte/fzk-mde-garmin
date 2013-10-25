@@ -2451,8 +2451,12 @@ sub create_nsis_exefile {
   # Installer-Executable ins install-Verzeichnis verschieben
   my $filename = "Install_" . $mapname . "_" . $maplang . ".exe";
 
-  # sleep needed on windows... perl is faster than windows... (Viruschecking ?)
-  sleep 30;
+  # sleep needed on windows... perl is faster than windows... (Viruschecking ? FortiClient AppDetection)
+  if ( $OSNAME eq 'MSWin32' ) {
+    # Windows
+    printf { *STDOUT } ( "   (...sleeping a while for preventing viruschecking to lock files...)\n" );
+    sleep 60;
+  }
   move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!: move $filename $INSTALLDIR/$filename\n" );
 
   # Delete the zip file again, not needed anymore
