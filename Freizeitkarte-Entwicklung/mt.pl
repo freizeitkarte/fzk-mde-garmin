@@ -364,6 +364,13 @@ else {
 # Fetch first only the actionname from the Arguments, there are some actions not needing map
 $actionname = $ARGV[ 0 ];
 
+# Definitely not enough arguments
+if ( ( $#ARGV + 1 ) < 1 ) {
+  printf { *STDOUT } ( "ERROR:\n  Not enough Arguments.\n\n\n" );
+  show_usage ();
+  exit(1);
+}
+
 # Checking Arguments for valid actions
 $error = 1;
 for my $actiondata ( @actions ) {
