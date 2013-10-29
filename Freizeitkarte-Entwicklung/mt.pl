@@ -21,7 +21,9 @@ use Getopt::Long;
 #use Data::Dumper;
 
 my @actions = (
-  # 'Aktion',  'Beschreibung'
+  # Normal User Actions for maps
+  # (This actions should not be deleted/changed)
+  # 'Action',    'Description'
   [ 'create',    '1.  (re)create all directories' ,                        '-' ],
   [ 'fetch_osm', '2a. fetch osm data from url' ,                           '-' ],
   [ 'fetch_ele', '2b. fetch elevation data from url' ,                     '-' ],
@@ -33,7 +35,9 @@ my @actions = (
   [ 'gmapsupp',  '6.  create gmapsupp image (for GPS receiver)' ,          '-' ],
   [ 'imagedir',  '6.  create image directory (e.g. for QLandkarte)' ,      '-' ],
 
-  # Optional
+  # Optional Actions for maps (Hidden from normal users) 
+  # (This might change without notification)
+  # 'Action',     'Description'
   [ 'cfg',        'A. create individual cfg file' ,                        'optional' ],
   [ 'typ',        'B. create individual typ file from master' ,            'optional' ],
   [ 'compiletyp', 'B. compile TYP files out of text files' ,               'optional' ],
@@ -45,7 +49,13 @@ my @actions = (
   [ 'zip',        'G. zip all maps' ,                                      'optional' ],
   [ 'regions',    'H. extract regions from Europe data' ,                  'optional' ],
   [ 'fetch_map',  'I. fetch map data from Europe directory' ,              'optional' ],
-  [ 'checkurl',   'J. Check all download URLs for existence' ,             'optional' ],
+
+  # Hidden Actions not related to maps 
+  # (This might change without notification)
+  # 'Action',     'Description'
+  [ 'checkurl',   '   Check all download URLs for existence' ,             'optional' ],
+  [ 'bootstrap',  '   Complete the Environment with needed downloads' ,    'optional' ],
+  [ 'fingerprint','   Show the versions of the different tools' ,          'optional' ],
 );
 
 my @supportedlanguages = (
@@ -53,22 +63,45 @@ my @supportedlanguages = (
   # Iso639-1
   [ 'de', 'Deutsch' ],
   [ 'en', 'English' ],
-  [ 'fr', 'French' ]
+  [ 'fr', 'French' ],
+  [ 'pt', 'Portuguese' ],
+  [ 'ru', 'Russian' ]
 );
 
 # languages that are always in the TYP files (FR falls out if another language has to go in)
 my @typfilelangfixed = (
   "xx",    # Unspecified
-  "de",    # Deutsch
-  "en",    # Englisch
-  "fr"     # Französich
+  "de",    # Deutsch / German
+  "en",    # Englisch / English
+  "fr"     # Französisch / French
 );
+
+# Relation from languages to codepages
+my %langcodepage = (
+   'xx' => '1252' ,
+   'de' => '1252' ,
+   'en' => '1252' ,
+   'fr' => '1252' ,
+   'pt' => '1252' ,   
+   'ru' => '1251' ,
+   );
 
 # Define the download base URLs for the Elevation Data
 my %elevationbaseurl = (
   'ele10' => "http://freizeitkarte-osm.de/maps/Development/ele_10_100_200",
   'ele25' => "http://freizeitkarte-osm.de/maps/Development/ele_25_250_500",
   );
+  
+# Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
+my @boundariesurl = (
+  'http://www.navmaps.eu/boundaries?task=weblink.go&id=1',
+  'http://www.navmaps.eu/boundaries?task=weblink.go&id=1', 
+  );
+my @seaboundariesurl = (
+  'http://www.navmaps.eu/boundaries?task=weblink.go&id=2',
+  'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
+  );
+
 
 my @maps = (
   # ID, 'Karte', 'URL der Quelle', 'Code', 'language'
@@ -126,51 +159,51 @@ my @maps = (
   [ -1,   'Europaeische Laender',                 'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6008, 'Freizeitkarte_ALB',                    'http://download.geofabrik.de/europe/albania-latest.osm.pbf',                                        'ALB',                      'en', 'Freizeitkarte_Albanien',                  3, 'NA'             ],
   [ 6020, 'Freizeitkarte_AND',                    'http://download.geofabrik.de/europe/andorra-latest.osm.pbf',                                        'AND',                      'en', 'Freizeitkarte_Andorra',                   3, 'NA'             ],
+  [ 6040, 'Freizeitkarte_AUT',                    'http://download.geofabrik.de/europe/austria-latest.osm.pbf',                                        'AUT',                      'de', 'Freizeitkarte_Oesterreich',               3, 'NA'             ],
   [ 6112, 'Freizeitkarte_BLR',                    'http://download.geofabrik.de/europe/belarus-latest.osm.pbf',                                        'BLR',                      'en', 'Freizeitkarte_Belarus',                   3, 'NA'             ],
   [ 6056, 'Freizeitkarte_BEL',                    'http://download.geofabrik.de/europe/belgium-latest.osm.pbf',                                        'BEL',                      'en', 'Freizeitkarte_Belgien',                   3, 'NA'             ],
   [ 6070, 'Freizeitkarte_BIH',                    'http://download.geofabrik.de/europe/bosnia-herzegovina-latest.osm.pbf',                             'BIH',                      'en', 'Freizeitkarte_Bosnien-Herzegowina',       3, 'NA'             ],
   [ 6100, 'Freizeitkarte_BGR',                    'http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf',                                       'BGR',                      'en', 'Freizeitkarte_Bulgarien',                 3, 'NA'             ],
+  [ 6756, 'Freizeitkarte_CHE',                    'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE',                      'de', 'Freizeitkarte_Schweiz',                   3, 'NA'             ],
+  [ 6196, 'Freizeitkarte_CYP',                    'http://download.geofabrik.de/europe/cyprus-latest.osm.pbf',                                         'CYP',                      'en', 'Freizeitkarte_Zypern',                    3, 'NA'             ],
+  [ 6203, 'Freizeitkarte_CZE',                    'http://download.geofabrik.de/europe/czech-republic-latest.osm.pbf',                                 'CZE',                      'en', 'Freizeitkarte_Tschechien',                3, 'NA'             ],
   [ 6208, 'Freizeitkarte_DNK',                    'http://download.geofabrik.de/europe/denmark-latest.osm.pbf',                                        'DNK',                      'en', 'Freizeitkarte_Daenemark',                 3, 'NA'             ],
   [ 6276, 'Freizeitkarte_DEU',                    'http://download.geofabrik.de/europe/germany-latest.osm.pbf',                                        'DEU',                      'de', 'Freizeitkarte_Deutschland',               3, 'NA'             ],
+  [ 6724, 'Freizeitkarte_ESP',                    'http://download.geofabrik.de/europe/spain-latest.osm.pbf',                                          'ESP',                      'en', 'Freizeitkarte_Spanien',                   3, 'NA'             ],
   [ 6233, 'Freizeitkarte_EST',                    'http://download.geofabrik.de/europe/estonia-latest.osm.pbf',                                        'EST',                      'en', 'Freizeitkarte_Estland',                   3, 'NA'             ],
   [ 6234, 'Freizeitkarte_FRO',                    'http://download.geofabrik.de/europe/faroe-islands-latest.osm.pbf',                                  'FRO',                      'en', 'Freizeitkarte_Faeroeer',                  3, 'NA'             ],
   [ 6246, 'Freizeitkarte_FIN',                    'http://download.geofabrik.de/europe/finland-latest.osm.pbf',                                        'FIN',                      'en', 'Freizeitkarte_Finnland',                  3, 'NA'             ],
   [ 6250, 'Freizeitkarte_FRA',                    'http://download.geofabrik.de/europe/france-latest.osm.pbf',                                         'FRA',                      'en', 'Freizeitkarte_Frankreich',                3, 'NA'             ],
   [ 6826, 'Freizeitkarte_GBR',                    'http://download.geofabrik.de/europe/great-britain-latest.osm.pbf',                                  'GBR',                      'en', 'Freizeitkarte_Grossbritannien',           3, 'NA'             ],
   [ 6300, 'Freizeitkarte_GRC',                    'http://download.geofabrik.de/europe/greece-latest.osm.pbf',                                         'GRC',                      'en', 'Freizeitkarte_Griechenland',              3, 'NA'             ],
+  [ 6191, 'Freizeitkarte_HRV',                    'http://download.geofabrik.de/europe/croatia-latest.osm.pbf',                                        'HRV',                      'en', 'Freizeitkarte_Kroatien',                  3, 'NA'             ],
+  [ 6348, 'Freizeitkarte_HUN',                    'http://download.geofabrik.de/europe/hungary-latest.osm.pbf',                                        'HUN',                      'en', 'Freizeitkarte_Ungarn',                    3, 'NA'             ],
   [ 6833, 'Freizeitkarte_IMN',                    'http://download.geofabrik.de/europe/isle-of-man-latest.osm.pbf',                                    'IMN',                      'en', 'Freizeitkarte_Insel-Man',                 3, 'NA'             ],
   [ 6372, 'Freizeitkarte_IRL',                    'http://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf',                   'IRL',                      'en', 'Freizeitkarte_Irland',                    3, 'NA'             ],
   [ 6352, 'Freizeitkarte_ISL',                    'http://download.geofabrik.de/europe/iceland-latest.osm.pbf',                                        'ISL',                      'en', 'Freizeitkarte_Island',                    3, 'NA'             ],
   [ 6380, 'Freizeitkarte_ITA',                    'http://download.geofabrik.de/europe/italy-latest.osm.pbf',                                          'ITA',                      'en', 'Freizeitkarte_Italien',                   3, 'NA'             ],
   [ 6680, 'Freizeitkarte_KOSOVO',                 'http://download.geofabrik.de/europe/kosovo-latest.osm.pbf',                                         'KOSOSVO',                  'en', 'Freizeitkarte_Kosovo',                    3, 'NA'             ],
-  [ 6191, 'Freizeitkarte_HRV',                    'http://download.geofabrik.de/europe/croatia-latest.osm.pbf',                                        'HRV',                      'en', 'Freizeitkarte_Kroatien',                  3, 'NA'             ],
   [ 6428, 'Freizeitkarte_LVA',                    'http://download.geofabrik.de/europe/latvia-latest.osm.pbf',                                         'LVA',                      'en', 'Freizeitkarte_Lettland',                  3, 'NA'             ],
   [ 6438, 'Freizeitkarte_LIE',                    'http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf',                                  'LIE',                      'en', 'Freizeitkarte_Liechtenstein',             3, 'NA'             ],
   [ 6440, 'Freizeitkarte_LTU',                    'http://download.geofabrik.de/europe/lithuania-latest.osm.pbf',                                      'LTU',                      'en', 'Freizeitkarte_Litauen',                   3, 'NA'             ],
   [ 6442, 'Freizeitkarte_LUX',                    'http://download.geofabrik.de/europe/luxembourg-latest.osm.pbf',                                     'LUX',                      'en', 'Freizeitkarte_Luxemburg',                 3, 'NA'             ],
+  [ 6504, 'Freizeitkarte_MAR',                    'http://download.geofabrik.de/africa/morocco-latest.osm.pbf',                                        'MAR',                      'en', 'Freizeitkarte_Marokko',                   3, 'NA'             ],
+  [ 6492, 'Freizeitkarte_MCO',                    'http://download.geofabrik.de/europe/monaco-latest.osm.pbf',                                         'MCO',                      'en', 'Freizeitkarte_Monaco',                    3, 'NA'             ],
+  [ 6498, 'Freizeitkarte_MDA',                    'http://download.geofabrik.de/europe/moldova-latest.osm.pbf',                                        'MDA',                      'en', 'Freizeitkarte_Moldawien',                 3, 'NA'             ],
   [ 6807, 'Freizeitkarte_MKD',                    'http://download.geofabrik.de/europe/macedonia-latest.osm.pbf',                                      'MKD',                      'en', 'Freizeitkarte_Mazedonien',                3, 'NA'             ],
   [ 6470, 'Freizeitkarte_MLT',                    'http://download.geofabrik.de/europe/malta-latest.osm.pbf',                                          'MLT',                      'en', 'Freizeitkarte_Malta',                     3, 'NA'             ],
-  [ 6498, 'Freizeitkarte_MDA',                    'http://download.geofabrik.de/europe/moldova-latest.osm.pbf',                                        'MDA',                      'en', 'Freizeitkarte_Moldawien',                 3, 'NA'             ],
-  [ 6492, 'Freizeitkarte_MCO',                    'http://download.geofabrik.de/europe/monaco-latest.osm.pbf',                                         'MCO',                      'en', 'Freizeitkarte_Monaco',                    3, 'NA'             ],
   [ 6499, 'Freizeitkarte_MNE',                    'http://download.geofabrik.de/europe/montenegro-latest.osm.pbf',                                     'MNE',                      'en', 'Freizeitkarte_Montenegro',                3, 'NA'             ],
-  [ 6504, 'Freizeitkarte_MAR',                    'http://download.geofabrik.de/africa/morocco-latest.osm.pbf',                                        'MAR',                      'en', 'Freizeitkarte_Marokko',                   3, 'NA'             ],
   [ 6528, 'Freizeitkarte_NLD',                    'http://download.geofabrik.de/europe/netherlands-latest.osm.pbf',                                    'NLD',                      'en', 'Freizeitkarte_Niederlande',               3, 'NA'             ],
   [ 6578, 'Freizeitkarte_NOR',                    'http://download.geofabrik.de/europe/norway-latest.osm.pbf',                                         'NOR',                      'en', 'Freizeitkarte_Norwegen',                  3, 'NA'             ],
-  [ 6040, 'Freizeitkarte_AUT',                    'http://download.geofabrik.de/europe/austria-latest.osm.pbf',                                        'AUT',                      'de', 'Freizeitkarte_Oesterreich',               3, 'NA'             ],
   [ 6616, 'Freizeitkarte_POL',                    'http://download.geofabrik.de/europe/poland-latest.osm.pbf',                                         'POL',                      'en', 'Freizeitkarte_Polen',                     3, 'NA'             ],
-  [ 6620, 'Freizeitkarte_PRT',                    'http://download.geofabrik.de/europe/portugal-latest.osm.pbf',                                       'PRT',                      'en', 'Freizeitkarte_Portugal',                  3, 'NA'             ],
+  [ 6620, 'Freizeitkarte_PRT',                    'http://download.geofabrik.de/europe/portugal-latest.osm.pbf',                                       'PRT',                      'pt', 'Freizeitkarte_Portugal',                  3, 'NA'             ],
   [ 6642, 'Freizeitkarte_ROU',                    'http://download.geofabrik.de/europe/romania-latest.osm.pbf',                                        'ROU',                      'en', 'Freizeitkarte_Rumaenien',                 3, 'NA'             ],
-  [ 6752, 'Freizeitkarte_SWE',                    'http://download.geofabrik.de/europe/sweden-latest.osm.pbf',                                         'SWE',                      'en', 'Freizeitkarte_Schweden',                  3, 'NA'             ],
-  [ 6756, 'Freizeitkarte_CHE',                    'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE',                      'de', 'Freizeitkarte_Schweiz',                   3, 'NA'             ],
   [ 6688, 'Freizeitkarte_SRB',                    'http://download.geofabrik.de/europe/serbia-latest.osm.pbf',                                         'SRB',                      'en', 'Freizeitkarte_Serbien',                   3, 'NA'             ],
   [ 6703, 'Freizeitkarte_SVK',                    'http://download.geofabrik.de/europe/slovakia-latest.osm.pbf',                                       'SVK',                      'en', 'Freizeitkarte_Slowakei',                  3, 'NA'             ],
   [ 6705, 'Freizeitkarte_SVN',                    'http://download.geofabrik.de/europe/slovenia-latest.osm.pbf',                                       'SVN',                      'en', 'Freizeitkarte_Slowenien',                 3, 'NA'             ],
-  [ 6724, 'Freizeitkarte_ESP',                    'http://download.geofabrik.de/europe/spain-latest.osm.pbf',                                          'ESP',                      'en', 'Freizeitkarte_Spanien',                   3, 'NA'             ],
-  [ 6203, 'Freizeitkarte_CZE',                    'http://download.geofabrik.de/europe/czech-republic-latest.osm.pbf',                                 'CZE',                      'en', 'Freizeitkarte_Tschechien',                3, 'NA'             ],
+  [ 6752, 'Freizeitkarte_SWE',                    'http://download.geofabrik.de/europe/sweden-latest.osm.pbf',                                         'SWE',                      'en', 'Freizeitkarte_Schweden',                  3, 'NA'             ],
   [ 6792, 'Freizeitkarte_TUR',                    'http://download.geofabrik.de/europe/turkey-latest.osm.pbf',                                         'TUR',                      'en', 'Freizeitkarte_Tuerkei',                   3, 'NA'             ],
   [ 6804, 'Freizeitkarte_UKR',                    'http://download.geofabrik.de/europe/ukraine-latest.osm.pbf',                                        'UKR',                      'en', 'Freizeitkarte_Ukraine',                   3, 'NA'             ],
-  [ 6348, 'Freizeitkarte_HUN',                    'http://download.geofabrik.de/europe/hungary-latest.osm.pbf',                                        'HUN',                      'en', 'Freizeitkarte_Ungarn',                    3, 'NA'             ],
-  [ 6196, 'Freizeitkarte_CYP',                    'http://download.geofabrik.de/europe/cyprus-latest.osm.pbf',                                         'CYP',                      'en', 'Freizeitkarte_Zypern',                    3, 'NA'             ],
   
   [ -1,   'Andere Laender',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6032, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'no_old_name',                             3, 'NA'             ],
@@ -188,8 +221,19 @@ my @maps = (
   # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
   [ -1,   'Freizeitkarte PLUS Länder',            'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                        														   'AUT+',                     'de', 'no_old_name',               			    2, 'EUROPE'         ],
+  [ 7056, 'Freizeitkarte_BEL+',                   'NA',                                                                                                'BEL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7756, 'Freizeitkarte_CHE+',                   'NA',                                    															   'CHE+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7276, 'Freizeitkarte_DEU+',                   'NA',                                        														   'DEU+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7208, 'Freizeitkarte_DNK+',                   'NA',                                                                                                'DNK+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7724, 'Freizeitkarte_ESP+',                   'NA',                                                                                                'ESP+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7250, 'Freizeitkarte_FRA+',                   'NA',                                                                                                'FRA+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7826, 'Freizeitkarte_GBR+',                   'NA',                                                                                                'GBR+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7372, 'Freizeitkarte_IRL+',                   'NA',                                                                                                'IRL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7380, 'Freizeitkarte_ITA+',                   'NA',                                                                                                'ITA+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7528, 'Freizeitkarte_NLD+',                   'NA',                                                                                                'NLD+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7620, 'Freizeitkarte_PRT+',                   'NA',                                                                                                'PRT+',                     'pt', 'no_old_name',                             2, 'EUROPE'         ],
+
+  [ -1,   'Andere Laender',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 7032, 'Freizeitkarte_ARG+',                   'NA',                                        														   'ARG+',                     'en', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
 
 
@@ -209,8 +253,9 @@ my @maps = (
 
   # Andere Regionen
 #  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
-  [ 9010, 'Freizeitkarte_RUS_EUR',                 'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'RUS_EUR',                 'en', 'Freizeitkarte_Euro-Russland',             3, 'NA'             ],
+  [ 9010, 'Freizeitkarte_RUS_EUR',                 'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'RUS_EUR',                 'ru', 'Freizeitkarte_Euro-Russland',             1, 'NA'             ],
   [ 9020, 'Freizeitkarte_ESP_CANARIAS',            'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'ESP_CANARIAS',            'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
+  [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS_EUR'        ],
 
 );
 
@@ -271,6 +316,9 @@ my $language = $EMPTY;
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
 
+# The argument containing MapID, MapName or MapCode comes first into this Variable
+my $mapinput   = $EMPTY;
+
 my $mapid      = -1;
 my $mapname    = $EMPTY;
 my $mapnameold = $EMPTY;
@@ -285,20 +333,18 @@ my $maptypfile = "freizeit.TYP";
 my $error   = -1;
 my $command = $EMPTY;
 
+
 # get the command line parameters
-GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language );
+if ( ! GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language ) ) {
+  printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
+  show_usage ();
+  exit(1);   
+ }
 
 # Show help if wished
 if ( ( $help ) || ( $optional ) ) {
   show_help ();
   exit(0);
-}
-
-# Definitely not enough arguments
-if ( ( $#ARGV + 1 ) < 2 ) {
-  printf { *STDOUT } ( "ERROR:\n  Not enough Arguments\n\n\n" );
-  show_usage ();
-  exit(1);
 }
 
 if ( $ram ne $EMPTY ) {
@@ -315,10 +361,15 @@ else {
   $max_threads = ' --max-threads=' . $cores;
 }
 
+# Fetch first only the actionname from the Arguments, there are some actions not needing map
 $actionname = $ARGV[ 0 ];
-$mapid      = $ARGV[ 1 ];
-$mapcode    = $ARGV[ 1 ];
-$mapname    = $ARGV[ 1 ];
+
+# Definitely not enough arguments
+if ( ( $#ARGV + 1 ) < 1 ) {
+  printf { *STDOUT } ( "ERROR:\n  Not enough Arguments.\n\n\n" );
+  show_usage ();
+  exit(1);
+}
 
 # Checking Arguments for valid actions
 $error = 1;
@@ -338,10 +389,58 @@ if ( $error ) {
   exit(1);
 }
 
+
+# Are we doing bootstrapping for completing the environment ?
+if ( $actionname eq 'bootstrap' ) {
+  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  bootstrap_environment ();
+  exit(0);
+}
+
+# Not bootstrapping, therefore we should now perform some checks of the environment
+check_environment ();
+
+
+# Now let's handle other actions that do not need maps
+if ( $actionname eq 'checkurl' ) {
+  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  check_downloadurls ();
+  exit(0);
+}
+elsif ( $actionname eq 'fingerprint' ) {
+  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  show_fingerprint ();
+  exit(0);
+}
+
+
+# Here we start with actions that need a map and therefore an additional argument
+
+# Definitely not enough arguments
+if ( ( $#ARGV + 1 ) < 2 ) {
+  printf { *STDOUT } ( "ERROR:\n  Not enough Arguments for the action '" . $actionname . "'. MapID, MapName or MapCode needed too.\n\n\n" );
+  show_usage ();
+  exit(1);
+}
+
+# Now get the mapinput containing either mapid, mapcode or mapname
+$mapinput    = $ARGV[ 1 ];
+#$mapid      = $ARGV[ 1 ];
+#$mapcode    = $ARGV[ 1 ];
+#$mapname    = $ARGV[ 1 ];
+
+
+# Definitely not enough arguments
+if ( ( $#ARGV + 1 ) < 2 ) {
+  printf { *STDOUT } ( "ERROR:\n  Not enough Arguments\n\n\n" );
+  show_usage ();
+  exit(1);
+}
+
 # Checking arguments for valid maps
 $error = 1;
 for my $mapdata ( @maps ) {
-  if ( ( @$mapdata[ $MAPNAME ] eq $mapname ) || ( @$mapdata[ $MAPID ] eq $mapid ) || ( @$mapdata[ $MAPCODE ] eq $mapcode ) ) {
+  if ( ( lc @$mapdata[ $MAPNAME ] eq lc $mapinput ) || ( lc @$mapdata[ $MAPID ] eq lc $mapinput ) || ( lc @$mapdata[ $MAPCODE ] eq lc $mapinput ) ) {
     $mapid      = @$mapdata[ $MAPID ];
     $mapname    = @$mapdata[ $MAPNAME ];
     $osmurl     = @$mapdata[ $OSMURL ];
@@ -357,7 +456,7 @@ for my $mapdata ( @maps ) {
 
 # Error due to invalid map name/code
 if ( $error ) {
-  printf { *STDOUT } ( "ERROR:\n  Map '" . $mapid . "' not valid (invalid ID, code or name).\n\n\n" );
+  printf { *STDOUT } ( "ERROR:\n  Map '" . $mapinput . "' not valid (invalid ID, code or name).\n\n\n" );
   show_usage ();
   exit(1);
 }
@@ -402,19 +501,7 @@ if ( $error ) {
   exit(1);
 }
 
-# Entwicklungsumgebung auf Konsistenz pruefen.
-my $directory = 'install';
-if ( !( -e $directory ) ) {
-  mkdir ( $directory );
-  printf { *STDOUT } ( "Directory %s created.\n", $directory );
-}
-
-$directory = 'work';
-if ( !( -e $directory ) ) {
-  mkdir ( $directory );
-  printf { *STDOUT } ( "Directory %s created.\n\n", $directory );
-}
-
+# Print out the Information about the choosen action and map
 printf { *STDOUT } ( "Action = %s\n", $actiondesc );
 printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
 
@@ -534,12 +621,15 @@ elsif ( $actionname eq 'regions' ) {
 elsif ( $actionname eq 'fetch_map' ) {
   fetch_mapdata ();
 }
-elsif ( $actionname eq 'checkurl' ) {
-  check_downloadurls ();
-}
 
 exit ( 0 );
 
+# ==================================================================
+#
+# Start of Subroutines 
+# --------------------
+#
+# ==================================================================
 
 # -----------------------------------------
 # Systembefehl ausfuehren
@@ -636,7 +726,7 @@ sub check_downloadurls {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    $command = "$BASEPATH/windows/wget/wget.exe -q --spider ";
+    $command = "$BASEPATH/tools/wget/windows/wget.exe -q --spider ";
   }
   else {
     printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
@@ -686,6 +776,8 @@ sub check_downloadurls {
 	  
   }
 	
+  print "\n\n";
+  
 }
 
 # -----------------------------------------
@@ -695,6 +787,11 @@ sub fetch_osmdata {
 
   my $filename = "$WORKDIR/Kartendaten_$mapname.osm.pbf";
 
+  # Check for existence of WORKDIR
+  if ( !( -e $WORKDIR ) ) {
+    die ( "\nERROR:\nThe directory $WORKDIR is missing.\nDid you run the Action 'create' for creating the necessary directories ?\n\n" );
+  }    
+
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # OS X, Linux, FreeBSD, OpenBSD
     $command = "curl --location --url \"$osmurl\" --output \"$filename\"";
@@ -702,7 +799,7 @@ sub fetch_osmdata {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    chdir "$BASEPATH/windows/wget";
+    chdir "$BASEPATH/tools/wget/windows";
     $command = "wget.exe --output-document=\"$filename\" \"$osmurl\"";
     process_command ( $command );
   }
@@ -727,6 +824,11 @@ sub fetch_eledata {
 
   my $filename = "$WORKDIR/Hoehendaten_$mapname.osm.pbf";
 
+  # Check for existence of WORKDIR
+  if ( !( -e $WORKDIR ) ) {
+    die ( "\nERROR:\nThe directory $WORKDIR is missing.\nDid you run the Action 'create' for creating the necessary directories ?\n\n" );
+  }    
+
   # Download-URL
   my $eleurl = '';
   if ( $ele == 10 ) {
@@ -744,7 +846,7 @@ sub fetch_eledata {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    chdir "$BASEPATH/windows/wget";
+    chdir "$BASEPATH/tools/wget/windows";
     $command = "wget.exe --output-document=\"$filename\" \"$eleurl\"";
     process_command ( $command );
   }
@@ -950,7 +1052,16 @@ sub create_cfgfile {
     (   "\n" 
       . "# --latin1\n" 
       . "#   This is equivalent to --code-page=1252.\n" 
-      . "latin1\n" );
+      . "# latin1\n" 
+      . "code-page=" . $langcodepage{$maplang} . "\n" );
+      
+  printf { $fh }
+    (   "\n"
+      . "# --name-tag-list=list"
+      . "#   Changes the tag that will be used to supply the name, normally it is just 'name'.\n"
+      . "#   Useful for language variations. You can supply a list and the first one will be used.\n"
+      . "#   Example: --name-tag-list=name:en,int_name,name\n"
+      . "#name-tag-list=name:$maplang,name,int_name,name:en\n" );
 
   printf { $fh } ( "\n# Address search options:\n" );
   printf { $fh } ( "# ----------------------\n" );
@@ -1169,7 +1280,7 @@ sub create_cfgfile {
       . "#   problems. If MinLength is specified (in metres), arcs shorter\n"
       . "#   than that length will be removed. If a length is not\n"
       . "#   specified, only zero-length arcs will be removed.\n"
-      . "remove-short-arcs=3\n" );
+      . "#remove-short-arcs=3\n" );
 
   printf { $fh }
     (   "\n"
@@ -1381,11 +1492,24 @@ sub create_typtranslations {
   $typfilestringindex{ $typlanguages{ $langcode } } = $stringindex;
   $stringindex++;
   foreach my $tmp ( @typfilelangfixed ) {
-    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) ) {
+    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) && ( $langcodepage{$langcode} eq $langcodepage{$tmp} ) ) {
       push ( @typfilelangcode, $typlanguages{ $tmp } );
       $stringindex++;
     }
   }
+
+  ## FIX for Russia: cyrillic in Typ Source file gives problem with mkgmap typcompiler
+  ## Overwrite the array typfilelangcode and hash typfilestringindex again
+  ## (actually it works with 'special build'.... for cp1251 we empty the string again, needs to be implemented nicely lateron
+#  if ( $langcode eq 'ru' ) {
+#	  @typfilelangcode = ();
+#	  %typfilestringindex = ();
+#	  $stringindex = 1;
+#	  push ( @typfilelangcode, $typlanguages{ 'ru' } );
+#      $typfilestringindex{ $typlanguages{ 'ru' } } = $stringindex;
+#      $stringindex++;
+#  }
+#  ## ENDFIX (can be deleted again/or adapted for codepage1251 only if mkgmap compiles properly)
 
   # Fill the hash with the languages and the stringindex (properly sorted)
   $stringindex = 1;
@@ -1398,7 +1522,7 @@ sub create_typtranslations {
     }
   }
   %typfilestringhex = reverse %typfilestringindex;
-
+  
 
   # 2) Read all TYP file translations into hashes
   # ----------------------------------------------
@@ -1440,7 +1564,7 @@ sub create_typtranslations {
         last if /^\[end\]/;    # Object finished, get on
         $inputline = $_;
         # Check for strings
-        if ( $inputline =~ /^String[0-4]*=(0x[0-9A-F]{2}),(.*)$/i ) {
+        if ( $inputline =~ /^String[0-9]*=(0x[0-9A-F]{2}),(.*)$/i ) {
           $thisobjectstringhash = $thisobjectid . "_$1";
           $objecttranslations{ $thisobjectstringhash } = $2;
         }
@@ -1533,6 +1657,38 @@ sub create_typtranslations {
           }
         }
       }
+ 
+      # we have to filter out and adapt some strings inside the [_id] section
+      elsif ( $inputline =~ /^\[_(id)\]$/ ) {
+	     print OUT $inputline;	 
+	     
+        # Get strings
+        while ( <IN> ) {
+          $inputline = $_;
+
+          # Check for strings
+          if ( $inputline =~ /^ProductCode=.*$/i ) {
+		     print OUT "ProductCode=1\n";
+          }
+          elsif ( $inputline =~ /^FID=.*$/i ) {
+		     print OUT "FID=$mapid\n";
+          }
+          elsif ( $inputline =~ /^CodePage=.*$/i ) {
+#             print OUT "$inputline";
+#		     print OUT ";$inputline";
+            print OUT "CodePage=$langcodepage{$maplang}\n";
+          }
+          elsif ( $inputline =~ /^\s*\[end\]/i ) {
+            print OUT $inputline;
+            last;
+          }
+          else {
+            print OUT $inputline;
+          }
+        }
+
+	      
+	  }
       else {
         print OUT $inputline;
       }
@@ -1568,7 +1724,16 @@ sub compile_typfiles {
   for my $thistypfile ( @typfilelist ) {
 
     # run that file through the compiler
-    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=1252 --product-id=1 --family-id=$mapid $thistypfile";
+    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$langcodepage{$maplang} --product-id=1 --family-id=$mapid $thistypfile";
+
+    ## FIX for Russia/Cyrillic... actually mkgmap doesn't compile UTF8 files containing cyrillic strings... let's choose english only
+    ## Just to let everything run through properly for the moment
+#    if ( $maplang eq 'ru' ) {
+#		$command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$langcodepage{'en'} --product-id=1 --family-id=$mapid $thistypfile";
+#	}
+	## ENDFIX (can be deleted if problem with mkgmap is fixed
+
+
     process_command ( $command );
 
     #Rename .typ to .TYP
@@ -2039,7 +2204,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  SetOutPath \"\$MyTempDir\"\n" );
   printf { $fh } ( "  File \"\${MAPNAME}_InstallFiles.zip\"\n" );
 
-  printf { $fh } ( "  !addplugindir \"\%s\\windows\\NSIS\\Plugins\"\n", $BASEPATH );
+  printf { $fh } ( "  !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\"\n", $BASEPATH );
 
   printf { $fh } ( "  nsisunz::UnzipToLog \"\$MyTempDir\\\${MAPNAME}_InstallFiles.zip\" \"\$MyTempDir\"\n" );
   printf { $fh } ( "  Pop \$0\n" );
@@ -2264,7 +2429,7 @@ sub create_nsis_exefile {
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    $command = "$BASEPATH/windows/NSIS/makensis.exe $mapname" . ".nsi";
+    $command = "$BASEPATH/tools/NSIS/windows/makensis.exe $mapname" . ".nsi";
   }
   elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
@@ -2293,8 +2458,12 @@ sub create_nsis_exefile {
   # Installer-Executable ins install-Verzeichnis verschieben
   my $filename = "Install_" . $mapname . "_" . $maplang . ".exe";
 
-  # sleep needed on windows... perl is faster than windows... (Viruschecking ?)
-  sleep 30;
+  # sleep needed on windows... perl is faster than windows... (Viruschecking ? FortiClient AppDetection)
+  if ( $OSNAME eq 'MSWin32' ) {
+    # Windows
+    printf { *STDOUT } ( "   (...sleeping a while for preventing viruschecking to lock files...)\n" );
+    sleep 60;
+  }
   move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!: move $filename $INSTALLDIR/$filename\n" );
 
   # Delete the zip file again, not needed anymore
@@ -2584,6 +2753,7 @@ sub zip_maps {
   return;
 }
 
+
 # -----------------------------------------
 # Prüfen, ob Datei im osm.pbf-Format vorliegt.
 # - nach String 'OSMHeader' im Dateiheader suchen
@@ -2748,6 +2918,498 @@ sub fetch_mapdata {
   }
 
   return;
+}
+
+
+# -----------------------------------------------
+# Show fingerprint: versions of tools and files
+# -----------------------------------------------
+sub show_fingerprint {
+	
+	my $versioncmd = "";
+	my $cmdoutput = "";
+	
+	printf "\n\n\n";
+    printf "================================================\n";
+    printf "+                                              +\n";
+    printf "+ Fingerprint:                                 +\n";
+    printf "+ ------------                                 +\n";    
+    printf "+ Show versions of used tools                  +\n";    
+    printf "+                                              +\n";    
+    printf "================================================\n";
+    printf "\n";
+    	
+
+	# java
+	# ----
+    printf "Java\n";
+    printf "======================================\n";
+	$cmdoutput = `java -version 2>&1`;
+	printf "$cmdoutput\n\n";
+	
+
+	# osmosis
+	# -------
+    printf "osmosis\n";
+    printf "======================================\n";
+    # OS X, Linux, FreeBSD, OpenBSD
+    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+       $cmdoutput = `sh $BASEPATH/tools/osmosis/bin/osmosis -v 2>&1`;
+    }
+    # Windows
+    elsif ( $OSNAME eq 'MSWin32' ) {
+       $cmdoutput = `$BASEPATH\\tools\\osmosis\\bin\\osmosis.bat -v 2>&1`;
+    }
+    # Try to match
+    if ( $cmdoutput =~ /INFO: (.* Version .*)/ ) {
+	  printf "$1\n\n\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
+
+
+    # splitter
+    # --------
+    printf "splitter\n";
+    printf "======================================\n";
+    $cmdoutput = `java -jar tools/splitter/splitter.jar --version 2>&1`;
+	printf "$cmdoutput\n\n";
+    
+
+    # mkgmap
+    # ------
+    printf "mkgmap\n";
+    printf "======================================\n";    
+    $cmdoutput = `java -jar tools/mkgmap/mkgmap.jar --version 2>&1`;
+    # Try to match
+    if ( $cmdoutput =~ /^(\d{4,})/m ) {
+	  printf "mkgmap r$1\n\n\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
+    
+
+
+    # PPP
+    # ----------------
+    printf "PPP - Perl Preprocessor\n";
+    printf "======================================\n";
+    $cmdoutput = `perl $BASEPATH/tools/ppp/ppp.pl 2>&1`;
+    # Try to match
+    if ( $cmdoutput =~ /^(PERL .*)$/m ) {
+	  printf "$1\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
+    if ( $cmdoutput =~ /^(.*Copyright.*)$/m ) {
+        printf "$1\n";
+    }
+    printf "\n\n";
+    
+
+    # 7za (Windows only)
+    # ------------------
+    printf "7-Zip CLI (7za) - Windows only\n";
+    printf "======================================\n";
+    # Windows
+    if ( $OSNAME eq 'MSWin32' ) {
+       $cmdoutput = `$BASEPATH\\tools\\zip\\windows\\7-Zip\\7za.exe 2>&1`;
+       # Try to match
+       if ( $cmdoutput =~ /(7-Zip .*)$/m ) {
+    	  printf "$1\n";
+       }
+       else {
+           printf "PROBLEM: either tool not found or no match for version string.\n";
+           printf "         see detailed command output below:\n";
+           printf "----------------------------\n";
+           printf "$cmdoutput\n";
+           printf "----------------------------\n\n\n";
+       }
+    }
+    printf "\n\n";
+
+    
+    # jmc_cli
+    # ------------
+    printf "jmc_cli\n";
+    printf "======================================\n";
+    if ( $OSNAME eq 'darwin' ) {
+      # OS X
+      $cmdoutput = `$BASEPATH/tools/jmc/osx/jmc_cli 2>&1`;
+    }	
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $cmdoutput = `$BASEPATH\\tools\\jmc\\windows\\jmc_cli.exe 2>&1`;
+    }
+    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+      $cmdoutput = `$BASEPATH/tools/jmc/linux/jmc_cli 2>&1`;
+    }
+    # Try to match
+    if ( $cmdoutput =~ /^(.*version.*)$/m ) {
+	  printf "$1\n\n\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
+    
+
+    # osmconvert (not triggered)
+    # --------------------------
+    printf "osmconvert - not used during build\n";
+    printf "======================================\n";
+    if ( $OSNAME eq 'darwin' ) {
+      # OS X
+      $cmdoutput = `$BASEPATH/tools/osmconvert/osx/osmconvert --help 2>&1`;
+    }	
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $cmdoutput = `$BASEPATH\\tools\\osmconvert\\windows\\osmconvert.exe --help 2>&1`;
+    }
+    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+      $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
+    }
+    # Try to match
+    if ( $cmdoutput =~ /^(osmconvert .*)$/m ) {
+	  printf "$1\n\n\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
+
+    
+    # osmfilter (not triggered)
+    # -------------------------
+    printf "osmfilter - not used during build\n";
+    printf "======================================\n";
+    if ( $OSNAME eq 'darwin' ) {
+      # OS X
+      $cmdoutput = `$BASEPATH/tools/osmfilter/osx/osmfilter --help 2>&1`;
+    }	
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $cmdoutput = `$BASEPATH\\tools\\osmfilter\\windows\\osmfilter.exe --help 2>&1`;
+    }
+    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+      $cmdoutput = `$BASEPATH/tools/osmfilter/linux/osmfilter32 --help 2>&1`;
+    }
+    # Try to match
+    if ( $cmdoutput =~ /^(osmfilter .*)$/m ) {
+	  printf "$1\n\n\n";
+    }
+    else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+    }
+    
+
+    # wget (windows directory)
+    # ------------------------
+    printf "GNU Wget - Windows only\n";
+    printf "======================================\n";
+    # Windows
+    if ( $OSNAME eq 'MSWin32' ) {
+       $cmdoutput = `$BASEPATH\\tools\\wget\\windows\\wget.exe --version 2>&1`;
+       # Try to match
+       if ( $cmdoutput =~ /(GNU Wget .*)$/m ) {
+   	       printf "$1\n";
+       }
+       else {
+           printf "PROBLEM: either tool not found or no match for version string.\n";
+           printf "         see detailed command output below:\n";
+           printf "----------------------------\n";
+           printf "$cmdoutput\n";
+           printf "----------------------------\n\n\n";
+       }
+       if ( $cmdoutput =~ /^(\+.*)$/m ) {
+   	       printf "$1\n";
+       }
+    }
+    printf "\n\n";
+    
+
+    # NSIS (windows directory), has to be installed on Linux
+	# -------------------------------------------------------
+    printf "NSIS: makensis - Windows and linux\n";
+    printf "======================================\n";
+    # Linux, FreeBSD, OpenBSD
+    if ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+       $cmdoutput = `makensis -version 2>&1`;
+       printf "MakeNSIS $cmdoutput\n";
+    }
+    # Windows
+    elsif ( $OSNAME eq 'MSWin32' ) {
+       $cmdoutput = `$BASEPATH\\tools\\NSIS\\windows\\makensis.exe /Version 2>&1`;
+       printf "MakeNSIS $cmdoutput\n";
+    }
+    printf "\n\n";
+
+
+    # bounds and sea
+    
+    # TYPViewer (windows directory), GUI tool, not used, just there for convenience
+
+    # IMGinfo (not triggered, GUI tool)
+        
+    # gmapi-builder.py
+    
+    
+    printf "\n\n";
+}
+
+
+# --------------------------------------------------------
+# Bootstrap: load 'missing' big chunks from the Internet
+# --------------------------------------------------------
+sub bootstrap_environment {
+  
+  # Some local variables
+  my $bootstrapdir = "$BASEPATH/work/bootstrap";
+  my $actualurl = "";
+  my $directory = "";
+  my $success = 0;
+  
+  # Check if the bootstrap directory exists, else create it and go to it
+  # --------------------------------------------------------------------
+  if ( !( -e "$BASEPATH/work" ) ) {
+    mkdir ( "$BASEPATH/work" );
+    printf { *STDOUT } ( "\nDirectory %s created.\n\n", "$BASEPATH/work" );
+  }
+  if ( !( -e $bootstrapdir ) ) {
+    mkdir ( $bootstrapdir );
+    printf { *STDOUT } ( "\nDirectory %s created.\n\n", $bootstrapdir );
+  }
+  
+  chdir $bootstrapdir;
+  
+  
+  # Try to download the latest version of the boundaries
+  # ----------------------------------------------------
+
+  # Set check variable to 'false'
+  $success = 0;
+
+  # First we take the boundaries (bigger file)
+  foreach $actualurl ( @boundariesurl ) {
+    
+    # Set the commands according to the OS we're running on  
+    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # OS X, Linux, FreeBSD, OpenBSD
+      $command = "curl --location --url \"$actualurl\" --output \"bounds.zip\"";
+    }
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $command = "$BASEPATH/tools/wget/windows/wget.exe --output-document=\"bounds.zip\" \"$actualurl\"";
+    }
+    else {
+      printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    }
+      
+    # Now run the command to download it
+    process_command ( $command );
+    
+    # Check Return Value
+    if ( $? != 0 ) {
+        printf "\n\nWARNING: Downloadurl $actualurl seems not to work .... \n";
+        printf "         trying anotherone if existing.\n";
+    }
+    else {
+        printf "\n\nOK:      Downloadurl $actualurl worked.\n";
+        $success = 1;
+        last;
+    }
+  }
+  
+  # Loop finished let's check if we need to exit or can continue
+  unless ( $success ) {
+	  die ( "\n\nERROR: Unable to download the boundaries from any of the given URLs\n");
+  }
+
+  # Set check variable back to 'false'
+  $success = 0;
+
+  # Now we take the seatiles (smaller file)
+  foreach $actualurl ( @seaboundariesurl ) {
+    
+    # Set the commands according to the OS we're running on  
+    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # OS X, Linux, FreeBSD, OpenBSD
+      $command = "curl --location --url \"$actualurl\" --output \"sea.zip\"";
+    }
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $command = "$BASEPATH/tools/wget/windows/wget.exe --output-document=\"sea.zip\" \"$actualurl\"";
+    }
+    else {
+      printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    }
+      
+    # Now run the command to download it
+    process_command ( $command );
+    
+    # Check Return Value
+    if ( $? != 0 ) {
+        printf "\n\nWARNING: Downloadurl $actualurl seems not to work .... \n";
+        printf "         trying anotherone if existing.\n";
+    }
+    else {
+        printf "\n\nOK:      Downloadurl $actualurl worked.\n";
+        $success = 1;
+        last;
+    }
+  }
+  
+  # Loop finished let's check if we need to exit or can continue
+  unless ( $success ) {
+	  die ( "\n\nERROR: Unable to download the seaboundaries from any of the given URLs\n\n");
+  }
+  
+  # Check the downloaded zip files for consistency
+  # -----------------------------------------------
+  foreach $directory ( "bounds", "sea" ) {
+  
+	# Test the Archive
+	# ----------------
+	# Set the commands depending on the OS we're running on
+	if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+       # OS X, Linux, FreeBSD, OpenBSD
+       $command = "unzip -t -q $bootstrapdir/$directory.zip";
+    }
+    elsif ( $OSNAME eq 'MSWin32' ) {
+       # Windows
+       $command = "$BASEPATH/tools/zip/windows/7-Zip/7za.exe t $bootstrapdir/$directory.zip";
+    }
+    else {
+       printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    }
+    
+    # Run the command
+    process_command ( $command );
+
+    # Check Return Value
+    if ( $? != 0 ) {
+        die "\n\nERROR: Downloaded Archive $directory.zip seems be corrupt .... exiting now\n\n";
+    }
+  }
+    
+  # Extract it into the correct location (after cleaning up the old stuff there)
+  # ----------------------------------------------------------------------------  
+  foreach $directory ( "bounds", "sea" ) {
+	  	  
+	# Recreate the needed directory in an empty state
+	# -----------------------------------------------
+    rmtree ( "$BASEPATH/$directory",    0, 1 );
+    sleep 1;
+    mkpath ( "$BASEPATH/$directory" );
+	
+	# Unzip the stuff
+	# ----------------
+	# Set the commands depending on the OS we're running on
+	if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+       # OS X, Linux, FreeBSD, OpenBSD
+       $command = "unzip -j $bootstrapdir/$directory.zip -d $BASEPATH/$directory";
+    }
+    elsif ( $OSNAME eq 'MSWin32' ) {
+       # Windows
+       $command = "$BASEPATH/tools/zip/windows/7-Zip/7za.exe e $bootstrapdir/$directory.zip -y -o$BASEPATH/$directory";
+    }
+    else {
+       printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    }
+    
+    # Run the command
+    process_command ( $command );
+
+	# Clean an eventually created unneeded subdirectory
+	if ( -e "$BASEPATH/$directory/$directory" ) {
+       rmtree ( "$BASEPATH/$directory/$directory", 0, 0 );
+    }
+
+    # Cleanup the files we've downloaded
+    unlink ( "$bootstrapdir/$directory.zip" );
+
+  }
+}
+
+
+# -----------------------------------------
+# Basic Check of the Environment
+# -----------------------------------------
+sub check_environment {
+ 
+  my $directory = "";
+  my $count = 0;
+    
+  # Print out what we're doing
+  printf { *STDOUT } ( "\nChecking the Development Environment...\n", $directory );
+
+  # Check the existence of the 'install' directory and create it if necessary
+  $directory = "$BASEPATH/install";
+  if ( !( -e $directory ) ) {
+     mkdir ( $directory );
+     printf { *STDOUT } ( "Directory %s created.\n", $directory );
+  }
+
+  # Check the existence of the 'work' directory and create it if necessary
+  $directory = "$BASEPATH/work";
+  if ( !( -e $directory ) ) {
+     mkdir ( $directory );
+     printf { *STDOUT } ( "Directory %s created.\n", $directory );
+  }
+
+  # Check for the existence of the bounds directory and the needed files in it
+  $directory = "$BASEPATH/bounds";
+  if ( !( -e $directory ) ) {
+      die ( "\nERROR:\nThe directory $directory is missing.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );
+  }
+  $count = 0;
+  ++$count while glob "$directory/bounds_*_*.bnd";
+  if ( $count < 10000 ) {
+    die ( "\nERROR:\nThere are only $count bounds_*_*.bnd files in $directory.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );  
+  }
+
+  # Check for the existence of the sea directory and the needed files in it
+  $directory = "$BASEPATH/sea";
+  if ( !( -e $directory ) ) {
+      die ( "\nERROR:\nThe directory $directory is missing.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );
+  }
+  $count = 0;
+  ++$count while glob "$directory/sea_*_*.osm.pbf";
+  if ( $count < 5000 ) {
+    die ( "\nERROR:\nThere are only $count sea_*_*.osm.pbf files in $directory.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );  
+  }
+
+  # Get an empty line before continuing
+  printf { *STDOUT } ( "\n" );
+
 }
 
 

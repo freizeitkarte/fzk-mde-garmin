@@ -15,6 +15,8 @@
 # Version : 0.10- 02.04.2013: Resolution bei waterway=riverbank von 19 auf 17 geändert
 #                             Darstellung von Bussteigen (highway=platform) wie Bahnsteige.
 # Version : 0.11- 10.05.2013: Disable display of gardens with garden:type=residential
+# Version : 0.12- 12.09.2013: Correction regarding Grassland (Heinz Guba): show grassland same like meadow
+# Version : 0.13- 12.10.2013  "continue" for "landuse=meadow" to show wetland
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
 #
@@ -237,15 +239,16 @@ natural = brownfield {set landuse=brownfield; delete natural}
 natural = cemetery {set landuse=cemetery; delete natural}
 natural = commercial {set landuse=commercial; delete natural}
 natural = construction {set landuse=construction; delete natural}
-natural = farm {set landuse=farm; delete natural} 
+natural = farm {set landuse=farm; delete natural}
 natural = farmland {set landuse=farmland; delete natural}
 natural = farmyard {set landuse=farmyard; delete natural}
 natural = forest {set landuse=forest; delete natural}
 natural = garages {set landuse=garages; delete natural}
 natural = grass {set landuse=grass; delete natural}
+natural = grassland {set landuse=meadow; delete natural}
 natural = greenfield {set landuse=greenfield; delete natural}
 natural = greenhouse_horticulture {set landuse=greenhouse_horticulture; delete natural}
-natural = industrial {set landuse=industrial; delete natural} 
+natural = industrial {set landuse=industrial; delete natural}
 natural = landfill {set landuse=landfill; delete natural}
 natural = meadow {set landuse=meadow; delete natural}
 natural = military {set landuse=military; delete natural}
@@ -280,7 +283,7 @@ landuse = marsh {set natural=marsh; delete landuse}
 landuse = mud {set natural=mud; delete landuse}
 landuse = sand {set natural=sand; delete landuse}
 landuse = scree {set natural=scree; delete landuse}
-landuse = scrub {set natural=scrub; delete landuse} 
+landuse = scrub {set natural=scrub; delete landuse}
 landuse = water {set natural=water; delete landuse}
 landuse = wetland {set natural=wetland; delete landuse}
 landuse = wood {set natural=wood; delete landuse}
@@ -546,11 +549,13 @@ natural = scree [0x43 resolution 20]
 natural = scrub [0x4f resolution 20]
 
 # Wasser - Seen, Teiche usw. [point, closedway]
-natural = water [0x3c resolution 17]
+#natural = water [0x3c resolution 17]
+# Starting at 16 for overviewmap
+natural = water [0x3c resolution 16]
 
 # Feuchtgebiet (Sumpf, Moor, Ried, Marsch, Aue, Röhricht, Watt, Salzwiese, Magrove, naturbelassene Flächen,
 #  die Überflutungen ausgesetzt sind oder staunasse Böden aufweisen. [point, closedway]
-natural = wetland {set name = ''} [0x51 resolution 20]
+natural = wetland {set name = ''} [0x51 resolution 20 continue]
 
 # Naturwald oder vollkommen unbewirtschaftete Wälder. [point, closedway]
 # Wird als Mischwald behandelt.
@@ -883,7 +888,9 @@ man_made = pier [0x39 resolution 20]
 # ------------------------------------------------
 
 # Meer
-natural = sea [0x32 resolution 17]
+#natural = sea [0x32 resolution 17]
+# Starting at 16 for overviewmap
+natural = sea [0x32 resolution 16]
 
 # Land
 natural = land [0x3a resolution 17]
@@ -894,4 +901,4 @@ natural = land [0x3a resolution 17]
 # ------------------------------------------------
 
 # Gehege (im Zoo). [point, closedway]
-zoo = enclosure {name '${name} ($__COMPOUND__)' | '$__COMPOUND__'} [0x41 resolution 20]
+zoo = enclosure {name "${name} ($__COMPOUND__)" | "$__COMPOUND__"} [0x41 resolution 20]

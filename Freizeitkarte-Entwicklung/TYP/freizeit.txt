@@ -1,4 +1,4 @@
-﻿; freizeit.TYP
+; freizeit.TYP
 ; Longueur: 38371 octets
 ; Fichier TYP compilé     02.03.2013     22:34:54
 ; Décompilé le 18.03.2013 à 19:34:16
@@ -7,7 +7,7 @@
 ProductCode=1
 FID=6276
 CodePage=1252
- [End]
+[End]
 
 ;=========== COMMENTAIRES ======
 [_comments]
@@ -5438,6 +5438,186 @@ ExtendedLabels=N
 [end]
 
 
+[_line]
+Type=0x12015
+UseOrientation=N
+Xpm="32 1 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Fluss (schmal, Tunnel)
+String2=0x01,Fluss (schmal, Tunnel)
+String3=0x02,Fluss (Tunnel)
+String4=0x04,Stream (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12016
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Kanal (schmal, Tunnel)
+String2=0x01,Kanal (schmal, Tunnel)
+String3=0x02,Kanal (Tunnel)
+String4=0x04,Canal (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12017
+UseOrientation=N
+Xpm="32 3 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"                                "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Fluss (mittel, Tunnel)
+String2=0x01,Fluss (mittel, Tunnel)
+String3=0x02,Fluss (Tunnel)
+String4=0x04,River (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12018
+UseOrientation=N
+Xpm="32 4 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"                                "
+"                                "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Kanal (mittel, Tunnel)
+String2=0x01,Kanal (mittel, Tunnel)
+String3=0x02,Kanal (Tunnel)
+String4=0x04,Canal (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12019
+UseOrientation=N
+Xpm="32 5 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"                                "
+"                                "
+"                                "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Fluss (breit, Tunnel)
+String2=0x01,Fluss (breit, Tunnel)
+String3=0x02,Fluss (Tunnel)
+String4=0x04,River (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1201a
+UseOrientation=N
+Xpm="32 6 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"                                "
+"                                "
+"                                "
+"                                "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Kanal (breit, Tunnel)
+String2=0x01,Kanal (breit, Tunnel)
+String3=0x02,Kanal (Tunnel)
+String4=0x04,Canal (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1201b
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Wassergraben (Tunnel)
+String2=0x01,Wassergraben (Tunnel)
+String3=0x02,Wassergraben (Tunnel)
+String4=0x04,Ditch (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1201c
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Abwassergraben (Tunnel)
+String2=0x01,Abwassergraben (Tunnel)
+String3=0x02,Abwassergraben (Tunnel)
+String4=0x04,Drainage Ditch/Drain (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1201d
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #99CCCC"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Bach (Tunnel)
+String2=0x01,Bach (Tunnel)
+String3=0x02,Bach (Tunnel)
+String4=0x04,Stream (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
 ;====================== POINTS ==========================
 
 
@@ -6218,7 +6398,7 @@ Type=0x02b
 SubType=0x02
 String1=0x00,Gasthaus
 String2=0x01,Gasthaus
-String3=0x02,Gasthaus
+String3=0x02,Pension
 String4=0x04,Guest House
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
@@ -8237,6 +8417,38 @@ DayXpm="3 3 2 1"   Colormode=16
 
 
 [_point]
+Type=0x065
+SubType=0x14
+String1=0x00,Information Office
+String2=0x01,Information Office
+String3=0x02,Information Office
+String4=0x04,Information Office
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+DayXpm="9 15 2 1"   Colormode=16
+"!	c #FFFFFF"
+"#	c #0080C0"
+"#########"
+"#!!!!!!!#"
+"#!!!!!!!#"
+"#!!##!!!#"
+"#!!##!!!#"
+"#!!!!!!!#"
+"#!!##!!!#"
+"#!!##!!!#"
+"#!!##!!!#"
+"#!!##!!!#"
+"#!!###!!#"
+"#!!###!!#"
+"#!!!!!!!#"
+"#!!!!!!!#"
+"#########"
+;123456789
+[end]
+
+
+[_point]
 Type=0x066
 SubType=0x00
 String1=0x00,Bezeichnetes Gebiet (Land)
@@ -8684,3 +8896,4 @@ DayXpm="5 16 2 1"   Colormode=16
 "!! !!"
 ;12345
 [end]
+
