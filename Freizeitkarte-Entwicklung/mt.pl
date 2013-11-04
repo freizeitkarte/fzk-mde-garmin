@@ -24,6 +24,7 @@ my @actions = (
   # Normal User Actions for maps
   # (This actions should not be deleted/changed)
   # 'Action',    'Description'
+  [ 'bootstrap', '    Complete the Environment with needed downloads (boundaries)' ,    '-' ],
   [ 'create',    '1.  (re)create all directories' ,                        '-' ],
   [ 'fetch_osm', '2a. fetch osm data from url' ,                           '-' ],
   [ 'fetch_ele', '2b. fetch elevation data from url' ,                     '-' ],
@@ -54,7 +55,6 @@ my @actions = (
   # (This might change without notification)
   # 'Action',     'Description'
   [ 'checkurl',   '   Check all download URLs for existence' ,             'optional' ],
-  [ 'bootstrap',  '   Complete the Environment with needed downloads' ,    'optional' ],
   [ 'fingerprint','   Show the versions of the different tools' ,          'optional' ],
 );
 
@@ -3421,7 +3421,9 @@ sub show_usage {
   # Print the Usage
   printf { *STDOUT } (
     "Usage:\n"
-      . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
+      . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n"
+      . "  or\n"
+      . "perl $programName bootstrap\n\n"
       . "  or for getting help:\n"
 #      . "  perl $programName -? | -h | -o\n"
       . "  perl $programName -? | -h\n"
@@ -3445,6 +3447,7 @@ sub show_help {
 #      . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
 #      . "Examples:\n"
       "Examples:\n"
+      . "perl $programName                              bootstrap\n"
       . "perl $programName                              build     Freizeitkarte_Hamburg\n"
       . "perl $programName  -ram=1536    -cores=2       build     Freizeitkarte_Hamburg\n"
       . "perl $programName  -ram=6000                   build     5815\n"
