@@ -24,6 +24,7 @@ my @actions = (
   # Normal User Actions for maps
   # (This actions should not be deleted/changed)
   # 'Action',    'Description'
+  [ 'bootstrap', '    Complete the Environment with needed downloads (boundaries)' ,    '-' ],
   [ 'create',    '1.  (re)create all directories' ,                        '-' ],
   [ 'fetch_osm', '2a. fetch osm data from url' ,                           '-' ],
   [ 'fetch_ele', '2b. fetch elevation data from url' ,                     '-' ],
@@ -54,7 +55,6 @@ my @actions = (
   # (This might change without notification)
   # 'Action',     'Description'
   [ 'checkurl',   '   Check all download URLs for existence' ,             'optional' ],
-  [ 'bootstrap',  '   Complete the Environment with needed downloads' ,    'optional' ],
   [ 'fingerprint','   Show the versions of the different tools' ,          'optional' ],
 );
 
@@ -221,17 +221,17 @@ my @maps = (
   # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
   [ -1,   'Freizeitkarte PLUS Länder',            'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                        														   'AUT+',                     'de', 'no_old_name',               			    2, 'EUROPE'         ],
-  [ 7056, 'Freizeitkarte_BEL+',                   'NA',                                                                                                'BEL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+#  [ 7056, 'Freizeitkarte_BEL+',                   'NA',                                                                                                'BEL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7756, 'Freizeitkarte_CHE+',                   'NA',                                    															   'CHE+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7276, 'Freizeitkarte_DEU+',                   'NA',                                        														   'DEU+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7208, 'Freizeitkarte_DNK+',                   'NA',                                                                                                'DNK+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7724, 'Freizeitkarte_ESP+',                   'NA',                                                                                                'ESP+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7250, 'Freizeitkarte_FRA+',                   'NA',                                                                                                'FRA+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7826, 'Freizeitkarte_GBR+',                   'NA',                                                                                                'GBR+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7372, 'Freizeitkarte_IRL+',                   'NA',                                                                                                'IRL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7380, 'Freizeitkarte_ITA+',                   'NA',                                                                                                'ITA+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7528, 'Freizeitkarte_NLD+',                   'NA',                                                                                                'NLD+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7620, 'Freizeitkarte_PRT+',                   'NA',                                                                                                'PRT+',                     'pt', 'no_old_name',                             2, 'EUROPE'         ],
+#  [ 7208, 'Freizeitkarte_DNK+',                   'NA',                                                                                                'DNK+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+#  [ 7724, 'Freizeitkarte_ESP+',                   'NA',                                                                                                'ESP+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+#  [ 7250, 'Freizeitkarte_FRA+',                   'NA',                                                                                                'FRA+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+#  [ 7826, 'Freizeitkarte_GBR+',                   'NA',                                                                                                'GBR+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+#  [ 7372, 'Freizeitkarte_IRL+',                   'NA',                                                                                                'IRL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+#  [ 7380, 'Freizeitkarte_ITA+',                   'NA',                                                                                                'ITA+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+#  [ 7528, 'Freizeitkarte_NLD+',                   'NA',                                                                                                'NLD+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+#  [ 7620, 'Freizeitkarte_PRT+',                   'NA',                                                                                                'PRT+',                     'pt', 'no_old_name',                             2, 'EUROPE'         ],
 
   [ -1,   'Andere Laender',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 7032, 'Freizeitkarte_ARG+',                   'NA',                                        														   'ARG+',                     'en', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
@@ -3421,7 +3421,9 @@ sub show_usage {
   # Print the Usage
   printf { *STDOUT } (
     "Usage:\n"
-      . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
+      . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n"
+      . "  or\n"
+      . "perl $programName bootstrap\n\n"
       . "  or for getting help:\n"
 #      . "  perl $programName -? | -h | -o\n"
       . "  perl $programName -? | -h\n"
@@ -3445,6 +3447,7 @@ sub show_help {
 #      . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
 #      . "Examples:\n"
       "Examples:\n"
+      . "perl $programName                              bootstrap\n"
       . "perl $programName                              build     Freizeitkarte_Hamburg\n"
       . "perl $programName  -ram=1536    -cores=2       build     Freizeitkarte_Hamburg\n"
       . "perl $programName  -ram=6000                   build     5815\n"
