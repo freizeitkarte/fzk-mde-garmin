@@ -88,8 +88,8 @@ my %langcodepage = (
 
 # Define the download base URLs for the Elevation Data
 my %elevationbaseurl = (
-  'ele10' => "http://freizeitkarte-osm.de/maps/Development/ele_10_100_200",
-  'ele25' => "http://freizeitkarte-osm.de/maps/Development/ele_25_250_500",
+  'ele10' => "http://download.freizeitkarte-osm.de/Development/ele_10_100_200",
+  'ele25' => "http://download.freizeitkarte-osm.de/Development/ele_25_250_500",
   );
   
 # Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
