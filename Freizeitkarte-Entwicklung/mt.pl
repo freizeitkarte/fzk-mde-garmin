@@ -94,11 +94,11 @@ my %elevationbaseurl = (
   
 # Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
 my @boundariesurl = (
-  'http://www.navmaps.eu/boundaries?task=weblink.go&id=1',
+  'http://download.freizeitkarte-osm.de/Development/boundaries/bounds.zip',
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=1', 
   );
 my @seaboundariesurl = (
-  'http://www.navmaps.eu/boundaries?task=weblink.go&id=2',
+  'http://download.freizeitkarte-osm.de/Development/boundaries/sea.zip',
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
   );
 
@@ -2928,6 +2928,9 @@ sub show_fingerprint {
 	
 	my $versioncmd = "";
 	my $cmdoutput = "";
+	my $filehandle = "";
+	my $lineoffile = "";
+	my $inputfile = "";
 	
 	printf "\n\n\n";
     printf "================================================\n";
@@ -3174,7 +3177,47 @@ sub show_fingerprint {
 
 
     # bounds and sea
+	# ---------------
+    printf "Bounderies (bounds)\n";
+    printf "======================================\n";
+    $inputfile = "$BASEPATH/bounds/version.txt";
+    if (open( my $filehandle, "<  $inputfile ") ) {
+		while ( $lineoffile = <$filehandle> ) {
+			chomp $lineoffile;
+			print "$lineoffile\n\n\n";
+		}
+		close ( $filehandle );
+	}
+	else {
+        printf "PROBLEM: either boundaries not found at all or file\n";
+        printf "           $inputfile\n";
+        printf "         not existing.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$!\n";
+        printf "----------------------------\n\n\n";
+	}
+    printf "Sea Bounderies (sea)\n";
+    printf "======================================\n";
+    $inputfile = "$BASEPATH/sea/version.txt";
+    if (open( my $filehandle, "<  $inputfile ") ) {
+		while ( $lineoffile = <$filehandle> ) {
+			chomp $lineoffile;
+			print "$lineoffile\n\n\n";
+		}
+		close ( $filehandle );
+	}
+	else {
+        printf "PROBLEM: either sea boundaries not found at all or file\n";
+        printf "           $inputfile\n";
+        printf "         not existing.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$!\n";
+        printf "----------------------------\n\n\n";
+	}
     
+
     # TYPViewer (windows directory), GUI tool, not used, just there for convenience
 
     # IMGinfo (not triggered, GUI tool)
