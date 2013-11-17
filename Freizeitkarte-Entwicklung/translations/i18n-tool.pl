@@ -51,8 +51,10 @@ my %typlanguages = (
 );
 
 
-&add_lang_styletranslation("PL","EN");
-&add_lang_typtranslation("PL","EN");
+#&add_lang_styletranslation("PL","EN");
+#&add_lang_typtranslation("PL","EN");
+&remove_lang_styletranslation("PL");
+&remove_lang_typtranslation("PL");
 
 sub add_lang_styletranslation {
 
@@ -84,6 +86,40 @@ sub add_lang_styletranslation {
           print OUT $line;
       }
       
+   }
+   
+   close IN;
+   close OUT;
+    
+}
+
+sub remove_lang_styletranslation {
+
+   # Set some variables
+   my $rmlang = shift;
+   my $inputfile  = "$BASEPATH/style-translations-master";
+   my $outputfile = "$BASEPATH/style-translations-master-new";
+   my $line;
+   
+   # Open input and output files
+   open IN,  "< $inputfile"  or die "Can't open $inputfile : $!";
+   open OUT, "> $outputfile" or die "Can't open $outputfile : $!";
+   
+   # Read only the #define values from the file (ignoring trailing and tailing whitespace)
+   while ( <IN> ) {
+      
+      # Get the line
+      $line = $_;
+      
+      if ( $line =~ /^\s*\#define \$__(.*)__(([A-Z][A-Z])?)\s+(.*)/ ) {
+		  unless ( $2 eq $rmlang ) {
+             # language doesn't match,  print out
+             print OUT $line;
+	      }
+       } 
+       else {
+		   print OUT $line;
+	   }     
    }
    
    close IN;
@@ -167,6 +203,80 @@ sub add_lang_typtranslation {
    close OUT;
 
 }
+
+sub remove_lang_typtranslation {
+    
+   # Set some variables
+   my $rmlang = shift;
+   my $inputfile  = "$BASEPATH/typ-translations-master";
+   my $outputfile = "$BASEPATH/typ-translations-master-new";
+   my $inputline;
+   my %thisobjectstrings = ();
+   my $counter = 0;
+
+   # get the codes for the needed languages
+   $rmlang =~ tr/A-Z/a-z/;
+   my $rmlangcode = $typlanguages{ $rmlang };
+      
+   # Open input and output files
+   open IN,  "< $inputfile"  or die "Can't open $inputfile : $!";
+   open OUT, "> $outputfile" or die "Can't open $outputfile : $!";
+
+   # Read through the inputfile
+   while ( <IN> ) {
+       
+       $inputline = $_;
+       
+       # New Object starts
+       if ( $inputline =~ /^\[_(line|polygon|point)\]$/ ) {
+           
+           # empty the temporary variables
+           %thisobjectstrings = ();
+
+           print OUT $inputline;
+           
+           # Read the rest of this object
+           while ( <IN> ) {
+               
+               $inputline = $_;
+               
+               last if ( $inputline =~ /^\[end\]/ ) ;
+
+               # Read the strings
+               if ( $inputline =~ /^String[0-9]*=(0x[0-9A-F]{2}),(.*)$/i ) {
+                              
+                  # is it the language we have to remove from ?
+                  if ( $1 ne $rmlangcode ) {
+                      $thisobjectstrings{ $1 } = $2;
+                  }
+               }
+               else {
+                   print OUT $inputline;
+               }
+           }
+           
+           # Print the strings again in new and correct order
+           $counter = 1 ;
+           foreach my $code ( sort ( keys %thisobjectstrings ) ) {
+               print OUT "String$counter=$code,$thisobjectstrings{ $code }\n";
+               $counter += 1;
+           }
+           
+           # End the Object properly
+           print OUT $inputline;
+           
+       }
+       else {
+           print OUT $inputline;
+       }
+   }
+   
+   close IN;
+   close OUT;
+
+}
+
+
 
 
 
