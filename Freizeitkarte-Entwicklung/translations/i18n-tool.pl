@@ -8,9 +8,6 @@ use File::Path;
 use File::Basename;
 use Getopt::Long;
 
-# basepath
-my $BASEPATH = getcwd ( $PROGRAM_NAME );
-
 # defined languages
 my %typlanguages = (
     "xx", "0x00",    #	 unspecified
@@ -50,12 +47,97 @@ my %typlanguages = (
     "bg", "0x22"     #	 bulgarian
 );
 
+# basepath
+my $BASEPATH = getcwd ( $PROGRAM_NAME );
+my $programName = basename ( $PROGRAM_NAME );
+
+
+# command line parameters
+my $help     = "";
+my $newlanguage  = "";
+my $rmlanguage   = "";
+my $cplanguage   = "EN";
+
+# =========================================================================
+# 
+# MAIN
+#
+# =========================================================================
+
+# get the command line parameters
+if ( ! GetOptions ( 'help|h|?' => \$help, 'add=s' => \$newlanguage, 'rm=s' => \$rmlanguage, 'cp=s' => \$cplanguage  ) ) {
+  printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
+  show_usage ();
+  exit(1);   
+ }
+
+# Show help if wished
+if ( ( $help ) ) {
+  show_help ();
+  exit(0);
+}
+
+# neither add or remove choosen ?
+unless ( ( $newlanguage ) || ( $rmlanguage ) ) {
+  printf { *STDOUT } ( "ERROR:\n  choose one of the options do something.\n\n\n" );
+  show_usage ();
+  exit(1);   	
+}
+
+# both add and remove choosen ?
+if ( ( $newlanguage ) && ( $rmlanguage ) ) {
+  printf { *STDOUT } ( "ERROR:\n  choose either to add or remove languages... not both in one go.\n\n\n" );
+  show_usage ();
+  exit(1);   	
+}
+
+# Validate the langcodes entered and convert them to capitals
+if ( $newlanguage ) {
+	die "ERROR:\n  The LANGCODE for --add does not have the length 2\n" unless ( length($newlanguage) eq "2");
+	$newlanguage =~ tr/a-z/A-Z/;
+}
+if ( $cplanguage ) {
+	die "ERROR:\n  The LANGCODE for --cp does not have the length 2\n" unless ( length($cplanguage) eq "2");
+	$cplanguage =~ tr/a-z/A-Z/;
+}
+if ( $rmlanguage ) {
+	die "ERROR:\n  The LANGCODE for --rm does not have the length 2\n" unless ( length($rmlanguage) eq "2");
+	$rmlanguage =~ tr/a-z/A-Z/;
+}
+if ( $newlanguage eq $ cplanguage ) {
+  printf { *STDOUT } ( "ERROR:\n  --add can't be the same like --cp.\n\n\n" );
+  show_usage ();
+  exit(1);   	
+}
+
+# Looks like we want to add something
+if ( $newlanguage ) {
+	printf ("Adding language %s to the translation files (copying strings from %s)...\n", $newlanguage, $cplanguage);
+    &add_lang_styletranslation($newlanguage,$cplanguage);
+    &add_lang_typtranslation($newlanguage,$cplanguage);	
+	printf ("Make sure to check the created new files with a diff tool before incorporating them\n");
+    exit(0)
+}
+
+# Looks like we want to remove something
+if ( $rmlanguage ) {
+	printf ("Removing language %s from the translation files...\n", $rmlanguage);
+    &remove_lang_styletranslation($rmlanguage);
+    &remove_lang_typtranslation($rmlanguage);
+	printf ("Make sure to check the created new files with a diff tool before incorporating them\n");
+	exit(0)
+}
 
 #&add_lang_styletranslation("PL","EN");
 #&add_lang_typtranslation("PL","EN");
-&remove_lang_styletranslation("PL");
-&remove_lang_typtranslation("PL");
+#&remove_lang_styletranslation("PL");
+#&remove_lang_typtranslation("PL");
 
+# =========================================================================
+# 
+# Functions
+#
+# =========================================================================
 sub add_lang_styletranslation {
 
    # Set some variables
@@ -66,7 +148,9 @@ sub add_lang_styletranslation {
    my $line;
    
    # Open input and output files
+   printf ("   Reading source file %s\n", $inputfile);
    open IN,  "< $inputfile"  or die "Can't open $inputfile : $!";
+   printf ("   Writing output to file %s\n", $outputfile);
    open OUT, "> $outputfile" or die "Can't open $outputfile : $!";
    
    # Read only the #define values from the file (ignoring trailing and tailing whitespace)
@@ -102,7 +186,9 @@ sub remove_lang_styletranslation {
    my $line;
    
    # Open input and output files
+   printf ("   Reading source file %s\n", $inputfile);
    open IN,  "< $inputfile"  or die "Can't open $inputfile : $!";
+   printf ("   Writing output to file %s\n", $outputfile);
    open OUT, "> $outputfile" or die "Can't open $outputfile : $!";
    
    # Read only the #define values from the file (ignoring trailing and tailing whitespace)
@@ -145,7 +231,9 @@ sub add_lang_typtranslation {
    my $oldlangcode = $typlanguages{ $oldlang };
       
    # Open input and output files
+   printf ("   Reading source file %s\n", $inputfile);
    open IN,  "< $inputfile"  or die "Can't open $inputfile : $!";
+   printf ("   Writing output to file %s\n", $outputfile);
    open OUT, "> $outputfile" or die "Can't open $outputfile : $!";
 
    # Read through the inputfile
@@ -219,7 +307,9 @@ sub remove_lang_typtranslation {
    my $rmlangcode = $typlanguages{ $rmlang };
       
    # Open input and output files
+   printf ("   Reading source file %s\n", $inputfile);
    open IN,  "< $inputfile"  or die "Can't open $inputfile : $!";
+   printf ("   Writing output to file %s\n", $outputfile);
    open OUT, "> $outputfile" or die "Can't open $outputfile : $!";
 
    # Read through the inputfile
@@ -277,6 +367,54 @@ sub remove_lang_typtranslation {
 }
 
 
+# -----------------------------------------
+# Show short usage
+# -----------------------------------------
+sub show_usage {
+
+  # Print the Usage
+  printf { *STDOUT } (
+    "Usage:\n"
+      . "perl $programName [--add=LANGCODE] [--cp=LANGCODE]\n"
+      . "  or\n"
+      . "perl $programName [--rm=LANGCODE]\n\n"
+      . "  or for getting help:\n"
+      . "  perl $programName -? | -h\n"
+      . "\n\n"
+  );
+
+}
+
+
+# -----------------------------------------
+# Show complete help
+# -----------------------------------------
+sub show_help {
+
+  # Show the sort Usage
+  show_usage ();
+  
+  # Print the details of the help
+  printf { *STDOUT } (
+      "Examples:\n"
+      . "perl $programName --add=PL --cp=EN\n"
+      . "           adds language PL to the translation files and copies from EN\n"
+      . "perl $programName --rm=PL\n"
+      . "           removes language PL from the translation files\n\n"
+      . "Options:\n"
+      . "--add=<LANGCODE>\n"
+      . "      Adds the language with the specified LANGCODE to both the\n"
+      . "      translation files.\n"
+      . "--cp=<LANGCODE>\n"
+      . "      While adding: copies the strings from the specified LANGCODE.\n"
+      . "      Default Value: EN\n"
+      . "--rm=<LANGCODE>\n"
+      . "      Removes the language with the specified LANGCODE from both the\n"
+      . "      translation files"
+      . "\n\n\n"
+   );
+  
+}
 
 
 
