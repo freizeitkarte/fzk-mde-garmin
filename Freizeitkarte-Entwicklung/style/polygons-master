@@ -16,7 +16,7 @@
 #                             Darstellung von Bussteigen (highway=platform) wie Bahnsteige.
 # Version : 0.11- 10.05.2013: Disable display of gardens with garden:type=residential
 # Version : 0.12- 12.09.2013: Correction regarding Grassland (Heinz Guba): show grassland same like meadow
-# Version : 0.13- 12.10.2013  "continue" for "landuse=meadow" to show wetland
+# Version : 0.13- 18.11.2013  "continue" for "landuse=meadow" to show wetland
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
 #
@@ -460,7 +460,7 @@ landuse = industrial [0x0c resolution 17]
 landuse = landfill [0x2a resolution 20]
 
 # Wiese (meist außerorts; nicht für öffentliche Zwecke). [point, closedway]
-landuse = meadow [0x17 resolution 20]
+landuse = meadow [0x17 resolution 20 continue]
 
 # Militärisch genutztes Gebiet (Kasernen, Truppenübungsplätze, use.). [point, closedway]
 landuse = military [0x04 resolution 17]
@@ -555,7 +555,7 @@ natural = water [0x3c resolution 16]
 
 # Feuchtgebiet (Sumpf, Moor, Ried, Marsch, Aue, Röhricht, Watt, Salzwiese, Magrove, naturbelassene Flächen,
 #  die Überflutungen ausgesetzt sind oder staunasse Böden aufweisen. [point, closedway]
-natural = wetland {set name = ''} [0x51 resolution 20 continue]
+natural = wetland {set name = ''} [0x51 resolution 20]
 
 # Naturwald oder vollkommen unbewirtschaftete Wälder. [point, closedway]
 # Wird als Mischwald behandelt.
