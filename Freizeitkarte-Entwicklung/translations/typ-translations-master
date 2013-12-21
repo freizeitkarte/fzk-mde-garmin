@@ -1,6 +1,6 @@
-﻿; typ-translations-master
+; typ-translations-master
 ; ========================
-; Purpose: Contains all needed strings for the different objects in the 
+; Purpose: Contains all needed strings for the different objects in the
 ;          TYP source files (e.g. freizeit.txt).
 ;          These language strings get mixed-down to complete TYP source
 ;          files (containing all objects with all variables and all strings)
@@ -12,7 +12,7 @@
 ;
 ; Format:  The format of this file is actually the same as in the TYP source
 ;          text files (created by TYPViewer for example), but does not need all
-;          fields/variables in it (but they do not really disturb). Only those field needed for identifying the 
+;          fields/variables in it (but they do not really disturb). Only those field needed for identifying the
 ;          object are needed besides the strings.
 ;          Needed fields/variables:
 ;            Object Start:    [_point]
@@ -24,7 +24,7 @@
 ;                             String4=0x04,Restaurant: American
 ;            Object End:      [end]
 ;          All the other variables are not needed in this file, but do not disturb.
-;          
+;
 ; All possible languages and the according identifiers
 ; -----------------------------------------------------
 ;  my %typlanguages = (
@@ -966,7 +966,7 @@ String6=0x19,[Вело-/пешеходная дорожка]
 Type=0x0b
 String1=0x00,[Bridleway]
 String2=0x01,[Bridleway]
-String3=0x02,[Reitweg]
+String3=0x02,[Radweg]
 String4=0x04,[Bridleway]
 String5=0x10,[Ciclovia/Pedestres]
 String6=0x19,[Вело-/пешеходная дорожка]
