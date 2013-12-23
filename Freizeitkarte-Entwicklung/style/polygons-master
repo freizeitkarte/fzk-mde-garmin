@@ -553,6 +553,9 @@ natural = scrub [0x4f resolution 20]
 # Starting at 16 for overviewmap
 natural = water [0x3c resolution 16]
 
+# Watt, Priele
+natural = wetland && wetland=tidalflat {set name = ''} [0x56 resolution 20]
+
 # Feuchtgebiet (Sumpf, Moor, Ried, Marsch, Aue, Röhricht, Watt, Salzwiese, Magrove, naturbelassene Flächen,
 #  die Überflutungen ausgesetzt sind oder staunasse Böden aufweisen. [point, closedway]
 natural = wetland {set name = ''} [0x51 resolution 20]

@@ -845,6 +845,16 @@ String5=0x10,Uádi
 String6=0x19,Вади (сухая долина временного потока)
 [end]
 
+[_polygon]
+Type=0x56
+String1=0x00,Mudflat
+String2=0x01,Vasière
+String3=0x02,Watt
+String4=0x04,Mud Flat
+String5=0x10,Planícies de lama
+String6=0x19,Ватты
+[end]
+
 
 
 ;====================== LINES ===========================
