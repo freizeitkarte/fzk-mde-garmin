@@ -554,7 +554,7 @@ natural = scrub [0x4f resolution 20]
 natural = water [0x3c resolution 16]
 
 # Watt, Priele
-natural = wetland && wetland=tidalflat {set name = ''} [0x56 resolution 20]
+natural = wetland & wetland = tidalflat {set name = ''} [0x56 resolution 20]
 
 # Feuchtgebiet (Sumpf, Moor, Ried, Marsch, Aue, Röhricht, Watt, Salzwiese, Magrove, naturbelassene Flächen,
 #  die Überflutungen ausgesetzt sind oder staunasse Böden aufweisen. [point, closedway]
