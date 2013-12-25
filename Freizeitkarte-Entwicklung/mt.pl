@@ -1930,12 +1930,8 @@ sub build_map {
   # Lizenz-File kopieren
   copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
 
-  # Run the check-style first to make sure there are no problems inside the style files...
+  # OSM-Daten compilieren (-Dlog.config=logging.properties) (with checking style files first with --check-styles)
   $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg --check-styles";
-  process_command ( $command );
-
-  # OSM-Daten compilieren (-Dlog.config=logging.properties)
-  $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg";
   process_command ( $command );
 
   return;
