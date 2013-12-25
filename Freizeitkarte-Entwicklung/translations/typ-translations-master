@@ -120,15 +120,15 @@ String6=0x19,Торговая зона
 [end]
 
 ; Marina <=> Yachthafen
-[_polygon]
-Type=0x09
-String1=0x00,Marina
-String2=0x01,Marina
-String3=0x02,Yachthafen
-String4=0x04,Marina
-String5=0x10,Marina
-String6=0x19,Пристань
-[end]
+;[_polygon]
+;Type=0x09
+;String1=0x00,Marina
+;String2=0x01,Marina
+;String3=0x02,Yachthafen
+;String4=0x04,Marina
+;String5=0x10,Marina
+;String6=0x19,Пристань
+;[end]
 
 ; School <=> Schule
 [_polygon]
@@ -2949,6 +2949,17 @@ String3=0x02,Bach (Tunnel)
 String4=0x04,Stream (Tunnel)
 String5=0x10,Córregonaufrágio (túnel)
 String6=0x19,Ручей (туннель)
+[end]
+
+; Marina <=> Yachthafen
+[_line]
+Type=0x1201e
+String1=0x00,Marina
+String2=0x01,Marina
+String3=0x02,Yachthafen
+String4=0x04,Marina
+String5=0x10,Marina
+String6=0x19,Пристань
 [end]
 
 

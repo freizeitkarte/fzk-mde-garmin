@@ -720,7 +720,8 @@ leisure = golf_course [0x18 resolution 20]
 # leisure = ice_rink (wird derzeit nicht unterstützt)
 
 # Jachthafen: Liegeplatz für Jachten und Motorboote (bzw. Boote allgemein). [point, closedway]
-leisure = marina [0x09 resolution 23]
+# (New tagging includes land area also... therefore display of it needs to change: will be moved to 'lines')
+#leisure = marina [0x09 resolution 23]
 
 # Minigolf (siehe auch Golfanlage). [point, closedway]
 leisure = miniature_golf [0x18 resolution 20]

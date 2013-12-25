@@ -402,6 +402,10 @@ highway = *
 # siehe auch Style-File "polygons" - dort wird zusätzlich auch die Fläche dargestellt
 leisure = nature_reserve [0x01011c resolution 20-23 continue]
 
+# Jachthafen: Liegeplatz für Jachten und Motorboote (bzw. Boote allgemein). [point, closedway]
+# (New tagging includes land area also... therefore display of it needs to change: will be moved to 'lines')
+leisure = marina [0x01201e resolution 23]
+
 
 # ------------------------------------------------------------------
 # Auffahrten umdefinieren:
