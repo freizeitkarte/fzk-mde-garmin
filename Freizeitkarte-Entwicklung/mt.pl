@@ -3239,6 +3239,10 @@ sub bootstrap_environment {
   my $actualurl = "";
   my $directory = "";
   my $success = 0;
+  my $bs_subcmd = "";
+  my $bs_boundariesurl = "";
+  my $bs_seaboundariesurl = "";
+  my $returnvalue = "";
   
   # Check if the bootstrap directory exists, else create it and go to it
   # --------------------------------------------------------------------
@@ -3252,7 +3256,94 @@ sub bootstrap_environment {
   }
   
   chdir $bootstrapdir;
+
+  # Check for additional parameters with bootstrap
+  # ----------------------------------------------
+  if ( ( $#ARGV + 1 ) > 1 ) {
+     $bs_subcmd    = $ARGV[ 1 ];
+  }
+
+  # handle the 'list' subcommando
+  # -----------------------------
+  if ( $bs_subcmd eq 'list' ) {
+     printf { *STDOUT } ( "\nbootstrap SubCommando: %s: List the download URLs for the boundaries\n\n", $bs_subcmd );
+
+     # Boundaries (bigger file)
+	 printf { *STDOUT } ( "\nBoundaries (going into directory 'bounds')\n" );
+	 printf { *STDOUT } ( "----------------------------------------------\n" );
+     foreach $actualurl ( @boundariesurl ) {
+        printf { *STDOUT } ( "$actualurl\n" );
+     }
+
+	 printf { *STDOUT } ( "\nSea Boundaries (going into directory 'sea')\n" );
+	 printf { *STDOUT } ( "----------------------------------------------\n" );
+     # seatiles or sea boundaries (smaller file)
+     foreach $actualurl ( @seaboundariesurl ) {
+        printf { *STDOUT } ( "$actualurl\n" );
+     }
+
+     printf { *STDOUT } ( "\n   we're done with listing the downloadurls... exiting ... \n\n" );
+	 exit;
+  }
   
+  # handle the 'list' subcommando
+  # -----------------------------
+  elsif ( $bs_subcmd eq 'urls' ) {
+     printf { *STDOUT } ( "\nbootstrap SubCommando: %s: force specific URLs for downloading\n\n", $bs_subcmd );
+
+     # Get the URLs from the arguments
+     # --------------------------------
+     if ( ( $#ARGV + 1 ) >= 4 ) {
+        $bs_boundariesurl    = $ARGV[ 2 ];
+        $bs_seaboundariesurl = $ARGV[ 3 ];
+	 }
+
+     # Check if both URLs are given
+     # -----------------------------
+     if ( $bs_boundariesurl eq '' || $bs_seaboundariesurl eq '') {
+        printf { *STDOUT } ( "ERROR:\n  Commando 'bootstrap urls' requieres two valid URLs as additional arguments.\n\n\n" );
+        show_usage ();
+        exit(1);
+	 }
+
+     # Check if the given arguments are proper and available URLs
+     # ----------------------------------------------------------
+     # Set the OS specific command for testing the URLs
+     if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+       # OS X, Linux, FreeBSD, OpenBSD
+       $command = "curl --output /dev/null --silent --fail --head --url ";
+     }
+     elsif ( $OSNAME eq 'MSWin32' ) {
+       # Windows
+       $command = "$BASEPATH/tools/wget/windows/wget.exe -q --spider ";
+     }
+     else {
+       printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+       exit;
+     }
+
+    # Check the given URLs
+    $returnvalue = system( $command . $bs_boundariesurl);
+    if ( $returnvalue != 0 ) {
+        printf { *STDOUT } ( "ERROR:\n  URL %s is either not valid or not available.\n\n\n", $bs_boundariesurl );
+        show_usage ();
+        exit(1);
+	}
+    $returnvalue = system( $command . $bs_seaboundariesurl);
+    if ( $returnvalue != 0 ) {
+        printf { *STDOUT } ( "ERROR:\n  URL %s is either not valid or not available.\n\n\n", $bs_seaboundariesurl );
+        show_usage ();
+        exit(1);
+	}
+
+  }
+  
+  # Check if there is an 'unknown' subcommando... if yes: exit
+  elsif ( $bs_subcmd ne '' ) {
+     printf { *STDOUT } ( "ERROR:\n  There was an additional unknown subcommand following 'bootstratp.\n\n\n", $bs_seaboundariesurl );
+     show_usage ();
+     exit(1);
+  }
   
   # Try to download the latest version of the boundaries
   # ----------------------------------------------------
@@ -3464,9 +3555,10 @@ sub show_usage {
   # Print the Usage
   printf { *STDOUT } (
     "Usage:\n"
-      . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n"
+      . "perl $programName [-ram=<value>] [-cores=<value>] [-ele=<value>] [-typfile=\"<filename>\"] [-language=\"<lang>\"] <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
       . "  or\n"
-      . "perl $programName bootstrap\n\n"
+      . "perl $programName bootstrap [urls <url_bounds> <url_sea>]\n"
+      . "perl $programName bootstrap list\n\n"
       . "  or for getting help:\n"
 #      . "  perl $programName -? | -h | -o\n"
       . "  perl $programName -? | -h\n"
