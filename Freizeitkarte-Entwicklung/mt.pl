@@ -1724,7 +1724,7 @@ sub compile_typfiles {
   for my $thistypfile ( @typfilelist ) {
 
     # run that file through the compiler
-    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$langcodepage{$maplang} --product-id=1 --family-id=$mapid $thistypfile";
+    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --product-id=1 --family-id=$mapid $thistypfile";
 
     ## FIX for Russia/Cyrillic... actually mkgmap doesn't compile UTF8 files containing cyrillic strings... let's choose english only
     ## Just to let everything run through properly for the moment
