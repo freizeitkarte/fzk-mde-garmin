@@ -220,18 +220,18 @@ Xpm="32 32 2 1"
 [end]
 
 
-[_polygon]
-Type=0x09
-String1=0x00,Yachthafen
-String2=0x01,Yachthafen
-String3=0x02,Yachthafen
-String4=0x04,Marina
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-Xpm="0 0 1 0"
-"1 c #7BCAFF"
-[end]
+;[_polygon]
+;Type=0x09
+;String1=0x00,Yachthafen
+;String2=0x01,Yachthafen
+;String3=0x02,Yachthafen
+;String4=0x04,Marina
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;Xpm="0 0 1 0"
+;"1 c #7BCAFF"
+;[end]
 
 
 [_polygon]
@@ -5803,6 +5803,25 @@ String1=0x00,Bach (Tunnel)
 String2=0x01,Bach (Tunnel)
 String3=0x02,Bach (Tunnel)
 String4=0x04,Stream (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1201e
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #616DE5"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Marina
+String2=0x01,Marina
+String3=0x02,Yachthafen
+String4=0x04,Marina
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
