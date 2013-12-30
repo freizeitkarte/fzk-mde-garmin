@@ -8824,7 +8824,7 @@ FontStyle=NoLabel (invisible)
 CustomColor=No
 DayXpm="3 9 2 1"   Colormode=16
 "!	c #0080C0"
-"	c none"
+"  	c none"
 "!! "
 "!! "
 "   "
