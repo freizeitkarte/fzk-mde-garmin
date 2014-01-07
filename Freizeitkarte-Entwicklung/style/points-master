@@ -441,7 +441,7 @@ tourism = hotel & name = * { set name = "${stars}* ${name} ($__HOTEL__)" | "${na
 #tourism = information [0x661a resolution 24]
 
 # Tourist Offices/Terminals (inhouse, presumably)
-tourism = information & ( information = office | information = terminal ) [0x6514 resolution 23]
+tourism = information & ( information = office | information = terminal ) [0x6514 resolution 24]
 # Other types
 #tourism = information & ( information = board | information = map ) [0x661a resolution 24]
 tourism = information & information = map  [0x661a resolution 24]
