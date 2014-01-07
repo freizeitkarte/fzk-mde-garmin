@@ -33,6 +33,8 @@
 #                             - boundaries of nationalparcs are shown later (starting at 21 instead of 19)
 #                             - adaptions for tracks with trackgrade 4 & 5, displaying them as others with resolution 23 and smaller line
 # Version : 0.19 -11.09.2013: Added proper display of waterways in tunnels and culverts
+# Version : 0.20 -07.01.2014: change logic of display for marina (moved from polygon to line)
+#
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
 # - Verbesserung der Adresssuchregeln in Zusammenarbeit mit Ludwich und Georg V.

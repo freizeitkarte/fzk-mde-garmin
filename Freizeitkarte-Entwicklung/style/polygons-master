@@ -17,6 +17,9 @@
 # Version : 0.11- 10.05.2013: Disable display of gardens with garden:type=residential
 # Version : 0.12- 12.09.2013: Correction regarding Grassland (Heinz Guba): show grassland same like meadow
 # Version : 0.13- 18.11.2013  "continue" for "landuse=meadow" to show wetland
+# Version : 0.14- 07.01.2014  fixed above feature 'wetland'
+#                             Show 'MudFlat'
+#                             Change handling of Marina from filled polygone to outline only
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
 #

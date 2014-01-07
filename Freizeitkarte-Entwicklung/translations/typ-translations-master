@@ -69,7 +69,10 @@
 ; Version: 0.2  - 07.08.2013 : Preparations for Russian translation
 ; Version: 0.3  - 28.08.2013 : Added new point typ for 'small communication tower'
 ; Version: 0.4  - 04.09.2013 : Adding new line typ for feldweg45, smaller version
-; Version: 0.5  - 06.10.2013:  Integrated Portuguese and Russian Translation
+; Version: 0.5  - 06.10.2013 : Integrated Portuguese and Russian Translation
+; Version: 0.6  - 07.01.2014:  Fixed German translation of 'bridleway'
+;                              Added Feature 'MudFlat'
+;                              Changed concept of Marina (moved from polygone to line) 
 
 
 ;===================== POLYGONES ========================
