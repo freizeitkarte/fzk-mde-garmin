@@ -3335,6 +3335,10 @@ sub bootstrap_environment {
         show_usage ();
         exit(1);
 	}
+	
+	# Now we have to 'override' the array containing the downloadurls
+	@boundariesurl = ( "$bs_boundariesurl" );
+	@seaboundariesurl = ( "$bs_seaboundariesurl" );
 
   }
   
