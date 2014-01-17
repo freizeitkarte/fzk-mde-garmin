@@ -85,6 +85,7 @@ Type=0x013,9
 Type=0x035,9
 Type=0x03d,9
 Type=0x053,9
+Type=0x056,9
 [End]
 
 
@@ -206,15 +207,15 @@ Xpm="32 32 2 1"
 [end]
 
 
-[_polygon]
-Type=0x09
-String1=0x02,Yachthafen
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-Xpm="0 0 1 0"
-"1 c #7BCAFF"
-[end]
+;[_polygon]
+;Type=0x09
+;String1=0x02,Yachthafen
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;Xpm="0 0 1 0"
+;"1 c #7BCAFF"
+;[end]
 
 
 [_polygon]
@@ -1983,6 +1984,54 @@ Xpm="32 32 2 1"
 "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+;12345678901234567890123456789012
+[end]
+
+
+[_polygon]
+Type=0x56
+String1=0x00,Watt
+String2=0x01,Watt
+String3=0x02,Watt
+String4=0x04,mudflat
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+Xpm="32 32 2 1"
+"! c #E6DCD0"
+"  c none"
+"!              !    !         ! "
+"!    !  !!        ! !   !       "
+"           ! !         !!   !   "
+"   !     !      !!  !      !  !!"
+" ! !!  !        !!  ! !       ! "
+" !     !    !            !!     "
+"      !!!       !   !    !     !"
+"! !!      !   !        !       !"
+"  !              !       !   !  "
+"     !     ! !     !     !!     "
+"      !             ! !      ! !"
+"        ! ! !!  !  !!    !!    !"
+" !     !     !!        !!   !   "
+"!! !        !    !  !!     !!   "
+"       !   !   !     !!       ! "
+"  !                      !  ! !!"
+"     !       !   !    !!        "
+"   !!      ! !      !  ! !  !   "
+"!  !!    !     !    !!   !! !   "
+"      !  !!      !    !      !! "
+"      !    !     !!          !! "
+" ! !!        ! !          !     "
+"        !           !  !  !!    "
+"    !    !!   !  !  !        !! "
+" !  !!        !  !!        ! !  "
+"       !   !        !!        ! "
+"  !       !    !       !!   !   "
+"    !!         !! !  !          "
+"!!  !!  ! !  !             !!   "
+"!!        !    !  !!     ! !!   "
+"      !     !     !!  !!        "
+"  !        !   !       !  !     "
 ;12345678901234567890123456789012
 [end]
 
@@ -5001,6 +5050,25 @@ CustomColor=No
 [end]
 
 
+[_line]
+Type=0x1201e
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #616DE5"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x00,Marina
+String2=0x01,Marina
+String3=0x02,Yachthafen
+String4=0x04,Marina
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
 ;====================== POINTS ==========================
 
 
@@ -7428,6 +7496,35 @@ DayXpm="3 3 2 1"   Colormode=16
 
 
 [_point]
+Type=0x065
+SubType=0x14
+String1=0x00,Information Office
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+DayXpm="9 15 2 1"   Colormode=16
+"!	c #0080C0"
+" 	c none"
+"!!!!!!!!!"
+"!       !"
+"!       !"
+"!  !!   !"
+"!  !!   !"
+"!       !"
+"!  !!   !"
+"!  !!   !"
+"!  !!   !"
+"!  !!   !"
+"!  !!!  !"
+"!  !!!  !"
+"!       !"
+"!       !"
+"!!!!!!!!!"
+;123456789
+[end]
+
+
+[_point]
 Type=0x066
 SubType=0x00
 String1=0x02,Bezeichnetes Gebiet (Land)
@@ -7690,21 +7787,19 @@ String1=0x02,Information
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="5 11 2 1"   Colormode=16
-"!	c #FFFFFF"
-"#	c #0080C0"
-"!!!!!"
-"!##!!"
-"!##!!"
-"!!!!!"
-"!##!!"
-"!##!!"
-"!##!!"
-"!##!!"
-"!###!"
-"!###!"
-"!!!!!"
-;12345
+DayXpm="3 9 2 1"   Colormode=16
+"!	c #0080C0"
+"  	c none"
+"!! "
+"!! "
+"   "
+"!! "
+"!! "
+"!! "
+"!! "
+"!!!"
+"!!!"
+;123
 [end]
 
 

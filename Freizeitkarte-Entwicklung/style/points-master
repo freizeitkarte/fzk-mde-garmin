@@ -18,6 +18,9 @@
 # Version : 0.10- 28.10.2012: Darstellung von Trinkwasserstellen
 # Version : 0.11- 07.12.2012: Darstellung von Radrennbahnen korrigiert
 # Version : 0.12 -04.09.2013: Adding Logic and symbol for 'smaller' mobile communication tower
+# Version : 0.13 -07.01.2014: Adapted stuff for tourism=information: 
+#                             - Added special sign for tourist office
+#                             - lightened normal info sign
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #
@@ -438,13 +441,13 @@ tourism = hostel & name = * { name "${name} ($__HOSTEL__)" } [0x2b02 resolution 
 tourism = hotel & name = * { set name = "${stars}* ${name} ($__HOTEL__)" | "${name} ($__HOTEL__)" } [0x2b01 resolution 24 continue with_actions]
 
 # Touristeninformation. [point, closedway]
-tourism = information [0x661a resolution 24]
+#tourism = information [0x661a resolution 24]
 
-# Tourist Offices (other icon lateron ?)
-#tourism = information & information = office [0x6514 resolution 24]
+# Tourist Offices/Terminals (inhouse, presumably)
+tourism = information & ( information = office | information = terminal ) [0x6514 resolution 24]
 # Other types
 #tourism = information & ( information = board | information = map ) [0x661a resolution 24]
-#tourism = information [0x661a resolution 24]
+tourism = information & information = map  [0x661a resolution 24]
 
 # Lean-to (Schutzhütte, Berghütte). [point, closedway]
 # A lean-to is a building located in the mountains or into the wild intended to provide shelter against rain.

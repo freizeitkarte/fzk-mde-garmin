@@ -1,6 +1,6 @@
 ﻿; typ-translations-master
 ; ========================
-; Purpose: Contains all needed strings for the different objects in the 
+; Purpose: Contains all needed strings for the different objects in the
 ;          TYP source files (e.g. freizeit.txt).
 ;          These language strings get mixed-down to complete TYP source
 ;          files (containing all objects with all variables and all strings)
@@ -12,7 +12,7 @@
 ;
 ; Format:  The format of this file is actually the same as in the TYP source
 ;          text files (created by TYPViewer for example), but does not need all
-;          fields/variables in it (but they do not really disturb). Only those field needed for identifying the 
+;          fields/variables in it (but they do not really disturb). Only those field needed for identifying the
 ;          object are needed besides the strings.
 ;          Needed fields/variables:
 ;            Object Start:    [_point]
@@ -24,7 +24,7 @@
 ;                             String4=0x04,Restaurant: American
 ;            Object End:      [end]
 ;          All the other variables are not needed in this file, but do not disturb.
-;          
+;
 ; All possible languages and the according identifiers
 ; -----------------------------------------------------
 ;  my %typlanguages = (
@@ -69,7 +69,10 @@
 ; Version: 0.2  - 07.08.2013 : Preparations for Russian translation
 ; Version: 0.3  - 28.08.2013 : Added new point typ for 'small communication tower'
 ; Version: 0.4  - 04.09.2013 : Adding new line typ for feldweg45, smaller version
-; Version: 0.5  - 06.10.2013:  Integrated Portuguese and Russian Translation
+; Version: 0.5  - 06.10.2013 : Integrated Portuguese and Russian Translation
+; Version: 0.6  - 07.01.2014:  Fixed German translation of 'bridleway'
+;                              Added Feature 'MudFlat'
+;                              Changed concept of Marina (moved from polygone to line) 
 
 
 ;===================== POLYGONES ========================
@@ -120,15 +123,15 @@ String6=0x19,Торговая зона
 [end]
 
 ; Marina <=> Yachthafen
-[_polygon]
-Type=0x09
-String1=0x00,Marina
-String2=0x01,Marina
-String3=0x02,Yachthafen
-String4=0x04,Marina
-String5=0x10,Marina
-String6=0x19,Пристань
-[end]
+;[_polygon]
+;Type=0x09
+;String1=0x00,Marina
+;String2=0x01,Marina
+;String3=0x02,Yachthafen
+;String4=0x04,Marina
+;String5=0x10,Marina
+;String6=0x19,Пристань
+;[end]
 
 ; School <=> Schule
 [_polygon]
@@ -845,6 +848,16 @@ String5=0x10,Uádi
 String6=0x19,Вади (сухая долина временного потока)
 [end]
 
+[_polygon]
+Type=0x56
+String1=0x00,Mudflat
+String2=0x01,Vasière
+String3=0x02,Watt
+String4=0x04,Mud Flat
+String5=0x10,Planícies de lama
+String6=0x19,Ватты
+[end]
+
 
 
 ;====================== LINES ===========================
@@ -966,7 +979,7 @@ String6=0x19,[Вело-/пешеходная дорожка]
 Type=0x0b
 String1=0x00,[Bridleway]
 String2=0x01,[Bridleway]
-String3=0x02,[Reitweg]
+String3=0x02,[Radweg]
 String4=0x04,[Bridleway]
 String5=0x10,[Ciclovia/Pedestres]
 String6=0x19,[Вело-/пешеходная дорожка]
@@ -2939,6 +2952,17 @@ String3=0x02,Bach (Tunnel)
 String4=0x04,Stream (Tunnel)
 String5=0x10,Córregonaufrágio (túnel)
 String6=0x19,Ручей (туннель)
+[end]
+
+; Marina <=> Yachthafen
+[_line]
+Type=0x1201e
+String1=0x00,Marina
+String2=0x01,Marina
+String3=0x02,Yachthafen
+String4=0x04,Marina
+String5=0x10,Marina
+String6=0x19,Пристань
 [end]
 
 

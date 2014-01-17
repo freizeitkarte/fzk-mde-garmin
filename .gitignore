@@ -1,6 +1,8 @@
 Freizeitkarte-Entwicklung/bounds/bounds_*.bnd
+Freizeitkarte-Entwicklung/bounds/version.txt
 Freizeitkarte-Entwicklung/sea/sea_*.osm.pbf
 Freizeitkarte-Entwicklung/sea/index.txt.gz
+Freizeitkarte-Entwicklung/sea/version.txt
 Freizeitkarte-Entwicklung/install/*
 Freizeitkarte-Entwicklung/work/*
 

@@ -16,7 +16,10 @@
 #                             Darstellung von Bussteigen (highway=platform) wie Bahnsteige.
 # Version : 0.11- 10.05.2013: Disable display of gardens with garden:type=residential
 # Version : 0.12- 12.09.2013: Correction regarding Grassland (Heinz Guba): show grassland same like meadow
-# Version : 0.13- 12.10.2013  "continue" for "landuse=meadow" to show wetland
+# Version : 0.13- 18.11.2013  "continue" for "landuse=meadow" to show wetland
+# Version : 0.14- 07.01.2014  fixed above feature 'wetland'
+#                             Show 'MudFlat'
+#                             Change handling of Marina from filled polygone to outline only
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
 #
@@ -460,7 +463,7 @@ landuse = industrial [0x0c resolution 17]
 landuse = landfill [0x2a resolution 20]
 
 # Wiese (meist außerorts; nicht für öffentliche Zwecke). [point, closedway]
-landuse = meadow [0x17 resolution 20]
+landuse = meadow [0x17 resolution 20 continue]
 
 # Militärisch genutztes Gebiet (Kasernen, Truppenübungsplätze, use.). [point, closedway]
 landuse = military [0x04 resolution 17]
@@ -553,9 +556,12 @@ natural = scrub [0x4f resolution 20]
 # Starting at 16 for overviewmap
 natural = water [0x3c resolution 16]
 
+# Watt, Priele
+natural = wetland & wetland = tidalflat {set name = ''} [0x56 resolution 20]
+
 # Feuchtgebiet (Sumpf, Moor, Ried, Marsch, Aue, Röhricht, Watt, Salzwiese, Magrove, naturbelassene Flächen,
 #  die Überflutungen ausgesetzt sind oder staunasse Böden aufweisen. [point, closedway]
-natural = wetland {set name = ''} [0x51 resolution 20 continue]
+natural = wetland {set name = ''} [0x51 resolution 20]
 
 # Naturwald oder vollkommen unbewirtschaftete Wälder. [point, closedway]
 # Wird als Mischwald behandelt.
@@ -717,7 +723,8 @@ leisure = golf_course [0x18 resolution 20]
 # leisure = ice_rink (wird derzeit nicht unterstützt)
 
 # Jachthafen: Liegeplatz für Jachten und Motorboote (bzw. Boote allgemein). [point, closedway]
-leisure = marina [0x09 resolution 23]
+# (New tagging includes land area also... therefore display of it needs to change: will be moved to 'lines')
+#leisure = marina [0x09 resolution 23]
 
 # Minigolf (siehe auch Golfanlage). [point, closedway]
 leisure = miniature_golf [0x18 resolution 20]
