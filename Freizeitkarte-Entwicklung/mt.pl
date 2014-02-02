@@ -3600,8 +3600,8 @@ sub show_help {
       . "--ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
       . "--typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
-      . "            if you build a map for another language than the map's default language,\n"
-      . "            this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
+      . "             if you build a map for another language than the map's default language,\n"
+      . "             this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
       . "PPO        = preprocessor options (multiple possible), to be invoked with D<option>\n\n"
       . "Arguments:\n"
       . "Action     = Action to be processed\n"
@@ -3619,7 +3619,7 @@ sub show_help {
         printf { *STDOUT } ( "\n" );
         $printdelimiter = 'done';
       }
-      printf { *STDOUT } ( "%-10s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
+      printf { *STDOUT } ( "%-11s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
     }
   }
 #  if ( $optional ) {
