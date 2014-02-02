@@ -337,7 +337,7 @@ my $command = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -3561,7 +3561,7 @@ sub show_usage {
   # Print the Usage
   printf { *STDOUT } (
     "Usage:\n"
-      . "perl $programName [-ram=<value>] [-cores=<value>] [-ele=<value>] [-typfile=\"<filename>\"] [-language=\"<lang>\"] <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
+      . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>] [--typfile=\"<filename>\"] [--language=\"<lang>\"] <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
       . "  or\n"
       . "perl $programName bootstrap [urls <url_bounds> <url_sea>]\n"
       . "perl $programName bootstrap list\n\n"
@@ -3585,29 +3585,29 @@ sub show_help {
   # Print the details of the help
   printf { *STDOUT } (
 #    "Usage:\n"
-#      . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
+#      . "perl $programName [--ram=Value] [--cores=Value] [--ele=Value] [--typfile=\"filename\"] [--language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
 #      . "Examples:\n"
       "Examples:\n"
       . "perl $programName                              bootstrap\n"
       . "perl $programName                              build     Freizeitkarte_Hamburg\n"
-      . "perl $programName  -ram=1536    -cores=2       build     Freizeitkarte_Hamburg\n"
-      . "perl $programName  -ram=6000                   build     5815\n"
-      . "perl $programName  -ram=6000    -cores=max     build     5815\n"
-      . "perl $programName  -ram=6000    -cores=max     build     Freizeitkarte_Oesterreich  DT36ROUTING\n\n"
+      . "perl $programName  --ram=1536    --cores=2     build     Freizeitkarte_Hamburg\n"
+      . "perl $programName  --ram=6000                  build     5815\n"
+      . "perl $programName  --ram=6000    --cores=max   build     5815\n"
+      . "perl $programName  --ram=6000    --cores=max   build     Freizeitkarte_Oesterreich  DT36ROUTING\n\n"
       . "Options:\n"
-      . "-ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
-      . "-cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
-      . "-ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
-      . "-typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
-      . "-language = overwrite the default language of a map (en=english, de=german);\n"
+      . "--ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
+      . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
+      . "--ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
+      . "--typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
+      . "--language = overwrite the default language of a map (en=english, de=german);\n"
       . "            if you build a map for another language than the map's default language,\n"
       . "            this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
-      . "PPO       = preprocessor options (multiple possible)\n\n"
+      . "PPO        = preprocessor options (multiple possible), to be invoked with D<option>\n\n"
       . "Arguments:\n"
-      . "Action    = Action to be processed\n"
-      . "ID        = ID of the to processed map\n"
-      . "Code      = Code of the to processed map\n"
-      . "Map       = Name of the to be processed map\n\n",
+      . "Action     = Action to be processed\n"
+      . "ID         = ID of the to processed map\n"
+      . "Code       = Code of the to processed map\n"
+      . "Map        = Name of the to be processed map\n\n",
     $javaheapsize, $cores
   );
   
