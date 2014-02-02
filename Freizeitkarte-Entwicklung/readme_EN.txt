@@ -54,9 +54,12 @@ Now you can build the map
      perl mt.pl gmapsupp Freizeitkarte_LUX
 
 Additional options:
-The styles of the maps contain logical switches, which can be activated like:
-     perl mt.pl build Freizeitkarte_LUX KULTURLAND
+The styles of the maps contain logical switches, the syntax to activate the is the following:
+     perl mt.pl build <map> D<option>
+For example:
+     perl mt.pl build Freizeitkarte_LUX DKULTURLAND
 
+The following options are allowed:
 - WINTERSPORT: Display lines for winter sports (pistes, cross country ski tracks, ...) in map [lines-master]
 - T36ROUTING: Allows routing for mountain trails or hike paths of classes T3-T6 with map [lines-master]
 - TRIGMARK: Display of trigonometric markers in map [points-master]

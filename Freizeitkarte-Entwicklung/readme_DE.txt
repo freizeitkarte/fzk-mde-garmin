@@ -57,8 +57,12 @@ Nun können die Karten gebildet werden:
 
 Schalter:
 In den Kartenstyles sind einige logische Schalter (bedingte Übersetzung) eingebaut, die aktiviert werden können:
-     perl mt.pl build Freizeitkarte_Saarland KULTURLAND
+Die Syntax um diese Schalter aufzurufen ist folgende
+     perl mt.pl build <Karte> D<Schalter>
+Also zum Beispiel
+     perl mt.pl build Freizeitkarte_Saarland DKULTURLAND
 
+Folgende Schalter existieren:
 - WINTERSPORT: Darstellung von Linien für Wintersportaktivitäten (Pisten, Loipen, ...) [lines-master]
 - T36ROUTING: Routing auch über (Berg-)Wanderwege der Klassen T3-T6 [lines-master]
 - TRIGMARK: Darstellung von Trigonometrischen Markierungen [points-master]
@@ -159,7 +163,7 @@ Hier befindet sich für jede erzeugte Karte ein weiteres Unterverzeichnis.
 Der Verzeichnisname entspricht hier dem Kartennamen.
 
 Freizeitkarte-Entwicklung/install/"Kartenname":
-Ablageort für alle direkt installierbaren Kartendateien:
+Ablageort für alle direkt installierbaren Kartendateien und deren komprimierter Versionen (Zip Datein):
 - *.gmap = Installationsdatei für OS X (und Windows)
 - *.exe = Installer für Windows
 - gmapsupp.img = Kartenimage für GPS-Gerät
