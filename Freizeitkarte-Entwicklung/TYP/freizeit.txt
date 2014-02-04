@@ -7494,8 +7494,8 @@ ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
 DayXpm="17 14 2 1"   Colormode=16
-"!	c #FF656A"
-" 	c none
+"!	c #0080C0"
+" 	c none"
 "   !!       !!   "
 "  !!!!     !!!!  "
 "   !!       !!   "
