@@ -986,8 +986,8 @@ amenity = public_building & name = * {name "${name} ($__PUBLICBUILDING__)"} [0x3
 # Ein Unterstand ist ein überdachter offener Platz als Schutz vor der Witterung. [point, closedway]
 amenity = shelter {name "${name} ($__SHELTER__)" | "$__SHELTER__"} [0x2b06 resolution 23]
 
-# Öffentliche Toilette (z.T. mit Gebühr). [point, closedway]
-# amenity = toilets (wird derzeit nicht unterstützt)
+# Öffentliche Toilette / public toilet (z.T. mit Gebühr). [point, closedway]
+amenity = toilets [0x2f0c resolution 24]
 
 # Rathaus. [point, closedway]
 amenity = townhall {name "${name} ($__TOWNHALL__)" | "$__TOWNHALL__"} [0x3003 resolution 24]

@@ -4325,6 +4325,18 @@ String6=0x15,Parking (ograniczony)
 String7=0x19,Паркинг/стоянка (ограниченный доступ)
 [end]
 
+[_point]
+Type=0x02f
+SubType=0x0c
+String1=0x00,Restroom
+String2=0x01,Toilette
+String3=0x02,Toilette
+String4=0x04,Restroom
+String5=0x10,Banheiro
+String6=0x15,Toaleta
+String7=0x19,туалет
+[end]
+
 ; Car Club <=> Automobil-Club
 [_point]
 Type=0x02f
