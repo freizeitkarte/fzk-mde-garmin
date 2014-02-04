@@ -48,8 +48,9 @@ my @actions = (
   [ 'bim',        'E. build images: create, fetch_*, join, split, build' , 'optional' ],
   [ 'bam',        'F. build all maps: gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
   [ 'zip',        'G. zip all maps' ,                                      'optional' ],
-  [ 'regions',    'H. extract regions from Europe data' ,                  'optional' ],
-  [ 'fetch_map',  'I. fetch map data from Europe directory' ,              'optional' ],
+  [ 'regions',    'H. extract all needed maps from big region data',       'optional' ],
+  [ 'extract_osm','I. extract single map from big region data' ,           'optional' ],
+#  [ 'fetch_map',  'J. fetch map data from Europe directory' ,              'optional' ],
 
   # Hidden Actions not related to maps 
   # (This might change without notification)
@@ -223,7 +224,7 @@ my @maps = (
 #  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
 
   # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
-  [ -1,   'Freizeitkarte PLUS Länder',            'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ -1,   'Freizeitkarte PLUS Laender',            'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                        														   'AUT+',                     'de', 'no_old_name',               			    2, 'EUROPE'         ],
 #  [ 7056, 'Freizeitkarte_BEL+',                   'NA',                                                                                                'BEL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7756, 'Freizeitkarte_CHE+',                   'NA',                                    															   'CHE+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
@@ -261,6 +262,13 @@ my @maps = (
   [ 9020, 'Freizeitkarte_ESP_CANARIAS',            'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'ESP_CANARIAS',            'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
   [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS_EUR'        ],
 
+  # For faster test runs with regions
+  [ -1,   'Regions - Maps for test purposes',     'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 9990, 'Freizeitkarte_CHE_R',                  'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE_R',                    'de', 'no_old_name',                             1, 'NA'             ],
+  [ 9991, 'Freizeitkarte_ZUG+',                   'NA',                                                                                                'ZUG+',                     'de', 'no_old_name',                             2, 'CHE_R'          ],
+  [ 9992, 'Freizeitkarte_ZHSEE+',                 'NA',                                                                                                'ZHSEE+',                   'de', 'no_old_name',                             2, 'CHE_R'          ],
+  
+  
 );
 
 # pseudo constants
@@ -633,7 +641,9 @@ elsif ( $actionname eq 'regions' ) {
 elsif ( $actionname eq 'fetch_map' ) {
   fetch_mapdata ();
 }
-
+elsif ( $actionname eq 'extract_osm' ) {
+  extract_osm ();
+}
 exit ( 0 );
 
 # ==================================================================
@@ -786,7 +796,8 @@ sub check_downloadurls {
   for my $mapdata ( @maps ) {
 	
 	# Jump to next it's not a real map
-	if ( ( @$mapdata[ $MAPID ] == -1 ) || ( @$mapdata[ $OSMURL ] eq "NA" ) ) {
+#	if ( ( @$mapdata[ $MAPID ] == -1 ) || ( @$mapdata[ $OSMURL ] eq "NA" ) ) {
+	if ( @$mapdata[ $MAPID ] == -1 ) {
 		next;
     }
 
@@ -794,35 +805,50 @@ sub check_downloadurls {
     print "\n" . @$mapdata[ $MAPNAME ] . "\n";
     print "---------------------------------------------------\n";
 
-    # Check the MapURL
-    $returnvalue = system( $command . @$mapdata[ $OSMURL ]);
-    if ( $returnvalue != 0 ) {
-		print "FAIL: ";
+    # Check the MapURL for map types 1 and 3 (downloadable OSM data extracts)
+    if ( ( @$mapdata[ $MAPTYPE ] == 1 ) || ( @$mapdata[ $MAPTYPE ] == 3 ) ) {
+		# Map with downloadable OSM data extract
+        $returnvalue = system( $command . @$mapdata[ $OSMURL ]);
+        if ( $returnvalue != 0 ) {
+    		print "FAIL: OSM:   ";
+    	}
+    	else {
+    		print "OK:   OSM:   ";
+        }
+        print @$mapdata[ $OSMURL ] ."\n";	
 	}
 	else {
-		print "OK:   ";
-    }
-    print @$mapdata[ $OSMURL ] ."\n";
+		# No OSM Data to download, will be extracted by script
+		print "N/A:  OSM:   (this map doesn't need downloadable OSM Data)\n";
+	}
+	
+    # Check the MapURL for map types 2 and 3 (downloadable elevation data)
+    if ( ( @$mapdata[ $MAPTYPE ] == 2 ) || ( @$mapdata[ $MAPTYPE ] == 3 ) ) {
+        # Check the ElevationData 10m
+        $returnvalue = system( $command . "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
+        if ( $returnvalue != 0 ) {
+    		print "FAIL: ele10: ";
+    	}
+    	else {
+    		print "OK:   ele10: ";
+        }
+        print "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
     
-    # Check the ElevationData 10m
-    $returnvalue = system( $command . "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
-    if ( $returnvalue != 0 ) {
-		print "FAIL: ";
+        # Check the ElevationData 25m
+        $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
+        if ( $returnvalue != 0 ) {
+    		print "FAIL: ele25: ";
+    	}
+    	else {
+    		print "OK:   ele25: ";
+        }
+        print "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";      
 	}
 	else {
-		print "OK:   ";
-    }
-    print "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
-
-    # Check the ElevationData 25m
-    system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
-    if ( $? != 0 ) {
-		print "FAIL: ";
+		# No elevation Data to download, we don't need it
+		print "N/A:  ele10: (this map doesn't need downloadable elevation Data)\n";		
+		print "N/A:  ele25: (this map doesn't need downloadable elevation Data)\n";		
 	}
-	else {
-		print "OK:   ";
-    }
-    print "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";      
 	  
   }
 	
@@ -2859,7 +2885,8 @@ sub check_osmpbf {
 
 
 # -----------------------------------------
-# Extract our own FZK specific regions a bigger downloaded regions (OSM data)
+# Extracting fzk specific regions
+# out of a downloaded OSM Data extract
 # -----------------------------------------
 sub extract_regions {
 
@@ -2867,7 +2894,9 @@ sub extract_regions {
   if ( $maptype == 1 ) {
   
      # Initialisations
-     my $source_filename = "$WORKDIR/$mapname.osm.pbf";
+     # we don't need to cut 'joined' stuff anymore, just the OSM data
+     #my $source_filename = "$WORKDIR/$mapname.osm.pbf";
+     my $source_filename = "$WORKDIR/Kartendaten_$mapname.osm.pbf";
      my $osmosis_parameter = "";
      my $osmosis_parameter_bw = "";
      my $max_tee = 10;
@@ -2887,7 +2916,7 @@ sub extract_regions {
        return ( 1 );
      }
    
-     # Java-Optionen in Osmosis-Aufruf einbringen
+     # add the Java-Options for the osmosis call (Environment)
      my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
      $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
 
@@ -2921,14 +2950,14 @@ sub extract_regions {
            # Add the needed arguments for the osmosis run for this childmap
            $osmosis_parameter_bw = $osmosis_parameter_bw
              . " --bounding-polygon file=$BASEPATH/poly/$childmapname.poly"
-             . " --write-pbf file=$WORKDIR/$childmapname.osm.pbf omitmetadata=yes";
+             . " --write-pbf file=$WORKDIR/Kartendaten_$childmapname.osm.pbf omitmetadata=yes";
 		   		   
 		}
 		
     	# ok, enough together, let's run it (MISSING: IS IT THE LAST ?)
 		printf { *STDERR } ( "\nExtracting Freizeitkarte regions ...\n" );
 
-        # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
+        # osmosis parameter
         $osmosis_parameter =
             " --read-pbf file=$source_filename"
           . " --tee $actual_tee"
@@ -2964,6 +2993,88 @@ sub extract_regions {
   }
 
   return;
+}
+
+
+# ---------------------------------------------------------------------
+# Either extract the needed OSM data from the parent Region file or,
+# if already cut, just copy it
+# ---------------------------------------------------------------------
+sub extract_osm {
+	
+  # If this map is a regions that needed to be extracted, try to fetch the extracted region
+  if ( $maptype == 2 ) {
+
+     # Initialisation
+     my $mapparentname = $EMPTY;
+	 
+	 # Get the proper Map Parent's Name
+	 for my $tmp_mapdata ( @maps ) {
+	    if ( @$tmp_mapdata[ $MAPCODE ] eq $mapparent ) {
+		   $mapparentname = @$tmp_mapdata[ $MAPNAME ];
+		   last;
+		}
+	 }
+
+     # fill out source and destination variables
+     my $source_filename      = "$BASEPATH/work/$mapparentname/Kartendaten_$mapname.osm.pbf";
+     my $parent_filename      = "$BASEPATH/work/$mapparentname/Kartendaten_$mapparentname.osm.pbf";
+     my $destination_filename = "$WORKDIR/Kartendaten_$mapname.osm.pbf";
+
+     # Check if the source file does exist already
+     if ( !(-e $source_filename ) ) {
+		# NOT existing, let's try to cut it
+		
+		# Initialise few variables for the osmosis run
+        my $osmosis_parameter = "";
+
+         # Check if the source file exists and is a valid osm.pbf file
+         if ( -e $parent_filename ) {
+           if ( !check_osmpbf ( $parent_filename ) ) {
+             printf { *STDERR } ( "\nError: Resulting data file <$parent_filename> is not a valid osm.pbf file.\n" );
+             return ( 1 );
+           }
+         }
+         else {
+           printf { *STDERR } ( "\nError: Source data file <$parent_filename> does not exists.\n" );
+           return ( 1 );
+         }
+		 
+		 # Let's put the parameters together for the osmosis run
+         $osmosis_parameter =
+            " --read-pbf file=$parent_filename"
+          . " --tee 1"
+          . " --bounding-polygon file=$BASEPATH/poly/$mapname.poly"
+          . " --write-pbf file=$source_filename omitmetadata=yes";
+
+         # Ok, let's run osmosis, depending on the OS
+         printf { *STDERR } ( "\nExtracting needed data from OSM data file $source_filename ...\n" );
+         if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+           # OS X, Linux, FreeBSD, OpenBSD
+           $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
+           process_command ( $command );
+         }
+         elsif ( $OSNAME eq 'MSWin32' ) {
+           # Windows
+           $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
+           process_command ( $command );
+         }
+         else {
+           printf { *STDERR } ( "\nFehler: Operating System $OSNAME not supported.\n" );
+         }	
+     }
+
+
+  	 # No let's try to copy the result
+     printf { *STDERR } ( "\nCopying the existing OSM data file $source_filename ...\n" );
+     copy ( "$source_filename", "$destination_filename" ) or die ( "copy($source_filename , $destination_filename) failed: $!\n" );
+     printf { *STDERR } ( "\n") ;
+
+  }  
+  else {
+     printf { *STDERR } ( "\nERROR: $mapname is not a region that needed local extraction.\n" );
+  }
+
 }
 
 
