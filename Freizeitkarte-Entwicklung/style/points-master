@@ -673,6 +673,7 @@ power = tower {name "${name} ($__POWERTOWER__)" | "$__POWERTOWER__"} [0x6417 res
 # Umspannwerk: bezeichnet eine Umspannanlage, die ein Höchst- oder Hochspannungs- mit einem weiteren
 # Hochspannungs- oder einem Mittelspannungsnetz verbindet. [point, closedway]
 power = station & name = * {name "${name} ($__POWERSTATION__)"} [0x6600 resolution 24]
+power = plant & name = * {name "${name} ($__POWERSTATION__)"} [0x6600 resolution 24]
 
 # Umspannstation, kleiner als station, verbindet ein Mittel- mit einem Niederspannungsnetz,
 # z.B. Mini-Umspannwerk, Trafohäuschen oder großer Trafokasten. [point, closedway]
