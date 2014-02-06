@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+﻿#!/usr/bin/perl
 # ---------------------------------------
 # Program : mt.pl (map tool)
 # Version : siehe unten
@@ -294,6 +294,9 @@ my $max_threads = $EMPTY;
 # basepath
 my $BASEPATH = getcwd ( $PROGRAM_NAME );
 
+## Global PC_ReturnCode - used mainly for process_command () - to be rechecked and solved differently eventually
+#my $pc_returncode = 0;
+
 # program startup
 # ---------------
 my $programName = basename ( $PROGRAM_NAME );
@@ -492,7 +495,6 @@ if ( $typfile ne $EMPTY ) {
 
 # Checking if this TYP file exists
 $error = 1;
-#if ( (-e "$BASEPATH/TYP/" . basename("$maptypfile",".TYP") . ".txt" ) || (-e "$BASEPATH/TYP/" . basename("$maptypfile",".typ") . ".txt" ) ){
 if ( -e "$BASEPATH/TYP/" . basename("$maptypfile", (".TYP", ".typ" ) ) . ".txt" ) {
       $error    = 0;
       $maptypfile = basename("$maptypfile", (".TYP", ".typ" ) ) ;
@@ -603,11 +605,11 @@ elsif ( $actionname eq 'bim' ) {
 }
 elsif ( $actionname eq 'bam' ) {
   create_typfile         ();
+  create_image_directory ();
   create_gmapfile        ();
+  create_gmapsuppfile    ();
   create_nsis_nsifile    ();
   create_nsis_exefile    ();
-  create_gmapsuppfile    ();
-  create_image_directory ();
 }
 elsif ( $actionname eq 'zip' ) {
   zip_maps ();
@@ -629,7 +631,7 @@ exit ( 0 );
 # ==================================================================
 
 # -----------------------------------------
-# Systembefehl ausfuehren
+# Execute System Command
 # -----------------------------------------
 sub process_command {
 
@@ -688,7 +690,7 @@ sub trim {
 
 
 # -----------------------------------------
-# Verzeichnisse mit allen enthaltenen Daten loeschen und neu anlegen.
+# Remove existing map directories and recreate them
 # -----------------------------------------
 sub create_dirs {
 
@@ -762,8 +764,8 @@ sub check_downloadurls {
     print "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
 
     # Check the ElevationData 25m
-    $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
-    if ( $returnvalue != 0 ) {
+    system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
+    if ( $? != 0 ) {
 		print "FAIL: ";
 	}
 	else {
@@ -778,7 +780,7 @@ sub check_downloadurls {
 }
 
 # -----------------------------------------
-# OSM-Kartendaten aus Internet laden.
+# Download OSM map data from the Internet
 # -----------------------------------------
 sub fetch_osmdata {
 
@@ -792,22 +794,30 @@ sub fetch_osmdata {
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # OS X, Linux, FreeBSD, OpenBSD
     $command = "curl --location --url \"$osmurl\" --output \"$filename\"";
-    process_command ( $command );
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
     chdir "$BASEPATH/tools/wget/windows";
     $command = "wget.exe --output-document=\"$filename\" \"$osmurl\"";
-    process_command ( $command );
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
+    return ( 1 );
   }
+  
+  # Run the command
+  process_command ( $command );
+  
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  download of osm data from $osmurl failed.\n\n" );
+  }  
 
   # auf gültige osm.pbf-Datei prüfen
   if ( !check_osmpbf ( $filename ) ) {
     printf { *STDERR } ( "\nError: File <$filename> is not a valid osm.pbf file.\n" );
-    printf { *STDERR } ( "Please check this file concerning error hints (eg. communications errors).\n" );
+    die ( "Please check this file concerning error hints (eg. communications errors).\n" );
+    return ( 1 );
   }
 
   return;
@@ -815,7 +825,7 @@ sub fetch_osmdata {
 
 
 # -----------------------------------------
-# Höhendaten (elevations, contours) aus Internet laden.
+# Download elevation data from the internet
 # -----------------------------------------
 sub fetch_eledata {
 
@@ -839,22 +849,30 @@ sub fetch_eledata {
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # OS X, Linux, FreeBSD, OpenBSD
     $command = "curl --location --url \"$eleurl\" --output \"$filename\"";
-    process_command ( $command );
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
     chdir "$BASEPATH/tools/wget/windows";
     $command = "wget.exe --output-document=\"$filename\" \"$eleurl\"";
-    process_command ( $command );
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
+    return ( 1 );
   }
 
+  # Run the command
+  process_command ( $command );
+
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  download of elevation data from $eleurl failed.\n\n" );
+  }
+  
   # auf gültige osm.pbf-Datei prüfen
   if ( !check_osmpbf ( $filename ) ) {
     printf { *STDERR } ( "\nError: File <$filename> is not a valid osm.pbf file.\n" );
-    printf { *STDERR } ( "Please check this file concerning error hints (eg. communications errors).\n" );
+    die ( "Please check this file concerning error hints (eg. communications errors).\n" );
+    return ( 1 );
   }
 
   return;
@@ -862,44 +880,44 @@ sub fetch_eledata {
 
 
 # -----------------------------------------
-# OSM- und Höhendaten zusammenführen.
+# Join osm map data and elevation data into a complete map
 # -----------------------------------------
 sub join_mapdata {
 
-  # Verzeichnis wechseln
+  # change the directory
   chdir "$WORKDIR";
 
+  # Initialize some variables
   my $filename_kartendaten  = "$WORKDIR/Kartendaten_$mapname.osm.pbf";
   my $available_kartendaten = 0;
+  my $filename_hoehendaten  = "$WORKDIR/Hoehendaten_$mapname.osm.pbf";
+  my $available_hoehendaten = 0;
+  my $filename_ergebnisdaten = "$WORKDIR/$mapname.osm.pbf";
 
+  # check if the osm map file exists and has the proper format
   if ( -e $filename_kartendaten ) {
-    # auf gültige osm.pbf-Datei prüfen
     if ( check_osmpbf ( $filename_kartendaten ) ) {
       $available_kartendaten = 1;
     }
   }
 
-  my $filename_hoehendaten  = "$WORKDIR/Hoehendaten_$mapname.osm.pbf";
-  my $available_hoehendaten = 0;
-
   if ( -e $filename_hoehendaten ) {
-    # auf gültige osm.pbf-Datei prüfen
+    # check if the elevation data exists and has the proper format
     if ( check_osmpbf ( $filename_hoehendaten ) ) {
       $available_hoehendaten = 1;
     }
   }
 
-  my $filename_ergebnisdaten = "$WORKDIR/$mapname.osm.pbf";
-
+  # All there and so far ok, let's continue
   if ( $available_kartendaten && $available_hoehendaten ) {
-    # Karten- und Höhendaten vorhanden
+
     printf { *STDERR } ( "\nJoining map and elevation data ...\n" );
 
-    # Java-Optionen in Osmosis-Aufruf einbringen
+    # Make sure that the Java options are brought into the osmosis call
     my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
     $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
 
-    # osmosis-Aufrufparameter
+    # Put the osmosis parameter together
     my $osmosis_parameter = 
         " --read-pbf $filename_kartendaten" 
       . " --read-pbf $filename_hoehendaten" 
@@ -910,28 +928,37 @@ sub join_mapdata {
     if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # OS X, Linux, FreeBSD, OpenBSD
       $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
-      process_command ( $command );
     }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
       $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
-      process_command ( $command );
     }
     else {
-      printf { *STDERR } ( "\nFehler: Betriebssystem $OSNAME nicht unterstuetzt.\n" );
+      die ( "\nFehler: Operating system $OSNAME not supported.\n" );
+      return ( 1 );
     }
+    
+    # run the command
+    process_command ( $command );
+      
+    # Check Return Value
+    if ( $? != 0 ) {
+        die ( "ERROR:\n  Joining map and elevation data for $mapname failed.\n\n" );
+    }
+    
   }
   elsif ( $available_kartendaten ) {
-    # nur Kartendaten vorhanden
+    # only mapdata there, elevation stuff missing, but let's continue anyway
     printf { *STDERR } ( "\nWarning: Elevation data file <$filename_hoehendaten> not found.\n" );
     printf { *STDERR } ( "\nCopying map data ...\n" );
 
-    # Kartendaten kopieren
+    # so let's copy mapdata only
     copy ( $filename_kartendaten, $filename_ergebnisdaten ) or die ( "copy() failed: $!\n" );
   }
   else {
-    # weder Karten- noch Hoehendaten vorhanden
-    printf { *STDERR } ( "\nError: Map data file <$filename_kartendaten> not found.\n" );
+    # no map data and no elevation data available
+    die ( "\nError: Map data file <$filename_kartendaten> not found.\n" );
+    return ( 1 );
   }
 
   return;
@@ -939,25 +966,26 @@ sub join_mapdata {
 
 
 # -----------------------------------------
-# Kartendaten splitten.
+# Split the map into tiles
 # -----------------------------------------
 sub split_mapdata {
-
+  
+  # Intialize variables
   my $filename_ergebnisdaten = "$WORKDIR/$mapname.osm.pbf";
 
+  # Check if the file exists and has proper format
   if ( -e $filename_ergebnisdaten ) {
-    # auf gültige osm.pbf-Datei prüfen
     if ( !check_osmpbf ( $filename_ergebnisdaten ) ) {
-      printf { *STDERR } ( "\nError: Resulting data file <$filename_ergebnisdaten> is not a valid osm.pbf file.\n" );
+      die ( "\nError: Resulting data file <$filename_ergebnisdaten> is not a valid osm.pbf file.\n" );
       return ( 1 );
     }
   }
   else {
-    printf { *STDERR } ( "\nError: Resulting data file <$filename_ergebnisdaten> does not exists.\n" );
+    die ( "\nError: Resulting data file <$filename_ergebnisdaten> does not exists.\n" );
     return ( 1 );
   }
 
-  # OSM-Kartendaten splitten
+  # split the map
   $command = 
      "java -Xmx" 
    . $javaheapsize . "M" 
@@ -974,27 +1002,36 @@ sub split_mapdata {
    . " --output-dir=$WORKDIR $filename_ergebnisdaten";
   process_command ( $command );
 
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  Spliting the map $mapname into tiles failed.\n\n" );
+  }
+
   return;
 }
 
 
 # -----------------------------------------
-# Kartenindividuelles CFG-File erzeugen.
+# Create the map specific CFG file needed by mkgmap
 # - Note that option order is significant.
 # - An option only applies to subsequent input files.
 # -----------------------------------------
 sub create_cfgfile {
 
+  # Initialize some variables
   my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
   my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
   my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-
-  printf { *STDOUT } ( "\n" );
-
   my $filename = "$WORKDIR/$mapname.cfg";
+
+  # Dump some output
+  printf { *STDOUT } ( "\n" );
   printf { *STDOUT } ( "Creating $filename ...\n" );
+  
+  # Try to open the file
   open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
 
+  # Write the needed options into the file
   printf { $fh } 
     (   "# ------------------------------------------------------------------------------\n" 
       . "# Zweck   : mkgmap-Konfigurationsdatei\n" 
@@ -1362,6 +1399,7 @@ sub create_cfgfile {
 #      . "# subset of housenumbers.\n"
 #      . "x-housenumbers\n" );
 
+  # Add the tiles
   # Kartenkacheln anhaengen
   # mapname: 58100003
   # description: DE-Konstanz
@@ -1391,8 +1429,9 @@ sub create_cfgfile {
     }
   }
 
-  # -- hier keine Optionen anfügen --
+  # -- no more options after that line / hier keine Optionen anfügen --
 
+  # Try to close the file again
   close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
 
   printf { *STDOUT } ( "Done\n" );
@@ -1401,7 +1440,7 @@ sub create_cfgfile {
 }
 
 # -----------------------------------------
-# Ableitung des 'typ-translations' file mit allen sprachspezifischen Strings
+# Deduct the file map specific 'typ-translations' containing all needed strings
 # -----------------------------------------
 sub create_typtranslations {
 
@@ -1409,10 +1448,6 @@ sub create_typtranslations {
   print "\nCreating complete source txt files for the TYP files\n"
       . "  (containing all needed language strings)\n\n";
 	
-  # Verzeichnisstrukturen neu anlegen (falls noch nicht vorhanden)
-  # (Shouldn't be necessary anymore)
-#  mkpath ( "$WORKDIR/TYP" );
-
 
   # Short description of the process:
   # ---------------------------------
@@ -1728,6 +1763,7 @@ sub compile_typfiles {
 	## ENDFIX (can be deleted if problem with mkgmap is fixed
 
 
+    # Run the compiler
     process_command ( $command );
     
     # Check Return Value
@@ -2371,7 +2407,7 @@ sub create_nsis_exefile {
   # Prep for creating the Installer: get OS dependent command name for zipper
   if ( $OSNAME eq 'darwin' ) {
     # OS X
-    printf { *STDERR } ( "\nError: Function on OS X not possible.\n" );
+    die ( "\nError: Function on OS X not possible.\n" );
     return ( 1 );
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
@@ -2383,7 +2419,7 @@ sub create_nsis_exefile {
     $zipper = 'zip -r ';
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
     return ( 1 );
   }
 
@@ -2399,7 +2435,7 @@ sub create_nsis_exefile {
   # Prep for creating the Installer: get OS dependent command name for nsis and zipper
   if ( $OSNAME eq 'darwin' ) {
     # OS X
-    printf { *STDERR } ( "\nError: Function on OS X not possible.\n" );
+    die ( "\nError: Function on OS X not possible.\n" );
     return ( 1 );
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
@@ -2411,7 +2447,7 @@ sub create_nsis_exefile {
     $command = "makensis $mapname" . ".nsi";
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
     return ( 1 );
   }
 
@@ -2555,7 +2591,7 @@ sub create_gmapfile {
 #    process_command ( $command );
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
     return ( 1 );
   }
 
@@ -2703,7 +2739,7 @@ sub zip_maps {
     $zipper = $BASEPATH . '/tools/zip/windows/7-Zip/7za.exe a ';
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
     return ( 1 );
   }
 
@@ -2790,12 +2826,12 @@ sub extract_regions {
      # Check if the source file exists and is a valid osm.pbf file
      if ( -e $source_filename ) {
        if ( !check_osmpbf ( $source_filename ) ) {
-         printf { *STDERR } ( "\nError: Resulting data file <$source_filename> is not a valid osm.pbf file.\n" );
+         die ( "\nError: Resulting data file <$source_filename> is not a valid osm.pbf file.\n" );
          return ( 1 );
        }
      }
      else {
-       printf { *STDERR } ( "\nError: Source data file <$source_filename> does not exists.\n" );
+       die ( "\nError: Source data file <$source_filename> does not exists.\n" );
        return ( 1 );
      }
    
@@ -2850,15 +2886,13 @@ sub extract_regions {
         if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
           # OS X, Linux, FreeBSD, OpenBSD
           $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
-#          process_command ( $command );
         }
         elsif ( $OSNAME eq 'MSWin32' ) {
           # Windows
           $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
-#          process_command ( $command );
         }
         else {
-          printf { *STDERR } ( "\nFehler: Operating System $OSNAME not supported.\n" );
+          die ( "\nFehler: Operating System $OSNAME not supported.\n" );
           return ( 1 );
         }	
         
@@ -2870,11 +2904,10 @@ sub extract_regions {
            die ( "ERROR:\n  Cutting our own regions out of $mapname failed.\n\n" );
         }
 
- 
      }
   }
   else {
-     printf { *STDERR } ( "\nERROR: $mapname is not an extract from which we create our own regions \n" );
+     die ( "\nERROR: $mapname is not an extract from which we create our own regions \n" );
      return ( 1 );
   }
 
@@ -2915,7 +2948,7 @@ sub fetch_mapdata {
 	  
   }
   else {
-     printf { *STDERR } ( "\nERROR: $mapname is not a region that needed local extraction.\n" );
+     die ( "\nERROR: $mapname is not a region that needed local extraction.\n" );
      return ( 1 );
   }
 
