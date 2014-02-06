@@ -612,7 +612,13 @@ elsif ( $actionname eq 'gmap2' ) {
 elsif ( $actionname eq 'bim' ) {
   purge_dirs               ();
   create_dirs              ();
-  fetch_osmdata            ();
+  # If this map is a regions that needed to be extracted, try to fetch the extracted region
+  if ( $maptype == 2 ) {
+	  extract_osm          ();
+  }
+  else {
+	  fetch_osmdata        ();
+  }
   fetch_eledata            ();
   join_mapdata             ();
   split_mapdata            ();
