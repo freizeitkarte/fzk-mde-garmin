@@ -3043,6 +3043,7 @@ sub extract_osm {
          }
          else {
            printf { *STDERR } ( "\nError: Source data file <$parent_filename> does not exists.\n" );
+           printf ( "       Did you already download the osmdata of the map $mapparentname ?\n\n" );
            return ( 1 );
          }
 		 
