@@ -3059,16 +3059,22 @@ sub extract_osm {
          if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
            # OS X, Linux, FreeBSD, OpenBSD
            $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
-           process_command ( $command );
          }
          elsif ( $OSNAME eq 'MSWin32' ) {
            # Windows
            $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
-           process_command ( $command );
          }
          else {
-           printf { *STDERR } ( "\nFehler: Operating System $OSNAME not supported.\n" );
+           die ( "\nError: Operating System $OSNAME not supported.\n" );
          }	
+     }
+
+     # Run the acual extraction via osmosis
+     process_command ( $command );
+
+     # Check Return Value
+     if ( $? != 0 ) {
+        die ( "ERROR:\n  Cutting out the data for $mapname failed.\n\n" );
      }
 
 
@@ -3079,7 +3085,7 @@ sub extract_osm {
 
   }  
   else {
-     printf { *STDERR } ( "\nERROR: $mapname is not a region that needed local extraction.\n" );
+     die ( "\nERROR: $mapname is not a region that needed local extraction.\n" );
   }
 
 }
