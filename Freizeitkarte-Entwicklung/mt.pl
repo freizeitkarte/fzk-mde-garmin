@@ -97,16 +97,18 @@ my %elevationbaseurl = (
 # Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
 my @boundariesurl = (
   'http://download.freizeitkarte-osm.de/Development/boundaries/bounds.zip',
+  'http://osm2.pleiades.uni-wuppertal.de/bounds/latest/bounds.zip',
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=1', 
   );
 my @seaboundariesurl = (
   'http://download.freizeitkarte-osm.de/Development/boundaries/sea.zip',
+  'http://osm2.pleiades.uni-wuppertal.de/sea/latest/sea.zip',
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
   );
 
 
 my @maps = (
-  # ID, 'Karte', 'URL der Quelle', 'Code', 'language'
+  # ID, 'Karte', 'URL der Quelle', 'Code', 'language', 'oldName', 'Type', 'Parent'
 
   # Bundesländer
   [ -1,   'Bundeslaender',                        'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
