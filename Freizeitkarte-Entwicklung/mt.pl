@@ -741,15 +741,20 @@ sub create_dirs {
 
   sleep 1;
 
-  # Create the directories if needed
+  # Create the directories if needed (
+  # WORKDIR is needed for all types of map
   if ( !(-e $WORKDIR ) ) {
     mkpath ( "$WORKDIR" );
   }    
-  if ( !(-e $WORKDIRLANG ) ) {
-    mkpath ( "$WORKDIRLANG" );
-  }    
-  if ( !(-e $INSTALLDIR ) ) {
-    mkpath ( "$INSTALLDIR" );
+  
+  # WORKDIRLANG and INSTALLDIR only needed for final map, not for downloaded regions we use for own extracts only
+  if ( $maptype != 1 ) {
+     if ( !(-e $WORKDIRLANG ) ) {
+       mkpath ( "$WORKDIRLANG" );
+     }    
+     if ( !(-e $INSTALLDIR ) ) {
+       mkpath ( "$INSTALLDIR" );
+     }
   }    
 
   printf { *STDOUT } ( "\n" );
