@@ -509,24 +509,34 @@ if ( $error ) {
 printf { *STDOUT } ( "Action = %s\n", $actiondesc );
 printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
 
-# Create the WORKDIR and the INSTALLDIR variables, used at a lot of places
-my $WORKDIR    = '';
-my $INSTALLDIR = '';
+# Create the WORKDIR, WORKDIRLANG and the INSTALLDIR variables, used at a lot of places
+my $WORKDIR     = '';
+my $WORKDIRLANG = '';
+my $INSTALLDIR  = '';
 
 # If this map is a downloaded extract from which we extract further regions
-if ( $maptype == 1 ) {
-  # no language code added as this map itself isn't thought to be built up to the end
-  $WORKDIR    = "$BASEPATH/work/$mapname";
-  $INSTALLDIR = "$BASEPATH/install/$mapname";
-}
-else {
-  # Normal map, add language code to WORKDIR and INSTALLDIR
-  $WORKDIR    = "$BASEPATH/work/$mapname" . "_$maplang";
-  $INSTALLDIR = "$BASEPATH/install/$mapname" . "_$maplang";
-}
+# (No distinction anymore needed between different maptypes)
+#if ( $maptype == 1 ) {
+#  # no language code added as this map itself isn't thought to be built up to the end
+#  $WORKDIR    = "$BASEPATH/work/$mapname";
+#  $INSTALLDIR = "$BASEPATH/install/$mapname";
+#}
+#else {
+#  # Normal map, add language code to WORKDIR and INSTALLDIR
+#  $WORKDIR    = "$BASEPATH/work/$mapname" . "_$maplang";
+#  $INSTALLDIR = "$BASEPATH/install/$mapname" . "_$maplang";
+#}
+$WORKDIR     = "$BASEPATH/work/$mapname";
+$WORKDIRLANG = "$BASEPATH/work/$mapname" . "_$maplang";
+$INSTALLDIR  = "$BASEPATH/install/$mapname" . "_$maplang";
+
+# Make sure that the directories set above are existing
+create_dirs   ();
+
 
 # Execute the choosen action
 if ( $actionname eq 'create' ) {
+  purge_dirs  ();
   create_dirs ();
 }
 elsif ( $actionname eq 'fetch_osm' ) {
@@ -590,6 +600,7 @@ elsif ( $actionname eq 'gmap2' ) {
   create_gmap2file ();
 }
 elsif ( $actionname eq 'bim' ) {
+  purge_dirs               ();
   create_dirs              ();
   fetch_osmdata            ();
   fetch_eledata            ();
@@ -690,21 +701,54 @@ sub trim {
 
 
 # -----------------------------------------
-# Remove existing map directories and recreate them
+# Remove existing WORK and INSTALL Directories
 # -----------------------------------------
-sub create_dirs {
+sub purge_dirs {
 
   printf { *STDOUT } ( "\n" );
 
-  # Verzeichnisstrukturen loeschen
+  # Remove the existing directories
   rmtree ( "$WORKDIR",    0, 1 );
+  rmtree ( "$WORKDIRLANG",0, 1 );
   rmtree ( "$INSTALLDIR", 0, 1 );
 
   sleep 1;
 
   # Verzeichnisstrukturen neu anlegen
-  mkpath ( "$WORKDIR" );
-  mkpath ( "$INSTALLDIR" );
+#  mkpath ( "$WORKDIR" );
+#  mkpath ( "$WORKDIRLANG" );
+#  mkpath ( "$INSTALLDIR" );
+
+  printf { *STDOUT } ( "\n" );
+
+  return;
+}
+
+# -----------------------------------------
+# Create the needed WORK and INSTALL Directories
+# -----------------------------------------
+sub create_dirs {
+
+  printf { *STDOUT } ( "\n" );
+
+  # Remove the existing directories
+  # (WORKDIR to be handled differently lateron ?)
+#  rmtree ( "$WORKDIR",    0, 1 );
+#  rmtree ( "$WORKDIRLANG",0, 1 );
+#  rmtree ( "$INSTALLDIR", 0, 1 );
+
+  sleep 1;
+
+  # Create the directories if needed
+  if ( !(-e $WORKDIR ) ) {
+    mkpath ( "$WORKDIR" );
+  }    
+  if ( !(-e $WORKDIRLANG ) ) {
+    mkpath ( "$WORKDIRLANG" );
+  }    
+  if ( !(-e $INSTALLDIR ) ) {
+    mkpath ( "$INSTALLDIR" );
+  }    
 
   printf { *STDOUT } ( "\n" );
 
@@ -1022,7 +1066,7 @@ sub create_cfgfile {
   my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
   my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
   my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-  my $filename = "$WORKDIR/$mapname.cfg";
+  my $filename = "$WORKDIRLANG/$mapname.cfg";
 
   # Dump some output
   printf { *STDOUT } ( "\n" );
@@ -1217,7 +1261,7 @@ sub create_cfgfile {
       . "#   (see resources/styles/default for an example).  The directory\n"
       . "#   path must be absolute or relative to the current working\n"
       . "#   directory when mkgmap is invoked.\n"
-      . "style-file=$WORKDIR\n" );
+      . "style-file=$WORKDIRLANG\n" );
 
   printf { $fh } ( "\n# Product description options:\n" );
   printf { $fh } ( "# ---------------------------\n" );
@@ -1425,7 +1469,8 @@ sub create_cfgfile {
     }
 
     if ( $identifier eq 'input-file' ) {
-      printf { $fh } ( "%s\n", $line );
+	  $rest =~ s/^\s+//;
+      printf { $fh } ( "%s: %s/%s\n", $identifier, $WORKDIR, $rest );
     }
   }
 
@@ -1617,7 +1662,7 @@ sub create_typtranslations {
 
     $inputfile  = "$BASEPATH/TYP/$actualfile";
 #    $outputfile = "$WORKDIR/TYP/$actualfile";
-    $outputfile = "$WORKDIR/$actualfile";
+    $outputfile = "$WORKDIRLANG/$actualfile";
 
     open IN, "< $inputfile" or die "Can't open $inputfile : $!";
     #  open OUT, ">:encoding(UTF-8)","$outputfile" or die "Can't open $outputfile : $!";
@@ -1747,7 +1792,7 @@ sub compile_typfiles {
 #  chdir "$WORKDIR/TYP";
   chdir "$BASEPATH/TYP";
   my @typfilelist = glob "*.txt" ;
-  chdir "$WORKDIR";
+  chdir "$WORKDIRLANG";
   
   # Run through the existing textfiles
   for my $thistypfile ( @typfilelist ) {
@@ -1789,10 +1834,10 @@ sub compile_typfiles {
 sub create_typfile {
 
   # Jump to the correct directory
-  chdir "$WORKDIR";
+  chdir "$WORKDIRLANG";
 
   # copy TYP-File
-  copy ( "$maptypfile.TYP", "$WORKDIR/$mapid.TYP" ) or die ( "copy() of $maptypfile.TYP failed: $!\n" );
+  copy ( "$maptypfile.TYP", "$WORKDIRLANG/$mapid.TYP" ) or die ( "copy() of $maptypfile.TYP failed: $!\n" );
 
   return;
 }
@@ -1805,7 +1850,7 @@ sub create_styletranslations {
 
   # Set some Variables
   my $inputfile  = "$BASEPATH/translations/style-translations-master";
-  my $outputfile = "$WORKDIR/style-translations";
+  my $outputfile = "$WORKDIRLANG/style-translations";
   my $langcode   = "\U$maplang";
   my @input;
   my %translation = ();
@@ -1894,11 +1939,11 @@ sub preprocess_styles {
 
   # copying the files from the style directory into the work directory
   for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
-    copy ( $stylefile, $WORKDIR ) or die ( "copy() of style files failed: $!\n" );
+    copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
   }
 
-  # Go to the Workdir
-  chdir "$WORKDIR";
+  # Go to the Workdir LANG
+  chdir "$WORKDIRLANG";
 
   # Put the Options for the PPP preprocessor together (options that are given behind mapname)
   # $ARGV[ 0 ]                = Aktion;
@@ -1948,8 +1993,8 @@ sub preprocess_styles {
 # -----------------------------------------
 sub build_map {
 
-  # change to directory WORKDIR
-  chdir "$WORKDIR";
+  # change to directory WORKDIR LANG
+  chdir "$WORKDIRLANG";
 
   # copy the licence file
   copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
@@ -1980,7 +2025,7 @@ sub create_gmap2file {
   }
 
   # in work-Verzeichnis wechseln
-  chdir "$WORKDIR";
+  chdir "$WORKDIRLANG";
 
   # Gmapi-Datei erzeugen
   $command =
@@ -2005,7 +2050,7 @@ sub create_gmap2file {
 sub create_nsis_nsifile {
 
   # Jump into the correct directory
-  chdir "$WORKDIR";
+  chdir "$WORKDIRLANG";
 
   # Get all TYP files
   my @typfiles = ( glob ( "*.TYP" ) );
@@ -2424,7 +2469,7 @@ sub create_nsis_exefile {
   }
 
   # jump to work directory
-  chdir "$WORKDIR";
+  chdir "$WORKDIRLANG";
 
   # Create the needed zip file
   $source      = '*.img *.tdb *.mdx *.TYP';
@@ -2455,13 +2500,13 @@ sub create_nsis_exefile {
   chdir "$BASEPATH/nsis";
 
   # copy license file and needed bitmaps
-  copy ( "lizenz_haftung_erstellung.txt", "$WORKDIR/lizenz_haftung_erstellung.txt" )
+  copy ( "lizenz_haftung_erstellung.txt", "$WORKDIRLANG/lizenz_haftung_erstellung.txt" )
     or die ( "copy() failed: $!\n" );
-  copy ( "Install.bmp",   "$WORKDIR/Install.bmp" )   or die ( "copy() failed: $!" );
-  copy ( "Deinstall.bmp", "$WORKDIR/Deinstall.bmp" ) or die ( "copy() failed: $!" );
+  copy ( "Install.bmp",   "$WORKDIRLANG/Install.bmp" )   or die ( "copy() failed: $!" );
+  copy ( "Deinstall.bmp", "$WORKDIRLANG/Deinstall.bmp" ) or die ( "copy() failed: $!" );
 
   # go back to work directory
-  chdir "$WORKDIR";
+  chdir "$WORKDIRLANG";
 
   # Run the actual NSIS compiler
   process_command ( $command );
@@ -2533,13 +2578,13 @@ sub create_nsis_exefile {
 sub create_gmapfile {
 
   # jump to correct directory
-  chdir "$WORKDIR";
+  chdir "$WORKDIRLANG";
 
   # rmove eventually existing directories from the install directory
   rmtree ( "$INSTALLDIR/$mapname.gmap", 0, 1 );
 
   # Create the config file we use for jmc_cli (v0.7)1
-  my $filename = "$WORKDIR/jmc_cli.cfg";
+  my $filename = "$WORKDIRLANG/jmc_cli.cfg";
   printf { *STDOUT } ( "Creating $filename ...\n" );
   open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
 
@@ -2556,7 +2601,7 @@ sub create_gmapfile {
   printf { $fh } ( "# -----------------\n" );
   
   # add requiered source and destination directory to the config file
-  printf { $fh } ( "sourcefolder = $WORKDIR\n" );
+  printf { $fh } ( "sourcefolder = $WORKDIRLANG\n" );
   printf { $fh } ( "destfolder = $INSTALLDIR\n" );
   
   printf { $fh } ( "\n# Optional stuff options:\n" );
@@ -2573,7 +2618,7 @@ sub create_gmapfile {
 
 
   # put the options for the jmc call together
-  my $jmc_parameter = "-v -config=\"$WORKDIR/jmc_cli.cfg\"";
+  my $jmc_parameter = "-v -config=\"$WORKDIRLANG/jmc_cli.cfg\"";
 
   if ( $OSNAME eq 'darwin' ) {
     # OS X
@@ -2620,7 +2665,7 @@ sub create_gmapfile {
 sub create_gmapsuppfile {
 
   # Jump to the work directory
-  chdir "$WORKDIR";
+  chdir "$WORKDIRLANG";
 
   # Initialize some variables
   my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
@@ -2678,7 +2723,7 @@ sub create_gmapsuppfile {
 sub create_image_directory {
 
   # Jump to the work directory
-  chdir "$WORKDIR";
+  chdir "$WORKDIRLANG";
 
   my $destdir = "$INSTALLDIR/$mapname" . "_Images";
 
