@@ -1721,6 +1721,7 @@ aerialway = goods [0x01011a resolution 23]
 barrier = fence [0x011f06 resolution 24 continue with_actions]
 # Further object to be handled the same (possibly need adaption of the translations in TYP file ?)
 barrier = wall | barrier = city_wall | fence = retaining_wall [0x011f06 resolution 24 continue with_actions]
+fenced = yes [0x011f06 resolution 24 continue with_actions]
 
 
 

@@ -662,15 +662,18 @@ military = naval_base [0x38 resolution 20]
 # ------------------------------------------------------------
 
 # Kraftwerk - dient der Erzeugung von Strom oder Wärme. [point, closedway]
-power = generator [0x25 resolution 20 continue]
+power = generator & building != yes & length() > 150 [0x25 resolution 22 continue]
+power = generator & building != yes & length() <= 150 [0x25 resolution 24 continue]
 
 # Umspannwerk - bezeichnet eine Umspannanlage, die ein Höchst- oder Hochspannungs-
 # mit einem weiteren Hochspannungs- oder Mittelspannungsnetz verbindet. [point, closedway]
-power = station | power = plant [0x25 resolution 20 continue]
+( power = station | power = plant ) & building != yes & length() > 150 [0x25 resolution 22 continue]
+( power = station | power = plant ) & building != yes & length() <= 150 [0x25 resolution 24 continue]
 
 # Umspannstation, kleiner als 'station', verbindet ein Mittel- mit einem Niederspannungsnetz,
 # z.B. Mini-Umspannwerk, Trafohäuschen oder großer Trafokasten. [point, closedway]
-power = sub_station | power = substation [0x25 resolution 20 continue]
+( power = sub_station | power = substation ) & building != yes & length() > 150 [0x25 resolution 22 continue]
+( power = sub_station | power = substation ) & building != yes & length() <= 150 [0x25 resolution 24 continue]
 
 # "Schwarzer Fleck"  (für Qualitätssicherung).
 # Nur zusammen mit power-Objekten in "lines" aktivieren.
