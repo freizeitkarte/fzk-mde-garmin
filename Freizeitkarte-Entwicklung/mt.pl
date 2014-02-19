@@ -45,8 +45,10 @@ my @actions = (
   [ 'nsicfg',     'C. create nsi configuration file (for NSIS compiler)' , 'optional' ],
   [ 'nsiexe',     'C. create nsi installer exe (via NSIS compiler)' ,      'optional' ],
   [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ,     'optional' ],
-  [ 'bim',        'E. build images: create, fetch_*, join, split, build' , 'optional' ],
-  [ 'bam',        'F. build all maps: gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
+  [ 'bim',        'E1.build images: create, fetch_*, join, split, build' , 'optional' ],
+  [ 'bam',        'E2.build all maps: gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
+  [ 'pmd',        'F1.Prepare Map Data: create, fetch_*, join, split' ,    'optional' ],
+  [ 'bml',        'F2.Build Map Language: build, gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
   [ 'zip',        'G. zip all maps' ,                                      'optional' ],
   [ 'regions',    'H. extract all needed maps from big region data',       'optional' ],
   [ 'extract_osm','I. extract single map from big region data' ,           'optional' ],
@@ -638,7 +640,34 @@ elsif ( $actionname eq 'bam' ) {
   create_nsis_nsifile    ();
   create_nsis_exefile    ();
 }
-elsif ( $actionname eq 'zip' ) {
+elsif ( $actionname eq 'pmd' ) {
+  purge_dirs               ();
+  create_dirs              ();
+  # If this map is a regions that needed to be extracted, try to fetch the extracted region
+  if ( $maptype == 2 ) {
+	  extract_osm          ();
+  }
+  else {
+	  fetch_osmdata        ();
+  }
+  fetch_eledata            ();
+  join_mapdata             ();
+  split_mapdata            ();
+}
+elsif ( $actionname eq 'bml' ) {
+  create_cfgfile           ();
+  create_typtranslations   ();
+  compile_typfiles         ();
+  create_typfile           ();
+  create_styletranslations ();
+  preprocess_styles        ();
+  build_map                ();
+  create_image_directory ();
+  create_gmapfile        ();
+  create_gmapsuppfile    ();
+  create_nsis_nsifile    ();
+  create_nsis_exefile    ();
+}elsif ( $actionname eq 'zip' ) {
   zip_maps ();
 }
 elsif ( $actionname eq 'regions' ) {
