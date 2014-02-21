@@ -66,7 +66,7 @@ my @supportedlanguages = (
   # Iso639-1
   [ 'de', 'Deutsch' ],
   [ 'en', 'English' ],
-  [ 'fr', 'French' ],
+  [ 'nl', 'Dutch' ],
   [ 'pt', 'Portuguese' ],
   [ 'pl', 'Polish' ],
   [ 'ru', 'Russian' ]
@@ -77,7 +77,7 @@ my @typfilelangfixed = (
   "xx",    # Unspecified
   "de",    # Deutsch / German
   "en",    # Englisch / English
-  "fr"     # Französisch / French
+  "nl"     # Französisch / French
 );
 
 # Relation from languages to codepages
@@ -85,7 +85,7 @@ my %langcodepage = (
    'xx' => '1252' ,
    'de' => '1252' ,
    'en' => '1252' ,
-   'fr' => '1252' ,
+   'nl' => '1252' ,
    'pt' => '1252' ,   
    'pl' => '1250' ,
    'ru' => '1251' ,
