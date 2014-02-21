@@ -2204,27 +2204,26 @@ sub create_nsis_nsifile {
   printf { $fh } ( "!include \"MUI2.nsh\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+  printf { $fh } ( "; Interface Settings\n" );
+  printf { $fh } ( "; ------------------\n" );
+  printf { $fh } ( "!define MUI_LANGDLL_ALLLANGUAGES\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
   printf { $fh } ( "; Installer Pages\n" );
   printf { $fh } ( "; ---------------\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
-  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
-  printf { $fh }
-    (
-    "!define MUI_WELCOMEPAGE_TEXT \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n"
-    );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"\$(INWpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TEXT \"\$(INWpText)\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_FINISHPAGE_TITLE_3LINES\n" );
-  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
-  printf { $fh }
-    (
-    "!define MUI_FINISHPAGE_TEXT \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich auf Ihrem Computer installiert.\$\\n\$\\nViel Erfolg und Freude bei der Nutzung der Karte.\$\\n\$\\nUm die Qualitaet dieser Karte zu sichern und zu verbessern ist auch Ihr Feedback (z.B. zu Defekten oder Verbesserungen) hilfreich. An dieser Stelle schon einmal Danke hierfuer.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Installation abzuschliessen.\"\n"
-    );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE \"\$(INFpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TEXT \"\$(INFpText)\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_WELCOMEFINISHPAGE_BITMAP Install.bmp\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_WELCOME\n" );
-  printf { $fh } ( "!insertmacro MUI_PAGE_LICENSE lizenz_haftung_erstellung.txt\n" );
+  printf { $fh } ( "!insertmacro MUI_PAGE_LICENSE \$(licenseFile)\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_DIRECTORY\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_INSTFILES\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_FINISH\n" );
@@ -2239,18 +2238,12 @@ sub create_nsis_nsifile {
   printf { $fh } ( "; Uninstaller Pages\n" );
   printf { $fh } ( "; -----------------\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
-  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
-  printf { $fh }
-    (
-    "!define MUI_WELCOMEPAGE_TEXT \"Dieser Assistent wird Sie durch die Deistallation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor dem Entfernen muss das Programm BaseCamp geschlossen werden damit Kartendateien geloescht werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Deinstallation zu beginnen.\"\n"
-    );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"\$(UIWpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TEXT \"\$(UIWpText)\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_FINISHPAGE_TITLE_3LINES\n" );
-  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
-  printf { $fh }
-    (
-    "!define MUI_FINISHPAGE_TEXT \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich von Ihrem Computer entfernt.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Deinstallation abzuschliessen.\"\n"
-    );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE \"\$(UIFpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TEXT \"\$(UIFpText)\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_UNWELCOMEFINISHPAGE_BITMAP Deinstall.bmp\n" );
   printf { $fh } ( "\n" );
@@ -2262,7 +2255,36 @@ sub create_nsis_nsifile {
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Language Settings\n" );
   printf { $fh } ( "; -----------------\n" );
+  printf { $fh } ( "!insertmacro MUI_LANGUAGE \"English\"\n" );
   printf { $fh } ( "!insertmacro MUI_LANGUAGE \"German\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString INWpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString INWpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
+  printf { $fh } ( "LangString INWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"lizenz_haftung_erstellung_en.txt\"\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"lizenz_haftung_erstellung.txt\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString INFpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
+  printf { $fh } ( "LangString INFpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
+  printf { $fh } ( "LangString INFpText \${LANG_ENGLISH} \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} has been succesfully installed on your computer.\$\\n\$\\nHave fun using the map.\$\\n\$\\nFor ensuring and increasing the quality of the map also your feedback is helpful (e.g. defects or improvements). Already now many thanks for it.\$\\n\$\\nChoose Finish to terminate the installation.\"\n" );
+  printf { $fh } ( "LangString INFpText \${LANG_GERMAN} \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich auf Ihrem Computer installiert.\$\\n\$\\nViel Erfolg und Freude bei der Nutzung der Karte.\$\\n\$\\nUm die Qualitaet dieser Karte zu sichern und zu verbessern ist auch Ihr Feedback (z.B. zu Defekten oder Verbesserungen) hilfreich. An dieser Stelle schon einmal Danke hierfuer.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Installation abzuschliessen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString UIWpTitle \${LANG_ENGLISH} \"Deinstalling \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString UIWpTitle \${LANG_GERMAN} \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString UIWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the deinstallation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}.\$\\n\$\\nBefore deinstallation BaseCamp must be closed for allowing deletion of the map data.\$\\n\$\\nChoose Next for starting the deinstallation.\"\n" );
+  printf { $fh } ( "LangString UIWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Deistallation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor dem Entfernen muss das Programm BaseCamp geschlossen werden damit Kartendateien geloescht werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Deinstallation zu beginnen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString UIFpTitle \${LANG_ENGLISH} \"Deinstallation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
+  printf { $fh } ( "LangString UIFpTitle \${LANG_GERMAN} \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
+  printf { $fh } ( "LangString UIFpText \${LANG_ENGLISH} \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} has been succesfully deinstalled from your computer.\$\\n\$\\nChoose Finish to terminate the deinstallation.\"\n" );
+  printf { $fh } ( "LangString UIFpText \${LANG_GERMAN} \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich von Ihrem Computer entfernt.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Deinstallation abzuschliessen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString AlreadyInstalled \${LANG_ENGLISH} \"There is already a version of \${KARTEN_BESCHREIBUNG} installed.\$\\nThis version needs to be deinstalled first.\"\n" );
+  printf { $fh } ( "LangString AlreadyInstalled \${LANG_GERMAN} \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\nDiese Version muss zunaechst entfernt werden.\"\n" );
+  printf { $fh } ( "LangString AlreadyInstalledOldName \${LANG_ENGLISH} \"There is already a version of \${KARTEN_BESCHREIBUNG} installed.\$\\n(still using the old name \${REG_KEY_OLD})\$\\nThis version needs to be deinstalled first.\"\n" );
+  printf { $fh } ( "LangString AlreadyInstalledOldName \${LANG_GERMAN} \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\n(noch mit altem Namen \${REG_KEY_OLD})\$\\nDiese Version muss zunaechst entfernt werden.\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Initialize NSI-Variables\n" );
@@ -2280,6 +2302,10 @@ sub create_nsis_nsifile {
   printf { $fh } ( "\n" );
   printf { $fh } ( "Function myGUIInit\n" );
   printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Call the language selection dialog\n" );
+  printf { $fh } ( "  ; -------------------------------------------\n" );
+  printf { $fh } ( "  ;!insertmacro MUI_LANGDLL_DISPLAY\n" );
+  printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Uninstall before Installing (actual mapname)\n" );
   printf { $fh } ( "  ; -------------------------------------------\n" );
   printf { $fh } ( "  ReadRegStr \$R0 HKLM \\\n" );
@@ -2288,12 +2314,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "\n" );
   printf { $fh } ( "  StrCmp \$R0 \"\" noactualcard\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \\\n" );
-  printf { $fh }
-    (
-    "  \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\nDiese Version muss zunaechst entfernt werden.\" \\\n"
-    );
-  printf { $fh } ( "  IDOK uninstactualcard\n" );
+  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"\$(AlreadyInstalled)\" IDOK uninstactualcard\n" );
   printf { $fh } ( "  Abort\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Run the Uninstaller\n" );
@@ -2311,12 +2332,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "\n" );
   printf { $fh } ( "  StrCmp \$R0 \"\" nooldcard\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \\\n" );
-  printf { $fh }
-    (
-    "  \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\n(noch mit altem Namen \${REG_KEY_OLD})\$\\nDiese Version muss zunaechst entfernt werden.\" \\\n"
-    );
-  printf { $fh } ( "  IDOK uninstoldcard\n" );
+  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"\$(AlreadyInstalledOldName)\" IDOK uninstoldcard\n" );
   printf { $fh } ( "  Abort\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Run the Uninstaller\n" );
@@ -2567,8 +2583,10 @@ sub create_nsis_exefile {
   # go to nsis directory
   chdir "$BASEPATH/nsis";
 
-  # copy license file and needed bitmaps
+  # copy license files and needed bitmaps
   copy ( "lizenz_haftung_erstellung.txt", "$WORKDIRLANG/lizenz_haftung_erstellung.txt" )
+    or die ( "copy() failed: $!\n" );
+  copy ( "lizenz_haftung_erstellung_en.txt", "$WORKDIRLANG/lizenz_haftung_erstellung_en.txt" )
     or die ( "copy() failed: $!\n" );
   copy ( "Install.bmp",   "$WORKDIRLANG/Install.bmp" )   or die ( "copy() failed: $!" );
   copy ( "Deinstall.bmp", "$WORKDIRLANG/Deinstall.bmp" ) or die ( "copy() failed: $!" );
@@ -2591,7 +2609,8 @@ sub create_nsis_exefile {
   if ( $OSNAME eq 'MSWin32' ) {
     # Windows
     printf { *STDOUT } ( "   (...sleeping a while for preventing viruschecking to lock files...)\n" );
-    sleep 60;
+#    sleep 60;
+    sleep 5;
   }
   
   # Try to move the Installer into the install directory
