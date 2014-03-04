@@ -106,7 +106,7 @@ Konfigurationsdateien von nsis
 Freizeitkarte-Entwicklung/poly:
 Ablageort der Polygone von Sonderkarten (Skandinavien, Alpen, BeNeLux etc.)
 
-Freizeitkarte-Entwicklung/seas:
+Freizeitkarte-Entwicklung/sea:
 Ablageort der Küstenlinien Europas.
 Diese Datei wird beim Build-Prozeß für die Darstellung der Meere benötigt.
 Diese Dateien werden mit dem 'boostrap' Befehl in die Entwicklungsumgebung nachgeladen und integriert.

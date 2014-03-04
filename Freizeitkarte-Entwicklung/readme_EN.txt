@@ -102,7 +102,7 @@ Configuration files of nsis
 Freizeitkarte-Entwicklung/poly:
 Repository of polygons for special maps (Scandinavia, Alps, BeNeLux etc.)
 
-Freizeitkarte-Entwicklung/seas:
+Freizeitkarte-Entwicklung/sea:
 Repository of the european coast-line
 Used during build-process for displaying the sea propperly.
 This datafiles will be downloaded when you issue the 'bootstrap' command.
