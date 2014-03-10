@@ -7375,26 +7375,27 @@ DayXpm="3 3 2 1"   Colormode=16
 [_point]
 Type=0x02f
 SubType=0x06
-String1=0x00,ATM
-String2=0x01,ATM
+String1=0x00,Geldautomat
+String2=0x01,Geldautomat
 String3=0x02,Geldautomat
 String4=0x04,ATM
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="6 9 2 1"   Colormode=0
+DayXpm="8 9 3 1"   Colormode=16
+"   c none"
 "!	c #0080C0"
 "#	c #FFFFFF"
-"######"
-"###!!!"
-"##!!##"
-"##!###"
-"!!!!!!"
-"##!###"
-"##!!##"
-"###!!!"
-"######"
-;123456
+"    ### "
+"   #!!!#"
+"  #!!#  "
+"  #!#   "
+"#!!!!!!#"
+"  #!#   "
+"  #!!#  "
+"   #!!!#"
+"    ### "
+;12345678
 [end]
 
 
