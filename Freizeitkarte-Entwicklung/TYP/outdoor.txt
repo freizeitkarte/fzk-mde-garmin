@@ -7624,6 +7624,28 @@ DayXpm="6 9 2 1"   Colormode=16
 
 [_point]
 Type=0x02f
+SubType=0x0c
+String1=0x00,Restroom
+String2=0x01,Toilet
+String3=0x02,Toilette
+String4=0x04,Toilet
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+DayXpm="5 5 3 1"   Colormode=16
+"!	c #FFFF00"
+"#	c #FF0000"
+"  	c none"
+" ### "
+"#!!!#"
+"#!!!#"
+"#!!!#"
+" ### "
+;12345
+
+
+[_point]
+Type=0x02f
 SubType=0x0d
 String1=0x00,Automobil-Club
 String2=0x01,Automobil-Club
