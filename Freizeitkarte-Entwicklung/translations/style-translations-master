@@ -57,7 +57,7 @@
 #define $__ALPINEHUT__DE Berghütte
 #define $__ALPINEHUT__EN Alpine hut
 #define $__ALPINEHUT__NL Berghut
-#define $__ALPINEHUT__PL Chata alpejska
+#define $__ALPINEHUT__PL Schronisko
 #define $__ALPINEHUT__RU Горное жилище
 #define $__ALPINEHUT__PT Cabana alpina
 
@@ -95,7 +95,7 @@
 #define $__BASICHUT__DE Basic Hut
 #define $__BASICHUT__EN Basic hut
 #define $__BASICHUT__NL Berghut
-#define $__BASICHUT__PL Szałas
+#define $__BASICHUT__PL Prosta chatka
 #define $__BASICHUT__RU Изба
 #define $__BASICHUT__PT Cabana básica
 
@@ -122,7 +122,7 @@
 #define $__CARAVANSITE__DE Caravan
 #define $__CARAVANSITE__EN Caravan Site
 #define $__CARAVANSITE__NL Camperplaats
-#define $__CARAVANSITE__PL Camping dla zmotoryzowaneych
+#define $__CARAVANSITE__PL Kemping dla zmotoryzowaneych
 #define $__CARAVANSITE__RU Кемпинг / Стоянка для фургонов, автомобилей с прицепами
 #define $__CARAVANSITE__PT Parque de campismo
 
@@ -131,7 +131,7 @@
 #define $__CHALET__DE Ferienhaus
 #define $__CHALET__EN Chalet
 #define $__CHALET__NL Vakantiehuis
-#define $__CHALET__PL Schronisko
+#define $__CHALET__PL Domek kempingowy
 #define $__CHALET__RU Шале
 #define $__CHALET__PT Chalé
 
@@ -140,7 +140,7 @@
 #define $__GUESTHOUSE__DE Gasthaus
 #define $__GUESTHOUSE__EN Guest House
 #define $__GUESTHOUSE__NL Pension
-#define $__GUESTHOUSE__PL Pensjonat
+#define $__GUESTHOUSE__PL Pokoje gościnne
 #define $__GUESTHOUSE__RU Мини-гостиница
 #define $__GUESTHOUSE__PT Casa de hóspedes
 
@@ -169,7 +169,7 @@
 #define $__LEANTO__DE Lean-to
 #define $__LEANTO__EN Lean-to
 #define $__LEANTO__NL Schuilhut
-#define $__LEANTO__PL Szałas / przybudówka
+#define $__LEANTO__PL Szałas / Przybudówka
 #define $__LEANTO__RU Навес
 #define $__LEANTO__PT Alpendre
 
@@ -286,7 +286,7 @@
 #define $__FELL__DE Alm, Matten
 #define $__FELL__EN Open Fell
 #define $__FELL__NL Bergweide
-#define $__FELL__PL Hala
+#define $__FELL__PL Hala górska
 #define $__FELL__RU Горный луг, область выше линии деревьев
 #define $__FELL__PT Alpe
 
@@ -340,7 +340,7 @@
 #define $__SCREE__DE Geröll
 #define $__SCREE__EN Scree 
 #define $__SCREE__NL Steenslag
-#define $__SCREE__PL Piarg 
+#define $__SCREE__PL Piarg (rumowisko skalne) 
 #define $__SCREE__RU Камни (валуны, галька) 
 #define $__SCREE__PT Seixos 
 
@@ -349,7 +349,7 @@
 #define $__SCRUB__DE Unterholz/Gebüsch
 #define $__SCRUB__EN Scrubland
 #define $__SCRUB__NL Woeste grond
-#define $__SCRUB__PL Zarośla
+#define $__SCRUB__PL Busz
 #define $__SCRUB__RU Подлесок/кустарник
 #define $__SCRUB__PT Cerrado
 
@@ -414,7 +414,7 @@
 #define $__WETLAND__DE Feuchtgebiet
 #define $__WETLAND__EN Wetland (Marsh, reeds or saltings) 
 #define $__WETLAND__NL Drassig land
-#define $__WETLAND__PL Teren podmokły
+#define $__WETLAND__PL Obszar podmokły
 #define $__WETLAND__RU Заболоченная местность (камыш, солончак)
 #define $__WETLAND__PT Atoleiro
 
@@ -438,7 +438,7 @@
 #define $__ISLET__DE Kleine Insel
 #define $__ISLET__EN Island/Islet
 #define $__ISLET__NL Eiland
-#define $__ISLET__PL Wyspa/Wysepka
+#define $__ISLET__PL Wysepka
 #define $__ISLET__RU Остров
 #define $__ISLET__PT Ilhota
 
@@ -456,7 +456,7 @@
 #define $__LOCALITY__DE Ortsbezeichnung
 #define $__LOCALITY__EN Locality
 #define $__LOCALITY__NL Locatie
-#define $__LOCALITY__PL Miejscowość
+#define $__LOCALITY__PL Miejsce niezamieszałe ale godne uwagi
 #define $__LOCALITY__RU Название места
 #define $__LOCALITY__PT Localidade
 
@@ -539,7 +539,7 @@
 #define $__TERMINAL__DE Terminal
 #define $__TERMINAL__EN Airport Building/Terminal 
 #define $__TERMINAL__NL Luchthaventerminal
-#define $__TERMINAL__PL Port lotniczy 
+#define $__TERMINAL__PL Budynek lotniska/Terminal 
 #define $__TERMINAL__RU Здание аэропорта/Терминал
 #define $__TERMINAL__PT Terminal
 
@@ -1083,7 +1083,7 @@
 #define $__RESTRICTED__DE eingeschränkt
 #define $__RESTRICTED__EN Restricted
 #define $__RESTRICTED__NL Privé
-#define $__RESTRICTED__PL Ograniczony
+#define $__RESTRICTED__PL ograniczony
 #define $__RESTRICTED__RU Ограниченный доступ
 #define $__RESTRICTED__PT Privado
 
@@ -1298,7 +1298,7 @@
 #define $__POLICE__DE Polizeistation
 #define $__POLICE__EN Police Station
 #define $__POLICE__NL Politiebureau
-#define $__POLICE__PL Posterunek policji
+#define $__POLICE__PL Komisariat policji
 #define $__POLICE__RU Отделение полиции
 #define $__POLICE__PT Delegacia de policia
 
@@ -1710,7 +1710,7 @@
 #define $__CONVENIENCE__DE Lebensmittel
 #define $__CONVENIENCE__EN Convenience Store
 #define $__CONVENIENCE__NL Supermarkt
-#define $__CONVENIENCE__PL Sklep
+#define $__CONVENIENCE__PL Sklep ogólnospożywczy
 #define $__CONVENIENCE__RU Продукты питания
 #define $__CONVENIENCE__PT Loja de conveniência
 
@@ -1764,7 +1764,7 @@
 #define $__GENERALSHOP__DE Gemischtwaren
 #define $__GENERALSHOP__EN General Store
 #define $__GENERALSHOP__NL Buurtwinkel
-#define $__GENERALSHOP__PL Sklep ogólnospożywczy
+#define $__GENERALSHOP__PL Sklep wielobranżowy
 #define $__GENERALSHOP__RU Универмаг
 #define $__GENERALSHOP__PT Armazém
 
@@ -2000,7 +2000,7 @@
 #define $__HEARINGAIDS__DE Hörgeräteakustiker
 #define $__HEARINGAIDS__EN Hearing Aid Shop
 #define $__HEARINGAIDS__NL Gehoorapparatenwinkel
-#define $__HEARINGAIDS__PL Sklep dla niesłyszących
+#define $__HEARINGAIDS__PL Sklep dla osób niesłyszących
 #define $__HEARINGAIDS__RU Магазин слуховых аппаратов
 #define $__HEARINGAIDS__PT Aparelhos de audição
 
@@ -2008,7 +2008,7 @@
 #define $__HIFI__DE Hifi-Fachhandel
 #define $__HIFI__EN Hifi Dealers
 #define $__HIFI__NL Hifi-winkel
-#define $__HIFI__PL Sklep Hifi 
+#define $__HIFI__PL Sklep ze sprzętem Hifi 
 #define $__HIFI__RU Hi-Fi техника
 #define $__HIFI__PT Som e imagem
 
@@ -2040,7 +2040,7 @@
 #define $__KITCHEN__DE Küchenstudio
 #define $__KITCHEN__EN Kitchen Studio 
 #define $__KITCHEN__NL Keukenstudio
-#define $__KITCHEN__PL Sklep z matriałami do wystroju kuchni 
+#define $__KITCHEN__PL Sklep z materiałami do wystroju kuchni
 #define $__KITCHEN__RU Кухня-студия
 #define $__KITCHEN__PT Cozinha planejada
 
@@ -2157,7 +2157,7 @@
 #define $__SECONDHAND__DE Second-Hand-Shop
 #define $__SECONDHAND__EN Second Hand Shop
 #define $__SECONDHAND__NL Kringloopwinkel
-#define $__SECONDHAND__PL Sklep typu Second Hand
+#define $__SECONDHAND__PL Sklep z artykułami z drugiej ręki
 #define $__SECONDHAND__RU Магазин секонд-хэнд
 #define $__SECONDHAND__PT Brechó
 #define $__SOLARIUM__ Sonnenstudio
@@ -2290,7 +2290,7 @@
 #define $__HIGHWAYSERVICEAREA__DE Raststätte
 #define $__HIGHWAYSERVICEAREA__EN Motorway Services
 #define $__HIGHWAYSERVICEAREA__NL Parkeerplaats met benzinepomp
-#define $__HIGHWAYSERVICEAREA__PL MOP (Miejsce obsługi podróżnych)
+#define $__HIGHWAYSERVICEAREA__PL MOP (Miejsce Obsługi Podróżnych)
 #define $__HIGHWAYSERVICEAREA__RU Автосервис
 #define $__HIGHWAYSERVICEAREA__PT Área de serviço
 
@@ -2313,7 +2313,7 @@
 #define $__DANCE__DE Tanzen
 #define $__DANCE__EN Dance Studio
 #define $__DANCE__NL Dansschool
-#define $__DANCE__PL Studio tańca
+#define $__DANCE__PL Estrada do tańca
 #define $__DANCE__RU Студия танцев
 #define $__DANCE__PT Danceteria
 
@@ -2553,7 +2553,7 @@
 #define $__RUNESTONE__DE Runenstein
 #define $__RUNESTONE__EN Rune Stone
 #define $__RUNESTONE__NL Runensteen
-#define $__RUNESTONE__PL Kamień pokryty runami
+#define $__RUNESTONE__PL Kamień runiczny
 #define $__RUNESTONE__RU Рунический камень
 #define $__RUNESTONE__PT Runa de pedra
 
@@ -2955,7 +2955,7 @@
 #define $__HORSERACING__DE Pferderennbahn
 #define $__HORSERACING__EN Racecourse
 #define $__HORSERACING__NL Paardenrenbaan
-#define $__HORSERACING__PL Tor konnych wyścigów 
+#define $__HORSERACING__PL Tor wyścigów konnych 
 #define $__HORSERACING__RU Ипподром
 #define $__HORSERACING__PT Hípica
 
@@ -2983,7 +2983,7 @@
 #define $__SKIING__DE Skipiste, -halle
 #define $__SKIING__EN Ski Area/Ski Dome
 #define $__SKIING__NL Skipiste
-#define $__SKIING__PL Tor narciarski
+#define $__SKIING__PL Stok narciarski
 #define $__SKIING__RU Лыжная трасса / Лыжный стадион
 #define $__SKIING__PT Pista de esquí
 
@@ -3043,7 +3043,7 @@
 #define $__ADMINISTRATIVE__DE Lokale Verwaltung
 #define $__ADMINISTRATIVE__EN Local Authorities
 #define $__ADMINISTRATIVE__NL Gemeentehuis
-#define $__ADMINISTRATIVE__PL Władze loklane
+#define $__ADMINISTRATIVE__PL Władze lokalne
 #define $__ADMINISTRATIVE__RU Местная администрация
 #define $__ADMINISTRATIVE__PT Autoridades
 
@@ -3061,7 +3061,7 @@
 #define $__GOVERNMENT__DE Amt, Behörde
 #define $__GOVERNMENT__EN Government Authority
 #define $__GOVERNMENT__NL Overheidsgebouw
-#define $__GOVERNMENT__PL Władza rządowa
+#define $__GOVERNMENT__PL Agencja rządowa
 #define $__GOVERNMENT__RU Гос. учреждение / ведомство
 #define $__GOVERNMENT__PT Autoridades governamentais
 

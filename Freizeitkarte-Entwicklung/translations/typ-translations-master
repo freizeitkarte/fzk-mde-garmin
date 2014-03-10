@@ -89,7 +89,7 @@ String2=0x02,Wohngebiet
 String3=0x03,Woonwijk
 String4=0x04,Residential Area
 String5=0x10,Área residencial
-String6=0x15,Dzielnica mieszkaniowa
+String6=0x15,Zabudowa mieszkalna
 String7=0x19,Жилая зона
 [end]
 
@@ -101,7 +101,7 @@ String2=0x02,Militärgebiet
 String3=0x03,Militair gebied
 String4=0x04,Military Area
 String5=0x10,Área militar
-String6=0x15,Obszar należący do wosjka
+String6=0x15,Obszar wojskowy
 String7=0x19,Военная территория
 [end]
 
@@ -125,7 +125,7 @@ String2=0x02,Handel
 String3=0x03,Winkelgebied
 String4=0x04,Retail Area
 String5=0x10,Comércio
-String6=0x15,Sprzedaż detaliczna
+String6=0x15,Obszar handlowy
 String7=0x19,Торговая зона
 [end]
 
@@ -173,7 +173,7 @@ String2=0x02,Industrie
 String3=0x03,Industriegebied
 String4=0x04,Industrial Area
 String5=0x10,Área industrial
-String6=0x15,Park przemysłowy
+String6=0x15,Obszar przemysłowy
 String7=0x19,Промзона
 [end]
 
@@ -197,7 +197,7 @@ String2=0x02,Start- / Landebahn
 String3=0x03,Start- / Landingsbaan
 String4=0x04,Runway
 String5=0x10,Pista de decolagem
-String6=0x15,Lotnisko
+String6=0x15,Pas startowy
 String7=0x19,Взлётно-посадочная полоса
 [end]
 
@@ -221,7 +221,7 @@ String2=0x02,Campingplatz
 String3=0x03,Camping
 String4=0x04,Camping
 String5=0x10,Acampamento
-String6=0x15,Pole kempingowe
+String6=0x15,Kemping
 String7=0x19,Кемпинг / Палаточный лагерь
 [end]
 
@@ -281,7 +281,7 @@ String2=0x02,Fels
 String3=0x03,Klip
 String4=0x04,Cliff
 String5=0x10,Penhasco
-String6=0x15,Skała
+String6=0x15,Klif
 String7=0x19,Скала
 [end]
 
@@ -305,7 +305,7 @@ String2=0x02,Golfplatz
 String3=0x03,Golfterrein
 String4=0x04,Golf Course
 String5=0x10,Campo de golfe
-String6=0x15,Plac golfowy
+String6=0x15,Pole golfowe
 String7=0x19,Поле для гольфа
 [end]
 
@@ -401,7 +401,7 @@ String2=0x02,Kleingärten
 String3=0x03,Volktuinen
 String4=0x04,Allotments
 String5=0x10,Loteamentos
-String6=0x15,Działka rekreacyjna
+String6=0x15,Ogródki działkowe
 String7=0x19,Загородный дом с садом
 [end]
 
@@ -413,7 +413,7 @@ String2=0x02,Acker
 String3=0x03,Landbouwgrond
 String4=0x04,Farmland
 String5=0x10,Plantação
-String6=0x15,Pole uprawne
+String6=0x15,Grunty rolne
 String7=0x19,Сельско-хозяйственные земли
 [end]
 
@@ -449,7 +449,7 @@ String2=0x02,Baugebiet / Brache
 String3=0x03,Herbestemmingsgebied / Voormalig industriegebied
 String4=0x04,Construction / Brownfield Site
 String5=0x10,Construção
-String6=0x15,Budowa / Teren pod ponowną zabudowę
+String6=0x15,Budowa / Teren poprzemysłowy
 String7=0x19,Стройка / Поле под паром
 [end]
 
@@ -461,7 +461,7 @@ String2=0x02,Deponie
 String3=0x03,Vuilstort
 String4=0x04,Landfill Site
 String5=0x10,Aterro
-String6=0x15,Składowisko odpadów
+String6=0x15,Wysypisko
 String7=0x19,Свалка
 [end]
 
@@ -485,7 +485,7 @@ String2=0x02,Vorfeld
 String3=0x03,Vliegveld
 String4=0x04,Airfield Apron
 String5=0x10,Base aérea
-String6=0x15,Lotnisko wojskowe
+String6=0x15,Przedpole lotniska
 String7=0x19,Полоса обеспечения
 [end]
 
@@ -521,7 +521,7 @@ String2=0x02,Schlick
 String3=0x03,Slik
 String4=0x04,Mud
 String5=0x10,Lama
-String6=0x15,Błoto
+String6=0x15,Błota
 String7=0x19,Ил/трясина
 [end]
 
@@ -533,7 +533,7 @@ String2=0x02,Mischgebiet
 String3=0x03,Woonwijk
 String4=0x04,Living Street
 String5=0x10,Área mista
-String6=0x15,Ulica
+String6=0x15,Strefa zamieszkania
 String7=0x19,Смешанная застройка
 [end]
 
@@ -593,7 +593,7 @@ String2=0x02,Andachtsstätte
 String3=0x03,Gebedshuis
 String4=0x04,Place of Worship
 String5=0x10,Local de culto
-String6=0x15,Miejsce kultu
+String6=0x15,Miejsce kultu religijnego
 String7=0x19,Место поклонения
 [end]
 
@@ -629,7 +629,7 @@ String2=0x02,Anlegestelle
 String3=0x03,Aanlegplaats
 String4=0x04,Moorings
 String5=0x10,Pier
-String6=0x15,Nadbrzeże
+String6=0x15,Nadbrzeże / Cumy
 String7=0x19,Пристань
 [end]
 
@@ -641,7 +641,7 @@ String2=0x02,Land
 String3=0x03,Land
 String4=0x04,Land
 String5=0x10,Campo
-String6=0x15,Ziemia
+String6=0x15,Ląd
 String7=0x19,Земля
 [end]
 
@@ -665,7 +665,7 @@ String2=0x02,Staudamm / -mauer
 String3=0x03,Stuwdam
 String4=0x04,Dam
 String5=0x10,Represa
-String6=0x15,Zapora
+String6=0x15,Tama
 String7=0x19,Плотина
 [end]
 
@@ -677,7 +677,7 @@ String2=0x02,Bahnsteig
 String3=0x03,Spoorwegperron
 String4=0x04,Railway Platform
 String5=0x10,Plataforma ferroviária
-String6=0x15,Peron 
+String6=0x15,Peron kolejowy 
 String7=0x19,Платформа/перрон
 [end]
 
@@ -701,7 +701,7 @@ String2=0x02,Alm / Bergwiese
 String3=0x03,Bergweide
 String4=0x04,Fell
 String5=0x10,Alpe
-String6=0x15,Hala
+String6=0x15,Hala górska
 String7=0x19,Горный луг
 [end]
 
@@ -737,7 +737,7 @@ String2=0x02,Geröll
 String3=0x03,Steenslag
 String4=0x04,Scree
 String5=0x10,Seixo
-String6=0x15,Piarg
+String6=0x15,Rumowisko
 String7=0x19,Камни (валуны, галька)
 [end]
 
@@ -761,7 +761,7 @@ String2=0x02,Flussufer
 String3=0x03,Rivieroever
 String4=0x04,Riverbank
 String5=0x10,Margem do rio
-String6=0x15,Brzeg rzeki
+String6=0x15,Koryto rzeczne
 String7=0x19,Берег реки
 [end]
 
@@ -773,7 +773,7 @@ String2=0x02,Sand
 String3=0x03,Zand
 String4=0x04,Sand
 String5=0x10,Areia
-String6=0x15,Piasek
+String6=0x15,Piach
 String7=0x19,Песок
 [end]
 
@@ -785,7 +785,7 @@ String2=0x02,Bauernhof
 String3=0x03,Boerderij
 String4=0x04,Farm
 String5=0x10,Fazenda
-String6=0x15,Gospodarsto rolne
+String6=0x15,Budynek na farmie
 String7=0x19,Фермерские угодья
 [end]
 
@@ -809,7 +809,7 @@ String2=0x02,Dock
 String3=0x03,Dok
 String4=0x04,Dock
 String5=0x10,Doca
-String6=0x15,Nadbrzeże
+String6=0x15,Dok
 String7=0x19,Док
 [end]
 
@@ -917,7 +917,7 @@ String2=0x02,Wadi
 String3=0x03,Wadi
 String4=0x04,Wadi
 String5=0x10,Uádi
-String6=0x15,Wadi (sucha dolina na pustyni)
+String6=0x15,Wadi (sucha koryto rzeki na pustyni)
 String7=0x19,Вади (сухая долина временного потока)
 [end]
 
@@ -958,7 +958,7 @@ String2=0x02,[Bundesstraße]
 String3=0x03,[Snelweg]
 String4=0x04,[Highway]
 String5=0x10,[Via expressa]
-String6=0x15,[Autostrada]
+String6=0x15,[Droga główna]
 String7=0x19,[Федеральная трасса]
 [end]
 
@@ -970,7 +970,7 @@ String2=0x02,[Bundesstraße]
 String3=0x03,[Snelweg]
 String4=0x04,[Highway]
 String5=0x10,[Via expressa]
-String6=0x15,[Autostrada]
+String6=0x15,[Droga ekspersowa]
 String7=0x19,[Федеральная трасса]
 [end]
 
@@ -982,7 +982,7 @@ String2=0x02,[Landesstraße]
 String3=0x03,[Provinciale weg]**
 String4=0x04,[Secondary Road]
 String5=0x10,[Estrada]
-String6=0x15,[Droga krajowa]
+String6=0x15,[Droga wojewódzka]
 String7=0x19,[Дорога местного значения]
 [end]
 
@@ -994,7 +994,7 @@ String2=0x02,[Kreisstraße]
 String3=0x03,[Doorgaande weg]
 String4=0x04,[Country Road]
 String5=0x10,[Estrada de chão]
-String6=0x15,[Droga wiejska]
+String6=0x15,[Droga gminna]
 String7=0x19,[Дорога местного значения]
 [end]
 
@@ -1006,7 +1006,7 @@ String2=0x02,[Wohngebietsstraße]
 String3=0x03,[Woonwijk]
 String4=0x04,[Residential street]
 String5=0x10,[Rua residencial]
-String6=0x15,[Droga w terenie miejskim]
+String6=0x15,[Droga osiedlowa]
 String7=0x19,[Жилая зона]
 [end]
 
@@ -1015,10 +1015,10 @@ String7=0x19,[Жилая зона]
 Type=0x07
 String1=0x00,[Unclassified Road]
 String2=0x02,[Nebenstraße]
-String3=0x03,[Unclassified Road] **
+String3=0x03,[Unclassified Road]
 String4=0x04,[Unclassified Road]
 String5=0x10,[Rua não classificada]
-String6=0x15,[Droga niesklasyfikowana]
+String6=0x15,[Droga czwartorzędna]
 String7=0x19,[Неопределённая дорога]
 [end]
 
@@ -1042,7 +1042,7 @@ String2=0x02,[Spielstraße]
 String3=0x03,[Woonwijk]
 String4=0x04,[Living Street]
 String5=0x10,[Passeio]
-String6=0x15,[Droga zabawowa]
+String6=0x15,[Strefa zamieszkania]
 String7=0x19,[Улица для детских игр]
 [end]
 
@@ -1054,7 +1054,7 @@ String2=0x02,[Radweg]
 String3=0x03,[Fietspad]
 String4=0x04,[Cycleway]
 String5=0x10,[Ciclovia]
-String6=0x15,[Droga rowerowa]
+String6=0x15,[Wyznaczona ścieżka rowerowa]
 String7=0x19,[Вело-/пешеходная дорожка]
 [end]
 
@@ -1066,7 +1066,7 @@ String2=0x02,[Radweg]
 String3=0x03,[Ruiterpad]
 String4=0x04,[Bridleway]
 String5=0x10,[Ciclovia/Pedestres]
-String6=0x15,[Droga do jazdy konnej]
+String6=0x15,[Wyznaczona droga dla koni]
 String7=0x19,[Вело-/пешеходная дорожка]
 [end]
 
@@ -1150,7 +1150,7 @@ String2=0x02,Straßenbahn
 String3=0x03,Tram & Kabelwagen
 String4=0x04,Tram & Cable Car
 String5=0x10,Bonde
-String6=0x15,Przystanek tramwajowy
+String6=0x15,Szybki tramwaj
 String7=0x19,Трамвай
 [end]
 
@@ -1162,7 +1162,7 @@ String2=0x02,[Fußweg]
 String3=0x03,[Voetpad]
 String4=0x04,[Footpath]
 String5=0x10,[Calçada]
-String6=0x15,[Ścieżka]
+String6=0x15,[Chodnik]
 String7=0x19,[Тропа]
 [end]
 
@@ -1210,7 +1210,7 @@ String2=0x02,Staatsgrenze
 String3=0x03,Staatsgrens
 String4=0x04,National/State/County Border
 String5=0x10,Fronteira
-String6=0x15,Granica Narodowa/Wojewódzka/Powiatowa 
+String6=0x15,Granica narodowa/wojewódzka/powiatowa 
 String7=0x19,Граница государства/области
 [end]
 
@@ -1234,7 +1234,7 @@ String2=0x02,Höhenlinie minor
 String3=0x03,Hoogtelijn klein
 String4=0x04,Minor Contour Line
 String5=0x10,Linha de contorno fina
-String6=0x15,Mała linia wysokości
+String6=0x15,Cienka linia wysokości
 String7=0x19,Контур, второстепенный
 [end]
 
@@ -1258,7 +1258,7 @@ String2=0x02,Höhenlinie major (breit)
 String3=0x03,Hoogtelijn groot
 String4=0x04,Major Contour Line
 String5=0x10,Linha de contorno grossa
-String6=0x15,Główna linia wysokości
+String6=0x15,Gruba linia wysokości
 String7=0x19,Контур, важный
 [end]
 
@@ -1282,7 +1282,7 @@ String2=0x02,Start- / Landebahn
 String3=0x03,Start- en landingsbaan
 String4=0x04,Runway
 String5=0x10,Pista de decolagem
-String6=0x15,Lądowisko
+String6=0x15,Pas startowy
 String7=0x19,Взлётно-посадочная полоса
 [end]
 
@@ -1342,7 +1342,7 @@ String2=0x02,Kanal
 String3=0x03,Sloot
 String4=0x04,Canal
 String5=0x10,Canal
-String6=0x15,Kanał
+String6=0x15,Mały kanał
 String7=0x19,Канал/ров
 [end]
 
@@ -1354,7 +1354,7 @@ String2=0x02,Klippe
 String3=0x03,Klip
 String4=0x04,Cliff
 String5=0x10,Penhasco
-String6=0x15,Urwisko
+String6=0x15,Klif
 String7=0x19,Скала
 [end]
 
@@ -1366,7 +1366,7 @@ String2=0x02,Wohngebietsstraße (Eingeschränkt)
 String3=0x03,Woonwijk (afgesloten)
 String4=0x04,Residential Street (restricted)
 String5=0x10,Área residencial (restrita)
-String6=0x15,Ulica mieszkalna (ruch ograniczony)
+String6=0x15,Droga osiedlowa (ruch ograniczony)
 String7=0x19,Жилая зона (ограниченный доступ)
 [end]
 
@@ -1378,7 +1378,7 @@ String2=0x02,Nebenstraße
 String3=0x03,Landweg (smal)
 String4=0x04,Unclassified Road (Narrow)
 String5=0x10,Rua não classificada (estreita)
-String6=0x15,Droga pozaklasowa(wąska)
+String6=0x15,Droga czwartorzędna (wąska)
 String7=0x19,Неопределённая дорога (узкая)
 [end]
 
@@ -1390,7 +1390,7 @@ String2=0x02,Erschließungsstraße
 String3=0x03,Ventweg
 String4=0x04,Service Road
 String5=0x10,Acesso para manutenção
-String6=0x15,Droga 
+String6=0x15,Droga dojazdowa 
 String7=0x19,Подъездная дорога
 [end]
 
@@ -1402,7 +1402,7 @@ String2=0x02,Spielstraße (Eingeschränkt)
 String3=0x03,Woonerf
 String4=0x04,Living Street (restricted) narrow
 String5=0x10,Passeio (restrito) estreito
-String6=0x15,Droga zabawowa (ograniczony ruch) wąska
+String6=0x15,Strefa zamieszkania (ograniczony ruch) wąska
 String7=0x19,Улица для детских игр (ограниченный доступ)
 [end]
 
@@ -1414,7 +1414,7 @@ String2=0x02,Feld- / Waldweg (4,5)
 String3=0x03,Onverharde weg (4,5)
 String4=0x04,Track/Dirt Road (4,5)
 String5=0x10,Estrada não pavimentada (4,5)
-String6=0x15,Droga polna (4,5)
+String6=0x15,Droga gruntowa (4,5)
 String7=0x19,Грунтовая дорога (4,5)
 [end]
 
@@ -1462,7 +1462,7 @@ String2=0x02,Landesstraße
 String3=0x03,Provinciale weg
 String4=0x04,Secondary Road
 String5=0x10,Estrada
-String6=0x15,Droga wiejska
+String6=0x15,Droga wojewódzka
 String7=0x19,Дорога местного значения
 [end]
 
@@ -1510,7 +1510,7 @@ String2=0x02,Bahn
 String3=0x03,Spoorbaan
 String4=0x04,Railway
 String5=0x10,Via férrea
-String6=0x15,Kolej
+String6=0x15,Linia kolejowa
 String7=0x19,Железная дорога
 [end]
 
@@ -1522,7 +1522,7 @@ String2=0x02,S-Bahn
 String3=0x03,Trambaan
 String4=0x04,Light Rail
 String5=0x10,Trens urbanos
-String6=0x15,Kolej podmiejska
+String6=0x15,Szybki tramwaj
 String7=0x19,Узкоколейная железная дорога
 [end]
 
@@ -1546,7 +1546,7 @@ String2=0x02,S-Bahn (Tunnel)
 String3=0x03,Metrotunnel
 String4=0x04,Light Rail (tunnel)
 String5=0x10,Trens urbanos (túnel)
-String6=0x15,Tunel kolejki podmiejskiej
+String6=0x15,Szybki tramwaj (tunel)
 String7=0x19,Узкоколейная железная дорога (туннель)
 [end]
 
@@ -1582,7 +1582,7 @@ String2=0x02,Klettersteig
 String3=0x03,Rotspad breed
 String4=0x04,Via Ferrata
 String5=0x10,Via Ferrata
-String6=0x15,Via Ferrata - szeroka droga wspinaczkowa 
+String6=0x15,Szeroka droga wspinaczkowa 
 String7=0x19,Восхождение
 [end]
 
@@ -1594,7 +1594,7 @@ String2=0x02,Klettersteig
 String3=0x03,Rotspad smal
 String4=0x04,Via Ferrata
 String5=0x10,Via Ferrata
-String6=0x15,Via Ferrata - wąska droga wspinaczkowa
+String6=0x15,Wąska droga wspinaczkowa
 String7=0x19,Виа феррата (альпинизм)
 [end]
 
@@ -1606,7 +1606,7 @@ String2=0x02,Materialseilbahn
 String3=0x03,hangspoor (voor goederen)
 String4=0x04,Ropeway (for material transport)
 String5=0x10,Teleférico (transporte de materiais)
-String6=0x15,Dostawcza kolejka linowa 
+String6=0x15,Kolej linowa dla przewozu ładunków
 String7=0x19,Канатная дорога (для грузов)
 [end]
 
@@ -1870,7 +1870,7 @@ String2=0x02,Rollweg
 String3=0x03,Taxibaan
 String4=0x04,Taxiway
 String5=0x10,Exclusivo para taxi
-String6=0x15,Droga dla taksówek
+String6=0x15,Droga kołowania
 String7=0x19,Рулёжная дорожка
 [end]
 
@@ -1906,7 +1906,7 @@ String2=0x02,Reitweg
 String3=0x03,Ruiterpad
 String4=0x04,bridle path
 String5=0x10,Hipovia
-String6=0x15,Droga do jazdy konnej
+String6=0x15,Wyznaczona droga do dla koni
 String7=0x19,Дорога для всадников
 [end]
 
@@ -1930,7 +1930,7 @@ String2=0x02,Fußweg
 String3=0x03,Voetpad
 String4=0x04,Footpath
 String5=0x10,Calçada estreita
-String6=0x15,Ścieżyna
+String6=0x15,Wąski chodnik
 String7=0x19,Тропа
 [end]
 
@@ -1942,7 +1942,7 @@ String2=0x02,Schmaler Weg / Pfad
 String3=0x03,Pad
 String4=0x04,Path
 String5=0x10,Caminho
-String6=0x15,Ścieżka
+String6=0x15,Wąską ścieżka
 String7=0x19,Путь
 [end]
 
@@ -2038,7 +2038,7 @@ String2=0x02,Radweg
 String3=0x03,Ruiterpad nauw
 String4=0x04,Bridleway narrow
 String5=0x10,Caminho estreito
-String6=0x15,Ścieżka rowerowa
+String6=0x15,Droga dla koni
 String7=0x19,Вело-/пешеходная дорожка
 [end]
 
@@ -2146,7 +2146,7 @@ String2=0x02,Start- / Landebahn
 String3=0x03,Start- en landingsbaan
 String4=0x04,Runway
 String5=0x10,Pista de decolagem
-String6=0x15,Lądowisko
+String6=0x15,Pas startowy
 String7=0x19,Взлётно-посадочная полоса
 [end]
 
@@ -2158,7 +2158,7 @@ String2=0x02,Start- / Landebahn
 String3=0x03,Start- en landingsbaan
 String4=0x04,Runway
 String5=0x10,Pista de decolagem
-String6=0x15,Lądowisko
+String6=0x15,Pas startowy (mały)
 String7=0x19,Взлётно-посадочная полоса
 [end]
 
@@ -2170,7 +2170,7 @@ String2=0x02,Rollweg
 String3=0x03,Taxibaan
 String4=0x04,Taxiway
 String5=0x10,Exclusivo para taxi
-String6=0x15,Droga dla taksówek
+String6=0x15,Droga kołowania
 String7=0x19,Рулёжная дорожка
 [end]
 
@@ -2254,7 +2254,7 @@ String2=0x02,Verkehrsberuhigter Bereich
 String3=0x03,Woonerf
 String4=0x04,Living Street
 String5=0x10,Passeio
-String6=0x15,Ulica zabawowa
+String6=0x15,Strefa zamieszkania
 String7=0x19,Улица для детских игр
 [end]
 
@@ -2266,7 +2266,7 @@ String2=0x02,Verkehrsberuhigter Bereich
 String3=0x03,Woonerf
 String4=0x04,Living Street
 String5=0x10,Passeio
-String6=0x15,Ulica zabawowa mała
+String6=0x15,Strefa zamieszkania (wąska)
 String7=0x19,Улица для детских игр
 [end]
 
@@ -2278,7 +2278,7 @@ String2=0x02,Verkehrsberuhigter Bereich (Eingeschränkt)
 String3=0x03,Woonerf (afgesloten)
 String4=0x04,Living Street (restricted)
 String5=0x10,Passeio (restrito)
-String6=0x15,Ulica zabawowa (ograniczona)
+String6=0x15,Strefa zamieszkania (ograniczona) szeroka
 String7=0x19,Улица для детских игр (ограниченный доступ)
 [end]
 
@@ -2290,7 +2290,7 @@ String2=0x02,Verkehrsberuhigter Bereich (Eingeschränkt)
 String3=0x03,Woonerf (afgesloten)
 String4=0x04,Living Street (restricted)
 String5=0x10,Passeio (restrito)
-String6=0x15,Ulica zabawowa (ograniczona)
+String6=0x15,Strefa zamieszkania (ograniczona)
 String7=0x19,Улица для детских игр (ограниченный доступ)
 [end]
 
@@ -2302,7 +2302,7 @@ String2=0x02,Radweg
 String3=0x03,Fietspad
 String4=0x04,Cycleway
 String5=0x10,Ciclovia
-String6=0x15,Droga rowerowa
+String6=0x15,Ścieżka rowerowa
 String7=0x19,Велодорожка
 [end]
 
@@ -2314,7 +2314,7 @@ String2=0x02,Fußgängerstraße mittel
 String3=0x03,Voetgangersgebied
 String4=0x04,Pedestrianised Street
 String5=0x10,Zona de pedestres
-String6=0x15,Teren tylko dla pieszych
+String6=0x15,Droga dla pieszych
 String7=0x19,Пешеходная улица
 [end]
 
@@ -2326,7 +2326,7 @@ String2=0x02,Fußgängerstraße
 String3=0x03,Voetgangersgebied
 String4=0x04,Pedestrianised street
 String5=0x10,Zona de pedestres
-String6=0x15,Teren tylko dla pieszych
+String6=0x15,Droga dla pieszych - wąska
 String7=0x19,Пешеходная улица
 [end]
 
@@ -2362,7 +2362,7 @@ String2=0x02,Bundesstraße (wie Autobahn)
 String3=0x03,Autosnelweg
 String4=0x04,Highway (like freeway)
 String5=0x10,Auto estrada
-String6=0x15,Autostratda (jako droga ekspresowa)
+String6=0x15,Autostrada (jako droga ekspresowa)
 String7=0x19,Федеральная трасса (автомагистраль)
 [end]
 
@@ -2374,7 +2374,7 @@ String2=0x02,Bundesstraße (wie Autobahn)
 String3=0x03,Autosnelweg
 String4=0x04,Highway (like freeway)
 String5=0x10,Auto estrada
-String6=0x15,Autostratda (jako droga ekspresowa)
+String6=0x15,Autostrada (jako droga ekspresowa)
 String7=0x19,Федеральная трасса (автомагистраль)
 [end]
 
@@ -2422,7 +2422,7 @@ String2=0x02,Landesstraße
 String3=0x03,Provinciale weg
 String4=0x04,secondary road
 String5=0x10,Estrada
-String6=0x15,Droga drugorzędna
+String6=0x15,Droga drugorzędna wąska
 String7=0x19,Дорога местного значения
 [end]
 
@@ -2434,7 +2434,7 @@ String2=0x02,Kreisstraße
 String3=0x03,Provinciale weg
 String4=0x04,Country Road
 String5=0x10,Estrada de chão
-String6=0x15,Droga wiejska
+String6=0x15,Droga powiatowa
 String7=0x19,Дорога местного значения
 [end]
 
@@ -2446,7 +2446,7 @@ String2=0x02,Kreisstraße
 String3=0x03,Provinciale weg
 String4=0x04,Country Road
 String5=0x10,Estrada de chão
-String6=0x15,Droga wiejska
+String6=0x15,Droga powiatowa wąska
 String7=0x19,Дорога местного значения
 [end]
 
@@ -2458,7 +2458,7 @@ String2=0x02,Wohngebietsstraße
 String3=0x03,Woonwijk
 String4=0x04,Residential Road
 String5=0x10,Rua residencial
-String6=0x15,Obszar mieszkalny
+String6=0x15,Strefa zamieszkania
 String7=0x19,Жилая зона
 [end]
 
@@ -2470,7 +2470,7 @@ String2=0x02,Wohngebietsstraße
 String3=0x03,Woonwijk
 String4=0x04,Residential Road
 String5=0x10,Rua residencial
-String6=0x15,Droga wewnętrzna
+String6=0x15,Strefa zamieszkania wąska
 String7=0x19,Жилая зона
 [end]
 
@@ -2482,7 +2482,7 @@ String2=0x02,Wohngebietsstraße (Eingeschränkt)
 String3=0x03,Woonwijk (afgesloten)
 String4=0x04,Residential Road (restricted)
 String5=0x10,Rua residencial (restrita)
-String6=0x15,Droga wewnętrzna (ograniczona)
+String6=0x15,Droga osiedlowa (ograniczona) szeroka
 String7=0x19,Жилая зона (ограниченный доступ)
 [end]
 
@@ -2494,7 +2494,7 @@ String2=0x02,Wohngebietsstraße (Eingeschränkt)
 String3=0x03,Woonwijk (afgesloten)
 String4=0x04,Residential Road (restricted)
 String5=0x10,Rua residencial (restrita)
-String6=0x15,Droga wewnętrzna (ograniczona)
+String6=0x15,Droga osiedlowa (ograniczona)
 String7=0x19,Жилая зона (ограниченный доступ)
 [end]
 
@@ -2506,7 +2506,7 @@ String2=0x02,Nebenstraße
 String3=0x03,Straat
 String4=0x04,Unclassified Road
 String5=0x10,Rua não classificada
-String6=0x15,Droga niesklasyfikowana 
+String6=0x15,Droga czwartorzędna 
 String7=0x19,Неопределённая дорога
 [end]
 
@@ -2518,7 +2518,7 @@ String2=0x02,Nebenstraße
 String3=0x03,Straat
 String4=0x04,Unclassified Road
 String5=0x10,Rua não classificada
-String6=0x15,Droga niesklasyfikowana 
+String6=0x15,Droga czwartorzędna 
 String7=0x19,Неопределённая дорога
 [end]
 
@@ -2530,7 +2530,7 @@ String2=0x02,Nebenstraße (Eingeschränkt)
 String3=0x03,Straat (afgesloten)
 String4=0x04,Unclassified Road (restricted)
 String5=0x10,Rua não classificada (restrita)
-String6=0x15,Droga niesklasyfikowana (ograniczona)
+String6=0x15,Droga czwartorzędna (ograniczona)
 String7=0x19,Неопределённая дорога (ограниченный доступ)
 [end]
 
@@ -2542,7 +2542,7 @@ String2=0x02,Nebenstraße (Eingeschränkt)
 String3=0x03,Straat (afgesloten)
 String4=0x04,Unclassified Road (restricted)
 String5=0x10,Rua não classificada (restrita)
-String6=0x15,Droga niesklasyfikowana (ograniczona)
+String6=0x15,Droga czwartorzędna (ograniczona)
 String7=0x19,Неопределённая дорога (ограниченный доступ)
 [end]
 
@@ -2554,7 +2554,7 @@ String2=0x02,Erschließungsstraße
 String3=0x03,Ventweg
 String4=0x04,Service Road
 String5=0x10,Acesso para manutenção
-String6=0x15,Droga serwisowa
+String6=0x15,Droga dojazdowa
 String7=0x19,Подъездная дорога
 [end]
 
@@ -2566,7 +2566,7 @@ String2=0x02,Erschließungsstraße (Eingeschränkt)
 String3=0x03,Ventweg (afgesloten)
 String4=0x04,Service Road (restricted)
 String5=0x10,Acesso para manutenção (restrita)
-String6=0x15,Droga serwisowa (ograniczona)
+String6=0x15,Droga dojazdowa (ograniczona) wąska
 String7=0x19,Подъездная дорога (ограниченный доступ)
 [end]
 
@@ -2578,7 +2578,7 @@ String2=0x02,Erschließungsstraße (Eingeschränkt)
 String3=0x03,Ventweg (afgesloten)
 String4=0x04,Service Road (restricted)
 String5=0x10,Acesso para manutenção (restrita)
-String6=0x15,Droga serwisowa (ograniczona)
+String6=0x15,Droga dojazdowa (ograniczona) szeroka
 String7=0x19,Подъездная дорога (ограниченный доступ)
 [end]
 
@@ -2590,7 +2590,7 @@ String2=0x02,Erschließungsstraße (Eingeschränkt)
 String3=0x03,Ventweg (afgesloten)
 String4=0x04,Service Road (restricted)
 String5=0x10,Acesso para manutenção (restrita)
-String6=0x15,Droga serwisowa (ograniczona)
+String6=0x15,Droga dojazdowa (ograniczona)
 String7=0x19,Подъездная дорога (ограниченный доступ)
 [end]
 
@@ -2698,7 +2698,7 @@ String2=0x02,Fußweg
 String3=0x03,Voetpad
 String4=0x04,Foot path
 String5=0x10,Caminho a pé
-String6=0x15,Ścieżka
+String6=0x15,Chodnik
 String7=0x19,Тропа
 [end]
 
@@ -2758,7 +2758,7 @@ String2=0x02,Wohngebietsstraße
 String3=0x03,Straat
 String4=0x04,side street
 String5=0x10,Rua
-String6=0x15,Droga boczna
+String6=0x15,Strefa zamieszkania
 String7=0x19,Жилая зона
 [end]
 
@@ -2770,7 +2770,7 @@ String2=0x02,Nebenstraße
 String3=0x03,Straat
 String4=0x04,Unclassified Road
 String5=0x10,Rua não classificada
-String6=0x15,Droga niesklasyfikowana
+String6=0x15,Droga czwartorzeędna
 String7=0x19,Неопределённая дорога
 [end]
 
@@ -2782,7 +2782,7 @@ String2=0x02,Erschließungsstraße
 String3=0x03,Ventweg
 String4=0x04,Service Road
 String5=0x10,Acesso para manutenção
-String6=0x15,Droga serwisowa
+String6=0x15,Droga dojazdowa
 String7=0x19,Подъездная дорога
 [end]
 
@@ -2794,7 +2794,7 @@ String2=0x02,Spielstraße
 String3=0x03,Woonerf
 String4=0x04,Living Street
 String5=0x10,Passeio
-String6=0x15,Droga zabawowa
+String6=0x15,Strefa zamieszkania
 String7=0x19,Улица для детских игр
 [end]
 
@@ -2830,7 +2830,7 @@ String2=0x02,Radweg
 String3=0x03,Fietspad
 String4=0x04,Cyclepath
 String5=0x10,Ciclovia
-String6=0x15,Droga rowerowa
+String6=0x15,Ścieżka rowerowa
 String7=0x19,Велодорожка
 [end]
 
@@ -2878,7 +2878,7 @@ String2=0x02,Einfache Skipiste
 String3=0x03,Skipiste
 String4=0x04,Easy Piste
 String5=0x10,Pista fácil
-String6=0x15,Łatwy stok
+String6=0x15,Łatwy stok narciarski
 String7=0x19,Горнолыжная трасса простая
 [end]
 
@@ -2890,7 +2890,7 @@ String2=0x02,Skipiste mit mittlererem Schwierigkeitsgrad
 String3=0x03,Skipiste
 String4=0x04,Intermediate Piste
 String5=0x10,Pista média
-String6=0x15,Stok dla średniozaawansowanych
+String6=0x15,Stok dla średniozaawansowanych narciarzy
 String7=0x19,Горнолыжная трасса средней сложности
 [end]
 
@@ -2938,7 +2938,7 @@ String2=0x02,Extrem schwere Skipiste
 String3=0x03,Skipiste
 String4=0x04,Extreme Piste
 String5=0x10,Pista difícil
-String6=0x15,Stok ekstermalny
+String6=0x15,Stok o ekstermalnej trudności
 String7=0x19,Экстремальная горнолыжная трасса
 [end]
 
@@ -3226,7 +3226,7 @@ String2=0x02,Yachthafen
 String3=0x03,Jachthaven
 String4=0x04,Marina
 String5=0x10,Marina
-String6=0x15,Przystań
+String6=0x15,Port jachtowy (Marina)
 String7=0x19,Пристань
 [end]
 
@@ -3347,7 +3347,7 @@ String2=0x02,Poller
 String3=0x03,Beweegbare wegversperring
 String4=0x04,Bollard
 String5=0x10,Poste de amarração
-String6=0x15,Pachołek
+String6=0x15,Słupek
 String7=0x19,Швартовая тумба
 [end]
 
@@ -3360,7 +3360,7 @@ String2=0x02,Umlaufsperre
 String3=0x03,Fietspadhek
 String4=0x04,Cycle Barrier
 String5=0x10,Cancela
-String6=0x15,Barierka rowerowa
+String6=0x15,Przegrody ograniczające ruch rowerów
 String7=0x19,Барьер
 [end]
 
@@ -3711,7 +3711,7 @@ String2=0x02,Pension
 String3=0x03,Pension
 String4=0x04,Guest House
 String5=0x10,Hospedaria
-String6=0x15,Domek gościnny
+String6=0x15,Pokoje gościnne do wynajęcia
 String7=0x19,Мини-гостиница
 [end]
 
@@ -3724,7 +3724,7 @@ String2=0x02,Campingplatz
 String3=0x03,Camping
 String4=0x04,Camping
 String5=0x10,Acampamento
-String6=0x15,Kamping
+String6=0x15,Kemping
 String7=0x19,Палаточный лагерь
 [end]
 
@@ -3737,7 +3737,7 @@ String2=0x02,Schutzhütte
 String3=0x03,Schuilhut
 String4=0x04,Shelter
 String5=0x10,Abrigo
-String6=0x15,Schron
+String6=0x15,Schronienie
 String7=0x19,Приют
 [end]
 
@@ -3984,7 +3984,7 @@ String2=0x02,Skipiste / -halle
 String3=0x03,Skigebied, Skihal
 String4=0x04,Ski Area, Ski Dome
 String5=0x10,Pistas de esqui
-String6=0x15,Stok narciarski
+String6=0x15,Stok narciarski, Hala narciarska
 String7=0x19,Лыжная зона, лыжный стадион
 [end]
 
@@ -3997,7 +3997,7 @@ String2=0x02,Kegel- / Bowlingbahn
 String3=0x03,Bowling (9 or 10 pin)
 String4=0x04,Bowling (9 or 10 pin)
 String5=0x10,Boliche
-String6=0x15,Kręgle (9 lub 10 )
+String6=0x15,Kręgle (z 9 lub 10 pionami)
 String7=0x19,Боулинг, кегельбан
 [end]
 
@@ -4062,7 +4062,7 @@ String2=0x02,Geschäft: Lebensmittel
 String3=0x03,Winkel: supermarkt
 String4=0x04,Shop: Grocery
 String5=0x10,Comércio: Mercearia
-String6=0x15,Sklep: Spożywczy
+String6=0x15,Sklep: Spożywczy z żywnością
 String7=0x19,Магазин: продукты питания
 [end]
 
@@ -4075,7 +4075,7 @@ String2=0x02,Geschäft: Gemischtwaren
 String3=0x03,Supermarkt
 String4=0x04,Grocery Shop
 String5=0x10,Mercearia
-String6=0x15,Sklep spożywczy
+String6=0x15,Sklep wielobranżowy
 String7=0x19,Продуктовый магазин
 [end]
 
@@ -4114,7 +4114,7 @@ String2=0x02,Geschäft: Bedarfsartikel
 String3=0x03,Winkel: Supermarkt
 String4=0x04,Shop: Convinience
 String5=0x10,Comércio: Loja de conveniência
-String6=0x15,Sklep: Artkuły różne
+String6=0x15,Sklep: Aartykuły codziennego użytku
 String7=0x19,Магазин: товары первой необходимости
 [end]
 
@@ -4166,7 +4166,7 @@ String2=0x02,Geschäft: Einzelhandel
 String3=0x03,Winkel: Speciaalzaak
 String4=0x04,Shop: Specialist
 String5=0x10,Comércio: Produtos especializados
-String6=0x15,Sklep: Detaliczny
+String6=0x15,Sklep: Specjalistyczny
 String7=0x19,Магазин: розничная торговля
 [end]
 
@@ -4231,7 +4231,7 @@ String2=0x02,Autoverleih
 String3=0x03,Autoverhuur
 String4=0x04,Car Rental/Car Hire
 String5=0x10,Aluguel de veículos
-String6=0x15,Wyporzyczalnia samochodów
+String6=0x15,Wypożyczalnia samochodów
 String7=0x19,Прокат автомобилей
 [end]
 
@@ -4309,7 +4309,7 @@ String2=0x02,Yachthafen
 String3=0x03,Jachthaven
 String4=0x04,Marina
 String5=0x10,Marina
-String6=0x15,Przystań
+String6=0x15,Przystań dla jachtów
 String7=0x19,Пристань
 [end]
 
@@ -4464,7 +4464,7 @@ String2=0x02,Polizeirevier
 String3=0x03,Politiebureau
 String4=0x04,Police Station
 String5=0x10,Delegacia de polícia
-String6=0x15,Posterunek policji
+String6=0x15,Komisariat policji
 String7=0x19,Полицейский участок
 [end]
 
@@ -4555,7 +4555,7 @@ String2=0x02,Berghütte (bewirtschaftet)
 String3=0x03,Berghut (horecabedrijf)
 String4=0x04,Alpine Hut (operated/manned)
 String5=0x10,Cabana alpina (com serviços)
-String6=0x15,Chatka alpejska (z obsługą)
+String6=0x15,Schronisko turystyczne(z obsługą)
 String7=0x19,Горное жилище (с обслуживанием)
 [end]
 
@@ -4568,7 +4568,7 @@ String2=0x02,Berghütte (Selbstversorger)
 String3=0x03,Berghut (zelfverzorging)
 String4=0x04,Alpine Hut (self-catering)
 String5=0x10,Cabana alpina (self-service)
-String6=0x15,Chatka alpejska (samoobsługa)
+String6=0x15,Schronisko turystyczne (samoobsługa)
 String7=0x19,Горное жилище (самообслуживание)
 [end]
 
@@ -4919,7 +4919,7 @@ String2=0x02,Bassin
 String3=0x03,Bassin
 String4=0x04,Basin
 String5=0x10,Reservatório
-String6=0x15,Dorzecze
+String6=0x15,Zbiornik wodny
 String7=0x19,Бассейн
 [end]
 
@@ -4945,7 +4945,7 @@ String2=0x02,Industrieanlage
 String3=0x03,Fabrieksgebouw
 String4=0x04,Industrial Plant
 String5=0x10,Planta industrial
-String6=0x15,Zakłąd przemysłowy
+String6=0x15,Zakład przemysłowy
 String7=0x19,Промышленные сооружения
 [end]
 
@@ -4958,7 +4958,7 @@ String2=0x02,Klippe
 String3=0x03,Klip
 String4=0x04,Cliff
 String5=0x10,Penhasco
-String6=0x15,Urwisko
+String6=0x15,Klif
 String7=0x19,Скала
 [end]
 
