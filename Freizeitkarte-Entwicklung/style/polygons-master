@@ -20,6 +20,8 @@
 # Version : 0.14- 07.01.2014  fixed above feature 'wetland'
 #                             Show 'MudFlat'
 #                             Change handling of Marina from filled polygone to outline only
+# Version : 0.15 -14.03.2014: Adapting things regarding power = * (station / plant / substation / sub_station)
+
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
 #

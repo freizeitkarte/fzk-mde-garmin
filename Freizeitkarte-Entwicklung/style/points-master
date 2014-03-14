@@ -21,6 +21,8 @@
 # Version : 0.13 -07.01.2014: Adapted stuff for tourism=information: 
 #                             - Added special sign for tourist office
 #                             - lightened normal info sign
+# Version : 0.14 -14.03.2014: Adapting things regarding power = * (station / plant / substation / sub_station)
+#                             Adding amenity=toilets
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #

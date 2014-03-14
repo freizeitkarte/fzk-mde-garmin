@@ -76,6 +76,9 @@
 ; Version: 0.7  - 14.01.2014 : Added Polish translation
 ; Version: 0.8  - 17.01.2014 : Completed Fix 'bridleway' translation
 ; Version: 0.9  - 21.02.2014 : Added Dutch Translation
+;                              Removed Preparations for French
+; Version: 0.10 - 14.03.2014 : Added translation for amenity = toilet
+
 
 
 ;===================== POLYGONES ========================

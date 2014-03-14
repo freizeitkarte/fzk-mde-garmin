@@ -34,6 +34,9 @@
 #                             - adaptions for tracks with trackgrade 4 & 5, displaying them as others with resolution 23 and smaller line
 # Version : 0.19 -11.09.2013: Added proper display of waterways in tunnels and culverts
 # Version : 0.20 -07.01.2014: change logic of display for marina (moved from polygon to line)
+# Version : 0.21 -14.03.2014: Adapting things regarding barrier = * : adding more than only fence
+#                             Bugfix for leisure = marina
+
 #
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
