@@ -1,7 +1,7 @@
 fzk-mde-garmin
 ==============
 
-**F**rei<strong>z</strong>eit<strong>k</strong>arte **M**ap **D**evelopment **E**nvironment for **G**armin
+<strong>F</strong>rei<strong>z</strong>eit<strong>k</strong>arte <strong>M</strong>ap <strong>D</strong>evelopment <strong>E</strong>nvironment for <strong>G</strong>armin
 
 Deutsch
 ------
