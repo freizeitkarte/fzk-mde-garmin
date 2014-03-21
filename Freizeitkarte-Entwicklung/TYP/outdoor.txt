@@ -7520,19 +7520,20 @@ String4=0x04,ATM
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="6 9 2 1"   Colormode=16
+DayXpm="8 9 3 1"   Colormode=16
+"   c none"
 "!	c #0080C0"
 "#	c #FFFFFF"
-"######"
-"###!!!"
-"##!!##"
-"##!###"
-"!!!!!!"
-"##!###"
-"##!!##"
-"###!!!"
-"######"
-;123456
+"    ### "
+"   #!!!#"
+"  #!!#  "
+"  #!#   "
+"#!!!!!!#"
+"  #!#   "
+"  #!!#  "
+"   #!!!#"
+"    ### "
+;12345678
 [end]
 
 
@@ -7619,6 +7620,29 @@ DayXpm="6 9 2 1"   Colormode=16
 "!!    "
 "!!    "
 ;123456
+[end]
+
+
+[_point]
+Type=0x02f
+SubType=0x0c
+String1=0x00,Restroom
+String2=0x01,Toilet
+String3=0x02,Toilette
+String4=0x04,Toilet
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+DayXpm="5 5 3 1"   Colormode=16
+"!	c #FFFF00"
+"#	c #FF0000"
+"  	c none"
+" ### "
+"#!!!#"
+"#!!!#"
+"#!!!#"
+" ### "
+;12345
 [end]
 
 

@@ -34,6 +34,9 @@
 #                             - adaptions for tracks with trackgrade 4 & 5, displaying them as others with resolution 23 and smaller line
 # Version : 0.19 -11.09.2013: Added proper display of waterways in tunnels and culverts
 # Version : 0.20 -07.01.2014: change logic of display for marina (moved from polygon to line)
+# Version : 0.21 -14.03.2014: Adapting things regarding barrier = * : adding more than only fence
+#                             Bugfix for leisure = marina
+
 #
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
@@ -406,7 +409,7 @@ leisure = nature_reserve [0x01011c resolution 20-23 continue]
 
 # Jachthafen: Liegeplatz für Jachten und Motorboote (bzw. Boote allgemein). [point, closedway]
 # (New tagging includes land area also... therefore display of it needs to change: will be moved to 'lines')
-leisure = marina [0x01201e resolution 23]
+leisure = marina [0x01201e resolution 23 continue]
 
 
 # ------------------------------------------------------------------
@@ -1719,6 +1722,10 @@ aerialway = goods [0x01011a resolution 23]
 # Zaun [way, closedway]
 # 0x011f06 = 1 (NoLabel)
 barrier = fence [0x011f06 resolution 24 continue with_actions]
+# Further object to be handled the same (possibly need adaption of the translations in TYP file ?)
+barrier = wall | barrier = city_wall | fence = retaining_wall [0x011f06 resolution 24 continue with_actions]
+fenced = yes [0x011f06 resolution 24 continue with_actions]
+
 
 
 # -------------------------------------------------

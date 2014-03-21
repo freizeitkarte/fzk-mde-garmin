@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+﻿#!/usr/bin/perl
 # ---------------------------------------
 # Program : mt.pl (map tool)
 # Version : siehe unten
@@ -45,11 +45,14 @@ my @actions = (
   [ 'nsicfg',     'C. create nsi configuration file (for NSIS compiler)' , 'optional' ],
   [ 'nsiexe',     'C. create nsi installer exe (via NSIS compiler)' ,      'optional' ],
   [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ,     'optional' ],
-  [ 'bim',        'E. build images: create, fetch_*, join, split, build' , 'optional' ],
-  [ 'bam',        'F. build all maps: gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
+  [ 'bim',        'E1.build images: create, fetch_*, join, split, build' , 'optional' ],
+  [ 'bam',        'E2.build all maps: gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
+  [ 'pmd',        'F1.Prepare Map Data: create, fetch_*, join, split' ,    'optional' ],
+  [ 'bml',        'F2.Build Map Language: build, gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
   [ 'zip',        'G. zip all maps' ,                                      'optional' ],
-  [ 'regions',    'H. extract regions from Europe data' ,                  'optional' ],
-  [ 'fetch_map',  'I. fetch map data from Europe directory' ,              'optional' ],
+  [ 'regions',    'H. extract all needed maps from big region data',       'optional' ],
+  [ 'extract_osm','I. extract single map from big region data' ,           'optional' ],
+#  [ 'fetch_map',  'J. fetch map data from Europe directory' ,              'optional' ],
 
   # Hidden Actions not related to maps 
   # (This might change without notification)
@@ -63,7 +66,7 @@ my @supportedlanguages = (
   # Iso639-1
   [ 'de', 'Deutsch' ],
   [ 'en', 'English' ],
-  [ 'fr', 'French' ],
+  [ 'nl', 'Dutch' ],
   [ 'pt', 'Portuguese' ],
   [ 'pl', 'Polish' ],
   [ 'ru', 'Russian' ]
@@ -74,7 +77,7 @@ my @typfilelangfixed = (
   "xx",    # Unspecified
   "de",    # Deutsch / German
   "en",    # Englisch / English
-  "fr"     # Französisch / French
+  "nl"     # Französisch / French
 );
 
 # Relation from languages to codepages
@@ -82,7 +85,7 @@ my %langcodepage = (
    'xx' => '1252' ,
    'de' => '1252' ,
    'en' => '1252' ,
-   'fr' => '1252' ,
+   'nl' => '1252' ,
    'pt' => '1252' ,   
    'pl' => '1250' ,
    'ru' => '1251' ,
@@ -97,16 +100,18 @@ my %elevationbaseurl = (
 # Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
 my @boundariesurl = (
   'http://download.freizeitkarte-osm.de/Development/boundaries/bounds.zip',
+  'http://osm2.pleiades.uni-wuppertal.de/bounds/latest/bounds.zip',
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=1', 
   );
 my @seaboundariesurl = (
   'http://download.freizeitkarte-osm.de/Development/boundaries/sea.zip',
+  'http://osm2.pleiades.uni-wuppertal.de/sea/latest/sea.zip',
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
   );
 
 
 my @maps = (
-  # ID, 'Karte', 'URL der Quelle', 'Code', 'language'
+  # ID, 'Karte', 'URL der Quelle', 'Code', 'language', 'oldName', 'Type', 'Parent'
 
   # Bundesländer
   [ -1,   'Bundeslaender',                        'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
@@ -195,7 +200,7 @@ my @maps = (
   [ 6807, 'Freizeitkarte_MKD',                    'http://download.geofabrik.de/europe/macedonia-latest.osm.pbf',                                      'MKD',                      'en', 'Freizeitkarte_Mazedonien',                3, 'NA'             ],
   [ 6470, 'Freizeitkarte_MLT',                    'http://download.geofabrik.de/europe/malta-latest.osm.pbf',                                          'MLT',                      'en', 'Freizeitkarte_Malta',                     3, 'NA'             ],
   [ 6499, 'Freizeitkarte_MNE',                    'http://download.geofabrik.de/europe/montenegro-latest.osm.pbf',                                     'MNE',                      'en', 'Freizeitkarte_Montenegro',                3, 'NA'             ],
-  [ 6528, 'Freizeitkarte_NLD',                    'http://download.geofabrik.de/europe/netherlands-latest.osm.pbf',                                    'NLD',                      'en', 'Freizeitkarte_Niederlande',               3, 'NA'             ],
+  [ 6528, 'Freizeitkarte_NLD',                    'http://download.geofabrik.de/europe/netherlands-latest.osm.pbf',                                    'NLD',                      'nl', 'Freizeitkarte_Niederlande',               3, 'NA'             ],
   [ 6578, 'Freizeitkarte_NOR',                    'http://download.geofabrik.de/europe/norway-latest.osm.pbf',                                         'NOR',                      'en', 'Freizeitkarte_Norwegen',                  3, 'NA'             ],
   [ 6616, 'Freizeitkarte_POL',                    'http://download.geofabrik.de/europe/poland-latest.osm.pbf',                                         'POL',                      'pl', 'Freizeitkarte_Polen',                     3, 'NA'             ],
   [ 6620, 'Freizeitkarte_PRT',                    'http://download.geofabrik.de/europe/portugal-latest.osm.pbf',                                       'PRT',                      'pt', 'Freizeitkarte_Portugal',                  3, 'NA'             ],
@@ -221,7 +226,7 @@ my @maps = (
 #  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
 
   # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
-  [ -1,   'Freizeitkarte PLUS Länder',            'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ -1,   'Freizeitkarte PLUS Laender',            'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                        														   'AUT+',                     'de', 'no_old_name',               			    2, 'EUROPE'         ],
 #  [ 7056, 'Freizeitkarte_BEL+',                   'NA',                                                                                                'BEL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7756, 'Freizeitkarte_CHE+',                   'NA',                                    															   'CHE+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
@@ -248,6 +253,8 @@ my @maps = (
   [ 8030, 'Freizeitkarte_DNK_NOR_SWE_FIN',        'NA',                                                                                                'DNK_NOR_SWE_FIN',          'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 8040, 'Freizeitkarte_BEL_NLD_LUX',            'NA',                                                                                                'BEL_NLD_LUX',              'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 8050, 'Freizeitkarte_ESP_PRT',                'NA',                                                                                                'ESP_PRT',                  'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8060, 'Freizeitkarte_PYRENEES',               'NA',                                                                                                'PYRENEES',                 'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8070, 'Freizeitkarte_CARPATHIAN',             'NA',                                                                                                'CARPATHIAN',               'en', 'no_old_name',                             2, 'EUROPE'         ],
 
   [ 8889, 'Freizeitkarte_SOUTHAMERICA',           'http://download.geofabrik.de/south-america-latest.osm.pbf',                                         'SOUTHAMERICA',             'en', 'no_old_name',                             1, 'NA'             ],
   [ 8510, 'Freizeitkarte_MISIONES',               'NA',                                                                                                'MISIONES',                 'de', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
@@ -259,6 +266,13 @@ my @maps = (
   [ 9020, 'Freizeitkarte_ESP_CANARIAS',            'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'ESP_CANARIAS',            'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
   [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS_EUR'        ],
 
+  # For faster test runs with regions
+  [ -1,   'Regions - Maps for test purposes',     'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 9990, 'Freizeitkarte_CHE_R',                  'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE_R',                    'de', 'no_old_name',                             1, 'NA'             ],
+  [ 9991, 'Freizeitkarte_ZUG+',                   'NA',                                                                                                'ZUG+',                     'de', 'no_old_name',                             2, 'CHE_R'          ],
+  [ 9992, 'Freizeitkarte_ZHSEE+',                 'NA',                                                                                                'ZHSEE+',                   'de', 'no_old_name',                             2, 'CHE_R'          ],
+  
+  
 );
 
 # pseudo constants
@@ -280,7 +294,7 @@ my $ACTIONOPT  = 2;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.5 - 2014/01/07';
+my $VERSION = '1.3.6 - 2014/03/14';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -293,6 +307,9 @@ my $max_threads = $EMPTY;
 
 # basepath
 my $BASEPATH = getcwd ( $PROGRAM_NAME );
+
+## Global PC_ReturnCode - used mainly for process_command () - to be rechecked and solved differently eventually
+#my $pc_returncode = 0;
 
 # program startup
 # ---------------
@@ -337,7 +354,7 @@ my $command = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?' => \$help, 'o' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -492,7 +509,6 @@ if ( $typfile ne $EMPTY ) {
 
 # Checking if this TYP file exists
 $error = 1;
-#if ( (-e "$BASEPATH/TYP/" . basename("$maptypfile",".TYP") . ".txt" ) || (-e "$BASEPATH/TYP/" . basename("$maptypfile",".typ") . ".txt" ) ){
 if ( -e "$BASEPATH/TYP/" . basename("$maptypfile", (".TYP", ".typ" ) ) . ".txt" ) {
       $error    = 0;
       $maptypfile = basename("$maptypfile", (".TYP", ".typ" ) ) ;
@@ -507,24 +523,34 @@ if ( $error ) {
 printf { *STDOUT } ( "Action = %s\n", $actiondesc );
 printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
 
-# Create the WORKDIR and the INSTALLDIR variables, used at a lot of places
-my $WORKDIR    = '';
-my $INSTALLDIR = '';
+# Create the WORKDIR, WORKDIRLANG and the INSTALLDIR variables, used at a lot of places
+my $WORKDIR     = '';
+my $WORKDIRLANG = '';
+my $INSTALLDIR  = '';
 
 # If this map is a downloaded extract from which we extract further regions
-if ( $maptype == 1 ) {
-  # no language code added as this map itself isn't thought to be built up to the end
-  $WORKDIR    = "$BASEPATH/work/$mapname";
-  $INSTALLDIR = "$BASEPATH/install/$mapname";
-}
-else {
-  # Normal map, add language code to WORKDIR and INSTALLDIR
-  $WORKDIR    = "$BASEPATH/work/$mapname" . "_$maplang";
-  $INSTALLDIR = "$BASEPATH/install/$mapname" . "_$maplang";
-}
+# (No distinction anymore needed between different maptypes)
+#if ( $maptype == 1 ) {
+#  # no language code added as this map itself isn't thought to be built up to the end
+#  $WORKDIR    = "$BASEPATH/work/$mapname";
+#  $INSTALLDIR = "$BASEPATH/install/$mapname";
+#}
+#else {
+#  # Normal map, add language code to WORKDIR and INSTALLDIR
+#  $WORKDIR    = "$BASEPATH/work/$mapname" . "_$maplang";
+#  $INSTALLDIR = "$BASEPATH/install/$mapname" . "_$maplang";
+#}
+$WORKDIR     = "$BASEPATH/work/$mapname";
+$WORKDIRLANG = "$BASEPATH/work/$mapname" . "_$maplang";
+$INSTALLDIR  = "$BASEPATH/install/$mapname" . "_$maplang";
+
+# Make sure that the directories set above are existing
+create_dirs   ();
+
 
 # Execute the choosen action
 if ( $actionname eq 'create' ) {
+  purge_dirs  ();
   create_dirs ();
 }
 elsif ( $actionname eq 'fetch_osm' ) {
@@ -540,11 +566,6 @@ elsif ( $actionname eq 'split' ) {
   split_mapdata ();
 }
 elsif ( $actionname eq 'build' ) {
-#  create_cfgfile           ();
-#  create_typfile           ();
-#  create_styletranslations ();
-#  preprocess_styles        ();
-#  build_map                ();
   create_cfgfile           ();
   create_typtranslations   ();
   compile_typfiles         ();
@@ -593,8 +614,15 @@ elsif ( $actionname eq 'gmap2' ) {
   create_gmap2file ();
 }
 elsif ( $actionname eq 'bim' ) {
+  purge_dirs               ();
   create_dirs              ();
-  fetch_osmdata            ();
+  # If this map is a regions that needed to be extracted, try to fetch the extracted region
+  if ( $maptype == 2 ) {
+	  extract_osm          ();
+  }
+  else {
+	  fetch_osmdata        ();
+  }
   fetch_eledata            ();
   join_mapdata             ();
   split_mapdata            ();
@@ -608,13 +636,40 @@ elsif ( $actionname eq 'bim' ) {
 }
 elsif ( $actionname eq 'bam' ) {
   create_typfile         ();
+  create_image_directory ();
   create_gmapfile        ();
+  create_gmapsuppfile    ();
   create_nsis_nsifile    ();
   create_nsis_exefile    ();
-  create_gmapsuppfile    ();
-  create_image_directory ();
 }
-elsif ( $actionname eq 'zip' ) {
+elsif ( $actionname eq 'pmd' ) {
+  purge_dirs               ();
+  create_dirs              ();
+  # If this map is a regions that needed to be extracted, try to fetch the extracted region
+  if ( $maptype == 2 ) {
+	  extract_osm          ();
+  }
+  else {
+	  fetch_osmdata        ();
+  }
+  fetch_eledata            ();
+  join_mapdata             ();
+  split_mapdata            ();
+}
+elsif ( $actionname eq 'bml' ) {
+  create_cfgfile           ();
+  create_typtranslations   ();
+  compile_typfiles         ();
+  create_typfile           ();
+  create_styletranslations ();
+  preprocess_styles        ();
+  build_map                ();
+  create_image_directory ();
+  create_gmapfile        ();
+  create_gmapsuppfile    ();
+  create_nsis_nsifile    ();
+  create_nsis_exefile    ();
+}elsif ( $actionname eq 'zip' ) {
   zip_maps ();
 }
 elsif ( $actionname eq 'regions' ) {
@@ -623,7 +678,9 @@ elsif ( $actionname eq 'regions' ) {
 elsif ( $actionname eq 'fetch_map' ) {
   fetch_mapdata ();
 }
-
+elsif ( $actionname eq 'extract_osm' ) {
+  extract_osm ();
+}
 exit ( 0 );
 
 # ==================================================================
@@ -634,7 +691,7 @@ exit ( 0 );
 # ==================================================================
 
 # -----------------------------------------
-# Systembefehl ausfuehren
+# Execute System Command
 # -----------------------------------------
 sub process_command {
 
@@ -693,21 +750,59 @@ sub trim {
 
 
 # -----------------------------------------
-# Verzeichnisse mit allen enthaltenen Daten loeschen und neu anlegen.
+# Remove existing WORK and INSTALL Directories
 # -----------------------------------------
-sub create_dirs {
+sub purge_dirs {
 
   printf { *STDOUT } ( "\n" );
 
-  # Verzeichnisstrukturen loeschen
+  # Remove the existing directories
   rmtree ( "$WORKDIR",    0, 1 );
+  rmtree ( "$WORKDIRLANG",0, 1 );
   rmtree ( "$INSTALLDIR", 0, 1 );
 
   sleep 1;
 
   # Verzeichnisstrukturen neu anlegen
-  mkpath ( "$WORKDIR" );
-  mkpath ( "$INSTALLDIR" );
+#  mkpath ( "$WORKDIR" );
+#  mkpath ( "$WORKDIRLANG" );
+#  mkpath ( "$INSTALLDIR" );
+
+  printf { *STDOUT } ( "\n" );
+
+  return;
+}
+
+# -----------------------------------------
+# Create the needed WORK and INSTALL Directories
+# -----------------------------------------
+sub create_dirs {
+
+  printf { *STDOUT } ( "\n" );
+
+  # Remove the existing directories
+  # (WORKDIR to be handled differently lateron ?)
+#  rmtree ( "$WORKDIR",    0, 1 );
+#  rmtree ( "$WORKDIRLANG",0, 1 );
+#  rmtree ( "$INSTALLDIR", 0, 1 );
+
+  sleep 1;
+
+  # Create the directories if needed (
+  # WORKDIR is needed for all types of map
+  if ( !(-e $WORKDIR ) ) {
+    mkpath ( "$WORKDIR" );
+  }    
+  
+  # WORKDIRLANG and INSTALLDIR only needed for final map, not for downloaded regions we use for own extracts only
+  if ( $maptype != 1 ) {
+     if ( !(-e $WORKDIRLANG ) ) {
+       mkpath ( "$WORKDIRLANG" );
+     }    
+     if ( !(-e $INSTALLDIR ) ) {
+       mkpath ( "$INSTALLDIR" );
+     }
+  }    
 
   printf { *STDOUT } ( "\n" );
 
@@ -738,7 +833,8 @@ sub check_downloadurls {
   for my $mapdata ( @maps ) {
 	
 	# Jump to next it's not a real map
-	if ( ( @$mapdata[ $MAPID ] == -1 ) || ( @$mapdata[ $OSMURL ] eq "NA" ) ) {
+#	if ( ( @$mapdata[ $MAPID ] == -1 ) || ( @$mapdata[ $OSMURL ] eq "NA" ) ) {
+	if ( @$mapdata[ $MAPID ] == -1 ) {
 		next;
     }
 
@@ -746,35 +842,50 @@ sub check_downloadurls {
     print "\n" . @$mapdata[ $MAPNAME ] . "\n";
     print "---------------------------------------------------\n";
 
-    # Check the MapURL
-    $returnvalue = system( $command . @$mapdata[ $OSMURL ]);
-    if ( $returnvalue != 0 ) {
-		print "FAIL: ";
+    # Check the MapURL for map types 1 and 3 (downloadable OSM data extracts)
+    if ( ( @$mapdata[ $MAPTYPE ] == 1 ) || ( @$mapdata[ $MAPTYPE ] == 3 ) ) {
+		# Map with downloadable OSM data extract
+        $returnvalue = system( $command . @$mapdata[ $OSMURL ]);
+        if ( $returnvalue != 0 ) {
+    		print "FAIL: OSM:   ";
+    	}
+    	else {
+    		print "OK:   OSM:   ";
+        }
+        print @$mapdata[ $OSMURL ] ."\n";	
 	}
 	else {
-		print "OK:   ";
-    }
-    print @$mapdata[ $OSMURL ] ."\n";
+		# No OSM Data to download, will be extracted by script
+		print "N/A:  OSM:   (this map doesn't need downloadable OSM Data)\n";
+	}
+	
+    # Check the MapURL for map types 2 and 3 (downloadable elevation data)
+    if ( ( @$mapdata[ $MAPTYPE ] == 2 ) || ( @$mapdata[ $MAPTYPE ] == 3 ) ) {
+        # Check the ElevationData 10m
+        $returnvalue = system( $command . "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
+        if ( $returnvalue != 0 ) {
+    		print "FAIL: ele10: ";
+    	}
+    	else {
+    		print "OK:   ele10: ";
+        }
+        print "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
     
-    # Check the ElevationData 10m
-    $returnvalue = system( $command . "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
-    if ( $returnvalue != 0 ) {
-		print "FAIL: ";
+        # Check the ElevationData 25m
+        $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
+        if ( $returnvalue != 0 ) {
+    		print "FAIL: ele25: ";
+    	}
+    	else {
+    		print "OK:   ele25: ";
+        }
+        print "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";      
 	}
 	else {
-		print "OK:   ";
-    }
-    print "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
-
-    # Check the ElevationData 25m
-    $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
-    if ( $returnvalue != 0 ) {
-		print "FAIL: ";
+		# No elevation Data to download, we don't need it
+		print "N/A:  ele10: (this map doesn't need downloadable elevation Data)\n";		
+		print "N/A:  ele25: (this map doesn't need downloadable elevation Data)\n";		
 	}
-	else {
-		print "OK:   ";
-    }
-    print "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";      
 	  
   }
 	
@@ -783,7 +894,7 @@ sub check_downloadurls {
 }
 
 # -----------------------------------------
-# OSM-Kartendaten aus Internet laden.
+# Download OSM map data from the Internet
 # -----------------------------------------
 sub fetch_osmdata {
 
@@ -797,22 +908,30 @@ sub fetch_osmdata {
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # OS X, Linux, FreeBSD, OpenBSD
     $command = "curl --location --url \"$osmurl\" --output \"$filename\"";
-    process_command ( $command );
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
     chdir "$BASEPATH/tools/wget/windows";
     $command = "wget.exe --output-document=\"$filename\" \"$osmurl\"";
-    process_command ( $command );
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
+    return ( 1 );
   }
+  
+  # Run the command
+  process_command ( $command );
+  
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  download of osm data from $osmurl failed.\n\n" );
+  }  
 
   # auf gültige osm.pbf-Datei prüfen
   if ( !check_osmpbf ( $filename ) ) {
     printf { *STDERR } ( "\nError: File <$filename> is not a valid osm.pbf file.\n" );
-    printf { *STDERR } ( "Please check this file concerning error hints (eg. communications errors).\n" );
+    die ( "Please check this file concerning error hints (eg. communications errors).\n" );
+    return ( 1 );
   }
 
   return;
@@ -820,7 +939,7 @@ sub fetch_osmdata {
 
 
 # -----------------------------------------
-# Höhendaten (elevations, contours) aus Internet laden.
+# Download elevation data from the internet
 # -----------------------------------------
 sub fetch_eledata {
 
@@ -844,22 +963,30 @@ sub fetch_eledata {
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # OS X, Linux, FreeBSD, OpenBSD
     $command = "curl --location --url \"$eleurl\" --output \"$filename\"";
-    process_command ( $command );
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
     chdir "$BASEPATH/tools/wget/windows";
     $command = "wget.exe --output-document=\"$filename\" \"$eleurl\"";
-    process_command ( $command );
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
+    return ( 1 );
   }
 
+  # Run the command
+  process_command ( $command );
+
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  download of elevation data from $eleurl failed.\n\n" );
+  }
+  
   # auf gültige osm.pbf-Datei prüfen
   if ( !check_osmpbf ( $filename ) ) {
     printf { *STDERR } ( "\nError: File <$filename> is not a valid osm.pbf file.\n" );
-    printf { *STDERR } ( "Please check this file concerning error hints (eg. communications errors).\n" );
+    die ( "Please check this file concerning error hints (eg. communications errors).\n" );
+    return ( 1 );
   }
 
   return;
@@ -867,44 +994,44 @@ sub fetch_eledata {
 
 
 # -----------------------------------------
-# OSM- und Höhendaten zusammenführen.
+# Join osm map data and elevation data into a complete map
 # -----------------------------------------
 sub join_mapdata {
 
-  # Verzeichnis wechseln
+  # change the directory
   chdir "$WORKDIR";
 
+  # Initialize some variables
   my $filename_kartendaten  = "$WORKDIR/Kartendaten_$mapname.osm.pbf";
   my $available_kartendaten = 0;
+  my $filename_hoehendaten  = "$WORKDIR/Hoehendaten_$mapname.osm.pbf";
+  my $available_hoehendaten = 0;
+  my $filename_ergebnisdaten = "$WORKDIR/$mapname.osm.pbf";
 
+  # check if the osm map file exists and has the proper format
   if ( -e $filename_kartendaten ) {
-    # auf gültige osm.pbf-Datei prüfen
     if ( check_osmpbf ( $filename_kartendaten ) ) {
       $available_kartendaten = 1;
     }
   }
 
-  my $filename_hoehendaten  = "$WORKDIR/Hoehendaten_$mapname.osm.pbf";
-  my $available_hoehendaten = 0;
-
   if ( -e $filename_hoehendaten ) {
-    # auf gültige osm.pbf-Datei prüfen
+    # check if the elevation data exists and has the proper format
     if ( check_osmpbf ( $filename_hoehendaten ) ) {
       $available_hoehendaten = 1;
     }
   }
 
-  my $filename_ergebnisdaten = "$WORKDIR/$mapname.osm.pbf";
-
+  # All there and so far ok, let's continue
   if ( $available_kartendaten && $available_hoehendaten ) {
-    # Karten- und Höhendaten vorhanden
+
     printf { *STDERR } ( "\nJoining map and elevation data ...\n" );
 
-    # Java-Optionen in Osmosis-Aufruf einbringen
+    # Make sure that the Java options are brought into the osmosis call
     my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
     $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
 
-    # osmosis-Aufrufparameter
+    # Put the osmosis parameter together
     my $osmosis_parameter = 
         " --read-pbf $filename_kartendaten" 
       . " --read-pbf $filename_hoehendaten" 
@@ -915,28 +1042,37 @@ sub join_mapdata {
     if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # OS X, Linux, FreeBSD, OpenBSD
       $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
-      process_command ( $command );
     }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
       $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
-      process_command ( $command );
     }
     else {
-      printf { *STDERR } ( "\nFehler: Betriebssystem $OSNAME nicht unterstuetzt.\n" );
+      die ( "\nFehler: Operating system $OSNAME not supported.\n" );
+      return ( 1 );
     }
+    
+    # run the command
+    process_command ( $command );
+      
+    # Check Return Value
+    if ( $? != 0 ) {
+        die ( "ERROR:\n  Joining map and elevation data for $mapname failed.\n\n" );
+    }
+    
   }
   elsif ( $available_kartendaten ) {
-    # nur Kartendaten vorhanden
+    # only mapdata there, elevation stuff missing, but let's continue anyway
     printf { *STDERR } ( "\nWarning: Elevation data file <$filename_hoehendaten> not found.\n" );
     printf { *STDERR } ( "\nCopying map data ...\n" );
 
-    # Kartendaten kopieren
+    # so let's copy mapdata only
     copy ( $filename_kartendaten, $filename_ergebnisdaten ) or die ( "copy() failed: $!\n" );
   }
   else {
-    # weder Karten- noch Hoehendaten vorhanden
-    printf { *STDERR } ( "\nError: Map data file <$filename_kartendaten> not found.\n" );
+    # no map data and no elevation data available
+    die ( "\nError: Map data file <$filename_kartendaten> not found.\n" );
+    return ( 1 );
   }
 
   return;
@@ -944,25 +1080,26 @@ sub join_mapdata {
 
 
 # -----------------------------------------
-# Kartendaten splitten.
+# Split the map into tiles
 # -----------------------------------------
 sub split_mapdata {
-
+  
+  # Intialize variables
   my $filename_ergebnisdaten = "$WORKDIR/$mapname.osm.pbf";
 
+  # Check if the file exists and has proper format
   if ( -e $filename_ergebnisdaten ) {
-    # auf gültige osm.pbf-Datei prüfen
     if ( !check_osmpbf ( $filename_ergebnisdaten ) ) {
-      printf { *STDERR } ( "\nError: Resulting data file <$filename_ergebnisdaten> is not a valid osm.pbf file.\n" );
+      die ( "\nError: Resulting data file <$filename_ergebnisdaten> is not a valid osm.pbf file.\n" );
       return ( 1 );
     }
   }
   else {
-    printf { *STDERR } ( "\nError: Resulting data file <$filename_ergebnisdaten> does not exists.\n" );
+    die ( "\nError: Resulting data file <$filename_ergebnisdaten> does not exists.\n" );
     return ( 1 );
   }
 
-  # OSM-Kartendaten splitten
+  # split the map
   $command = 
      "java -Xmx" 
    . $javaheapsize . "M" 
@@ -979,27 +1116,36 @@ sub split_mapdata {
    . " --output-dir=$WORKDIR $filename_ergebnisdaten";
   process_command ( $command );
 
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  Spliting the map $mapname into tiles failed.\n\n" );
+  }
+
   return;
 }
 
 
 # -----------------------------------------
-# Kartenindividuelles CFG-File erzeugen.
+# Create the map specific CFG file needed by mkgmap
 # - Note that option order is significant.
 # - An option only applies to subsequent input files.
 # -----------------------------------------
 sub create_cfgfile {
 
+  # Initialize some variables
   my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
   my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
   my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
+  my $filename = "$WORKDIRLANG/$mapname.cfg";
 
+  # Dump some output
   printf { *STDOUT } ( "\n" );
-
-  my $filename = "$WORKDIR/$mapname.cfg";
   printf { *STDOUT } ( "Creating $filename ...\n" );
+  
+  # Try to open the file
   open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
 
+  # Write the needed options into the file
   printf { $fh } 
     (   "# ------------------------------------------------------------------------------\n" 
       . "# Zweck   : mkgmap-Konfigurationsdatei\n" 
@@ -1185,7 +1331,7 @@ sub create_cfgfile {
       . "#   (see resources/styles/default for an example).  The directory\n"
       . "#   path must be absolute or relative to the current working\n"
       . "#   directory when mkgmap is invoked.\n"
-      . "style-file=$WORKDIR\n" );
+      . "style-file=$WORKDIRLANG\n" );
 
   printf { $fh } ( "\n# Product description options:\n" );
   printf { $fh } ( "# ---------------------------\n" );
@@ -1367,6 +1513,7 @@ sub create_cfgfile {
 #      . "# subset of housenumbers.\n"
 #      . "x-housenumbers\n" );
 
+  # Add the tiles
   # Kartenkacheln anhaengen
   # mapname: 58100003
   # description: DE-Konstanz
@@ -1392,12 +1539,14 @@ sub create_cfgfile {
     }
 
     if ( $identifier eq 'input-file' ) {
-      printf { $fh } ( "%s\n", $line );
+	  $rest =~ s/^\s+//;
+      printf { $fh } ( "%s: %s/%s\n", $identifier, $WORKDIR, $rest );
     }
   }
 
-  # -- hier keine Optionen anfügen --
+  # -- no more options after that line / hier keine Optionen anfügen --
 
+  # Try to close the file again
   close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
 
   printf { *STDOUT } ( "Done\n" );
@@ -1406,7 +1555,7 @@ sub create_cfgfile {
 }
 
 # -----------------------------------------
-# Ableitung des 'typ-translations' file mit allen sprachspezifischen Strings
+# Deduct the file map specific 'typ-translations' containing all needed strings
 # -----------------------------------------
 sub create_typtranslations {
 
@@ -1414,10 +1563,6 @@ sub create_typtranslations {
   print "\nCreating complete source txt files for the TYP files\n"
       . "  (containing all needed language strings)\n\n";
 	
-  # Verzeichnisstrukturen neu anlegen (falls noch nicht vorhanden)
-  # (Shouldn't be necessary anymore)
-#  mkpath ( "$WORKDIR/TYP" );
-
 
   # Short description of the process:
   # ---------------------------------
@@ -1587,7 +1732,7 @@ sub create_typtranslations {
 
     $inputfile  = "$BASEPATH/TYP/$actualfile";
 #    $outputfile = "$WORKDIR/TYP/$actualfile";
-    $outputfile = "$WORKDIR/$actualfile";
+    $outputfile = "$WORKDIRLANG/$actualfile";
 
     open IN, "< $inputfile" or die "Can't open $inputfile : $!";
     #  open OUT, ">:encoding(UTF-8)","$outputfile" or die "Can't open $outputfile : $!";
@@ -1704,7 +1849,7 @@ sub create_typtranslations {
 
 
 # -----------------------------------------
-# Kompilieren der TYP files aus txt source files
+# Compilation of TYP files out of txt source files
 # -----------------------------------------
 sub compile_typfiles {
 	
@@ -1712,15 +1857,12 @@ sub compile_typfiles {
   # Create some output (just to know where we are)
   print "\nCompiling source txt files into binary TYP files:\n\n";
 	
-  # Verzeichnisstrukturen neu anlegen (falls noch nicht vorhanden)
-  # (shouldn't be needed anymore
-#  mkpath ( "$WORKDIR/TYP" );
 
-  # Verzeichnis wechseln
+  # Jump to correct directory
 #  chdir "$WORKDIR/TYP";
   chdir "$BASEPATH/TYP";
   my @typfilelist = glob "*.txt" ;
-  chdir "$WORKDIR";
+  chdir "$WORKDIRLANG";
   
   # Run through the existing textfiles
   for my $thistypfile ( @typfilelist ) {
@@ -1736,51 +1878,49 @@ sub compile_typfiles {
 	## ENDFIX (can be deleted if problem with mkgmap is fixed
 
 
+    # Run the compiler
     process_command ( $command );
+    
+    # Check Return Value
+    if ( $? != 0 ) {
+        die ( "ERROR:\n  Compilation of $thistypfile failed.\n\n" );
+    }
 
-    #Rename .typ to .TYP
-    move(basename("$thistypfile", ".txt") . ".typ" , basename("$thistypfile", ".txt" ) . ".TYP" );
+    # Rename .typ to .TYP
+    move(basename("$thistypfile", ".txt") . ".typ" , basename("$thistypfile", ".txt" ) . ".TYP" ) or die ( "ERROR:\n  rename of $thistypfile failed.\n\n" ) ;
+
   }
 
-  # temporär erzeugte Dateien löschen
+  # Remove unneeded generated files
   unlink ( "osmmap.tdb" );
   unlink ( "osmmap.img" );
   
-  # 
-
   return;
 }
 
 # -----------------------------------------
-# Kartenindividuelles TYP-File aus dem Master-TYP-File ableiten.
+# Create map specific TYP file
 # -----------------------------------------
 sub create_typfile {
 
-  # Verzeichnis wechseln
-#  chdir "$BASEPATH/TYP";
-#  chdir "$WORKDIR/TYP";
-  chdir "$WORKDIR";
+  # Jump to the correct directory
+  chdir "$WORKDIRLANG";
 
-  # TYP-File kopieren
-  copy ( "$maptypfile.TYP", "$WORKDIR/$mapid.TYP" ) or die ( "copy() of $maptypfile.TYP failed: $!\n" );
-
-  # Family-ID anpassen
-  # Not needed anymore as we're creating them already with the correct IDs
-#  $command = "perl set-typ.pl $mapid 1 $WORKDIR/$mapid.TYP";
-#  process_command ( $command );
+  # copy TYP-File
+  copy ( "$maptypfile.TYP", "$WORKDIRLANG/$mapid.TYP" ) or die ( "copy() of $maptypfile.TYP failed: $!\n" );
 
   return;
 }
 
 
 # -----------------------------------------
-# Ableitung des 'style-translations' file mit allen sprachspezifischen Strings
+# Create map specific 'style-translations' file containing all needed strings
 # -----------------------------------------
 sub create_styletranslations {
 
   # Set some Variables
   my $inputfile  = "$BASEPATH/translations/style-translations-master";
-  my $outputfile = "$WORKDIR/style-translations";
+  my $outputfile = "$WORKDIRLANG/style-translations";
   my $langcode   = "\U$maplang";
   my @input;
   my %translation = ();
@@ -1834,7 +1974,7 @@ sub create_styletranslations {
 
 
 # -----------------------------------------
-# Vorverarbeitung der Style-Files.
+# Prepare the style files: running through the PPP preprocessor
 #
 # ppp supports the following standard preprocessor features:
 # #define %var% [value]
@@ -1866,19 +2006,16 @@ sub create_styletranslations {
 # -----------------------------------------
 sub preprocess_styles {
 
-  # Verzeichnis wechseln
-#  chdir "$BASEPATH/style";
 
   # copying the files from the style directory into the work directory
   for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
-    copy ( $stylefile, $WORKDIR ) or die ( "copy() of style files failed: $!\n" );
+    copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
   }
 
-  # Go to the Workdir
-  chdir "$WORKDIR";
+  # Go to the Workdir LANG
+  chdir "$WORKDIRLANG";
 
-
-  # Preprozessor-Optionen zusammenbauen (alle Angaben hinter dem Kartennamen)
+  # Put the Options for the PPP preprocessor together (options that are given behind mapname)
   # $ARGV[ 0 ]                = Aktion;
   # $ARGV[ 1 ]                = Karte oder ID;
   # $ARGV[ 2 ] ... $ARGV[ N ] = Preprozessor-Optionen
@@ -1889,31 +2026,31 @@ sub preprocess_styles {
   # Add the Preprozessor Option for the language
   $ppp_optionen .= "\U-D$maplang";
 
-  # indexsearch verarbeiten
+  # process file indexsearch
   $command = "perl  $BASEPATH/tools/ppp/ppp.pl indexsearch-master indexsearch -x $ppp_optionen";
   process_command ( $command );
 
-  # info verarbeiten
+  # process file info
   $command = "perl  $BASEPATH/tools/ppp/ppp.pl info-master info -x $ppp_optionen";
   process_command ( $command );
 
-  # options verarbeiten
+  # process file options
   $command = "perl  $BASEPATH/tools/ppp/ppp.pl options-master options -x $ppp_optionen";
   process_command ( $command );
 
-  # version verarbeiten
+  # process file version
   $command = "perl  $BASEPATH/tools/ppp/ppp.pl version-master version -x $ppp_optionen";
   process_command ( $command );
 
-  # polgons verarbeiten
+  # process file polgons
   $command = "perl $BASEPATH/tools/ppp/ppp.pl polygons-master polygons -x $ppp_optionen";
   process_command ( $command );
 
-  # lines verarbeiten
+  # process file lines
   $command = "perl  $BASEPATH/tools/ppp/ppp.pl lines-master lines -x $ppp_optionen";
   process_command ( $command );
 
-  # points verarbeiten
+  # process file points
   $command = "perl  $BASEPATH/tools/ppp/ppp.pl points-master points -x $ppp_optionen";
   process_command ( $command );
 
@@ -1922,19 +2059,24 @@ sub preprocess_styles {
 
 
 # -----------------------------------------
-# Karte erzeugen.
+# Build the map
 # -----------------------------------------
 sub build_map {
 
-  # in work-Verzeichnis wechseln
-  chdir "$WORKDIR";
+  # change to directory WORKDIR LANG
+  chdir "$WORKDIRLANG";
 
-  # Lizenz-File kopieren
+  # copy the licence file
   copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
 
-  # OSM-Daten compilieren (-Dlog.config=logging.properties) (with checking style files first with --check-styles)
+  # run mkgmap to build the map from the OSM data (-Dlog.config=logging.properties) (with checking style files first with --check-styles)
   $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg --check-styles";
   process_command ( $command );
+
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  Creating the map $mapname with mkgmap failed.\n\n" );
+  }
 
   return;
 }
@@ -1953,7 +2095,7 @@ sub create_gmap2file {
   }
 
   # in work-Verzeichnis wechseln
-  chdir "$WORKDIR";
+  chdir "$WORKDIRLANG";
 
   # Gmapi-Datei erzeugen
   $command =
@@ -1973,40 +2115,40 @@ sub create_gmap2file {
 
 
 # -----------------------------------------
-# nsi-Datei für den NSIS-Compiler (Windows) erzeugen (zum Erstellen einer Installationsdatei für Windows).
+# Create the NSI file needed for compiling the Windows Installer
 # -----------------------------------------
 sub create_nsis_nsifile {
 
-  my $filename = $mapname . ".nsi";
-  printf { *STDOUT } ( "\nCreating $filename ...\n" );
+  # Jump into the correct directory
+  chdir "$WORKDIRLANG";
 
-  # Verzeichnis wechseln
-#  chdir "$WORKDIR/TYP";
-  chdir "$WORKDIR";
-
-#  my @typfiles = ( "$mapid.TYP" , glob ( "*.TYP" ) );
+  # Get all TYP files
   my @typfiles = ( glob ( "*.TYP" ) );
   for my $thistypfile ( @typfiles ) {
     printf { *STDOUT } ( "TYP-File = $thistypfile\n" );
   }
 
-  # Verzeichnis wechseln
-#  chdir "$WORKDIR";
-
+  # Set and show the family-ID
   #my $familyID = substr ( $typfiles[ 0 ], 0, 4 );
   my $familyID = $mapid;
   printf { *STDOUT } ( "Family-ID = $familyID\n" );
 
+  # Get and show imagefile names
   my @imgfiles = glob ( $familyID . "*.img" );
   for my $imgfile ( @imgfiles ) {
     printf { *STDOUT } ( "IMG-File = $imgfile\n" );
   }
 
-  # Beispiel: 11.07 = Jahr.Monat
+  # Create and show the Release Number (creation out of date)
+  # example: 11.07 = year.month
   my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
   my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
   my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
   printf { *STDOUT } ( "Ausgabe %d.%02d\n", ( $year - 100 ), ( $mon + 1 ) );
+
+  # Create output
+  my $filename = $mapname . ".nsi";
+  printf { *STDOUT } ( "\nCreating $filename ...\n" );
 
   # open ( my $fh, '+>:encoding(UTF-8)', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
   open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
@@ -2064,27 +2206,26 @@ sub create_nsis_nsifile {
   printf { $fh } ( "!include \"MUI2.nsh\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+  printf { $fh } ( "; Interface Settings\n" );
+  printf { $fh } ( "; ------------------\n" );
+  printf { $fh } ( "!define MUI_LANGDLL_ALLLANGUAGES\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
   printf { $fh } ( "; Installer Pages\n" );
   printf { $fh } ( "; ---------------\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
-  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
-  printf { $fh }
-    (
-    "!define MUI_WELCOMEPAGE_TEXT \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n"
-    );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"\$(INWpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TEXT \"\$(INWpText)\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_FINISHPAGE_TITLE_3LINES\n" );
-  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
-  printf { $fh }
-    (
-    "!define MUI_FINISHPAGE_TEXT \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich auf Ihrem Computer installiert.\$\\n\$\\nViel Erfolg und Freude bei der Nutzung der Karte.\$\\n\$\\nUm die Qualitaet dieser Karte zu sichern und zu verbessern ist auch Ihr Feedback (z.B. zu Defekten oder Verbesserungen) hilfreich. An dieser Stelle schon einmal Danke hierfuer.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Installation abzuschliessen.\"\n"
-    );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE \"\$(INFpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TEXT \"\$(INFpText)\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_WELCOMEFINISHPAGE_BITMAP Install.bmp\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_WELCOME\n" );
-  printf { $fh } ( "!insertmacro MUI_PAGE_LICENSE lizenz_haftung_erstellung.txt\n" );
+  printf { $fh } ( "!insertmacro MUI_PAGE_LICENSE \$(licenseFile)\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_DIRECTORY\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_INSTFILES\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_FINISH\n" );
@@ -2099,18 +2240,12 @@ sub create_nsis_nsifile {
   printf { $fh } ( "; Uninstaller Pages\n" );
   printf { $fh } ( "; -----------------\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
-  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
-  printf { $fh }
-    (
-    "!define MUI_WELCOMEPAGE_TEXT \"Dieser Assistent wird Sie durch die Deistallation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor dem Entfernen muss das Programm BaseCamp geschlossen werden damit Kartendateien geloescht werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Deinstallation zu beginnen.\"\n"
-    );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"\$(UIWpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TEXT \"\$(UIWpText)\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_FINISHPAGE_TITLE_3LINES\n" );
-  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
-  printf { $fh }
-    (
-    "!define MUI_FINISHPAGE_TEXT \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich von Ihrem Computer entfernt.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Deinstallation abzuschliessen.\"\n"
-    );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE \"\$(UIFpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TEXT \"\$(UIFpText)\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_UNWELCOMEFINISHPAGE_BITMAP Deinstall.bmp\n" );
   printf { $fh } ( "\n" );
@@ -2122,7 +2257,36 @@ sub create_nsis_nsifile {
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Language Settings\n" );
   printf { $fh } ( "; -----------------\n" );
+  printf { $fh } ( "!insertmacro MUI_LANGUAGE \"English\"\n" );
   printf { $fh } ( "!insertmacro MUI_LANGUAGE \"German\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString INWpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString INWpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
+  printf { $fh } ( "LangString INWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"lizenz_haftung_erstellung_en.txt\"\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"lizenz_haftung_erstellung.txt\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString INFpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
+  printf { $fh } ( "LangString INFpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
+  printf { $fh } ( "LangString INFpText \${LANG_ENGLISH} \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} has been succesfully installed on your computer.\$\\n\$\\nHave fun using the map.\$\\n\$\\nFor ensuring and increasing the quality of the map also your feedback is helpful (e.g. defects or improvements). Already now many thanks for it.\$\\n\$\\nChoose Finish to terminate the installation.\"\n" );
+  printf { $fh } ( "LangString INFpText \${LANG_GERMAN} \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich auf Ihrem Computer installiert.\$\\n\$\\nViel Erfolg und Freude bei der Nutzung der Karte.\$\\n\$\\nUm die Qualitaet dieser Karte zu sichern und zu verbessern ist auch Ihr Feedback (z.B. zu Defekten oder Verbesserungen) hilfreich. An dieser Stelle schon einmal Danke hierfuer.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Installation abzuschliessen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString UIWpTitle \${LANG_ENGLISH} \"Deinstalling \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString UIWpTitle \${LANG_GERMAN} \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString UIWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the deinstallation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}.\$\\n\$\\nBefore deinstallation BaseCamp must be closed for allowing deletion of the map data.\$\\n\$\\nChoose Next for starting the deinstallation.\"\n" );
+  printf { $fh } ( "LangString UIWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Deistallation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor dem Entfernen muss das Programm BaseCamp geschlossen werden damit Kartendateien geloescht werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Deinstallation zu beginnen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString UIFpTitle \${LANG_ENGLISH} \"Deinstallation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
+  printf { $fh } ( "LangString UIFpTitle \${LANG_GERMAN} \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
+  printf { $fh } ( "LangString UIFpText \${LANG_ENGLISH} \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} has been succesfully deinstalled from your computer.\$\\n\$\\nChoose Finish to terminate the deinstallation.\"\n" );
+  printf { $fh } ( "LangString UIFpText \${LANG_GERMAN} \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich von Ihrem Computer entfernt.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Deinstallation abzuschliessen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString AlreadyInstalled \${LANG_ENGLISH} \"There is already a version of \${KARTEN_BESCHREIBUNG} installed.\$\\nThis version needs to be deinstalled first.\"\n" );
+  printf { $fh } ( "LangString AlreadyInstalled \${LANG_GERMAN} \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\nDiese Version muss zunaechst entfernt werden.\"\n" );
+  printf { $fh } ( "LangString AlreadyInstalledOldName \${LANG_ENGLISH} \"There is already a version of \${KARTEN_BESCHREIBUNG} installed.\$\\n(still using the old name \${REG_KEY_OLD})\$\\nThis version needs to be deinstalled first.\"\n" );
+  printf { $fh } ( "LangString AlreadyInstalledOldName \${LANG_GERMAN} \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\n(noch mit altem Namen \${REG_KEY_OLD})\$\\nDiese Version muss zunaechst entfernt werden.\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Initialize NSI-Variables\n" );
@@ -2140,6 +2304,10 @@ sub create_nsis_nsifile {
   printf { $fh } ( "\n" );
   printf { $fh } ( "Function myGUIInit\n" );
   printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Call the language selection dialog\n" );
+  printf { $fh } ( "  ; -------------------------------------------\n" );
+  printf { $fh } ( "  ;!insertmacro MUI_LANGDLL_DISPLAY\n" );
+  printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Uninstall before Installing (actual mapname)\n" );
   printf { $fh } ( "  ; -------------------------------------------\n" );
   printf { $fh } ( "  ReadRegStr \$R0 HKLM \\\n" );
@@ -2148,12 +2316,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "\n" );
   printf { $fh } ( "  StrCmp \$R0 \"\" noactualcard\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \\\n" );
-  printf { $fh }
-    (
-    "  \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\nDiese Version muss zunaechst entfernt werden.\" \\\n"
-    );
-  printf { $fh } ( "  IDOK uninstactualcard\n" );
+  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"\$(AlreadyInstalled)\" IDOK uninstactualcard\n" );
   printf { $fh } ( "  Abort\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Run the Uninstaller\n" );
@@ -2171,12 +2334,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "\n" );
   printf { $fh } ( "  StrCmp \$R0 \"\" nooldcard\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \\\n" );
-  printf { $fh }
-    (
-    "  \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\n(noch mit altem Namen \${REG_KEY_OLD})\$\\nDiese Version muss zunaechst entfernt werden.\" \\\n"
-    );
-  printf { $fh } ( "  IDOK uninstoldcard\n" );
+  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"\$(AlreadyInstalledOldName)\" IDOK uninstoldcard\n" );
   printf { $fh } ( "  Abort\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Run the Uninstaller\n" );
@@ -2367,7 +2525,7 @@ sub create_nsis_nsifile {
 
 
 # -----------------------------------------
-# Mit NSIS-Compiler Installer-Executable für Windows erzeugen.
+# Compile the NSI file into the final Installer for Windows
 # Tool : makensis.exe
 # OS   : Linux, Windows
 # -----------------------------------------
@@ -2380,8 +2538,8 @@ sub create_nsis_exefile {
   # Prep for creating the Installer: get OS dependent command name for zipper
   if ( $OSNAME eq 'darwin' ) {
     # OS X
-    printf { *STDERR } ( "\nError: Function on OS X not possible.\n" );
-    return;
+    die ( "\nError: Function on OS X not possible.\n" );
+    return ( 1 );
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
@@ -2392,20 +2550,12 @@ sub create_nsis_exefile {
     $zipper = 'zip -r ';
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
-    return;
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
+    return ( 1 );
   }
 
-  # Copy the rest of the TYP files (actually hidden in a TYP subdirectory of the WORKDIR)
-  # (shouldn't be necessary anymore)
-#  chdir "$WORKDIR/TYP";
-#  for my $file ( <*.TYP> ) {
-#    printf { *STDOUT } ( "Copying %s\n", $file );
-#    copy ( $file, "$WORKDIR" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
-#  }  
-
-  # in work-Verzeichnis wechseln
-  chdir "$WORKDIR";
+  # jump to work directory
+  chdir "$WORKDIRLANG";
 
   # Create the needed zip file
   $source      = '*.img *.tdb *.mdx *.TYP';
@@ -2413,21 +2563,11 @@ sub create_nsis_exefile {
   $command     = $zipper . "$destination $source";
   process_command ( $command );
 
-  # Remove the additional TYP files again from workdir, they disturb jmc_cli at the moment
-  # (shouldn't be necessary anymore)
-#  chdir "$WORKDIR/TYP";
-#  for my $file ( <*.TYP> ) {
-#    printf { *STDOUT } ( "Removing %s again\n", $file );
-#    unlink ( $WORKDIR . "/" . $file );
-#  }  
-#  chdir "$WORKDIR";
-
-
   # Prep for creating the Installer: get OS dependent command name for nsis and zipper
   if ( $OSNAME eq 'darwin' ) {
     # OS X
-    printf { *STDERR } ( "\nError: Function on OS X not possible.\n" );
-    return;
+    die ( "\nError: Function on OS X not possible.\n" );
+    return ( 1 );
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
@@ -2438,34 +2578,44 @@ sub create_nsis_exefile {
     $command = "makensis $mapname" . ".nsi";
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
-    return;
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
+    return ( 1 );
   }
 
-  # in nsis-Verzeichnis wechseln
+  # go to nsis directory
   chdir "$BASEPATH/nsis";
 
-  # Lizenz und Bitmaps kopieren
-  copy ( "lizenz_haftung_erstellung.txt", "$WORKDIR/lizenz_haftung_erstellung.txt" )
+  # copy license files and needed bitmaps
+  copy ( "lizenz_haftung_erstellung.txt", "$WORKDIRLANG/lizenz_haftung_erstellung.txt" )
     or die ( "copy() failed: $!\n" );
-  copy ( "Install.bmp",   "$WORKDIR/Install.bmp" )   or die ( "copy() failed: $!" );
-  copy ( "Deinstall.bmp", "$WORKDIR/Deinstall.bmp" ) or die ( "copy() failed: $!" );
+  copy ( "lizenz_haftung_erstellung_en.txt", "$WORKDIRLANG/lizenz_haftung_erstellung_en.txt" )
+    or die ( "copy() failed: $!\n" );
+  copy ( "Install.bmp",   "$WORKDIRLANG/Install.bmp" )   or die ( "copy() failed: $!" );
+  copy ( "Deinstall.bmp", "$WORKDIRLANG/Deinstall.bmp" ) or die ( "copy() failed: $!" );
 
-  # in work-Verzeichnis wechseln
-  chdir "$WORKDIR";
+  # go back to work directory
+  chdir "$WORKDIRLANG";
 
-  # Installer-Executable erzeugen (mit NSIS-Compiler)
+  # Run the actual NSIS compiler
   process_command ( $command );
 
-  # Installer-Executable ins install-Verzeichnis verschieben
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  Compilation of Windowsinstaller for $mapname failed.\n\n" );
+  }
+
+  # Put the Installer Name together
   my $filename = "Install_" . $mapname . "_" . $maplang . ".exe";
 
   # sleep needed on windows... perl is faster than windows... (Viruschecking ? FortiClient AppDetection)
   if ( $OSNAME eq 'MSWin32' ) {
     # Windows
     printf { *STDOUT } ( "   (...sleeping a while for preventing viruschecking to lock files...)\n" );
-    sleep 60;
+#    sleep 60;
+    sleep 5;
   }
+  
+  # Try to move the Installer into the install directory
   move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!: move $filename $INSTALLDIR/$filename\n" );
 
   # Delete the zip file again, not needed anymore
@@ -2477,7 +2627,7 @@ sub create_nsis_exefile {
 
 
 # -----------------------------------------
-# Garmin-Map-File für BaseCamp erzeugen.
+# Create the GMAP Format of the file (Basecamp)
 # - Tool : jmc_cli
 # - OS   : Linux, OS X, Windows
 # - Version: 0.7
@@ -2516,14 +2666,14 @@ sub create_nsis_exefile {
 # -----------------------------------------
 sub create_gmapfile {
 
-  # in work-Verzeichnis wechseln
-  chdir "$WORKDIR";
+  # jump to correct directory
+  chdir "$WORKDIRLANG";
 
-  # Verzeichnisstruktur loeschen
+  # rmove eventually existing directories from the install directory
   rmtree ( "$INSTALLDIR/$mapname.gmap", 0, 1 );
 
   # Create the config file we use for jmc_cli (v0.7)1
-  my $filename = "$WORKDIR/jmc_cli.cfg";
+  my $filename = "$WORKDIRLANG/jmc_cli.cfg";
   printf { *STDOUT } ( "Creating $filename ...\n" );
   open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
 
@@ -2540,7 +2690,7 @@ sub create_gmapfile {
   printf { $fh } ( "# -----------------\n" );
   
   # add requiered source and destination directory to the config file
-  printf { $fh } ( "sourcefolder = $WORKDIR\n" );
+  printf { $fh } ( "sourcefolder = $WORKDIRLANG\n" );
   printf { $fh } ( "destfolder = $INSTALLDIR\n" );
   
   printf { $fh } ( "\n# Optional stuff options:\n" );
@@ -2556,27 +2706,35 @@ sub create_gmapfile {
 
 
 
-  # jmc-Aufrufparameter
-#  my $jmc_parameter = "-v -src=\"$WORKDIR\" -dest=\"$INSTALLDIR\" -bmap=\"$mapname.img\"";
-  my $jmc_parameter = "-v -config=\"$WORKDIR/jmc_cli.cfg\"";
+  # put the options for the jmc call together
+  my $jmc_parameter = "-v -config=\"$WORKDIRLANG/jmc_cli.cfg\"";
 
   if ( $OSNAME eq 'darwin' ) {
     # OS X
     $command = "$BASEPATH/tools/jmc/osx/jmc_cli $jmc_parameter";
-    process_command ( $command );
+#    process_command ( $command );
   }	
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
     $command = "$BASEPATH/tools/jmc/windows/jmc_cli.exe $jmc_parameter";
-    process_command ( $command );
+#    process_command ( $command );
   }
   elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
     $command = "$BASEPATH/tools/jmc/linux/jmc_cli $jmc_parameter";
-    process_command ( $command );
+#    process_command ( $command );
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
+    return ( 1 );
+  }
+
+  # call jmc
+  process_command ( $command );
+
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  creating the gmap version of the map $mapname failed.\n\n" );
   }
 
 #  # Copy the rest of the TYP files (actually hidden in a TYP subdirectory of the WORKDIR)
@@ -2591,22 +2749,21 @@ sub create_gmapfile {
 
 
 # -----------------------------------------
-# gmapsupp-Image für GPS-Gerät erzeugen.
-# Vorbedingung: OSM-Daten bereits gebildet
+# create gmapsupp.img: format for GPS device
 # -----------------------------------------
 sub create_gmapsuppfile {
 
-  # in work-Verzeichnis wechseln
-  chdir "$WORKDIR";
+  # Jump to the work directory
+  chdir "$WORKDIRLANG";
 
+  # Initialize some variables
   my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
   my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
   my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-
-  # Lizenz-File kopieren
-  copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
-
   my $mapversion = sprintf ( "%d.%d", ( $year - 100 ), ( $mon + 1 ) );
+
+  # copy License file
+  copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
 
   # mkgmap-Parameter
   # --description: Anzeige des Kartennamens in BaseCamp
@@ -2621,18 +2778,23 @@ sub create_gmapsuppfile {
       $mapid, ( ( ( $year - 100 ) * 100 ) + ( $mon + 1 ) )
   );
 
-  # gmapsupp-Image erzeugen
+  # run mkgmap to create the actual gmapsupp.img
   $command =
       "java -Xmx"
     . $javaheapsize . "M"
     . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --license-file=license.txt $mkgmap_parameter";
   process_command ( $command );
 
-  # gmapsupp-Image ins install-Verzeichnis kopieren
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  Creation of the file gmapsupp.img for $mapname failed.\n\n" );
+  }
+
+  # copy the created gmapsupp to the install directory
   my $filename = "gmapsupp.img";
   move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!\n" );
 
-  # temporär erzeugte Dateien löschen
+  # remove the unneeded temporary files again
   unlink ( "osmmap.tdb" );
   unlink ( "osmmap.img" );
 
@@ -2641,71 +2803,67 @@ sub create_gmapsuppfile {
 
 
 # -----------------------------------------
-# Einfaches Verzeichnis mit allen Kartendaten erzeugen:
+# Create imageDir format readable by 
+# - BaseCamp and Mapsource (with the needed Registry entries on Windows)
+# - Qlandkarte GT
+# Content:
 # - *.img, *.tdb, *.mdx, *.TYP
-# Karte kann z.B. direkt mit QLandkarte eingelesen werden.
 # -----------------------------------------
 sub create_image_directory {
 
-  # in work-Verzeichnis wechseln
-  chdir "$WORKDIR";
+  # Jump to the work directory
+  chdir "$WORKDIRLANG";
 
   my $destdir = "$INSTALLDIR/$mapname" . "_Images";
 
-  # (ggf.) existierendes Verzeichnis löschen
+  # remove eventially existing imagedir directory in the install Dir
   rmtree ( $destdir, { verbose => 1, safe => 1, keep_root => 1 } );
 
-  # Zielverzeichnis anlegen
+  # create the imageDir again
   mkpath ( $destdir, { verbose => 1 } );
 
-  # img-Dateien kopieren
+  # copy all img files
   for my $file ( <*.img> ) {
     printf { *STDOUT } ( "Copying %s\n", $file );
     copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
   }
 
-  # tdb-Datei kopieren
+  # copy tdb file
   for my $file ( <*.tdb> ) {
     printf { *STDOUT } ( "Copying %s\n", $file );
     copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
   }
 
-  # mdx-Datei kopieren
+  # copy mdx file
   for my $file ( <*.mdx> ) {
     printf { *STDOUT } ( "Copying %s\n", $file );
     copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
   }
 
-  # TYP-Datei kopieren
+  # copy all TYP files
   for my $file ( <*.TYP> ) {
     printf { *STDOUT } ( "Copying %s\n", $file );
     copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
   }
   
-  # Copy the rest of the TYP files (actually hidden in a TYP subdirectory of the WORKDIR)
-  # (Shouldn't be necessary anymore)
-#  chdir "$WORKDIR/TYP";
-#  for my $file ( <*.TYP> ) {
-#    printf { *STDOUT } ( "Copying %s\n", $file );
-#    copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
-#  }  
-
   return;
 }
 
 
 # -----------------------------------------
-# Alle erzeugten Karten (soweit sinnvoll) zippen.
+# Zip the files created in the install directory
 # -----------------------------------------
 sub zip_maps {
 
-  # in installl-Verzeichnis wechseln
+  # go to the install directory
   chdir "$INSTALLDIR";
 
+  # Initialize some variables
   my $source      = $EMPTY;
   my $destination = $EMPTY;
   my $zipper      = $EMPTY;
 
+  # get the needed tool (OS depending)
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # OS X, Linux, FreeBSD, OpenBSD
     $zipper = 'zip -r ';
@@ -2715,10 +2873,11 @@ sub zip_maps {
     $zipper = $BASEPATH . '/tools/zip/windows/7-Zip/7za.exe a ';
   }
   else {
-    printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
+    return ( 1 );
   }
 
-  # gmap (Beispiel: Freizeitkarte_DEUTSCHLAND.gmap -> Freizeitkarte_DEUTSCHLAND_de.gmap.zip)
+  # gmap (example: Freizeitkarte_DEUTSCHLAND.gmap -> Freizeitkarte_DEUTSCHLAND_de.gmap.zip)
   $source      = $mapname . '.gmap';
   $destination = $mapname . '_' . $maplang . '.gmap.zip';
   $command     = $zipper . "$destination $source";
@@ -2726,7 +2885,7 @@ sub zip_maps {
     process_command ( $command );
   }
 
-  # nsis (Beispiel: Install_Freizeitkarte_DEU_de.exe )
+  # nsis (example: Install_Freizeitkarte_DEU_de.exe )
   $source      = "Install_" . $mapname . '_' . $maplang . '.exe';
   $destination = "Install_" . $mapname . '_' . $maplang . '.zip';
   $command     = $zipper . "$destination $source";
@@ -2735,16 +2894,15 @@ sub zip_maps {
   }
 
 
-  # gmapsupp (Beispiel: gmapsupp.img -> DEU_de_gmapsupp.img.zip)
+  # gmapsupp (example: gmapsupp.img -> DEU_de_gmapsupp.img.zip)
   $source = 'gmapsupp.img';
-#  $destination = lc ($mapcode) . '_' . $source . '.zip';
   $destination = $mapcode . '_' . $maplang . '_' . $source . '.zip';
   $command     = $zipper . "$destination $source";
   if ( -e $source ) {
     process_command ( $command );
   }
 
-  # imagedir (Beispiel: Freizeitkarte_DEUTSCHLAND_Images -> Freizeitkarte_DEUTSCHLAND_de.Images.zip)
+  # imagedir (example: Freizeitkarte_DEUTSCHLAND_Images -> Freizeitkarte_DEUTSCHLAND_de.Images.zip)
   $source      = $mapname . '_Images';
   $destination = $mapname . '_' . $maplang . '.Images.zip';
   $command     = $zipper . "$destination $source";
@@ -2757,9 +2915,9 @@ sub zip_maps {
 
 
 # -----------------------------------------
-# Prüfen, ob Datei im osm.pbf-Format vorliegt.
-# - nach String 'OSMHeader' im Dateiheader suchen
-# - Implementierung möglicherweise unzureichend.
+# check if a file seems to be a proper *.osm.pbf file
+# - checks for existence of the string 'OSMHeader' in the file header
+# - implementation is possibly unsufficiant
 # -----------------------------------------
 sub check_osmpbf {
 
@@ -2783,7 +2941,8 @@ sub check_osmpbf {
 
 
 # -----------------------------------------
-# FZK-spezifische Regionen extrahieren.
+# Extracting fzk specific regions
+# out of a downloaded OSM Data extract
 # -----------------------------------------
 sub extract_regions {
 
@@ -2791,7 +2950,9 @@ sub extract_regions {
   if ( $maptype == 1 ) {
   
      # Initialisations
-     my $source_filename = "$WORKDIR/$mapname.osm.pbf";
+     # we don't need to cut 'joined' stuff anymore, just the OSM data
+     #my $source_filename = "$WORKDIR/$mapname.osm.pbf";
+     my $source_filename = "$WORKDIR/Kartendaten_$mapname.osm.pbf";
      my $osmosis_parameter = "";
      my $osmosis_parameter_bw = "";
      my $max_tee = 10;
@@ -2802,16 +2963,16 @@ sub extract_regions {
      # Check if the source file exists and is a valid osm.pbf file
      if ( -e $source_filename ) {
        if ( !check_osmpbf ( $source_filename ) ) {
-         printf { *STDERR } ( "\nError: Resulting data file <$source_filename> is not a valid osm.pbf file.\n" );
+         die ( "\nError: Resulting data file <$source_filename> is not a valid osm.pbf file.\n" );
          return ( 1 );
        }
      }
      else {
-       printf { *STDERR } ( "\nError: Source data file <$source_filename> does not exists.\n" );
+       die ( "\nError: Source data file <$source_filename> does not exists.\n" );
        return ( 1 );
      }
    
-     # Java-Optionen in Osmosis-Aufruf einbringen
+     # add the Java-Options for the osmosis call (Environment)
      my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
      $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
 
@@ -2845,14 +3006,14 @@ sub extract_regions {
            # Add the needed arguments for the osmosis run for this childmap
            $osmosis_parameter_bw = $osmosis_parameter_bw
              . " --bounding-polygon file=$BASEPATH/poly/$childmapname.poly"
-             . " --write-pbf file=$WORKDIR/$childmapname.osm.pbf omitmetadata=yes";
+             . " --write-pbf file=$WORKDIR/Kartendaten_$childmapname.osm.pbf omitmetadata=yes";
 		   		   
 		}
 		
     	# ok, enough together, let's run it (MISSING: IS IT THE LAST ?)
 		printf { *STDERR } ( "\nExtracting Freizeitkarte regions ...\n" );
 
-        # osmosis-Aufrufparameter (bei Veränderung auch "tee" anpassen)
+        # osmosis parameter
         $osmosis_parameter =
             " --read-pbf file=$source_filename"
           . " --tee $actual_tee"
@@ -2862,29 +3023,126 @@ sub extract_regions {
         if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
           # OS X, Linux, FreeBSD, OpenBSD
           $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
-          process_command ( $command );
         }
         elsif ( $OSNAME eq 'MSWin32' ) {
           # Windows
           $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
-          process_command ( $command );
         }
         else {
-          printf { *STDERR } ( "\nFehler: Betriebssystem $OSNAME nicht unterstuetzt.\n" );
+          die ( "\nFehler: Operating System $OSNAME not supported.\n" );
+          return ( 1 );
         }	
- 
+        
+        # Run the acual extraction via osmosis
+        process_command ( $command );
+
+        # Check Return Value
+        if ( $? != 0 ) {
+           die ( "ERROR:\n  Cutting our own regions out of $mapname failed.\n\n" );
+        }
+
      }
   }
   else {
-     printf { *STDERR } ( "\nERROR: $mapname is not an extract from which we create our own regions \n" );
+     die ( "\nERROR: $mapname is not an extract from which we create our own regions \n" );
+     return ( 1 );
   }
 
   return;
 }
 
 
+# ---------------------------------------------------------------------
+# Either extract the needed OSM data from the parent Region file or,
+# if already cut, just copy it
+# ---------------------------------------------------------------------
+sub extract_osm {
+	
+  # If this map is a regions that needed to be extracted, try to fetch the extracted region
+  if ( $maptype == 2 ) {
+
+     # Initialisation
+     my $mapparentname = $EMPTY;
+	 
+	 # Get the proper Map Parent's Name
+	 for my $tmp_mapdata ( @maps ) {
+	    if ( @$tmp_mapdata[ $MAPCODE ] eq $mapparent ) {
+		   $mapparentname = @$tmp_mapdata[ $MAPNAME ];
+		   last;
+		}
+	 }
+
+     # fill out source and destination variables
+     my $source_filename      = "$BASEPATH/work/$mapparentname/Kartendaten_$mapname.osm.pbf";
+     my $parent_filename      = "$BASEPATH/work/$mapparentname/Kartendaten_$mapparentname.osm.pbf";
+     my $destination_filename = "$WORKDIR/Kartendaten_$mapname.osm.pbf";
+
+     # Check if the source file does exist already
+     if ( !(-e $source_filename ) ) {
+		# NOT existing, let's try to cut it
+		
+		# Initialise few variables for the osmosis run
+        my $osmosis_parameter = "";
+
+         # Check if the source file exists and is a valid osm.pbf file
+         if ( -e $parent_filename ) {
+           if ( !check_osmpbf ( $parent_filename ) ) {
+             printf { *STDERR } ( "\nError: Resulting data file <$parent_filename> is not a valid osm.pbf file.\n" );
+             return ( 1 );
+           }
+         }
+         else {
+           printf { *STDERR } ( "\nError: Source data file <$parent_filename> does not exists.\n" );
+           printf ( "       Did you already download the osmdata of the map $mapparentname ?\n\n" );
+           return ( 1 );
+         }
+		 
+		 # Let's put the parameters together for the osmosis run
+         $osmosis_parameter =
+            " --read-pbf file=$parent_filename"
+          . " --tee 1"
+          . " --bounding-polygon file=$BASEPATH/poly/$mapname.poly"
+          . " --write-pbf file=$source_filename omitmetadata=yes";
+
+         # Ok, let's run osmosis, depending on the OS
+         printf { *STDERR } ( "\nExtracting needed data from OSM data file $source_filename ...\n" );
+         if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+           # OS X, Linux, FreeBSD, OpenBSD
+           $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
+         }
+         elsif ( $OSNAME eq 'MSWin32' ) {
+           # Windows
+           $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
+         }
+         else {
+           die ( "\nError: Operating System $OSNAME not supported.\n" );
+         }	
+     }
+
+     # Run the acual extraction via osmosis
+     process_command ( $command );
+
+     # Check Return Value
+     if ( $? != 0 ) {
+        die ( "ERROR:\n  Cutting out the data for $mapname failed.\n\n" );
+     }
+
+
+  	 # No let's try to copy the result
+     printf { *STDERR } ( "\nCopying the existing OSM data file $source_filename ...\n" );
+     copy ( "$source_filename", "$destination_filename" ) or die ( "copy($source_filename , $destination_filename) failed: $!\n" );
+     printf { *STDERR } ( "\n") ;
+
+  }  
+  else {
+     die ( "\nERROR: $mapname is not a region that needed local extraction.\n" );
+  }
+
+}
+
+
 # -----------------------------------------------
-# Bereits passend vorbereitete Kartendaten laden.
+# Get stuff already prepared in a bigger regions map directory
 # -----------------------------------------------
 sub fetch_mapdata {
 	
@@ -2916,7 +3174,8 @@ sub fetch_mapdata {
 	  
   }
   else {
-     printf { *STDERR } ( "\nERROR: $mapname is not a region that needed local extraction.\n" );
+     die ( "\nERROR: $mapname is not a region that needed local extraction.\n" );
+     return ( 1 );
   }
 
   return;
@@ -3561,12 +3820,11 @@ sub show_usage {
   # Print the Usage
   printf { *STDOUT } (
     "Usage:\n"
-      . "perl $programName [-ram=<value>] [-cores=<value>] [-ele=<value>] [-typfile=\"<filename>\"] [-language=\"<lang>\"] <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
+      . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>] [--typfile=\"<filename>\"] [--language=\"<lang>\"] <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
       . "  or\n"
       . "perl $programName bootstrap [urls <url_bounds> <url_sea>]\n"
       . "perl $programName bootstrap list\n\n"
       . "  or for getting help:\n"
-#      . "  perl $programName -? | -h | -o\n"
       . "  perl $programName -? | -h\n"
       . "\n\n"
   );
@@ -3585,29 +3843,29 @@ sub show_help {
   # Print the details of the help
   printf { *STDOUT } (
 #    "Usage:\n"
-#      . "perl $programName [-ram=Value] [-cores=Value] [-ele=Value] [-typfile=\"filename\"] [-language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
+#      . "perl $programName [--ram=Value] [--cores=Value] [--ele=Value] [--typfile=\"filename\"] [--language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
 #      . "Examples:\n"
       "Examples:\n"
       . "perl $programName                              bootstrap\n"
       . "perl $programName                              build     Freizeitkarte_Hamburg\n"
-      . "perl $programName  -ram=1536    -cores=2       build     Freizeitkarte_Hamburg\n"
-      . "perl $programName  -ram=6000                   build     5815\n"
-      . "perl $programName  -ram=6000    -cores=max     build     5815\n"
-      . "perl $programName  -ram=6000    -cores=max     build     Freizeitkarte_Oesterreich  DT36ROUTING\n\n"
+      . "perl $programName  --ram=1536    --cores=2     build     Freizeitkarte_Hamburg\n"
+      . "perl $programName  --ram=6000                  build     5815\n"
+      . "perl $programName  --ram=6000    --cores=max   build     5815\n"
+      . "perl $programName  --ram=6000    --cores=max   build     Freizeitkarte_Oesterreich  DT36ROUTING\n\n"
       . "Options:\n"
-      . "-ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
-      . "-cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
-      . "-ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
-      . "-typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
-      . "-language = overwrite the default language of a map (en=english, de=german);\n"
-      . "            if you build a map for another language than the map's default language,\n"
-      . "            this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
-      . "PPO       = preprocessor options (multiple possible)\n\n"
+      . "--ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
+      . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
+      . "--ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
+      . "--typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
+      . "--language = overwrite the default language of a map (en=english, de=german);\n"
+      . "             if you build a map for another language than the map's default language,\n"
+      . "             this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
+      . "PPO        = preprocessor options (multiple possible), to be invoked with D<option>\n\n"
       . "Arguments:\n"
-      . "Action    = Action to be processed\n"
-      . "ID        = ID of the to processed map\n"
-      . "Code      = Code of the to processed map\n"
-      . "Map       = Name of the to be processed map\n\n",
+      . "Action     = Action to be processed\n"
+      . "ID         = ID of the to processed map\n"
+      . "Code       = Code of the to processed map\n"
+      . "Map        = Name of the to be processed map\n\n",
     $javaheapsize, $cores
   );
   
@@ -3619,7 +3877,7 @@ sub show_help {
         printf { *STDOUT } ( "\n" );
         $printdelimiter = 'done';
       }
-      printf { *STDOUT } ( "%-10s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
+      printf { *STDOUT } ( "%-11s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
     }
   }
 #  if ( $optional ) {

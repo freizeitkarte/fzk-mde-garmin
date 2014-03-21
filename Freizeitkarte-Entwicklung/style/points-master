@@ -21,6 +21,8 @@
 # Version : 0.13 -07.01.2014: Adapted stuff for tourism=information: 
 #                             - Added special sign for tourist office
 #                             - lightened normal info sign
+# Version : 0.14 -14.03.2014: Adapting things regarding power = * (station / plant / substation / sub_station)
+#                             Adding amenity=toilets
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #
@@ -673,6 +675,7 @@ power = tower {name "${name} ($__POWERTOWER__)" | "$__POWERTOWER__"} [0x6417 res
 # Umspannwerk: bezeichnet eine Umspannanlage, die ein Höchst- oder Hochspannungs- mit einem weiteren
 # Hochspannungs- oder einem Mittelspannungsnetz verbindet. [point, closedway]
 power = station & name = * {name "${name} ($__POWERSTATION__)"} [0x6600 resolution 24]
+power = plant & name = * {name "${name} ($__POWERSTATION__)"} [0x6600 resolution 24]
 
 # Umspannstation, kleiner als station, verbindet ein Mittel- mit einem Niederspannungsnetz,
 # z.B. Mini-Umspannwerk, Trafohäuschen oder großer Trafokasten. [point, closedway]
@@ -985,8 +988,8 @@ amenity = public_building & name = * {name "${name} ($__PUBLICBUILDING__)"} [0x3
 # Ein Unterstand ist ein überdachter offener Platz als Schutz vor der Witterung. [point, closedway]
 amenity = shelter {name "${name} ($__SHELTER__)" | "$__SHELTER__"} [0x2b06 resolution 23]
 
-# Öffentliche Toilette (z.T. mit Gebühr). [point, closedway]
-# amenity = toilets (wird derzeit nicht unterstützt)
+# Öffentliche Toilette / public toilet (z.T. mit Gebühr). [point, closedway]
+amenity = toilets [0x2f0c resolution 24]
 
 # Rathaus. [point, closedway]
 amenity = townhall {name "${name} ($__TOWNHALL__)" | "$__TOWNHALL__"} [0x3003 resolution 24]

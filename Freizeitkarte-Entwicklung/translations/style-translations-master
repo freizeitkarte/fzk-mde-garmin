@@ -37,6 +37,8 @@
 ###* Version: 0.5 - 05.10.2013:  Integrated Portuguese and Russian Translation
 ###*                             Fixed Typo in English
 ###* Version: 0.6 - 14.01.2014:  Added Polish Translation
+###* Version: 0.7 - 21.02.2014:  Added Dutch Translation
+###*                             Removed Preparations for French
 
 
 
@@ -54,8 +56,8 @@
 #define $__ALPINEHUT__ Berghütte
 #define $__ALPINEHUT__DE Berghütte
 #define $__ALPINEHUT__EN Alpine hut
-#define $__ALPINEHUT__PL Chata alpejska
-#define $__ALPINEHUT__FR Berghütte
+#define $__ALPINEHUT__NL Berghut
+#define $__ALPINEHUT__PL Schronisko
 #define $__ALPINEHUT__RU Горное жилище
 #define $__ALPINEHUT__PT Cabana alpina
 
@@ -63,8 +65,8 @@
 #define $__AQUARIUM__ Aquarium
 #define $__AQUARIUM__DE Aquarium
 #define $__AQUARIUM__EN Aquarium 
+#define $__AQUARIUM__NL Aquarium
 #define $__AQUARIUM__PL Akwarium
-#define $__AQUARIUM__FR Aquarium
 #define $__AQUARIUM__RU Аквариум
 #define $__AQUARIUM__PT Aquário 
 
@@ -72,8 +74,8 @@
 #define $__ATTRACTION__ Attraktion
 #define $__ATTRACTION__DE Attraktion
 #define $__ATTRACTION__EN Attraction
+#define $__ATTRACTION__NL Attractie
 #define $__ATTRACTION__PL Atrakcja turystyczna
-#define $__ATTRACTION__FR Attraktion
 #define $__ATTRACTION__RU Аттракцион
 #define $__ATTRACTION__PT Atração
 
@@ -81,8 +83,8 @@
 #define $__ARTWORK__ Kunstobjekt
 #define $__ARTWORK__DE Kunstobjekt
 #define $__ARTWORK__EN Work of Art
+#define $__ARTWORK__NL Kunstwerk
 #define $__ARTWORK__PL Dzieło sztuki
-#define $__ARTWORK__FR Kunstobjekt
 #define $__ARTWORK__RU Произведение искусства
 #define $__ARTWORK__PT Obra de arte
 
@@ -92,8 +94,8 @@
 #define $__BASICHUT__ Basic Hut
 #define $__BASICHUT__DE Basic Hut
 #define $__BASICHUT__EN Basic hut
-#define $__BASICHUT__PL Szałas
-#define $__BASICHUT__FR Basic Hut
+#define $__BASICHUT__NL Berghut
+#define $__BASICHUT__PL Prosta chatka
 #define $__BASICHUT__RU Изба
 #define $__BASICHUT__PT Cabana básica
 
@@ -101,8 +103,8 @@
 #define $__BEDANDBREAKFAST__ Bed & Breakfast
 #define $__BEDANDBREAKFAST__DE Bed & Breakfast
 #define $__BEDANDBREAKFAST__EN Bed & Breakfast
+#define $__BEDANDBREAKFAST__NL Bed & Breakfast
 #define $__BEDANDBREAKFAST__PL Nocleg ze śniadaniem (B&B)
-#define $__BEDANDBREAKFAST__FR Bed & Breakfast
 #define $__BEDANDBREAKFAST__RU Ночлег и завтрак / Мини-гостиница
 #define $__BEDANDBREAKFAST__PT Bed & Breakfast
 
@@ -110,8 +112,8 @@
 #define $__CAMPSITE__ Camping
 #define $__CAMPSITE__DE Campingplatz
 #define $__CAMPSITE__EN Campsite
+#define $__CAMPSITE__NL Camping
 #define $__CAMPSITE__PL Pole kempingowe
-#define $__CAMPSITE__FR Camping
 #define $__CAMPSITE__RU Палаточный лагерь
 #define $__CAMPSITE__PT Acampamento
 
@@ -119,8 +121,8 @@
 #define $__CARAVANSITE__ Caravan
 #define $__CARAVANSITE__DE Caravan
 #define $__CARAVANSITE__EN Caravan Site
-#define $__CARAVANSITE__PL Camping dla zmotoryzowaneych
-#define $__CARAVANSITE__FR Caravan
+#define $__CARAVANSITE__NL Camperplaats
+#define $__CARAVANSITE__PL Kemping dla zmotoryzowaneych
 #define $__CARAVANSITE__RU Кемпинг / Стоянка для фургонов, автомобилей с прицепами
 #define $__CARAVANSITE__PT Parque de campismo
 
@@ -128,8 +130,8 @@
 #define $__CHALET__ Ferienhaus
 #define $__CHALET__DE Ferienhaus
 #define $__CHALET__EN Chalet
-#define $__CHALET__PL Schronisko
-#define $__CHALET__FR Ferienhaus
+#define $__CHALET__NL Vakantiehuis
+#define $__CHALET__PL Domek kempingowy
 #define $__CHALET__RU Шале
 #define $__CHALET__PT Chalé
 
@@ -137,8 +139,8 @@
 #define $__GUESTHOUSE__ Gasthaus
 #define $__GUESTHOUSE__DE Gasthaus
 #define $__GUESTHOUSE__EN Guest House
-#define $__GUESTHOUSE__PL Pensjonat
-#define $__GUESTHOUSE__FR Gasthaus
+#define $__GUESTHOUSE__NL Pension
+#define $__GUESTHOUSE__PL Pokoje gościnne
 #define $__GUESTHOUSE__RU Мини-гостиница
 #define $__GUESTHOUSE__PT Casa de hóspedes
 
@@ -146,8 +148,8 @@
 #define $__HOSTEL__ Herberge
 #define $__HOSTEL__DE Herberge
 #define $__HOSTEL__EN Hostel
+#define $__HOSTEL__NL Hostel
 #define $__HOSTEL__PL Hostel / Schronisko młodzieżowe
-#define $__HOSTEL__FR Herberge
 #define $__HOSTEL__RU Хостел
 #define $__HOSTEL__PT Albergue
 
@@ -156,8 +158,8 @@
 #define $__HOTEL__ Hotel
 #define $__HOTEL__DE Hotel
 #define $__HOTEL__EN Hotel
+#define $__HOTEL__NL Hotel
 #define $__HOTEL__PL Hotel
-#define $__HOTEL__FR Hotel
 #define $__HOTEL__RU Отель
 #define $__HOTEL__PT Hotel
 
@@ -166,8 +168,8 @@
 #define $__LEANTO__ Lean-to
 #define $__LEANTO__DE Lean-to
 #define $__LEANTO__EN Lean-to
-#define $__LEANTO__PL Szałas / przybudówka
-#define $__LEANTO__FR Lean-to
+#define $__LEANTO__NL Schuilhut
+#define $__LEANTO__PL Szałas / Przybudówka
 #define $__LEANTO__RU Навес
 #define $__LEANTO__PT Alpendre
 
@@ -175,8 +177,8 @@
 #define $__MOTEL__ Motel
 #define $__MOTEL__DE Motel
 #define $__MOTEL__EN Motel
+#define $__MOTEL__NL Motel
 #define $__MOTEL__PL Motel
-#define $__MOTEL__FR Motel
 #define $__MOTEL__RU Мотель
 #define $__MOTEL__PT Hotel de beira de estrada
 
@@ -184,8 +186,8 @@
 #define $__MUSEUM__ Museum
 #define $__MUSEUM__DE Museum
 #define $__MUSEUM__EN Museum
+#define $__MUSEUM__NL Museum
 #define $__MUSEUM__PL Muzeum
-#define $__MUSEUM__FR Museum
 #define $__MUSEUM__RU Музей
 #define $__MUSEUM__PT Museu
 
@@ -193,8 +195,8 @@
 #define $__PICNICSITE__ Picknick
 #define $__PICNICSITE__DE Picknick
 #define $__PICNICSITE__EN Picnic Place
+#define $__PICNICSITE__NL Picknickplaats
 #define $__PICNICSITE__PL Miejsce piknikowe
-#define $__PICNICSITE__FR Picknick
 #define $__PICNICSITE__RU Место для пикника
 #define $__PICNICSITE__PT Local de piquenique
 
@@ -202,8 +204,8 @@
 #define $__THEMEPARK__ Freizeitpark
 #define $__THEMEPARK__DE Freizeitpark
 #define $__THEMEPARK__EN Amusement/Theme Park
+#define $__THEMEPARK__NL Amusement/Thema Park
 #define $__THEMEPARK__PL Park rozrywki
-#define $__THEMEPARK__FR Freizeitpark
 #define $__THEMEPARK__RU Развлекательный/тематический парк
 #define $__THEMEPARK__PT Divertimento/Parque temático
 
@@ -213,8 +215,8 @@
 #define $__WILDERNESSHUT__ Wilderness Hut
 #define $__WILDERNESSHUT__DE Wilderness Hut
 #define $__WILDERNESSHUT__EN Wilderness Hut
+#define $__WILDERNESSHUT__NL Schuilhut
 #define $__WILDERNESSHUT__PL Szałas w lesie
-#define $__WILDERNESSHUT__FR Wilderness Hut
 #define $__WILDERNESSHUT__RU Изба
 #define $__WILDERNESSHUT__PT Abrigo
 
@@ -223,8 +225,8 @@
 #define $__ZOO__ Zoo
 #define $__ZOO__DE Zoo
 #define $__ZOO__EN Zoo
+#define $__ZOO__NL Dierentuin
 #define $__ZOO__PL Zoo
-#define $__ZOO__FR Zoo
 #define $__ZOO__RU Зоопарк
 #define $__ZOO__PT Jardim zoológico
 
@@ -232,8 +234,8 @@
 #define $__COMPOUND__ Gehege
 #define $__COMPOUND__DE Gehege
 #define $__COMPOUND__EN Zoo Enclosure
+#define $__COMPOUND__NL Dierenpark
 #define $__COMPOUND__PL Zagroda w Zoo
-#define $__COMPOUND__FR Gehege
 #define $__COMPOUND__RU Загон для животных
 #define $__COMPOUND__PT Recinto
 
@@ -247,8 +249,8 @@
 #define $__BAY__ Meeresbucht
 #define $__BAY__DE Bucht
 #define $__BAY__EN Bay
+#define $__BAY__NL Baai
 #define $__BAY__PL Zatoka
-#define $__BAY__FR Meeresbucht
 #define $__BAY__RU Залив/Бухта
 #define $__BAY__PT Baía
 
@@ -256,8 +258,8 @@
 #define $__BEACH__ Strand
 #define $__BEACH__DE Strand
 #define $__BEACH__EN Beach
+#define $__BEACH__NL Strand
 #define $__BEACH__PL Plaża
-#define $__BEACH__FR Strand
 #define $__BEACH__RU Пляж
 #define $__BEACH__PT Praia
 
@@ -265,8 +267,8 @@
 #define $__CAVEENTRANCE__ Höhle
 #define $__CAVEENTRANCE__DE Höhle
 #define $__CAVEENTRANCE__EN Cave
+#define $__CAVEENTRANCE__NL Grot
 #define $__CAVEENTRANCE__PL Jaskinia
-#define $__CAVEENTRANCE__FR Höhle
 #define $__CAVEENTRANCE__RU Пещера
 #define $__CAVEENTRANCE__PT Caverna
 
@@ -274,8 +276,8 @@
 #define $__CLIFF__ Klippe
 #define $__CLIFF__DE Klippe
 #define $__CLIFF__EN Cliff 
+#define $__CLIFF__NL Klif 
 #define $__CLIFF__PL Urwisko 
-#define $__CLIFF__FR Klippe
 #define $__CLIFF__RU Скала 
 #define $__CLIFF__PT Penhasco 
 
@@ -283,8 +285,8 @@
 #define $__FELL__ Alm, Matten
 #define $__FELL__DE Alm, Matten
 #define $__FELL__EN Open Fell
-#define $__FELL__PL Hala
-#define $__FELL__FR Alm, Matten
+#define $__FELL__NL Bergweide
+#define $__FELL__PL Hala górska
 #define $__FELL__RU Горный луг, область выше линии деревьев
 #define $__FELL__PT Alpe
 
@@ -292,8 +294,8 @@
 #define $__GLACIER__ Gletscher
 #define $__GLACIER__DE Gletscher
 #define $__GLACIER__EN Glacier
+#define $__GLACIER__NL Gletscher
 #define $__GLACIER__PL Lodowiec
-#define $__GLACIER__FR Gletscher
 #define $__GLACIER__RU Ледник
 #define $__GLACIER__PT Geleira
 
@@ -301,8 +303,8 @@
 #define $__HEATH__ Heide
 #define $__HEATH__DE Heide
 #define $__HEATH__EN Heath or Heathland
+#define $__HEATH__NL Heide
 #define $__HEATH__PL Wrzosowisko
-#define $__HEATH__FR Heide
 #define $__HEATH__RU Пустошь/Вереск
 #define $__HEATH__PT Charneca
 
@@ -310,8 +312,8 @@
 #define $__MARSH__ Marsch
 #define $__MARSH__DE Marsch
 #define $__MARSH__EN Marsh
+#define $__MARSH__NL Moeras
 #define $__MARSH__PL Bagno
-#define $__MARSH__FR Marsch
 #define $__MARSH__RU Болото
 #define $__MARSH__PT Brejo
 
@@ -319,8 +321,8 @@
 #define $__MUD__ Schlick/Moor
 #define $__MUD__DE Schlick/Moor
 #define $__MUD__EN Bog 
+#define $__MUD__NL Moeras 
 #define $__MUD__PL Muł 
-#define $__MUD__FR Schlick/Moor
 #define $__MUD__RU Ил/трясина 
 #define $__MUD__PT Pântano 
 
@@ -328,8 +330,8 @@
 #define $__SAND__ Sand
 #define $__SAND__DE Sand
 #define $__SAND__EN Sand
+#define $__SAND__NL Zand
 #define $__SAND__PL Piasek
-#define $__SAND__FR Sand
 #define $__SAND__RU Песок
 #define $__SAND__PT Areia
 
@@ -337,8 +339,8 @@
 #define $__SCREE__ Geröll
 #define $__SCREE__DE Geröll
 #define $__SCREE__EN Scree 
-#define $__SCREE__PL Piarg 
-#define $__SCREE__FR Geröll
+#define $__SCREE__NL Steenslag
+#define $__SCREE__PL Piarg (rumowisko skalne) 
 #define $__SCREE__RU Камни (валуны, галька) 
 #define $__SCREE__PT Seixos 
 
@@ -346,8 +348,8 @@
 #define $__SCRUB__ Unkultiviertes Land
 #define $__SCRUB__DE Unterholz/Gebüsch
 #define $__SCRUB__EN Scrubland
-#define $__SCRUB__PL Zarośla
-#define $__SCRUB__FR Unkultiviertes Land
+#define $__SCRUB__NL Woeste grond
+#define $__SCRUB__PL Busz
 #define $__SCRUB__RU Подлесок/кустарник
 #define $__SCRUB__PT Cerrado
 
@@ -355,8 +357,8 @@
 #define $__SPRING__ Quelle
 #define $__SPRING__DE Quelle
 #define $__SPRING__EN Spring
+#define $__SPRING__NL Bron
 #define $__SPRING__PL Źródło
-#define $__SPRING__FR Quelle
 #define $__SPRING__RU Источник
 #define $__SPRING__PT Fonte
 
@@ -364,8 +366,8 @@
 #define $__STONE__ Findling
 #define $__STONE__DE Findling
 #define $__STONE__EN Boulder
+#define $__STONE__NL Rots
 #define $__STONE__PL Głaz
-#define $__STONE__FR Findling
 #define $__STONE__RU Эрратический валун
 #define $__STONE__PT Pedregulho
 
@@ -374,8 +376,8 @@
 #define $__TREE__ Baum
 #define $__TREE__DE Baum
 #define $__TREE__EN Tree 
+#define $__TREE__NL Boom 
 #define $__TREE__PL Drzewo 
-#define $__TREE__FR Baum
 #define $__TREE__RU Дерево 
 #define $__TREE__PT Árvore 
 
@@ -383,8 +385,8 @@
 #define $__VOLCANO__ Vulkan
 #define $__VOLCANO__DE Vulkan
 #define $__VOLCANO__EN Volcano
+#define $__VOLCANO__NL Vulkaan
 #define $__VOLCANO__PL Wulkan
-#define $__VOLCANO__FR Vulkan
 #define $__VOLCANO__RU Вулкан
 #define $__VOLCANO__PT Vulcão
 
@@ -392,8 +394,8 @@
 #define $__WATER__ See, Teich
 #define $__WATER__DE See, Teich
 #define $__WATER__EN Lake/Pond
+#define $__WATER__NL Meer/ven
 #define $__WATER__PL Jezioro/Staw
-#define $__WATER__FR See, Teich
 #define $__WATER__RU Озеро/пруд
 #define $__WATER__PT Lago/Lagoa
 
@@ -401,8 +403,8 @@
 #define $__WATERFALL__ Wasserfall
 #define $__WATERFALL__DE Wasserfall
 #define $__WATERFALL__EN Waterfall
+#define $__WATERFALL__NL Waterval
 #define $__WATERFALL__PL Wodospad
-#define $__WATERFALL__FR Wasserfall
 #define $__WATERFALL__RU Водопад
 #define $__WATERFALL__PT Cachoeira
 
@@ -411,8 +413,8 @@
 #define $__WETLAND__ Feuchtgebiet
 #define $__WETLAND__DE Feuchtgebiet
 #define $__WETLAND__EN Wetland (Marsh, reeds or saltings) 
-#define $__WETLAND__PL Teren podmokły
-#define $__WETLAND__FR Feuchtgebiet
+#define $__WETLAND__NL Drassig land
+#define $__WETLAND__PL Obszar podmokły
 #define $__WETLAND__RU Заболоченная местность (камыш, солончак)
 #define $__WETLAND__PT Atoleiro
 
@@ -420,8 +422,8 @@
 #define $__WOOD__ Naturwald
 #define $__WOOD__DE Urwald
 #define $__WOOD__EN Wood/Forest 
+#define $__WOOD__NL Bos 
 #define $__WOOD__PL Las 
-#define $__WOOD__FR Naturwald
 #define $__WOOD__RU Лес
 #define $__WOOD__PT Floresta
 
@@ -435,8 +437,8 @@
 #define $__ISLET__ Kleine Insel
 #define $__ISLET__DE Kleine Insel
 #define $__ISLET__EN Island/Islet
-#define $__ISLET__PL Wyspa/Wysepka
-#define $__ISLET__FR Kleine Insel
+#define $__ISLET__NL Eiland
+#define $__ISLET__PL Wysepka
 #define $__ISLET__RU Остров
 #define $__ISLET__PT Ilhota
 
@@ -444,8 +446,8 @@
 #define $__ISOLATEDDWELLING__ Einöde
 #define $__ISOLATEDDWELLING__DE Einöde
 #define $__ISOLATEDDWELLING__EN Isolated Dwelling
+#define $__ISOLATEDDWELLING__NL Gehucht
 #define $__ISOLATEDDWELLING__PL Samotny dom
-#define $__ISOLATEDDWELLING__FR Einöde
 #define $__ISOLATEDDWELLING__RU Хутор
 #define $__ISOLATEDDWELLING__PT Habitação isolada
 
@@ -453,8 +455,8 @@
 #define $__LOCALITY__ Ortsbezeichnung
 #define $__LOCALITY__DE Ortsbezeichnung
 #define $__LOCALITY__EN Locality
-#define $__LOCALITY__PL Miejscowość
-#define $__LOCALITY__FR Ortsbezeichnung
+#define $__LOCALITY__NL Locatie
+#define $__LOCALITY__PL Miejsce niezamieszałe ale godne uwagi
 #define $__LOCALITY__RU Название места
 #define $__LOCALITY__PT Localidade
 
@@ -466,8 +468,8 @@
 #define $__POWERTOWER__ Strommast
 #define $__POWERTOWER__DE Strommast
 #define $__POWERTOWER__EN Pylon
+#define $__POWERTOWER__NL Hoogspanningsmast
 #define $__POWERTOWER__PL Słup energetyczny
-#define $__POWERTOWER__FR Strommast
 #define $__POWERTOWER__RU Опора ЛЭП
 #define $__POWERTOWER__PT Torre de alta tensão
 
@@ -476,8 +478,8 @@
 #define $__POWERSTATION__ Umspannwerk
 #define $__POWERSTATION__DE Umspannwerk
 #define $__POWERSTATION__EN Power Station
+#define $__POWERSTATION__NL Transformatorstation
 #define $__POWERSTATION__PL Elektrownia
-#define $__POWERSTATION__FR Umspannwerk
 #define $__POWERSTATION__RU Распределительная подстанция
 #define $__POWERSTATION__PT Estação de energia
 
@@ -486,8 +488,8 @@
 #define $__POWERSUBSTATION__ Umspannstation
 #define $__POWERSUBSTATION__DE Umspannstation
 #define $__POWERSUBSTATION__EN Substation
+#define $__POWERSUBSTATION__NL Transformatorstation
 #define $__POWERSUBSTATION__PL Transformator
-#define $__POWERSUBSTATION__FR Umspannstation
 #define $__POWERSUBSTATION__RU Подстанция
 #define $__POWERSUBSTATION__PT Subestação
 
@@ -495,8 +497,8 @@
 #define $__WINDGENERATOR__ Windenergieanlage
 #define $__WINDGENERATOR__DE Windkraftanlage
 #define $__WINDGENERATOR__EN Wind Turbine
+#define $__WINDGENERATOR__NL Windmolen
 #define $__WINDGENERATOR__PL Elektrownia wiatrowa
-#define $__WINDGENERATOR__FR Windenergieanlage
 #define $__WINDGENERATOR__RU Ветрогенератор 
 #define $__WINDGENERATOR__PT Turbina eólica
 
@@ -504,8 +506,8 @@
 #define $__POWERGENERATOR__ Kraftwerk
 #define $__POWERGENERATOR__DE Kraftwerk
 #define $__POWERGENERATOR__EN Power Plant
+#define $__POWERGENERATOR__NL Energiecentrale
 #define $__POWERGENERATOR__PL Elektrownia
-#define $__POWERGENERATOR__FR Kraftwerk
 #define $__POWERGENERATOR__RU Электростанция
 #define $__POWERGENERATOR__PT Usina de energia
 
@@ -518,8 +520,8 @@
 #define $__AIRPORT__ Flughafen
 #define $__AIRPORT__DE Flughafen
 #define $__AIRPORT__EN Airport
+#define $__AIRPORT__NL Vliegveld
 #define $__AIRPORT__PL Lotnisko
-#define $__AIRPORT__FR Flughafen
 #define $__AIRPORT__RU Аэропорт
 #define $__AIRPORT__PT Aeroporto
 
@@ -527,8 +529,8 @@
 #define $__HELIPAD__ Hubschrauberlandeplatz
 #define $__HELIPAD__DE Hubschrauberlandeplatz
 #define $__HELIPAD__EN Helipad
+#define $__HELIPAD__NL Helipad
 #define $__HELIPAD__PL Lądowisko dla helikopterów
-#define $__HELIPAD__FR Hubschrauberlandeplatz
 #define $__HELIPAD__RU Вертолётная площадка
 #define $__HELIPAD__PT Heliporto
 
@@ -536,8 +538,8 @@
 #define $__TERMINAL__ Terminal
 #define $__TERMINAL__DE Terminal
 #define $__TERMINAL__EN Airport Building/Terminal 
-#define $__TERMINAL__PL Port lotniczy 
-#define $__TERMINAL__FR Terminal
+#define $__TERMINAL__NL Luchthaventerminal
+#define $__TERMINAL__PL Budynek lotniska/Terminal 
 #define $__TERMINAL__RU Здание аэропорта/Терминал
 #define $__TERMINAL__PT Terminal
 
@@ -553,8 +555,8 @@
 #define $__BAR__ Bar
 #define $__BAR__DE Bar
 #define $__BAR__EN Bar
+#define $__BAR__NL Bar
 #define $__BAR__PL Bar
-#define $__BAR__FR Bar
 #define $__BAR__RU Бар
 #define $__BAR__PT Bar
 
@@ -562,8 +564,8 @@
 #define $__BIERGARTEN__ Biergarten
 #define $__BIERGARTEN__DE Biergarten
 #define $__BIERGARTEN__EN Beer Garden 
+#define $__BIERGARTEN__NL Terras
 #define $__BIERGARTEN__PL Ogródek piwny 
-#define $__BIERGARTEN__FR Biergarten
 #define $__BIERGARTEN__RU Пивная
 #define $__BIERGARTEN__PT Biergarten
 
@@ -571,8 +573,8 @@
 #define $__CAFE__ Café
 #define $__CAFE__DE Café
 #define $__CAFE__EN Cafe
+#define $__CAFE__NL Café
 #define $__CAFE__PL Kawiarnia
-#define $__CAFE__FR Café
 #define $__CAFE__RU Кафе
 #define $__CAFE__PT Café
 
@@ -581,8 +583,8 @@
 #define $__FASTFOOD__ Fastfood
 #define $__FASTFOOD__DE Fastfood
 #define $__FASTFOOD__EN Fast-Food Restaurant/Takeaway
+#define $__FASTFOOD__NL Fast-Food Restaurant
 #define $__FASTFOOD__PL Bar szybkiej obsługi
-#define $__FASTFOOD__FR Fastfood
 #define $__FASTFOOD__RU Фастфуд
 #define $__FASTFOOD__PT Fast-food
 
@@ -590,8 +592,9 @@
 #define $__ICECREAM__ Eiscafé
 #define $__ICECREAM__DE Eiscafé
 #define $__ICECREAM__EN Ice Cream Parlour
+#define $__ICECREAM__NL IJssalon
+## The word IJssalon starts with two upper case characters.
 #define $__ICECREAM__PL Lodziarnia
-#define $__ICECREAM__FR Eiscafé
 #define $__ICECREAM__RU Кафе-мороженое
 #define $__ICECREAM__PT Sorveteria
 
@@ -599,8 +602,8 @@
 #define $__PUB__ Kneipe
 #define $__PUB__DE Kneipe
 #define $__PUB__EN Pub
+#define $__PUB__NL Kroeg
 #define $__PUB__PL Knajpa
-#define $__PUB__FR Kneipe
 #define $__PUB__RU Паб
 #define $__PUB__PT Boteco
 
@@ -609,8 +612,8 @@
 #define $__RESTAURANT__ Restaurant
 #define $__RESTAURANT__DE Restaurant
 #define $__RESTAURANT__EN Restaurant
+#define $__RESTAURANT__NL Restaurant
 #define $__RESTAURANT__PL Restauracja
-#define $__RESTAURANT__FR Restaurant
 #define $__RESTAURANT__RU Ресторан
 #define $__RESTAURANT__PT Restaurante
 
@@ -618,15 +621,16 @@
 #define $__AMERICAN__ Amerikanisch
 #define $__AMERICAN__DE Amerikanisch
 #define $__AMERICAN__EN American
+#define $__AMERICAN__NL Amerikaans
 #define $__AMERICAN__PL Amerykański
-#define $__AMERICAN__FR Amerikanisch
 #define $__AMERICAN__RU Американский
 #define $__AMERICAN__PT Americano
+
 #define $__BURGER__ Hamburger
 #define $__BURGER__DE Hamburger
 #define $__BURGER__EN Burger Bar 
+#define $__BURGER__NL Hamburger 
 #define $__BURGER__PL Bar z burgerem 
-#define $__BURGER__FR Hamburger
 #define $__BURGER__RU Гамбургеры
 #define $__BURGER__PT Hamburguer
 
@@ -634,36 +638,36 @@
 #define $__THAI__ Thailändisch
 #define $__THAI__DE Thailändisch
 #define $__THAI__EN Thai
+#define $__THAI__NL Thais
 #define $__THAI__PL Tajski
-#define $__THAI__FR Thailändisch
 #define $__THAI__RU Тайский
 #define $__THAI__PT Tailandês
 #define $__ASIAN__ Asiatisch
 #define $__ASIAN__DE Asiatisch
 #define $__ASIAN__EN Asian
+#define $__ASIAN__NL Aziatisch
 #define $__ASIAN__PL Azjatycki
-#define $__ASIAN__FR Asiatisch
 #define $__ASIAN__RU Азиатский
 #define $__ASIAN__PT Asiático
 #define $__JAPANESE__ Japanisch
 #define $__JAPANESE__DE Japanisch
 #define $__JAPANESE__EN Japanese
+#define $__JAPANESE__NL Japans
 #define $__JAPANESE__PL Japoński
-#define $__JAPANESE__FR Japanisch
 #define $__JAPANESE__RU Японский
 #define $__JAPANESE__PT Japonês
 #define $__KOREAN__ Koreanisch
 #define $__KOREAN__DE Koreanisch
 #define $__KOREAN__EN Korean
+#define $__KOREAN__NL Koreaans
 #define $__KOREAN__PL Koreański
-#define $__KOREAN__FR Koreanisch
 #define $__KOREAN__RU Корейский
 #define $__KOREAN__PT Coreano
 #define $__VIETNAMESE__ Vietnamesisch
 #define $__VIETNAMESE__DE Vietnamesisch
 #define $__VIETNAMESE__EN Vietnamese
+#define $__VIETNAMESE__NL Vietnamees
 #define $__VIETNAMESE__PL Wietnamski
-#define $__VIETNAMESE__FR Vietnamesisch
 #define $__VIETNAMESE__RU Вьетнамский
 #define $__VIETNAMESE__PT Vietnamita
 
@@ -671,8 +675,8 @@
 #define $__CHINESE__ Chinesisch
 #define $__CHINESE__DE Chinesisch
 #define $__CHINESE__EN Chinese
+#define $__CHINESE__NL Chinees
 #define $__CHINESE__PL Chiński
-#define $__CHINESE__FR Chinesisch
 #define $__CHINESE__RU Китайский
 #define $__CHINESE__PT Chinês
 
@@ -680,15 +684,15 @@
 #define $__ITALIAN__ Italienisch
 #define $__ITALIAN__DE Italienisch
 #define $__ITALIAN__EN Italian
+#define $__ITALIAN__NL Italiaans
 #define $__ITALIAN__PL Włoski
-#define $__ITALIAN__FR Italienisch
 #define $__ITALIAN__RU Итальянский
 #define $__ITALIAN__PT Italiano
 #define $__MEDITERRANEAN__ Mediteran
 #define $__MEDITERRANEAN__DE Mediteran
 #define $__MEDITERRANEAN__EN Mediterranean
+#define $__MEDITERRANEAN__NL Mediterraan
 #define $__MEDITERRANEAN__PL Śródziemnomorski
-#define $__MEDITERRANEAN__FR Mediteran
 #define $__MEDITERRANEAN__RU Средиземноморский
 #define $__MEDITERRANEAN__PT Mediterrâneo
 
@@ -696,8 +700,8 @@
 #define $__PIZZA__ Pizza
 #define $__PIZZA__DE Pizza
 #define $__PIZZA__EN Pizza
+#define $__PIZZA__NL Pizza
 #define $__PIZZA__PL Pizza
-#define $__PIZZA__FR Pizza
 #define $__PIZZA__RU Пицца
 #define $__PIZZA__PT Pizza
 
@@ -705,8 +709,8 @@
 #define $__MEXICAN__ Mexikanisch
 #define $__MEXICAN__DE Mexikanisch
 #define $__MEXICAN__EN Mexican
+#define $__MEXICAN__NL Mexicaans
 #define $__MEXICAN__PL Meksykański
-#define $__MEXICAN__FR Mexikanisch
 #define $__MEXICAN__RU Мексиканский
 #define $__MEXICAN__PT Mexicano
 
@@ -714,8 +718,8 @@
 #define $__SPANISH__ Spanisch
 #define $__SPANISH__DE Spanisch
 #define $__SPANISH__EN Spanish
+#define $__SPANISH__NL Spaans
 #define $__SPANISH__PL Hiszpański
-#define $__SPANISH__FR Spanisch
 #define $__SPANISH__RU Испанский
 #define $__SPANISH__PT Espanhol
 
@@ -723,22 +727,22 @@
 #define $__SEAFOOD__ Fisch
 #define $__SEAFOOD__DE Fisch
 #define $__SEAFOOD__EN Seafood
+#define $__SEAFOOD__NL Vis
 #define $__SEAFOOD__PL Owoce morza
-#define $__SEAFOOD__FR Fisch
 #define $__SEAFOOD__RU Рыба/морепродукты
 #define $__SEAFOOD__PT Frutos do mar
 #define $__FISH__ Fisch
 #define $__FISH__DE Fisch
 #define $__FISH__EN Fish/Fish & Chips Restaurant
+#define $__FISH__NL Vis/Vis & patat Restaurant
 #define $__FISH__PL Smażona ryba z frytkami
-#define $__FISH__FR Fisch
 #define $__FISH__RU Рыба/морепродукты
 #define $__FISH__PT Peixe
 #define $__SUSHI__ Sushi
 #define $__SUSHI__DE Sushi
 #define $__SUSHI__EN Sushi
+#define $__SUSHI__NL Sushi
 #define $__SUSHI__PL Sushi
-#define $__SUSHI__FR Sushi
 #define $__SUSHI__RU Суши
 #define $__SUSHI__PT Sushi
 
@@ -746,8 +750,8 @@
 #define $__STEAKHOUSE__ Steak-House
 #define $__STEAKHOUSE__DE Steak-House
 #define $__STEAKHOUSE__EN Steak House 
+#define $__STEAKHOUSE__NL Steakhouse 
 #define $__STEAKHOUSE__PL Steak House 
-#define $__STEAKHOUSE__FR Steak-House
 #define $__STEAKHOUSE__RU Стейк-хаус
 #define $__STEAKHOUSE__PT Churrascaria
 
@@ -755,8 +759,8 @@
 #define $__COFFEESHOP__ Coffee-Shop
 #define $__COFFEESHOP__DE Coffee-Shop
 #define $__COFFEESHOP__EN Coffee Shop
+#define $__COFFEESHOP__NL Koffiehuis
 #define $__COFFEESHOP__PL Kawiarenka
-#define $__COFFEESHOP__FR Coffee-Shop
 #define $__COFFEESHOP__RU Кафе
 #define $__COFFEESHOP__PT Café
 
@@ -764,8 +768,8 @@
 #define $__FRENCH__ Französisch
 #define $__FRENCH__DE Französisch
 #define $__FRENCH__EN French
+#define $__FRENCH__NL Frans
 #define $__FRENCH__PL Francuski
-#define $__FRENCH__FR Französisch
 #define $__FRENCH__RU Французский
 #define $__FRENCH__PT Francês
 
@@ -773,22 +777,24 @@
 #define $__GERMAN__ Deutsch
 #define $__GERMAN__DE Deutsch
 #define $__GERMAN__EN German
+#define $__GERMAN__NL Duits
 #define $__GERMAN__PL Niemiecki
-#define $__GERMAN__FR Deutsch
 #define $__GERMAN__RU Германский
 #define $__GERMAN__PT Alemão
+
 #define $__BAVARIAN__ Bayrisch
 #define $__BAVARIAN__DE Bayrisch
 #define $__BAVARIAN__EN Bavarian
+#define $__BAVARIAN__NL Bavarisch
 #define $__BAVARIAN__PL Bawarski
-#define $__BAVARIAN__FR Bayrisch
 #define $__BAVARIAN__RU Баварский
 #define $__BAVARIAN__PT Baviera
+
 #define $__SWABIAN__ Schwäbisch
 #define $__SWABIAN__DE Schwäbisch
 #define $__SWABIAN__EN Swabian
+#define $__SWABIAN__NL Zwabisch
 #define $__SWABIAN__PL Szwabski
-#define $__SWABIAN__FR Schwäbisch
 #define $__SWABIAN__RU Швабский
 #define $__SWABIAN__PT Suábia
 
@@ -797,8 +803,8 @@
 #define $__BRITISH__ Britisch
 #define $__BRITISH__DE Britisch
 #define $__BRITISH__EN British
+#define $__BRITISH__NL Brits
 #define $__BRITISH__PL Brytyjski
-#define $__BRITISH__FR Britisch
 #define $__BRITISH__RU Британский
 #define $__BRITISH__PT Britânico
 
@@ -806,113 +812,128 @@
 #define $__SPECIALITY__ Spezialitäten
 #define $__SPECIALITY__DE Spezialitäten
 #define $__SPECIALITY__EN Speciality
+#define $__SPECIALITY__NL Specialiteit
 #define $__SPECIALITY__PL Specjalność
-#define $__SPECIALITY__FR Spezialitäten
 #define $__SPECIALITY__RU Специализированный
 #define $__SPECIALITY__PT Especialidade
+
 #define $__GREEK__ Griechisch
 #define $__GREEK__DE Griechisch
 #define $__GREEK__EN Greek
+#define $__GREEK__NL Grieks
 #define $__GREEK__PL Grecka
-#define $__GREEK__FR Griechisch
 #define $__GREEK__RU Греческий
 #define $__GREEK__PT Grego
+
 #define $__TURKISH__ Türkisch
 #define $__TURKISH__DE Türkisch
 #define $__TURKISH__EN Turkish
+#define $__TURKISH__NL Turks
 #define $__TURKISH__PL Turecka
-#define $__TURKISH__FR Türkisch
 #define $__TURKISH__RU Турецкий
 #define $__TURKISH__PT Turco
+
 #define $__INDIAN__ Indisch
 #define $__INDIAN__DE Indisch
 #define $__INDIAN__EN Indian
+#define $__INDIAN__NL Indias
 #define $__INDIAN__PL Hinduska
-#define $__INDIAN__FR Indisch
 #define $__INDIAN__RU Индийский
 #define $__INDIAN__PT Indiano
+
 #define $__ARAB__ Arabisch
 #define $__ARAB__DE Arabisch
 #define $__ARAB__EN Arabic
+#define $__ARAB__NL Arabisch
 #define $__ARAB__PL Arabska
-#define $__ARAB__FR Arabisch
 #define $__ARAB__RU Арабский
 #define $__ARAB__PT Árabe
+
 #define $__PORTUGUESE__ Portugiesisch
 #define $__PORTUGUESE__DE Portugiesisch
 #define $__PORTUGUESE__EN Portugese
+#define $__PORTUGUESE__NL Portugees
 #define $__PORTUGUESE__PL Portugalska
-#define $__PORTUGUESE__FR Portugiesisch
 #define $__PORTUGUESE__RU Португальский
 #define $__PORTUGUESE__PT Português
+
 #define $__VEGETARIAN__ Vegetarisch
 #define $__VEGETARIAN__DE Vegetarisch
 #define $__VEGETARIAN__EN Vegetarian
+#define $__VEGETARIAN__NL Vegetarisch
 #define $__VEGETARIAN__PL Wegatariańska
-#define $__VEGETARIAN__FR Vegetarisch
 #define $__VEGETARIAN__RU Вегетарианский
 #define $__VEGETARIAN__PT Vegetariano
+
 #define $__AUSTRIAN__ Österreichisch
 #define $__AUSTRIAN__DE Österreichisch
 #define $__AUSTRIAN__EN Austrian
+#define $__AUSTRIAN__NL Oostenrijks
 #define $__AUSTRIAN__PL Austryjacka
-#define $__AUSTRIAN__FR Österreichisch
 #define $__AUSTRIAN__RU Австрийский
 #define $__AUSTRIAN__PT Austríaco
+
 #define $__PERSIAN__ Persisch
 #define $__PERSIAN__DE Persisch
 #define $__PERSIAN__EN Persian
+#define $__PERSIAN__NL Persisch
 #define $__PERSIAN__PL Perska
-#define $__PERSIAN__FR Persisch
 #define $__PERSIAN__RU Персидский
 #define $__PERSIAN__PT Persa
+
 #define $__LEBANESE__ Libanesisch
 #define $__LEBANESE__DE Libanesisch
 #define $__LEBANESE__EN Lebanese
+#define $__LEBANESE__NL Libanees
 #define $__LEBANESE__PL Libańska
-#define $__LEBANESE__FR Libanesisch
 #define $__LEBANESE__RU Ливанский
 #define $__LEBANESE__PT Libanês
+
 #define $__AFRICAN__ Afrikanisch
 #define $__AFRICAN__DE Afrikanisch
 #define $__AFRICAN__EN African
+#define $__AFRICAN__NL Afrikaans
 #define $__AFRICAN__PL Afrykańska
-#define $__AFRICAN__FR Afrikanisch
 #define $__AFRICAN__RU Африканский
 #define $__AFRICAN__PT Africano
+
 #define $__RUSSIAN__ Russisch
 #define $__RUSSIAN__DE Russisch
 #define $__RUSSIAN__EN Russian
+#define $__RUSSIAN__NL Russisch
 #define $__RUSSIAN__PL Rosyjska
-#define $__RUSSIAN__FR Russisch
 #define $__RUSSIAN__RU Русский
 #define $__RUSSIAN__PT Russo
+
 #define $__YUGOSLAVIAN__ Jugoslawisch
 #define $__YUGOSLAVIAN__DE Jugoslawisch
 #define $__YUGOSLAVIAN__EN Yugoslavian
+#define $__YUGOSLAVIAN__NL Joegoslavisch
 #define $__YUGOSLAVIAN__PL Jugosłowiańska
-#define $__YUGOSLAVIAN__FR Jugoslawisch
 #define $__YUGOSLAVIAN__RU Югославский
 #define $__YUGOSLAVIAN__PT Iugoslavo
+
 #define $__BALKAN__ Balkan
 #define $__BALKAN__DE Balkan
 #define $__BALKAN__EN Balkan
+#define $__BALKAN__NL Balkan
 #define $__BALKAN__PL Bałkańska
-#define $__BALKAN__FR Balkan
 #define $__BALKAN__RU Балканский
 #define $__BALKAN__PT Balcãs
+
 #define $__REGIONAL__ Regional
 #define $__REGIONAL__DE Regional
 #define $__REGIONAL__EN Regional
+#define $__REGIONAL__NL Regionaal
 #define $__REGIONAL__PL Regionalna
-#define $__REGIONAL__FR Regional
 #define $__REGIONAL__RU Региональный
 #define $__REGIONAL__PT Regional
+
 #define $__INTERNATIONAL__ International
 #define $__INTERNATIONAL__DE International
 #define $__INTERNATIONAL__EN International
+#define $__INTERNATIONAL__NL Internationaal
 #define $__INTERNATIONAL__PL Międzynarodowa
-#define $__INTERNATIONAL__FR International
 #define $__INTERNATIONAL__RU Международный
 #define $__INTERNATIONAL__PT Internacional
 
@@ -920,8 +941,9 @@
 #define $__ICECREAMRESTAURANT__ Eis
 #define $__ICECREAMRESTAURANT__DE Eis
 #define $__ICECREAMRESTAURANT__EN Ice Cream Parlour
+#define $__ICECREAMRESTAURANT__NL IJssalon
+## The word IJssalon starts with two upper case characters
 #define $__ICECREAMRESTAURANT__PL Lodziarnia
-#define $__ICECREAMRESTAURANT__FR Eis
 #define $__ICECREAMRESTAURANT__RU Кафе-мороженое
 #define $__ICECREAMRESTAURANT__PT Sorveteria
 
@@ -932,8 +954,8 @@
 #define $__KINDERGARTEN__ Kindergarten
 #define $__KINDERGARTEN__DE Kindergarten
 #define $__KINDERGARTEN__EN Kindergarten
+#define $__KINDERGARTEN__NL Kinderdagverblijf
 #define $__KINDERGARTEN__PL Przedszkole
-#define $__KINDERGARTEN__FR Kindergarten
 #define $__KINDERGARTEN__RU Детский сад
 #define $__KINDERGARTEN__PT Creche
 
@@ -941,8 +963,8 @@
 #define $__SCHOOL__ Schule
 #define $__SCHOOL__DE Schule
 #define $__SCHOOL__EN School
+#define $__SCHOOL__NL School
 #define $__SCHOOL__PL Szkoła
-#define $__SCHOOL__FR Schule
 #define $__SCHOOL__RU Школа
 #define $__SCHOOL__PT Escola
 
@@ -950,8 +972,8 @@
 #define $__COLLEGE__ Hochschule
 #define $__COLLEGE__DE Hochschule
 #define $__COLLEGE__EN College
+#define $__COLLEGE__NL Hogeschool
 #define $__COLLEGE__PL Szkoła wyższa
-#define $__COLLEGE__FR Hochschule
 #define $__COLLEGE__RU Колледж
 #define $__COLLEGE__PT Colégio
 
@@ -959,8 +981,8 @@
 #define $__LIBRARY__ Bibliothek
 #define $__LIBRARY__DE Bibliothek
 #define $__LIBRARY__EN Library
+#define $__LIBRARY__NL Bibliotheek
 #define $__LIBRARY__PL Biblioteka
-#define $__LIBRARY__FR Bibliothek
 #define $__LIBRARY__RU Библиотека
 #define $__LIBRARY__PT Biblioteca
 
@@ -968,8 +990,8 @@
 #define $__UNIVERSITY__ Universität
 #define $__UNIVERSITY__DE Universität
 #define $__UNIVERSITY__EN University
+#define $__UNIVERSITY__NL Universiteit
 #define $__UNIVERSITY__PL Uniwersytet
-#define $__UNIVERSITY__FR Universität
 #define $__UNIVERSITY__RU Университет
 #define $__UNIVERSITY__PT Universidade
 
@@ -980,8 +1002,8 @@
 #define $__BICYCLERENTAL__ Fahrradverleih
 #define $__BICYCLERENTAL__DE Fahrradverleih
 #define $__BICYCLERENTAL__EN Bicycle Hire/Rental
+#define $__BICYCLERENTAL__NL Fietsverhuur
 #define $__BICYCLERENTAL__PL Wypożyczalnia rowerów
-#define $__BICYCLERENTAL__FR Fahrradverleih
 #define $__BICYCLERENTAL__RU Прокат велосипедов
 #define $__BICYCLERENTAL__PT Aluguel de bicicleta
 
@@ -989,8 +1011,8 @@
 #define $__BUSSTATION__ Busbahnhof
 #define $__BUSSTATION__DE Busbahnhof
 #define $__BUSSTATION__EN Bus Station 
+#define $__BUSSTATION__NL Busstation 
 #define $__BUSSTATION__PL Przystanek autobusowy 
-#define $__BUSSTATION__FR Busbahnhof
 #define $__BUSSTATION__RU Автобусная остановка
 #define $__BUSSTATION__PT Ponto de ônibus
 
@@ -998,8 +1020,8 @@
 #define $__CARCLUB__ Automobil-Club
 #define $__CARCLUB__DE Automobil-Club
 #define $__CARCLUB__EN Car Club
+#define $__CARCLUB__NL Automobielvereniging
 #define $__CARCLUB__PL Klub motoryzacyjny
-#define $__CARCLUB__FR Automobil-Club
 #define $__CARCLUB__RU Автоклуб
 #define $__CARCLUB__PT Automóvelclube
 
@@ -1007,8 +1029,8 @@
 #define $__CARRENTAL__ Autoverleih
 #define $__CARRENTAL__DE Autoverleih
 #define $__CARRENTAL__EN Car Hire/Rental
+#define $__CARRENTAL__NL Autoverhuur
 #define $__CARRENTAL__PL Wypożyczalnie samochodów
-#define $__CARRENTAL__FR Autoverleih
 #define $__CARRENTAL__RU Прокат автомобилей
 #define $__CARRENTAL__PT Aluguel de veículos
 
@@ -1016,8 +1038,8 @@
 #define $__CARSHARING__ Carsharing-Station
 #define $__CARSHARING__DE Carsharing-Station
 #define $__CARSHARING__EN Car Sharing Point
+#define $__CARSHARING__NL Carpoolplaats
 #define $__CARSHARING__PL Punkt Car Sharing 
-#define $__CARSHARING__FR Carsharing-Station
 #define $__CARSHARING__RU Пункт передачи автомобилей
 #define $__CARSHARING__PT Carro de autoserviço
 
@@ -1025,8 +1047,8 @@
 #define $__CARWASH__ Autowaschanlage
 #define $__CARWASH__DE Autowaschanlage
 #define $__CARWASH__EN Car Wash
+#define $__CARWASH__NL Autowasstraat
 #define $__CARWASH__PL Myjnia samochodowa
-#define $__CARWASH__FR Autowaschanlage
 #define $__CARWASH__RU Автомойка
 #define $__CARWASH__PT Lava rápido
 
@@ -1034,8 +1056,8 @@
 #define $__FERRYTERMINAL__ Fährterminal
 #define $__FERRYTERMINAL__DE Fährterminal
 #define $__FERRYTERMINAL__EN Ferry Terminal
+#define $__FERRYTERMINAL__NL Veer
 #define $__FERRYTERMINAL__PL Termial promowy
-#define $__FERRYTERMINAL__FR Fährterminal
 #define $__FERRYTERMINAL__RU Паромная переправа
 #define $__FERRYTERMINAL__PT Balsa
 
@@ -1043,8 +1065,8 @@
 #define $__FUELSTATION__ Tankstelle
 #define $__FUELSTATION__DE Tankstelle
 #define $__FUELSTATION__EN Petrol Station 
+#define $__FUELSTATION__NL Benzinestation 
 #define $__FUELSTATION__PL Stacja benzynowa 
-#define $__FUELSTATION__FR Tankstelle
 #define $__FUELSTATION__RU АЗС 
 #define $__FUELSTATION__PT Posto de combustível
 
@@ -1052,15 +1074,16 @@
 #define $__PARKING__ Parken
 #define $__PARKING__DE Parken
 #define $__PARKING__EN Parking
+#define $__PARKING__NL Parkeerplaats
 #define $__PARKING__PL Parking
-#define $__PARKING__FR Parken
 #define $__PARKING__RU Паркинг/стоянка
 #define $__PARKING__PT Estacionamento
+
 #define $__RESTRICTED__ eingeschränkt
 #define $__RESTRICTED__DE eingeschränkt
 #define $__RESTRICTED__EN Restricted
-#define $__RESTRICTED__PL Ograniczony
-#define $__RESTRICTED__FR eingeschränkt
+#define $__RESTRICTED__NL Privé
+#define $__RESTRICTED__PL ograniczony
 #define $__RESTRICTED__RU Ограниченный доступ
 #define $__RESTRICTED__PT Privado
 
@@ -1071,8 +1094,8 @@
 #define $__ATM__ Geldautomat
 #define $__ATM__DE Geldautomat
 #define $__ATM__EN ATM
+#define $__ATM__NL Geldautomaat
 #define $__ATM__PL Bankomat
-#define $__ATM__FR Geldautomat
 #define $__ATM__RU Банкомат
 #define $__ATM__PT Caixa eletrônico
 
@@ -1080,8 +1103,8 @@
 #define $__BANK__ Bank
 #define $__BANK__DE Bank
 #define $__BANK__EN Bank
+#define $__BANK__NL Bank
 #define $__BANK__PL Bank
-#define $__BANK__FR Bank
 #define $__BANK__RU Банк
 #define $__BANK__PT Banco
 
@@ -1092,8 +1115,8 @@
 #define $__PHARMACY__ Apotheke
 #define $__PHARMACY__DE Apotheke
 #define $__PHARMACY__EN Pharmacy
+#define $__PHARMACY__NL Apotheek
 #define $__PHARMACY__PL Apteka
-#define $__PHARMACY__FR Apotheke
 #define $__PHARMACY__RU Аптека
 #define $__PHARMACY__PT Farmácia
 
@@ -1101,8 +1124,8 @@
 #define $__HOSPITAL__ Krankenhaus
 #define $__HOSPITAL__DE Krankenhaus
 #define $__HOSPITAL__EN Hospital
+#define $__HOSPITAL__NL Ziekenhuis
 #define $__HOSPITAL__PL Szpital
-#define $__HOSPITAL__FR Krankenhaus
 #define $__HOSPITAL__RU Больница
 #define $__HOSPITAL__PT Hospital
 
@@ -1113,8 +1136,8 @@
 #define $__ARTSCENTRE__ Kunstzentrum
 #define $__ARTSCENTRE__DE Kunstzentrum
 #define $__ARTSCENTRE__EN Art Gallery
+#define $__ARTSCENTRE__NL Centrum voor de Kunsten
 #define $__ARTSCENTRE__PL Galeria sztuki
-#define $__ARTSCENTRE__FR Kunstzentrum
 #define $__ARTSCENTRE__RU Арт-центр
 #define $__ARTSCENTRE__PT Galeria de arte
 
@@ -1122,8 +1145,8 @@
 #define $__CASINO__ Casino
 #define $__CASINO__DE Casino
 #define $__CASINO__EN Casino
+#define $__CASINO__NL Casino
 #define $__CASINO__PL Kasyno
-#define $__CASINO__FR Casino
 #define $__CASINO__RU Казино
 #define $__CASINO__PT Casino
 
@@ -1131,8 +1154,8 @@
 #define $__CINEMA__ Kino
 #define $__CINEMA__DE Kino
 #define $__CINEMA__EN Cinema
+#define $__CINEMA__NL Bioscoop
 #define $__CINEMA__PL Kino
-#define $__CINEMA__FR Kino
 #define $__CINEMA__RU Кинотеатр
 #define $__CINEMA__PT Cinema
 
@@ -1140,8 +1163,8 @@
 #define $__COMMUNITYCENTRE__ Lokale Veranstaltungshalle
 #define $__COMMUNITYCENTRE__DE Lokale Veranstaltungshalle
 #define $__COMMUNITYCENTRE__EN Community/Village Hall
+#define $__COMMUNITYCENTRE__NL Buurthuis
 #define $__COMMUNITYCENTRE__PL Miejski ośrodek kultury
-#define $__COMMUNITYCENTRE__FR Lokale Veranstaltungshalle
 #define $__COMMUNITYCENTRE__RU Банкетный зал
 #define $__COMMUNITYCENTRE__PT Pavilhão Público
 
@@ -1149,8 +1172,8 @@
 #define $__CONCERTHALL__ Konzerthalle
 #define $__CONCERTHALL__DE Konzerthalle
 #define $__CONCERTHALL__EN Concert Hall
+#define $__CONCERTHALL__NL Concertzaal
 #define $__CONCERTHALL__PL Sala koncertowa
-#define $__CONCERTHALL__FR Konzerthalle
 #define $__CONCERTHALL__RU Концертный зал
 #define $__CONCERTHALL__PT Sala de concerto
 
@@ -1158,8 +1181,8 @@
 #define $__CONFERENCECENTRE__ Messe, Konferenzcenter
 #define $__CONFERENCECENTRE__DE Messe, Konferenzcenter
 #define $__CONFERENCECENTRE__EN Conference Center
+#define $__CONFERENCECENTRE__NL Beursgebouw, Conferentiecentrum
 #define $__CONFERENCECENTRE__PL Centrum konferencyjne
-#define $__CONFERENCECENTRE__FR Messe, Konferenzcenter
 #define $__CONFERENCECENTRE__RU Конференц-центр
 #define $__CONFERENCECENTRE__PT Parque de exposições
 
@@ -1167,8 +1190,8 @@
 #define $__NIGHTCLUB__ Disco
 #define $__NIGHTCLUB__DE Disco
 #define $__NIGHTCLUB__EN Nightclub/Discoteque 
+#define $__NIGHTCLUB__NL Nachtclub/Discotheek 
 #define $__NIGHTCLUB__PL Dyskoteka
-#define $__NIGHTCLUB__FR Disco
 #define $__NIGHTCLUB__RU Ночной клуб/Дискотека
 #define $__NIGHTCLUB__PT Casa noturna/Discoteca 
 
@@ -1176,15 +1199,16 @@
 #define $__SOCIALCENTRE__ Sozialeinrichtung
 #define $__SOCIALCENTRE__DE Sozialeinrichtung
 #define $__SOCIALCENTRE__EN Social Center 
+#define $__SOCIALCENTRE__NL Buurthuis
 #define $__SOCIALCENTRE__PL Centrum społeczne 
-#define $__SOCIALCENTRE__FR Sozialeinrichtung
 #define $__SOCIALCENTRE__RU Центр социального обеспечения
 #define $__SOCIALCENTRE__PT Centro social
+
 #define $__SOCIALFACILITY__ Sozialeinrichtung
 #define $__SOCIALFACILITY__DE Sozialeinrichtung
 #define $__SOCIALFACILITY__EN Social Facility
+#define $__SOCIALFACILITY__NL Buurthuis
 #define $__SOCIALFACILITY__PL Obiekt społeczny
-#define $__SOCIALFACILITY__FR Sozialeinrichtung
 #define $__SOCIALFACILITY__RU Социальное обслуживание
 #define $__SOCIALFACILITY__PT Instituição social
 
@@ -1192,8 +1216,8 @@
 #define $__THEATRE__ Theater
 #define $__THEATRE__DE Theater
 #define $__THEATRE__EN Theatre
+#define $__THEATRE__NL Theatre
 #define $__THEATRE__PL Teatr
-#define $__THEATRE__FR Theater
 #define $__THEATRE__RU Театр
 #define $__THEATRE__PT Teatro
 
@@ -1204,8 +1228,8 @@
 #define $__COURTHOUSE__ Gericht
 #define $__COURTHOUSE__DE Gericht
 #define $__COURTHOUSE__EN Courthouse
+#define $__COURTHOUSE__NL Gerechtsgebouw
 #define $__COURTHOUSE__PL Sąd
-#define $__COURTHOUSE__FR Gericht
 #define $__COURTHOUSE__RU Суд
 #define $__COURTHOUSE__PT Tribunal
 
@@ -1213,8 +1237,8 @@
 #define $__DRINKINGWATER__ Trinkwasser
 #define $__DRINKINGWATER__DE Trinkwasser
 #define $__DRINKINGWATER__EN Drinking Water/Fountain
+#define $__DRINKINGWATER__NL Drinkwater
 #define $__DRINKINGWATER__PL Woda pitna/Fontanna
-#define $__DRINKINGWATER__FR Trinkwasser
 #define $__DRINKINGWATER__RU Питьевая вода
 #define $__DRINKINGWATER__PT Água potável
 
@@ -1222,8 +1246,8 @@
 #define $__EMBASSY__ Botschaft
 #define $__EMBASSY__DE Botschaft
 #define $__EMBASSY__EN Embassy
+#define $__EMBASSY__NL Ambassade
 #define $__EMBASSY__PL Ambasada
-#define $__EMBASSY__FR Botschaft
 #define $__EMBASSY__RU Посольство
 #define $__EMBASSY__PT Embaixada
 
@@ -1231,8 +1255,8 @@
 #define $__FIRESTATION__ Feuerwache
 #define $__FIRESTATION__DE Feuerwache
 #define $__FIRESTATION__EN Fire Station
+#define $__FIRESTATION__NL Brandweerkazerne
 #define $__FIRESTATION__PL Straż pożarna
-#define $__FIRESTATION__FR Feuerwache
 #define $__FIRESTATION__RU Пожарная часть
 #define $__FIRESTATION__PT Bombeiros
 
@@ -1240,29 +1264,32 @@
 #define $__PLACEOFWORSHIP__ Anbetungsort
 #define $__PLACEOFWORSHIP__DE Anbetungsort
 #define $__PLACEOFWORSHIP__EN Place of Worship
+#define $__PLACEOFWORSHIP__NL Gebedshuis
 #define $__PLACEOFWORSHIP__PL Miejsce modlitwy
-#define $__PLACEOFWORSHIP__FR Anbetungsort
 #define $__PLACEOFWORSHIP__RU Место поклонения
 #define $__PLACEOFWORSHIP__PT Local de culto
+
 #define $__CHRISTIAN__ Kirche
 #define $__CHRISTIAN__DE Kirche
 #define $__CHRISTIAN__EN Church
+#define $__CHRISTIAN__NL Kerk
 #define $__CHRISTIAN__PL Kościół
-#define $__CHRISTIAN__FR Kirche
 #define $__CHRISTIAN__RU Церковь
 #define $__CHRISTIAN__PT Igreja
+
 #define $__MUSLIM__ Moschee
 #define $__MUSLIM__DE Moschee
 #define $__MUSLIM__EN Mosque 
+#define $__MUSLIM__NL Moskee
 #define $__MUSLIM__PL Meczet 
-#define $__MUSLIM__FR Moschee
 #define $__MUSLIM__RU Мечеть 
 #define $__MUSLIM__PT Mesquita 
+
 #define $__JEWISH__ Synagoge
 #define $__JEWISH__DE Synagoge
 #define $__JEWISH__EN Synagogue
+#define $__JEWISH__NL Synagoge
 #define $__JEWISH__PL Synagoga
-#define $__JEWISH__FR Synagoge
 #define $__JEWISH__RU Синагога
 #define $__JEWISH__PT Sinagoga
 
@@ -1270,8 +1297,8 @@
 #define $__POLICE__ Polizeistation
 #define $__POLICE__DE Polizeistation
 #define $__POLICE__EN Police Station
-#define $__POLICE__PL Posterunek policji
-#define $__POLICE__FR Polizeistation
+#define $__POLICE__NL Politiebureau
+#define $__POLICE__PL Komisariat policji
 #define $__POLICE__RU Отделение полиции
 #define $__POLICE__PT Delegacia de policia
 
@@ -1279,8 +1306,8 @@
 #define $__POSTOFFICE__ Post
 #define $__POSTOFFICE__DE Post
 #define $__POSTOFFICE__EN Post Office
+#define $__POSTOFFICE__NL Postkantoor
 #define $__POSTOFFICE__PL Poczta
-#define $__POSTOFFICE__FR Post
 #define $__POSTOFFICE__RU Почтовое отделение
 #define $__POSTOFFICE__PT Correios
 
@@ -1288,8 +1315,8 @@
 #define $__PUBLICBUILDING__ Öffentl. Gebäude
 #define $__PUBLICBUILDING__DE Öffentl. Gebäude
 #define $__PUBLICBUILDING__EN Public Building
+#define $__PUBLICBUILDING__NL Openbaar gebouw
 #define $__PUBLICBUILDING__PL Budynek publiczny
-#define $__PUBLICBUILDING__FR Öffentl. Gebäude
 #define $__PUBLICBUILDING__RU Общественное здание
 #define $__PUBLICBUILDING__PT Edifício público
 
@@ -1297,8 +1324,8 @@
 #define $__SHELTER__ Unterstand
 #define $__SHELTER__DE Unterstand
 #define $__SHELTER__EN Shelter 
+#define $__SHELTER__NL Schuilhut
 #define $__SHELTER__PL Schron 
-#define $__SHELTER__FR Unterstand
 #define $__SHELTER__RU Убежище 
 #define $__SHELTER__PT Abrigo 
 
@@ -1306,8 +1333,8 @@
 #define $__TOWNHALL__ Rathaus
 #define $__TOWNHALL__DE Rathaus
 #define $__TOWNHALL__EN Town Hall
+#define $__TOWNHALL__NL Gemeentehuis
 #define $__TOWNHALL__PL Ratusz
-#define $__TOWNHALL__FR Rathaus
 #define $__TOWNHALL__RU Ратуша
 #define $__TOWNHALL__PT Prefeitura
 
@@ -1320,8 +1347,8 @@
 #define $__ADIT__ Stollen
 #define $__ADIT__DE Stollen
 #define $__ADIT__EN Adit/Mine Entrance
+#define $__ADIT__NL Toegang tot mijn
 #define $__ADIT__PL Sztolnia/Wejście do kopalni
-#define $__ADIT__FR Stollen
 #define $__ADIT__RU Штольня
 #define $__ADIT__PT Mina
 
@@ -1329,8 +1356,8 @@
 #define $__BEACON__ Bake, Leuchtfeuer
 #define $__BEACON__DE Bake, Leuchtfeuer
 #define $__BEACON__EN Beacon 
+#define $__BEACON__NL Baken
 #define $__BEACON__PL Punkt oświetleniowy
-#define $__BEACON__FR Bake, Leuchtfeuer
 #define $__BEACON__RU Сигнальный огонь 
 #define $__BEACON__PT Farol 
 
@@ -1338,8 +1365,8 @@
 #define $__LIGHTHOUSE__ Leuchtturm
 #define $__LIGHTHOUSE__DE Leuchtturm
 #define $__LIGHTHOUSE__EN Lighthouse 
+#define $__LIGHTHOUSE__NL Vuurtoren
 #define $__LIGHTHOUSE__PL Latarnia 
-#define $__LIGHTHOUSE__FR Leuchtturm
 #define $__LIGHTHOUSE__RU Маяк 
 #define $__LIGHTHOUSE__PT Farol 
 
@@ -1347,8 +1374,8 @@
 #define $__MAST__ Funkmast
 #define $__MAST__DE Funkmast
 #define $__MAST__EN Radio Mast
+#define $__MAST__NL Zendmast
 #define $__MAST__PL Maszt radiowy
-#define $__MAST__FR Funkmast
 #define $__MAST__RU Радиомачта
 #define $__MAST__PT Antena
 
@@ -1356,8 +1383,8 @@
 #define $__MINESHAFT__ Schacht
 #define $__MINESHAFT__DE Schacht
 #define $__MINESHAFT__EN Mine Shaft
+#define $__MINESHAFT__NL Mijnschacht
 #define $__MINESHAFT__PL Kopalnia
-#define $__MINESHAFT__FR Schacht
 #define $__MINESHAFT__RU Шахта
 #define $__MINESHAFT__PT Shaft
 
@@ -1365,8 +1392,8 @@
 #define $__PETROLEUMWELL__ Ölfördereinrichtung
 #define $__PETROLEUMWELL__DE Ölfördereinrichtung
 #define $__PETROLEUMWELL__EN Oil Well
+#define $__PETROLEUMWELL__NL Oliebron
 #define $__PETROLEUMWELL__PL Kopalnia ropy naftowej
-#define $__PETROLEUMWELL__FR Ölfördereinrichtung
 #define $__PETROLEUMWELL__RU Нефтяная скважина
 #define $__PETROLEUMWELL__PT Poço de petróleo
 
@@ -1374,8 +1401,8 @@
 #define $__RESERVOIRCOVERED__ Überdecktes Speicherbecken
 #define $__RESERVOIRCOVERED__DE Überdachtes Speicherbecken
 #define $__RESERVOIRCOVERED__EN Covered Reservoir
+#define $__RESERVOIRCOVERED__NL Overdekt reservoir
 #define $__RESERVOIRCOVERED__PL Zakryty zbiornik wodny
-#define $__RESERVOIRCOVERED__FR Überdecktes Speicherbecken
 #define $__RESERVOIRCOVERED__RU Резервуар
 #define $__RESERVOIRCOVERED__PT Reservatório coberto
 
@@ -1384,8 +1411,8 @@
 #define $__SURVEYPOINT__ Trig. Pt.
 #define $__SURVEYPOINT__DE Trig. Pt.
 #define $__SURVEYPOINT__EN Trig Point
+#define $__SURVEYPOINT__NL Diehoeksmetingspunt
 #define $__SURVEYPOINT__PL Punkt triangulacyjny
-#define $__SURVEYPOINT__FR Trig. Pt.
 #define $__SURVEYPOINT__RU Тригонометрический пункт
 #define $__SURVEYPOINT__PT Coordenada trigonométrica
 
@@ -1394,8 +1421,8 @@
 #define $__OBSERVATIONTOWER__ Beobachtungsturm
 #define $__OBSERVATIONTOWER__DE Beobachtungsturm
 #define $__OBSERVATIONTOWER__EN Observation Tower
+#define $__OBSERVATIONTOWER__NL Observatietoren
 #define $__OBSERVATIONTOWER__PL Wieża obserwacyjna
-#define $__OBSERVATIONTOWER__FR Beobachtungsturm
 #define $__OBSERVATIONTOWER__RU Смотровая вышка/башня
 #define $__OBSERVATIONTOWER__PT Torre de observação
 
@@ -1403,8 +1430,8 @@
 #define $__COMMUNICATIONTOWER__ Funkmast
 #define $__COMMUNICATIONTOWER__DE Funkmast
 #define $__COMMUNICATIONTOWER__EN Radio Mast
+#define $__COMMUNICATIONTOWER__NL Zendmast
 #define $__COMMUNICATIONTOWER__PL Maszt radiowy
-#define $__COMMUNICATIONTOWER__FR Funkmast
 #define $__COMMUNICATIONTOWER__RU Радиомачта
 #define $__COMMUNICATIONTOWER__PT Torre de comunicações
 
@@ -1412,8 +1439,8 @@
 #define $__TOWER__ Turm
 #define $__TOWER__DE Turm
 #define $__TOWER__EN Tower
+#define $__TOWER__NL Toren
 #define $__TOWER__PL Wieża
-#define $__TOWER__FR Turm
 #define $__TOWER__RU Башня/вышка
 #define $__TOWER__PT Torre
 
@@ -1421,8 +1448,8 @@
 #define $__VIEWPOINT__ Aussichtspunkt
 #define $__VIEWPOINT__DE Aussichtspunkt
 #define $__VIEWPOINT__EN Viewpoint
+#define $__VIEWPOINT__NL Uitzichtpunt
 #define $__VIEWPOINT__PL Punkt widokowy
-#define $__VIEWPOINT__FR Aussichtspunkt
 #define $__VIEWPOINT__RU точка зрения
 #define $__VIEWPOINT__PT Ponto de vista
 
@@ -1430,8 +1457,8 @@
 #define $__INFORMATION__ Information
 #define $__INFORMATION__DE Info
 #define $__INFORMATION__EN Info
+#define $__INFORMATION__NL Informatie
 #define $__INFORMATION__PL Informacje
-#define $__INFORMATION__FR Info
 #define $__INFORMATION__RU информация
 #define $__INFORMATION__PT Informações
 
@@ -1439,8 +1466,8 @@
 #define $__PRIVATE__ Privat
 #define $__PRIVATE__DE Privat
 #define $__PRIVATE__EN Private
+#define $__PRIVATE__NL Privé
 #define $__PRIVATE__PL Prywatny
-#define $__PRIVATE__FR Privat
 #define $__PRIVATE__RU частный
 #define $__PRIVATE__PT Privado
 
@@ -1448,8 +1475,8 @@
 #define $__FOUNTAIN__ Springbrunnen
 #define $__FOUNTAIN__DE Springbrunnen
 #define $__FOUNTAIN__EN Fountain
+#define $__FOUNTAIN__NL Fontein
 #define $__FOUNTAIN__PL Fontanna
-#define $__FOUNTAIN__FR Springbrunnen
 #define $__FOUNTAIN__RU фонтан
 #define $__FOUNTAIN__PT Fonte
 
@@ -1457,8 +1484,8 @@
 #define $__TOILETS__ Toilette
 #define $__TOILETS__DE Toilette
 #define $__TOILETS__EN Toilets
+#define $__TOILETS__NL Toilet
 #define $__TOILETS__PL Toalety
-#define $__TOILETS__FR Toilette
 #define $__TOILETS__RU туалет
 #define $__TOILETS__PT Banheiro
 
@@ -1466,8 +1493,8 @@
 #define $__WASTEWATERPLANT__ Kläranlage
 #define $__WASTEWATERPLANT__DE Kläranlage
 #define $__WASTEWATERPLANT__EN Water Treatment Plant
+#define $__WASTEWATERPLANT__NL Waterzuiveringsinstallatie
 #define $__WASTEWATERPLANT__PL Oczyszczalnia ścieków
-#define $__WASTEWATERPLANT__FR Kläranlage
 #define $__WASTEWATERPLANT__RU Очистное сооружение
 #define $__WASTEWATERPLANT__PT Estação de tratamento de água
 
@@ -1475,8 +1502,8 @@
 #define $__WATERMILL__ Wassermühle
 #define $__WATERMILL__DE Wassermühle
 #define $__WATERMILL__EN Watermill
+#define $__WATERMILL__NL Watermolen
 #define $__WATERMILL__PL Młyn wodny
-#define $__WATERMILL__FR Wassermühle
 #define $__WATERMILL__RU Водяная мельница
 #define $__WATERMILL__PT Azenha
 
@@ -1484,8 +1511,8 @@
 #define $__WATERTOWER__ Wasserturm
 #define $__WATERTOWER__DE Wasserturm
 #define $__WATERTOWER__EN Water Tower
+#define $__WATERTOWER__NL Watertoren
 #define $__WATERTOWER__PL Wieża wodna
-#define $__WATERTOWER__FR Wasserturm
 #define $__WATERTOWER__RU Водонапорная башня
 #define $__WATERTOWER__PT Caixa d'água
 
@@ -1493,8 +1520,8 @@
 #define $__WATERWORKS__ Wasserwerk
 #define $__WATERWORKS__DE Wasserwerk
 #define $__WATERWORKS__EN Waterworks
+#define $__WATERWORKS__NL Waterwerk
 #define $__WATERWORKS__PL Wodociąg
-#define $__WATERWORKS__FR Wasserwerk
 #define $__WATERWORKS__RU Водопроводная/насосная станция
 #define $__WATERWORKS__PT Fonte ornamental
 
@@ -1502,8 +1529,8 @@
 #define $__WATERWELL__ Tiefbrunnen
 #define $__WATERWELL__DE Tiefbrunnen
 #define $__WATERWELL__EN Well
+#define $__WATERWELL__NL Bron
 #define $__WATERWELL__PL Źródło
-#define $__WATERWELL__FR Tiefbrunnen
 #define $__WATERWELL__RU Колодец/Скважина
 #define $__WATERWELL__PT Poço profundo
 
@@ -1511,8 +1538,8 @@
 #define $__WINDMILL__ Hist. Windmühle
 #define $__WINDMILL__DE Hist. Windmühle
 #define $__WINDMILL__EN hist. Windmill
+#define $__WINDMILL__NL Windmolen
 #define $__WINDMILL__PL hist. młyn
-#define $__WINDMILL__FR Hist. Windmühle
 #define $__WINDMILL__RU hist. Ветряная мельница
 #define $__WINDMILL__PT hist. Moinho
 
@@ -1520,8 +1547,8 @@
 #define $__INDUSTRIALPLANT__ Industrieanlage
 #define $__INDUSTRIALPLANT__DE Industrieanlage
 #define $__INDUSTRIALPLANT__EN Industrial Plant
+#define $__INDUSTRIALPLANT__NL Industrie
 #define $__INDUSTRIALPLANT__PL Zakład przemysłowy
-#define $__INDUSTRIALPLANT__FR Industrieanlage
 #define $__INDUSTRIALPLANT__RU Промышленные сооружения
 #define $__INDUSTRIALPLANT__PT Planta industrial
 
@@ -1535,8 +1562,8 @@
 #define $__RAILWAYHALT__ Haltepunkt
 #define $__RAILWAYHALT__DE Haltepunkt
 #define $__RAILWAYHALT__EN Railway Halt
+#define $__RAILWAYHALT__NL Treinstation
 #define $__RAILWAYHALT__PL Przystanek
-#define $__RAILWAYHALT__FR Haltepunkt
 #define $__RAILWAYHALT__RU Ж/д остановка
 #define $__RAILWAYHALT__PT Manutenção ferroviária
 
@@ -1544,8 +1571,8 @@
 #define $__RAILWAYSTATION__ Bahnhof
 #define $__RAILWAYSTATION__DE Bahnhof
 #define $__RAILWAYSTATION__EN Station
+#define $__RAILWAYSTATION__NL Station
 #define $__RAILWAYSTATION__PL Stacja kolejowa
-#define $__RAILWAYSTATION__FR Bahnhof
 #define $__RAILWAYSTATION__RU Ж/д станция
 #define $__RAILWAYSTATION__PT Estação
 
@@ -1553,8 +1580,8 @@
 #define $__SUBWAYENTRANCE__ U-Bahn-Eingang
 #define $__SUBWAYENTRANCE__DE U-Bahn-Eingang
 #define $__SUBWAYENTRANCE__EN Subway Entrance
+#define $__SUBWAYENTRANCE__NL Metroingang
 #define $__SUBWAYENTRANCE__PL Wejście do metra
-#define $__SUBWAYENTRANCE__FR U-Bahn-Eingang
 #define $__SUBWAYENTRANCE__RU Вход в метро
 #define $__SUBWAYENTRANCE__PT Metrô
 
@@ -1562,8 +1589,8 @@
 #define $__TRAMSTOP__ Haltestelle
 #define $__TRAMSTOP__DE Haltestelle
 #define $__TRAMSTOP__EN Tram Stop
+#define $__TRAMSTOP__NL Tramhalte
 #define $__TRAMSTOP__PL Przystanek tramwajowy
-#define $__TRAMSTOP__FR Haltestelle
 #define $__TRAMSTOP__RU Остановка трамвая
 #define $__TRAMSTOP__PT Parada de bonde
 
@@ -1576,8 +1603,8 @@
 #define $__BAKERY__ Bäckerei
 #define $__BAKERY__DE Bäckerei
 #define $__BAKERY__EN Bakery
+#define $__BAKERY__NL Bakkerij
 #define $__BAKERY__PL Piekarnia
-#define $__BAKERY__FR Bäckerei
 #define $__BAKERY__RU Булочная
 #define $__BAKERY__PT Padaria
 
@@ -1585,8 +1612,8 @@
 #define $__COSMETICS__ Kosmetik
 #define $__COSMETICS__DE Kosmetik
 #define $__COSMETICS__EN Beauty Salon
+#define $__COSMETICS__NL Schoonheidssalon
 #define $__COSMETICS__PL Salon piękności
-#define $__COSMETICS__FR Kosmetik
 #define $__COSMETICS__RU Салон красоты
 #define $__COSMETICS__PT Salão de beleza
 
@@ -1594,8 +1621,8 @@
 #define $__BICYCLESHOP__ Fahrrad
 #define $__BICYCLESHOP__DE Fahrrad
 #define $__BICYCLESHOP__EN Bicycle Shop (Sales, Rental & Service)
+#define $__BICYCLESHOP__NL Fietsenwinkel
 #define $__BICYCLESHOP__PL Sklep rowerowy
-#define $__BICYCLESHOP__FR Fahrrad
 #define $__BICYCLESHOP__RU Велосипеды (продажа, прокат, обслуживание)
 #define $__BICYCLESHOP__PT Bicicletaria
 
@@ -1603,8 +1630,8 @@
 #define $__BUTCHER__ Metzgerei
 #define $__BUTCHER__DE Metzgerei
 #define $__BUTCHER__EN Butcher Shop
+#define $__BUTCHER__NL Slager
 #define $__BUTCHER__PL Księgarnia
-#define $__BUTCHER__FR Metzgerei
 #define $__BUTCHER__RU Мясной магазин
 #define $__BUTCHER__PT Açougue
 
@@ -1612,8 +1639,8 @@
 #define $__CARSHOP__ Autohaus
 #define $__CARSHOP__DE Autohaus
 #define $__CARSHOP__EN Garage
+#define $__CARSHOP__NL Autodealer
 #define $__CARSHOP__PL Garaż
-#define $__CARSHOP__FR Autohaus
 #define $__CARSHOP__RU Гараж
 #define $__CARSHOP__PT Concessionária de veículos
 
@@ -1621,8 +1648,8 @@
 #define $__CARREPAIR__ Autowerkstatt
 #define $__CARREPAIR__DE Autowerkstatt
 #define $__CARREPAIR__EN Car Repair (Garage)
+#define $__CARREPAIR__NL Garage
 #define $__CARREPAIR__PL Mechanik samochodowy
-#define $__CARREPAIR__FR Autowerkstatt
 #define $__CARREPAIR__RU Автосервис/СТО
 #define $__CARREPAIR__PT Oficina mecânica
 
@@ -1630,8 +1657,8 @@
 #define $__CHEMIST__ Drogerie
 #define $__CHEMIST__DE Drogerie
 #define $__CHEMIST__EN Chemist
+#define $__CHEMIST__NL Drogist
 #define $__CHEMIST__PL Drogeria
-#define $__CHEMIST__FR Drogerie
 #define $__CHEMIST__RU Аптека
 #define $__CHEMIST__PT Drogaria
 
@@ -1639,22 +1666,24 @@
 #define $__BOUTIQUE__ Boutique
 #define $__BOUTIQUE__DE Boutique
 #define $__BOUTIQUE__EN Boutique
+#define $__BOUTIQUE__NL Boutique
 #define $__BOUTIQUE__PL Butik
-#define $__BOUTIQUE__FR Boutique
 #define $__BOUTIQUE__RU Бутик
 #define $__BOUTIQUE__PT Boutique
+
 #define $__CLOTHES__ Bekleidung
 #define $__CLOTHES__DE Bekleidung
 #define $__CLOTHES__EN Clothes Shop
+#define $__CLOTHES__NL Kledingwinkel
 #define $__CLOTHES__PL Sklep z ubraniami
-#define $__CLOTHES__FR Bekleidung
 #define $__CLOTHES__RU Магазин одежды
 #define $__CLOTHES__PT Loja de roupas
+
 #define $__FASION__ Mode
 #define $__FASION__DE Mode
 #define $__FASION__EN Fashion Boutique
+#define $__FASION__NL Kledingwinkel
 #define $__FASION__PL Dom mody
-#define $__FASION__FR Mode
 #define $__FASION__RU Салон моды
 #define $__FASION__PT Boutique de moda
 
@@ -1662,8 +1691,8 @@
 #define $__COMPUTER__ Computer
 #define $__COMPUTER__DE Computer
 #define $__COMPUTER__EN Computer Store
+#define $__COMPUTER__NL Computerwinkel
 #define $__COMPUTER__PL Sklep komputerowy
-#define $__COMPUTER__FR Computer
 #define $__COMPUTER__RU Компьютеры и аксессуары
 #define $__COMPUTER__PT Produtos de informática
 
@@ -1671,8 +1700,8 @@
 #define $__CONFECTIONERY__ Konditorei, Süßwaren
 #define $__CONFECTIONERY__DE Konditorei, Süßwaren
 #define $__CONFECTIONERY__EN Confectionery
+#define $__CONFECTIONERY__NL Snoepwinkel
 #define $__CONFECTIONERY__PL Cukiernia
-#define $__CONFECTIONERY__FR Konditorei, Süßwaren
 #define $__CONFECTIONERY__RU Кондитерские изделия
 #define $__CONFECTIONERY__PT Confeitaria
 
@@ -1680,8 +1709,8 @@
 #define $__CONVENIENCE__ Lebensmittel
 #define $__CONVENIENCE__DE Lebensmittel
 #define $__CONVENIENCE__EN Convenience Store
-#define $__CONVENIENCE__PL Sklep
-#define $__CONVENIENCE__FR Lebensmittel
+#define $__CONVENIENCE__NL Supermarkt
+#define $__CONVENIENCE__PL Sklep ogólnospożywczy
 #define $__CONVENIENCE__RU Продукты питания
 #define $__CONVENIENCE__PT Loja de conveniência
 
@@ -1689,8 +1718,8 @@
 #define $__DELICACY__ Feinkost
 #define $__DELICACY__DE Feinkost
 #define $__DELICACY__EN Deli (Delicatessen) 
+#define $__DELICACY__NL Delicatessenwinkel
 #define $__DELICACY__PL Delikatesy 
-#define $__DELICACY__FR Feinkost
 #define $__DELICACY__RU Деликатесы
 #define $__DELICACY__PT Delicatessen
 
@@ -1698,8 +1727,8 @@
 #define $__DEPARTMENTSTORE__ Kaufhaus
 #define $__DEPARTMENTSTORE__DE Kaufhaus
 #define $__DEPARTMENTSTORE__EN Department Store
+#define $__DEPARTMENTSTORE__NL Warenhuis
 #define $__DEPARTMENTSTORE__PL Dom towarowy
-#define $__DEPARTMENTSTORE__FR Kaufhaus
 #define $__DEPARTMENTSTORE__RU Универмаг
 #define $__DEPARTMENTSTORE__PT Loja de departamentos
 
@@ -1707,8 +1736,8 @@
 #define $__DOITYOURSELF__ Baumarkt
 #define $__DOITYOURSELF__DE Baumarkt
 #define $__DOITYOURSELF__EN DIY Store
+#define $__DOITYOURSELF__NL Bouwmarkt
 #define $__DOITYOURSELF__PL Sklep dla majsterkowiczów
-#define $__DOITYOURSELF__FR Baumarkt
 #define $__DOITYOURSELF__RU Стройматериалы/Ремонт
 #define $__DOITYOURSELF__PT Loja de material de construção
 
@@ -1716,8 +1745,8 @@
 #define $__FURNITURE__ Möbelhaus
 #define $__FURNITURE__DE Möbelhaus
 #define $__FURNITURE__EN Furniture Store
+#define $__FURNITURE__NL Meubelwinkel
 #define $__FURNITURE__PL Sklep meblowy
-#define $__FURNITURE__FR Möbelhaus
 #define $__FURNITURE__RU Магазин мебели
 #define $__FURNITURE__PT Loja de móveis
 
@@ -1725,8 +1754,8 @@
 #define $__GARDENCENTRE__ Garten
 #define $__GARDENCENTRE__DE Garten
 #define $__GARDENCENTRE__EN Garden Centre
+#define $__GARDENCENTRE__NL Tuincentrum
 #define $__GARDENCENTRE__PL Sklep ogrodniczy
-#define $__GARDENCENTRE__FR Garten
 #define $__GARDENCENTRE__RU Центр садоводства
 #define $__GARDENCENTRE__PT Artigos para jardinagem
 
@@ -1734,8 +1763,8 @@
 #define $__GENERALSHOP__ Gemischtwaren
 #define $__GENERALSHOP__DE Gemischtwaren
 #define $__GENERALSHOP__EN General Store
-#define $__GENERALSHOP__PL Sklep ogólnospożywczy
-#define $__GENERALSHOP__FR Gemischtwaren
+#define $__GENERALSHOP__NL Buurtwinkel
+#define $__GENERALSHOP__PL Sklep wielobranżowy
 #define $__GENERALSHOP__RU Универмаг
 #define $__GENERALSHOP__PT Armazém
 
@@ -1743,8 +1772,8 @@
 #define $__HAIRDRESSER__ Friseur
 #define $__HAIRDRESSER__DE Friseur
 #define $__HAIRDRESSER__EN Hairdresser
+#define $__HAIRDRESSER__NL Kapper
 #define $__HAIRDRESSER__PL Fryzjer
-#define $__HAIRDRESSER__FR Friseur
 #define $__HAIRDRESSER__RU Парикмахерская
 #define $__HAIRDRESSER__PT Cabeleireiro
 
@@ -1752,8 +1781,9 @@
 #define $__HARDWARE__ Eisenwaren
 #define $__HARDWARE__DE Eisenwaren
 #define $__HARDWARE__EN Hardware Store
+#define $__HARDWARE__NL IJzerhandel
+## Second character in IJzerhandel also in upper case!
 #define $__HARDWARE__PL Sklep z artykułami żelaznymi
-#define $__HARDWARE__FR Eisenwaren
 #define $__HARDWARE__RU Скобяные изделия
 #define $__HARDWARE__PT Loja de ferragens
 
@@ -1761,8 +1791,9 @@
 #define $__ICECREAMSHOP__ Eis, Shop
 #define $__ICECREAMSHOP__DE Eis, Shop
 #define $__ICECREAMSHOP__EN Ice Cream Parlour
+#define $__ICECREAMSHOP__NL IJssalon
+## The word IJssalon starts with two upper case characters
 #define $__ICECREAMSHOP__PL Lodziarnia
-#define $__ICECREAMSHOP__FR Eis, Shop
 #define $__ICECREAMSHOP__RU Кафе-мороженое
 #define $__ICECREAMSHOP__PT Sorveteria
 
@@ -1770,8 +1801,8 @@
 #define $__MALL__ Einkaufszentrum
 #define $__MALL__DE Einkaufszentrum
 #define $__MALL__EN Shopping Centre
+#define $__MALL__NL Winkelcentrum
 #define $__MALL__PL Galeria handlowa
-#define $__MALL__FR Einkaufszentrum
 #define $__MALL__RU Торговый центр
 #define $__MALL__PT Shopping Center
 
@@ -1779,8 +1810,8 @@
 #define $__ORGANICSHOP__ Bio-Laden
 #define $__ORGANICSHOP__DE Bio-Laden
 #define $__ORGANICSHOP__EN Health Food Store
+#define $__ORGANICSHOP__NL Biologische winkel
 #define $__ORGANICSHOP__PL Sklep ze zdrową żywnością
-#define $__ORGANICSHOP__FR Bio-Laden
 #define $__ORGANICSHOP__RU Магазин здорового питания
 #define $__ORGANICSHOP__PT Loja de alimentos naturais
 
@@ -1788,8 +1819,8 @@
 #define $__SHOES__ Schuhe
 #define $__SHOES__DE Schuhe
 #define $__SHOES__EN Shoe Shop
+#define $__SHOES__NL Schoenwinkel
 #define $__SHOES__PL Sklep obuwniczy
-#define $__SHOES__FR Schuhe
 #define $__SHOES__RU Обувной магазин
 #define $__SHOES__PT Loja de calçados
 
@@ -1797,8 +1828,8 @@
 #define $__SUPERMARKET__ Supermarkt
 #define $__SUPERMARKET__DE Supermarkt
 #define $__SUPERMARKET__EN Supermarket
+#define $__SUPERMARKET__NL Supermarkt
 #define $__SUPERMARKET__PL Supermarket
-#define $__SUPERMARKET__FR Supermarkt
 #define $__SUPERMARKET__RU Супермаркет
 #define $__SUPERMARKET__PT Supermercado
 
@@ -1806,8 +1837,8 @@
 #define $__TRADESHOP__ Baustoffhandel
 #define $__TRADESHOP__DE Baustoffhandel
 #define $__TRADESHOP__EN Builders Merchants
+#define $__TRADESHOP__NL Bouwmark
 #define $__TRADESHOP__PL Sklep z materiałami budowlanymi
-#define $__TRADESHOP__FR Baustoffhandel
 #define $__TRADESHOP__RU Стройматериалы
 #define $__TRADESHOP__PT Materiais de construção
 
@@ -1815,8 +1846,8 @@
 #define $__TYRES__ Reifenhandel
 #define $__TYRES__DE Reifenhandel
 #define $__TYRES__EN Tyre Retailers/Fitters
+#define $__TYRES__NL Bandenservice
 #define $__TYRES__PL Handlarz opon
-#define $__TYRES__FR Reifenhandel
 #define $__TYRES__RU Шины/Шиномонтаж
 #define $__TYRES__PT Borracharia
 
@@ -1824,365 +1855,400 @@
 #define $__ALCOHOL__ Spirituosen
 #define $__ALCOHOL__DE Spirituosen
 #define $__ALCOHOL__EN Off Licence
+#define $__ALCOHOL__NL Slijterij
 #define $__ALCOHOL__PL Sklep monopolowy
-#define $__ALCOHOL__FR Spirituosen
 #define $__ALCOHOL__RU Спиртные напитки
 #define $__ALCOHOL__PT Loja de bebidas
+
 #define $__ARTSHOP__ Kunsthandlung
 #define $__ARTSHOP__DE Kunsthandlung
 #define $__ARTSHOP__EN Art Dealers/Art Gallery
+#define $__ARTSHOP__NL Galerie
 #define $__ARTSHOP__PL Galeria Sztuki
-#define $__ARTSHOP__FR Kunsthandlung
 #define $__ARTSHOP__RU Худ. выставка/продажа
 #define $__ARTSHOP__PT Negociante de arte
+
 #define $__BEDSHOP__ Bettengeschäft
 #define $__BEDSHOP__DE Bettengeschäft
 #define $__BEDSHOP__EN Bed Shop 
+#define $__BEDSHOP__NL Beddenwinkel
 #define $__BEDSHOP__PL Sklep z łóźkami
-#define $__BEDSHOP__FR Bettengeschäft
 #define $__BEDSHOP__RU Мебель для спальни
 #define $__BEDSHOP__PT Loja de colchões
+
 #define $__BEVERAGES__ Getränkemarkt
 #define $__BEVERAGES__DE Getränkemarkt
 #define $__BEVERAGES__EN Beverages/Off License
+#define $__BEVERAGES__NL Slijterij
 #define $__BEVERAGES__PL Sklep z napojami
-#define $__BEVERAGES__FR Getränkemarkt
 #define $__BEVERAGES__RU Напитки
 #define $__BEVERAGES__PT Loja de bebidas
+
 #define $__BOOKS__ Buchhandlung
 #define $__BOOKS__DE Buchhandlung
 #define $__BOOKS__EN Book Store
+#define $__BOOKS__NL Boekhandel
 #define $__BOOKS__PL Księgarnia
-#define $__BOOKS__FR Buchhandlung
 #define $__BOOKS__RU Книжный магазин
 #define $__BOOKS__PT Livraria
+
 #define $__COPYSHOOP__ Copy-Shop
 #define $__COPYSHOOP__DE Copy-Shop
 #define $__COPYSHOOP__EN Photocopy Shop
+#define $__COPYSHOOP__NL Copyshop
 #define $__COPYSHOOP__PL Sklep fotograficzny
-#define $__COPYSHOOP__FR Copy-Shop
 #define $__COPYSHOOP__RU Фотокопирование
 #define $__COPYSHOOP__PT Cópias
+
 #define $__CARPET__ Teppichhandel
 #define $__CARPET__DE Teppichhandel
 #define $__CARPET__EN Carpet Store
+#define $__CARPET__NL Tapijthandel
 #define $__CARPET__PL Sklep z dywanami
-#define $__CARPET__FR Teppichhandel
 #define $__CARPET__RU Ковры
 #define $__CARPET__PT Tapeçaria
+
 #define $__COFFEESHOP__ Kaffeeladen
 #define $__COFFEESHOP__DE Kaffeeladen
 #define $__COFFEESHOP__EN Coffee shop
+#define $__COFFEESHOP__NL Koffiewinkel
 #define $__COFFEESHOP__PL Kawiarmia
-#define $__COFFEESHOP__FR Kaffeeladen
 #define $__COFFEESHOP__RU Кофейня
 #define $__COFFEESHOP__PT Cafeteria
+
 #define $__DRYCLEANING__ Chemische Reinigung
 #define $__DRYCLEANING__DE Chemische Reinigung
 #define $__DRYCLEANING__EN Dry Cleaners
+#define $__DRYCLEANING__NL Stomerij
 #define $__DRYCLEANING__PL Pralnia chemiczna
-#define $__DRYCLEANING__FR Chemische Reinigung
 #define $__DRYCLEANING__RU Химчистка
 #define $__DRYCLEANING__PT Lavagem à seco
+
 #define $__ELECTRONICS__ Elektronik-Markt
 #define $__ELECTRONICS__DE Elektronik-Markt
 #define $__ELECTRONICS__EN Electrical Store
+#define $__ELECTRONICS__NL Electronicawinkel
 #define $__ELECTRONICS__PL Sklep elektryczny
-#define $__ELECTRONICS__FR Elektronik-Markt
 #define $__ELECTRONICS__RU Электроника
 #define $__ELECTRONICS__PT Eletro-eletrônicos
+
 #define $__EROTIC__ Erotikhandel
 #define $__EROTIC__DE Erotikhandel
 #define $__EROTIC__EN Sex Shop
+#define $__EROTIC__NL Sexshop
 #define $__EROTIC__PL Sex Shop
-#define $__EROTIC__FR Erotikhandel
 #define $__EROTIC__RU Секс-шоп
 #define $__EROTIC__PT Sex Shop
+
 #define $__FABRIC__ Stoffgeschäft
 #define $__FABRIC__DE Stoffgeschäft
 #define $__FABRIC__EN Fabric Shop
+#define $__FABRIC__NL Stoffenwinkel
 #define $__FABRIC__PL Sklep fabryczny
-#define $__FABRIC__FR Stoffgeschäft
 #define $__FABRIC__RU Ткани
 #define $__FABRIC__PT Loja de tecidos
+
 #define $__FARMSHOP__ Hofladen
 #define $__FARMSHOP__DE Hofladen
 #define $__FARMSHOP__EN Farm Shop
+#define $__FARMSHOP__NL Boerderijwinkel
 #define $__FARMSHOP__PL Warzywniak 
-#define $__FARMSHOP__FR Hofladen
 #define $__FARMSHOP__RU Фермерские продукты
 #define $__FARMSHOP__PT Paiol
+
 #define $__FISHMONGER__ Fischfachgeschäft
 #define $__FISHMONGER__DE Fischfachgeschäft
 #define $__FISHMONGER__EN Fishmonger
+#define $__FISHMONGER__NL Vishandel
 #define $__FISHMONGER__PL Sklep rybny
-#define $__FISHMONGER__FR Fischfachgeschäft
 #define $__FISHMONGER__RU Рыбные продукты
 #define $__FISHMONGER__PT Peixeiro
+
 #define $__FLORIST__ Florist
 #define $__FLORIST__DE Florist
 #define $__FLORIST__EN Florist
+#define $__FLORIST__NL Bloemist
 #define $__FLORIST__PL Kwiaciarnia
-#define $__FLORIST__FR Florist
 #define $__FLORIST__RU Цветочный магазин
 #define $__FLORIST__PT Floricultura
+
 #define $__FUNERALDIRECTORS__ Bestatter
 #define $__FUNERALDIRECTORS__DE Bestatter
 #define $__FUNERALDIRECTORS__EN Funeral Directors
+#define $__FUNERALDIRECTORS__NL Uitvaartonderneming
 #define $__FUNERALDIRECTORS__PL Zakład pogrzebowy
-#define $__FUNERALDIRECTORS__FR Bestatter
 #define $__FUNERALDIRECTORS__RU Похоронное бюро
 #define $__FUNERALDIRECTORS__PT Funerária
+
 #define $__GIFTSHOP__ Andenken
 #define $__GIFTSHOP__DE Andenken
 #define $__GIFTSHOP__EN Gift Shop
+#define $__GIFTSHOP__NL Souvenirwinkel
 #define $__GIFTSHOP__PL Upominki
-#define $__GIFTSHOP__FR Andenken
 #define $__GIFTSHOP__RU Магазин сувениров
 #define $__GIFTSHOP__PT Loja de presentes
+
 #define $__GREENGROCER__ Obst-/Gemüsehandel
 #define $__GREENGROCER__DE Obst-/Gemüsehandel
 #define $__GREENGROCER__EN Greengrocer
+#define $__GREENGROCER__NL Groenteboer
 #define $__GREENGROCER__PL Warzywniak
-#define $__GREENGROCER__FR Obst-/Gemüsehandel
 #define $__GREENGROCER__RU Овощи/Фрукты/Зелень
 #define $__GREENGROCER__PT Mercado/feira livre
+
 #define $__HEARINGAIDS__ Hörgeräteakustiker
 #define $__HEARINGAIDS__DE Hörgeräteakustiker
 #define $__HEARINGAIDS__EN Hearing Aid Shop
-#define $__HEARINGAIDS__PL Sklep dla niesłyszących
-#define $__HEARINGAIDS__FR Hörgeräteakustiker
+#define $__HEARINGAIDS__NL Gehoorapparatenwinkel
+#define $__HEARINGAIDS__PL Sklep dla osób niesłyszących
 #define $__HEARINGAIDS__RU Магазин слуховых аппаратов
 #define $__HEARINGAIDS__PT Aparelhos de audição
+
 #define $__HIFI__ Hifi-Fachhandel
 #define $__HIFI__DE Hifi-Fachhandel
 #define $__HIFI__EN Hifi Dealers
-#define $__HIFI__PL Sklep Hifi 
-#define $__HIFI__FR Hifi-Fachhandel
+#define $__HIFI__NL Hifi-winkel
+#define $__HIFI__PL Sklep ze sprzętem Hifi 
 #define $__HIFI__RU Hi-Fi техника
 #define $__HIFI__PT Som e imagem
+
 #define $__INSURANCE__ Versicherungsbüro
 #define $__INSURANCE__DE Versicherungsbüro
 #define $__INSURANCE__EN Insurance Brokers
+#define $__INSURANCE__NL Verzekeringsagent
 #define $__INSURANCE__PL Agent ubezpieczeniowy
-#define $__INSURANCE__FR Versicherungsbüro
 #define $__INSURANCE__RU Страховой брокер/агент
 #define $__INSURANCE__PT Seguradora
+
 #define $__INTERIORDECORATION__ Raumausstatter
 #define $__INTERIORDECORATION__DE Raumausstatter
 #define $__INTERIORDECORATION__EN Interior Decoration Shop
+#define $__INTERIORDECORATION__NL Interieurwinkel
 #define $__INTERIORDECORATION__PL Sklep z meteriałami do wystroju wnętrzs
-#define $__INTERIORDECORATION__FR Raumausstatter
 #define $__INTERIORDECORATION__RU Товары для интерьера
 #define $__INTERIORDECORATION__PT Decoração de interiores
+
 #define $__JEWELRY__ Juwelier
 #define $__JEWELRY__DE Juwelier
 #define $__JEWELRY__EN Jewellers
+#define $__JEWELRY__NL Juwelier
 #define $__JEWELRY__PL Jublier
-#define $__JEWELRY__FR Juwelier
 #define $__JEWELRY__RU Ювелирный магазин
 #define $__JEWELRY__PT Joalheiro
+
 #define $__KITCHEN__ Küchenstudio
 #define $__KITCHEN__DE Küchenstudio
 #define $__KITCHEN__EN Kitchen Studio 
-#define $__KITCHEN__PL Sklep z matriałami do wystroju kuchni 
-#define $__KITCHEN__FR Küchenstudio
+#define $__KITCHEN__NL Keukenstudio
+#define $__KITCHEN__PL Sklep z materiałami do wystroju kuchni
 #define $__KITCHEN__RU Кухня-студия
 #define $__KITCHEN__PT Cozinha planejada
+
 #define $__KIOSK__ Kiosk
 #define $__KIOSK__DE Kiosk
 #define $__KIOSK__EN Kiosk
+#define $__KIOSK__NL Kiosk
 #define $__KIOSK__PL Kiosk
-#define $__KIOSK__FR Kiosk
 #define $__KIOSK__RU Киоск
 #define $__KIOSK__PT Quiosque
+
 #define $__LOUNDRY__ Wäscherei
 #define $__LOUNDRY__DE Wäscherei
 #define $__LOUNDRY__EN Laundry
+#define $__LOUNDRY__NL Wasserette
 #define $__LOUNDRY__PL Pralnia
-#define $__LOUNDRY__FR Wäscherei
 #define $__LOUNDRY__RU Прачечная
 #define $__LOUNDRY__PT Lavanderia
+
 #define $__MASSAGE__ Massagesalon
 #define $__MASSAGE__DE Massagesalon
 #define $__MASSAGE__EN Massage Parlour
+#define $__MASSAGE__NL Massagesalon
 #define $__MASSAGE__PL Salon masażu
-#define $__MASSAGE__FR Massagesalon
 #define $__MASSAGE__RU Массажный салон
 #define $__MASSAGE__PT Massagem
+
 #define $__MOBILEPHONE__ Handy-Shop
 #define $__MOBILEPHONE__DE Handy-Shop
 #define $__MOBILEPHONE__EN Phone Shop
+#define $__MOBILEPHONE__NL GSM-winkel
 #define $__MOBILEPHONE__PL Sklep z telefonami
-#define $__MOBILEPHONE__FR Handy-Shop
 #define $__MOBILEPHONE__RU Магазин мобильных устройств
 #define $__MOBILEPHONE__PT Loja de celulares
+
 #define $__MOTORCYCLE__ Motorrad-Geschäft
 #define $__MOTORCYCLE__DE Motorrad-Geschäft
 #define $__MOTORCYCLE__EN Motorcycle Shop
+#define $__MOTORCYCLE__NL Motorwinkel
 #define $__MOTORCYCLE__PL Sklep z częściami do motorów
-#define $__MOTORCYCLE__FR Motorrad-Geschäft
 #define $__MOTORCYCLE__RU Магазин мототехники
 #define $__MOTORCYCLE__PT Motocicletas
+
 #define $__MUSICSHOP__ Musikhaus
 #define $__MUSICSHOP__DE Musikhaus
 #define $__MUSICSHOP__EN Music Store
+#define $__MUSICSHOP__NL Muziekwinkel
 #define $__MUSICSHOP__PL Sklep muzyczny
-#define $__MUSICSHOP__FR Musikhaus
 #define $__MUSICSHOP__RU Музыкальный магазин
 #define $__MUSICSHOP__PT Loja de música
+
 #define $__MUSICALINSTRUMENT__ Musikinstrumente
 #define $__MUSICALINSTRUMENT__DE Musikinstrumente
 #define $__MUSICALINSTRUMENT__EN Musical Instrument Shop
+#define $__MUSICALINSTRUMENT__NL Muziekinstrumentenwinkel
 #define $__MUSICALINSTRUMENT__PL Sklep z instrumentami muzycznymi
-#define $__MUSICALINSTRUMENT__FR Musikinstrumente
 #define $__MUSICALINSTRUMENT__RU Магазин музыкальных инструментов
 #define $__MUSICALINSTRUMENT__PT Instrumentos musicais
+
 #define $__NEWSAGENT__ Zeitungshandel
 #define $__NEWSAGENT__DE Zeitungshandel
 #define $__NEWSAGENT__EN Newsagent
+#define $__NEWSAGENT__NL Krantenwinkel
 #define $__NEWSAGENT__PL Sklkep z gazetami
-#define $__NEWSAGENT__FR Zeitungshandel
 #define $__NEWSAGENT__RU Газетный киоск
 #define $__NEWSAGENT__PT Banca de jornais
 #define $__OPTICIAN__ Optiker
 #define $__OPTICIAN__DE Optiker
 #define $__OPTICIAN__EN Optician
+#define $__OPTICIAN__NL Opticien
 #define $__OPTICIAN__PL Optyk
-#define $__OPTICIAN__FR Optiker
 #define $__OPTICIAN__RU Оптика
 #define $__OPTICIAN__PT Óptica
+
 #define $__OUTDOOR__ Outdoor-Shop
 #define $__OUTDOOR__DE Outdoor-Shop
 #define $__OUTDOOR__EN Outdoor Shop/Store
+#define $__OUTDOOR__NL Buitensportwinkel
 #define $__OUTDOOR__PL Sklep turystyczny
-#define $__OUTDOOR__FR Outdoor-Shop
 #define $__OUTDOOR__RU Товары для туризма и отдыха
 #define $__OUTDOOR__PT Loja ao ar livre
+
 #define $__PAINT__ Farbenfachgeschäft
 #define $__PAINT__DE Farbenfachgeschäft
 #define $__PAINT__EN Specialist Paint Shop
+#define $__PAINT__NL Verfvakhandel
 #define $__PAINT__PL Sklep z farbami
-#define $__PAINT__FR Farbenfachgeschäft
 #define $__PAINT__RU Товары для рисования
 #define $__PAINT__PT Tintas
+
 #define $__PETSHOP__ Zoohandlung
 #define $__PETSHOP__DE Zoohandlung
 #define $__PETSHOP__EN Pet Shop
+#define $__PETSHOP__NL Dierenwinkel
 #define $__PETSHOP__PL Sklep zoologiczny
-#define $__PETSHOP__FR Zoohandlung
 #define $__PETSHOP__RU Зоомагазин
 #define $__PETSHOP__PT Pet Shop
+
 #define $__PHOTO__ Foto-Fachgeschäft
 #define $__PHOTO__DE Foto-Fachgeschäft
 #define $__PHOTO__EN Photo Shop
+#define $__PHOTO__NL Fotograaf
 #define $__PHOTO__PL Sklep fotograficzny
-#define $__PHOTO__FR Foto-Fachgeschäft
 #define $__PHOTO__RU Фотомагазин
 #define $__PHOTO__PT Fotografia
 #define $__SEAFOODSHOP__ Fischfachgeschäft
 #define $__SEAFOODSHOP__DE Fischfachgeschäft
 #define $__SEAFOODSHOP__EN Fish Shop
+#define $__SEAFOODSHOP__NL Viswinkel
 #define $__SEAFOODSHOP__PL Sklep rybny
-#define $__SEAFOODSHOP__FR Fischfachgeschäft
 #define $__SEAFOODSHOP__RU Магазин морепродуктов
 #define $__SEAFOODSHOP__PT Peixaria
 #define $__SECONDHAND__ Second-Hand-Shop
 #define $__SECONDHAND__DE Second-Hand-Shop
 #define $__SECONDHAND__EN Second Hand Shop
-#define $__SECONDHAND__PL Sklep typu Second Hand
-#define $__SECONDHAND__FR Second-Hand-Shop
+#define $__SECONDHAND__NL Kringloopwinkel
+#define $__SECONDHAND__PL Sklep z artykułami z drugiej ręki
 #define $__SECONDHAND__RU Магазин секонд-хэнд
 #define $__SECONDHAND__PT Brechó
 #define $__SOLARIUM__ Sonnenstudio
 #define $__SOLARIUM__DE Sonnenstudio
 #define $__SOLARIUM__EN Tanning Salon
+#define $__SOLARIUM__NL Zonnestudio
 #define $__SOLARIUM__PL Solarium
-#define $__SOLARIUM__FR Sonnenstudio
 #define $__SOLARIUM__RU Солярий
 #define $__SOLARIUM__PT Solário
 #define $__SPORTSSHOP__ Sporthandel
 #define $__SPORTSSHOP__DE Sporthandel
 #define $__SPORTSSHOP__EN Sports Shop
+#define $__SPORTSSHOP__NL Sportwinkel
 #define $__SPORTSSHOP__PL Sklep sportowy
-#define $__SPORTSSHOP__FR Sporthandel
 #define $__SPORTSSHOP__RU Спорттовары
 #define $__SPORTSSHOP__PT Artigos esportivos
 #define $__STATIONERY__ Schreibwaren
 #define $__STATIONERY__DE Schreibwaren
 #define $__STATIONERY__EN Stationers
+#define $__STATIONERY__NL Kantoorboekhandel
 #define $__STATIONERY__PL Materiały biurowe
-#define $__STATIONERY__FR Schreibwaren
 #define $__STATIONERY__RU Канцтовары
 #define $__STATIONERY__PT Materiais de escritório
 #define $__TATTOO__ Tätowierstube
 #define $__TATTOO__DE Tätowierstube
 #define $__TATTOO__EN Tattoo Parlour
+#define $__TATTOO__NL Tattooshop
 #define $__TATTOO__PL Salon tatuażu
-#define $__TATTOO__FR Tätowierstube
 #define $__TATTOO__RU Тату-салон
 #define $__TATTOO__PT Tattoo
 #define $__TAILOR__ Schneider
 #define $__TAILOR__DE Schneider
 #define $__TAILOR__EN Tailor
+#define $__TAILOR__NL Kleermaker
 #define $__TAILOR__PL Krawiec
-#define $__TAILOR__FR Schneider
 #define $__TAILOR__RU Обувь на заказ/Ремонт обуви
 #define $__TAILOR__PT Alfaiate
 #define $__TEASHOP__ Teeladen
 #define $__TEASHOP__DE Teeladen
 #define $__TEASHOP__EN Tea Shop
+#define $__TEASHOP__NL Theewinkel
 #define $__TEASHOP__PL Herbaciarnia
-#define $__TEASHOP__FR Teeladen
 #define $__TEASHOP__RU Магазин чая
 #define $__TEASHOP__PT Chás
 #define $__TOBACCO__ Tabakwaren
 #define $__TOBACCO__DE Tabakwaren
 #define $__TOBACCO__EN Tobacconist
+#define $__TOBACCO__NL Tabakswinkel
 #define $__TOBACCO__PL Sklep z tytoniem
-#define $__TOBACCO__FR Tabakwaren
 #define $__TOBACCO__RU Табачные изделия
 #define $__TOBACCO__PT Tabacaria
 #define $__TOYS__ Spielzeuggeschäft
 #define $__TOYS__DE Spielzeuggeschäft
 #define $__TOYS__EN Toy Shop
+#define $__TOYS__NL Speelgoedwinkel
 #define $__TOYS__PL Sklep z zabawkami
-#define $__TOYS__FR Spielzeuggeschäft
 #define $__TOYS__RU Детские игрушки
 #define $__TOYS__PT Brinquedos
 #define $__TRAVELAGENCY__ Reisebüro
 #define $__TRAVELAGENCY__DE Reisebüro
 #define $__TRAVELAGENCY__EN Travel Agency
+#define $__TRAVELAGENCY__NL Reisbureau
 #define $__TRAVELAGENCY__PL Biuro turystyczne
-#define $__TRAVELAGENCY__FR Reisebüro
 #define $__TRAVELAGENCY__RU Турагентство
 #define $__TRAVELAGENCY__PT Agência de viagens
 #define $__VACANT__ Leerstehend
 #define $__VACANT__DE Leerstehend
 #define $__VACANT__EN Vacant/Empty
+#define $__VACANT__NL Leegstaand
 #define $__VACANT__PL Puste miejsce na sklep
-#define $__VACANT__FR Leerstehend
 #define $__VACANT__RU Пустой
 #define $__VACANT__PT Vago
 #define $__VARIETYSTORE__ Restpostenladen
 #define $__VARIETYSTORE__DE Restpostenladen
 #define $__VARIETYSTORE__EN Clearance Store
+#define $__VARIETYSTORE__NL Outlet
 #define $__VARIETYSTORE__PL Sklep z końcówkami towarów
-#define $__VARIETYSTORE__FR Restpostenladen
 #define $__VARIETYSTORE__RU Магазин-дискаунтер
 #define $__VARIETYSTORE__PT Apuramento
 #define $__VIDEO__ Videothek
 #define $__VIDEO__DE Videothek
 #define $__VIDEO__EN Video Library
+#define $__VIDEO__NL Vidiotheek
 #define $__VIDEO__PL Videoteka
-#define $__VIDEO__FR Videothek
 #define $__VIDEO__RU Видеофильмы/видеопрокат
 #define $__VIDEO__PT Videolocadora
 #define $__WINESHOP__ Weinhandlung
 #define $__WINESHOP__DE Weinhandlung
 #define $__WINESHOP__EN Specialist Wine Shop
+#define $__WINESHOP__NL Wijnhandel
 #define $__WINESHOP__PL Handlarz winem
-#define $__WINESHOP__FR Weinhandlung
 #define $__WINESHOP__RU Винный магазин
 #define $__WINESHOP__PT Loja de vinhos
 
@@ -2195,8 +2261,8 @@
 #define $__BUSSTOP__ Haltestelle
 #define $__BUSSTOP__DE Bushaltestelle
 #define $__BUSSTOP__EN Bus Stop
+#define $__BUSSTOP__NL Bushalte
 #define $__BUSSTOP__PL Przystanek autobusowy
-#define $__BUSSTOP__FR Haltestelle
 #define $__BUSSTOP__RU Автобусная остановка
 #define $__BUSSTOP__PT Ponto de ônibus
 
@@ -2205,8 +2271,8 @@
 #define $__MOTORWAYJUNCTION__ Ausfahrt
 #define $__MOTORWAYJUNCTION__DE Ausfahrt
 #define $__MOTORWAYJUNCTION__EN Highway/Motorway Exit/Junction
+#define $__MOTORWAYJUNCTION__NL Afrit
 #define $__MOTORWAYJUNCTION__PL Zjazd z autostrady
-#define $__MOTORWAYJUNCTION__FR Ausfahrt
 #define $__MOTORWAYJUNCTION__RU Съезд с шоссе
 #define $__MOTORWAYJUNCTION__PT Cruzamento
 
@@ -2214,8 +2280,8 @@
 #define $__HIGHWAYRESTAREA__ Rastplatz
 #define $__HIGHWAYRESTAREA__DE Rastplatz
 #define $__HIGHWAYRESTAREA__EN Rest Area
+#define $__HIGHWAYRESTAREA__NL Parkeerplaats
 #define $__HIGHWAYRESTAREA__PL Miejsce na postój
-#define $__HIGHWAYRESTAREA__FR Rastplatz
 #define $__HIGHWAYRESTAREA__RU Место отдыха
 #define $__HIGHWAYRESTAREA__PT Área de descanço
 
@@ -2223,8 +2289,8 @@
 #define $__HIGHWAYSERVICEAREA__ Raststätte
 #define $__HIGHWAYSERVICEAREA__DE Raststätte
 #define $__HIGHWAYSERVICEAREA__EN Motorway Services
-#define $__HIGHWAYSERVICEAREA__PL MOP (Miejsce obsługi podróżnych)
-#define $__HIGHWAYSERVICEAREA__FR Raststätte
+#define $__HIGHWAYSERVICEAREA__NL Parkeerplaats met benzinepomp
+#define $__HIGHWAYSERVICEAREA__PL MOP (Miejsce Obsługi Podróżnych)
 #define $__HIGHWAYSERVICEAREA__RU Автосервис
 #define $__HIGHWAYSERVICEAREA__PT Área de serviço
 
@@ -2237,8 +2303,8 @@
 #define $__COMMON__ Öffentl. Grünfläche
 #define $__COMMON__DE Öffentl. Grünfläche
 #define $__COMMON__EN Public Green Space
+#define $__COMMON__NL Openbaar groen
 #define $__COMMON__PL Ogólniedostępna przestrzeń zielona
-#define $__COMMON__FR Öffentl. Grünfläche
 #define $__COMMON__RU Зелёные насаждения
 #define $__COMMON__PT Área verde
 
@@ -2246,8 +2312,8 @@
 #define $__DANCE__ Tanzen
 #define $__DANCE__DE Tanzen
 #define $__DANCE__EN Dance Studio
-#define $__DANCE__PL Studio tańca
-#define $__DANCE__FR Tanzen
+#define $__DANCE__NL Dansschool
+#define $__DANCE__PL Estrada do tańca
 #define $__DANCE__RU Студия танцев
 #define $__DANCE__PT Danceteria
 
@@ -2255,8 +2321,8 @@
 #define $__DOGPARK__ Hundepark
 #define $__DOGPARK__DE Hundepark
 #define $__DOGPARK__EN Dog park
+#define $__DOGPARK__NL Hondenlosloopgebied
 #define $__DOGPARK__PL Park dla psów
-#define $__DOGPARK__FR Hundepark
 #define $__DOGPARK__RU Территория для выгула собак
 #define $__DOGPARK__PT Área para cães
 
@@ -2265,8 +2331,8 @@
 #define $__GARDEN__ Garten
 #define $__GARDEN__DE Garten
 #define $__GARDEN__EN Garden
+#define $__GARDEN__NL Tuin
 #define $__GARDEN__PL Ogród
-#define $__GARDEN__FR Garten
 #define $__GARDEN__RU Ботанический сад
 #define $__GARDEN__PT Jardim
 
@@ -2274,8 +2340,8 @@
 #define $__GOLFCOURSE__ Golfanlage
 #define $__GOLFCOURSE__DE Golfanlage
 #define $__GOLFCOURSE__EN Golf Course
+#define $__GOLFCOURSE__NL Golfterrein
 #define $__GOLFCOURSE__PL Pole do golfa
-#define $__GOLFCOURSE__FR Golfanlage
 #define $__GOLFCOURSE__RU Поле для гольфа
 #define $__GOLFCOURSE__PT Campo de golfe
 
@@ -2283,8 +2349,8 @@
 #define $__ICERINK__ Eislaufen
 #define $__ICERINK__DE Eislaufen
 #define $__ICERINK__EN Ice Rink
+#define $__ICERINK__NL Schaatsbaan
 #define $__ICERINK__PL Miejsce do jazdy na łyżwach
-#define $__ICERINK__FR Eislaufen
 #define $__ICERINK__RU Каток/Ледовый дворец
 #define $__ICERINK__PT Patinação no gelo
 
@@ -2292,8 +2358,8 @@
 #define $__MARINA__ Yachthafen
 #define $__MARINA__DE Yachthafen
 #define $__MARINA__EN Marina
+#define $__MARINA__NL Jachthaven
 #define $__MARINA__PL Przystań dla jachtów
-#define $__MARINA__FR Yachthafen
 #define $__MARINA__RU Причал
 #define $__MARINA__PT Marina
 
@@ -2301,8 +2367,8 @@
 #define $__MINIATUREGOLF__ Minigolf
 #define $__MINIATUREGOLF__DE Minigolf
 #define $__MINIATUREGOLF__EN Miniature Golf
+#define $__MINIATUREGOLF__NL Midgetgolf
 #define $__MINIATUREGOLF__PL Plac do gry w minigolfa
-#define $__MINIATUREGOLF__FR Minigolf
 #define $__MINIATUREGOLF__RU Мини-гольф
 #define $__MINIATUREGOLF__PT Minigolfe
 
@@ -2312,8 +2378,8 @@
 #define $__NATURERESERVE__ Naturschutzgebiet
 #define $__NATURERESERVE__DE Naturschutzgebiet
 #define $__NATURERESERVE__EN Nature Reserve
+#define $__NATURERESERVE__NL Natuurgebied
 #define $__NATURERESERVE__PL Rezerwat naturalny
-#define $__NATURERESERVE__FR Naturschutzgebiet
 #define $__NATURERESERVE__RU Заповедник
 #define $__NATURERESERVE__PT Reserva natural
 
@@ -2321,8 +2387,8 @@
 #define $__PARK__ Park
 #define $__PARK__DE Park
 #define $__PARK__EN Park
+#define $__PARK__NL Park
 #define $__PARK__PL Park
-#define $__PARK__FR Park
 #define $__PARK__RU Парк
 #define $__PARK__PT Parque
 
@@ -2330,8 +2396,8 @@
 #define $__PITCH__ Spielfeld
 #define $__PITCH__DE Spielfeld
 #define $__PITCH__EN Field/Pitch
+#define $__PITCH__NL Sportveld
 #define $__PITCH__PL Boisko sportowe
-#define $__PITCH__FR Spielfeld
 #define $__PITCH__RU Спортивная площадка
 #define $__PITCH__PT Campo
 
@@ -2339,8 +2405,8 @@
 #define $__PLAYGROUND__ Spielplatz
 #define $__PLAYGROUND__DE Spielplatz
 #define $__PLAYGROUND__EN Playground
+#define $__PLAYGROUND__NL Speelplaats
 #define $__PLAYGROUND__PL Plac zabaw
-#define $__PLAYGROUND__FR Spielplatz
 #define $__PLAYGROUND__RU Детская площадка
 #define $__PLAYGROUND__PT Playground
 
@@ -2348,8 +2414,8 @@
 #define $__RECREATIONGROUND__ Erholungsgebiet
 #define $__RECREATIONGROUND__DE Erholungsgebiet
 #define $__RECREATIONGROUND__EN Recreation Ground
+#define $__RECREATIONGROUND__NL Recreatiegebied
 #define $__RECREATIONGROUND__PL Wiejski plac zabaw 
-#define $__RECREATIONGROUND__FR Erholungsgebiet
 #define $__RECREATIONGROUND__RU Рекреационная зона
 #define $__RECREATIONGROUND__PT Campo de recreação
 
@@ -2357,8 +2423,8 @@
 #define $__SPORTSCENTRE__ Sportzentrum
 #define $__SPORTSCENTRE__DE Sportzentrum
 #define $__SPORTSCENTRE__EN Sports Centre
+#define $__SPORTSCENTRE__NL Sportcentrum
 #define $__SPORTSCENTRE__PL Centrum sportowe
-#define $__SPORTSCENTRE__FR Sportzentrum
 #define $__SPORTSCENTRE__RU Спортивный центр
 #define $__SPORTSCENTRE__PT Centro de esportes
 
@@ -2366,8 +2432,8 @@
 #define $__STADIUM__ Stadion
 #define $__STADIUM__DE Stadion
 #define $__STADIUM__EN Stadium
+#define $__STADIUM__NL Stadion
 #define $__STADIUM__PL Stadion
-#define $__STADIUM__FR Stadion
 #define $__STADIUM__RU Стадион
 #define $__STADIUM__PT Estádio
 
@@ -2375,8 +2441,8 @@
 #define $__TRACK__ Rennbahn
 #define $__TRACK__DE Rennbahn
 #define $__TRACK__EN Track
+#define $__TRACK__NL Renbaan
 #define $__TRACK__PL Tor wyścigowy
-#define $__TRACK__FR Rennbahn
 #define $__TRACK__RU Беговая дорожка
 #define $__TRACK__PT Autódromo
 
@@ -2384,8 +2450,8 @@
 #define $__SWIMMINGPOOL__ Schwimmbecken
 #define $__SWIMMINGPOOL__DE Schwimmbecken
 #define $__SWIMMINGPOOL__EN Swimming Pool
+#define $__SWIMMINGPOOL__NL Zwembad
 #define $__SWIMMINGPOOL__PL Basen
-#define $__SWIMMINGPOOL__FR Schwimmbecken
 #define $__SWIMMINGPOOL__RU Плавательный бассейн
 #define $__SWIMMINGPOOL__PT Piscinas
 
@@ -2393,8 +2459,8 @@
 #define $__WATERPARK__ Wasserpark
 #define $__WATERPARK__DE Wasserpark
 #define $__WATERPARK__EN Water Park
+#define $__WATERPARK__NL Zwemwater
 #define $__WATERPARK__PL Park wodny
-#define $__WATERPARK__FR Wasserpark
 #define $__WATERPARK__RU Аквапарк
 #define $__WATERPARK__PT Parque aquático
 
@@ -2407,8 +2473,8 @@
 #define $__ARCHAELOGICALSITE__ Bodendenkmal
 #define $__ARCHAELOGICALSITE__DE Bodendenkmal
 #define $__ARCHAELOGICALSITE__EN Archeological Site
+#define $__ARCHAELOGICALSITE__NL Archeologische monument
 #define $__ARCHAELOGICALSITE__PL Wykopaliska archeologiczne
-#define $__ARCHAELOGICALSITE__FR Bodendenkmal
 #define $__ARCHAELOGICALSITE__RU Археологический памятник
 #define $__ARCHAELOGICALSITE__PT Sítio arqueológico
 
@@ -2416,16 +2482,16 @@
 #define $__BATTLEFIELD__ Schlachtfeld
 #define $__BATTLEFIELD__DE Schlachtfeld
 #define $__BATTLEFIELD__EN Battlefield
+#define $__BATTLEFIELD__NL Slagveld
 #define $__BATTLEFIELD__PL Pole bitwy
-#define $__BATTLEFIELD__FR Schlachtfeld
 #define $__BATTLEFIELD__RU Поле сражения
 #define $__BATTLEFIELD__PT Campo de batalha
 
 #define $__BOUNDARYSTONE__ Hist. Grenzstein
 #define $__BOUNDARYSTONE__DE Hist. Grenzstein
 #define $__BOUNDARYSTONE__EN hist. Boundary Stone
+#define $__BOUNDARYSTONE__NL Hist. grenssteen
 #define $__BOUNDARYSTONE__PL Historyczny kamień graniczny
-#define $__BOUNDARYSTONE__FR Hist. Grenzstein
 #define $__BOUNDARYSTONE__RU Ист. пограничный камень
 #define $__BOUNDARYSTONE__PT Pedra histórica (fronteira)
 
@@ -2433,8 +2499,8 @@
 #define $__CASTLE__ Burg, Schloss
 #define $__CASTLE__DE Burg, Schloss
 #define $__CASTLE__EN Castle
+#define $__CASTLE__NL Kasteel, slot
 #define $__CASTLE__PL Zamek
-#define $__CASTLE__FR Burg, Schloss
 #define $__CASTLE__RU Замок/крепость
 #define $__CASTLE__PT Castelo
 
@@ -2442,8 +2508,8 @@
 #define $__FORT__ Mil. Fort
 #define $__FORT__DE Mil. Fort
 #define $__FORT__EN Fort
+#define $__FORT__NL Fort
 #define $__FORT__PL Fort
-#define $__FORT__FR Mil. Fort
 #define $__FORT__RU Форт
 #define $__FORT__PT Forte
 
@@ -2451,8 +2517,8 @@
 #define $__MEMORIAL__ Gedenkstätte
 #define $__MEMORIAL__DE Gedenkstätte
 #define $__MEMORIAL__EN Memorial
+#define $__MEMORIAL__NL Gedenkplaats
 #define $__MEMORIAL__PL Tablica pamięci
-#define $__MEMORIAL__FR Gedenkstätte
 #define $__MEMORIAL__RU Мемориал
 #define $__MEMORIAL__PT Memorial
 
@@ -2460,8 +2526,8 @@
 #define $__MONUMENT__ Denkmal
 #define $__MONUMENT__DE Denkmal
 #define $__MONUMENT__EN Monument
+#define $__MONUMENT__NL Monument
 #define $__MONUMENT__PL Pomnik
-#define $__MONUMENT__FR Denkmal
 #define $__MONUMENT__RU Монумент
 #define $__MONUMENT__PT Monumento
 
@@ -2469,15 +2535,16 @@
 #define $__RUINS__ Ruine
 #define $__RUINS__DE Ruine
 #define $__RUINS__EN Ruin
+#define $__RUINS__NL Ruïne
 #define $__RUINS__PL Ruiny
-#define $__RUINS__FR Ruine
 #define $__RUINS__RU Развалины
 #define $__RUINS__PT Ruina
 #define $__BUNKER__ Bunker
+
 #define $__BUNKER__DE Bunker
 #define $__BUNKER__EN Bunker
+#define $__BUNKER__NL Bunker
 #define $__BUNKER__PL Bunker
-#define $__BUNKER__FR Bunker
 #define $__BUNKER__RU Бункер/убежище
 #define $__BUNKER__PT Bunker
 
@@ -2485,8 +2552,8 @@
 #define $__RUNESTONE__ Runenstein
 #define $__RUNESTONE__DE Runenstein
 #define $__RUNESTONE__EN Rune Stone
-#define $__RUNESTONE__PL Kamień pokryty runami
-#define $__RUNESTONE__FR Runenstein
+#define $__RUNESTONE__NL Runensteen
+#define $__RUNESTONE__PL Kamień runiczny
 #define $__RUNESTONE__RU Рунический камень
 #define $__RUNESTONE__PT Runa de pedra
 
@@ -2494,8 +2561,8 @@
 #define $__WAYSIDECROSS__ Hist. Wegkreuz
 #define $__WAYSIDECROSS__DE Hist. Wegkreuz
 #define $__WAYSIDECROSS__EN hist. Wayside Cross
+#define $__WAYSIDECROSS__NL Hist. wegenkruis
 #define $__WAYSIDECROSS__PL Krzyż polny
-#define $__WAYSIDECROSS__FR Hist. Wegkreuz
 #define $__WAYSIDECROSS__RU hist. Придорожный крест
 #define $__WAYSIDECROSS__PT Cruzamento histórico
 
@@ -2503,8 +2570,8 @@
 #define $__WAYSIDESHRINE__ Hist. Schrein
 #define $__WAYSIDESHRINE__DE Hist. Schrein
 #define $__WAYSIDESHRINE__EN hist. Shrine
+#define $__WAYSIDESHRINE__NL hist. heiligdom
 #define $__WAYSIDESHRINE__PL Świątynia
-#define $__WAYSIDESHRINE__FR Hist. Schrein
 #define $__WAYSIDESHRINE__RU Ист. место поклонения
 #define $__WAYSIDESHRINE__PT Santuário histórico
 
@@ -2512,8 +2579,8 @@
 #define $__WRECK__ Wrack
 #define $__WRECK__DE Wrack
 #define $__WRECK__EN Wreck
+#define $__WRECK__NL Scheepswrak
 #define $__WRECK__PL Wrak
-#define $__WRECK__FR Wrack
 #define $__WRECK__RU Затонувшее судно
 #define $__WRECK__PT Destroços
 
@@ -2526,8 +2593,8 @@
 #define $__ALLOTMENTS__ Kleingärten
 #define $__ALLOTMENTS__DE Kleingärten
 #define $__ALLOTMENTS__EN Allotments
+#define $__ALLOTMENTS__NL Volkstuin
 #define $__ALLOTMENTS__PL Ogródek działkowy
-#define $__ALLOTMENTS__FR Kleingärten
 #define $__ALLOTMENTS__RU Участок
 #define $__ALLOTMENTS__PT Loteamentos
 
@@ -2535,8 +2602,8 @@
 #define $__BASIN__ Bassin
 #define $__BASIN__DE Bassin
 #define $__BASIN__EN Water Basin
+#define $__BASIN__NL Waterbekken
 #define $__BASIN__PL Miejsce zalewowe
-#define $__BASIN__FR Bassin
 #define $__BASIN__RU Ёмкость для сбора воды
 #define $__BASIN__PT Bacia hidrográfica
 
@@ -2544,8 +2611,8 @@
 #define $__BROWNFIELD__ Brachland
 #define $__BROWNFIELD__DE Brachland
 #define $__BROWNFIELD__EN Brownfield Site
+#define $__BROWNFIELD__NL Voormalig industriegebied
 #define $__BROWNFIELD__PL Teren pod ponowną zabudowę
-#define $__BROWNFIELD__FR Brachland
 #define $__BROWNFIELD__RU Пустошь
 #define $__BROWNFIELD__PT Sertão
 
@@ -2553,8 +2620,8 @@
 #define $__CEMETERY__ Friedhof
 #define $__CEMETERY__DE Friedhof
 #define $__CEMETERY__EN Cemetery
+#define $__CEMETERY__NL Begraafplaats
 #define $__CEMETERY__PL Cmentarz
-#define $__CEMETERY__FR Friedhof
 #define $__CEMETERY__RU Кладбище
 #define $__CEMETERY__PT Cemitério
 
@@ -2562,8 +2629,8 @@
 #define $__COMMERCIAL__ Business Park
 #define $__COMMERCIAL__DE Business Park
 #define $__COMMERCIAL__EN Business Park 
+#define $__COMMERCIAL__NL Bedrijvenpark
 #define $__COMMERCIAL__PL Park biznesu 
-#define $__COMMERCIAL__FR Business Park
 #define $__COMMERCIAL__RU Бизнес-парк
 #define $__COMMERCIAL__PT Parque comercial
 
@@ -2571,8 +2638,8 @@
 #define $__CONSERVATION__ Geschütztes Gebiet
 #define $__CONSERVATION__DE Geschütztes Gebiet
 #define $__CONSERVATION__EN Conservation Area
+#define $__CONSERVATION__NL Natuurgebied
 #define $__CONSERVATION__PL Obszar chroniony przyrody
-#define $__CONSERVATION__FR Geschütztes Gebiet
 #define $__CONSERVATION__RU Особо охраняемая природная территория
 #define $__CONSERVATION__PT Área de conservação
 
@@ -2580,8 +2647,8 @@
 #define $__CONSTRUCTION__ Baugebiet
 #define $__CONSTRUCTION__DE Baustelle
 #define $__CONSTRUCTION__EN Construction Site
+#define $__CONSTRUCTION__NL Bouwplaats
 #define $__CONSTRUCTION__PL Budowa
-#define $__CONSTRUCTION__FR Baugebiet
 #define $__CONSTRUCTION__RU Стройка
 #define $__CONSTRUCTION__PT Construção
 
@@ -2590,8 +2657,8 @@
 #define $__FARMYARD__ Gehöft
 #define $__FARMYARD__DE Bauernhof
 #define $__FARMYARD__EN Farmyard
+#define $__FARMYARD__NL Boerderij
 #define $__FARMYARD__PL Gospodarstwo wejskie
-#define $__FARMYARD__FR Gehöft
 #define $__FARMYARD__RU Фермерские угодья
 #define $__FARMYARD__PT Pátio de fazenda
 
@@ -2599,8 +2666,8 @@
 #define $__FOREST__ Forst
 #define $__FOREST__DE Wald
 #define $__FOREST__EN Forest
+#define $__FOREST__NL Bos
 #define $__FOREST__PL Las
-#define $__FOREST__FR Forst
 #define $__FOREST__RU Лес
 #define $__FOREST__PT Silvicultura
 
@@ -2608,8 +2675,8 @@
 #define $__GRASSAREA__ Rasenfläche
 #define $__GRASSAREA__DE Rasenfläche
 #define $__GRASSAREA__EN Park/Village Green 
+#define $__GRASSAREA__NL Park
 #define $__GRASSAREA__PL Zieleń miejska
-#define $__GRASSAREA__FR Rasenfläche
 #define $__GRASSAREA__RU Газон
 #define $__GRASSAREA__PT Gramado
 
@@ -2617,8 +2684,8 @@
 #define $__GREENFIELD__ Bauerwartungsland
 #define $__GREENFIELD__DE Bauerwartungsland
 #define $__GREENFIELD__EN Greenfield Site
+#define $__GREENFIELD__NL Bouwgrond
 #define $__GREENFIELD__PL Teren niezagospodarowany
-#define $__GREENFIELD__FR Bauerwartungsland
 #define $__GREENFIELD__RU Целина
 #define $__GREENFIELD__PT Área para plantação
 
@@ -2627,8 +2694,8 @@
 #define $__HARBOUR__ Hafengebiet
 #define $__HARBOUR__DE Hafengebiet
 #define $__HARBOUR__EN Harbour
+#define $__HARBOUR__NL Havengebied
 #define $__HARBOUR__PL Zatoka
-#define $__HARBOUR__FR Hafengebiet
 #define $__HARBOUR__RU Территория порта
 #define $__HARBOUR__PT Porto
 
@@ -2636,8 +2703,8 @@
 #define $__INDUSTRIALAREA__ Industriegebiet
 #define $__INDUSTRIALAREA__DE Industriegebiet
 #define $__INDUSTRIALAREA__EN Industrial Estate
+#define $__INDUSTRIALAREA__NL Industrieterrein
 #define $__INDUSTRIALAREA__PL Park przemysłowy
-#define $__INDUSTRIALAREA__FR Industriegebiet
 #define $__INDUSTRIALAREA__RU Промзона
 #define $__INDUSTRIALAREA__PT Área industrial
 
@@ -2645,8 +2712,8 @@
 #define $__LANDFILL__ Deponie
 #define $__LANDFILL__DE Deponie
 #define $__LANDFILL__EN Landfill Site
+#define $__LANDFILL__NL Vuilstort
 #define $__LANDFILL__PL Składowisko odpadów
-#define $__LANDFILL__FR Deponie
 #define $__LANDFILL__RU Свалка
 #define $__LANDFILL__PT Aterro
 
@@ -2654,8 +2721,8 @@
 #define $__MEADOW__ Wiese
 #define $__MEADOW__DE Wiese
 #define $__MEADOW__EN Meadow
+#define $__MEADOW__NL Weide
 #define $__MEADOW__PL Łąka
-#define $__MEADOW__FR Wiese
 #define $__MEADOW__RU Луг/газон
 #define $__MEADOW__PT Prado
 
@@ -2663,8 +2730,8 @@
 #define $__MILITARY__ Mil. Gebiet
 #define $__MILITARY__DE Mil. Gebiet
 #define $__MILITARY__EN Military Area
+#define $__MILITARY__NL Millitair terrein
 #define $__MILITARY__PL Obszar należący do wosjka
-#define $__MILITARY__FR Mil. Gebiet
 #define $__MILITARY__RU Территория воинской части
 #define $__MILITARY__PT Quartel
 
@@ -2672,8 +2739,8 @@
 #define $__ORCHARD__ Obst-, Gemüsepflanzung
 #define $__ORCHARD__DE Obst-, Gemüsepflanzung
 #define $__ORCHARD__EN Orchard
+#define $__ORCHARD__NL Boomgaard
 #define $__ORCHARD__PL Ogród
-#define $__ORCHARD__FR Obst-, Gemüsepflanzung
 #define $__ORCHARD__RU Фруктовые насаждения
 #define $__ORCHARD__PT Pomar
 
@@ -2681,8 +2748,8 @@
 #define $__QUARRY__ Rohstoffabbau
 #define $__QUARRY__DE Rohstoffabbau
 #define $__QUARRY__EN Quarry
+#define $__QUARRY__NL Mijn, groeve
 #define $__QUARRY__PL Kamieniołom
-#define $__QUARRY__FR Rohstoffabbau
 #define $__QUARRY__RU Карьер
 #define $__QUARRY__PT Pedreira
 
@@ -2690,16 +2757,16 @@
 #define $__RESERVOIR__ Speicherbecken
 #define $__RESERVOIR__DE Speicherbecken
 #define $__RESERVOIR__EN Reservoir
+#define $__RESERVOIR__NL Stuwdam
 #define $__RESERVOIR__PL Zbiornik
-#define $__RESERVOIR__FR Speicherbecken
 #define $__RESERVOIR__RU Водохранилище
 #define $__RESERVOIR__PT Reservatório
 
 #define $__RESIDENTIAL__ Wohngebiet
 #define $__RESIDENTIAL__DE Wohngebiet
 #define $__RESIDENTIAL__EN Residential Area
+#define $__RESIDENTIAL__NL Woonwijk
 #define $__RESIDENTIAL__PL Dzielnica mieszkaniowa
-#define $__RESIDENTIAL__FR Wohngebiet
 #define $__RESIDENTIAL__RU Жилая зона
 #define $__RESIDENTIAL__PT Área residencial
 
@@ -2707,8 +2774,8 @@
 #define $__RETAIL__ Einkaufszentrum
 #define $__RETAIL__DE Einkaufszentrum
 #define $__RETAIL__EN Shopping Centre
+#define $__RETAIL__NL Winkelcentrum
 #define $__RETAIL__PL Centrum handlowe
-#define $__RETAIL__FR Einkaufszentrum
 #define $__RETAIL__RU Торговый центр
 #define $__RETAIL__PT Shopping Center
 
@@ -2716,8 +2783,8 @@
 #define $__SALTPOND__ Saline
 #define $__SALTPOND__DE Saline
 #define $__SALTPOND__EN Salt Evaporation Pond
+#define $__SALTPOND__NL Verziltingsmeertje
 #define $__SALTPOND__PL Solanka
-#define $__SALTPOND__FR Saline
 #define $__SALTPOND__RU Солёное озеро
 #define $__SALTPOND__PT Salina
 
@@ -2725,8 +2792,8 @@
 #define $__VILLAGEGREEN__ Dorfanger
 #define $__VILLAGEGREEN__DE Dorfanger
 #define $__VILLAGEGREEN__EN Village Green
+#define $__VILLAGEGREEN__NL Dorpsweide
 #define $__VILLAGEGREEN__PL Zieleń wiejska
-#define $__VILLAGEGREEN__FR Dorfanger
 #define $__VILLAGEGREEN__RU Парк
 #define $__VILLAGEGREEN__PT Área verde
 
@@ -2734,8 +2801,8 @@
 #define $__VINEYARD__ Weinberg
 #define $__VINEYARD__DE Weinberg
 #define $__VINEYARD__EN Vineyard
+#define $__VINEYARD__NL Wijngaard
 #define $__VINEYARD__PL Winnica
-#define $__VINEYARD__FR Weinberg
 #define $__VINEYARD__RU Виноградник
 #define $__VINEYARD__PT Vinhedo
 
@@ -2748,8 +2815,8 @@
 #define $__AIRFIELD__ Mil. Flugplatz
 #define $__AIRFIELD__DE Mil. Flugplatz
 #define $__AIRFIELD__EN mil. Airbase/Airfield
+#define $__AIRFIELD__NL Militair vliegveld
 #define $__AIRFIELD__PL Lotnisko wojskowe
-#define $__AIRFIELD__FR Mil. Flugplatz
 #define $__AIRFIELD__RU Военый аэродром
 #define $__AIRFIELD__PT mil. Base aérea
 
@@ -2757,8 +2824,8 @@
 #define $__BARRACKS__ Mil. Kaserne
 #define $__BARRACKS__DE Mil. Kaserne
 #define $__BARRACKS__EN mil. Barracks
+#define $__BARRACKS__NL Kazerne
 #define $__BARRACKS__PL Koszary
-#define $__BARRACKS__FR Mil. Kaserne
 #define $__BARRACKS__RU Казармы
 #define $__BARRACKS__PT mil. Quartel
 
@@ -2766,8 +2833,8 @@
 #define $__MILITARYBUNKER__ Mil. Bunker
 #define $__MILITARYBUNKER__DE Mil. Bunker
 #define $__MILITARYBUNKER__EN mil. Bunker
+#define $__MILITARYBUNKER__NL Bunker
 #define $__MILITARYBUNKER__PL Bunkier
-#define $__MILITARYBUNKER__FR Mil. Bunker
 #define $__MILITARYBUNKER__RU Бункер
 #define $__MILITARYBUNKER__PT mil. Trincheira
 
@@ -2775,8 +2842,8 @@
 #define $__MILITARYDANGERAREA__ Mil. Gefahrenzone
 #define $__MILITARYDANGERAREA__DE Mil. Gefahrenzone
 #define $__MILITARYDANGERAREA__EN Military Danger/Restricted Area
+#define $__MILITARYDANGERAREA__NL Millitair terein, verboden toegang
 #define $__MILITARYDANGERAREA__PL Strefa millitarna
-#define $__MILITARYDANGERAREA__FR Mil. Gefahrenzone
 #define $__MILITARYDANGERAREA__RU Опасная зона (воен.)
 #define $__MILITARYDANGERAREA__PT Área militar restrita
 
@@ -2784,8 +2851,8 @@
 #define $__MILITARYRANGE__ Mil. Übungsplatz
 #define $__MILITARYRANGE__DE Mil. Übungsplatz
 #define $__MILITARYRANGE__EN mil. Weapons Training Area/Range
+#define $__MILITARYRANGE__NL Millitair oefenterrein
 #define $__MILITARYRANGE__PL Poligon
-#define $__MILITARYRANGE__FR Mil. Übungsplatz
 #define $__MILITARYRANGE__RU Стрелковый полигон (воен.)
 #define $__MILITARYRANGE__PT mil. Área de treinamento militar
 
@@ -2793,8 +2860,8 @@
 #define $__NAVALBASE__ Mil. Marinestützpunkt
 #define $__NAVALBASE__DE Mil. Marinestützpunkt
 #define $__NAVALBASE__EN Naval Base
+#define $__NAVALBASE__NL Marinebasis
 #define $__NAVALBASE__PL Baza morska
-#define $__NAVALBASE__FR Mil. Marinestützpunkt
 #define $__NAVALBASE__RU Военно-морская база
 #define $__NAVALBASE__PT Base naval
 
@@ -2808,8 +2875,8 @@
 #define $__PALEONTOLOGICALSITE__ Fossillienlagerstätte
 #define $__PALEONTOLOGICALSITE__DE Fossillienlagerstätte
 #define $__PALEONTOLOGICALSITE__EN Palaeontological site
+#define $__PALEONTOLOGICALSITE__NL Palaeontologische groeve
 #define $__PALEONTOLOGICALSITE__PL Miejsce ze skamielinami
-#define $__PALEONTOLOGICALSITE__FR Fossillienlagerstätte
 #define $__PALEONTOLOGICALSITE__RU Палеонтологические находки
 #define $__PALEONTOLOGICALSITE__PT Sítio paleontológico
 
@@ -2819,8 +2886,8 @@
 #define $__OUTCROP__ Geol. Aufschluss
 #define $__OUTCROP__DE Geol. Aufschluss
 #define $__OUTCROP__EN geol. Outcrop
+#define $__OUTCROP__NL geologisch monument
 #define $__OUTCROP__PL Odkrywka geologiczna
-#define $__OUTCROP__FR Geol. Aufschluss
 #define $__OUTCROP__RU Выход породы
 #define $__OUTCROP__PT Afloramento geológico
 
@@ -2833,8 +2900,8 @@
 #define $__SPORT9PIN__ Kegelbahn
 #define $__SPORT9PIN__DE Kegelbahn
 #define $__SPORT9PIN__EN 9 Pin Bowling Alley
+#define $__SPORT9PIN__NL Kegelbaan
 #define $__SPORT9PIN__PL Kręgielnia (9)
-#define $__SPORT9PIN__FR Kegelbahn
 #define $__SPORT9PIN__RU Кегельбан (9 кеглей)
 #define $__SPORT9PIN__PT Boliche
 
@@ -2842,8 +2909,8 @@
 #define $__SPORT10PIN__ Bowlingbahn
 #define $__SPORT10PIN__DE Bowlingbahn
 #define $__SPORT10PIN__EN 10 Pin Bowling Alley
+#define $__SPORT10PIN__NL Bowlingbaan
 #define $__SPORT10PIN__PL Kręglielnia (10)
-#define $__SPORT10PIN__FR Bowlingbahn
 #define $__SPORT10PIN__RU Кегельбан (10 кеглей)
 #define $__SPORT10PIN__PT Boliche
 
@@ -2851,8 +2918,8 @@
 #define $__CYCLING__ Radrennbahn, sporthalle
 #define $__CYCLING__DE Radrennbahn, Radsporthalle
 #define $__CYCLING__EN Velodrome
+#define $__CYCLING__NL Wielerbaan
 #define $__CYCLING__PL Welodrom
-#define $__CYCLING__FR Radrennbahn, -sporthalle
 #define $__CYCLING__RU Велодром
 #define $__CYCLING__PT Velódromo
 
@@ -2860,8 +2927,8 @@
 #define $__DOGRACING__ Hunderennbahn
 #define $__DOGRACING__DE Hunderennbahn
 #define $__DOGRACING__EN Dog Track
+#define $__DOGRACING__NL Hondenrenbaan
 #define $__DOGRACING__PL Tor wyścigowy dla psów
-#define $__DOGRACING__FR Hunderennbahn
 #define $__DOGRACING__RU Трек для гончих собак
 #define $__DOGRACING__PT Corrida de cachorros
 
@@ -2869,8 +2936,8 @@
 #define $__EQUESTRIAN__ Reithalle, Reitplatz
 #define $__EQUESTRIAN__DE Reithalle, -platz
 #define $__EQUESTRIAN__EN Equestrian Centre
+#define $__EQUESTRIAN__NL Manege
 #define $__EQUESTRIAN__PL Hala do jazdy konnej
-#define $__EQUESTRIAN__FR Reithalle, -platz
 #define $__EQUESTRIAN__RU Манеж
 #define $__EQUESTRIAN__PT Parque Hípico
 
@@ -2878,8 +2945,8 @@
 #define $__SPORTGOLF__ Golfplatz
 #define $__SPORTGOLF__DE Golfplatz
 #define $__SPORTGOLF__EN Golf Course
+#define $__SPORTGOLF__NL Golfterrein
 #define $__SPORTGOLF__PL Plac golfowy
-#define $__SPORTGOLF__FR Golfplatz
 #define $__SPORTGOLF__RU Поле для гольфа
 #define $__SPORTGOLF__PT Campo de golfe
 
@@ -2887,8 +2954,8 @@
 #define $__HORSERACING__ Pferderennbahn
 #define $__HORSERACING__DE Pferderennbahn
 #define $__HORSERACING__EN Racecourse
-#define $__HORSERACING__PL Tor konnych wyścigów 
-#define $__HORSERACING__FR Pferderennbahn
+#define $__HORSERACING__NL Paardenrenbaan
+#define $__HORSERACING__PL Tor wyścigów konnych 
 #define $__HORSERACING__RU Ипподром
 #define $__HORSERACING__PT Hípica
 
@@ -2896,8 +2963,8 @@
 #define $__SPORTMULTI__ Mehrzweckhalle
 #define $__SPORTMULTI__DE Mehrzweckhalle
 #define $__SPORTMULTI__EN Multi-Purpose hall
+#define $__SPORTMULTI__NL Evenementenhal
 #define $__SPORTMULTI__PL Hala wielofunkcyjna
-#define $__SPORTMULTI__FR Mehrzweckhalle
 #define $__SPORTMULTI__RU Спортивный комплекс
 #define $__SPORTMULTI__PT Ginásio de esportes
 
@@ -2905,8 +2972,9 @@
 #define $__SPORTSKATING__ Eishalle
 #define $__SPORTSKATING__DE Eishalle
 #define $__SPORTSKATING__EN Ice Rink
+#define $__SPORTSKATING__NL IJsbaan
+## Two upper case letters starting IJsbaan
 #define $__SPORTSKATING__PL Hala łyżwiarska
-#define $__SPORTSKATING__FR Eishalle
 #define $__SPORTSKATING__RU Каток/Ледовый дворец
 #define $__SPORTSKATING__PT Pista de patinação
 
@@ -2914,8 +2982,8 @@
 #define $__SKIING__ Skipiste, Skihalle
 #define $__SKIING__DE Skipiste, -halle
 #define $__SKIING__EN Ski Area/Ski Dome
-#define $__SKIING__PL Tor narciarski
-#define $__SKIING__FR Skipiste, -halle
+#define $__SKIING__NL Skipiste
+#define $__SKIING__PL Stok narciarski
 #define $__SKIING__RU Лыжная трасса / Лыжный стадион
 #define $__SKIING__PT Pista de esquí
 
@@ -2923,8 +2991,8 @@
 #define $__SPORTSWIMMING__ Schwimmbad
 #define $__SPORTSWIMMING__DE Schwimmbad
 #define $__SPORTSWIMMING__EN Swimming Pool
+#define $__SPORTSWIMMING__NL Zwembad
 #define $__SPORTSWIMMING__PL Basen
-#define $__SPORTSWIMMING__FR Schwimmbad
 #define $__SPORTSWIMMING__RU Плавательный бассейн
 #define $__SPORTSWIMMING__PT Piscina
 
@@ -2937,8 +3005,8 @@
 #define $__WEIR__ Wehr
 #define $__WEIR__DE Wehr
 #define $__WEIR__EN Weir
+#define $__WEIR__NL Dam
 #define $__WEIR__PL Jaz
-#define $__WEIR__FR Wehr
 #define $__WEIR__RU Плотина
 #define $__WEIR__PT Barragem
 
@@ -2951,8 +3019,8 @@
 #define $__AERIALWAYSTATION__ Seilbahnstation
 #define $__AERIALWAYSTATION__DE Seilbahnstation
 #define $__AERIALWAYSTATION__EN Cablecar Station
+#define $__AERIALWAYSTATION__NL Kabelbaanstation
 #define $__AERIALWAYSTATION__PL Stacja kolejki linowej
-#define $__AERIALWAYSTATION__FR Seilbahnstation
 #define $__AERIALWAYSTATION__RU Станция канатной дороги
 #define $__AERIALWAYSTATION__PT Teleférico
 
@@ -2960,8 +3028,8 @@
 #define $__PYLON__ Pylon
 #define $__PYLON__DE Pylon
 #define $__PYLON__EN Cablecar Pylon
+#define $__PYLON__NL Kabelbaanpilaar
 #define $__PYLON__PL Wspornik koleji liniowych
-#define $__PYLON__FR Pylon
 #define $__PYLON__RU Опора канатной дороги
 #define $__PYLON__PT Torre de teleférico
 
@@ -2974,8 +3042,8 @@
 #define $__ADMINISTRATIVE__ Lokale Verwaltung
 #define $__ADMINISTRATIVE__DE Lokale Verwaltung
 #define $__ADMINISTRATIVE__EN Local Authorities
-#define $__ADMINISTRATIVE__PL Władze loklane
-#define $__ADMINISTRATIVE__FR Lokale Verwaltung
+#define $__ADMINISTRATIVE__NL Gemeentehuis
+#define $__ADMINISTRATIVE__PL Władze lokalne
 #define $__ADMINISTRATIVE__RU Местная администрация
 #define $__ADMINISTRATIVE__PT Autoridades
 
@@ -2983,8 +3051,8 @@
 #define $__EMPLOYMENTAGENCY__ Arbeitsvermittlung
 #define $__EMPLOYMENTAGENCY__DE Arbeitsvermittlung
 #define $__EMPLOYMENTAGENCY__EN employment agency
+#define $__EMPLOYMENTAGENCY__NL Arbeidsbureau
 #define $__EMPLOYMENTAGENCY__PL Pośredniak
-#define $__EMPLOYMENTAGENCY__FR Arbeitsvermittlung
 #define $__EMPLOYMENTAGENCY__RU Кадровое агентство
 #define $__EMPLOYMENTAGENCY__PT Agência de emprego
 
@@ -2992,8 +3060,8 @@
 #define $__GOVERNMENT__ Amt, Behörde
 #define $__GOVERNMENT__DE Amt, Behörde
 #define $__GOVERNMENT__EN Government Authority
-#define $__GOVERNMENT__PL Władza rządowa
-#define $__GOVERNMENT__FR Amt, Behörde
+#define $__GOVERNMENT__NL Overheidsgebouw
+#define $__GOVERNMENT__PL Agencja rządowa
 #define $__GOVERNMENT__RU Гос. учреждение / ведомство
 #define $__GOVERNMENT__PT Autoridades governamentais
 
@@ -3001,8 +3069,8 @@
 #define $__NGO__ Nichtstaatl. Organisation
 #define $__NGO__DE Nichtstaatl. Organisation
 #define $__NGO__EN NGO (Non-Governmental Organisation)
+#define $__NGO__NL NGO (Non-Governmental Organisation)
 #define $__NGO__PL Organizacja pozarządowa
-#define $__NGO__FR Nichtstaatl. Organisation
 #define $__NGO__RU Неправительственная организация
 #define $__NGO__PT ONG (Organização não-governamental)
 
@@ -3010,8 +3078,8 @@
 #define $__QUANGO__ Halbstaatl. Organisation
 #define $__QUANGO__DE Halbstaatl. Organisation
 #define $__QUANGO__EN Quango
+#define $__QUANGO__NL Zelfstandigbestuursorgaan
 #define $__QUANGO__PL Organizacja quasi-pozarządowa
-#define $__QUANGO__FR Halbstaatl. Organisation
 #define $__QUANGO__RU Военизированная организация
 #define $__QUANGO__PT Quango
 
@@ -3024,8 +3092,8 @@
 #define $__GRAVE__ Ruhestaette
 #define $__GRAVE__DE Ruhestaette
 #define $__GRAVE__EN Grave
+#define $__GRAVE__NL Graf
 #define $__GRAVE__PL Grób
-#define $__GRAVE__FR Ruhestaette
 #define $__GRAVE__RU Могила
 #define $__GRAVE__PT Túmulo
 
