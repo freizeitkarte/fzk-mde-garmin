@@ -1,4 +1,4 @@
-ï»¿#!/usr/bin/perl
+#!/usr/bin/perl
 # ---------------------------------------
 # Program : mt.pl (map tool)
 # Version : siehe unten
@@ -76,8 +76,8 @@ my @supportedlanguages = (
 my @typfilelangfixed = (
   "xx",    # Unspecified
   "de",    # Deutsch / German
-  "en",    # Englisch / English
-  "nl"     # FranzÃ¶sisch / French
+  "en",    # English
+  "nl"     # Dutch
 );
 
 # Relation from languages to codepages
@@ -113,7 +113,7 @@ my @seaboundariesurl = (
 my @maps = (
   # ID, 'Karte', 'URL der Quelle', 'Code', 'language', 'oldName', 'Type', 'Parent'
 
-  # BundeslÃ¤nder
+  # Bundesländer
   [ -1,   'Bundeslaender',                        'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 5810, 'Freizeitkarte_BADEN-WUERTTEMBERG',     'http://download.geofabrik.de/europe/germany/baden-wuerttemberg-latest.osm.pbf',                     'BADEN-WUERTTEMBERG',       'de', 'Freizeitkarte_Baden-Wuerttemberg',        3, 'NA'             ],
   [ 5811, 'Freizeitkarte_BAYERN',                 'http://download.geofabrik.de/europe/germany/bayern-latest.osm.pbf',                                 'BAYERN',                   'de', 'Freizeitkarte_Bayern',                    3, 'NA'             ],
@@ -157,12 +157,12 @@ my @maps = (
   [ 5855, 'Freizeitkarte_SCHWABEN',               'http://download.geofabrik.de/europe/germany/bayern/schwaben-latest.osm.pbf',                        'SCHWABEN',                 'de', 'Freizeitkarte_Schwaben',                  3, 'NA'             ],
   [ 5856, 'Freizeitkarte_UNTERFRANKEN',           'http://download.geofabrik.de/europe/germany/bayern/unterfranken-latest.osm.pbf',                    'UNTERFRANKEN',             'de', 'Freizeitkarte_Unterfranken',              3, 'NA'             ],
 
-  # Regionen in Frankreich (unvollstÃ¤ndig)
+  # Regionen in Frankreich (unvollständig)
   [ -1,   'Regionen Frankreich',                  'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 5860, 'Freizeitkarte_LORRAINE',               'http://download.geofabrik.de/europe/france/lorraine-latest.osm.pbf',                                'LORRAINE',                 'de', 'Freizeitkarte_Lothringen',                3, 'NA'             ],
   [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/europe/france/alsace-latest.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass',                    3, 'NA'             ],
 
-  # LÃ¤nder, LÃ¤ndercodes: 6000 + ISO-3166 (numerisch)
+  # Länder, Ländercodes: 6000 + ISO-3166 (numerisch)
   [ -1,   'Europaeische Laender',                 'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6008, 'Freizeitkarte_ALB',                    'http://download.geofabrik.de/europe/albania-latest.osm.pbf',                                        'ALB',                      'en', 'Freizeitkarte_Albanien',                  3, 'NA'             ],
   [ 6020, 'Freizeitkarte_AND',                    'http://download.geofabrik.de/europe/andorra-latest.osm.pbf',                                        'AND',                      'en', 'Freizeitkarte_Andorra',                   3, 'NA'             ],
@@ -225,7 +225,7 @@ my @maps = (
 #  [ 7050, 'Freizeitkarte_EUROP-RUSSIA',           'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'EUROP-RUSSIA',             'en', 'Freizeitkarte_Euro-Russland',             3, 'NA'             ],
 #  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
 
-  # PLUS LÃ¤nder, LÃ¤ndercodes: 7000 + ISO-3166 (numerisch)
+  # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
   [ -1,   'Freizeitkarte PLUS Laender',            'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                        														   'AUT+',                     'de', 'no_old_name',               			    2, 'EUROPE'         ],
 #  [ 7056, 'Freizeitkarte_BEL+',                   'NA',                                                                                                'BEL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
@@ -927,7 +927,7 @@ sub fetch_osmdata {
       die ( "ERROR:\n  download of osm data from $osmurl failed.\n\n" );
   }  
 
-  # auf gÃ¼ltige osm.pbf-Datei prÃ¼fen
+  # auf gültige osm.pbf-Datei prüfen
   if ( !check_osmpbf ( $filename ) ) {
     printf { *STDERR } ( "\nError: File <$filename> is not a valid osm.pbf file.\n" );
     die ( "Please check this file concerning error hints (eg. communications errors).\n" );
@@ -982,7 +982,7 @@ sub fetch_eledata {
       die ( "ERROR:\n  download of elevation data from $eleurl failed.\n\n" );
   }
   
-  # auf gÃ¼ltige osm.pbf-Datei prÃ¼fen
+  # auf gültige osm.pbf-Datei prüfen
   if ( !check_osmpbf ( $filename ) ) {
     printf { *STDERR } ( "\nError: File <$filename> is not a valid osm.pbf file.\n" );
     die ( "Please check this file concerning error hints (eg. communications errors).\n" );
@@ -1544,7 +1544,7 @@ sub create_cfgfile {
     }
   }
 
-  # -- no more options after that line / hier keine Optionen anfÃ¼gen --
+  # -- no more options after that line / hier keine Optionen anfügen --
 
   # Try to close the file again
   close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
@@ -2083,7 +2083,7 @@ sub build_map {
 
 
 # -----------------------------------------
-# Garmin-Map-File fÃ¼r BaseCamp erzeugen.
+# Garmin-Map-File für BaseCamp erzeugen.
 # Tool : gmapi-builder.py
 # OS   : OS X
 # -----------------------------------------
@@ -2160,8 +2160,8 @@ sub create_nsis_nsifile {
   printf { $fh } ( ";\n" );
   printf { $fh } ( "; Bemerkungen:\n" );
   printf { $fh } ( "; - Kopieren der Kartendateien\n" );
-  printf { $fh } ( "; - Eintragen der Windows-Registry-Keys fÃ¼r die Kartennutzung\n" );
-  printf { $fh } ( "; - Eintragen der Windows-Registry-Keys fÃ¼r die Deinstallation\n" );
+  printf { $fh } ( "; - Eintragen der Windows-Registry-Keys für die Kartennutzung\n" );
+  printf { $fh } ( "; - Eintragen der Windows-Registry-Keys für die Deinstallation\n" );
   printf { $fh } ( "; - Kopieren des Deinstallationsprogramms\n" );
   printf { $fh } ( "; ------------------------------------------------------------\n" );
   printf { $fh } ( "\n" );
@@ -2186,10 +2186,10 @@ sub create_nsis_nsifile {
   printf { $fh } ( "; Product-ID der Karte\n" );
   printf { $fh } ( "!define PRODUCT_ID \"1\"\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "; Name des Windows-RegistrierungsschlÃ¼ssels\n" );
+  printf { $fh } ( "; Name des Windows-Registrierungsschlüssels\n" );
   printf { $fh } ( "!define REG_KEY \"%s\"\n",     $mapname );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "; Name des alten Windows-RegistrierungsschlÃ¼ssels (vor Umbenennung der Karten)\n" );
+  printf { $fh } ( "; Name des alten Windows-Registrierungsschlüssels (vor Umbenennung der Karten)\n" );
   printf { $fh } ( "!define REG_KEY_OLD \"%s\"\n", $mapnameold );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name des kartenspezifischen TYP-Files\n" );
@@ -2767,9 +2767,9 @@ sub create_gmapsuppfile {
 
   # mkgmap-Parameter
   # --description: Anzeige des Kartennamens in BaseCamp
-  # --description: alleinige Anzeige des Kartennamens in einigen GPS-GerÃ¤ten (z.B. 62er)
-  # --description: zusÃ¤tzliche Anzeige des Kartennamens in einigen GPS-GerÃ¤ten (z.B. Dakota)
-  # --family-name: primÃ¤re Anzeige des Kartennamens in einigen GPS-GerÃ¤ten (z.B. Dakota)
+  # --description: alleinige Anzeige des Kartennamens in einigen GPS-Geräten (z.B. 62er)
+  # --description: zusätzliche Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
+  # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
         "--index --gmapsupp --product-id=1 --family-id=$mapid --family-name=\"$mapname $mapversion\" "
@@ -3890,7 +3890,7 @@ sub show_help {
 
   for my $mapdata ( @maps ) {
     if ( $optional ) {
-      # alle LÃ¤nder und Regionen
+      # alle Länder und Regionen
       if ( @$mapdata[ $MAPID ] == -1 ) {
         printf { *STDOUT } ( "\n%s:\n", @$mapdata[ $MAPNAME ] );    # Kommentar
       }
@@ -3900,12 +3900,12 @@ sub show_help {
     }
     else {
       # nur ausgewaehlte Karten
-      if (   ( ( @$mapdata[ $MAPID ] <= 5825 ) && ( @$mapdata[ $MAPID ] >= 5810 ) )  # BundeslÃ¤nder
+      if (   ( ( @$mapdata[ $MAPID ] <= 5825 ) && ( @$mapdata[ $MAPID ] >= 5810 ) )  # Bundesländer
         || ( @$mapdata[ $MAPID ] == 6276 )                                        # Deutschland
-        || ( @$mapdata[ $MAPID ] == 6208 )                                        # DÃ¤nemark
+        || ( @$mapdata[ $MAPID ] == 6208 )                                        # Dänemark
         || ( @$mapdata[ $MAPID ] == 6616 )                                        # Polen
         || ( @$mapdata[ $MAPID ] == 6203 )                                        # Tschechien
-        || ( @$mapdata[ $MAPID ] == 6040 )                                        # Ã–sterreich
+        || ( @$mapdata[ $MAPID ] == 6040 )                                        # Österreich
         || ( @$mapdata[ $MAPID ] == 6756 )                                        # Schweiz
         || ( @$mapdata[ $MAPID ] == 7010 )                                        # Alpen
         || ( @$mapdata[ $MAPID ] == 6250 )                                        # Frankreich
