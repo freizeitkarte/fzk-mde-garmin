@@ -3117,18 +3117,19 @@ sub extract_osm {
          else {
            die ( "\nError: Operating System $OSNAME not supported.\n" );
          }	
+
+        # Run the acual extraction via osmosis
+        process_command ( $command );
+
+        # Check Return Value
+        if ( $? != 0 ) {
+           die ( "ERROR:\n  Cutting out the data for $mapname failed.\n\n" );
+        }
+
      }
 
-     # Run the acual extraction via osmosis
-     process_command ( $command );
 
-     # Check Return Value
-     if ( $? != 0 ) {
-        die ( "ERROR:\n  Cutting out the data for $mapname failed.\n\n" );
-     }
-
-
-  	 # No let's try to copy the result
+  	 # File already exists or has just been created: let's try to copy the file
      printf { *STDERR } ( "\nCopying the existing OSM data file $source_filename ...\n" );
      copy ( "$source_filename", "$destination_filename" ) or die ( "copy($source_filename , $destination_filename) failed: $!\n" );
      printf { *STDERR } ( "\n") ;
