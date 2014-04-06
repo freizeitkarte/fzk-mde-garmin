@@ -914,3 +914,13 @@ natural = land [0x3a resolution 17]
 
 # Gehege (im Zoo). [point, closedway]
 zoo = enclosure {name "${name} ($__COMPOUND__)" | "$__COMPOUND__"} [0x41 resolution 20]
+
+
+# ------------------------------------------------
+# Needed Include Lines for making 
+# old mkgmap styles (pre r2906)
+# fully compatible with mkgmap r2906 and higher
+# ------------------------------------------------
+# add the following lines to your lines file
+ <finalize>
+ include 'compat_polygons'; 
