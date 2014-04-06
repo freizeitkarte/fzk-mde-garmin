@@ -1813,3 +1813,13 @@ contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${e
 
   piste:type = snow_park                                  [0x012014 resolution 22]
 #endif
+
+
+
+# Needed Include Lines for making 
+# old mkgmap styles (pre r2906)
+# fully compatible with mkgmap r2906 and higher
+# ------------------------------------------------
+# add the following lines to your lines file
+ <finalize>
+ include 'compat_lines'; 
