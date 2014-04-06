@@ -2010,7 +2010,9 @@ sub preprocess_styles {
 
 
   # copying the files from the style directory into the work directory
-  for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
+  # adapted for making it possible for include files that don't get processed by PPP
+  #for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
+  for my $stylefile ( glob "$BASEPATH/style/*" ) {
     copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
   }
 
