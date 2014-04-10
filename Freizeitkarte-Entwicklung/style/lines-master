@@ -37,6 +37,7 @@
 # Version : 0.21 -14.03.2014: Adapting things regarding barrier = * : adding more than only fence
 #                             Bugfix for leisure = marina
 
+
 #
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
@@ -277,14 +278,6 @@
 #include "indexsearch"
 
 
-# -------------------------------------------------
-# Fuer alle Objekte folgende Tags (und damit das Feature) entfernen:
-# - toll
-# -------------------------------------------------
-
-highway = * & toll = yes  { delete toll }
-
-
 # ------------------------------------------------------------------
 # Klettersteige die als Pfade getaggt sind umdefinieren:
 # ------------------------------------------------------------------
@@ -412,6 +405,30 @@ leisure = nature_reserve [0x01011c resolution 20-23 continue]
 leisure = marina [0x01201e resolution 23 continue]
 
 
+
+# -----------------------------------------------------------------
+# NEUE MAXSPEED BERECHNUNG
+# Setzen der road-class wenn maxspeed gegeben ist
+# Bevor die Auffahrten umdefiniert sind, um ihnen eine niedrigere class geben zu können
+# -----------------------------------------------------------------
+maxspeed = * & ( maxspeedkmh() > 120 | maxspeed = none ) & ( highway = motorway | highway = trunk ) 																										{ set mkgmap:road-speed-class = 7 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 100 & ( highway = motorway | highway = trunk ) 																		{ set mkgmap:road-speed-class = 6 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 80 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link ) 	{ set mkgmap:road-speed-class = 5 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 60 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary ) 																																																{ set mkgmap:road-speed-class = 4 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 40 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary | highway = primary_link ) 																																									   { set mkgmap:road-speed-class = 3 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 30 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary | highway = primary_link | highway = secondary_link | highway = tertiary_link | highway = residential  | highway = unclassified | highway = service ) 										   { set mkgmap:road-speed-class = 2 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 10 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary | highway = primary_link | highway = secondary_link | highway = tertiary_link | highway = residential  | highway = unclassified | highway = service ) 										   { set mkgmap:road-speed-class = 1 }
+
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 80 																													{ set mkgmap:road-speed-class = 4 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 60 																													{ set mkgmap:road-speed-class = 3 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 40 																													{ set mkgmap:road-speed-class = 2 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 30 																													{ set mkgmap:road-speed-class = 1 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() < 11 																													{ set mkgmap:road-speed-class = 0 }
+
+
+
+
+
 # ------------------------------------------------------------------
 # Auffahrten umdefinieren:
 # ------------------------------------------------------------------
@@ -438,6 +455,10 @@ highway = secondary_link {set highway = secondary}
 # Auffahrt zu einer Kreisstrasse:
 # -------------------------------
 highway = tertiary_link {set highway = tertiary}
+
+
+
+
 
 
 # ====================================================================================================
@@ -598,42 +619,15 @@ fuss != * & highway = * {set fuss = no}
 highway = * & motorcycle = * { delete motorcycle }
 
 
-# Definition der logischen Routing-Strassentypen (in Abhaengigkeit von den Zugangsbeschraenkungen).
-# -------------------------------------------------------------------------------------------------
+# mkgmap:car, mkgmap:foot, mkgmap:bicycle setzen
+auto = yes 		{set mkgmap:car = yes; set keinrouting = no}
+fahrrad = yes 	{set mkgmap:bicycle = yes; set keinrouting = no}
+fuss = yes 		{set mkgmap:foot = yes; set keinrouting = no}
 
-# highway erlaubt Typen:
-# 1: Auto, Rad, Fuss
-# 2: Auto
-# 3: Auto, Fuss
-# 4: Auto, Rad
-# 5: Rad
-# 6: Rad, Fuss
-# 7: Fuss
-# 8: Nichts
-
-# highwaytypes setzen
-auto = yes & fahrrad = yes & fuss = yes {set highwaytype = 1; set motorcar = yes; set bicycle = yes; set foot = yes}
-auto = yes & fahrrad = no  & fuss = no  {set highwaytype = 2; set motorcar = yes; set bicycle = no;  set foot = no}
-auto = yes & fahrrad = no  & fuss = yes {set highwaytype = 3; set motorcar = yes; set bicycle = no;  set foot = yes}
-auto = yes & fahrrad = yes & fuss = no  {set highwaytype = 4; set motorcar = yes; set bicycle = yes; set foot = no}
-auto = no  & fahrrad = yes & fuss = no  {set highwaytype = 5; set motorcar = no;  set bicycle = yes; set foot = no}
-auto = no  & fahrrad = yes & fuss = yes {set highwaytype = 6; set motorcar = no;  set bicycle = yes; set foot = yes}
-auto = no  & fahrrad = no  & fuss = yes {set highwaytype = 7; set motorcar = no;  set bicycle = no;  set foot = yes}
 
 # Fuer die Indexsuche muessen Wege routbar sein, damit sie gefunden werden
-# auto = no  & fahrrad = no  & fuss = no & name = * {set highwaytype = 8; set access = no; set motorcar = no; set bicycle = no; set foot = no}
-auto = no  & fahrrad = no  & fuss = no {set highwaytype = 8; set access = no; set motorcar = no; set bicycle = no; set foot = no}
-
-# Weitere Reduktion des Routing, da zur Zeit "carpool" und "toll" zur (wirksamen) Steuerung zur Verfuegung stehen:
-
-# Hier duerfen Autos fahren:
-highwaytype = 1 | highwaytype = 2 | highwaytype = 3 | highwaytype = 4 {set routinghighwaytype = 1; set motorcar = yes; set bicycle = yes; set foot = yes}
-
-# Hier duerfen keine Autos fahren (verhindert durch "toll = yes"):
-highwaytype = 5 | highwaytype = 6 {set routinghighwaytype = 2; set toll = yes; set motorcar = yes; set bicycle = yes; set foot = yes}
-
-# Hier duerfen zusaetzlich auch keine Radfahrer fahren (verhindert durch "mkgmap:carpool = 1");
-highwaytype = 7 {set toll = yes; set mkgmap:carpool = 1}
+# auto = no  & fahrrad = no  & fuss = no & name = * {set  keinrouting = yes;  set access = no; set motorcar = no; set bicycle = no; set foot = no}
+auto = no  & fahrrad = no  & fuss = no {set keinrouting = yes; set access = no; set motorcar = no; set bicycle = no; set foot = no}
 
 
 # ===========================================================================================================
@@ -657,104 +651,101 @@ junction = roundabout & highway = residential  {set fzkrouting=yes} [0x0c road_c
 
 # --------------------------------------------
 # Access=no Wege, fuer Indexsuche, (Nur Wege mit Namen machen Sinn)
-# Basecamp ignoriert foot = no, access = no fuer Fussgaenger
-# Damit in Basecamp nicht als Fussgaenger drueber geroutet wird, wird die Strasse als road_class=4 (Autobahn) festgelegt,
-# durch toll / carpool wird sie jedoch fuer autos nicht routbar.
 # --------------------------------------------
 # 0x12 = Bitmap 2 (transparent, nur fuer Routing, NoLabel)
-highwaytype = 8 & fzkrouting != yes & name = * { set fzkrouting=yes; set toll = yes; set mkgmap:carpool = 1 } [0x12 road_class=4 road_speed=7 resolution 24 continue with_actions]
+keinrouting = yes & fzkrouting != yes & name = * { set fzkrouting=yes } [0x12 road_class=0 road_speed=0 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # Treppen/Stufen
 # --------------------------------------------
 # 0x13 = Bitmap 2 (transparent, nur fuer Routing, NoLabel)
-highwaytype = 7 & fzkrouting != yes & highway = steps { set fzkrouting=yes; } [0x13 road_class=0 road_speed=0 resolution 24 continue with_actions]
+keinrouting = no & fzkrouting != yes & highway = steps { set fzkrouting=yes; } [0x13 road_class=0 road_speed=0 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # Reiner Fussweg
 # --------------------------------------------
 # 0x16 = Bitmap 2 (transparent, nur fuer Routing, NoLabel)
-highwaytype = 7 & fzkrouting != yes { set fzkrouting=yes; } [0x16 road_class=0 road_speed=0 resolution 24 continue with_actions]
+keinrouting = no & fzkrouting != yes & fuss = yes & fahrrad = no & auto = no { set fzkrouting=yes; } [0x16 road_class=0 road_speed=0 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # Radweg und Fussradweg
 # --------------------------------------------
 # 0x0b = Bitmap 2 (transparent, nur fuer Routing, NoLabel)
-routinghighwaytype = 2 & fzkrouting != yes & radschieben = yes { set fzkrouting=yes } [0x0b road_class=0 road_speed=0 resolution 24 continue with_actions]
-routinghighwaytype = 2 & fzkrouting != yes { set fzkrouting=yes } [0x0b road_class=0 road_speed=1 resolution 24 continue with_actions]
+keinrouting = no & fzkrouting != yes & radschieben = yes { set fzkrouting=yes } [0x0b road_class=0 road_speed=0 resolution 24 continue with_actions]
+keinrouting = no & fzkrouting != yes { set fzkrouting=yes } [0x0b road_class=0 road_speed=1 resolution 24 continue with_actions]
 
 
 #==========================================================
-# motorway / trunk / primary / secondary / tertiary, nur fuer routinghighwaytype 1 relevant
+# motorway / trunk / primary / secondary / tertiary
 #==========================================================
 
 # --------------------------------------------
 # motorway
 # --------------------------------------------
 # 0x01 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = motorway & routinghighwaytype = 1 & fzkrouting != yes {set name = '${ref}' | ''; set fzkrouting=yes} [0x01 road_class=4 road_speed=7 resolution 24 continue with_actions]
+highway = motorway & fzkrouting != yes {set name = '${ref}' | ''; set fzkrouting=yes} [0x01 road_class=4 road_speed=7 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # trunk
 # --------------------------------------------
 # 0x02 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = trunk & routinghighwaytype = 1 & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x02 road_class=4 road_speed=6 resolution 24 continue with_actions]
+highway = trunk & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x02 road_class=4 road_speed=6 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # primary
 # --------------------------------------------
 # 0x03 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = primary & routinghighwaytype = 1 & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x03 road_class=2 road_speed=5 resolution 24 continue with_actions]
+highway = primary & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x03 road_class=2 road_speed=5 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # secondary
 # --------------------------------------------
 # 0x04 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = secondary & routinghighwaytype = 1 & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x04 road_class=2 road_speed=4 resolution 24 continue with_actions]
+highway = secondary & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x04 road_class=2 road_speed=4 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # tertiary
 # --------------------------------------------
 # 0x05 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = tertiary & routinghighwaytype = 1 & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x05 road_class=2 road_speed=3 resolution 24 continue with_actions]
+highway = tertiary & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x05 road_class=2 road_speed=3 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # residential
 # --------------------------------------------
 # 0x06 = Bitmap 2 (transparent, nur fuer Routing)
-highway = residential & routinghighwaytype = 1 & fzkrouting != yes { set fzkrouting=yes }[0x06 road_class=0 road_speed=2 resolution 24 continue with_actions]
+highway = residential & fzkrouting != yes { set fzkrouting=yes }[0x06 road_class=0 road_speed=2 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # unclassified
 # --------------------------------------------
 # 0x07 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = unclassified & routinghighwaytype = 1 & fzkrouting != yes { set fzkrouting=yes }[0x07 road_class=0 road_speed=2 resolution 24 continue with_actions]
+highway = unclassified & fzkrouting != yes { set fzkrouting=yes }[0x07 road_class=0 road_speed=2 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # service
 # --------------------------------------------
 # 0x08 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = service & routinghighwaytype = 1 & fzkrouting != yes { set fzkrouting=yes }[0x08 road_class=0 road_speed=2 resolution 24 continue with_actions]
+highway = service & fzkrouting != yes { set fzkrouting=yes }[0x08 road_class=0 road_speed=2 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # living_street
 # --------------------------------------------
 # 0x09 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = living_street & routinghighwaytype = 1 & fzkrouting != yes { set fzkrouting=yes }[0x09 road_class=0 road_speed=1 resolution 24 continue with_actions]
+highway = living_street & fzkrouting != yes { set fzkrouting=yes }[0x09 road_class=0 road_speed=0 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # Andere mit dem Auto befahrbare Strasse
 # --------------------------------------------
 # 0x0a = Bitmap 2 (transparent, nur fuer Routing, Label)
-routinghighwaytype = 1 & fzkrouting != yes { set fzkrouting=yes } [0x0a road_class=1 road_speed=1 resolution 24 continue with_actions]
+fzkrouting != yes { set fzkrouting=yes } [0x0a road_class=1 road_speed=1 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # make opposite cycleways, zweite Routingstrasse wird gezeichnet
 # --------------------------------------------
 # Achtung, es liegen zwei routbare Wege uebereinander, auf eventuelle Probleme bei der Indexsuche muss geachtet werden.
 # 0x0e = Bitmap 2 (transparent, nur fuer Routing, NoLabel)
-highway = * & (oneway = yes | oneway = 1 | oneway = true) & (cycleway = opposite | cycleway = opposite_lane | cycleway = opposite_track | oneway:bicycle = no | bicycle:oneway = no) {set oneway = ''; set motorcar = yes; set access = yes; set bicycle = yes; set toll = yes} [0x0e road_speed=1 road_class=0 resolution 24 continue]
-highway = * & oneway = -1 & (cycleway = opposite | cycleway=opposite_lane | cycleway = opposite_track | oneway:bicycle = no | bicycle:oneway = no) {set oneway = ''; set motorcar = yes; set access = yes; set bicycle = yes; set toll = yes} [0x0e road_speed=1 road_class=0 resolution 24 continue]
+highway = * & (oneway = yes | oneway = 1 | oneway = true) & (cycleway = opposite | cycleway = opposite_lane | cycleway = opposite_track | oneway:bicycle = no | bicycle:oneway = no) {set oneway = ''; set motorcar = no; set bicycle = yes; set mkgmap:bicycle = yes} [0x0e road_speed=1 road_class=0 resolution 24 continue]
+highway = * & oneway = -1 & (cycleway = opposite | cycleway=opposite_lane | cycleway = opposite_track | oneway:bicycle = no | bicycle:oneway = no) {set oneway = ''; set motorcar = no; set bicycle = yes; set mkgmap:bicycle = yes} [0x0e road_speed=1 road_class=0 resolution 24 continue]
 
 
 # ==============================================
@@ -900,17 +891,17 @@ highway = residential & (area != * | area = no) & man_made = dyke  [0x011f03 res
 # 0x010f16 = 4/1 (breit, NoLabel)
 # 0x010f17 = 2/1 (mittel, NoLabel)
 # 0x010105 = 1/1 (schmal, NoLabel)
-highway = residential & (area != * | area = no) & highwaytype = 8 [0x010f16 resolution 24 continue]
-highway = residential & (area != * | area = no) & highwaytype = 8 [0x010f17 resolution 23-23 continue]
-highway = residential & (area != * | area = no) & highwaytype = 8 [0x010105 resolution 21-22]
+highway = residential & (area != * | area = no) & keinrouting = yes [0x010f16 resolution 24 continue]
+highway = residential & (area != * | area = no) & keinrouting = yes [0x010f17 resolution 23-23 continue]
+highway = residential & (area != * | area = no) & keinrouting = yes [0x010105 resolution 21-22]
 
 # Nicht allgemein oeffentlich (es duerfen keine Autos fahren)
 # 0x010f16 = 4/1 (breit, NoLabel)
 # 0x010f17 = 2/1 (mittel, NoLabel)
 # 0x010105 = 1/1 (schmal, NoLabel)
-highway = residential & (area != * | area = no) & routinghighwaytype != 1 [0x010f16 resolution 24 continue]
-highway = residential & (area != * | area = no) & routinghighwaytype != 1 [0x010f17 resolution 23-23 continue]
-highway = residential & (area != * | area = no) & routinghighwaytype != 1 [0x010105 resolution 21-22]
+highway = residential & (area != * | area = no) & auto = no [0x010f16 resolution 24 continue]
+highway = residential & (area != * | area = no) & auto = no [0x010f17 resolution 23-23 continue]
+highway = residential & (area != * | area = no) & auto = no [0x010105 resolution 21-22]
 
 # Allgemein oeffentlich
 # 0x011f17 = 4/1 (breit, NoLabel)
@@ -936,17 +927,17 @@ highway = unclassified & (area != * | area = no) & man_made = dyke  [0x011f03 re
 # 0x010f1a = 3/1 (breit, NoLabel)
 # 0x010f1b = 2/1 (mittel, NoLabel)
 # 0x010f19 = 1/1 (schmal, NoLabel)
-highway = unclassified & (area != * | area = no) & highwaytype = 8 [0x010f1a resolution 24 continue]
-highway = unclassified & (area != * | area = no) & highwaytype = 8 [0x010f1b resolution 23-23 continue]
-highway = unclassified & (area != * | area = no) & highwaytype = 8 [0x010f19 resolution 21-22]
+highway = unclassified & (area != * | area = no) & keinrouting = yes [0x010f1a resolution 24 continue]
+highway = unclassified & (area != * | area = no) & keinrouting = yes [0x010f1b resolution 23-23 continue]
+highway = unclassified & (area != * | area = no) & keinrouting = yes [0x010f19 resolution 21-22]
 
 # Nicht allgemein oeffentlich (es duerfen keine Autos fahren)
 # 0x010f1a = 3/1 (breit, NoLabel)
 # 0x010f1b = 2/1 (mittel, NoLabel)
 # 0x010f19 = 1/1 (schmal, NoLabel)
-highway = unclassified & (area != * | area = no) & routinghighwaytype != 1 [0x010f1a resolution 24 continue]
-highway = unclassified & (area != * | area = no) & routinghighwaytype != 1 [0x010f1b resolution 23-23 continue]
-highway = unclassified & (area != * | area = no) & routinghighwaytype != 1 [0x010f19 resolution 21-22]
+highway = unclassified & (area != * | area = no) & auto = no [0x010f1a resolution 24 continue]
+highway = unclassified & (area != * | area = no) & auto = no [0x010f1b resolution 23-23 continue]
+highway = unclassified & (area != * | area = no) & auto = no [0x010f19 resolution 21-22]
 
 # Allgemein oeffentlich
 # 0x011f18 = 3/1 (breit, NoLabel)
@@ -971,17 +962,17 @@ highway = service & (area != * | area = no) & man_made = dyke  [0x011f03 resolut
 # 0x010f1e = 3/1 (breit, NoLabel)
 # 0x010f1f = 2/1 (mittel, NoLabel)
 # 0x010f1d = 1/1 (schmal, NoLabel)
-highway = service & (area != * | area = no) & highwaytype = 8 [0x010f1e resolution 24 continue]
-highway = service & (area != * | area = no) & highwaytype = 8 [0x010f1f resolution 23-23 continue]
-highway = service & (area != * | area = no) & highwaytype = 8 [0x010f1d resolution 21-22]
+highway = service & (area != * | area = no) & keinrouting = yes [0x010f1e resolution 24 continue]
+highway = service & (area != * | area = no) & keinrouting = yes [0x010f1f resolution 23-23 continue]
+highway = service & (area != * | area = no) & keinrouting = yes [0x010f1d resolution 21-22]
 
 # Nicht allgemein oeffentlich (es duerfen keine Autos fahren)
 # 0x010f1e = 3/1 (breit, NoLabel)
 # 0x010f1f = 2/1 (mittel, NoLabel)
 # 0x010f1d = 1/1 (schmal, NoLabel)
-highway = service & (area != * | area = no) & routinghighwaytype != 1 [0x010f1e resolution 24 continue]
-highway = service & (area != * | area = no) & routinghighwaytype != 1 [0x010f1f resolution 23-23 continue]
-highway = service & (area != * | area = no) & routinghighwaytype != 1 [0x010f1d resolution 21-22]
+highway = service & (area != * | area = no) & auto = no [0x010f1e resolution 24 continue]
+highway = service & (area != * | area = no) & auto = no [0x010f1f resolution 23-23 continue]
+highway = service & (area != * | area = no) & auto = no [0x010f1d resolution 21-22]
 
 # Allgemein oeffentlich
 # 0x011f19 = 3/1 (breit, NoLabel)
@@ -1007,17 +998,17 @@ highway = living_street & (area != * | area = no) & man_made = dyke  [0x011f03 r
 # 0x010f05 = 4/1 (breit, NoLabel)
 # 0x010f06 = 2/1 (mittel, NoLabel)
 # 0x010108 = 1/1 (schmal, NoLabel)
-highway = living_street & (area != * | area = no) & highwaytype = 8 [0x010f05 resolution 24 continue]
-highway = living_street & (area != * | area = no) & highwaytype = 8 [0x010f06 resolution 23-23 continue]
-highway = living_street & (area != * | area = no) & highwaytype = 8 [0x010108 resolution 21-22]
+highway = living_street & (area != * | area = no) & keinrouting = yes [0x010f05 resolution 24 continue]
+highway = living_street & (area != * | area = no) & keinrouting = yes [0x010f06 resolution 23-23 continue]
+highway = living_street & (area != * | area = no) & keinrouting = yes [0x010108 resolution 21-22]
 
 # Nicht allgemein oeffentlich (es duerfen keine Autos fahren)
 # 0x010f05 = 4/1 (breit, NoLabel)
 # 0x010f06 = 2/1 (mittel, NoLabel)
 # 0x010108 = 1/1 (schmal, NoLabel)
-highway = living_street & (area != * | area = no) & routinghighwaytype != 1 [0x010f05 resolution 24 continue]
-highway = living_street & (area != * | area = no) & routinghighwaytype != 1 [0x010f06 resolution 23-23 continue]
-highway = living_street & (area != * | area = no) & routinghighwaytype != 1 [0x010108 resolution 21-22]
+highway = living_street & (area != * | area = no) & auto = no [0x010f05 resolution 24 continue]
+highway = living_street & (area != * | area = no) & auto = no [0x010f06 resolution 23-23 continue]
+highway = living_street & (area != * | area = no) & auto = no [0x010108 resolution 21-22]
 
 # Allgemein oeffentlich
 # 0x011f1a = 4/1 (breit, NoLabel)
@@ -1227,8 +1218,8 @@ highway = path & man_made = dyke  [0x011f05 resolution 24 continue]
 # Benutzung verboten, kein Routing
 # 0x010e11 = Bitmap 2 (breit, NoLabel)
 # 0x010e12 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = path & highwaytype = 8 [0x010e11 resolution 24 continue]
-highway = path & highwaytype = 8 [0x010e12 resolution 23-23]
+highway = path & keinrouting = yes [0x010e11 resolution 24 continue]
+highway = path & keinrouting = yes [0x010e12 resolution 23-23]
 
 # Allgemein oeffentlich
 # 0x010e0c = Bitmap 2 (breit, NoLabel)
@@ -1281,14 +1272,14 @@ highway = feldweg1 & man_made = dyke [0x011f04 resolution 24 continue]
 # Benutzung verboten, kein Routing
 # 0x010e13 = 3 (breit, NoLabel)
 # 0x010e14 = 2 (schmal, NoLabel)
-highway = feldweg1 & highwaytype = 8 [0x010e13 resolution 24 continue]
-highway = feldweg1 & highwaytype = 8 [0x010e14 resolution 23-23]
+highway = feldweg1 & keinrouting = yes [0x010e13 resolution 24 continue]
+highway = feldweg1 & keinrouting = yes [0x010e14 resolution 23-23]
 
 # Nicht fuer Autos freigegeben
 # 0x010e09 = 3 (breit, NoLabel)
 # 0x010e07 = 2 (schmal, NoLabel)
-highway = feldweg1 & routinghighwaytype != 1 [0x010e09 resolution 24 continue]
-highway = feldweg1 & routinghighwaytype != 1 [0x010e07 resolution 23-23]
+highway = feldweg1 & auto = no [0x010e09 resolution 24 continue]
+highway = feldweg1 & auto = no [0x010e07 resolution 23-23]
 
 # Allgemein oeffentlich
 # 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
@@ -1309,14 +1300,14 @@ highway = feldweg023 & man_made = dyke  [0x011f05 resolution 24 continue]
 # Benutzung verboten, kein Routing
 # 0x010e15 = Bitmap 2 (breit, NoLabel)
 # 0x010e16 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = feldweg023 & highwaytype = 8 [0x010e15 resolution 24 continue]
-highway = feldweg023 & highwaytype = 8 [0x010e16 resolution 23-23]
+highway = feldweg023 & keinrouting = yes [0x010e15 resolution 24 continue]
+highway = feldweg023 & keinrouting = yes [0x010e16 resolution 23-23]
 
 # Nicht fuer Autos freigegeben
 # 0x010e18 = Bitmap 2 (breit, NoLabel)
 # 0x010e08 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = feldweg023 & routinghighwaytype != 1 [0x010e18 resolution 24 continue]
-highway = feldweg023 & routinghighwaytype != 1 [0x010e08 resolution 23-23]
+highway = feldweg023 & auto = no [0x010e18 resolution 24 continue]
+highway = feldweg023 & auto = no [0x010e08 resolution 23-23]
 
 # Allgemein oeffentlich
 # 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
@@ -1337,15 +1328,15 @@ highway = feldweg45 & man_made = dyke  [0x011f05 resolution 24 continue]
 # Benutzung verboten, kein Routing
 # 0x010e17 = Bitmap 2 (breit, NoLabel)
 # 0x010e1e = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = feldweg45 & highwaytype = 8 [0x010e17 resolution 24 continue]
-highway = feldweg45 & highwaytype = 8 [0x010e1e resolution 23-23]
+highway = feldweg45 & keinrouting = yes [0x010e17 resolution 24 continue]
+highway = feldweg45 & keinrouting = yes [0x010e1e resolution 23-23]
 
 
 # Nicht fuer Autos freigegeben
 # 0x010109 = Bitmap 2 (breit, NoLabel)
 # 0x01011d = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = feldweg45 & routinghighwaytype != 1 [0x010109 resolution 24 continue]
-highway = feldweg45 & routinghighwaytype != 1 [0x01011d resolution 23-23]
+highway = feldweg45 & auto = no [0x010109 resolution 24 continue]
+highway = feldweg45 & auto = no [0x01011d resolution 23-23]
 
 
 # Allgemein oeffentlich
@@ -1368,11 +1359,11 @@ highway = road & man_made = dyke  [0x011f04 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
 # 0x010e02 = 2/1 (NoLabel)
-highway = road & highwaytype = 8 [0x010e02 resolution 24]
+highway = road & keinrouting = yes [0x010e02 resolution 24]
 
 # Nicht fuer Autos freigegeben
 # 0x010e02 = 2/1 (NoLabel)
-highway = road &  routinghighwaytype != 1 [0x010e02 resolution 24]
+highway = road &  auto = no [0x010e02 resolution 24]
 
 # Allgemein oeffentlich
 # 0x010e01 = 2/1 (NoLabel)
@@ -1478,7 +1469,7 @@ route = ferry [0x011f10 resolution 20 continue with_actions]
 
 # Kanal - wasserfuehrendes offenes Bauwerk, das verschiedene Zwecke erfuellen kann, z.B. Transport oder Wasserkraft.
 # 0x26     = 6 (breit, Label, SmallFont)
-# 0x01201a = 6 (breit, gestrichelt, NoLabel) Tunnel 
+# 0x01201a = 6 (breit, gestrichelt, NoLabel) Tunnel
 # 0x010102 = 4 (mittel, NoLabel)
 # 0x012018 = 4 (mittel, gestrichelt, NoLabel) Tunnel
 # 0x010103 = 2 (schmal, NoLabel)
@@ -1816,10 +1807,10 @@ contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${e
 
 
 
-# Needed Include Lines for making 
+# Needed Include Lines for making
 # old mkgmap styles (pre r2906)
 # fully compatible with mkgmap r2906 and higher
 # ------------------------------------------------
 # add the following lines to your lines file
  <finalize>
- include 'compat_lines'; 
+ include 'compat_lines';
