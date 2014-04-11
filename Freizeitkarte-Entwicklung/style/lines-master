@@ -1037,21 +1037,19 @@ highway = living_street & (area != * | area = no) [0x010f04 resolution 21-22]
 # - highway = cycleway, foot = designated, bicycle = designated, segregated = yes
 # - highway = path,     foot = designated, bicycle = designated, segregated = yes
 # - highway = path,     foot = official,   bicycle = official,   segregated = yes
-# highwaytype 6: Radfahrer + Fussgaenger erlaubt
 
-highway = footway  & highwaytype = 6                      {set highway = radfussweg}
-highway = path     & highwaytype = 6 & bfdesignated = yes {set highway = radfussweg}
-highway = cycleway & highwaytype = 6                      {set highway = radfussweg}
+highway = footway  & fahrrad = yes 	& fuss = yes          				{set highway = radfussweg}
+highway = path     & fahrrad = yes 	& fuss = yes & bfdesignated = yes 	{set highway = radfussweg}
+highway = cycleway & fahrrad = yes 	& fuss = yes               			{set highway = radfussweg}
 
 
 # Ausgeschilderter Fussweg (nur Fussgaenger erlaubt):
 # ---------------------------------------------------
 # - highway = path, foot = designated
 # - highway = footway, foot = designated
-# highwaytype 7: Nur Fussgaenger erlaubt.
 
-highway = path    & highwaytype = 7 & bfdesignated = yes {set highway = fussweg}
-highway = footway & highwaytype = 7                      {set highway = fussweg}
+highway = path    & fuss = yes & bfdesignated = yes {set highway = fussweg}
+highway = footway & fuss = yes                     	{set highway = fussweg}
 
 
 # Ausgeschilderter Radweg (nur Radfahrer erlaubt):
@@ -1059,10 +1057,10 @@ highway = footway & highwaytype = 7                      {set highway = fussweg}
 # - highway = cycleway, bicycle = designated
 # - highway = path, bicycle = designated
 # - highway = path, bicycle = official
-# highwaytype 5: Nur Fahrraeder erlaubt.
 
-highway = cycleway & highwaytype = 5                      {set highway = radweg}
-highway = path     & highwaytype = 5 & bfdesignated = yes {set highway = radweg}
+
+highway = cycleway & fahrrad = yes                      {set highway = radweg}
+highway = path     & fahrrad = yes & bfdesignated = yes {set highway = radweg}
 
 
 # "radweg" verarbeiten:
