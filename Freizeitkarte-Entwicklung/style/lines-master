@@ -671,8 +671,8 @@ keinrouting = no & fzkrouting != yes & fuss = yes & fahrrad = no & auto = no { s
 # Radweg und Fussradweg
 # --------------------------------------------
 # 0x0b = Bitmap 2 (transparent, nur fuer Routing, NoLabel)
-keinrouting = no & fzkrouting != yes & radschieben = yes { set fzkrouting=yes } [0x0b road_class=0 road_speed=0 resolution 24 continue with_actions]
-keinrouting = no & fzkrouting != yes { set fzkrouting=yes } [0x0b road_class=0 road_speed=1 resolution 24 continue with_actions]
+keinrouting = no & fzkrouting != yes & radschieben = yes & auto = no { set fzkrouting=yes } [0x0b road_class=0 road_speed=0 resolution 24 continue with_actions]
+keinrouting = no & fzkrouting != yes & auto = no { set fzkrouting=yes } [0x0b road_class=0 road_speed=1 resolution 24 continue with_actions]
 
 
 #==========================================================
@@ -737,7 +737,7 @@ highway = living_street & fzkrouting != yes { set fzkrouting=yes }[0x09 road_cla
 # Andere mit dem Auto befahrbare Strasse
 # --------------------------------------------
 # 0x0a = Bitmap 2 (transparent, nur fuer Routing, Label)
-fzkrouting != yes { set fzkrouting=yes } [0x0a road_class=1 road_speed=1 resolution 24 continue with_actions]
+auto = yes & fzkrouting != yes { set fzkrouting=yes } [0x0a road_class=1 road_speed=1 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # make opposite cycleways, zweite Routingstrasse wird gezeichnet
