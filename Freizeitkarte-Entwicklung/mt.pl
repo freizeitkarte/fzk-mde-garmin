@@ -66,6 +66,7 @@ my @supportedlanguages = (
   # Iso639-1
   [ 'de', 'Deutsch' ],
   [ 'en', 'English' ],
+  [ 'it', 'Italian' ],
   [ 'nl', 'Dutch' ],
   [ 'pt', 'Portuguese' ],
   [ 'pl', 'Polish' ],
@@ -85,6 +86,7 @@ my %langcodepage = (
    'xx' => '1252' ,
    'de' => '1252' ,
    'en' => '1252' ,
+   'it' => '1252' ,
    'nl' => '1252' ,
    'pt' => '1252' ,   
    'pl' => '1250' ,
@@ -188,7 +190,7 @@ my @maps = (
   [ 6833, 'Freizeitkarte_IMN',                    'http://download.geofabrik.de/europe/isle-of-man-latest.osm.pbf',                                    'IMN',                      'en', 'Freizeitkarte_Insel-Man',                 3, 'NA'             ],
   [ 6372, 'Freizeitkarte_IRL',                    'http://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf',                   'IRL',                      'en', 'Freizeitkarte_Irland',                    3, 'NA'             ],
   [ 6352, 'Freizeitkarte_ISL',                    'http://download.geofabrik.de/europe/iceland-latest.osm.pbf',                                        'ISL',                      'en', 'Freizeitkarte_Island',                    3, 'NA'             ],
-  [ 6380, 'Freizeitkarte_ITA',                    'http://download.geofabrik.de/europe/italy-latest.osm.pbf',                                          'ITA',                      'en', 'Freizeitkarte_Italien',                   3, 'NA'             ],
+  [ 6380, 'Freizeitkarte_ITA',                    'http://download.geofabrik.de/europe/italy-latest.osm.pbf',                                          'ITA',                      'it', 'Freizeitkarte_Italien',                   3, 'NA'             ],
   [ 6680, 'Freizeitkarte_KOSOVO',                 'http://download.geofabrik.de/europe/kosovo-latest.osm.pbf',                                         'KOSOSVO',                  'en', 'Freizeitkarte_Kosovo',                    3, 'NA'             ],
   [ 6428, 'Freizeitkarte_LVA',                    'http://download.geofabrik.de/europe/latvia-latest.osm.pbf',                                         'LVA',                      'en', 'Freizeitkarte_Lettland',                  3, 'NA'             ],
   [ 6438, 'Freizeitkarte_LIE',                    'http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf',                                  'LIE',                      'en', 'Freizeitkarte_Liechtenstein',             3, 'NA'             ],
@@ -236,7 +238,7 @@ my @maps = (
   [ 7250, 'Freizeitkarte_FRA+',                   'NA',                                                                                                'FRA+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7826, 'Freizeitkarte_GBR+',                   'NA',                                                                                                'GBR+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7372, 'Freizeitkarte_IRL+',                   'NA',                                                                                                'IRL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7380, 'Freizeitkarte_ITA+',                   'NA',                                                                                                'ITA+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7380, 'Freizeitkarte_ITA+',                   'NA',                                                                                                'ITA+',                     'it', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7528, 'Freizeitkarte_NLD+',                   'NA',                                                                                                'NLD+',                     'nl', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7620, 'Freizeitkarte_PRT+',                   'NA',                                                                                                'PRT+',                     'pt', 'no_old_name',                             2, 'EUROPE'         ],
 
