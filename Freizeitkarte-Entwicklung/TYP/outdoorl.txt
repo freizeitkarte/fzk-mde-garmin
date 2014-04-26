@@ -3076,22 +3076,22 @@ CustomColor=No
 [end]
 
 
-[_line]
-Type=0x1010e
-UseOrientation=Y
-LineWidth=4
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #FFFFFF"
-"2 c #B0B0B0"
-String1=0x00,Kreisstraße breit
-String2=0x01,Kreisstraße breit
-String3=0x02,Kreisstraße
-String4=0x04,Country Road
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1010e
+;UseOrientation=Y
+;LineWidth=4
+;BorderWidth=1
+;Xpm="0 0 2 0"
+;"1 c #FFFFFF"
+;"2 c #B0B0B0"
+;String1=0x00,Kreisstraße breit
+;String2=0x01,Kreisstraße breit
+;String3=0x02,Kreisstraße
+;String4=0x04,Country Road
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
 [_line]
@@ -3964,6 +3964,24 @@ String1=0x00,Weg / Pfad breit
 String2=0x01,Weg / Pfad breit
 String3=0x02,Weg / Pfad
 String4=0x04,path
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x10e0e
+UseOrientation=Y
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFFFFF"
+"2 c #B0B0B0"
+String1=0x00,Kreisstraße breit
+String2=0x01,Kreisstraße breit
+String3=0x02,Kreisstraße
+String4=0x04,Country Road
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No

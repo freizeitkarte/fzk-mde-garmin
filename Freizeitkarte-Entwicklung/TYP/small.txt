@@ -3003,22 +3003,22 @@ CustomColor=No
 [end]
 
 
-[_line]
-Type=0x1010e
-UseOrientation=Y
-LineWidth=3
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #FFFFFF"
-"2 c #606060"
-String1=0x00,Country Road
-String2=0x01,Country Road
-String3=0x02,Kreisstraße
-String4=0x04,Country Road
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1010e
+;UseOrientation=Y
+;LineWidth=3
+;BorderWidth=1
+;Xpm="0 0 2 0"
+;"1 c #FFFFFF"
+;"2 c #606060"
+;String1=0x00,Country Road
+;String2=0x01,Country Road
+;String3=0x02,Kreisstraße
+;String4=0x04,Country Road
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
 [_line]
@@ -3835,6 +3835,24 @@ String1=0x00,path
 String2=0x01,path
 String3=0x02,Weg / Pfad
 String4=0x04,path
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x10e0e
+UseOrientation=Y
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFFFFF"
+"2 c #606060"
+String1=0x00,Country Road
+String2=0x01,Country Road
+String3=0x02,Kreisstraße
+String4=0x04,Country Road
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No

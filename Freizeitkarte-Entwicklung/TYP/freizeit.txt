@@ -2972,22 +2972,22 @@ CustomColor=No
 [end]
 
 
-[_line]
-Type=0x1010e
-UseOrientation=Y
-LineWidth=4
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #FEFEB3"
-"2 c #BBBBBB"
-String1=0x00,Kreisstraße breit
-String2=0x01,Kreisstraße breit
-String3=0x02,Kreisstraße
-String4=0x04,Country Road
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1010e
+;UseOrientation=Y
+;LineWidth=4
+;BorderWidth=1
+;Xpm="0 0 2 0"
+;"1 c #FEFEB3"
+;"2 c #BBBBBB"
+;String1=0x00,Kreisstraße breit
+;String2=0x01,Kreisstraße breit
+;String3=0x02,Kreisstraße
+;String4=0x04,Country Road
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
 [_line]
@@ -3816,6 +3816,23 @@ FontStyle=NoLabel (invisible)
 CustomColor=No
 [end]
 
+
+[_line]
+Type=0x10e0e
+UseOrientation=Y
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FEFEB3"
+"2 c #BBBBBB"
+String1=0x00,Kreisstraße breit
+String2=0x01,Kreisstraße breit
+String3=0x02,Kreisstraße
+String4=0x04,Country Road
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
 
 [_line]
 Type=0x10e0f

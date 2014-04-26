@@ -878,10 +878,10 @@ highway = tertiary & man_made = dyke  [0x011f03 resolution 24 continue with_acti
 ### highway = tertiary & embankment = yes [0x011f03 resolution 24 continue with_actions]
 
 # Allgemein oeffentlich
-# 0x01010e = 4/1 (breit, NoLabel)
+# 0x010e0e = 4/1 (breit, NoLabel)
 # 0x010f12 = 2/1 (mittel, NoLabel)
 # 0x010f13 = 1/1 (schmal, NoLabel)
-highway = tertiary {set name = '${name}' | '${ref}' | ''} [0x01010e resolution 24 continue with_actions]
+highway = tertiary {set name = '${name}' | '${ref}' | ''} [0x010e0e resolution 24 continue with_actions]
 highway = tertiary {set name = '${ref}' | ''}             [0x010f12 resolution 22-23 continue with_actions]
 highway = tertiary {set name = '${ref}' | ''}             [0x010f13 resolution 20-21]
 
