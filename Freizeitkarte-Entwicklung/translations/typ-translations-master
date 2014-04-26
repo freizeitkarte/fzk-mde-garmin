@@ -1584,18 +1584,18 @@ String7=0x15,Droga wojewódzka
 String8=0x19,Дорога местного значения
 [end]
 
-; Country Road <=> Kreisstraße breit
-[_line]
-Type=0x1010e
-String1=0x00,Country Road
-String2=0x02,Kreisstraße
-String3=0x03,Landweg
-String4=0x04,Country Road
-String5=0x05,Strada di importanza locale
-String6=0x10,Estrada
-String7=0x15,Droga powiatowa
-String8=0x19,Дорога местного значения
-[end]
+;; Country Road <=> Kreisstraße breit
+;[_line]
+;Type=0x1010e
+;String1=0x00,Country Road
+;String2=0x02,Kreisstraße
+;String3=0x03,Landweg
+;String4=0x04,Country Road
+;String5=0x05,Strada di importanza locale
+;String6=0x10,Estrada
+;String7=0x15,Droga powiatowa
+;String8=0x19,Дорога местного значения
+;[end]
 
 ; Abutment <=> Stützmauser
 [_line]
@@ -2180,6 +2180,19 @@ String5=0x05,Percorso
 String6=0x10,Passagem
 String7=0x15,Ścieżka
 String8=0x19,Путь
+[end]
+
+; Country Road <=> Kreisstraße breit
+[_line]
+Type=0x10e0e
+String1=0x00,Country Road
+String2=0x02,Kreisstraße
+String3=0x03,Landweg
+String4=0x04,Country Road
+String5=0x05,Strada di importanza locale
+String6=0x10,Estrada
+String7=0x15,Droga powiatowa
+String8=0x19,Дорога местного значения
 [end]
 
 ; dirt road (restricted) <=> Feldweg (Eingeschränkt)
