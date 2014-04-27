@@ -1571,18 +1571,18 @@ String7=0x15,Tama
 String8=0x19,Плотина
 [end]
 
-; Secondary Road <=> Landstraße breit
-[_line]
-Type=0x1010d
-String1=0x00,Secondary Road
-String2=0x02,Landesstraße
-String3=0x03,Provinciale weg
-String4=0x04,Secondary Road
-String5=0x05,Strada di importanza regionale
-String6=0x10,Estrada
-String7=0x15,Droga wojewódzka
-String8=0x19,Дорога местного значения
-[end]
+;; Secondary Road <=> Landstraße breit
+;[_line]
+;Type=0x1010d
+;String1=0x00,Secondary Road
+;String2=0x02,Landesstraße
+;String3=0x03,Provinciale weg
+;String4=0x04,Secondary Road
+;String5=0x05,Strada di importanza regionale
+;String6=0x10,Estrada
+;String7=0x15,Droga wojewódzka
+;String8=0x19,Дорога местного значения
+;[end]
 
 ;; Country Road <=> Kreisstraße breit
 ;[_line]
@@ -2181,6 +2181,20 @@ String6=0x10,Passagem
 String7=0x15,Ścieżka
 String8=0x19,Путь
 [end]
+
+; Secondary Road <=> Landstraße breit
+[_line]
+Type=0x10e0d
+String1=0x00,Secondary Road
+String2=0x02,Landesstraße
+String3=0x03,Provinciale weg
+String4=0x04,Secondary Road
+String5=0x05,Strada di importanza regionale
+String6=0x10,Estrada
+String7=0x15,Droga wojewódzka
+String8=0x19,Дорога местного значения
+[end]
+
 
 ; Country Road <=> Kreisstraße breit
 [_line]
