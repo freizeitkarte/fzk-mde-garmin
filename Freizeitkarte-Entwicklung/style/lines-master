@@ -857,11 +857,11 @@ highway = secondary & man_made = dyke  [0x01040c resolution 24 continue with_act
 
 # Allgemein oeffentlich
 # 0x011f16 = 4/1 (breit, NoLabel)
-# 0x01010d = 4/1 (breit, NoLabel)
+# 0x010e0d = 4/1 (breit, NoLabel)
 # 0x010f10 = 2/1 (mittel, NoLabel)
 # 0x010f11 = 1/1 (schmal, NoLabel)
 highway = secondary {set name = '${ref}' | ''} [0x011f16 resolution 24 continue with_actions]
-highway = secondary {set name = '${ref}' | ''} [0x01010d resolution 23-23 continue with_actions]
+highway = secondary {set name = '${ref}' | ''} [0x010e0d resolution 23-23 continue with_actions]
 highway = secondary {set name = '${ref}' | ''} [0x010f10 resolution 22-22 continue with_actions]
 highway = secondary {set name = '${ref}' | ''} [0x010f11 resolution 20-21]
 

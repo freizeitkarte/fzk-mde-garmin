@@ -2954,22 +2954,22 @@ CustomColor=No
 [end]
 
 
-[_line]
-Type=0x1010d
-UseOrientation=Y
-LineWidth=4
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #FDD6A4"
-"2 c #D4B388"
-String1=0x00,Landstraße breit
-String2=0x01,Landstraße breit
-String3=0x02,Landstraße
-String4=0x04,Secondary Road
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1010d
+;UseOrientation=Y
+;LineWidth=4
+;BorderWidth=1
+;Xpm="0 0 2 0"
+;"1 c #FDD6A4"
+;"2 c #D4B388"
+;String1=0x00,Landstraße breit
+;String2=0x01,Landstraße breit
+;String3=0x02,Landstraße
+;String4=0x04,Secondary Road
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
 ;[_line]
@@ -3811,6 +3811,24 @@ String1=0x00,Weg / Pfad breit
 String2=0x01,Weg / Pfad breit
 String3=0x02,Weg / Pfad
 String4=0x04,path
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x10e0d
+UseOrientation=Y
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FDD6A4"
+"2 c #D4B388"
+String1=0x00,Landstraße breit
+String2=0x01,Landstraße breit
+String3=0x02,Landstraße
+String4=0x04,Secondary Road
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
