@@ -23,6 +23,7 @@
 #                             - lightened normal info sign
 # Version : 0.14 -14.03.2014: Adapting things regarding power = * (station / plant / substation / sub_station)
 #                             Adding amenity=toilets
+# Version : 0.15 -05.05.2014: Adapting finalize section to support new mkgmap version 2096 and newer
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #

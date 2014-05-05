@@ -78,6 +78,9 @@
 ; Version: 0.9  - 21.02.2014 : Added Dutch Translation
 ;                              Removed Preparations for French
 ; Version: 0.10 - 14.03.2014 : Added translation for amenity = toilet
+; Version: 0.11 - 05.05.2014 : Added Italian translation
+;                              Changed the format of this file not to contain a number after tag 'String' anymore
+;                              Changed the ID of two different 'Kreisstrassen' to avoid problems on newer devices.
 
 
 

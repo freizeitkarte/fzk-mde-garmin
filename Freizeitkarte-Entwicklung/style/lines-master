@@ -36,7 +36,8 @@
 # Version : 0.20 -07.01.2014: change logic of display for marina (moved from polygon to line)
 # Version : 0.21 -14.03.2014: Adapting things regarding barrier = * : adding more than only fence
 #                             Bugfix for leisure = marina
-
+# Version : 0.22 -05.05.2014: Adapting finalize section to support new mkgmap version 2096 and newer
+#                             Changed Routing to new version (due to upgrade of mkgmap) with better support of different actions
 
 #
 #
