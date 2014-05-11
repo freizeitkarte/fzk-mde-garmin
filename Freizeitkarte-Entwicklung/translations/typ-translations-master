@@ -80,7 +80,8 @@
 ; Version: 0.10 - 14.03.2014 : Added translation for amenity = toilet
 ; Version: 0.11 - 05.05.2014 : Added Italian translation
 ;                              Changed the format of this file not to contain a number after tag 'String' anymore
-;                              Changed the ID of two different 'Kreisstrassen' to avoid problems on newer devices.
+;                              Changed the ID of two different 'Kreisstrassen' to avoid problems on Nuvi and other newer devices.
+; Version: 0.12 - 11.05.2014:  Remapped range 0x010410-0x010415 to 0x011f07-0x011f0c to avoid problems on Nuvi and other newer devices
 
 
 
@@ -1938,83 +1939,83 @@ String=0x15,Droga ekspresowa
 String=0x19,Федеральная трасса
 [end]
 
-; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 breit
-[_line]
-Type=0x10410
-String=0x00,Alpine Trail T3 / T4
-String=0x02,Bergwanderweg T3 / T4
-String=0x03,Bergpad T3 / T4
-String=0x04,Alpine Trail T3 / T4
-String=0x05,Sentiero alpino T3 / T4
-String=0x10,Trilha alpina T3 / T4
-String=0x15,Trasa wspinaczkowa T3 / T4
-String=0x19,Горная тропа T3 / T4
-[end]
+;; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 breit
+;[_line]
+;Type=0x10410
+;String=0x00,Alpine Trail T3 / T4
+;String=0x02,Bergwanderweg T3 / T4
+;String=0x03,Bergpad T3 / T4
+;String=0x04,Alpine Trail T3 / T4
+;String=0x05,Sentiero alpino T3 / T4
+;String=0x10,Trilha alpina T3 / T4
+;String=0x15,Trasa wspinaczkowa T3 / T4
+;String=0x19,Горная тропа T3 / T4
+;[end]
 
-; Alpine Trail T5/T6 <=> Bergwanderweg T5 / T6 breit
-[_line]
-Type=0x10411
-String=0x00,Alpine Trail T5/T6
-String=0x02,Bergwanderweg T5 / T6
-String=0x03,Bergpad T5/T6
-String=0x04,Alpine Trail T5/T6
-String=0x05,Sentiero alpino T5/T6
-String=0x10,Trilha alpina T5/T6
-String=0x15,Trasa wspinaczkowa T5/T6
-String=0x19,Горная тропа T5/T6
-[end]
+;; Alpine Trail T5/T6 <=> Bergwanderweg T5 / T6 breit
+;[_line]
+;Type=0x10411
+;String=0x00,Alpine Trail T5/T6
+;String=0x02,Bergwanderweg T5 / T6
+;String=0x03,Bergpad T5/T6
+;String=0x04,Alpine Trail T5/T6
+;String=0x05,Sentiero alpino T5/T6
+;String=0x10,Trilha alpina T5/T6
+;String=0x15,Trasa wspinaczkowa T5/T6
+;String=0x19,Горная тропа T5/T6
+;[end]
 
-; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 breit
-[_line]
-Type=0x10412
-String=0x00,Alpine Trail T1 / T2
-String=0x02,Bergwanderweg T1 / T2 breit
-String=0x03,Bergpad T1 / T2
-String=0x04,Alpine Trail T1 / T2
-String=0x05,Sentiero alpino T1 / T2
-String=0x10,Trilha alpina T1 / T2
-String=0x15,Trasa wspinaczkowa T1 / T2
-String=0x19,Горная тропа T1 / T2
-[end]
+;; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 breit
+;[_line]
+;Type=0x10412
+;String=0x00,Alpine Trail T1 / T2
+;String=0x02,Bergwanderweg T1 / T2 breit
+;String=0x03,Bergpad T1 / T2
+;String=0x04,Alpine Trail T1 / T2
+;String=0x05,Sentiero alpino T1 / T2
+;String=0x10,Trilha alpina T1 / T2
+;String=0x15,Trasa wspinaczkowa T1 / T2
+;String=0x19,Горная тропа T1 / T2
+;[end]
 
-; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 schmal
-[_line]
-Type=0x10413
-String=0x00,Alpine Trail T3 / T4
-String=0x02,Bergwanderweg T3 / T4
-String=0x03,Bergpad T3 / T4
-String=0x04,Alpine Trail T3 / T4
-String=0x05,Sentiero alpino T3 / T4
-String=0x10,Trilha alpina T3 / T4
-String=0x15,Trasa wspinaczkowa T3 / T4
-String=0x19,Горная тропа T3 / T4
-[end]
+;; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 schmal
+;[_line]
+;Type=0x10413
+;String=0x00,Alpine Trail T3 / T4
+;String=0x02,Bergwanderweg T3 / T4
+;String=0x03,Bergpad T3 / T4
+;String=0x04,Alpine Trail T3 / T4
+;String=0x05,Sentiero alpino T3 / T4
+;String=0x10,Trilha alpina T3 / T4
+;String=0x15,Trasa wspinaczkowa T3 / T4
+;String=0x19,Горная тропа T3 / T4
+;[end]
 
-; Alpine Trail T5 / T6 <=> Bergwanderweg T5 / T6 schmal
-[_line]
-Type=0x10414
-String=0x00,Alpine Trail T5 / T6
-String=0x02,Bergwanderweg T5 / T6
-String=0x03,Bergpad T5 / T6
-String=0x04,Alpine Trail T5 / T6
-String=0x05,Sentiero alpino T5 / T6
-String=0x10,Trilha alpina T5 / T6
-String=0x15,Trasa wspinaczkowa T5 / T6
-String=0x19,Горная тропа T5 / T6
-[end]
+;; Alpine Trail T5 / T6 <=> Bergwanderweg T5 / T6 schmal
+;[_line]
+;Type=0x10414
+;String=0x00,Alpine Trail T5 / T6
+;String=0x02,Bergwanderweg T5 / T6
+;String=0x03,Bergpad T5 / T6
+;String=0x04,Alpine Trail T5 / T6
+;String=0x05,Sentiero alpino T5 / T6
+;String=0x10,Trilha alpina T5 / T6
+;String=0x15,Trasa wspinaczkowa T5 / T6
+;String=0x19,Горная тропа T5 / T6
+;[end]
 
-; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 schmal
-[_line]
-Type=0x10415
-String=0x00,Alpine Trail T1 / T2
-String=0x02,Bergwanderweg T1 / T2
-String=0x03,Bergpad T1 / T2
-String=0x04,Alpine Trail T1 / T2
-String=0x05,Sentiero alpino T1 / T2
-String=0x10,Trilha alpina T1 / T2
-String=0x15,Trasa wspinaczkowa T1 / T2
-String=0x19,Горная тропа T1 / T2
-[end]
+;; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 schmal
+;[_line]
+;Type=0x10415
+;String=0x00,Alpine Trail T1 / T2
+;String=0x02,Bergwanderweg T1 / T2
+;String=0x03,Bergpad T1 / T2
+;String=0x04,Alpine Trail T1 / T2
+;String=0x05,Sentiero alpino T1 / T2
+;String=0x10,Trilha alpina T1 / T2
+;String=0x15,Trasa wspinaczkowa T1 / T2
+;String=0x19,Горная тропа T1 / T2
+;[end]
 
 ; Taxiway <=> Rollweg (breit)
 [_line]
@@ -2912,6 +2913,84 @@ String=0x05,Recinzione
 String=0x10,Cerca
 String=0x15,Ogrodzenie
 String=0x19,Ограждение
+[end]
+
+; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 breit
+[_line]
+Type=0x11f07
+String=0x00,Alpine Trail T3 / T4
+String=0x02,Bergwanderweg T3 / T4
+String=0x03,Bergpad T3 / T4
+String=0x04,Alpine Trail T3 / T4
+String=0x05,Sentiero alpino T3 / T4
+String=0x10,Trilha alpina T3 / T4
+String=0x15,Trasa wspinaczkowa T3 / T4
+String=0x19,Горная тропа T3 / T4
+[end]
+
+; Alpine Trail T5/T6 <=> Bergwanderweg T5 / T6 breit
+[_line]
+Type=0x11f08
+String=0x00,Alpine Trail T5/T6
+String=0x02,Bergwanderweg T5 / T6
+String=0x03,Bergpad T5/T6
+String=0x04,Alpine Trail T5/T6
+String=0x05,Sentiero alpino T5/T6
+String=0x10,Trilha alpina T5/T6
+String=0x15,Trasa wspinaczkowa T5/T6
+String=0x19,Горная тропа T5/T6
+[end]
+
+; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 breit
+[_line]
+Type=0x11f09
+String=0x00,Alpine Trail T1 / T2
+String=0x02,Bergwanderweg T1 / T2 breit
+String=0x03,Bergpad T1 / T2
+String=0x04,Alpine Trail T1 / T2
+String=0x05,Sentiero alpino T1 / T2
+String=0x10,Trilha alpina T1 / T2
+String=0x15,Trasa wspinaczkowa T1 / T2
+String=0x19,Горная тропа T1 / T2
+[end]
+
+; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 schmal
+[_line]
+Type=0x11f0a
+String=0x00,Alpine Trail T3 / T4
+String=0x02,Bergwanderweg T3 / T4
+String=0x03,Bergpad T3 / T4
+String=0x04,Alpine Trail T3 / T4
+String=0x05,Sentiero alpino T3 / T4
+String=0x10,Trilha alpina T3 / T4
+String=0x15,Trasa wspinaczkowa T3 / T4
+String=0x19,Горная тропа T3 / T4
+[end]
+
+; Alpine Trail T5 / T6 <=> Bergwanderweg T5 / T6 schmal
+[_line]
+Type=0x11f0b
+String=0x00,Alpine Trail T5 / T6
+String=0x02,Bergwanderweg T5 / T6
+String=0x03,Bergpad T5 / T6
+String=0x04,Alpine Trail T5 / T6
+String=0x05,Sentiero alpino T5 / T6
+String=0x10,Trilha alpina T5 / T6
+String=0x15,Trasa wspinaczkowa T5 / T6
+String=0x19,Горная тропа T5 / T6
+[end]
+
+; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 schmal
+[_line]
+Type=0x11f0c
+String=0x00,Alpine Trail T1 / T2
+String=0x02,Bergwanderweg T1 / T2
+String=0x03,Bergpad T1 / T2
+String=0x04,Alpine Trail T1 / T2
+String=0x05,Sentiero alpino T1 / T2
+String=0x10,Trilha alpina T1 / T2
+String=0x15,Trasa wspinaczkowa T1 / T2
+String=0x19,Горная тропа T1 / T2
 [end]
 
 ; Ferry <=> Fähre
