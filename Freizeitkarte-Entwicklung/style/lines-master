@@ -38,7 +38,7 @@
 #                             Bugfix for leisure = marina
 # Version : 0.22 -05.05.2014: Adapting finalize section to support new mkgmap version 2096 and newer
 #                             Changed Routing to new version (due to upgrade of mkgmap) with better support of different actions
-# Version : 0.22  11.05.2014: - Remapped range 0x010410-0x010415 to 0x011f07-0x011f0c to avoid problems on Nuvi and other newer devices
+# Version : 0.23  11.05.2014: - Remapped range 0x010410-0x010415 to 0x011f07-0x011f0c to avoid problems on Nuvi and other newer devices
 #                             - Bugfix for routing
 
 
