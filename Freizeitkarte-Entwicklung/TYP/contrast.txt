@@ -3126,106 +3126,106 @@ CustomColor=No
 [end]
 
 
-[_line]
-Type=0x10410
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #FF0000"
-"  c none"
-"!   !   !   !   !   !   !   !   "
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-;12345678901234567890123456789012
-String1=0x02,Bergwanderweg T3 / T4
-String2=0x00,Bergwanderweg T3 / T4 breit
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10410
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #FF0000"
+;"  c none"
+;"!   !   !   !   !   !   !   !   "
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;;12345678901234567890123456789012
+;String1=0x02,Bergwanderweg T3 / T4
+;String2=0x00,Bergwanderweg T3 / T4 breit
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10411
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #101010"
-"  c none"
-"!   !   !   !   !   !   !   !   "
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-;12345678901234567890123456789012
-String1=0x02,Bergwanderweg T5 / T6
-String2=0x00,Bergwanderweg T5 / T6 breit
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10411
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #101010"
+;"  c none"
+;"!   !   !   !   !   !   !   !   "
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;;12345678901234567890123456789012
+;String1=0x02,Bergwanderweg T5 / T6
+;String2=0x00,Bergwanderweg T5 / T6 breit
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10412
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #0000FF"
-"  c none"
-"!   !   !   !   !   !   !   !   "
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-;12345678901234567890123456789012
-String1=0x02,Bergwanderweg T1 / T2
-String2=0x00,Bergwanderweg T1 / T2 breit
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10412
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #0000FF"
+;"  c none"
+;"!   !   !   !   !   !   !   !   "
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;;12345678901234567890123456789012
+;String1=0x02,Bergwanderweg T1 / T2
+;String2=0x00,Bergwanderweg T1 / T2 breit
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10413
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #FF0000"
-"  c none"
-"!   !   !   !   !   !   !   !   "
-" !   !   !   !   !   !   !   !  "
-;12345678901234567890123456789012
-String1=0x02,Bergwanderweg T3 / T4
-String2=0x00,Bergwanderweg T3 / T4 schmal
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10413
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #FF0000"
+;"  c none"
+;"!   !   !   !   !   !   !   !   "
+;" !   !   !   !   !   !   !   !  "
+;;12345678901234567890123456789012
+;String1=0x02,Bergwanderweg T3 / T4
+;String2=0x00,Bergwanderweg T3 / T4 schmal
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10414
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #101010"
-"  c none"
-"!   !   !   !   !   !   !   !   "
-" !   !   !   !   !   !   !   !  "
-;12345678901234567890123456789012
-String1=0x02,Bergwanderweg T5 / T6
-String2=0x00,Bergwanderweg T5 / T6 schmal
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10414
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #101010"
+;"  c none"
+;"!   !   !   !   !   !   !   !   "
+;" !   !   !   !   !   !   !   !  "
+;;12345678901234567890123456789012
+;String1=0x02,Bergwanderweg T5 / T6
+;String2=0x00,Bergwanderweg T5 / T6 schmal
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10415
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #3900FF"
-"  c none"
-"!   !   !   !   !   !   !   !   "
-" !   !   !   !   !   !   !   !  "
-;12345678901234567890123456789012
-String1=0x02,Bergwanderweg T1 / T2
-String2=0x00,Bergwanderweg T1 / T2 schmal
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10415
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #3900FF"
+;"  c none"
+;"!   !   !   !   !   !   !   !   "
+;" !   !   !   !   !   !   !   !  "
+;;12345678901234567890123456789012
+;String1=0x02,Bergwanderweg T1 / T2
+;String2=0x00,Bergwanderweg T1 / T2 schmal
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
 [_line]
@@ -4343,6 +4343,108 @@ Xpm="0 0 1 0"
 "1 c #BABABA"
 String1=0x00,Fence
 String2=0x02,Zaun
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f07
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #FF0000"
+"  c none"
+"!   !   !   !   !   !   !   !   "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+;12345678901234567890123456789012
+String1=0x02,Bergwanderweg T3 / T4
+String2=0x00,Bergwanderweg T3 / T4 breit
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f08
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #101010"
+"  c none"
+"!   !   !   !   !   !   !   !   "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+;12345678901234567890123456789012
+String1=0x02,Bergwanderweg T5 / T6
+String2=0x00,Bergwanderweg T5 / T6 breit
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f09
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #0000FF"
+"  c none"
+"!   !   !   !   !   !   !   !   "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+;12345678901234567890123456789012
+String1=0x02,Bergwanderweg T1 / T2
+String2=0x00,Bergwanderweg T1 / T2 breit
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f0a
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #FF0000"
+"  c none"
+"!   !   !   !   !   !   !   !   "
+" !   !   !   !   !   !   !   !  "
+;12345678901234567890123456789012
+String1=0x02,Bergwanderweg T3 / T4
+String2=0x00,Bergwanderweg T3 / T4 schmal
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f0b
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #101010"
+"  c none"
+"!   !   !   !   !   !   !   !   "
+" !   !   !   !   !   !   !   !  "
+;12345678901234567890123456789012
+String1=0x02,Bergwanderweg T5 / T6
+String2=0x00,Bergwanderweg T5 / T6 schmal
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f0c
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #3900FF"
+"  c none"
+"!   !   !   !   !   !   !   !   "
+" !   !   !   !   !   !   !   !  "
+;12345678901234567890123456789012
+String1=0x02,Bergwanderweg T1 / T2
+String2=0x00,Bergwanderweg T1 / T2 schmal
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No

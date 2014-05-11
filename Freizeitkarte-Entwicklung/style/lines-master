@@ -1,4 +1,4 @@
-# ---------------------------------------
+﻿# ---------------------------------------
 # Zweck   : mkgmap-Regeln fuer Linien
 # Version : 0.1 - 23.09.2011
 # Version : 0.2 - 03.10.2011: Adresssuche
@@ -38,6 +38,9 @@
 #                             Bugfix for leisure = marina
 # Version : 0.22 -05.05.2014: Adapting finalize section to support new mkgmap version 2096 and newer
 #                             Changed Routing to new version (due to upgrade of mkgmap) with better support of different actions
+# Version : 0.22  11.05.2014: - Remapped range 0x010410-0x010415 to 0x011f07-0x011f0c to avoid problems on Nuvi and other newer devices
+#                             - Bugfix for routing
+
 
 #
 #
@@ -622,9 +625,11 @@ highway = * & motorcycle = * { delete motorcycle }
 
 # mkgmap:car, mkgmap:foot, mkgmap:bicycle setzen
 auto = yes 		{set mkgmap:car = yes; set keinrouting = no}
-fahrrad = yes 	{set mkgmap:bicycle = yes; set keinrouting = no}
+fahrrad = yes 		{set mkgmap:bicycle = yes; set keinrouting = no}
 fuss = yes 		{set mkgmap:foot = yes; set keinrouting = no}
-
+auto = no 		{set mkgmap:car = no}
+fahrrad = no 		{set mkgmap:bicycle = no}
+fuss = no 		{set mkgmap:foot = no}
 
 # Fuer die Indexsuche muessen Wege routbar sein, damit sie gefunden werden
 # auto = no  & fahrrad = no  & fuss = no & name = * {set  keinrouting = yes;  set access = no; set motorcar = no; set bicycle = no; set foot = no}
@@ -1186,20 +1191,20 @@ highway = pedestrian & (area != * | area = no) [0x010f09 resolution 21-22]
 (highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & man_made = dyke  [0x011f05 resolution 24 continue]
 ### (highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & embankment = yes [0x011f05 resolution 24 continue]
 
-# 0x010412 = Bitmap 2 (breit, NoLabel)
-# 0x010415 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = bergweg12 [0x010412 resolution 24 continue]
-highway = bergweg12 [0x010415 resolution 23-23]
+# 0x011f09 = Bitmap 2 (breit, NoLabel)
+# 0x011f0c = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
+highway = bergweg12 [0x011f09 resolution 24 continue]
+highway = bergweg12 [0x011f0c resolution 23-23]
 
-# 0x010410 = Bitmap 2 (breit, NoLabel)
-# 0x010413 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = bergweg34 [0x010410 resolution 24 continue]
-highway = bergweg34 [0x010413 resolution 23-23]
+# 0x011f07 = Bitmap 2 (breit, NoLabel)
+# 0x011f0a = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
+highway = bergweg34 [0x011f07 resolution 24 continue]
+highway = bergweg34 [0x011f0a resolution 23-23]
 
-# 0x010411 = Bitmap 2 (breit, NoLabel)
-# 0x010414 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = bergweg56 [0x010411 resolution 24 continue]
-highway = bergweg56 [0x010414 resolution 23-23]
+# 0x011f08 = Bitmap 2 (breit, NoLabel)
+# 0x011f0b = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
+highway = bergweg56 [0x011f08 resolution 24 continue]
+highway = bergweg56 [0x011f0b resolution 23-23]
 
 
 # Allgemeiner Weg oder Pfad:

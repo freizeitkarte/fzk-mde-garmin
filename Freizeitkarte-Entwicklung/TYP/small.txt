@@ -3505,112 +3505,112 @@ CustomColor=No
 [end]
 
 
-[_line]
-Type=0x10410
-UseOrientation=N
-Xpm="32 1 2  1"
-"! c #FF0000"
-"# c #313131"
-"!!!!!!!!!!!!!!!!################"
-;12345678901234567890123456789012
-String1=0x00,Alpine Trail T3 / T4
-String2=0x01,Alpine Trail T3 / T4
-String3=0x02,Bergwanderweg T3 / T4
-String4=0x04,Alpine Trail T3 / T4
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10410
+;UseOrientation=N
+;Xpm="32 1 2  1"
+;"! c #FF0000"
+;"# c #313131"
+;"!!!!!!!!!!!!!!!!################"
+;;12345678901234567890123456789012
+;String1=0x00,Alpine Trail T3 / T4
+;String2=0x01,Alpine Trail T3 / T4
+;String3=0x02,Bergwanderweg T3 / T4
+;String4=0x04,Alpine Trail T3 / T4
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10411
-UseOrientation=N
-Xpm="32 1 2  1"
-"! c #101010"
-"# c #949494"
-"!!!!!!!!!!!!!!!!################"
-;12345678901234567890123456789012
-String1=0x00,Alpine Trail T5/T6
-String2=0x01,Alpine Trail T5/T6
-String3=0x02,Bergwanderweg T5 / T6
-String4=0x04,Alpine Trail T5/T6
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10411
+;UseOrientation=N
+;Xpm="32 1 2  1"
+;"! c #101010"
+;"# c #949494"
+;"!!!!!!!!!!!!!!!!################"
+;;12345678901234567890123456789012
+;String1=0x00,Alpine Trail T5/T6
+;String2=0x01,Alpine Trail T5/T6
+;String3=0x02,Bergwanderweg T5 / T6
+;String4=0x04,Alpine Trail T5/T6
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10412
-UseOrientation=N
-Xpm="32 1 2  1"
-"! c #0000FF"
-"# c #202020"
-"!!!!!!!!!!!!!!!!################"
-;12345678901234567890123456789012
-String1=0x00,Alpine Trail T1 / T2
-String2=0x01,Alpine Trail T1 / T2
-String3=0x02,Bergwanderweg T1 / T2 breit
-String4=0x04,Alpine Trail T1 / T2
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10412
+;UseOrientation=N
+;Xpm="32 1 2  1"
+;"! c #0000FF"
+;"# c #202020"
+;"!!!!!!!!!!!!!!!!################"
+;;12345678901234567890123456789012
+;String1=0x00,Alpine Trail T1 / T2
+;String2=0x01,Alpine Trail T1 / T2
+;String3=0x02,Bergwanderweg T1 / T2 breit
+;String4=0x04,Alpine Trail T1 / T2
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10413
-UseOrientation=N
-Xpm="32 1 2  1"
-"! c #FF0000"
-"# c #313131"
-"!!!!!!!!!!!!!!!!################"
-;12345678901234567890123456789012
-String1=0x00,Alpine Trail T3 / T4
-String2=0x01,Alpine Trail T3 / T4
-String3=0x02,Bergwanderweg T3 / T4
-String4=0x04,Alpine Trail T3 / T4
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10413
+;UseOrientation=N
+;Xpm="32 1 2  1"
+;"! c #FF0000"
+;"# c #313131"
+;"!!!!!!!!!!!!!!!!################"
+;;12345678901234567890123456789012
+;String1=0x00,Alpine Trail T3 / T4
+;String2=0x01,Alpine Trail T3 / T4
+;String3=0x02,Bergwanderweg T3 / T4
+;String4=0x04,Alpine Trail T3 / T4
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10414
-UseOrientation=N
-Xpm="32 1 2  1"
-"! c #101010"
-"# c #949494"
-"!!!!!!!!!!!!!!!!################"
-;12345678901234567890123456789012
-String1=0x00,Alpine Trail T5 / T6
-String2=0x01,Alpine Trail T5 / T6
-String3=0x02,Bergwanderweg T5 / T6
-String4=0x04,Alpine Trail T5 / T6
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10414
+;UseOrientation=N
+;Xpm="32 1 2  1"
+;"! c #101010"
+;"# c #949494"
+;"!!!!!!!!!!!!!!!!################"
+;;12345678901234567890123456789012
+;String1=0x00,Alpine Trail T5 / T6
+;String2=0x01,Alpine Trail T5 / T6
+;String3=0x02,Bergwanderweg T5 / T6
+;String4=0x04,Alpine Trail T5 / T6
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10415
-UseOrientation=N
-Xpm="32 1 2  1"
-"! c #0000FF"
-"# c #202020"
-"!!!!!!!!!!!!!!!!################"
-;12345678901234567890123456789012
-String1=0x00,Alpine Trail T1 / T2
-String2=0x01,Alpine Trail T1 / T2
-String3=0x02,Bergwanderweg T1 / T2
-String4=0x04,Alpine Trail T1 / T2
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10415
+;UseOrientation=N
+;Xpm="32 1 2  1"
+;"! c #0000FF"
+;"# c #202020"
+;"!!!!!!!!!!!!!!!!################"
+;;12345678901234567890123456789012
+;String1=0x00,Alpine Trail T1 / T2
+;String2=0x01,Alpine Trail T1 / T2
+;String3=0x02,Bergwanderweg T1 / T2
+;String4=0x04,Alpine Trail T1 / T2
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
 [_line]
@@ -4874,6 +4874,114 @@ String1=0x00,Fence
 String2=0x01,Fence
 String3=0x02,Zaun
 String4=0x04,Fence
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f07
+UseOrientation=N
+Xpm="32 1 2  1"
+"! c #FF0000"
+"# c #313131"
+"!!!!!!!!!!!!!!!!################"
+;12345678901234567890123456789012
+String1=0x00,Alpine Trail T3 / T4
+String2=0x01,Alpine Trail T3 / T4
+String3=0x02,Bergwanderweg T3 / T4
+String4=0x04,Alpine Trail T3 / T4
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f08
+UseOrientation=N
+Xpm="32 1 2  1"
+"! c #101010"
+"# c #949494"
+"!!!!!!!!!!!!!!!!################"
+;12345678901234567890123456789012
+String1=0x00,Alpine Trail T5/T6
+String2=0x01,Alpine Trail T5/T6
+String3=0x02,Bergwanderweg T5 / T6
+String4=0x04,Alpine Trail T5/T6
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f09
+UseOrientation=N
+Xpm="32 1 2  1"
+"! c #0000FF"
+"# c #202020"
+"!!!!!!!!!!!!!!!!################"
+;12345678901234567890123456789012
+String1=0x00,Alpine Trail T1 / T2
+String2=0x01,Alpine Trail T1 / T2
+String3=0x02,Bergwanderweg T1 / T2 breit
+String4=0x04,Alpine Trail T1 / T2
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f0a
+UseOrientation=N
+Xpm="32 1 2  1"
+"! c #FF0000"
+"# c #313131"
+"!!!!!!!!!!!!!!!!################"
+;12345678901234567890123456789012
+String1=0x00,Alpine Trail T3 / T4
+String2=0x01,Alpine Trail T3 / T4
+String3=0x02,Bergwanderweg T3 / T4
+String4=0x04,Alpine Trail T3 / T4
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f0b
+UseOrientation=N
+Xpm="32 1 2  1"
+"! c #101010"
+"# c #949494"
+"!!!!!!!!!!!!!!!!################"
+;12345678901234567890123456789012
+String1=0x00,Alpine Trail T5 / T6
+String2=0x01,Alpine Trail T5 / T6
+String3=0x02,Bergwanderweg T5 / T6
+String4=0x04,Alpine Trail T5 / T6
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f0c
+UseOrientation=N
+Xpm="32 1 2  1"
+"! c #0000FF"
+"# c #202020"
+"!!!!!!!!!!!!!!!!################"
+;12345678901234567890123456789012
+String1=0x00,Alpine Trail T1 / T2
+String2=0x01,Alpine Trail T1 / T2
+String3=0x02,Bergwanderweg T1 / T2
+String4=0x04,Alpine Trail T1 / T2
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
