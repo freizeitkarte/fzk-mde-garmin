@@ -333,6 +333,7 @@ my $ele      = 25;
 my $clm      = 1;
 my $typfile  = $EMPTY;
 my $language = $EMPTY;
+my $nametaglist = $EMPTY;
 
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
@@ -356,7 +357,7 @@ my $command = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -1210,8 +1211,15 @@ sub create_cfgfile {
       . "# --name-tag-list=list"
       . "#   Changes the tag that will be used to supply the name, normally it is just 'name'.\n"
       . "#   Useful for language variations. You can supply a list and the first one will be used.\n"
-      . "#   Example: --name-tag-list=name:en,int_name,name\n"
-      . "name-tag-list=name:$maplang,name:en,int_name,name\n" );
+      . "#   Example: --name-tag-list=name:en,int_name,name\n" );
+  if ( $nametaglist ne $EMPTY ) {
+     printf { $fh }    
+        (   "name-tag-list=$nametaglist\n" );  
+  }
+  else {
+     printf { $fh }    
+        (   "#name-tag-list=name:$maplang,name:en,int_name,name\n" );
+  }
 
   printf { $fh } ( "\n# Address search options:\n" );
   printf { $fh } ( "# ----------------------\n" );
@@ -3865,6 +3873,9 @@ sub show_help {
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
       . "             if you build a map for another language than the map's default language,\n"
       . "             this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
+      . "--ntl      = overwrite the default name-tag-list for the mkgmap run (name) with a specific list, e.g.\n"
+      . "                --ntl=\"name:en,int_name,name\"\n"
+      . "             Please check mkgmap documentation for more information.\n"
       . "PPO        = preprocessor options (multiple possible), to be invoked with D<option>\n\n"
       . "Arguments:\n"
       . "Action     = Action to be processed\n"
