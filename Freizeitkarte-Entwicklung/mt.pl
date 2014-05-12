@@ -1211,7 +1211,7 @@ sub create_cfgfile {
       . "#   Changes the tag that will be used to supply the name, normally it is just 'name'.\n"
       . "#   Useful for language variations. You can supply a list and the first one will be used.\n"
       . "#   Example: --name-tag-list=name:en,int_name,name\n"
-      . "#name-tag-list=name:$maplang,name,int_name,name:en\n" );
+      . "name-tag-list=name:$maplang,name:en,int_name,name\n" );
 
   printf { $fh } ( "\n# Address search options:\n" );
   printf { $fh } ( "# ----------------------\n" );
