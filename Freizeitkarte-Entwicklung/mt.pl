@@ -330,7 +330,7 @@ my $optional = $EMPTY;
 my $ram      = $EMPTY;
 my $cores    = 2;
 my $ele      = 25;
-my $clm      = 1;
+my $clm      = 1;   # eventually unused ?
 my $typfile  = $EMPTY;
 my $language = $EMPTY;
 my $nametaglist = $EMPTY;
@@ -521,6 +521,17 @@ if ( $error ) {
   show_usage ();
   exit(1);
 }
+
+# Check nametaglist (if given) for potential problems
+
+if ( $nametaglist ne $EMPTY ) {
+ 
+   # Let's check if we have the general fallback 'name' somewhere in the specified nametaglist
+   if ( $nametaglist !~ /(^|,)name(,|$)/ ) {
+	 printf { *STDOUT } ( "WARNING:\n  The specified name-tag-list '" . $nametaglist . "' does not contain the tag 'name'.\n  Make sure this is really what you want\n\n\n" );
+   }
+}
+
 
 # Print out the Information about the choosen action and map
 printf { *STDOUT } ( "Action = %s\n", $actiondesc );
@@ -1218,7 +1229,7 @@ sub create_cfgfile {
   }
   else {
      printf { $fh }    
-        (   "#name-tag-list=name:$maplang,name:en,int_name,name\n" );
+        (   "#name-tag-list=name:de,name:en,int_name,name\n" );
   }
 
   printf { $fh } ( "\n# Address search options:\n" );
