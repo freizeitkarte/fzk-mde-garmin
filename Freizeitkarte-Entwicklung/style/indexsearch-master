@@ -1,5 +1,7 @@
-# Stand: 2012/08/26
+# Stand: 2014/5/05
 # -----------------
+# Version : 0.01 - 26.08.2012: Basic functionalities
+# Version : 0.02 - 05.05.2014: Adapted Details about AUT: there was something different to the default style files provided with new mkgmap version
 
 # first set the country code
 mkgmap:country!=* & mkgmap:admin_level2=* { set mkgmap:country='${mkgmap:admin_level2}' }
@@ -53,6 +55,7 @@ mkgmap:country=DEU & mkgmap:city!=* & mkgmap:admin_level10=* { set mkgmap:city='
 
 # Österreich = AUT
 # Das Präfix "Gemeinde " stellt keinen Namensbestandteil dar und wird entfernt.
+mkgmap:country=AUT & mkgmap:city!=* & mkgmap:admin_level10=* { set mkgmap:city='${mkgmap:admin_level10|subst:Gemeinde |subst:Stadt }' }
 mkgmap:country=AUT & mkgmap:city!=* & mkgmap:admin_level8=* { set mkgmap:city='${mkgmap:admin_level8|subst:Gemeinde }' }
 
 mkgmap:country=BEL & mkgmap:city!=* & mkgmap:admin_level8=* { set mkgmap:city='${mkgmap:admin_level8}' }
@@ -101,5 +104,6 @@ mkgmap:street!=* & addr:housename=* { set mkgmap:street='${addr:housename}' }
 mkgmap:housenumber!=* & addr:housenumber=* { set mkgmap:housenumber='${addr:housenumber}' }
 
 mkgmap:phone!=* & phone=* { set mkgmap:phone='${phone}' }
+mkgmap:phone!=* & contact:phone=* { add mkgmap:phone='${contact:phone}' }
 
 mkgmap:is_in!=* & is_in=* { set mkgmap:is_in='${is_in}' }

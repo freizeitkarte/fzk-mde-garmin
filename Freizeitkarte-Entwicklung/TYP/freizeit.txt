@@ -2954,40 +2954,40 @@ CustomColor=No
 [end]
 
 
-[_line]
-Type=0x1010d
-UseOrientation=Y
-LineWidth=4
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #FDD6A4"
-"2 c #D4B388"
-String1=0x00,Landstraße breit
-String2=0x01,Landstraße breit
-String3=0x02,Landstraße
-String4=0x04,Secondary Road
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1010d
+;UseOrientation=Y
+;LineWidth=4
+;BorderWidth=1
+;Xpm="0 0 2 0"
+;"1 c #FDD6A4"
+;"2 c #D4B388"
+;String1=0x00,Landstraße breit
+;String2=0x01,Landstraße breit
+;String3=0x02,Landstraße
+;String4=0x04,Secondary Road
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x1010e
-UseOrientation=Y
-LineWidth=4
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #FEFEB3"
-"2 c #BBBBBB"
-String1=0x00,Kreisstraße breit
-String2=0x01,Kreisstraße breit
-String3=0x02,Kreisstraße
-String4=0x04,Country Road
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1010e
+;UseOrientation=Y
+;LineWidth=4
+;BorderWidth=1
+;Xpm="0 0 2 0"
+;"1 c #FEFEB3"
+;"2 c #BBBBBB"
+;String1=0x00,Kreisstraße breit
+;String2=0x01,Kreisstraße breit
+;String3=0x02,Kreisstraße
+;String4=0x04,Country Road
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
 [_line]
@@ -3476,118 +3476,118 @@ CustomColor=No
 [end]
 
 
-[_line]
-Type=0x10410
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #8080FF"
-"  c none"
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-;12345678901234567890123456789012
-String1=0x00,Bergwanderweg T3 / T4 breit
-String2=0x01,Bergwanderweg T3 / T4 breit
-String3=0x02,Bergwanderweg T3 / T4
-String4=0x04,Alpine Trail T3 / T4
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10410
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #8080FF"
+;"  c none"
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;;12345678901234567890123456789012
+;String1=0x00,Bergwanderweg T3 / T4 breit
+;String2=0x01,Bergwanderweg T3 / T4 breit
+;String3=0x02,Bergwanderweg T3 / T4
+;String4=0x04,Alpine Trail T3 / T4
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10411
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #A0A0A0"
-"  c none"
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-;12345678901234567890123456789012
-String1=0x00,Bergwanderweg T5 / T6 breit
-String2=0x01,Bergwanderweg T5 / T6 breit
-String3=0x02,Bergwanderweg T5 / T6
-String4=0x04,Alpine Trail T5/T6
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10411
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #A0A0A0"
+;"  c none"
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;;12345678901234567890123456789012
+;String1=0x00,Bergwanderweg T5 / T6 breit
+;String2=0x01,Bergwanderweg T5 / T6 breit
+;String3=0x02,Bergwanderweg T5 / T6
+;String4=0x04,Alpine Trail T5/T6
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10412
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #000000"
-"  c none"
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-;12345678901234567890123456789012
-String1=0x00,Bergwanderweg T1 / T2 breit
-String2=0x01,Bergwanderweg T1 / T2 breit
-String3=0x02,Bergwanderweg T1 / T2 breit
-String4=0x04, Alpine Trail T1 / T2
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10412
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #000000"
+;"  c none"
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;;12345678901234567890123456789012
+;String1=0x00,Bergwanderweg T1 / T2 breit
+;String2=0x01,Bergwanderweg T1 / T2 breit
+;String3=0x02,Bergwanderweg T1 / T2 breit
+;String4=0x04, Alpine Trail T1 / T2
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10413
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #8080FF"
-"  c none"
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-"                                "
-;12345678901234567890123456789012
-String1=0x00,Bergwanderweg T3 / T4 schmal
-String2=0x01,Bergwanderweg T3 / T4 schmal
-String3=0x02,Bergwanderweg T3 / T4
-String4=0x04, Alpine Trail T3 / T4
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10413
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #8080FF"
+;"  c none"
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;"                                "
+;;12345678901234567890123456789012
+;String1=0x00,Bergwanderweg T3 / T4 schmal
+;String2=0x01,Bergwanderweg T3 / T4 schmal
+;String3=0x02,Bergwanderweg T3 / T4
+;String4=0x04, Alpine Trail T3 / T4
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10414
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #A0A0A0"
-"  c none"
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-"                                "
-;12345678901234567890123456789012
-String1=0x00,Bergwanderweg T5 / T6 schmal
-String2=0x01,Bergwanderweg T5 / T6 schmal
-String3=0x02,Bergwanderweg T5 / T6
-String4=0x04,Alpine Trail T5 / T6
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10414
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #A0A0A0"
+;"  c none"
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;"                                "
+;;12345678901234567890123456789012
+;String1=0x00,Bergwanderweg T5 / T6 schmal
+;String2=0x01,Bergwanderweg T5 / T6 schmal
+;String3=0x02,Bergwanderweg T5 / T6
+;String4=0x04,Alpine Trail T5 / T6
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10415
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #000000"
-"  c none"
-"!!  !!  !!  !!  !!  !!  !!  !!  "
-"                                "
-;12345678901234567890123456789012
-String1=0x00,Bergwanderweg T1 / T2 schmal
-String2=0x01,Bergwanderweg T1 / T2 schmal
-String3=0x02,Bergwanderweg T1 / T2
-String4=0x04,Alpine Trail T1 / T2
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10415
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #000000"
+;"  c none"
+;"!!  !!  !!  !!  !!  !!  !!  !!  "
+;"                                "
+;;12345678901234567890123456789012
+;String1=0x00,Bergwanderweg T1 / T2 schmal
+;String2=0x01,Bergwanderweg T1 / T2 schmal
+;String3=0x02,Bergwanderweg T1 / T2
+;String4=0x04,Alpine Trail T1 / T2
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
 [_line]
@@ -3816,6 +3816,41 @@ FontStyle=NoLabel (invisible)
 CustomColor=No
 [end]
 
+
+[_line]
+Type=0x10e0d
+UseOrientation=Y
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FDD6A4"
+"2 c #D4B388"
+String1=0x00,Landstraße breit
+String2=0x01,Landstraße breit
+String3=0x02,Landstraße
+String4=0x04,Secondary Road
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x10e0e
+UseOrientation=Y
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FEFEB3"
+"2 c #BBBBBB"
+String1=0x00,Kreisstraße breit
+String2=0x01,Kreisstraße breit
+String3=0x02,Kreisstraße
+String4=0x04,Country Road
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
 
 [_line]
 Type=0x10e0f
@@ -4821,6 +4856,120 @@ String1=0x00,Zaun
 String2=0x01,Zaun
 String3=0x02,Zaun
 String4=0x04,Fence
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f07
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #8080FF"
+"  c none"
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+;12345678901234567890123456789012
+String1=0x00,Bergwanderweg T3 / T4 breit
+String2=0x01,Bergwanderweg T3 / T4 breit
+String3=0x02,Bergwanderweg T3 / T4
+String4=0x04,Alpine Trail T3 / T4
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f08
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #A0A0A0"
+"  c none"
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+;12345678901234567890123456789012
+String1=0x00,Bergwanderweg T5 / T6 breit
+String2=0x01,Bergwanderweg T5 / T6 breit
+String3=0x02,Bergwanderweg T5 / T6
+String4=0x04,Alpine Trail T5/T6
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f09
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #000000"
+"  c none"
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+;12345678901234567890123456789012
+String1=0x00,Bergwanderweg T1 / T2 breit
+String2=0x01,Bergwanderweg T1 / T2 breit
+String3=0x02,Bergwanderweg T1 / T2 breit
+String4=0x04, Alpine Trail T1 / T2
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f0a
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #8080FF"
+"  c none"
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"                                "
+;12345678901234567890123456789012
+String1=0x00,Bergwanderweg T3 / T4 schmal
+String2=0x01,Bergwanderweg T3 / T4 schmal
+String3=0x02,Bergwanderweg T3 / T4
+String4=0x04, Alpine Trail T3 / T4
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f0b
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #A0A0A0"
+"  c none"
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"                                "
+;12345678901234567890123456789012
+String1=0x00,Bergwanderweg T5 / T6 schmal
+String2=0x01,Bergwanderweg T5 / T6 schmal
+String3=0x02,Bergwanderweg T5 / T6
+String4=0x04,Alpine Trail T5 / T6
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x11f0c
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #000000"
+"  c none"
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"                                "
+;12345678901234567890123456789012
+String1=0x00,Bergwanderweg T1 / T2 schmal
+String2=0x01,Bergwanderweg T1 / T2 schmal
+String3=0x02,Bergwanderweg T1 / T2
+String4=0x04,Alpine Trail T1 / T2
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No

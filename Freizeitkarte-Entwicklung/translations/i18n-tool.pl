@@ -272,10 +272,12 @@ sub add_lang_typtranslation {
            }
            
            # Print the strings again in new and correct order
-           $counter = 1 ;
+           # Counter taken away for easier handling of new languages
+           #$counter = 1 ;
            foreach my $code ( sort ( keys %thisobjectstrings ) ) {
-               print OUT "String$counter=$code,$thisobjectstrings{ $code }\n";
-               $counter += 1;
+               #print OUT "String$counter=$code,$thisobjectstrings{ $code }\n";
+               print OUT "String=$code,$thisobjectstrings{ $code }\n";
+               #$counter += 1;
            }
            
            # End the Object properly
@@ -346,10 +348,12 @@ sub remove_lang_typtranslation {
            }
            
            # Print the strings again in new and correct order
-           $counter = 1 ;
+           # Counter taken out
+           #$counter = 1 ;
            foreach my $code ( sort ( keys %thisobjectstrings ) ) {
-               print OUT "String$counter=$code,$thisobjectstrings{ $code }\n";
-               $counter += 1;
+               print OUT "String=$code,$thisobjectstrings{ $code }\n";
+               #print OUT "String$counter=$code,$thisobjectstrings{ $code }\n";
+               #$counter += 1;
            }
            
            # End the Object properly

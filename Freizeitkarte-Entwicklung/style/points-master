@@ -23,6 +23,7 @@
 #                             - lightened normal info sign
 # Version : 0.14 -14.03.2014: Adapting things regarding power = * (station / plant / substation / sub_station)
 #                             Adding amenity=toilets
+# Version : 0.15 -05.05.2014: Adapting finalize section to support new mkgmap version 2096 and newer
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #
@@ -372,7 +373,7 @@
 # -------------------------------------------------
 # Adress- / Indexsuche:
 # -------------------------------------------------
-#include "indexsearch"
+##include "indexsearch"
 
 
 
@@ -1715,3 +1716,28 @@ barrier = lift_gate [0x1210 resolution 24]
 # Grabstellen bedeutender Persönlichkeiten (d.h. Personen mit Wikipedia-Eintrag)
 # cemetery = grave & name = * & (wikipedia:de = * | wikipedia = * | website ~ 'wikipedia') {name "${name} (Ruhestaette)"} [0x6405 resolution 24]
 cemetery = grave & name = * & (wikipedia:de = * | wikipedia = * | website = *) {name "${name} ($__GRAVE__)"} [0x6405 resolution 24]
+
+
+# ------------------------------------------------
+# Needed Include Lines for making 
+# old mkgmap styles (pre r2906)
+# fully compatible with mkgmap r2906 and higher
+# ------------------------------------------------
+# add the following lines to your lines file
+ <finalize>
+##include 'compat_points';
+name=* { name '${name}' }
+mkgmap:default_name=* { name '${mkgmap:default_name}' }
+mkgmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }
+
+mkgmap:label:1!=* & ref=* { addlabel '${ref|part:;:1}' }
+mkgmap:label:1!=* & int_ref=* { addlabel '${int_ref|part:;:1}' }
+mkgmap:label:1!=* & nat_ref=* { addlabel '${nat_ref|part:;:1}' }
+mkgmap:label:1!=* & reg_ref=* { addlabel '${reg_ref|part:;:1}' }
+
+ref=*     { addlabel '${ref|part:;:1}';     addlabel '${ref|part:;:2}';     addlabel '${ref|part:;:3}'     }
+int_ref=* { addlabel '${int_ref|part:;:1}'; addlabel '${int_ref|part:;:2}'; addlabel '${int_ref|part:;:3}' }
+nat_ref=* { addlabel '${nat_ref|part:;:1}'; addlabel '${nat_ref|part:;:2}'; addlabel '${nat_ref|part:;:3}' }
+reg_ref=* { addlabel '${reg_ref|part:;:1}'; addlabel '${reg_ref|part:;:2}'; addlabel '${reg_ref|part:;:3}' }
+
+include 'indexsearch';
