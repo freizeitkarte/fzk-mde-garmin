@@ -52,6 +52,7 @@ my @actions = (
   [ 'zip',        'G. zip all maps' ,                                      'optional' ],
   [ 'regions',    'H. extract all needed maps from big region data',       'optional' ],
   [ 'extract_osm','I. extract single map from big region data' ,           'optional' ],
+  [ 'alltypfiles','J. Create all languages of the TYP files' ,             'optional' ],
 #  [ 'fetch_map',  'J. fetch map data from Europe directory' ,              'optional' ],
 
   # Hidden Actions not related to maps 
@@ -356,6 +357,9 @@ my $maptypfile = "freizeit.TYP";
 my $error   = -1;
 my $command = $EMPTY;
 
+my $ALLTYPEFILE = $EMPTY;
+my $typfilelangcode = $EMPTY;
+
 
 # get the command line parameters
 if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
@@ -433,6 +437,12 @@ if ( $actionname eq 'checkurl' ) {
 elsif ( $actionname eq 'fingerprint' ) {
   printf { *STDOUT } ( "Action = %s\n", $actiondesc );
   show_fingerprint ();
+  exit(0);
+}
+elsif ( $actionname eq 'alltypfiles' ) {
+  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  $ALLTYPEFILE = "yes";
+  create_alltypfile_languages ();
   exit(0);
 }
 
@@ -1577,9 +1587,66 @@ sub create_cfgfile {
 }
 
 # -----------------------------------------
+# Create all different possible TYP files (all per language)
+# -----------------------------------------
+sub create_alltypfile_languages {
+  
+  # Initialize Variables
+  # --------------------
+  #my $destdir = "$WORKDIR/typfiles";
+  
+  # Check for the existence of the main typfiles directories
+  # --------------------------------------------------------
+  if ( !(-e "$BASEPATH/work/typfiles" ) ) {
+    mkpath ( "$BASEPATH/work/typfiles" );
+  }    
+  if ( !(-e "$BASEPATH/install/typfiles" ) ) {
+    mkpath ( "$BASEPATH/install/typfiles" );
+  }    
+   
+  # Loop through all supported languages
+  # ----------------------------------
+  for my $actuallanguage ( @supportedlanguages )  {
+    
+    # Get the actual language code like 'en'
+    $typfilelangcode = @$actuallanguage [$LANGCODE];
+    
+    # Check for the existence of the main typfiles directories
+    if ( !(-e "$BASEPATH/work/typfiles/$typfilelangcode" ) ) {
+      mkpath ( "$BASEPATH/work/typfiles/$typfilelangcode" );
+    }    
+    if ( !(-e "$BASEPATH/install/typfiles/$typfilelangcode" ) ) {
+      mkpath ( "$BASEPATH/install/typfiles/$typfilelangcode" );
+    }    
+    
+    printf { *STDOUT } ( "DEBUG:  Looping through languages: $typfilelangcode\n" );
+    
+    # Create the complete source files together with the translations
+    create_typtranslations ();
+    
+    # Compile these source files into the final TYP files
+    compile_typfiles ();
+    
+    # copy all compiled TYP files over to install directory
+    chdir "$BASEPATH/work/typfiles/$typfilelangcode";
+    for my $file ( <*.TYP> ) {
+      printf { *STDOUT } ( "Copying %s\n", $file );
+      copy ( $file, "$BASEPATH/install/typfiles/$typfilelangcode" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    }
+
+  }
+
+	
+}
+
+
+# -----------------------------------------
 # Deduct the file map specific 'typ-translations' containing all needed strings
 # -----------------------------------------
 sub create_typtranslations {
+  
+  # Attention: called from different places and reacting differently
+  # (directories) depending on the action
 
   # Create some output (just to know where we are)
   print "\nCreating complete source txt files for the TYP files\n"
@@ -1642,7 +1709,16 @@ sub create_typtranslations {
   my %typfilestringindex;
   my %typfilestringhex;
   my $stringindex = 1;
-  my $langcode    = $maplang;
+
+  my $langcode    = $EMPTY;
+  # If we're building all typ file languages then use the variable $typfilelangcode
+  if ( $ALLTYPEFILE ) {
+    $langcode = $typfilelangcode;
+  }
+  # Looks like we're building a normal map, so use $maplang
+  else {
+    $langcode = $maplang;
+  }
 
   my $inputline;
   my $thisobjectform;
@@ -1753,8 +1829,16 @@ sub create_typtranslations {
   for my $actualfile ( glob "*.txt" ) {
 
     $inputfile  = "$BASEPATH/TYP/$actualfile";
-#    $outputfile = "$WORKDIR/TYP/$actualfile";
-    $outputfile = "$WORKDIRLANG/$actualfile";
+    #$outputfile = "$WORKDIR/TYP/$actualfile";
+    #$outputfile = "$WORKDIRLANG/$actualfile";
+
+    # If we're building all typ file languages we need a different output directory
+    if ( $ALLTYPEFILE ) {
+      $outputfile = "$BASEPATH/work/typfiles/$langcode/$actualfile";
+    }
+    else {
+      $outputfile = "$WORKDIRLANG/$actualfile";
+    }
 
     open IN, "< $inputfile" or die "Can't open $inputfile : $!";
     #  open OUT, ">:encoding(UTF-8)","$outputfile" or die "Can't open $outputfile : $!";
@@ -1845,7 +1929,7 @@ sub create_typtranslations {
           elsif ( $inputline =~ /^CodePage=.*$/i ) {
 #             print OUT "$inputline";
 #		     print OUT ";$inputline";
-            print OUT "CodePage=$langcodepage{$maplang}\n";
+            print OUT "CodePage=$langcodepage{$langcode}\n";
           }
           elsif ( $inputline =~ /^\s*\[end\]/i ) {
             print OUT $inputline;
@@ -1884,7 +1968,19 @@ sub compile_typfiles {
 #  chdir "$WORKDIR/TYP";
   chdir "$BASEPATH/TYP";
   my @typfilelist = glob "*.txt" ;
-  chdir "$WORKDIRLANG";
+
+  # If we're building all typ file languages then we have to jump to a different directory
+  if ( $ALLTYPEFILE ) {
+    chdir "$BASEPATH/work/typfiles/$typfilelangcode";
+    # Set $mapid to something less problematic than -1
+    $mapid=9999;
+  }
+  # Looks like we're building a normal map, so jump to the normal $WORKDIRLANG
+  else {
+    chdir "$WORKDIRLANG";
+  }
+
+
   
   # Run through the existing textfiles
   for my $thistypfile ( @typfilelist ) {
