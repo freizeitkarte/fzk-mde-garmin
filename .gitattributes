@@ -1,0 +1,10 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+#*          text=auto
+
+# Text files that can be auto detected.
+#*.txt      text
+
+# Explicitely unix
+*.sh       eol=lf
+*.cmd      eol=crlf
+*.bat      eol=crlf
