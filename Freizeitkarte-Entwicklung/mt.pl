@@ -53,6 +53,7 @@ my @actions = (
   [ 'regions',    'H. extract all needed maps from big region data',       'optional' ],
   [ 'extract_osm','I. extract single map from big region data' ,           'optional' ],
   [ 'alltypfiles','J. Create all languages of the TYP files' ,             'optional' ],
+  [ 'replacetyp', 'K. Create all language versions of ReplaceTyp.zip' ,    'optional' ],
 #  [ 'fetch_map',  'J. fetch map data from Europe directory' ,              'optional' ],
 
   # Hidden Actions not related to maps 
@@ -443,6 +444,12 @@ elsif ( $actionname eq 'alltypfiles' ) {
   printf { *STDOUT } ( "Action = %s\n", $actiondesc );
   $ALLTYPEFILE = "yes";
   create_alltypfile_languages ();
+  exit(0);
+}
+elsif ( $actionname eq 'replacetyp' ) {
+  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  $ALLTYPEFILE = "yes";
+  create_allreplacetyp_languages ();
   exit(0);
 }
 
@@ -1595,14 +1602,19 @@ sub create_alltypfile_languages {
   # --------------------
   #my $destdir = "$WORKDIR/typfiles";
   
-  # Check for the existence of the main typfiles directories
-  # --------------------------------------------------------
-  if ( !(-e "$BASEPATH/work/typfiles" ) ) {
-    mkpath ( "$BASEPATH/work/typfiles" );
-  }    
-  if ( !(-e "$BASEPATH/install/typfiles" ) ) {
-    mkpath ( "$BASEPATH/install/typfiles" );
-  }    
+  # Purge the directories if needed
+  # -------------------------------
+  if ( -e "$BASEPATH/work/typfiles" ) {
+    rmtree ( "$BASEPATH/work/typfiles",    0, 1 );
+  }
+  if ( -e "$BASEPATH/install/typfiles" ) {
+    rmtree ( "$BASEPATH/install/typfiles",    0, 1 );
+  }
+
+  # Recreate them again
+  # ---------------------------------
+  mkpath ( "$BASEPATH/work/typfiles" );
+  mkpath ( "$BASEPATH/install/typfiles" );
    
   # Loop through all supported languages
   # ----------------------------------
@@ -1636,9 +1648,100 @@ sub create_alltypfile_languages {
 
   }
 
-	
 }
 
+
+# -----------------------------------------
+# Create all different possible ReplaceTyp.zip files
+# -----------------------------------------
+sub create_allreplacetyp_languages {
+  
+  # Initialize Variables
+  # --------------------
+  #my $destdir = "$WORKDIR/typfiles";
+  
+  # Check for the existence of the main typfiles directories
+  # --------------------------------------------------------
+  if ( !( -e "$BASEPATH/work/typfiles" ) ) {
+      die ( "\nERROR:\nThe directory $BASEPATH/work/typfiles is missing.\nDid you run the Action 'alltypfiles' to get all needed files ?\n\n" );
+  }
+  if ( !( -e "$BASEPATH/install/typfiles" ) ) {
+      die ( "\nERROR:\nThe directory $BASEPATH/install/typfiles is missing.\nDid you run the Action 'alltypfiles' to get all needed files ?\n\n" );
+  }
+  
+  # Loop through all supported languages
+  # ----------------------------------
+  for my $actuallanguage ( @supportedlanguages )  {
+    
+    # Get the actual language code like 'en'
+    $typfilelangcode = @$actuallanguage [$LANGCODE];
+    
+    # Check for the existence of the main typfiles directories
+    if ( !(-e "$BASEPATH/work/typfiles/$typfilelangcode" ) ) {
+      die ( "\nERROR:\nThe directory $BASEPATH/work/typfiles/$typfilelangcode is missing.\nDid you run the Action 'alltypfiles' to get all needed files ?\n\n" );
+    }    
+    if ( !(-e "$BASEPATH/install/typfiles/$typfilelangcode" ) ) {
+      die ( "\nERROR:\nThe directory $BASEPATH/install/typfiles/$typfilelangcode is missing.\nDid you run the Action 'alltypfiles' to get all needed files ?\n\n" );
+    }    
+
+    # Create the needed ReplaceTyp directory
+    # --------------------------------------
+    if ( !(-e "$BASEPATH/work/typfiles/$typfilelangcode/ReplaceTyp" ) ) {
+      mkpath ( "$BASEPATH/work/typfiles/$typfilelangcode/ReplaceTyp" );
+    }    
+    
+    
+    # Put the ReplaceTyp directory together
+    # -------------------------------------
+    # Skeleton (everything except the TYP files)
+    chdir "$BASEPATH/tools/ReplaceTyp/";
+    for my $file ( <*> ) {
+      printf { *STDOUT } ( "Copying %s\n", $file );
+      copy ( $file, "$BASEPATH/work/typfiles/$typfilelangcode/ReplaceTyp" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    }
+    # TYP files
+    chdir "$BASEPATH/work/typfiles/$typfilelangcode/";
+    for my $file ( <*.TYP> ) {
+      printf { *STDOUT } ( "Copying %s\n", $file );
+      copy ( $file, "$BASEPATH/work/typfiles/$typfilelangcode/ReplaceTyp" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    }
+    
+    # Now zip the result
+    # ------------------
+    # Initialize some variables
+    my $source      = $EMPTY;
+    my $destination = $EMPTY;
+    my $zipper      = $EMPTY;
+
+    # get the needed tool (OS depending)
+    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # OS X, Linux, FreeBSD, OpenBSD
+      $zipper = 'zip -r ';
+    }
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $zipper = $BASEPATH . '/tools/zip/windows/7-Zip/7za.exe a ';
+    }
+    else {
+      die ( "\nError: Operating system $OSNAME not supported.\n" );
+      return ( 1 );
+    }
+
+    # Put the command together
+    $source      = 'ReplaceTyp';
+    $destination = 'ReplaceTyp.zip';
+    $command     = $zipper . "$destination $source";
+    if ( -e $source ) {
+      process_command ( $command );
+    }
+
+    # Copy the result to the install directory
+    # ----------------------------------------
+    copy ( "ReplaceTyp.zip", "$BASEPATH/install/typfiles/$typfilelangcode/ReplaceTyp.zip" ) or die ( "copy() ReplaceTyp.zip failed: $!\n" );
+
+  }  
+
+}
 
 # -----------------------------------------
 # Deduct the file map specific 'typ-translations' containing all needed strings
