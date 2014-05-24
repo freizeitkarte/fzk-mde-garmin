@@ -257,6 +257,7 @@ my @maps = (
   [ 8050, 'Freizeitkarte_ESP_PRT',                'NA',                                                                                                'ESP_PRT',                  'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 8060, 'Freizeitkarte_PYRENEES',               'NA',                                                                                                'PYRENEES',                 'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 8070, 'Freizeitkarte_CARPATHIAN',             'NA',                                                                                                'CARPATHIAN',               'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8080, 'Freizeitkarte_BALKAN',                 'NA',                                                                                                'BALKAN',                   'en', 'no_old_name',                             2, 'EUROPE'         ],
 
   [ 8889, 'Freizeitkarte_SOUTHAMERICA',           'http://download.geofabrik.de/south-america-latest.osm.pbf',                                         'SOUTHAMERICA',             'en', 'no_old_name',                             1, 'NA'             ],
   [ 8510, 'Freizeitkarte_MISIONES',               'NA',                                                                                                'MISIONES',                 'de', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
