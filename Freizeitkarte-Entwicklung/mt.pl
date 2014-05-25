@@ -431,7 +431,7 @@ check_environment ();
 
 # Now let's handle other actions that do not need maps
 if ( $actionname eq 'checkurl' ) {
-  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  show_actionsummary ();
   check_downloadurls ();
   exit(0);
 }
@@ -442,13 +442,13 @@ elsif ( $actionname eq 'fingerprint' ) {
   exit(0);
 }
 elsif ( $actionname eq 'alltypfiles' ) {
-  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  show_actionsummary ();
   $ALLTYPEFILE = "yes";
   create_alltypfile_languages ();
   exit(0);
 }
 elsif ( $actionname eq 'replacetyp' ) {
-  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  show_actionsummary ();
   $ALLTYPEFILE = "yes";
   create_allreplacetyp_languages ();
   exit(0);
