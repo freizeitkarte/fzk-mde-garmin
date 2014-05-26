@@ -1614,31 +1614,31 @@ String=0x15,Przyczółek
 String=0x19,Барьер / Опорная стенка
 [end]
 
-; Decommisioned Railway <=> Schienen (Rückbau)
-[_line]
-Type=0x10110
-String=0x00,Decommisioned Railway
-String=0x02,Schienen (Rückbau)
-String=0x03,Voormalige spoorbaan
-String=0x04,Decommisioned Railway
-String=0x05,Ferrovia dismessa
-String=0x10,Via férrea desativada
-String=0x15,Nieczynna linia kolejowa
-String=0x19,Железная дорога (не эксплуатируется)
-[end]
+;; Decommisioned Railway <=> Schienen (Rückbau)
+;[_line]
+;Type=0x10110
+;String=0x00,Decommisioned Railway
+;String=0x02,Schienen (Rückbau)
+;String=0x03,Voormalige spoorbaan
+;String=0x04,Decommisioned Railway
+;String=0x05,Ferrovia dismessa
+;String=0x10,Via férrea desativada
+;String=0x15,Nieczynna linia kolejowa
+;String=0x19,Железная дорога (не эксплуатируется)
+;[end]
 
-; Railway <=> Bahn
-[_line]
-Type=0x10111
-String=0x00,Railway
-String=0x02,Bahn
-String=0x03,Spoorbaan
-String=0x04,Railway
-String=0x05,Ferrovia
-String=0x10,Via férrea
-String=0x15,Linia kolejowa
-String=0x19,Железная дорога
-[end]
+;; Railway <=> Bahn
+;[_line]
+;Type=0x10111
+;String=0x00,Railway
+;String=0x02,Bahn
+;String=0x03,Spoorbaan
+;String=0x04,Railway
+;String=0x05,Ferrovia
+;String=0x10,Via férrea
+;String=0x15,Linia kolejowa
+;String=0x19,Железная дорога
+;[end]
 
 ; Light Rail <=> S-Bahn
 [_line]
@@ -1913,31 +1913,31 @@ String=0x15,Tunel
 String=0x19,Туннель
 [end]
 
-; Highway <=> Bundesstraße (wie Autobahn) breit
-[_line]
-Type=0x1040d
-String=0x00,Highway
-String=0x02,Bundesstraße (wie Autobahn)
-String=0x03,Provinciale weg
-String=0x04,Highway
-String=0x05,Strada di importanza statale
-String=0x10,Auto estrada
-String=0x15,Droga ekspresowa
-String=0x19,Федеральная трасса (автомагистраль)
-[end]
+;; Highway <=> Bundesstraße (wie Autobahn) breit
+;[_line]
+;Type=0x1040d
+;String=0x00,Highway
+;String=0x02,Bundesstraße (wie Autobahn)
+;String=0x03,Provinciale weg
+;String=0x04,Highway
+;String=0x05,Strada di importanza statale
+;String=0x10,Auto estrada
+;String=0x15,Droga ekspresowa
+;String=0x19,Федеральная трасса (автомагистраль)
+;[end]
 
-; Highway <=> Bundesstraße breit
-[_line]
-Type=0x1040e
-String=0x00,Highway
-String=0x02,Bundesstraße
-String=0x03,Autoweg
-String=0x04,Highway
-String=0x05,Strada di importanza statale
-String=0x10,Rodovia
-String=0x15,Droga ekspresowa
-String=0x19,Федеральная трасса
-[end]
+;; Highway <=> Bundesstraße breit
+;[_line]
+;Type=0x1040e
+;String=0x00,Highway
+;String=0x02,Bundesstraße
+;String=0x03,Autoweg
+;String=0x04,Highway
+;String=0x05,Strada di importanza statale
+;String=0x10,Rodovia
+;String=0x15,Droga ekspresowa
+;String=0x19,Федеральная трасса
+;[end]
 
 ;; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 breit
 ;[_line]
@@ -3604,8 +3604,60 @@ String=0x15,Port jachtowy (Marina)
 String=0x19,Пристань
 [end]
 
+; Highway <=> Bundesstraße (wie Autobahn) breit
+[_line]
+Type=0x12100
+String=0x00,Highway
+String=0x02,Bundesstraße (wie Autobahn)
+String=0x03,Provinciale weg
+String=0x04,Highway
+String=0x05,Strada di importanza statale
+String=0x10,Auto estrada
+String=0x15,Droga ekspresowa
+String=0x19,Федеральная трасса (автомагистраль)
+[end]
 
-;====================== POINTS ==========================
+; Highway <=> Bundesstraße breit
+[_line]
+Type=0x12101
+String=0x00,Highway
+String=0x02,Bundesstraße
+String=0x03,Autoweg
+String=0x04,Highway
+String=0x05,Strada di importanza statale
+String=0x10,Rodovia
+String=0x15,Droga ekspresowa
+String=0x19,Федеральная трасса
+[end]
+
+; Decommisioned Railway <=> Schienen (Rückbau)
+[_line]
+Type=0x12102
+String=0x00,Decommisioned Railway
+String=0x02,Schienen (Rückbau)
+String=0x03,Voormalige spoorbaan
+String=0x04,Decommisioned Railway
+String=0x05,Ferrovia dismessa
+String=0x10,Via férrea desativada
+String=0x15,Nieczynna linia kolejowa
+String=0x19,Железная дорога (не эксплуатируется)
+[end]
+
+; Railway <=> Bahn
+[_line]
+Type=0x12103
+String=0x00,Railway
+String=0x02,Bahn
+String=0x03,Spoorbaan
+String=0x04,Railway
+String=0x05,Ferrovia
+String=0x10,Via férrea
+String=0x15,Linia kolejowa
+String=0x19,Железная дорога
+[end];
+
+
+====================== POINTS ==========================
 
 
 ; Mega City <=> Megastadt

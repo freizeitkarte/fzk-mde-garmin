@@ -40,6 +40,10 @@
 #                             Changed Routing to new version (due to upgrade of mkgmap) with better support of different actions
 # Version : 0.23  11.05.2014: - Remapped range 0x010410-0x010415 to 0x011f07-0x011f0c to avoid problems on Nuvi and other newer devices
 #                             - Bugfix for routing
+# Version : 0.24  26.05.2014  - Remapped different Line ID's (due to problems on different devices)
+#                               from 0x1040d - 0x1040e to 0x12100 - 0x12101
+#                               from 0x10110 - 0x10111 to 0x12102 - 0x12103
+
 
 
 #
@@ -808,12 +812,12 @@ highway = trunk & man_made = dyke  [0x011f03 resolution 24 continue with_actions
 
 # Allgemein oeffentlich
 # 0x011f14 = 4/1 (breit, NoLabel)
-# 0x01040d = 4/1 (breit, Label, SmallFont)
+# 0x012100 = 4/1 (breit, Label, SmallFont)
 # 0x010f0c = 2/1 (mittel, NoLabel)
 # 0x010f0d = 1/1 (schmal, NoLabel)
 # 0x010e0b = 1 (sehr schmal, NoLabel)
 highway = trunk {set name = '${name}' | '${ref}' | ''} [0x011f14 resolution 24 continue with_actions]
-highway = trunk {set name = '${name}' | '${ref}' | ''} [0x01040d resolution 23-23 continue with_actions]
+highway = trunk {set name = '${name}' | '${ref}' | ''} [0x012100 resolution 23-23 continue with_actions]
 highway = trunk {set name = '${ref}' | ''}             [0x010f0c resolution 22-22 continue with_actions]
 highway = trunk {set name = '${ref}' | ''}             [0x010f0d resolution 20-21 continue with_actions]
 highway = trunk {set name = '${ref}' | ''}             [0x010e0b resolution 18-19]
@@ -832,11 +836,11 @@ highway = primary & man_made = dyke  [0x011f03 resolution 24 continue with_actio
 
 # Allgemein oeffentlich
 # 0x011f15 = 4/1 (breit, NoLabel)
-# 0x01040e = 4/1 (breit, Label, SmallFont)
+# 0x012101 = 4/1 (breit, Label, SmallFont)
 # 0x010f0e = 2/1 (mittel, NoLabel)
 # 0x010f0f = 1/1 (schmal, NoLabel)
 highway = primary {set name = '${name}' | '${ref}' | ''} [0x011f15 resolution 24 continue with_actions]
-highway = primary {set name = '${name}' | '${ref}' | ''} [0x01040e resolution 23-23 continue with_actions]
+highway = primary {set name = '${name}' | '${ref}' | ''} [0x012101 resolution 23-23 continue with_actions]
 highway = primary {set name = '${ref}' | ''}             [0x010f0e resolution 22-22 continue with_actions]
 highway = primary {set name = '${ref}' | ''}             [0x010f0f resolution 20-21]
 
@@ -1597,13 +1601,13 @@ aeroway = taxiway [0x010e1c resolution 21-21]
 # Tunnel          : aehnlich U-Bahn; 0x010115
 # Unterirdisch    : wie Tunnel
 #
-# Bundesbahn      : Linie D) ohne sichtbare Beschriftung; Streckenverlauf typischerweise oberirdisch; 0x010111
+# Bundesbahn      : Linie D) ohne sichtbare Beschriftung; Streckenverlauf typischerweise oberirdisch; 0x012103
 # Bruecke         : Standarddarstellung
 # Tunnel          : aehnlich U-Bahn; 0x010116
 # Unterirdisch    : wie Tunnel
 # Sonstiges       : Museumsbahn, Schmalspurbahn, ungenutzte Strecken: werden analog dargestellt
 #
-# Rueckbau        : Linie E) ohne sichtbare Beschriftung; Streckenverlauf typischerweise oberirdisch; 0x010110
+# Rueckbau        : Linie E) ohne sichtbare Beschriftung; Streckenverlauf typischerweise oberirdisch; 0x012102
 # Bruecke         : Standarddarstellung
 # Tunnel          : Standarddarstellung
 # Unterirdisch    : wie Tunnel
@@ -1631,11 +1635,11 @@ railway = funicular {set railway = rail}
 # 2. Die Schienen und der Schotter werden entfernt, aber ansonsten bleibt das Gelaende unveraendert (railway=abandoned).
 # 3. Das Gelaende wird fuer eine neue Nutzung umgebaut (taggen der neuen Nutzung).
 # Zwischen den einzelnen Phasen liegen durchaus mehrere Jahre.
-# 0x010110 = Bitmap 2 (NoLabel)
+# 0x012102 = Bitmap 2 (NoLabel)
 railway = abandoned & bridge = yes     [0x010407 resolution 24 continue]
 railway = abandoned & tunnel = yes     [0x010408 resolution 24 continue]
 ### railway = abandoned & embankment = yes [0x011f05 resolution 24 continue]
-railway = abandoned                    [0x010110 resolution 24]
+railway = abandoned                    [0x012102 resolution 24]
 
 # Der Bahnsteig verlaeuft parallel zu den Gleisen. [point, way, closedway]
 # 0x010e1d = 2 (NoLabel)
@@ -1643,11 +1647,11 @@ railway = platform & (area != * | area = no) [0x010e1d resolution 24]
 
 # Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
 # 0x010116 = Bitmap 2 (NoLabel)
-# 0x010111 = Bitmap 2 (NoLabel)
+# 0x012103 = Bitmap 2 (NoLabel)
 railway = rail & bridge = yes     [0x010407 resolution 24 continue]
 railway = rail & tunnel = yes     [0x010116 resolution 22]
 ### railway = rail & embankment = yes [0x011f05 resolution 24 continue]
-railway = rail                    [0x010111 resolution 22]
+railway = rail                    [0x012103 resolution 22]
 
 # S-Bahn (wie Eisenbahn; kann auch teilweise unterirdisch verkehren).
 # 0x010115 = Bitmap 2 (Label, SmallFont)

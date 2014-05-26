@@ -3112,42 +3112,42 @@ CustomColor=No
 [end]
 
 
-[_line]
-Type=0x10110
-UseOrientation=N
-Xpm="32 2 2  1"
-"! c #808080"
-"  c none"
-"  !!      !!      !!      !!    "
-"  !!      !!      !!      !!    "
-;12345678901234567890123456789012
-String1=0x00,Schienen (Rückbau)
-String2=0x01,Schienen (Rückbau)
-String3=0x02,Schienen (Rückbau)
-String4=0x04,Decommisioned Railway
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10110
+;UseOrientation=N
+;Xpm="32 2 2  1"
+;"! c #808080"
+;"  c none"
+;"  !!      !!      !!      !!    "
+;"  !!      !!      !!      !!    "
+;;12345678901234567890123456789012
+;String1=0x00,Schienen (Rückbau)
+;String2=0x01,Schienen (Rückbau)
+;String3=0x02,Schienen (Rückbau)
+;String4=0x04,Decommisioned Railway
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10111
-UseOrientation=N
-Xpm="32 2 2  1"
-"! c #808080"
-"# c #FFFFFF"
-"!!!!!!!!!#######!!!!!!!!!#######"
-"!!!!!!!!!#######!!!!!!!!!#######"
-;12345678901234567890123456789012
-String1=0x00,Bahn
-String2=0x01,Bahn
-String3=0x02,Bahn
-String4=0x04,Railway
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10111
+;UseOrientation=N
+;Xpm="32 2 2  1"
+;"! c #808080"
+;"# c #FFFFFF"
+;"!!!!!!!!!#######!!!!!!!!!#######"
+;"!!!!!!!!!#######!!!!!!!!!#######"
+;;12345678901234567890123456789012
+;String1=0x00,Bahn
+;String2=0x01,Bahn
+;String3=0x02,Bahn
+;String4=0x04,Railway
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
 [_line]
@@ -3592,40 +3592,40 @@ CustomColor=No
 [end]
 
 
-[_line]
-Type=0x1040d
-UseOrientation=Y
-LineWidth=4
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #FFBD6F"
-"2 c #717272"
-String1=0x00,Bundesstraße (wie Autobahn) breit
-String2=0x01,Bundesstraße (wie Autobahn) breit
-String3=0x02,Bundesstraße (wie Autobahn)
-String4=0x04,Highway
-ExtendedLabels=Y
-FontStyle=SmallFont
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1040d
+;UseOrientation=Y
+;LineWidth=4
+;BorderWidth=1
+;Xpm="0 0 2 0"
+;"1 c #FFBD6F"
+;"2 c #717272"
+;String1=0x00,Bundesstraße (wie Autobahn) breit
+;String2=0x01,Bundesstraße (wie Autobahn) breit
+;String3=0x02,Bundesstraße (wie Autobahn)
+;String4=0x04,Highway
+;ExtendedLabels=Y
+;FontStyle=SmallFont
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x1040e
-UseOrientation=Y
-LineWidth=4
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #FFEC9F"
-"2 c #797979"
-String1=0x00,Bundesstraße breit
-String2=0x01,Bundesstraße breit
-String3=0x02,Bundesstraße
-String4=0x04,Highway
-ExtendedLabels=Y
-FontStyle=SmallFont
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1040e
+;UseOrientation=Y
+;LineWidth=4
+;BorderWidth=1
+;Xpm="0 0 2 0"
+;"1 c #FFEC9F"
+;"2 c #797979"
+;String1=0x00,Bundesstraße breit
+;String2=0x01,Bundesstraße breit
+;String3=0x02,Bundesstraße
+;String4=0x04,Highway
+;ExtendedLabels=Y
+;FontStyle=SmallFont
+;CustomColor=No
+;[end]
 
 
 ;[_line]
@@ -5973,6 +5973,80 @@ String1=0x00,Marina
 String2=0x01,Marina
 String3=0x02,Yachthafen
 String4=0x04,Marina
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12100
+UseOrientation=Y
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFBD6F"
+"2 c #717272"
+String1=0x00,Bundesstraße (wie Autobahn) breit
+String2=0x01,Bundesstraße (wie Autobahn) breit
+String3=0x02,Bundesstraße (wie Autobahn)
+String4=0x04,Highway
+ExtendedLabels=Y
+FontStyle=SmallFont
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12101
+UseOrientation=Y
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFEC9F"
+"2 c #797979"
+String1=0x00,Bundesstraße breit
+String2=0x01,Bundesstraße breit
+String3=0x02,Bundesstraße
+String4=0x04,Highway
+ExtendedLabels=Y
+FontStyle=SmallFont
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12102
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #808080"
+"  c none"
+"  !!      !!      !!      !!    "
+"  !!      !!      !!      !!    "
+;12345678901234567890123456789012
+String1=0x00,Schienen (Rückbau)
+String2=0x01,Schienen (Rückbau)
+String3=0x02,Schienen (Rückbau)
+String4=0x04,Decommisioned Railway
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12103
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #808080"
+"# c #FFFFFF"
+"!!!!!!!!!#######!!!!!!!!!#######"
+"!!!!!!!!!#######!!!!!!!!!#######"
+;12345678901234567890123456789012
+String1=0x00,Bahn
+String2=0x01,Bahn
+String3=0x02,Bahn
+String4=0x04,Railway
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
