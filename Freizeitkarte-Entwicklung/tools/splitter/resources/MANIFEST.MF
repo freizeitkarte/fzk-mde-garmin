@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Main-class: uk.me.parabola.splitter.Main
-Class-Path: lib/protobuf.jar lib/xpp3-1.1.4c.jar lib/testng-5.9-jdk15.jar lib/osmpbf.jar lib/fastutil.jar
-

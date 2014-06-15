@@ -52,6 +52,8 @@ my @actions = (
   [ 'zip',        'G. zip all maps' ,                                      'optional' ],
   [ 'regions',    'H. extract all needed maps from big region data',       'optional' ],
   [ 'extract_osm','I. extract single map from big region data' ,           'optional' ],
+  [ 'alltypfiles','J. Create all languages of the TYP files' ,             'optional' ],
+  [ 'replacetyp', 'K. Create all language versions of ReplaceTyp.zip' ,    'optional' ],
 #  [ 'fetch_map',  'J. fetch map data from Europe directory' ,              'optional' ],
 
   # Hidden Actions not related to maps 
@@ -356,6 +358,9 @@ my $maptypfile = "freizeit.TYP";
 my $error   = -1;
 my $command = $EMPTY;
 
+my $ALLTYPEFILE = $EMPTY;
+my $typfilelangcode = $EMPTY;
+
 
 # get the command line parameters
 if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
@@ -426,13 +431,26 @@ check_environment ();
 
 # Now let's handle other actions that do not need maps
 if ( $actionname eq 'checkurl' ) {
-  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  show_actionsummary ();
   check_downloadurls ();
   exit(0);
 }
 elsif ( $actionname eq 'fingerprint' ) {
-  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+#  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  show_actionsummary ();
   show_fingerprint ();
+  exit(0);
+}
+elsif ( $actionname eq 'alltypfiles' ) {
+  show_actionsummary ();
+  $ALLTYPEFILE = "yes";
+  create_alltypfile_languages ();
+  exit(0);
+}
+elsif ( $actionname eq 'replacetyp' ) {
+  show_actionsummary ();
+  $ALLTYPEFILE = "yes";
+  create_allreplacetyp_languages ();
   exit(0);
 }
 
@@ -535,8 +553,9 @@ if ( $nametaglist ne $EMPTY ) {
 
 
 # Print out the Information about the choosen action and map
-printf { *STDOUT } ( "Action = %s\n", $actiondesc );
-printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
+#printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+#printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
+show_actionsummary ();
 
 # Create the WORKDIR, WORKDIRLANG and the INSTALLDIR variables, used at a lot of places
 my $WORKDIR     = '';
@@ -1577,9 +1596,154 @@ sub create_cfgfile {
 }
 
 # -----------------------------------------
+# Create all different possible TYP files (all per language)
+# -----------------------------------------
+sub create_alltypfile_languages {
+  
+  # Initialize Variables
+  # --------------------
+  my $typfileworkdir    = "$BASEPATH/work/typfiles";
+  my $typfileinstalldir = "$BASEPATH/install/typfiles";
+  
+  # Purge the directories if needed
+  # -------------------------------
+  if ( -e "$typfileworkdir" ) {
+    rmtree ( "$typfileworkdir", 0, 1 );
+  }
+  if ( -e "$typfileinstalldir" ) {
+    rmtree ( "$typfileinstalldir",    0, 1 );
+  }
+
+  # Recreate them again
+  # ---------------------------------
+  mkpath ( "$typfileworkdir" );
+  mkpath ( "$typfileinstalldir" );
+   
+  # Loop through all supported languages
+  # ----------------------------------
+  for my $actuallanguage ( @supportedlanguages )  {
+    
+    # Get the actual language code like 'en'
+    $typfilelangcode = @$actuallanguage [$LANGCODE];
+    
+    # Check for the existence of the main typfiles directories
+    if ( !(-e "$typfileworkdir/$typfilelangcode" ) ) {
+      mkpath ( "$typfileworkdir/$typfilelangcode" );
+    }    
+    if ( !(-e "$typfileinstalldir/$typfilelangcode" ) ) {
+      mkpath ( "$typfileinstalldir/$typfilelangcode" );
+    }    
+    
+    # Create the complete source files together with the translations
+    create_typtranslations ();
+    
+    # Compile these source files into the final TYP files
+    compile_typfiles ();
+    
+    # copy all compiled TYP files over to install directory
+    chdir "$typfileworkdir/$typfilelangcode";
+    for my $file ( <*.TYP> ) {
+      printf { *STDOUT } ( "Copying %s\n", $file );
+      copy ( $file, "$typfileinstalldir/$typfilelangcode" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    }
+
+  }
+
+}
+
+
+# -----------------------------------------
+# Create all different possible ReplaceTyp.zip files
+# -----------------------------------------
+sub create_allreplacetyp_languages {
+  
+  # Initialize Variables
+  # --------------------
+  my $typfileworkdir    = "$BASEPATH/work/typfiles";
+  my $typfileinstalldir = "$BASEPATH/install/typfiles";
+  
+    
+  # Loop through all supported languages
+  # ----------------------------------
+  for my $actuallanguage ( @supportedlanguages )  {
+    
+    # Get the actual language code like 'en'
+    $typfilelangcode = @$actuallanguage [$LANGCODE];
+    
+    # Check for the existence of the main typfiles directories
+    if ( !(-e "$typfileworkdir" ) ) {
+      die ( "\nERROR:\nThe directory $typfileworkdir/$typfilelangcode is missing.\nDid you run the Action 'alltypfiles' to get all needed files ?\n\n" );
+    }    
+    if ( !(-e "$typfileinstalldir/$typfilelangcode" ) ) {
+      die ( "\nERROR:\nThe directory $typfileinstalldir/$typfilelangcode is missing.\nDid you run the Action 'alltypfiles' to get all needed files ?\n\n" );
+    }    
+
+    # Create the needed ReplaceTyp directory
+    # --------------------------------------
+    if ( !(-e "$typfileworkdir/$typfilelangcode/ReplaceTyp" ) ) {
+      mkpath ( "$typfileworkdir/$typfilelangcode/ReplaceTyp" );
+    }    
+    
+    
+    # Put the ReplaceTyp directory together
+    # -------------------------------------
+    # Skeleton (everything except the TYP files)
+    chdir "$BASEPATH/tools/ReplaceTyp/";
+    for my $file ( <*> ) {
+      printf { *STDOUT } ( "Copying %s\n", $file );
+      copy ( $file, "$typfileworkdir/$typfilelangcode/ReplaceTyp" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    }
+    # TYP files
+    chdir "$typfileworkdir/$typfilelangcode/";
+    for my $file ( <*.TYP> ) {
+      printf { *STDOUT } ( "Copying %s\n", $file );
+      copy ( $file, "$typfileworkdir/$typfilelangcode/ReplaceTyp" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    }
+    
+    # Now zip the result
+    # ------------------
+    # Initialize some variables
+    my $source      = $EMPTY;
+    my $destination = $EMPTY;
+    my $zipper      = $EMPTY;
+
+    # get the needed tool (OS depending)
+    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # OS X, Linux, FreeBSD, OpenBSD
+      $zipper = 'zip -r ';
+    }
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $zipper = $BASEPATH . '/tools/zip/windows/7-Zip/7za.exe a ';
+    }
+    else {
+      die ( "\nError: Operating system $OSNAME not supported.\n" );
+      return ( 1 );
+    }
+
+    # Put the command together
+    $source      = 'ReplaceTyp';
+    $destination = 'ReplaceTyp.zip';
+    $command     = $zipper . "$destination $source";
+    if ( -e $source ) {
+      process_command ( $command );
+    }
+
+    # Copy the result to the install directory
+    # ----------------------------------------
+    copy ( "ReplaceTyp.zip", "$typfileinstalldir/$typfilelangcode/ReplaceTyp.zip" ) or die ( "copy() ReplaceTyp.zip failed: $!\n" );
+
+  }  
+
+}
+
+# -----------------------------------------
 # Deduct the file map specific 'typ-translations' containing all needed strings
 # -----------------------------------------
 sub create_typtranslations {
+  
+  # Attention: called from different places and reacting differently
+  # (directories) depending on the action
 
   # Create some output (just to know where we are)
   print "\nCreating complete source txt files for the TYP files\n"
@@ -1642,7 +1806,16 @@ sub create_typtranslations {
   my %typfilestringindex;
   my %typfilestringhex;
   my $stringindex = 1;
-  my $langcode    = $maplang;
+
+  my $langcode    = $EMPTY;
+  # If we're building all typ file languages then use the variable $typfilelangcode
+  if ( $ALLTYPEFILE ) {
+    $langcode = $typfilelangcode;
+  }
+  # Looks like we're building a normal map, so use $maplang
+  else {
+    $langcode = $maplang;
+  }
 
   my $inputline;
   my $thisobjectform;
@@ -1753,8 +1926,16 @@ sub create_typtranslations {
   for my $actualfile ( glob "*.txt" ) {
 
     $inputfile  = "$BASEPATH/TYP/$actualfile";
-#    $outputfile = "$WORKDIR/TYP/$actualfile";
-    $outputfile = "$WORKDIRLANG/$actualfile";
+    #$outputfile = "$WORKDIR/TYP/$actualfile";
+    #$outputfile = "$WORKDIRLANG/$actualfile";
+
+    # If we're building all typ file languages we need a different output directory
+    if ( $ALLTYPEFILE ) {
+      $outputfile = "$BASEPATH/work/typfiles/$langcode/$actualfile";
+    }
+    else {
+      $outputfile = "$WORKDIRLANG/$actualfile";
+    }
 
     open IN, "< $inputfile" or die "Can't open $inputfile : $!";
     #  open OUT, ">:encoding(UTF-8)","$outputfile" or die "Can't open $outputfile : $!";
@@ -1845,7 +2026,7 @@ sub create_typtranslations {
           elsif ( $inputline =~ /^CodePage=.*$/i ) {
 #             print OUT "$inputline";
 #		     print OUT ";$inputline";
-            print OUT "CodePage=$langcodepage{$maplang}\n";
+            print OUT "CodePage=$langcodepage{$langcode}\n";
           }
           elsif ( $inputline =~ /^\s*\[end\]/i ) {
             print OUT $inputline;
@@ -1884,7 +2065,19 @@ sub compile_typfiles {
 #  chdir "$WORKDIR/TYP";
   chdir "$BASEPATH/TYP";
   my @typfilelist = glob "*.txt" ;
-  chdir "$WORKDIRLANG";
+
+  # If we're building all typ file languages then we have to jump to a different directory
+  if ( $ALLTYPEFILE ) {
+    chdir "$BASEPATH/work/typfiles/$typfilelangcode";
+    # Set $mapid to something less problematic than -1
+    $mapid=9999;
+  }
+  # Looks like we're building a normal map, so jump to the normal $WORKDIRLANG
+  else {
+    chdir "$WORKDIRLANG";
+  }
+
+
   
   # Run through the existing textfiles
   for my $thistypfile ( @typfilelist ) {
@@ -3836,6 +4029,43 @@ sub check_environment {
 
 }
 
+
+# -----------------------------------------
+# Show action summary
+# -----------------------------------------
+sub show_actionsummary {
+  
+  # delete trailing spaces from the action description
+  my $tmpstring = $actiondesc;
+  $tmpstring =~   s/^\s+//;
+
+  # Print out the Information about the choosen action and map
+  printf { *STDOUT }     ( "Action:     %s\n",      $actionname );
+  printf { *STDOUT }     ( "            %s\n",      $tmpstring );
+  if ( $mapid == -1 ) {
+    printf { *STDOUT }   ( "Map         n/a\n" );
+  }
+  else {
+    printf { *STDOUT }   ( "Map:        %s (%s)\n", $mapname, $mapid );
+    printf { *STDOUT }   ( "Language:   %s (%s)\n", $langdesc, $maplang );
+    printf { *STDOUT }   ( "Typ file:   %s.TYP\n",  $maptypfile );
+    printf { *STDOUT }   ( "elevation:  %s m\n",    $ele );
+    if ( $maptype == 3 ) {
+      printf { *STDOUT } ( "Map type:   downloadable OSM extract\n" );
+    }
+    elsif (  $maptype == 2 ) {
+      printf { *STDOUT } ( "Map type:   own extract, parent map needed\n" );      
+      printf { *STDOUT } ( "Parent Map: %s\n",      $mapparent );
+    }
+    elsif (  $maptype == 1 ) {
+      printf { *STDOUT } ( "Map type:   parent map\n" );      
+    }
+    if ( $nametaglist ne $EMPTY ) {
+      printf { *STDOUT } ( "ntl:        name-tag-list=%s\n", $nametaglist );  
+    }
+  }
+
+}
 
 # -----------------------------------------
 # Show short usage
