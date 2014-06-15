@@ -270,6 +270,7 @@ my @maps = (
   [ 9010, 'Freizeitkarte_RUS_EUR',                 'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'RUS_EUR',                 'ru', 'Freizeitkarte_Euro-Russland',             1, 'NA'             ],
   [ 9020, 'Freizeitkarte_ESP_CANARIAS',            'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'ESP_CANARIAS',            'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
   [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS_EUR'        ],
+  [ 9040, 'Freizeitkarte_AZORES',                  'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                  'en', 'Freizeitkarte_Azoren',                    3, 'NA'             ],
 
   # For faster test runs with regions
   [ -1,   'Regions - Maps for test purposes',     'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
@@ -2226,7 +2227,10 @@ sub preprocess_styles {
   # adapted for making it possible for include files that don't get processed by PPP
   #for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
   for my $stylefile ( glob "$BASEPATH/style/*" ) {
-    copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
+    # Only copy files and leave the existing subdirectories for the moment (may changes lateron)
+    if ( -f "$stylefile" ) {
+      copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
+    }
   }
 
   # Go to the Workdir LANG
