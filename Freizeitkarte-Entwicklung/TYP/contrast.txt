@@ -2646,30 +2646,30 @@ CustomColor=No
 [end]
 
 
-[_line]
-Type=0x1010b
-UseOrientation=Y
-LineWidth=2
-Xpm="0 0 1 0"
-"1 c #99CCCC"
-String1=0x02,Abwassergraben
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1010b
+;UseOrientation=Y
+;LineWidth=2
+;Xpm="0 0 1 0"
+;"1 c #99CCCC"
+;String1=0x02,Abwassergraben
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x1010c
-UseOrientation=Y
-LineWidth=2
-Xpm="0 0 1 0"
-"1 c #BABABA"
-String1=0x02,Staudamm / -mauer
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1010c
+;UseOrientation=Y
+;LineWidth=2
+;Xpm="0 0 1 0"
+;"1 c #BABABA"
+;String1=0x02,Staudamm / -mauer
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
 ;[_line]
@@ -2736,161 +2736,161 @@ CustomColor=No
 ;[end]
 
 
-[_line]
-Type=0x10112
-UseOrientation=N
-LineWidth=2
-BorderWidth=0
-Xpm="0 0 2 0"
-"1 c #808080"
-"2 c #FFFFFF"
-String1=0x02,S-Bahn
-ExtendedLabels=Y
-FontStyle=SmallFont
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10112
+;UseOrientation=N
+;LineWidth=2
+;BorderWidth=0
+;Xpm="0 0 2 0"
+;"1 c #808080"
+;"2 c #FFFFFF"
+;String1=0x02,S-Bahn
+;ExtendedLabels=Y
+;FontStyle=SmallFont
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10113
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #808080"
-"  c none"
-"!!!!!   !!!!!   !!!!!   !!!!!   "
-"!!!!!   !!!!!   !!!!!   !!!!!   "
-;12345678901234567890123456789012
-String1=0x02,U-Bahn
-ExtendedLabels=Y
-FontStyle=SmallFont
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10113
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #808080"
+;"  c none"
+;"!!!!!   !!!!!   !!!!!   !!!!!   "
+;"!!!!!   !!!!!   !!!!!   !!!!!   "
+;;12345678901234567890123456789012
+;String1=0x02,U-Bahn
+;ExtendedLabels=Y
+;FontStyle=SmallFont
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10115
-UseOrientation=N
-Xpm="32 2 2  1"
-"! c #808080"
-"  c none"
-"!!!!    !!!!    !!!!    !!!!    "
-"!!!!    !!!!    !!!!    !!!!    "
-;12345678901234567890123456789012
-String1=0x02,S-Bahn (Tunnel)
-ExtendedLabels=Y
-FontStyle=SmallFont
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10115
+;UseOrientation=N
+;Xpm="32 2 2  1"
+;"! c #808080"
+;"  c none"
+;"!!!!    !!!!    !!!!    !!!!    "
+;"!!!!    !!!!    !!!!    !!!!    "
+;;12345678901234567890123456789012
+;String1=0x02,S-Bahn (Tunnel)
+;ExtendedLabels=Y
+;FontStyle=SmallFont
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10116
-UseOrientation=N
-Xpm="32 2 2  1"
-"! c #808080"
-"  c none"
-"!!!!!!!!        !!!!!!!!        "
-"!!!!!!!!        !!!!!!!!        "
-;12345678901234567890123456789012
-String1=0x02,Bahn (Tunnel)
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10116
+;UseOrientation=N
+;Xpm="32 2 2  1"
+;"! c #808080"
+;"  c none"
+;"!!!!!!!!        !!!!!!!!        "
+;"!!!!!!!!        !!!!!!!!        "
+;;12345678901234567890123456789012
+;String1=0x02,Bahn (Tunnel)
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10117
-UseOrientation=N
-LineWidth=2
-Xpm="0 0 1 0"
-"1 c #808080"
-String1=0x02,U-Bahn (oberirdisch)
-ExtendedLabels=Y
-FontStyle=SmallFont
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10117
+;UseOrientation=N
+;LineWidth=2
+;Xpm="0 0 1 0"
+;"1 c #808080"
+;String1=0x02,U-Bahn (oberirdisch)
+;ExtendedLabels=Y
+;FontStyle=SmallFont
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10118
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #101010"
-"  c none"
-"!   !!  !   !!  !   !!  !   !!  "
-"!!   !  !!   !  !!   !  !!   !  "
-;12345678901234567890123456789012
-String1=0x02,Klettersteig
-String2=0x00,Klettersteig breit
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10118
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #101010"
+;"  c none"
+;"!   !!  !   !!  !   !!  !   !!  "
+;"!!   !  !!   !  !!   !  !!   !  "
+;;12345678901234567890123456789012
+;String1=0x02,Klettersteig
+;String2=0x00,Klettersteig breit
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x10119
-UseOrientation=Y
-Xpm="32 2 2  1"
-"! c #101010"
-"  c none"
-"!    !  !    !  !    !  !    !  "
-" !  !    !  !    !  !    !  !   "
-;12345678901234567890123456789012
-String1=0x02,Klettersteig
-String2=0x00,Klettersteig schmal
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x10119
+;UseOrientation=Y
+;Xpm="32 2 2  1"
+;"! c #101010"
+;"  c none"
+;"!    !  !    !  !    !  !    !  "
+;" !  !    !  !    !  !    !  !   "
+;;12345678901234567890123456789012
+;String1=0x02,Klettersteig
+;String2=0x00,Klettersteig schmal
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x1011a
-UseOrientation=Y
-Xpm="32 4 2  1"
-"! c #606060"
-"  c none"
-"                                "
-"        !               !       "
-"!!!!!!! ! !!!!!!!!!!!!! ! !!!!!!"
-"        !               !       "
-;12345678901234567890123456789012
-String1=0x02,Materialseilbahn
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1011a
+;UseOrientation=Y
+;Xpm="32 4 2  1"
+;"! c #606060"
+;"  c none"
+;"                                "
+;"        !               !       "
+;"!!!!!!! ! !!!!!!!!!!!!! ! !!!!!!"
+;"        !               !       "
+;;12345678901234567890123456789012
+;String1=0x02,Materialseilbahn
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x1011b
-UseOrientation=N
-Xpm="32 2 2  1"
-"! c #808080"
-"  c none"
-"!!!!    !!!!    !!!!    !!!!    "
-"!!!!    !!!!    !!!!    !!!!    "
-;12345678901234567890123456789012
-String1=0x02,Straßenbahn (Tunnel)
-ExtendedLabels=Y
-FontStyle=SmallFont
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1011b
+;UseOrientation=N
+;Xpm="32 2 2  1"
+;"! c #808080"
+;"  c none"
+;"!!!!    !!!!    !!!!    !!!!    "
+;"!!!!    !!!!    !!!!    !!!!    "
+;;12345678901234567890123456789012
+;String1=0x02,Straßenbahn (Tunnel)
+;ExtendedLabels=Y
+;FontStyle=SmallFont
+;CustomColor=No
+;[end]
 
 
-[_line]
-Type=0x1011c
-UseOrientation=N
-LineWidth=1
-Xpm="0 0 1 0"
-"1 c #7BCA8B"
-String1=0x02,Naturreservat
-ExtendedLabels=Y
-FontStyle=NoLabel (invisible)
-CustomColor=No
-[end]
+;[_line]
+;Type=0x1011c
+;UseOrientation=N
+;LineWidth=1
+;Xpm="0 0 1 0"
+;"1 c #7BCA8B"
+;String1=0x02,Naturreservat
+;ExtendedLabels=Y
+;FontStyle=NoLabel (invisible)
+;CustomColor=No
+;[end]
 
 
 [_line]
@@ -5261,6 +5261,187 @@ Xpm="32 2 2  1"
 "!!!!!!!!!#######!!!!!!!!!#######"
 ;12345678901234567890123456789012
 String1=0x02,Bahn
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+[_line]
+Type=0x12104
+UseOrientation=Y
+LineWidth=2
+Xpm="0 0 1 0"
+"1 c #99CCCC"
+String1=0x02,Abwassergraben
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12105
+UseOrientation=Y
+LineWidth=2
+Xpm="0 0 1 0"
+"1 c #BABABA"
+String1=0x02,Staudamm / -mauer
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+[_line]
+Type=0x12106
+UseOrientation=N
+LineWidth=2
+BorderWidth=0
+Xpm="0 0 2 0"
+"1 c #808080"
+"2 c #FFFFFF"
+String1=0x02,S-Bahn
+ExtendedLabels=Y
+FontStyle=SmallFont
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12107
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #808080"
+"  c none"
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+"!!!!!   !!!!!   !!!!!   !!!!!   "
+;12345678901234567890123456789012
+String1=0x02,U-Bahn
+ExtendedLabels=Y
+FontStyle=SmallFont
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12108
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #808080"
+"  c none"
+"!!!!    !!!!    !!!!    !!!!    "
+"!!!!    !!!!    !!!!    !!!!    "
+;12345678901234567890123456789012
+String1=0x02,S-Bahn (Tunnel)
+ExtendedLabels=Y
+FontStyle=SmallFont
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12109
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #808080"
+"  c none"
+"!!!!!!!!        !!!!!!!!        "
+"!!!!!!!!        !!!!!!!!        "
+;12345678901234567890123456789012
+String1=0x02,Bahn (Tunnel)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1210a
+UseOrientation=N
+LineWidth=2
+Xpm="0 0 1 0"
+"1 c #808080"
+String1=0x02,U-Bahn (oberirdisch)
+ExtendedLabels=Y
+FontStyle=SmallFont
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1210b
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #101010"
+"  c none"
+"!   !!  !   !!  !   !!  !   !!  "
+"!!   !  !!   !  !!   !  !!   !  "
+;12345678901234567890123456789012
+String1=0x02,Klettersteig
+String2=0x00,Klettersteig breit
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1210c
+UseOrientation=Y
+Xpm="32 2 2  1"
+"! c #101010"
+"  c none"
+"!    !  !    !  !    !  !    !  "
+" !  !    !  !    !  !    !  !   "
+;12345678901234567890123456789012
+String1=0x02,Klettersteig
+String2=0x00,Klettersteig schmal
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1210d
+UseOrientation=Y
+Xpm="32 4 2  1"
+"! c #606060"
+"  c none"
+"                                "
+"        !               !       "
+"!!!!!!! ! !!!!!!!!!!!!! ! !!!!!!"
+"        !               !       "
+;12345678901234567890123456789012
+String1=0x02,Materialseilbahn
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1210e
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #808080"
+"  c none"
+"!!!!    !!!!    !!!!    !!!!    "
+"!!!!    !!!!    !!!!    !!!!    "
+;12345678901234567890123456789012
+String1=0x02,Straßenbahn (Tunnel)
+ExtendedLabels=Y
+FontStyle=SmallFont
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x1210f
+UseOrientation=N
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #7BCA8B"
+String1=0x02,Naturreservat
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
