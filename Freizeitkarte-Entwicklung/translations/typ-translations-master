@@ -3843,6 +3843,7 @@ String=0x19,хедж
 [end]
 
 [_line]
+Type=0x12112
 String=0x00,Tree Row
 String=0x02,Baumreihe
 String=0x03,Bomenrij
