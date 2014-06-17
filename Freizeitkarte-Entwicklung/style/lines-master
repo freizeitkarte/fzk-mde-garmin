@@ -1461,6 +1461,10 @@ natural = cliff [0x010104 resolution 24]
 #         an extended upland between valleys. The term is used in areas of both hill and mountain relief.
 # natural = ridge & name = * [0x01011c resolution 23]
 
+# Baumreihe / Tree Rows
+# 0x012112 (NoLabel)
+natural = tree_row [ 0x012112 resolution 24 ]
+
 
 # ------------------------------------------------------------
 # Routen / route:
@@ -1728,7 +1732,12 @@ barrier = fence [0x011f06 resolution 24 continue with_actions]
 barrier = wall | barrier = city_wall | fence = retaining_wall [0x011f06 resolution 24 continue with_actions]
 fenced = yes [0x011f06 resolution 24 continue with_actions]
 
+# Hecken (hedges)
+# 0x012110 (NoLabel)
+barrier = hedge [ 0x012110 resolution 24 ]
 
+# Wallhecken / Knick (hedge_bank)
+barrier = hedge_bank [ 0x012111 resolution 24 ]
 
 # -------------------------------------------------
 # Hoehenlinien:

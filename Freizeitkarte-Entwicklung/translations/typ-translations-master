@@ -3818,6 +3818,42 @@ String=0x15,Rezerwat przyrody
 String=0x19,Заповедник
 [end]
 
+[_line]
+Type=0x12110
+String=0x00,Hedge
+String=0x02,Hecke
+String=0x03,Haag
+String=0x04,Hedge
+String=0x05,Siepe
+String=0x10,Sebe
+String=0x15,żywopłot
+String=0x19,хедж
+[end]
+
+[_line]
+Type=0x12111
+String=0x00,Hedge Bank
+String=0x02,Wallhecke/Knick
+String=0x03,Haag
+String=0x04,Hedge Bank
+String=0x05,Siepe
+String=0x10,Sebe
+String=0x15,żywopłot
+String=0x19,хедж
+[end]
+
+[_line]
+String=0x00,Tree Row
+String=0x02,Baumreihe
+String=0x03,Bomenrij
+String=0x04,Tree Row
+String=0x05,Filare di Alberi
+String=0x10,Fileira Árvore
+String=0x15,Wiersz Drzewa
+String=0x19,дерево строка
+[end]
+
+
 ====================== POINTS ==========================
 
 
