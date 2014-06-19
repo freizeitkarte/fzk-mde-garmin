@@ -6128,7 +6128,8 @@ Type=0x12110
 UseOrientation=N
 LineWidth=2
 Xpm="0 0 1 0"
-"1 c #AED1A0"
+"1 c #6BC375"
+;"1 c #AED1A0"
 String1=0x00,hedge
 String3=0x02,Hecke
 String4=0x04,hedge
@@ -6143,7 +6144,8 @@ Type=0x12111
 UseOrientation=N
 LineWidth=1
 Xpm="0 0 1 0"
-"1 c #AED1A0"
+"1 c #6BC375"
+;"1 c #AED1A0"
 String1=0x00,hedge bank
 String3=0x02,Wallhecke/Knick
 String4=0x04,hedge bank
@@ -6155,14 +6157,14 @@ CustomColor=No
 
 [_line]
 Type=0x12112
-UseOrientation=N
+UseOrientation=Y
 Xpm="32 4 2  1"
 "! c #249D37"
 "  c none"
-" !!      !!      !!      !!     "
-"!!!!    !!!!    !!!!    !!!!    "
-"!!!!    !!!!    !!!!    !!!!    "
-" !!      !!      !!      !!     "
+" !!              !!             "
+"!!!!            !!!!            "
+"!!!!            !!!!            "
+" !!              !!             "
 ;12345678901234567890123456789012
 String1=0x00,Tree Row
 String3=0x02,Baumreihe
