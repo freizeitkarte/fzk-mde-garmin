@@ -82,6 +82,12 @@
 ;                              Changed the format of this file not to contain a number after tag 'String' anymore
 ;                              Changed the ID of two different 'Kreisstrassen' to avoid problems on Nuvi and other newer devices.
 ; Version: 0.12 - 11.05.2014:  Remapped range 0x010410-0x010415 to 0x011f07-0x011f0c to avoid problems on Nuvi and other newer devices
+; Version: 0.13 - 26.05.2014  - Remapped different Line ID's (due to problems on different devices)
+;                               from 0x1040d - 0x1040e to 0x12100 - 0x12101
+;                               from 0x10110 - 0x10111 to 0x12102 - 0x12103
+; Version: 0.14 - 16.06.2014  - Remapped different Line ID's (due to problems with different devices, also Monterra)
+;                               from 0x01010b - 0x01010c to 0x12104 - 0x12105
+;                               from 0x010112 - 0x01011c to 0x12106 - 0x1210f
 
 
 
@@ -1549,31 +1555,31 @@ String=0x15,Rów
 String=0x19,Канава/ров
 [end]
 
-; Drainage Ditch/Drain <=> Abwassergraben
-[_line]
-Type=0x1010b
-String=0x00,Drainage Ditch/Drain
-String=0x02,Entwässerungsgraben
-String=0x03,Sloot
-String=0x04,Drainage Ditch/Drain
-String=0x05,Canale di scolo
-String=0x10,Vala de drenagem
-String=0x15,Odpływ melioracyjny
-String=0x19,Дренажная канава
-[end]
-
-; Dam <=> Staudamm / -mauer
-[_line]
-Type=0x1010c
-String=0x00,Dam
-String=0x02,Staudamm / -mauer
-String=0x03,Stuwdam
-String=0x04,Dam
-String=0x05,Diga
-String=0x10,Represa
-String=0x15,Tama
-String=0x19,Плотина
-[end]
+;; Drainage Ditch/Drain <=> Abwassergraben
+;[_line]
+;Type=0x1010b
+;String=0x00,Drainage Ditch/Drain
+;String=0x02,Entwässerungsgraben
+;String=0x03,Sloot
+;String=0x04,Drainage Ditch/Drain
+;String=0x05,Canale di scolo
+;String=0x10,Vala de drenagem
+;String=0x15,Odpływ melioracyjny
+;String=0x19,Дренажная канава
+;[end]
+;
+;; Dam <=> Staudamm / -mauer
+;[_line]
+;Type=0x1010c
+;String=0x00,Dam
+;String=0x02,Staudamm / -mauer
+;String=0x03,Stuwdam
+;String=0x04,Dam
+;String=0x05,Diga
+;String=0x10,Represa
+;String=0x15,Tama
+;String=0x19,Плотина
+;[end]
 
 ;; Secondary Road <=> Landstraße breit
 ;[_line]
@@ -1640,135 +1646,135 @@ String=0x19,Барьер / Опорная стенка
 ;String=0x19,Железная дорога
 ;[end]
 
-; Light Rail <=> S-Bahn
-[_line]
-Type=0x10112
-String=0x00,Light Rail
-String=0x02,S-Bahn
-String=0x03,Trambaan
-String=0x04,Light Rail
-String=0x05,Metropolitana leggera
-String=0x10,Trens urbanos
-String=0x15,Szybki tramwaj
-String=0x19,Узкоколейная железная дорога
-[end]
+;; Light Rail <=> S-Bahn
+;[_line]
+;Type=0x10112
+;String=0x00,Light Rail
+;String=0x02,S-Bahn
+;String=0x03,Trambaan
+;String=0x04,Light Rail
+;String=0x05,Metropolitana leggera
+;String=0x10,Trens urbanos
+;String=0x15,Szybki tramwaj
+;String=0x19,Узкоколейная железная дорога
+;[end]
 
-; Subway/Underground Railway <=> U-Bahn
-[_line]
-Type=0x10113
-String=0x00,Subway/Underground Railway
-String=0x02,U-Bahn
-String=0x03,Metro
-String=0x04,Subway/Underground Railway
-String=0x05,Metropolitana
-String=0x10,Metrô
-String=0x15,Metro
-String=0x19,Подземная железная дорога / линия метро
-[end]
+;; Subway/Underground Railway <=> U-Bahn
+;[_line]
+;Type=0x10113
+;String=0x00,Subway/Underground Railway
+;String=0x02,U-Bahn
+;String=0x03,Metro
+;String=0x04,Subway/Underground Railway
+;String=0x05,Metropolitana
+;String=0x10,Metrô
+;String=0x15,Metro
+;String=0x19,Подземная железная дорога / линия метро
+;[end]
 
-; Light Rail (tunnel) <=> S-Bahn (Tunnel)
-[_line]
-Type=0x10115
-String=0x00,Light Rail (tunnel)
-String=0x02,S-Bahn (Tunnel)
-String=0x03,Metrotunnel
-String=0x04,Light Rail (tunnel)
-String=0x05,Metropolitana leggera (tunnel)
-String=0x10,Trens urbanos (túnel)
-String=0x15,Szybki tramwaj (tunel)
-String=0x19,Узкоколейная железная дорога (туннель)
-[end]
+;; Light Rail (tunnel) <=> S-Bahn (Tunnel)
+;[_line]
+;Type=0x10115
+;String=0x00,Light Rail (tunnel)
+;String=0x02,S-Bahn (Tunnel)
+;String=0x03,Metrotunnel
+;String=0x04,Light Rail (tunnel)
+;String=0x05,Metropolitana leggera (tunnel)
+;String=0x10,Trens urbanos (túnel)
+;String=0x15,Szybki tramwaj (tunel)
+;String=0x19,Узкоколейная железная дорога (туннель)
+;[end]
 
-; Railway (tunnel) <=> Bahn (Tunnel)
-[_line]
-Type=0x10116
-String=0x00,Railway (tunnel)
-String=0x02,Bahn (Tunnel)
-String=0x03,Spoortunnel
-String=0x04,Railway (tunnel)
-String=0x05,Ferrovia (tunnel)
-String=0x10,Via férrea (túnel)
-String=0x15,Tunel kolejowy
-String=0x19,Железная дорога (туннель)
-[end]
+;; Railway (tunnel) <=> Bahn (Tunnel)
+;[_line]
+;Type=0x10116
+;String=0x00,Railway (tunnel)
+;String=0x02,Bahn (Tunnel)
+;String=0x03,Spoortunnel
+;String=0x04,Railway (tunnel)
+;String=0x05,Ferrovia (tunnel)
+;String=0x10,Via férrea (túnel)
+;String=0x15,Tunel kolejowy
+;String=0x19,Железная дорога (туннель)
+;[end]
 
-; Subway (overground) <=> U-Bahn (oberirdisch)
-[_line]
-Type=0x10117
-String=0x00,Subway (overground)
-String=0x02,U-Bahn (oberirdisch)
-String=0x03,Tram
-String=0x04,Subway (overground)
-String=0x05,Metropolitana (di superficie)
-String=0x10,Metrô de superfície
-String=0x15,Metro (na powierzchni ziemi)
-String=0x19,Линия метро (наземная)
-[end]
+;; Subway (overground) <=> U-Bahn (oberirdisch)
+;[_line]
+;Type=0x10117
+;String=0x00,Subway (overground)
+;String=0x02,U-Bahn (oberirdisch)
+;String=0x03,Tram
+;String=0x04,Subway (overground)
+;String=0x05,Metropolitana (di superficie)
+;String=0x10,Metrô de superfície
+;String=0x15,Metro (na powierzchni ziemi)
+;String=0x19,Линия метро (наземная)
+;[end]
 
-; Via Ferrata <=> Klettersteig breit
-[_line]
-Type=0x10118
-String=0x00,Via Ferrata
-String=0x02,Klettersteig
-String=0x03,Rotspad breed
-String=0x04,Via Ferrata
-String=0x05,Via Ferrata
-String=0x10,Via Ferrata
-String=0x15,Szeroka droga wspinaczkowa 
-String=0x19,Восхождение
-[end]
+;; Via Ferrata <=> Klettersteig breit
+;[_line]
+;Type=0x10118
+;String=0x00,Via Ferrata
+;String=0x02,Klettersteig
+;String=0x03,Rotspad breed
+;String=0x04,Via Ferrata
+;String=0x05,Via Ferrata
+;String=0x10,Via Ferrata
+;String=0x15,Szeroka droga wspinaczkowa 
+;String=0x19,Восхождение
+;[end]
 
-; Via Ferrata <=> Klettersteig schmal
-[_line]
-Type=0x10119
-String=0x00,Via Ferrata
-String=0x02,Klettersteig
-String=0x03,Rotspad smal
-String=0x04,Via Ferrata
-String=0x05,Via Ferrata
-String=0x10,Via Ferrata
-String=0x15,Wąska droga wspinaczkowa
-String=0x19,Виа феррата (альпинизм)
-[end]
+;; Via Ferrata <=> Klettersteig schmal
+;[_line]
+;Type=0x10119
+;String=0x00,Via Ferrata
+;String=0x02,Klettersteig
+;String=0x03,Rotspad smal
+;String=0x04,Via Ferrata
+;String=0x05,Via Ferrata
+;String=0x10,Via Ferrata
+;String=0x15,Wąska droga wspinaczkowa
+;String=0x19,Виа феррата (альпинизм)
+;[end]
 
-; Ropeway (for material transport) <=> Materialseilbahn
-[_line]
-Type=0x1011a
-String=0x00,Ropeway (for material transport)
-String=0x02,Materialseilbahn
-String=0x03,hangspoor (voor goederen)
-String=0x04,Ropeway (for material transport)
-String=0x05,Funivia (per trasporto materiali)
-String=0x10,Teleférico (transporte de materiais)
-String=0x15,Kolej linowa dla przewozu ładunków
-String=0x19,Канатная дорога (для грузов)
-[end]
+;; Ropeway (for material transport) <=> Materialseilbahn
+;[_line]
+;Type=0x1011a
+;String=0x00,Ropeway (for material transport)
+;String=0x02,Materialseilbahn
+;String=0x03,hangspoor (voor goederen)
+;String=0x04,Ropeway (for material transport)
+;String=0x05,Funivia (per trasporto materiali)
+;String=0x10,Teleférico (transporte de materiais)
+;String=0x15,Kolej linowa dla przewozu ładunków
+;String=0x19,Канатная дорога (для грузов)
+;[end]
 
-; Tramway (tunnel) <=> Straßenbahn (Tunnel)
-[_line]
-Type=0x1011b
-String=0x00,Tramway (tunnel)
-String=0x02,Straßenbahn (Tunnel)
-String=0x03,Tramtunnel
-String=0x04,Tramway (tunnel)
-String=0x05,Tranvia (tunnel)
-String=0x10,Bonde (túnel)
-String=0x15,Tunel tramwajowy
-String=0x19,Трамвайные пути (туннель)
-[end]
+;; Tramway (tunnel) <=> Straßenbahn (Tunnel)
+;[_line]
+;Type=0x1011b
+;String=0x00,Tramway (tunnel)
+;String=0x02,Straßenbahn (Tunnel)
+;String=0x03,Tramtunnel
+;String=0x04,Tramway (tunnel)
+;String=0x05,Tranvia (tunnel)
+;String=0x10,Bonde (túnel)
+;String=0x15,Tunel tramwajowy
+;String=0x19,Трамвайные пути (туннель)
+;[end]
 
-; Nature Reserve <=> Naturreservat
-[_line]
-Type=0x1011c
-String=0x00,Nature Reserve
-String=0x02,Naturreservat
-String=0x03,Natuurgebied
-String=0x04,Nature Reserve
-String=0x05,Riserva naturale
-String=0x10,Reserva natural
-String=0x15,Rezerwat przyrody
-String=0x19,Заповедник
-[end]
+;; Nature Reserve <=> Naturreservat
+;[_line]
+;Type=0x1011c
+;String=0x00,Nature Reserve
+;String=0x02,Naturreservat
+;String=0x03,Natuurgebied
+;String=0x04,Nature Reserve
+;String=0x05,Riserva naturale
+;String=0x10,Reserva natural
+;String=0x15,Rezerwat przyrody
+;String=0x19,Заповедник
+;[end]
 
 ; Track/Dirt Road (4,5) <=> Feld- / Waldweg (4,5) schmal
 [_line]
@@ -3655,6 +3661,198 @@ String=0x10,Via férrea
 String=0x15,Linia kolejowa
 String=0x19,Железная дорога
 [end];
+
+; Drainage Ditch/Drain <=> Abwassergraben
+[_line]
+Type=0x12104
+String=0x00,Drainage Ditch/Drain
+String=0x02,Entwässerungsgraben
+String=0x03,Sloot
+String=0x04,Drainage Ditch/Drain
+String=0x05,Canale di scolo
+String=0x10,Vala de drenagem
+String=0x15,Odpływ melioracyjny
+String=0x19,Дренажная канава
+[end]
+
+; Dam <=> Staudamm / -mauer
+[_line]
+Type=0x12105
+String=0x00,Dam
+String=0x02,Staudamm / -mauer
+String=0x03,Stuwdam
+String=0x04,Dam
+String=0x05,Diga
+String=0x10,Represa
+String=0x15,Tama
+String=0x19,Плотина
+[end]
+
+; Light Rail <=> S-Bahn
+[_line]
+Type=0x12106
+String=0x00,Light Rail
+String=0x02,S-Bahn
+String=0x03,Trambaan
+String=0x04,Light Rail
+String=0x05,Metropolitana leggera
+String=0x10,Trens urbanos
+String=0x15,Szybki tramwaj
+String=0x19,Узкоколейная железная дорога
+[end]
+
+; Subway/Underground Railway <=> U-Bahn
+[_line]
+Type=0x12107
+String=0x00,Subway/Underground Railway
+String=0x02,U-Bahn
+String=0x03,Metro
+String=0x04,Subway/Underground Railway
+String=0x05,Metropolitana
+String=0x10,Metrô
+String=0x15,Metro
+String=0x19,Подземная железная дорога / линия метро
+[end]
+
+; Light Rail (tunnel) <=> S-Bahn (Tunnel)
+[_line]
+Type=0x12108
+String=0x00,Light Rail (tunnel)
+String=0x02,S-Bahn (Tunnel)
+String=0x03,Metrotunnel
+String=0x04,Light Rail (tunnel)
+String=0x05,Metropolitana leggera (tunnel)
+String=0x10,Trens urbanos (túnel)
+String=0x15,Szybki tramwaj (tunel)
+String=0x19,Узкоколейная железная дорога (туннель)
+[end]
+
+; Railway (tunnel) <=> Bahn (Tunnel)
+[_line]
+Type=0x12109
+String=0x00,Railway (tunnel)
+String=0x02,Bahn (Tunnel)
+String=0x03,Spoortunnel
+String=0x04,Railway (tunnel)
+String=0x05,Ferrovia (tunnel)
+String=0x10,Via férrea (túnel)
+String=0x15,Tunel kolejowy
+String=0x19,Железная дорога (туннель)
+[end]
+
+; Subway (overground) <=> U-Bahn (oberirdisch)
+[_line]
+Type=0x1210a
+String=0x00,Subway (overground)
+String=0x02,U-Bahn (oberirdisch)
+String=0x03,Tram
+String=0x04,Subway (overground)
+String=0x05,Metropolitana (di superficie)
+String=0x10,Metrô de superfície
+String=0x15,Metro (na powierzchni ziemi)
+String=0x19,Линия метро (наземная)
+[end]
+
+; Via Ferrata <=> Klettersteig breit
+[_line]
+Type=0x1210b
+String=0x00,Via Ferrata
+String=0x02,Klettersteig
+String=0x03,Rotspad breed
+String=0x04,Via Ferrata
+String=0x05,Via Ferrata
+String=0x10,Via Ferrata
+String=0x15,Szeroka droga wspinaczkowa 
+String=0x19,Восхождение
+[end]
+
+; Via Ferrata <=> Klettersteig schmal
+[_line]
+Type=0x1210c
+String=0x00,Via Ferrata
+String=0x02,Klettersteig
+String=0x03,Rotspad smal
+String=0x04,Via Ferrata
+String=0x05,Via Ferrata
+String=0x10,Via Ferrata
+String=0x15,Wąska droga wspinaczkowa
+String=0x19,Виа феррата (альпинизм)
+[end]
+
+; Ropeway (for material transport) <=> Materialseilbahn
+[_line]
+Type=0x1210d
+String=0x00,Ropeway (for material transport)
+String=0x02,Materialseilbahn
+String=0x03,hangspoor (voor goederen)
+String=0x04,Ropeway (for material transport)
+String=0x05,Funivia (per trasporto materiali)
+String=0x10,Teleférico (transporte de materiais)
+String=0x15,Kolej linowa dla przewozu ładunków
+String=0x19,Канатная дорога (для грузов)
+[end]
+
+; Tramway (tunnel) <=> Straßenbahn (Tunnel)
+[_line]
+Type=0x1210e
+String=0x00,Tramway (tunnel)
+String=0x02,Straßenbahn (Tunnel)
+String=0x03,Tramtunnel
+String=0x04,Tramway (tunnel)
+String=0x05,Tranvia (tunnel)
+String=0x10,Bonde (túnel)
+String=0x15,Tunel tramwajowy
+String=0x19,Трамвайные пути (туннель)
+[end]
+
+; Nature Reserve <=> Naturreservat
+[_line]
+Type=0x1210f
+String=0x00,Nature Reserve
+String=0x02,Naturreservat
+String=0x03,Natuurgebied
+String=0x04,Nature Reserve
+String=0x05,Riserva naturale
+String=0x10,Reserva natural
+String=0x15,Rezerwat przyrody
+String=0x19,Заповедник
+[end]
+
+[_line]
+Type=0x12110
+String=0x00,Hedge
+String=0x02,Hecke
+String=0x03,Haag
+String=0x04,Hedge
+String=0x05,Siepe
+String=0x10,Sebe
+String=0x15,żywopłot
+String=0x19,хедж
+[end]
+
+[_line]
+Type=0x12111
+String=0x00,Hedge Bank
+String=0x02,Wallhecke/Knick
+String=0x03,Haag
+String=0x04,Hedge Bank
+String=0x05,Siepe
+String=0x10,Sebe
+String=0x15,żywopłot
+String=0x19,хедж
+[end]
+
+[_line]
+Type=0x12112
+String=0x00,Tree Row
+String=0x02,Baumreihe
+String=0x03,Bomenrij
+String=0x04,Tree Row
+String=0x05,Filare di Alberi
+String=0x10,Fileira Árvore
+String=0x15,Wiersz Drzewa
+String=0x19,дерево строка
+[end]
 
 
 ====================== POINTS ==========================
