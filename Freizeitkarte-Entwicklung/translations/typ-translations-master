@@ -88,6 +88,9 @@
 ; Version: 0.14 - 16.06.2014  - Remapped different Line ID's (due to problems with different devices, also Monterra)
 ;                               from 0x01010b - 0x01010c to 0x12104 - 0x12105
 ;                               from 0x010112 - 0x01011c to 0x12106 - 0x1210f
+; Version: 0.15  17.06.2014 - Adding some map features:
+;                              - barrier = hedge and barrier = hedge_bank
+;                              - natural = tree_row
 
 
 
