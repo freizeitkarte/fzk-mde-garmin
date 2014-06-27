@@ -6158,7 +6158,7 @@ CustomColor=No
 [_line]
 Type=0x12112
 UseOrientation=Y
-Xpm="32 4 2  1"
+Xpm="32 4 2 1"
 "! c #249D37"
 "  c none"
 " !!              !!             "
