@@ -52,6 +52,8 @@ my @actions = (
   [ 'zip',        'G. zip all maps' ,                                      'optional' ],
   [ 'regions',    'H. extract all needed maps from big region data',       'optional' ],
   [ 'extract_osm','I. extract single map from big region data' ,           'optional' ],
+  [ 'alltypfiles','J. Create all languages of the TYP files' ,             'optional' ],
+  [ 'replacetyp', 'K. Create all language versions of ReplaceTyp.zip' ,    'optional' ],
 #  [ 'fetch_map',  'J. fetch map data from Europe directory' ,              'optional' ],
 
   # Hidden Actions not related to maps 
@@ -257,6 +259,7 @@ my @maps = (
   [ 8050, 'Freizeitkarte_ESP_PRT',                'NA',                                                                                                'ESP_PRT',                  'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 8060, 'Freizeitkarte_PYRENEES',               'NA',                                                                                                'PYRENEES',                 'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 8070, 'Freizeitkarte_CARPATHIAN',             'NA',                                                                                                'CARPATHIAN',               'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8080, 'Freizeitkarte_BALKAN',                 'NA',                                                                                                'BALKAN',                   'en', 'no_old_name',                             2, 'EUROPE'         ],
 
   [ 8889, 'Freizeitkarte_SOUTHAMERICA',           'http://download.geofabrik.de/south-america-latest.osm.pbf',                                         'SOUTHAMERICA',             'en', 'no_old_name',                             1, 'NA'             ],
   [ 8510, 'Freizeitkarte_MISIONES',               'NA',                                                                                                'MISIONES',                 'de', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
@@ -267,6 +270,7 @@ my @maps = (
   [ 9010, 'Freizeitkarte_RUS_EUR',                 'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'RUS_EUR',                 'ru', 'Freizeitkarte_Euro-Russland',             1, 'NA'             ],
   [ 9020, 'Freizeitkarte_ESP_CANARIAS',            'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'ESP_CANARIAS',            'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
   [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS_EUR'        ],
+  [ 9040, 'Freizeitkarte_AZORES',                  'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                  'en', 'Freizeitkarte_Azoren',                    3, 'NA'             ],
 
   # For faster test runs with regions
   [ -1,   'Regions - Maps for test purposes',     'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
@@ -296,7 +300,7 @@ my $ACTIONOPT  = 2;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.7 - 2014/05/05';
+my $VERSION = '1.3.8 - 2014/06/15';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -330,9 +334,10 @@ my $optional = $EMPTY;
 my $ram      = $EMPTY;
 my $cores    = 2;
 my $ele      = 25;
-my $clm      = 1;
+my $clm      = 1;   # eventually unused ?
 my $typfile  = $EMPTY;
 my $language = $EMPTY;
+my $nametaglist = $EMPTY;
 
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
@@ -354,9 +359,12 @@ my $maptypfile = "freizeit.TYP";
 my $error   = -1;
 my $command = $EMPTY;
 
+my $ALLTYPEFILE = $EMPTY;
+my $typfilelangcode = $EMPTY;
+
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -424,13 +432,26 @@ check_environment ();
 
 # Now let's handle other actions that do not need maps
 if ( $actionname eq 'checkurl' ) {
-  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  show_actionsummary ();
   check_downloadurls ();
   exit(0);
 }
 elsif ( $actionname eq 'fingerprint' ) {
-  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+#  printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+  show_actionsummary ();
   show_fingerprint ();
+  exit(0);
+}
+elsif ( $actionname eq 'alltypfiles' ) {
+  show_actionsummary ();
+  $ALLTYPEFILE = "yes";
+  create_alltypfile_languages ();
+  exit(0);
+}
+elsif ( $actionname eq 'replacetyp' ) {
+  show_actionsummary ();
+  $ALLTYPEFILE = "yes";
+  create_allreplacetyp_languages ();
   exit(0);
 }
 
@@ -521,9 +542,21 @@ if ( $error ) {
   exit(1);
 }
 
+# Check nametaglist (if given) for potential problems
+
+if ( $nametaglist ne $EMPTY ) {
+ 
+   # Let's check if we have the general fallback 'name' somewhere in the specified nametaglist
+   if ( $nametaglist !~ /(^|,)name(,|$)/ ) {
+	 printf { *STDOUT } ( "WARNING:\n  The specified name-tag-list '" . $nametaglist . "' does not contain the tag 'name'.\n  Make sure this is really what you want\n\n\n" );
+   }
+}
+
+
 # Print out the Information about the choosen action and map
-printf { *STDOUT } ( "Action = %s\n", $actiondesc );
-printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
+#printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+#printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
+show_actionsummary ();
 
 # Create the WORKDIR, WORKDIRLANG and the INSTALLDIR variables, used at a lot of places
 my $WORKDIR     = '';
@@ -1210,8 +1243,15 @@ sub create_cfgfile {
       . "# --name-tag-list=list"
       . "#   Changes the tag that will be used to supply the name, normally it is just 'name'.\n"
       . "#   Useful for language variations. You can supply a list and the first one will be used.\n"
-      . "#   Example: --name-tag-list=name:en,int_name,name\n"
-      . "#name-tag-list=name:$maplang,name,int_name,name:en\n" );
+      . "#   Example: --name-tag-list=name:en,int_name,name\n" );
+  if ( $nametaglist ne $EMPTY ) {
+     printf { $fh }    
+        (   "name-tag-list=$nametaglist\n" );  
+  }
+  else {
+     printf { $fh }    
+        (   "#name-tag-list=name:de,name:en,int_name,name\n" );
+  }
 
   printf { $fh } ( "\n# Address search options:\n" );
   printf { $fh } ( "# ----------------------\n" );
@@ -1557,9 +1597,154 @@ sub create_cfgfile {
 }
 
 # -----------------------------------------
+# Create all different possible TYP files (all per language)
+# -----------------------------------------
+sub create_alltypfile_languages {
+  
+  # Initialize Variables
+  # --------------------
+  my $typfileworkdir    = "$BASEPATH/work/typfiles";
+  my $typfileinstalldir = "$BASEPATH/install/typfiles";
+  
+  # Purge the directories if needed
+  # -------------------------------
+  if ( -e "$typfileworkdir" ) {
+    rmtree ( "$typfileworkdir", 0, 1 );
+  }
+  if ( -e "$typfileinstalldir" ) {
+    rmtree ( "$typfileinstalldir",    0, 1 );
+  }
+
+  # Recreate them again
+  # ---------------------------------
+  mkpath ( "$typfileworkdir" );
+  mkpath ( "$typfileinstalldir" );
+   
+  # Loop through all supported languages
+  # ----------------------------------
+  for my $actuallanguage ( @supportedlanguages )  {
+    
+    # Get the actual language code like 'en'
+    $typfilelangcode = @$actuallanguage [$LANGCODE];
+    
+    # Check for the existence of the main typfiles directories
+    if ( !(-e "$typfileworkdir/$typfilelangcode" ) ) {
+      mkpath ( "$typfileworkdir/$typfilelangcode" );
+    }    
+    if ( !(-e "$typfileinstalldir/$typfilelangcode" ) ) {
+      mkpath ( "$typfileinstalldir/$typfilelangcode" );
+    }    
+    
+    # Create the complete source files together with the translations
+    create_typtranslations ();
+    
+    # Compile these source files into the final TYP files
+    compile_typfiles ();
+    
+    # copy all compiled TYP files over to install directory
+    chdir "$typfileworkdir/$typfilelangcode";
+    for my $file ( <*.TYP> ) {
+      printf { *STDOUT } ( "Copying %s\n", $file );
+      copy ( $file, "$typfileinstalldir/$typfilelangcode" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    }
+
+  }
+
+}
+
+
+# -----------------------------------------
+# Create all different possible ReplaceTyp.zip files
+# -----------------------------------------
+sub create_allreplacetyp_languages {
+  
+  # Initialize Variables
+  # --------------------
+  my $typfileworkdir    = "$BASEPATH/work/typfiles";
+  my $typfileinstalldir = "$BASEPATH/install/typfiles";
+  
+    
+  # Loop through all supported languages
+  # ----------------------------------
+  for my $actuallanguage ( @supportedlanguages )  {
+    
+    # Get the actual language code like 'en'
+    $typfilelangcode = @$actuallanguage [$LANGCODE];
+    
+    # Check for the existence of the main typfiles directories
+    if ( !(-e "$typfileworkdir" ) ) {
+      die ( "\nERROR:\nThe directory $typfileworkdir/$typfilelangcode is missing.\nDid you run the Action 'alltypfiles' to get all needed files ?\n\n" );
+    }    
+    if ( !(-e "$typfileinstalldir/$typfilelangcode" ) ) {
+      die ( "\nERROR:\nThe directory $typfileinstalldir/$typfilelangcode is missing.\nDid you run the Action 'alltypfiles' to get all needed files ?\n\n" );
+    }    
+
+    # Create the needed ReplaceTyp directory
+    # --------------------------------------
+    if ( !(-e "$typfileworkdir/$typfilelangcode/ReplaceTyp" ) ) {
+      mkpath ( "$typfileworkdir/$typfilelangcode/ReplaceTyp" );
+    }    
+    
+    
+    # Put the ReplaceTyp directory together
+    # -------------------------------------
+    # Skeleton (everything except the TYP files)
+    chdir "$BASEPATH/tools/ReplaceTyp/";
+    for my $file ( <*> ) {
+      printf { *STDOUT } ( "Copying %s\n", $file );
+      copy ( $file, "$typfileworkdir/$typfilelangcode/ReplaceTyp" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    }
+    # TYP files
+    chdir "$typfileworkdir/$typfilelangcode/";
+    for my $file ( <*.TYP> ) {
+      printf { *STDOUT } ( "Copying %s\n", $file );
+      copy ( $file, "$typfileworkdir/$typfilelangcode/ReplaceTyp" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    }
+    
+    # Now zip the result
+    # ------------------
+    # Initialize some variables
+    my $source      = $EMPTY;
+    my $destination = $EMPTY;
+    my $zipper      = $EMPTY;
+
+    # get the needed tool (OS depending)
+    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # OS X, Linux, FreeBSD, OpenBSD
+      $zipper = 'zip -r ';
+    }
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $zipper = $BASEPATH . '/tools/zip/windows/7-Zip/7za.exe a ';
+    }
+    else {
+      die ( "\nError: Operating system $OSNAME not supported.\n" );
+      return ( 1 );
+    }
+
+    # Put the command together
+    $source      = 'ReplaceTyp';
+    $destination = 'ReplaceTyp.zip';
+    $command     = $zipper . "$destination $source";
+    if ( -e $source ) {
+      process_command ( $command );
+    }
+
+    # Copy the result to the install directory
+    # ----------------------------------------
+    copy ( "ReplaceTyp.zip", "$typfileinstalldir/$typfilelangcode/ReplaceTyp.zip" ) or die ( "copy() ReplaceTyp.zip failed: $!\n" );
+
+  }  
+
+}
+
+# -----------------------------------------
 # Deduct the file map specific 'typ-translations' containing all needed strings
 # -----------------------------------------
 sub create_typtranslations {
+  
+  # Attention: called from different places and reacting differently
+  # (directories) depending on the action
 
   # Create some output (just to know where we are)
   print "\nCreating complete source txt files for the TYP files\n"
@@ -1622,7 +1807,16 @@ sub create_typtranslations {
   my %typfilestringindex;
   my %typfilestringhex;
   my $stringindex = 1;
-  my $langcode    = $maplang;
+
+  my $langcode    = $EMPTY;
+  # If we're building all typ file languages then use the variable $typfilelangcode
+  if ( $ALLTYPEFILE ) {
+    $langcode = $typfilelangcode;
+  }
+  # Looks like we're building a normal map, so use $maplang
+  else {
+    $langcode = $maplang;
+  }
 
   my $inputline;
   my $thisobjectform;
@@ -1733,8 +1927,16 @@ sub create_typtranslations {
   for my $actualfile ( glob "*.txt" ) {
 
     $inputfile  = "$BASEPATH/TYP/$actualfile";
-#    $outputfile = "$WORKDIR/TYP/$actualfile";
-    $outputfile = "$WORKDIRLANG/$actualfile";
+    #$outputfile = "$WORKDIR/TYP/$actualfile";
+    #$outputfile = "$WORKDIRLANG/$actualfile";
+
+    # If we're building all typ file languages we need a different output directory
+    if ( $ALLTYPEFILE ) {
+      $outputfile = "$BASEPATH/work/typfiles/$langcode/$actualfile";
+    }
+    else {
+      $outputfile = "$WORKDIRLANG/$actualfile";
+    }
 
     open IN, "< $inputfile" or die "Can't open $inputfile : $!";
     #  open OUT, ">:encoding(UTF-8)","$outputfile" or die "Can't open $outputfile : $!";
@@ -1825,7 +2027,7 @@ sub create_typtranslations {
           elsif ( $inputline =~ /^CodePage=.*$/i ) {
 #             print OUT "$inputline";
 #		     print OUT ";$inputline";
-            print OUT "CodePage=$langcodepage{$maplang}\n";
+            print OUT "CodePage=$langcodepage{$langcode}\n";
           }
           elsif ( $inputline =~ /^\s*\[end\]/i ) {
             print OUT $inputline;
@@ -1864,7 +2066,19 @@ sub compile_typfiles {
 #  chdir "$WORKDIR/TYP";
   chdir "$BASEPATH/TYP";
   my @typfilelist = glob "*.txt" ;
-  chdir "$WORKDIRLANG";
+
+  # If we're building all typ file languages then we have to jump to a different directory
+  if ( $ALLTYPEFILE ) {
+    chdir "$BASEPATH/work/typfiles/$typfilelangcode";
+    # Set $mapid to something less problematic than -1
+    $mapid=9999;
+  }
+  # Looks like we're building a normal map, so jump to the normal $WORKDIRLANG
+  else {
+    chdir "$WORKDIRLANG";
+  }
+
+
   
   # Run through the existing textfiles
   for my $thistypfile ( @typfilelist ) {
@@ -2013,7 +2227,10 @@ sub preprocess_styles {
   # adapted for making it possible for include files that don't get processed by PPP
   #for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
   for my $stylefile ( glob "$BASEPATH/style/*" ) {
-    copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
+    # Only copy files and leave the existing subdirectories for the moment (may changes lateron)
+    if ( -f "$stylefile" ) {
+      copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
+    }
   }
 
   # Go to the Workdir LANG
@@ -3818,6 +4035,43 @@ sub check_environment {
 
 
 # -----------------------------------------
+# Show action summary
+# -----------------------------------------
+sub show_actionsummary {
+  
+  # delete trailing spaces from the action description
+  my $tmpstring = $actiondesc;
+  $tmpstring =~   s/^\s+//;
+
+  # Print out the Information about the choosen action and map
+  printf { *STDOUT }     ( "Action:     %s\n",      $actionname );
+  printf { *STDOUT }     ( "            %s\n",      $tmpstring );
+  if ( $mapid == -1 ) {
+    printf { *STDOUT }   ( "Map         n/a\n" );
+  }
+  else {
+    printf { *STDOUT }   ( "Map:        %s (%s)\n", $mapname, $mapid );
+    printf { *STDOUT }   ( "Language:   %s (%s)\n", $langdesc, $maplang );
+    printf { *STDOUT }   ( "Typ file:   %s.TYP\n",  $maptypfile );
+    printf { *STDOUT }   ( "elevation:  %s m\n",    $ele );
+    if ( $maptype == 3 ) {
+      printf { *STDOUT } ( "Map type:   downloadable OSM extract\n" );
+    }
+    elsif (  $maptype == 2 ) {
+      printf { *STDOUT } ( "Map type:   own extract, parent map needed\n" );      
+      printf { *STDOUT } ( "Parent Map: %s\n",      $mapparent );
+    }
+    elsif (  $maptype == 1 ) {
+      printf { *STDOUT } ( "Map type:   parent map\n" );      
+    }
+    if ( $nametaglist ne $EMPTY ) {
+      printf { *STDOUT } ( "ntl:        name-tag-list=%s\n", $nametaglist );  
+    }
+  }
+
+}
+
+# -----------------------------------------
 # Show short usage
 # -----------------------------------------
 sub show_usage {
@@ -3865,6 +4119,9 @@ sub show_help {
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
       . "             if you build a map for another language than the map's default language,\n"
       . "             this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
+      . "--ntl      = overwrite the default name-tag-list for the mkgmap run (name) with a specific list, e.g.\n"
+      . "                --ntl=\"name:en,int_name,name\"\n"
+      . "             Please check mkgmap documentation for more information.\n"
       . "PPO        = preprocessor options (multiple possible), to be invoked with D<option>\n\n"
       . "Arguments:\n"
       . "Action     = Action to be processed\n"

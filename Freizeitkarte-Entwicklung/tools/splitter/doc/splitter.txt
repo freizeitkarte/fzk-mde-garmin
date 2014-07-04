@@ -48,7 +48,7 @@ Usage
 Splitter requires java 1.6 or higher. Run the following. If you have less than 2G
 of memory on your computer you should reduce the -Xmx argument
 
- java -Xmx2000m -jar splitter.jar file.osm > splitter.log
+java -Xmx2000m -jar splitter.jar file.osm > splitter.log
 
 This will produce a number of .osm.pbf files that can be read by mkgmap. There
 are also other files produced:
@@ -142,12 +142,9 @@ There are a number of options to fine tune things that you might want to try.
     Don't trim empty space off the edges of tiles. This option is ignored when
     --polygon-file is used.
 
-output=pbf
---
-[2] http://download.geonames.org/export/dump
-
-The format in which the output files are written. Possible values are xml, pbf,
-    o5m, and simulate. The default is pbf, which produces the smallest file
+--output=pbf
+    The format in which the output files are written. Possible values are xml,
+    pbf, o5m, and simulate. The default is pbf, which produces the smallest file
     sizes. The o5m format is faster to write, but creates around 40% larger
     files. The simulate option is for debugging purposes.
 
@@ -189,11 +186,11 @@ The format in which the output files are written. Possible values are xml, pbf,
     too much time or memory and --overlap doesn't solve your problem.
 
     Syntax of problem file:
-         way:<id> # comment...
-         rel:<id> # comment...
+        way:<id> # comment...
+        rel:<id> # comment...
 
     example:
-         way:2784765 # Ferry Guernsey - Jersey
+        way:2784765 # Ferry Guernsey - Jersey
 
 --problem-report
     The name of a file to write the generated problem list created with
@@ -229,7 +226,7 @@ Special options
 --version
     If the parameter --version is found somewhere in the options, splitter will
     just print the version info and exit. Version info looks like this:
-     splitter 279 compiled 2013-01-12T01:45:02+0000
+    splitter 279 compiled 2013-01-12T01:45:02+0000
 
 --help
     If the parameter --help is found somewhere in the options, splitter will
@@ -242,23 +239,24 @@ Tuning for best performance
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A few hints for those that are using splitter to split large files.
 --
+[2] http://download.geonames.org/export/dump
 [3] http://wiki.openstreetmap.org/wiki/Osmosis/Polygon_Filter_File_Format
 
 * For faster processing with --keep-complete=true, convert the input file to o5m
   format using:
-   osmconvert --drop-version file.osm -o=file.o5m
+  osmconvert --drop-version file.osm -o=file.o5m
 
 * The option --drop-version is optional, it reduces the file to that data that is
   needed by splitter and mkgmap.
 * If you still experience poor performance, look into splitter.log. Search for
   the word Distributing. You may find something like this in the next line:
-   Processing 1502 areas in 3 passes, 501 areas at a time
+  Processing 1502 areas in 3 passes, 501 areas at a time
 
   This means splitter has to read the input file input three times because the
   max-areas parameter was much smaller than the number of areas. If you have
   enough heap, set max-areas value to a value that is higher than the number of
   areas, e.g. --max-areas=2048. Execute splitter again and you should find
-   Processing 1502 areas in a single pass
+  Processing 1502 areas in a single pass
 
 * More areas require more memory. Make sure that splitter has enough heap
   (increase the -Xmx parameter) so that it doesn't waste much time in the garbage

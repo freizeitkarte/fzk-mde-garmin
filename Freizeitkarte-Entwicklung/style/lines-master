@@ -40,6 +40,16 @@
 #                             Changed Routing to new version (due to upgrade of mkgmap) with better support of different actions
 # Version : 0.23  11.05.2014: - Remapped range 0x010410-0x010415 to 0x011f07-0x011f0c to avoid problems on Nuvi and other newer devices
 #                             - Bugfix for routing
+# Version : 0.24  26.05.2014  - Remapped different Line ID's (due to problems on different devices)
+#                               from 0x1040d - 0x1040e to 0x12100 - 0x12101
+#                               from 0x10110 - 0x10111 to 0x12102 - 0x12103
+# Version : 0.25  16.06.2014  - Remapped different Line ID's (due to problems with different devices, also Monterra)
+#                               from 0x01010b - 0x01010c to 0x12104 - 0x12105
+#                               from 0x010112 - 0x01011c to 0x12106 - 0x1210f
+# Version : 0.26  17.06.2014 - Adding some map features:
+#                              - barrier = hedge and barrier = hedge_bank
+#                              - natural = tree_row
+
 
 
 #
@@ -402,7 +412,7 @@ highway = *
 # sind von der rechtlichen Definition her und auch in der Praxis keine NSG. [point, closedway]
 # Aus Gruenden der besseren Uebersichtlichkeit, wird die Ausweisung der NSGs begrenzt.
 # siehe auch Style-File "polygons" - dort wird zusätzlich auch die Fläche dargestellt
-leisure = nature_reserve [0x01011c resolution 20-23 continue]
+leisure = nature_reserve [0x01210f resolution 20-23 continue]
 
 # Jachthafen: Liegeplatz für Jachten und Motorboote (bzw. Boote allgemein). [point, closedway]
 # (New tagging includes land area also... therefore display of it needs to change: will be moved to 'lines')
@@ -808,12 +818,12 @@ highway = trunk & man_made = dyke  [0x011f03 resolution 24 continue with_actions
 
 # Allgemein oeffentlich
 # 0x011f14 = 4/1 (breit, NoLabel)
-# 0x01040d = 4/1 (breit, Label, SmallFont)
+# 0x012100 = 4/1 (breit, Label, SmallFont)
 # 0x010f0c = 2/1 (mittel, NoLabel)
 # 0x010f0d = 1/1 (schmal, NoLabel)
 # 0x010e0b = 1 (sehr schmal, NoLabel)
 highway = trunk {set name = '${name}' | '${ref}' | ''} [0x011f14 resolution 24 continue with_actions]
-highway = trunk {set name = '${name}' | '${ref}' | ''} [0x01040d resolution 23-23 continue with_actions]
+highway = trunk {set name = '${name}' | '${ref}' | ''} [0x012100 resolution 23-23 continue with_actions]
 highway = trunk {set name = '${ref}' | ''}             [0x010f0c resolution 22-22 continue with_actions]
 highway = trunk {set name = '${ref}' | ''}             [0x010f0d resolution 20-21 continue with_actions]
 highway = trunk {set name = '${ref}' | ''}             [0x010e0b resolution 18-19]
@@ -832,11 +842,11 @@ highway = primary & man_made = dyke  [0x011f03 resolution 24 continue with_actio
 
 # Allgemein oeffentlich
 # 0x011f15 = 4/1 (breit, NoLabel)
-# 0x01040e = 4/1 (breit, Label, SmallFont)
+# 0x012101 = 4/1 (breit, Label, SmallFont)
 # 0x010f0e = 2/1 (mittel, NoLabel)
 # 0x010f0f = 1/1 (schmal, NoLabel)
 highway = primary {set name = '${name}' | '${ref}' | ''} [0x011f15 resolution 24 continue with_actions]
-highway = primary {set name = '${name}' | '${ref}' | ''} [0x01040e resolution 23-23 continue with_actions]
+highway = primary {set name = '${name}' | '${ref}' | ''} [0x012101 resolution 23-23 continue with_actions]
 highway = primary {set name = '${ref}' | ''}             [0x010f0e resolution 22-22 continue with_actions]
 highway = primary {set name = '${ref}' | ''}             [0x010f0f resolution 20-21]
 
@@ -1406,10 +1416,10 @@ highway = raceway [0x010108 resolution 21-22]
 # and two short lengths of rope, but do not require a long rope as for climbing.
 
 # Allgemein oeffentlich
-# 0x010118 = Bitmap 2 (breit, NoLabel)
-# 0x010119 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = via_ferrata [0x010118 resolution 24 continue]
-highway = via_ferrata [0x010119 resolution 23-23]
+# 0x01210b = Bitmap 2 (breit, NoLabel)
+# 0x01210c = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
+highway = via_ferrata [0x01210b resolution 24 continue]
+highway = via_ferrata [0x01210c resolution 23-23]
 
 
 # Bussteig:
@@ -1454,6 +1464,10 @@ natural = cliff [0x010104 resolution 24]
 #         an extended upland between valleys. The term is used in areas of both hill and mountain relief.
 # natural = ridge & name = * [0x01011c resolution 23]
 
+# Baumreihe / Tree Rows
+# 0x012112 (NoLabel)
+natural = tree_row [ 0x012112 resolution 24 ]
+
 
 # ------------------------------------------------------------
 # Routen / route:
@@ -1496,9 +1510,9 @@ waterway = ditch & ( tunnel != yes & tunnel != culvert) [0x01010a resolution 24 
 waterway = ditch & ( tunnel = yes | tunnel = culvert)   [0x01201b resolution 24 continue]
 
 # Abwassergraben, Abfluss - Bauwerk, das z.B. Regen- oder Industrieabwaesser aufnimmt.
-# 0x01010b = 2 (NoLabel)
+# 0x012104 = 2 (NoLabel)
 # 0x012016 = 2 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = drain & ( tunnel != yes & tunnel != culvert) [0x01010b resolution 24]
+waterway = drain & ( tunnel != yes & tunnel != culvert) [0x012104 resolution 24]
 waterway = drain & ( tunnel = yes | tunnel = culvert)   [0x01201c resolution 24]
 
 # Fluss
@@ -1522,8 +1536,8 @@ waterway = stream & ( tunnel != yes & tunnel != culvert) [0x18     resolution 24
 waterway = stream & ( tunnel = yes | tunnel = culvert)   [0x01201d resolution 24]
 
 # Wehr (auch als Gebaeude moeglich, s.a. Staudamm / -mauer)
-# 0x01010c = 2 (NoLabel)
-waterway = weir & building != * [0x01010c resolution 22 continue]
+# 0x012105 = 2 (NoLabel)
+waterway = weir & building != * [0x012105 resolution 22 continue]
 
 
 # ------------------------------------------------------------
@@ -1587,23 +1601,23 @@ aeroway = taxiway [0x010e1c resolution 21-21]
 # Tunnel          : Standarddarstellung
 # Unterirdisch    : wie Tunnel
 #
-# U-Bahn          : Linie B) mit sichtbarer Beschriftung (OEPNV); Streckenverlauf typischerweise unterirdisch; 0x010113
+# U-Bahn          : Linie B) mit sichtbarer Beschriftung (OEPNV); Streckenverlauf typischerweise unterirdisch; 0x012107
 # Bruecke         : Standarddarstellung (bei Streckenverlauf oberirdisch)
 # Tunnel          : wird nicht unterstuetzt (da Streckenverlauf typischerweise unterirdisch = Tunnel)
-# Oberirdisch     : aehnlich S-Bahn; 0x010117
+# Oberirdisch     : aehnlich S-Bahn; 0x01210a
 #
-# S-Bahn          : Linie C) mit sichtbarer Beschriftung (OEPNV); Streckenverlauf typischerweise oberirdisch; 0x010112
+# S-Bahn          : Linie C) mit sichtbarer Beschriftung (OEPNV); Streckenverlauf typischerweise oberirdisch; 0x012106
 # Bruecke         : Standarddarstellung
-# Tunnel          : aehnlich U-Bahn; 0x010115
+# Tunnel          : aehnlich U-Bahn; 0x012108
 # Unterirdisch    : wie Tunnel
 #
-# Bundesbahn      : Linie D) ohne sichtbare Beschriftung; Streckenverlauf typischerweise oberirdisch; 0x010111
+# Bundesbahn      : Linie D) ohne sichtbare Beschriftung; Streckenverlauf typischerweise oberirdisch; 0x012103
 # Bruecke         : Standarddarstellung
-# Tunnel          : aehnlich U-Bahn; 0x010116
+# Tunnel          : aehnlich U-Bahn; 0x012109
 # Unterirdisch    : wie Tunnel
 # Sonstiges       : Museumsbahn, Schmalspurbahn, ungenutzte Strecken: werden analog dargestellt
 #
-# Rueckbau        : Linie E) ohne sichtbare Beschriftung; Streckenverlauf typischerweise oberirdisch; 0x010110
+# Rueckbau        : Linie E) ohne sichtbare Beschriftung; Streckenverlauf typischerweise oberirdisch; 0x012102
 # Bruecke         : Standarddarstellung
 # Tunnel          : Standarddarstellung
 # Unterirdisch    : wie Tunnel
@@ -1631,56 +1645,56 @@ railway = funicular {set railway = rail}
 # 2. Die Schienen und der Schotter werden entfernt, aber ansonsten bleibt das Gelaende unveraendert (railway=abandoned).
 # 3. Das Gelaende wird fuer eine neue Nutzung umgebaut (taggen der neuen Nutzung).
 # Zwischen den einzelnen Phasen liegen durchaus mehrere Jahre.
-# 0x010110 = Bitmap 2 (NoLabel)
+# 0x012102 = Bitmap 2 (NoLabel)
 railway = abandoned & bridge = yes     [0x010407 resolution 24 continue]
 railway = abandoned & tunnel = yes     [0x010408 resolution 24 continue]
 ### railway = abandoned & embankment = yes [0x011f05 resolution 24 continue]
-railway = abandoned                    [0x010110 resolution 24]
+railway = abandoned                    [0x012102 resolution 24]
 
 # Der Bahnsteig verlaeuft parallel zu den Gleisen. [point, way, closedway]
 # 0x010e1d = 2 (NoLabel)
 railway = platform & (area != * | area = no) [0x010e1d resolution 24]
 
 # Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
-# 0x010116 = Bitmap 2 (NoLabel)
-# 0x010111 = Bitmap 2 (NoLabel)
+# 0x012109 = Bitmap 2 (NoLabel)
+# 0x012103 = Bitmap 2 (NoLabel)
 railway = rail & bridge = yes     [0x010407 resolution 24 continue]
-railway = rail & tunnel = yes     [0x010116 resolution 22]
+railway = rail & tunnel = yes     [0x012109 resolution 22]
 ### railway = rail & embankment = yes [0x011f05 resolution 24 continue]
-railway = rail                    [0x010111 resolution 22]
+railway = rail                    [0x012103 resolution 22]
 
 # S-Bahn (wie Eisenbahn; kann auch teilweise unterirdisch verkehren).
-# 0x010115 = Bitmap 2 (Label, SmallFont)
-# 0x010112 = 2 (Label, SmallFont)
+# 0x012108 = Bitmap 2 (Label, SmallFont)
+# 0x012106 = 2 (Label, SmallFont)
 railway = light_rail & bridge = yes     [0x010407 resolution 24 continue]
-railway = light_rail & tunnel = yes     [0x010115 resolution 22]
+railway = light_rail & tunnel = yes     [0x012108 resolution 22]
 ### railway = light_rail & embankment = yes [0x011f05 resolution 24 continue]
-railway = light_rail                    [0x010112 resolution 22]
+railway = light_rail                    [0x012106 resolution 22]
 
 # Monorail (wie Eisenbahn; kann auch teilweise unterirdisch verkehren).
-# 0x010115 = Bitmap 2 (Label, SmallFont)
-# 0x010112 = 2 (Label, SmallFont)
+# 0x012108 = Bitmap 2 (Label, SmallFont)
+# 0x012106 = 2 (Label, SmallFont)
 railway = monorail & bridge = yes     [0x010407 resolution 24 continue]
-railway = monorail & tunnel = yes     [0x010115 resolution 22]
+railway = monorail & tunnel = yes     [0x012108 resolution 22]
 ### railway = light_rail & embankment = yes [0x011f05 resolution 24 continue]
-railway = monorail                    [0x010112 resolution 22]
+railway = monorail                    [0x012106 resolution 22]
 
 # U-Bahn (Untergrundbahn; kann auch teilweise oberirdisch verkehren).
-# 0x010113 = Bitmap 2 (Label, SmallFont)
-# 0x010117 = 2 (Label, SmallFont)
+# 0x012107 = Bitmap 2 (Label, SmallFont)
+# 0x01210a = 2 (Label, SmallFont)
 railway = subway & bridge = yes [0x010407 resolution 24 continue]
-railway = subway & tunnel = yes [0x010113 resolution 22]
+railway = subway & tunnel = yes [0x012107 resolution 22]
 # oberirdisch
-railway = subway & tunnel = no      [0x010117 resolution 22]
+railway = subway & tunnel = no      [0x01210a resolution 22]
 ### railway = subway & embankment = yes [0x011f03 resolution 24 continue]
-railway = subway                    [0x010117 resolution 22]
+railway = subway                    [0x01210a resolution 22]
 
 # Strassenbahn.
 # Die Strassenbahnfuehrung verlaeuft mitunter innerhalb der Strasse (z.B. Koeln).
 # 0x14     = Bitmap 4 (Label, SmallFont)
-# 0x01011b = Bitmap 2 (Label, SmallFont)
+# 0x01210e = Bitmap 2 (Label, SmallFont)
 railway = tram & bridge = yes     [0x010405 resolution 24 continue]
-railway = tram & tunnel = yes     [0x01011b resolution 23]
+railway = tram & tunnel = yes     [0x01210e resolution 23]
 ### railway = tram & embankment = yes [0x011f04 resolution 24 continue]
 railway = tram                    [0x14     resolution 23]
 
@@ -1706,8 +1720,8 @@ aerialway = chair_lift | aerialway = drag_lift | aerialway=t-bar [0x11 road_clas
 aerialway = chair_lift | aerialway = drag_lift | aerialway=t-bar [0x011f1e resolution 23]
 
 # Materialseilbahn. Personentransport ist normalerweise nicht erlaubt.
-# 0x01011a = Bitmap 4 (3 Pixel gefuellt, NoLabel)
-aerialway = goods [0x01011a resolution 23]
+# 0x01210d = Bitmap 4 (3 Pixel gefuellt, NoLabel)
+aerialway = goods [0x01210d resolution 23]
 
 
 # -------------------------------------------------
@@ -1721,7 +1735,12 @@ barrier = fence [0x011f06 resolution 24 continue with_actions]
 barrier = wall | barrier = city_wall | fence = retaining_wall [0x011f06 resolution 24 continue with_actions]
 fenced = yes [0x011f06 resolution 24 continue with_actions]
 
+# Hecken (hedges)
+# 0x012110 (NoLabel)
+barrier = hedge [ 0x012110 resolution 24 ]
 
+# Wallhecken / Knick (hedge_bank)
+barrier = hedge_bank [ 0x012111 resolution 24 ]
 
 # -------------------------------------------------
 # Hoehenlinien:

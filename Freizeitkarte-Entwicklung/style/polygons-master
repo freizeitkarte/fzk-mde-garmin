@@ -903,7 +903,7 @@ man_made = pier [0x39 resolution 20]
 # Meer
 #natural = sea [0x32 resolution 17]
 # Starting at 16 for overviewmap
-natural = sea [0x32 resolution 16]
+natural = sea [0x32 resolution 11]
 
 # Land
 natural = land [0x3a resolution 17]
