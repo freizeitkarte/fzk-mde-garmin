@@ -25,6 +25,7 @@
 #                             Adding amenity=toilets
 # Version : 0.15 -05.05.2014: Adapting finalize section to support new mkgmap version 2096 and newer
 # Version : 0.16 -02.09.2014: Fixing problem with ammenity=parking & (access=yes | access=public)
+#           0.17 -14.09.2014: Fixing a new bug introduced regarding restricted parking
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #
@@ -897,7 +898,8 @@ amenity = fuel { name "${brand}" | "${operator}" | "${name}" | "$__FUELSTATION__
 # Parkplatz. [point, closedway]
 # amenity = parking & access = * {name "${name} (Parken eingeschränkt)" | "Parken (eingeschränkt)"} [0x2F0B resolution 24]
 # amenity = parking              {name "${name} (Parken)" | "Parken"}                               [0x4D00 resolution 24]
-amenity = parking & access != public & access != yes & (capacity != * | capacity >= 10) {name "${name} ($__PARKING__ $__RESTRICTED__)" | "$__PARKING__ ($__RESTRICTED__)"} [0x2F0B resolution 24]
+#amenity = parking & access = *                                    & (capacity != * | capacity >= 10) {name "${name} ($__PARKING__ $__RESTRICTED__)" | "$__PARKING__ ($__RESTRICTED__)"} [0x2F0B resolution 24]
+amenity = parking &  access = * & access != public & access != yes & (capacity != * | capacity >= 10) {name "${name} ($__PARKING__ $__RESTRICTED__)" | "$__PARKING__ ($__RESTRICTED__)"} [0x2F0B resolution 24]
 amenity = parking & (capacity != * | capacity >= 10)              {name "${name} ($__PARKING__)" | "$__PARKING__"}                               [0x4D00 resolution 24]
 
 # Kategorie "Finanzen"
