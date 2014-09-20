@@ -3858,7 +3858,85 @@ String=0x19,дерево строка
 [end]
 
 
-====================== POINTS ==========================
+[_line]
+Type=0x12201
+String=0x00,Hiking Trail T1
+String=0x02,Wanderweg T1
+String=0x03,Spoor T1
+String=0x04,Hiking Trail T1
+String=0x05,Sentiero T1
+String=0x10,Trilha T1
+String=0x15,ślad T1
+String=0x19,тропа T1
+[end]
+
+
+[_line]
+Type=0x12202
+String=0x00,Hiking Trail T1
+String=0x02,Wanderweg T1
+String=0x03,Spoor T1
+String=0x04,Hiking Trail T1
+String=0x05,Sentiero T1
+String=0x10,Trilha T1
+String=0x15,ślad T1
+String=0x19,тропа T1
+[end]
+
+
+[_line]
+Type=0x12203
+String=0x00,Mountain Trail T2/T3
+String=0x02,Bergwanderweg T2/T3
+String=0x03,Bergpad T2/T3
+String=0x04,Mountain Trail T2/T3
+String=0x05,Sentiero alpino T2/T3
+String=0x10,Trilha alpina T2/T3
+String=0x15,Trasa wspinaczkowa T2/T3
+String=0x19,Горная тропа T2/T3
+[end]
+
+
+[_line]
+Type=0x12204
+String=0x00,Mountain Trail T2/T3
+String=0x02,Bergwanderweg T2/T3
+String=0x03,Bergpad T2/T3
+String=0x04,Mountain Trail T2/T3
+String=0x05,Sentiero alpino T2/T3
+String=0x10,Trilha alpina T2/T3
+String=0x15,Trasa wspinaczkowa T2/T3
+String=0x19,Горная тропа T2/T3
+[end]
+
+
+[_line]
+Type=0x12205
+String=0x00,Alpine Trail T4-T6
+String=0x02,Alpiner Weg T4-T6
+String=0x03,Alpine pad T4-T6
+String=0x04,Alpine Trail T4-T6
+String=0x05,Sentiero alpino T4-T6
+String=0x10,Trilha alpina T4-T6
+String=0x15,Trasa wspinaczkowa T4-T6
+String=0x19,Горная тропа T4-T6
+[end]
+
+
+[_line]
+Type=0x12206
+String=0x00,Alpine Trail T4-T6
+String=0x02,Alpiner Weg T4-T6
+String=0x03,Alpine pad T4-T6
+String=0x04,Alpine Trail T4-T6
+String=0x05,Sentiero alpino T4-T6
+String=0x10,Trilha alpina T4-T6
+String=0x15,Trasa wspinaczkowa T4-T6
+String=0x19,Горная тропа T4-T6
+[end]
+
+
+;====================== POINTS ==========================
 
 
 ; Mega City <=> Megastadt
