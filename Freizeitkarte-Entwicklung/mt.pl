@@ -355,6 +355,8 @@ my $maptype    = $EMPTY;
 my $mapparent  = $EMPTY;
 my $langdesc   = $EMPTY;
 my $maptypfile = "freizeit.TYP";
+my $mapstyle    = "fzk";
+my $mapstyledir = 'style/fzk';
 
 my $error   = -1;
 my $command = $EMPTY;
@@ -542,8 +544,24 @@ if ( $error ) {
   exit(1);
 }
 
-# Check nametaglist (if given) for potential problems
+# Check if the choosen style does exist and set the Style Directory accordingly by testing points-master in the choosen dir
+$error = 1;
+if ( ( -e "$BASEPATH/style/$mapstyle/points" ) || ( -e "$BASEPATH/style/$mapstyle/points-master" ) ) {
+        $error   = 0;
+        $mapstyledir = "style/$mapstyle";
+}
+elsif ( ( $mapstyle == "fzk" ) && ( -e "$BASEPATH/style/points-master") ) {
+        $error   = 0;
+        $mapstyledir = "style";
+}
+if ( $error ) {
+  printf { *STDOUT } ( "ERROR:\n  Style '" . $mapstyle . "' not found.\n\n\n" );
+  show_usage ();
+  exit(1);
+}
+  
 
+# Check nametaglist (if given) for potential problems
 if ( $nametaglist ne $EMPTY ) {
  
    # Let's check if we have the general fallback 'name' somewhere in the specified nametaglist
@@ -2226,7 +2244,7 @@ sub preprocess_styles {
   # copying the files from the style directory into the work directory
   # adapted for making it possible for include files that don't get processed by PPP
   #for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
-  for my $stylefile ( glob "$BASEPATH/style/*" ) {
+  for my $stylefile ( glob "$BASEPATH/$mapstyledir/*" ) {
     # Only copy files and leave the existing subdirectories for the moment (may changes lateron)
     if ( -f "$stylefile" ) {
       copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
@@ -4053,6 +4071,7 @@ sub show_actionsummary {
     printf { *STDOUT }   ( "Map:        %s (%s)\n", $mapname, $mapid );
     printf { *STDOUT }   ( "Language:   %s (%s)\n", $langdesc, $maplang );
     printf { *STDOUT }   ( "Typ file:   %s.TYP\n",  $maptypfile );
+    printf { *STDOUT }   ( "Style Dir:  %s\n",  $mapstyledir );
     printf { *STDOUT }   ( "elevation:  %s m\n",    $ele );
     if ( $maptype == 3 ) {
       printf { *STDOUT } ( "Map type:   downloadable OSM extract\n" );
