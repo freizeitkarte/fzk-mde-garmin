@@ -14,6 +14,7 @@ echo B: outdoor - design based on "Top50" and "ICAO" maps
 echo C: outdoor-light - no symbols on the areas included
 echo D: contrast - colors are "stronger" in compare to "freizeit"
 echo E: small - optimized for GPS devices with small displays
+echo F: outdoor-contrast - similar to contrast, no symbols in areas
 echo Q: Quit
 echo.
 
@@ -27,6 +28,7 @@ if /i "%userinp%"=="B" set typfile=outdoor.TYP
 if /i "%userinp%"=="C" set typfile=outdoorl.TYP
 if /i "%userinp%"=="D" set typfile=contrast.TYP
 if /i "%userinp%"=="E" set typfile=small.TYP
+if /i "%userinp%"=="F" set typfile=outdoorc.TYP
 if /i "%userinp%"=="Q" goto end
 if "%typfile%"=="" goto again
 

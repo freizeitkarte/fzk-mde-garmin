@@ -72,17 +72,19 @@ fi
 if [ -z "$typfile" ]; then
 	echo ""
 	echo "Select from the following options:"
-	typA="freizeit      - standard design of all Freizeitkarten project maps"
-	typB="outdoor       - design based on 'Top50' and 'ICAO' maps    "
-	typC="outdoor-light - no symbols on the areas included     "
-	typD="contrast      - colors are 'stronger' in compare to 'freizeit'"
-	typE="small         - optimized for GPS devices with small displays"
+	typA="freizeit         - standard design of all Freizeitkarten project maps"
+	typB="outdoor          - design based on 'Top50' and 'ICAO' maps    "
+	typC="outdoor-light    - no symbols on the areas included     "
+	typD="contrast         - colors are 'stronger' in compare to 'freizeit'"
+	typE="small            - optimized for GPS devices with small displays"
+  typF="outdoor-contrast - similar to contrast, no symbols on areas"
 
 	echo "  A: $typA"
 	echo "  B: $typB"
 	echo "  C: $typC"
 	echo "  D: $typD"
 	echo "  E: $typE"
+  echo "  F: $typF"
 	echo "  Q: Quit "
 	echo ""
 
@@ -123,6 +125,13 @@ if [ -z "$typfile" ]; then
 			echo $typE
 			typfile=small.TYP
 		;;
+
+		f|F)
+			echo You selected:
+			echo $typF
+			typfile=outdoorc.TYP
+		;;
+
 		q|Q)
 			echo Aborting by user request.
 			exit
