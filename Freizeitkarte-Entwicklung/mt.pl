@@ -336,6 +336,7 @@ my $cores    = 2;
 my $ele      = 25;
 my $clm      = 1;   # eventually unused ?
 my $typfile  = $EMPTY;
+my $styledir = $EMPTY;
 my $language = $EMPTY;
 my $nametaglist = $EMPTY;
 
@@ -366,7 +367,7 @@ my $typfilelangcode = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -544,13 +545,18 @@ if ( $error ) {
   exit(1);
 }
 
+# Did user choose a style dir via argument -style=xx ?
+if ( $styledir ne $EMPTY ) {
+  $mapstyle = $styledir;
+}
+
 # Check if the choosen style does exist and set the Style Directory accordingly by testing points-master in the choosen dir
 $error = 1;
 if ( ( -e "$BASEPATH/style/$mapstyle/points" ) || ( -e "$BASEPATH/style/$mapstyle/points-master" ) ) {
         $error   = 0;
         $mapstyledir = "style/$mapstyle";
 }
-elsif ( ( $mapstyle == "fzk" ) && ( -e "$BASEPATH/style/points-master") ) {
+elsif ( ( $mapstyle eq "fzk" ) && ( -e "$BASEPATH/style/points-master") ) {
         $error   = 0;
         $mapstyledir = "style";
 }
@@ -2251,6 +2257,11 @@ sub preprocess_styles {
     }
   }
 
+  # Create list of *-master files... those we have to run through the PPP
+  chdir "$BASEPATH/$mapstyledir";
+  my @masterfiles = ( glob "*-master" );
+
+
   # Go to the Workdir LANG
   chdir "$WORKDIRLANG";
 
@@ -2265,33 +2276,46 @@ sub preprocess_styles {
   # Add the Preprozessor Option for the language
   $ppp_optionen .= "\U-D$maplang";
 
-  # process file indexsearch
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl indexsearch-master indexsearch -x $ppp_optionen";
-  process_command ( $command );
+  # Loop through the list of *-master files
+  for my $masterfile ( @masterfiles ) {
+    
+    # create the filename withough -master at the end
+    my $newfilename = $masterfile;
+    $newfilename =~ s/-master$//;
+    
+    # Put the preprocessor command together and run it
+    $command = "perl  $BASEPATH/tools/ppp/ppp.pl $masterfile $newfilename -x $ppp_optionen";
+    process_command ( $command );
+    
+  }
 
-  # process file info
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl info-master info -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file options
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl options-master options -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file version
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl version-master version -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file polgons
-  $command = "perl $BASEPATH/tools/ppp/ppp.pl polygons-master polygons -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file lines
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl lines-master lines -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file points
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl points-master points -x $ppp_optionen";
-  process_command ( $command );
+#  # process file indexsearch
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl indexsearch-master indexsearch -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file info
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl info-master info -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file options
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl options-master options -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file version
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl version-master version -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file polgons
+#  $command = "perl $BASEPATH/tools/ppp/ppp.pl polygons-master polygons -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file lines
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl lines-master lines -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file points
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl points-master points -x $ppp_optionen";
+#  process_command ( $command );
 
   return;
 }
@@ -4098,7 +4122,9 @@ sub show_usage {
   # Print the Usage
   printf { *STDOUT } (
     "Usage:\n"
-      . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>] [--typfile=\"<filename>\"] [--language=\"<lang>\"] <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
+      . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>]  \\\n"
+      . "           [--typfile=\"<filename>\"] [--style=\"<dirname>\"] [--language=\"<lang>\"] \\\n"
+      . "           <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
       . "  or\n"
       . "perl $programName bootstrap [urls <url_bounds> <url_sea>]\n"
       . "perl $programName bootstrap list\n\n"
@@ -4135,6 +4161,7 @@ sub show_help {
       . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
       . "--ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
       . "--typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
+      . "--style    = name of the style to be used, must be a directory below styles (default = fzk)\n"
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
       . "             if you build a map for another language than the map's default language,\n"
       . "             this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
