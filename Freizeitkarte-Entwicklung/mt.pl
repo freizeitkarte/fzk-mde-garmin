@@ -1432,7 +1432,7 @@ sub create_cfgfile {
       . "#   (see resources/styles/default for an example).  The directory\n"
       . "#   path must be absolute or relative to the current working\n"
       . "#   directory when mkgmap is invoked.\n"
-      . "style-file=$WORKDIRLANG\n" );
+      . "style-file=$WORKDIRLANG/$mapstyledir\n" );
 
   printf { $fh } ( "\n# Product description options:\n" );
   printf { $fh } ( "# ---------------------------\n" );
@@ -2333,7 +2333,7 @@ sub preprocess_styles {
     
     # Go to the correct directory
     my $masterfilepath = dirname($masterfile);
-    print $masterfilepath;
+    print "\n\nPPP handling of: $mapstyledir/$masterfile";
     chdir "$WORKDIRLANG/$mapstyledir/$masterfilepath";
     
     # create the proper filenames
