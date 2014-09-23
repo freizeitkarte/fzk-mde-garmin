@@ -15,10 +15,11 @@ use English '-no_match_vars';
 
 use Cwd;
 use File::Copy;
+use File::Find;
 use File::Path;
 use File::Basename;
 use Getopt::Long;
-#use Data::Dumper;
+use Data::Dumper;
 
 my @actions = (
   # Normal User Actions for maps
@@ -805,6 +806,40 @@ sub trim {
   $string =~ s/\s+$//;
 
   return ( $string );
+}
+
+
+# -----------------------------------------
+# Copy directory recursively
+# -----------------------------------------
+sub copy_dir_rec {
+
+  my $src_dir = shift;
+  my $dst_dir = shift;
+
+  mkpath "$dst_dir"
+    unless -d "$dst_dir";
+
+  die "unable to copy directory: Source $src_dir not a directory\n"
+     unless -d $src_dir;
+  die "unable to copy directory: Destination $dst_dir not a directory\n"
+     unless -d $dst_dir;
+
+  chdir $src_dir;
+  
+  find( sub {
+    # $_ is just the filename, "test.txt"
+    # $File::Find::name is the full "/path/to/the/file/test.txt".
+    # we could filter here for specific files, but we don't
+    #return if $_ !~ /\.txt$/i;
+    return unless -f;   # We want files only
+    mkpath "$dst_dir/$File::Find::dir" 
+      unless -d "$dst_dir/$File::Find::dir";
+    copy "$_", "$dst_dir/$File::Find::dir"
+      or die "Can't copy the file $File::Find::name...";
+  }, ".");
+
+  return;
 }
 
 
@@ -2250,20 +2285,37 @@ sub preprocess_styles {
   # copying the files from the style directory into the work directory
   # adapted for making it possible for include files that don't get processed by PPP
   #for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
-  for my $stylefile ( glob "$BASEPATH/$mapstyledir/*" ) {
-    # Only copy files and leave the existing subdirectories for the moment (may changes lateron)
-    if ( -f "$stylefile" ) {
-      copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
-    }
-  }
+#  for my $stylefile ( glob "$BASEPATH/$mapstyledir/*" ) {
+#    # Only copy files and leave the existing subdirectories for the moment (may changes lateron)
+#    if ( -f "$stylefile" ) {
+#      copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
+#    }
+#  }
 
-  # Create list of *-master files... those we have to run through the PPP
+  # Since we support several styles with subdirectories we have to do the copy differently
+  copy_dir_rec("$BASEPATH/$mapstyledir", "$WORKDIRLANG/$mapstyledir");
+
+#  # Create list of *-master files... those we have to run through the PPP XXX to be adapted for redundancy too
+#  chdir "$BASEPATH/$mapstyledir";
+#  my @masterfiles = ( glob "*-master" );
+  # Create list of *.master files to be handled via PPP
+  my @masterfiles = ();
   chdir "$BASEPATH/$mapstyledir";
-  my @masterfiles = ( glob "*-master" );
+  find( sub{
+    # $_ is just the filename, "test.txt"
+    # $File::Find::name is the full "/path/to/the/file/test.txt".
+    # we could filter here for specific files, but we don't
+    return if $_ !~ /-master$/;
+    return unless -f;   # We want files only
+    push @masterfiles, $File::Find::name;
+  }, ".");
 
-
+  # Dump and exit
+#  print Dumper @masterfiles;
+#  exit;
+  
   # Go to the Workdir LANG
-  chdir "$WORKDIRLANG";
+#  chdir "$WORKDIRLANG";
 
   # Put the Options for the PPP preprocessor together (options that are given behind mapname)
   # $ARGV[ 0 ]                = Aktion;
@@ -2279,12 +2331,21 @@ sub preprocess_styles {
   # Loop through the list of *-master files
   for my $masterfile ( @masterfiles ) {
     
-    # create the filename withough -master at the end
-    my $newfilename = $masterfile;
+    # Go to the correct directory
+    my $masterfilepath = dirname($masterfile);
+    print $masterfilepath;
+    chdir "$WORKDIRLANG/$mapstyledir/$masterfilepath";
+    
+    # create the proper filenames
+    my $masterfilename = basename($masterfile);
+    my $newfilename = $masterfilename;
     $newfilename =~ s/-master$//;
     
+    # Copy the style-translations to the actual directory
+    copy("$WORKDIRLANG/style-translations", "$WORKDIRLANG/$mapstyledir/$masterfilepath");
+    
     # Put the preprocessor command together and run it
-    $command = "perl  $BASEPATH/tools/ppp/ppp.pl $masterfile $newfilename -x $ppp_optionen";
+    $command = "perl  $BASEPATH/tools/ppp/ppp.pl $masterfilename $newfilename -x $ppp_optionen";
     process_command ( $command );
     
   }
