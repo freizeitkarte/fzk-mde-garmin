@@ -1876,8 +1876,10 @@ sub create_typtranslations {
   # Read through the inputfile
   while ( <IN> ) {
 
-    # Get the line
+    # Get the line and make sure that line endings are correct
     $inputline = $_;
+    chomp ($inputline);
+    $inputline =~ s/\r$//;    
 
     # empty the temporary variables
     $thisobjectform    = '';
@@ -1891,10 +1893,14 @@ sub create_typtranslations {
 
       # read nextline
       $inputline = <IN>;
+      chomp($inputline);
+      $inputline =~ s/\r$//;          
       $inputline =~ /^Type=(0x[0-9A-F]{2,5})/i;
       $thisobjecttype = $1;
       if ( $thisobjectform eq "point" ) {
         $inputline = <IN>;
+        chomp($inputline);
+        $inputline =~ s/\r$//;          
         $inputline =~ /^SubType=(0x[0-9A-F]{2,5})/i;
         $thisobjectsubtype = $1;
       }
@@ -1906,6 +1912,8 @@ sub create_typtranslations {
       while ( <IN> ) {
         last if /^\[end\]/;    # Object finished, get on
         $inputline = $_;
+        chomp($inputline);
+        $inputline =~ s/\r$//;          
         # Check for strings
         if ( $inputline =~ /^String[0-9]*=(0x[0-9A-F]{2}),(.*)$/i ) {
           $thisobjectstringhash = $thisobjectid . "_$1";
@@ -1945,8 +1953,10 @@ sub create_typtranslations {
     # Read through the inputfile
     while ( <IN> ) {
 
-      # Get the line
+      # Get the line and make sure that line endings are correct
       $inputline = $_;
+      chomp ($inputline);
+      $inputline =~ s/\r$//;    
 
       # empty the temporary variables
       $thisobjectform        = '';
@@ -1957,19 +1967,23 @@ sub create_typtranslations {
       %thisobjectstrings     = ();
 
       if ( $inputline =~ /^\[_(line|polygon|point)\]$/ ) {
-        print OUT $inputline;
+        print OUT $inputline . "\n";
 
         $thisobjectform = $1;
 
         # read nextline
         $inputline = <IN>;
-        print OUT $inputline;
+        chomp($inputline);
+        $inputline =~ s/\r$//;          
+        print OUT $inputline . "\n";
 
         $inputline =~ /^Type=(0x[0-9A-F]{2,5})/i;
         $thisobjecttype = $1;
         if ( $thisobjectform eq "point" ) {
           $inputline = <IN>;
-          print OUT $inputline;
+          chomp($inputline);
+          $inputline =~ s/\r$//;          
+          print OUT $inputline . "\n";
           $inputline =~ /^SubType=(0x[0-9A-F]{2,5})/i;
           $thisobjectsubtype = $1;
         }
@@ -1980,6 +1994,8 @@ sub create_typtranslations {
         # Get strings
         while ( <IN> ) {
           $inputline = $_;
+          chomp($inputline);
+          $inputline =~ s/\r$//;          
 
           # Check for strings
           if ( $inputline =~ /^String[0-4]*=(0x[0-9A-F]{2},.*)$/i ) {
@@ -1993,29 +2009,31 @@ sub create_typtranslations {
                 else {
                   print "WARNING: $actualfile: string with ID $thisobjectstringhash not defined in the translation file\n";
                   $thisobjectstringsdone = 0;
-                  print OUT $inputline;
+                  print OUT $inputline . "\n";
                   last;
                 }
               }
             }
           }
           elsif ( $inputline =~ /^\[end\]/ ) {
-            print OUT $inputline;
+            print OUT $inputline . "\n";
             last;
           }
           else {
-            print OUT $inputline;
+            print OUT $inputline . "\n";
           }
         }
       }
  
       # we have to filter out and adapt some strings inside the [_id] section
       elsif ( $inputline =~ /^\[_(id)\]$/ ) {
-	     print OUT $inputline;	 
+	     print OUT $inputline . "\n";	 
 	     
         # Get strings
         while ( <IN> ) {
           $inputline = $_;
+          chomp($inputline);
+          $inputline =~ s/\r$//;          
 
           # Check for strings
           if ( $inputline =~ /^ProductCode=.*$/i ) {
@@ -2030,18 +2048,18 @@ sub create_typtranslations {
             print OUT "CodePage=$langcodepage{$langcode}\n";
           }
           elsif ( $inputline =~ /^\s*\[end\]/i ) {
-            print OUT $inputline;
+            print OUT $inputline . "\n";
             last;
           }
           else {
-            print OUT $inputline;
+            print OUT $inputline . "\n";
           }
         }
 
 	      
 	  }
       else {
-        print OUT $inputline;
+        print OUT $inputline . "\n";
       }
     }
 
