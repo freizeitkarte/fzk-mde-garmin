@@ -68,10 +68,11 @@ my @supportedlanguages = (
   # Iso639-1
   [ 'de', 'Deutsch' ],
   [ 'en', 'English' ],
+  [ 'fr', 'French' ],
   [ 'it', 'Italian' ],
   [ 'nl', 'Dutch' ],
-  [ 'pt', 'Portuguese' ],
   [ 'pl', 'Polish' ],
+  [ 'pt', 'Portuguese' ],
   [ 'ru', 'Russian' ]
 );
 
@@ -88,6 +89,7 @@ my %langcodepage = (
    'xx' => '1252' ,
    'de' => '1252' ,
    'en' => '1252' ,
+   'fr' => '1252' ,
    'it' => '1252' ,
    'nl' => '1252' ,
    'pt' => '1252' ,   
