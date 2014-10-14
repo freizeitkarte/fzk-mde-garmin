@@ -15,10 +15,11 @@ use English '-no_match_vars';
 
 use Cwd;
 use File::Copy;
+use File::Find;
 use File::Path;
 use File::Basename;
 use Getopt::Long;
-#use Data::Dumper;
+use Data::Dumper;
 
 my @actions = (
   # Normal User Actions for maps
@@ -338,6 +339,7 @@ my $cores    = 2;
 my $ele      = 25;
 my $clm      = 1;   # eventually unused ?
 my $typfile  = $EMPTY;
+my $styledir = $EMPTY;
 my $language = $EMPTY;
 my $nametaglist = $EMPTY;
 
@@ -357,6 +359,8 @@ my $maptype    = $EMPTY;
 my $mapparent  = $EMPTY;
 my $langdesc   = $EMPTY;
 my $maptypfile = "freizeit.TYP";
+my $mapstyle    = "fzk";
+my $mapstyledir = 'style/fzk';
 
 my $error   = -1;
 my $command = $EMPTY;
@@ -366,7 +370,7 @@ my $typfilelangcode = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -544,8 +548,29 @@ if ( $error ) {
   exit(1);
 }
 
-# Check nametaglist (if given) for potential problems
+# Did user choose a style dir via argument -style=xx ?
+if ( $styledir ne $EMPTY ) {
+  $mapstyle = $styledir;
+}
 
+# Check if the choosen style does exist and set the Style Directory accordingly by testing points-master in the choosen dir
+$error = 1;
+if ( ( -e "$BASEPATH/style/$mapstyle/points" ) || ( -e "$BASEPATH/style/$mapstyle/points-master" ) ) {
+        $error   = 0;
+        $mapstyledir = "style/$mapstyle";
+}
+elsif ( ( $mapstyle eq "fzk" ) && ( -e "$BASEPATH/style/points-master") ) {
+        $error   = 0;
+        $mapstyledir = "style";
+}
+if ( $error ) {
+  printf { *STDOUT } ( "ERROR:\n  Style '" . $mapstyle . "' not found.\n\n\n" );
+  show_usage ();
+  exit(1);
+}
+  
+
+# Check nametaglist (if given) for potential problems
 if ( $nametaglist ne $EMPTY ) {
  
    # Let's check if we have the general fallback 'name' somewhere in the specified nametaglist
@@ -783,6 +808,40 @@ sub trim {
   $string =~ s/\s+$//;
 
   return ( $string );
+}
+
+
+# -----------------------------------------
+# Copy directory recursively
+# -----------------------------------------
+sub copy_dir_rec {
+
+  my $src_dir = shift;
+  my $dst_dir = shift;
+
+  mkpath "$dst_dir"
+    unless -d "$dst_dir";
+
+  die "unable to copy directory: Source $src_dir not a directory\n"
+     unless -d $src_dir;
+  die "unable to copy directory: Destination $dst_dir not a directory\n"
+     unless -d $dst_dir;
+
+  chdir $src_dir;
+  
+  find( sub {
+    # $_ is just the filename, "test.txt"
+    # $File::Find::name is the full "/path/to/the/file/test.txt".
+    # we could filter here for specific files, but we don't
+    #return if $_ !~ /\.txt$/i;
+    return unless -f;   # We want files only
+    mkpath "$dst_dir/$File::Find::dir" 
+      unless -d "$dst_dir/$File::Find::dir";
+    copy "$_", "$dst_dir/$File::Find::dir"
+      or die "Can't copy the file $File::Find::name...";
+  }, ".");
+
+  return;
 }
 
 
@@ -1375,7 +1434,7 @@ sub create_cfgfile {
       . "#   (see resources/styles/default for an example).  The directory\n"
       . "#   path must be absolute or relative to the current working\n"
       . "#   directory when mkgmap is invoked.\n"
-      . "style-file=$WORKDIRLANG\n" );
+      . "style-file=$WORKDIRLANG/$mapstyledir\n" );
 
   printf { $fh } ( "\n# Product description options:\n" );
   printf { $fh } ( "# ---------------------------\n" );
@@ -2246,15 +2305,37 @@ sub preprocess_styles {
   # copying the files from the style directory into the work directory
   # adapted for making it possible for include files that don't get processed by PPP
   #for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
-  for my $stylefile ( glob "$BASEPATH/style/*" ) {
-    # Only copy files and leave the existing subdirectories for the moment (may changes lateron)
-    if ( -f "$stylefile" ) {
-      copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
-    }
-  }
+#  for my $stylefile ( glob "$BASEPATH/$mapstyledir/*" ) {
+#    # Only copy files and leave the existing subdirectories for the moment (may changes lateron)
+#    if ( -f "$stylefile" ) {
+#      copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
+#    }
+#  }
 
+  # Since we support several styles with subdirectories we have to do the copy differently
+  copy_dir_rec("$BASEPATH/$mapstyledir", "$WORKDIRLANG/$mapstyledir");
+
+#  # Create list of *-master files... those we have to run through the PPP XXX to be adapted for redundancy too
+#  chdir "$BASEPATH/$mapstyledir";
+#  my @masterfiles = ( glob "*-master" );
+  # Create list of *.master files to be handled via PPP
+  my @masterfiles = ();
+  chdir "$BASEPATH/$mapstyledir";
+  find( sub{
+    # $_ is just the filename, "test.txt"
+    # $File::Find::name is the full "/path/to/the/file/test.txt".
+    # we could filter here for specific files, but we don't
+    return if $_ !~ /-master$/;
+    return unless -f;   # We want files only
+    push @masterfiles, $File::Find::name;
+  }, ".");
+
+  # Dump and exit
+#  print Dumper @masterfiles;
+#  exit;
+  
   # Go to the Workdir LANG
-  chdir "$WORKDIRLANG";
+#  chdir "$WORKDIRLANG";
 
   # Put the Options for the PPP preprocessor together (options that are given behind mapname)
   # $ARGV[ 0 ]                = Aktion;
@@ -2267,33 +2348,55 @@ sub preprocess_styles {
   # Add the Preprozessor Option for the language
   $ppp_optionen .= "\U-D$maplang";
 
-  # process file indexsearch
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl indexsearch-master indexsearch -x $ppp_optionen";
-  process_command ( $command );
+  # Loop through the list of *-master files
+  for my $masterfile ( @masterfiles ) {
+    
+    # Go to the correct directory
+    my $masterfilepath = dirname($masterfile);
+    print "\n\nPPP handling of: $mapstyledir/$masterfile";
+    chdir "$WORKDIRLANG/$mapstyledir/$masterfilepath";
+    
+    # create the proper filenames
+    my $masterfilename = basename($masterfile);
+    my $newfilename = $masterfilename;
+    $newfilename =~ s/-master$//;
+    
+    # Copy the style-translations to the actual directory
+    copy("$WORKDIRLANG/style-translations", "$WORKDIRLANG/$mapstyledir/$masterfilepath");
+    
+    # Put the preprocessor command together and run it
+    $command = "perl  $BASEPATH/tools/ppp/ppp.pl $masterfilename $newfilename -x $ppp_optionen";
+    process_command ( $command );
+    
+  }
 
-  # process file info
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl info-master info -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file options
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl options-master options -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file version
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl version-master version -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file polgons
-  $command = "perl $BASEPATH/tools/ppp/ppp.pl polygons-master polygons -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file lines
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl lines-master lines -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file points
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl points-master points -x $ppp_optionen";
-  process_command ( $command );
+#  # process file indexsearch
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl indexsearch-master indexsearch -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file info
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl info-master info -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file options
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl options-master options -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file version
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl version-master version -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file polgons
+#  $command = "perl $BASEPATH/tools/ppp/ppp.pl polygons-master polygons -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file lines
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl lines-master lines -x $ppp_optionen";
+#  process_command ( $command );
+#
+#  # process file points
+#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl points-master points -x $ppp_optionen";
+#  process_command ( $command );
 
   return;
 }
@@ -4073,6 +4176,7 @@ sub show_actionsummary {
     printf { *STDOUT }   ( "Map:        %s (%s)\n", $mapname, $mapid );
     printf { *STDOUT }   ( "Language:   %s (%s)\n", $langdesc, $maplang );
     printf { *STDOUT }   ( "Typ file:   %s.TYP\n",  $maptypfile );
+    printf { *STDOUT }   ( "Style Dir:  %s\n",  $mapstyledir );
     printf { *STDOUT }   ( "elevation:  %s m\n",    $ele );
     if ( $maptype == 3 ) {
       printf { *STDOUT } ( "Map type:   downloadable OSM extract\n" );
@@ -4099,7 +4203,9 @@ sub show_usage {
   # Print the Usage
   printf { *STDOUT } (
     "Usage:\n"
-      . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>] [--typfile=\"<filename>\"] [--language=\"<lang>\"] <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
+      . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>]  \\\n"
+      . "           [--typfile=\"<filename>\"] [--style=\"<dirname>\"] [--language=\"<lang>\"] \\\n"
+      . "           <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
       . "  or\n"
       . "perl $programName bootstrap [urls <url_bounds> <url_sea>]\n"
       . "perl $programName bootstrap list\n\n"
@@ -4136,6 +4242,7 @@ sub show_help {
       . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
       . "--ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
       . "--typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
+      . "--style    = name of the style to be used, must be a directory below styles (default = fzk)\n"
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
       . "             if you build a map for another language than the map's default language,\n"
       . "             this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
