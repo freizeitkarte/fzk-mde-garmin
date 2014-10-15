@@ -275,6 +275,16 @@ my @maps = (
   [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS_EUR'        ],
   [ 9040, 'Freizeitkarte_AZORES',                  'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                  'pt', 'Freizeitkarte_Azoren',                    3, 'NA'             ],
 
+  # Andere Regionen
+  [ 9810, 'Freizeitkarte_US_MIDWEST',              'http://download.geofabrik.de/north-america/us-midwest-latest.osm.pbf',                              'US_MIDWEST',              'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9820, 'Freizeitkarte_US_NORTHEAST',            'http://download.geofabrik.de/north-america/us-northeast-latest.osm.pbf',                            'US_NORTHEAST',            'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9830, 'Freizeitkarte_US_PACIFIC',              'http://download.geofabrik.de/north-america/us-pacific-latest.osm.pbf',                              'US_PACIFIC',              'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9840, 'Freizeitkarte_US_SOUTH',                'http://download.geofabrik.de/north-america/us-south-latest.osm.pbf',                                'US_SOUTH',                'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9850, 'Freizeitkarte_US_WEST',                 'http://download.geofabrik.de/north-america/us-west-latest.osm.pbf',                                 'US_WEST',                 'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9860, 'Freizeitkarte_US_ALASKA',               'http://download.geofabrik.de/north-america/us/alaska-latest.osm.pbf',                               'US_ALASKA',               'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9870, 'Freizeitkarte_US_HAWAII',               'http://download.geofabrik.de/north-america/us/hawaii-latest.osm.pbf',                               'US_HAWAII',               'en', 'no_old_name',                             3, 'NA'             ],
+
+
   # For faster test runs with regions
   [ -1,   'Regions - Maps for test purposes',     'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 9990, 'Freizeitkarte_CHE_R',                  'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE_R',                    'de', 'no_old_name',                             1, 'NA'             ],
