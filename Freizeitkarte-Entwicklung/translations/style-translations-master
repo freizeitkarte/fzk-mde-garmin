@@ -1,13 +1,13 @@
 ﻿###* style-translation-master
 ###* ========================
-###* Contains all translated strings for the different style files 
+###* Contains all translated strings for the different style files
 ###* located in the style directory
-###* 
+###*
 ###* Syntax rules of this file
 ###* -------------------------
 ###* 1) only lines starting with '#define' are considered, others are ignored
 ###* 2) leading whitespace in front of '#define' is allowed and stripped out
-###* 3) additional whitespace other than one space between '#define' and 
+###* 3) additional whitespace other than one space between '#define' and
 ###*    variable name is allowed and stripped out
 ###* 4) additional whitespace other than one space between variable name and
 ###*    variable value is allowed and stripped out
@@ -21,10 +21,10 @@
 ###*    value. In case the translation for a specific language is not found,
 ###*    the default value is used:
 ###*         #define $__ALPINEHUT__ Berghütte
-###* 
+###*
 ###* This file translations/style-translations-master will be transformed
 ###* by the perl script mt.pl into the file
-###* style/style-translation-master containing all translations for 
+###* style/style-translation-master containing all translations for
 ###* the choosen language or the default language of a map.
 ###* The output file will not contain any language codes like DE or EN anymore
 ###* and will be included into the different style files during another
@@ -42,6 +42,7 @@
 ###* Version: 0.8 - 05.05.2014:  Added Italian translation
 ###*                             Changed the ID of two different 'Kreisstrassen' to avoid problems on newer devices.
 ###* Version: 0.9 - 20.10.2014   Added French translation
+###* Version: 0.9a- 20.10.2014   Blanks before CRLF removed
 
 
 
@@ -70,13 +71,13 @@
 ## Aquarium.
 #define $__AQUARIUM__ Aquarium
 #define $__AQUARIUM__DE Aquarium
-#define $__AQUARIUM__EN Aquarium 
-#define $__AQUARIUM__FR Aquarium 
+#define $__AQUARIUM__EN Aquarium
+#define $__AQUARIUM__FR Aquarium
 #define $__AQUARIUM__IT Acquario
 #define $__AQUARIUM__NL Aquarium
 #define $__AQUARIUM__PL Akwarium
 #define $__AQUARIUM__RU Аквариум
-#define $__AQUARIUM__PT Aquário 
+#define $__AQUARIUM__PT Aquário
 
 ## Sehenswürdigkeit. [point, closedway]
 #define $__ATTRACTION__ Attraktion
@@ -328,10 +329,10 @@
 #define $__CLIFF__EN Cliff
 #define $__CLIFF__FR Falaise
 #define $__CLIFF__IT Rupe
-#define $__CLIFF__NL Klif 
-#define $__CLIFF__PL Urwisko 
-#define $__CLIFF__RU Скала 
-#define $__CLIFF__PT Penhasco 
+#define $__CLIFF__NL Klif
+#define $__CLIFF__PL Urwisko
+#define $__CLIFF__RU Скала
+#define $__CLIFF__PT Penhasco
 
 ## Alm, Matten: Bereich oberhalb der Baumgrenze. [point, closedway]
 #define $__FELL__ Alm, Matten
@@ -380,13 +381,13 @@
 ## Schlick / Moor. [point, closedway]
 #define $__MUD__ Schlick/Moor
 #define $__MUD__DE Schlick/Moor
-#define $__MUD__EN Bog 
-#define $__MUD__FR Tourbière 
+#define $__MUD__EN Bog
+#define $__MUD__FR Tourbière
 #define $__MUD__IT Torbiera
-#define $__MUD__NL Moeras 
-#define $__MUD__PL Muł 
-#define $__MUD__RU Ил/трясина 
-#define $__MUD__PT Pântano 
+#define $__MUD__NL Moeras
+#define $__MUD__PL Muł
+#define $__MUD__RU Ил/трясина
+#define $__MUD__PT Pântano
 
 ## Boden mit Sand bedeckt, kein oder nur spärlicher Bewuchs. [point, closedway]
 #define $__SAND__ Sand
@@ -406,9 +407,9 @@
 #define $__SCREE__FR Eboulis
 #define $__SCREE__IT Ghiaione
 #define $__SCREE__NL Steenslag
-#define $__SCREE__PL Piarg (rumowisko skalne) 
-#define $__SCREE__RU Камни (валуны, галька) 
-#define $__SCREE__PT Seixos 
+#define $__SCREE__PL Piarg (rumowisko skalne)
+#define $__SCREE__RU Камни (валуны, галька)
+#define $__SCREE__PT Seixos
 
 ## Unkultiviertes Land: Unterholz / Busch. [point, closedway]
 #define $__SCRUB__ Unkultiviertes Land
@@ -450,10 +451,10 @@
 #define $__TREE__EN Tree
 #define $__TREE__FR Arbre
 #define $__TREE__IT Albero
-#define $__TREE__NL Boom 
-#define $__TREE__PL Drzewo 
-#define $__TREE__RU Дерево 
-#define $__TREE__PT Árvore 
+#define $__TREE__NL Boom
+#define $__TREE__PL Drzewo
+#define $__TREE__RU Дерево
+#define $__TREE__PT Árvore
 
 ## Vulkan, entweder ruhend, erloschen oder aktiv. [point]
 #define $__VOLCANO__ Vulkan
@@ -492,9 +493,9 @@
 ## Naturbelassene Flächen, die Überflutungen ausgesetzt sind oder staunasse Böden aufweisen. [point, closedway]
 #define $__WETLAND__ Feuchtgebiet
 #define $__WETLAND__DE Feuchtgebiet
-#define $__WETLAND__EN Wetland (Marsh, reeds or saltings) 
-#define $__WETLAND__FR Zone humide (Marais, roselière ou saline) 
-#define $__WETLAND__IT Zone umide (Paludi, Canneti o Saline) 
+#define $__WETLAND__EN Wetland (Marsh, reeds or saltings)
+#define $__WETLAND__FR Zone humide (Marais, roselière ou saline)
+#define $__WETLAND__IT Zone umide (Paludi, Canneti o Saline)
 #define $__WETLAND__NL Drassig land
 #define $__WETLAND__PL Obszar podmokły
 #define $__WETLAND__RU Заболоченная местность (камыш, солончак)
@@ -503,11 +504,11 @@
 ## Naturwald oder vollkommen unbewirtschaftete Wälder. [point, closedway]
 #define $__WOOD__ Naturwald
 #define $__WOOD__DE Urwald
-#define $__WOOD__EN Wood/Forest 
+#define $__WOOD__EN Wood/Forest
 #define $__WOOD__FR Boois/Forêt
 #define $__WOOD__IT Bosco/Foresta
-#define $__WOOD__NL Bos 
-#define $__WOOD__PL Las 
+#define $__WOOD__NL Bos
+#define $__WOOD__PL Las
 #define $__WOOD__RU Лес
 #define $__WOOD__PT Floresta
 
@@ -597,7 +598,7 @@
 #define $__WINDGENERATOR__IT Turbina eolica
 #define $__WINDGENERATOR__NL Windmolen
 #define $__WINDGENERATOR__PL Elektrownia wiatrowa
-#define $__WINDGENERATOR__RU Ветрогенератор 
+#define $__WINDGENERATOR__RU Ветрогенератор
 #define $__WINDGENERATOR__PT Turbina eólica
 
 ## Kraftwerk: dient der Erzeugung von Strom oder Wärme. [point, closedway]
@@ -641,11 +642,11 @@
 ## Flughafengebäude. [point, closedway]
 #define $__TERMINAL__ Terminal
 #define $__TERMINAL__DE Terminal
-#define $__TERMINAL__EN Airport Building/Terminal 
-#define $__TERMINAL__FR Aeroport/Terminal 
+#define $__TERMINAL__EN Airport Building/Terminal
+#define $__TERMINAL__FR Aeroport/Terminal
 #define $__TERMINAL__IT Terminal
 #define $__TERMINAL__NL Luchthaventerminal
-#define $__TERMINAL__PL Budynek lotniska/Terminal 
+#define $__TERMINAL__PL Budynek lotniska/Terminal
 #define $__TERMINAL__RU Здание аэропорта/Терминал
 #define $__TERMINAL__PT Terminal
 
@@ -675,7 +676,7 @@
 #define $__BIERGARTEN__FR Bar à bière
 #define $__BIERGARTEN__IT Biergarten
 #define $__BIERGARTEN__NL Terras
-#define $__BIERGARTEN__PL Ogródek piwny 
+#define $__BIERGARTEN__PL Ogródek piwny
 #define $__BIERGARTEN__RU Пивная
 #define $__BIERGARTEN__PT Biergarten
 
@@ -753,8 +754,8 @@
 #define $__BURGER__EN Burger Bar
 #define $__BURGER__FR Hamburger
 #define $__BURGER__IT Hamburger
-#define $__BURGER__NL Hamburger 
-#define $__BURGER__PL Bar z burgerem 
+#define $__BURGER__NL Hamburger
+#define $__BURGER__PL Bar z burgerem
 #define $__BURGER__RU Гамбургеры
 #define $__BURGER__PT Hamburguer
 
@@ -904,8 +905,8 @@
 #define $__STEAKHOUSE__EN Steak House
 #define $__STEAKHOUSE__FR Resto-Grill
 #define $__STEAKHOUSE__IT Steak House
-#define $__STEAKHOUSE__NL Steakhouse 
-#define $__STEAKHOUSE__PL Steak House 
+#define $__STEAKHOUSE__NL Steakhouse
+#define $__STEAKHOUSE__PL Steak House
 #define $__STEAKHOUSE__RU Стейк-хаус
 #define $__STEAKHOUSE__PT Churrascaria
 
@@ -1225,8 +1226,8 @@
 #define $__BUSSTATION__EN Bus Station
 #define $__BUSSTATION__FR Station de bus
 #define $__BUSSTATION__IT Stazione degli autobus
-#define $__BUSSTATION__NL Busstation 
-#define $__BUSSTATION__PL Przystanek autobusowy 
+#define $__BUSSTATION__NL Busstation
+#define $__BUSSTATION__PL Przystanek autobusowy
 #define $__BUSSTATION__RU Автобусная остановка
 #define $__BUSSTATION__PT Ponto de ônibus
 
@@ -1259,7 +1260,7 @@
 #define $__CARSHARING__FR Point autopartage
 #define $__CARSHARING__IT Punto di Car Sharing
 #define $__CARSHARING__NL Carpoolplaats
-#define $__CARSHARING__PL Punkt Car Sharing 
+#define $__CARSHARING__PL Punkt Car Sharing
 #define $__CARSHARING__RU Пункт передачи автомобилей
 #define $__CARSHARING__PT Carro de autoserviço
 
@@ -1291,9 +1292,9 @@
 #define $__FUELSTATION__EN Petrol Station
 #define $__FUELSTATION__FR Station essence
 #define $__FUELSTATION__IT Distributore di carburante
-#define $__FUELSTATION__NL Benzinestation 
-#define $__FUELSTATION__PL Stacja benzynowa 
-#define $__FUELSTATION__RU АЗС 
+#define $__FUELSTATION__NL Benzinestation
+#define $__FUELSTATION__PL Stacja benzynowa
+#define $__FUELSTATION__RU АЗС
 #define $__FUELSTATION__PT Posto de combustível
 
 ## Parkplatz. [point, closedway]
@@ -1439,13 +1440,13 @@
 ## Nachtclub, Disco. [point, closedway]
 #define $__NIGHTCLUB__ Disco
 #define $__NIGHTCLUB__DE Disco
-#define $__NIGHTCLUB__EN Nightclub/Discoteque 
-#define $__NIGHTCLUB__FR Boîte de nuit/Discotèque 
+#define $__NIGHTCLUB__EN Nightclub/Discoteque
+#define $__NIGHTCLUB__FR Boîte de nuit/Discotèque
 #define $__NIGHTCLUB__IT Nightclub/Discoteca
-#define $__NIGHTCLUB__NL Nachtclub/Discotheek 
+#define $__NIGHTCLUB__NL Nachtclub/Discotheek
 #define $__NIGHTCLUB__PL Dyskoteka
 #define $__NIGHTCLUB__RU Ночной клуб/Дискотека
-#define $__NIGHTCLUB__PT Casa noturna/Discoteca 
+#define $__NIGHTCLUB__PT Casa noturna/Discoteca
 
 ## A place for free and not-for-profit activities.
 #define $__SOCIALCENTRE__ Sozialeinrichtung
@@ -1454,7 +1455,7 @@
 #define $__SOCIALCENTRE__FR Centre social
 #define $__SOCIALCENTRE__IT Centro Sociale
 #define $__SOCIALCENTRE__NL Buurthuis
-#define $__SOCIALCENTRE__PL Centrum społeczne 
+#define $__SOCIALCENTRE__PL Centrum społeczne
 #define $__SOCIALCENTRE__RU Центр социального обеспечения
 #define $__SOCIALCENTRE__PT Centro social
 
@@ -1553,9 +1554,9 @@
 #define $__MUSLIM__FR Mosquée
 #define $__MUSLIM__IT Moschea
 #define $__MUSLIM__NL Moskee
-#define $__MUSLIM__PL Meczet 
-#define $__MUSLIM__RU Мечеть 
-#define $__MUSLIM__PT Mesquita 
+#define $__MUSLIM__PL Meczet
+#define $__MUSLIM__RU Мечеть
+#define $__MUSLIM__PT Mesquita
 
 #define $__JEWISH__ Synagoge
 #define $__JEWISH__DE Synagoge
@@ -1607,9 +1608,9 @@
 #define $__SHELTER__FR Abris
 #define $__SHELTER__IT Rifugio
 #define $__SHELTER__NL Schuilhut
-#define $__SHELTER__PL Schron 
-#define $__SHELTER__RU Убежище 
-#define $__SHELTER__PT Abrigo 
+#define $__SHELTER__PL Schron
+#define $__SHELTER__RU Убежище
+#define $__SHELTER__PT Abrigo
 
 ## Rathaus. [point, closedway]
 #define $__TOWNHALL__ Rathaus
@@ -1646,8 +1647,8 @@
 #define $__BEACON__IT Segnalazione
 #define $__BEACON__NL Baken
 #define $__BEACON__PL Punkt oświetleniowy
-#define $__BEACON__RU Сигнальный огонь 
-#define $__BEACON__PT Farol 
+#define $__BEACON__RU Сигнальный огонь
+#define $__BEACON__PT Farol
 
 ## Leuchtturm. [point]
 #define $__LIGHTHOUSE__ Leuchtturm
@@ -1656,9 +1657,9 @@
 #define $__LIGHTHOUSE__FR Phare
 #define $__LIGHTHOUSE__IT Faro
 #define $__LIGHTHOUSE__NL Vuurtoren
-#define $__LIGHTHOUSE__PL Latarnia 
-#define $__LIGHTHOUSE__RU Маяк 
-#define $__LIGHTHOUSE__PT Farol 
+#define $__LIGHTHOUSE__PL Latarnia
+#define $__LIGHTHOUSE__RU Маяк
+#define $__LIGHTHOUSE__PT Farol
 
 ## Mast (z.B. Telekommunkations- / Funkmast)
 #define $__MAST__ Funkmast
@@ -2085,7 +2086,7 @@
 #define $__DELICACY__FR Epicerie fine
 #define $__DELICACY__IT Gastronomia
 #define $__DELICACY__NL Delicatessenwinkel
-#define $__DELICACY__PL Delikatesy 
+#define $__DELICACY__PL Delikatesy
 #define $__DELICACY__RU Деликатесы
 #define $__DELICACY__PT Delicatessen
 
@@ -2372,7 +2373,7 @@
 #define $__FARMSHOP__FR Produits de la ferme
 #define $__FARMSHOP__IT Spaccio aziendale
 #define $__FARMSHOP__NL Boerderijwinkel
-#define $__FARMSHOP__PL Warzywniak 
+#define $__FARMSHOP__PL Warzywniak
 #define $__FARMSHOP__RU Фермерские продукты
 #define $__FARMSHOP__PT Paiol
 
@@ -2442,7 +2443,7 @@
 #define $__HIFI__FR Magasin Hi-Fi
 #define $__HIFI__IT Audiovideo Hifi
 #define $__HIFI__NL Hifi-winkel
-#define $__HIFI__PL Sklep ze sprzętem Hifi 
+#define $__HIFI__PL Sklep ze sprzętem Hifi
 #define $__HIFI__RU Hi-Fi техника
 #define $__HIFI__PT Som e imagem
 
@@ -2963,7 +2964,7 @@
 #define $__RECREATIONGROUND__FR Aire de loisirs
 #define $__RECREATIONGROUND__IT Area attrezzata
 #define $__RECREATIONGROUND__NL Recreatiegebied
-#define $__RECREATIONGROUND__PL Wiejski plac zabaw 
+#define $__RECREATIONGROUND__PL Wiejski plac zabaw
 #define $__RECREATIONGROUND__RU Рекреационная зона
 #define $__RECREATIONGROUND__PT Campo de recreação
 
@@ -3224,7 +3225,7 @@
 #define $__COMMERCIAL__FR Zone d'activité
 #define $__COMMERCIAL__IT Centro direzionale
 #define $__COMMERCIAL__NL Bedrijvenpark
-#define $__COMMERCIAL__PL Park biznesu 
+#define $__COMMERCIAL__PL Park biznesu
 #define $__COMMERCIAL__RU Бизнес-парк
 #define $__COMMERCIAL__PT Parque comercial
 
@@ -3617,7 +3618,7 @@
 #define $__HORSERACING__FR Hyppodrome
 #define $__HORSERACING__IT Ippodromo
 #define $__HORSERACING__NL Paardenrenbaan
-#define $__HORSERACING__PL Tor wyścigów konnych 
+#define $__HORSERACING__PL Tor wyścigów konnych
 #define $__HORSERACING__RU Ипподром
 #define $__HORSERACING__PT Hípica
 
