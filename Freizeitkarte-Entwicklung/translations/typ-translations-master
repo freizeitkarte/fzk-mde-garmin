@@ -95,7 +95,7 @@
 ; Version: 0.15  17.06.2014 - Adding some map features:
 ;                              - barrier = hedge and barrier = hedge_bank
 ;                              - natural = tree_row
-; Version: 0.16  12.10.2014 - Added french translation
+; Version: 0.16  20.10.2014 - Added french translation
 
 
 
@@ -497,7 +497,7 @@ String=0x19,Сельско-хозяйственные земли
 [_polygon]
 Type=0x25
 String=0x00,Power Station
-String=0x01,Centrale électrique
+String=0x01,Station électrique
 String=0x02,Kraftwerk
 String=0x03,Krachtcentrale
 String=0x04,Power Station
@@ -819,7 +819,7 @@ String=0x19,Вода
 [_polygon]
 Type=0x40
 String=0x00,Fell
-String=0x01,Lande de montagne
+String=0x01,Pâturage
 String=0x02,Alm / Bergwiese
 String=0x03,Bergweide
 String=0x04,Fell
@@ -4541,7 +4541,7 @@ String=0x19,Ресторан: китайский
 Type=0x02a
 SubType=0x05
 String=0x00,Restaurant: Deli/bakery
-String=0x01,Restaurant: Epicerie/boulangerie
+String=0x01,Restaurant: Epicerie fine/boulangerie
 String=0x02,Restaurant: Feinkost
 String=0x03,Restaurant: Delicatessen / bakkerij
 String=0x04,Restaurant: Deli/bakery
@@ -4886,7 +4886,7 @@ String=0x19,Арт-центр
 Type=0x02c
 SubType=0x05
 String=0x00,School/College
-String=0x01,Ecole/Collège
+String=0x01,Ecole/Université
 String=0x02,Schule / Hochschule
 String=0x03,School/College
 String=0x04,School/College
@@ -5036,7 +5036,7 @@ String=0x19,Театр
 Type=0x02d
 SubType=0x02
 String=0x00,Pub, Bar, Beergarden, Nightclub, Disco
-String=0x01,Pub, Bar, Var à bière, Boîte de nuit, Discothèque
+String=0x01,Pub, Bar, Bar à bière, Boîte de nuit, Discothèque
 String=0x02,Kneipe, Bar, Biergarten, Nachtclub, Disco
 String=0x03,Cafe, Bar, Terras, Nachtclub, Discotheek
 String=0x04,Pub, Bar, Beergarden, Nightclub, Disco
