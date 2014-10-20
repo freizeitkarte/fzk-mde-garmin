@@ -1919,7 +1919,7 @@ sub create_typtranslations {
   $typfilestringindex{ $typlanguages{ $langcode } } = $stringindex;
   $stringindex++;
   foreach my $tmp ( @typfilelangfixed ) {
-    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) && ( $langcodepage{$langcode} eq $langcodepage{$tmp} ) ) {
+    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) && ( ( $langcodepage{$langcode} eq $langcodepage{$tmp} )  || ( $mapcodepage == 65001 ) ) ) {
       push ( @typfilelangcode, $typlanguages{ $tmp } );
       $stringindex++;
     }
@@ -2239,6 +2239,7 @@ sub create_styletranslations {
   # Set some Variables
   my $inputfile  = "$BASEPATH/translations/style-translations-master";
   my $outputfile = "$WORKDIRLANG/style-translations";
+  # fill $langcode with UpperCase of $maplang
   my $langcode   = "\U$maplang";
   my @input;
   my %translation = ();
