@@ -169,7 +169,8 @@ my @maps = (
   [ 5860, 'Freizeitkarte_LORRAINE',               'http://download.geofabrik.de/europe/france/lorraine-latest.osm.pbf',                                'LORRAINE',                 'de', 'Freizeitkarte_Lothringen',                3, 'NA'             ],
   [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/europe/france/alsace-latest.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass',                    3, 'NA'             ],
 
-  # Länder, Ländercodes: 6000 + ISO-3166 (numerisch)
+  # Countries
+  # Country codes: 6000 + ISO-3166 (numeric): http://en.wikipedia.org/wiki/ISO_3166-1_numeric
   [ -1,   'Europaeische Laender',                 'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6008, 'Freizeitkarte_ALB',                    'http://download.geofabrik.de/europe/albania-latest.osm.pbf',                                        'ALB',                      'en', 'Freizeitkarte_Albanien',                  3, 'NA'             ],
   [ 6020, 'Freizeitkarte_AND',                    'http://download.geofabrik.de/europe/andorra-latest.osm.pbf',                                        'AND',                      'en', 'Freizeitkarte_Andorra',                   3, 'NA'             ],
@@ -221,7 +222,8 @@ my @maps = (
   
   [ -1,   'Andere Laender',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6032, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'no_old_name',                             3, 'NA'             ],
-
+  [ 6392, 'Freizeitkarte_JPN',                    'http://download.geofabrik.de/asia/japan-latest.osm.pbf',                                            'JPN',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6408, 'Freizeitkarte_KOR',                    'http://download.geofabrik.de/asia/south-korea-latest.osm.pbf',                                      'KOR',                      'en', 'no_old_name',                             3, 'NA'             ],
 
   # Andere Regionen
 #  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
@@ -352,6 +354,7 @@ my $typfile  = $EMPTY;
 my $styledir = $EMPTY;
 my $language = $EMPTY;
 my $nametaglist = $EMPTY;
+my $unicode     = $EMPTY;
 
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
@@ -365,6 +368,7 @@ my $mapnameold = $EMPTY;
 my $osmurl     = $EMPTY;
 my $mapcode    = $EMPTY;
 my $maplang    = $EMPTY;
+my $mapcodepage= $EMPTY;
 my $maptype    = $EMPTY;
 my $mapparent  = $EMPTY;
 my $langdesc   = $EMPTY;
@@ -380,7 +384,7 @@ my $typfilelangcode = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -533,6 +537,15 @@ for my $languagedata ( @supportedlanguages ) {
     last;
   }
 }
+
+# Check if the user did choose unicode, else set the codepage to the codepage of the choosen language
+if ( $unicode ) {
+  $mapcodepage = 65001;
+}
+else {
+  $mapcodepage = $langcodepage{$maplang};
+}
+
 
 # Error due to invalid language code
 if ( $error ) {
@@ -1307,7 +1320,7 @@ sub create_cfgfile {
       . "# --latin1\n" 
       . "#   This is equivalent to --code-page=1252.\n" 
       . "# latin1\n" 
-      . "code-page=" . $langcodepage{$maplang} . "\n" );
+      . "code-page=" . $mapcodepage . "\n" );
       
   printf { $fh }
     (   "\n"
@@ -2116,7 +2129,7 @@ sub create_typtranslations {
           elsif ( $inputline =~ /^CodePage=.*$/i ) {
 #             print OUT "$inputline";
 #		     print OUT ";$inputline";
-            print OUT "CodePage=$langcodepage{$langcode}\n";
+            print OUT "CodePage=$mapcodepage\n";
           }
           elsif ( $inputline =~ /^\s*\[end\]/i ) {
             print OUT $inputline . "\n";
@@ -4185,6 +4198,7 @@ sub show_actionsummary {
   else {
     printf { *STDOUT }   ( "Map:        %s (%s)\n", $mapname, $mapid );
     printf { *STDOUT }   ( "Language:   %s (%s)\n", $langdesc, $maplang );
+    printf { *STDOUT }   ( "CodePage:   %s\n",      $mapcodepage );
     printf { *STDOUT }   ( "Typ file:   %s.TYP\n",  $maptypfile );
     printf { *STDOUT }   ( "Style Dir:  %s\n",  $mapstyledir );
     printf { *STDOUT }   ( "elevation:  %s m\n",    $ele );
