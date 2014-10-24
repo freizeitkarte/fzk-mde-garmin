@@ -4229,14 +4229,16 @@ sub show_usage {
   # Print the Usage
   printf { *STDOUT } (
     "Usage:\n"
-      . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>]  \\\n"
-      . "           [--typfile=\"<filename>\"] [--style=\"<dirname>\"] [--language=\"<lang>\"] \\\n"
+      . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>] \\\n"
+      . "           [--typfile=\"<filename>\"] [--style=\"<dirname>\"] \\\n"
+      . "           [--language=\"<lang>\"] [--unicode] \\\n"
+      . "           [--ntl=\"<name-tag-list>\"] \\\n"
       . "           <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
       . "  or\n"
       . "perl $programName bootstrap [urls <url_bounds> <url_sea>]\n"
       . "perl $programName bootstrap list\n\n"
       . "  or for getting help:\n"
-      . "  perl $programName -? | -h\n"
+      . "perl $programName -? | -h\n"
       . "\n\n"
   );
 
@@ -4253,9 +4255,6 @@ sub show_help {
   
   # Print the details of the help
   printf { *STDOUT } (
-#    "Usage:\n"
-#      . "perl $programName [--ram=Value] [--cores=Value] [--ele=Value] [--typfile=\"filename\"] [--language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
-#      . "Examples:\n"
       "Examples:\n"
       . "perl $programName                              bootstrap\n"
       . "perl $programName                              build     Freizeitkarte_Hamburg\n"
@@ -4272,6 +4271,8 @@ sub show_help {
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
       . "             if you build a map for another language than the map's default language,\n"
       . "             this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
+      . "--unicode  = Build the map in unicode (CP65001) instead of in the native codepage of the map language.\n"
+      . "                --unicode\n"
       . "--ntl      = overwrite the default name-tag-list for the mkgmap run (name) with a specific list, e.g.\n"
       . "                --ntl=\"name:en,int_name,name\"\n"
       . "             Please check mkgmap documentation for more information.\n"
