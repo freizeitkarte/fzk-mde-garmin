@@ -188,7 +188,7 @@ my @maps = (
   [ 6233, 'Freizeitkarte_EST',                    'http://download.geofabrik.de/europe/estonia-latest.osm.pbf',                                        'EST',                      'en', 'Freizeitkarte_Estland',                   3, 'NA'             ],
   [ 6234, 'Freizeitkarte_FRO',                    'http://download.geofabrik.de/europe/faroe-islands-latest.osm.pbf',                                  'FRO',                      'en', 'Freizeitkarte_Faeroeer',                  3, 'NA'             ],
   [ 6246, 'Freizeitkarte_FIN',                    'http://download.geofabrik.de/europe/finland-latest.osm.pbf',                                        'FIN',                      'en', 'Freizeitkarte_Finnland',                  3, 'NA'             ],
-  [ 6250, 'Freizeitkarte_FRA',                    'http://download.geofabrik.de/europe/france-latest.osm.pbf',                                         'FRA',                      'en', 'Freizeitkarte_Frankreich',                3, 'NA'             ],
+  [ 6250, 'Freizeitkarte_FRA',                    'http://download.geofabrik.de/europe/france-latest.osm.pbf',                                         'FRA',                      'fr', 'Freizeitkarte_Frankreich',                3, 'NA'             ],
   [ 6826, 'Freizeitkarte_GBR',                    'http://download.geofabrik.de/europe/great-britain-latest.osm.pbf',                                  'GBR',                      'en', 'Freizeitkarte_Grossbritannien',           3, 'NA'             ],
   [ 6300, 'Freizeitkarte_GRC',                    'http://download.geofabrik.de/europe/greece-latest.osm.pbf',                                         'GRC',                      'en', 'Freizeitkarte_Griechenland',              3, 'NA'             ],
   [ 6191, 'Freizeitkarte_HRV',                    'http://download.geofabrik.de/europe/croatia-latest.osm.pbf',                                        'HRV',                      'en', 'Freizeitkarte_Kroatien',                  3, 'NA'             ],
@@ -235,14 +235,14 @@ my @maps = (
 #  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
 
   # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
-  [ -1,   'Freizeitkarte PLUS Laender',            'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
-  [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                        														   'AUT+',                     'de', 'no_old_name',               			    2, 'EUROPE'         ],
+  [ -1,   'Freizeitkarte PLUS Laender',           'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                                                                                'AUT+',                     'de', 'no_old_name',               			    2, 'EUROPE'         ],
   [ 7056, 'Freizeitkarte_BEL+',                   'NA',                                                                                                'BEL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7756, 'Freizeitkarte_CHE+',                   'NA',                                    															   'CHE+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7276, 'Freizeitkarte_DEU+',                   'NA',                                        														   'DEU+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7756, 'Freizeitkarte_CHE+',                   'NA',                                                                                                'CHE+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7276, 'Freizeitkarte_DEU+',                   'NA',                                                                                                'DEU+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7208, 'Freizeitkarte_DNK+',                   'NA',                                                                                                'DNK+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7724, 'Freizeitkarte_ESP+',                   'NA',                                                                                                'ESP+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7250, 'Freizeitkarte_FRA+',                   'NA',                                                                                                'FRA+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7250, 'Freizeitkarte_FRA+',                   'NA',                                                                                                'FRA+',                     'fr', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7826, 'Freizeitkarte_GBR+',                   'NA',                                                                                                'GBR+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7372, 'Freizeitkarte_IRL+',                   'NA',                                                                                                'IRL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7380, 'Freizeitkarte_ITA+',                   'NA',                                                                                                'ITA+',                     'it', 'no_old_name',                             2, 'EUROPE'         ],
@@ -250,7 +250,7 @@ my @maps = (
   [ 7620, 'Freizeitkarte_PRT+',                   'NA',                                                                                                'PRT+',                     'pt', 'no_old_name',                             2, 'EUROPE'         ],
 
   [ -1,   'Andere Laender',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
-  [ 7032, 'Freizeitkarte_ARG+',                   'NA',                                        														   'ARG+',                     'en', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
+  [ 7032, 'Freizeitkarte_ARG+',                   'NA',                                                                                                'ARG+',                     'en', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
 
 
 
@@ -271,7 +271,7 @@ my @maps = (
   [ 8520, 'Freizeitkarte_SAOPAULO',               'NA',                                                                                                'SAOPAULO',                 'de', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
 
   # Andere Regionen
-#  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ -1,   'Andere Regionen',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 9010, 'Freizeitkarte_RUS_EUR',                 'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'RUS_EUR',                 'ru', 'Freizeitkarte_Euro-Russland',             1, 'NA'             ],
   [ 9011, 'Freizeitkarte_RUS',                     'http://data.gis-lab.info/osm_dump/dump/latest/RU.osm.pbf',                                          'RUS',                     'ru', 'no_old_name',                             1, 'NA'             ],
   [ 9020, 'Freizeitkarte_ESP_CANARIAS',            'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'ESP_CANARIAS',            'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
