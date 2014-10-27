@@ -95,7 +95,9 @@
 ; Version: 0.15  17.06.2014 - Adding some map features:
 ;                              - barrier = hedge and barrier = hedge_bank
 ;                              - natural = tree_row
-; Version: 0.16  20.10.2014 - Added french translation
+; Version: 0.16  27.10.2014 - Added french translation
+;                           - adopted some other languages regarding capitalization and spaces
+
 
 
 
@@ -623,7 +625,7 @@ String=0x19,Ил/трясина
 [_polygon]
 Type=0x30
 String=0x00,Living Street
-String=0x01,Zone partagée (autos/piétons)
+String=0x01,Zone de rencontre
 String=0x02,Mischgebiet
 String=0x03,Woonwijk
 String=0x04,Living Street
@@ -1216,7 +1218,7 @@ String=0x19,[Подъездная дорога]
 [_line]
 Type=0x09
 String=0x00,[Living Street]
-String=0x01,[Rue en zone résidentielle]
+String=0x01,[Zone de rencontre]
 String=0x02,[Spielstraße]
 String=0x03,[Woonwijk]
 String=0x04,[Living Street]
@@ -1636,7 +1638,7 @@ String=0x19,Подъездная дорога
 [_line]
 Type=0x10108
 String=0x00,Living Street (restricted) narrow
-String=0x01,Rue résidentielle étroite (accès limité)
+String=0x01,Zone de rencontre étroite (accès limité)
 String=0x02,Spielstraße (Eingeschränkt)
 String=0x03,Woonerf
 String=0x04,Living Street (restricted) narrow
@@ -1650,7 +1652,7 @@ String=0x19,Улица для детских игр (ограниченный д
 [_line]
 Type=0x10109
 String=0x00,Track/Dirt Road (4,5)
-String=0x01,Piste/Chemin de terre (4,5)
+String=0x01,Chemin/Piste (4,5)
 String=0x02,Feld- / Waldweg (4,5)
 String=0x03,Onverharde weg (4,5)
 String=0x04,Track/Dirt Road (4,5)
@@ -1914,7 +1916,7 @@ String=0x19,Барьер / Опорная стенка
 [_line]
 Type=0x1011d
 String=0x00,Track/Dirt Road (4,5)
-String=0x01,Piste/Chemin de terre (4,5)
+String=0x01,Chemin/Piste (4,5)
 String=0x02,Feld- / Waldweg (4,5)
 String=0x03,Onverharde weg (4,5)
 String=0x04,Track/Dirt Road (4,5)
@@ -1928,7 +1930,7 @@ String=0x19,Грунтовая дорога (4,5)
 [_line]
 Type=0x10201
 String=0x00,Track/Dirt Road (4,5)
-String=0x01,Piste/Chemin de terre (4,5)
+String=0x01,Chemin/Piste (4,5)
 String=0x02,Feld- / Waldweg (4,5)
 String=0x03,Onverharde weg (4,5)
 String=0x04,Track/Dirt Road (4,5)
@@ -1942,7 +1944,7 @@ String=0x19,Грунтовая дорога (4,5)
 [_line]
 Type=0x10202
 String=0x00,Track/Dirt Road (4,5)
-String=0x01,Piste/Chemin de terre (4,5)
+String=0x01,Chemin/Piste (4,5)
 String=0x02,Feld- / Waldweg (4,5)
 String=0x03,Onverharde weg (4,5)
 String=0x04,Track/Dirt Road (4,5)
@@ -2095,23 +2097,23 @@ String=0x19,Туннель
 ;; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 breit
 ;[_line]
 ;Type=0x10410
-;String=0x00,Alpine Trail T3 / T4
-;String=0x01,Sentier alpin T3 / T4
-;String=0x02,Bergwanderweg T3 / T4
-;String=0x03,Bergpad T3 / T4
-;String=0x04,Alpine Trail T3 / T4
-;String=0x05,Sentiero alpino T3 / T4
-;String=0x10,Trilha alpina T3 / T4
-;String=0x15,Trasa wspinaczkowa T3 / T4
-;String=0x19,Горная тропа T3 / T4
+;String=0x00,Alpine Trail T3/T4
+;String=0x01,Sentier (T3/T4)
+;String=0x02,Bergwanderweg T3/T4
+;String=0x03,Bergpad T3/T4
+;String=0x04,Alpine Trail T3/T4
+;String=0x05,Sentiero alpino T3/T4
+;String=0x10,Trilha alpina T3/T4
+;String=0x15,Trasa wspinaczkowa T3/T4
+;String=0x19,Горная тропа T3/T4
 ;[end]
 
 ;; Alpine Trail T5/T6 <=> Bergwanderweg T5 / T6 breit
 ;[_line]
 ;Type=0x10411
 ;String=0x00,Alpine Trail T5/T6
-;String=0x01,Sentier alpin T5 / T6
-;String=0x02,Bergwanderweg T5 / T6
+;String=0x01,Sentier (T5/T6)
+;String=0x02,Bergwanderweg T5/T6
 ;String=0x03,Bergpad T5/T6
 ;String=0x04,Alpine Trail T5/T6
 ;String=0x05,Sentiero alpino T5/T6
@@ -2123,57 +2125,57 @@ String=0x19,Туннель
 ;; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 breit
 ;[_line]
 ;Type=0x10412
-;String=0x00,Alpine Trail T1 / T2
-;String=0x01,Sentier alpin T1 / T2
-;String=0x02,Bergwanderweg T1 / T2 breit
-;String=0x03,Bergpad T1 / T2
-;String=0x04,Alpine Trail T1 / T2
-;String=0x05,Sentiero alpino T1 / T2
-;String=0x10,Trilha alpina T1 / T2
-;String=0x15,Trasa wspinaczkowa T1 / T2
-;String=0x19,Горная тропа T1 / T2
+;String=0x00,Alpine Trail T1/T2
+;String=0x01,Sentier (T1/T2)
+;String=0x02,Bergwanderweg T1/T2 breit
+;String=0x03,Bergpad T1/T2
+;String=0x04,Alpine Trail T1/T2
+;String=0x05,Sentiero alpino T1/T2
+;String=0x10,Trilha alpina T1/T2
+;String=0x15,Trasa wspinaczkowa T1/T2
+;String=0x19,Горная тропа T1/T2
 ;[end]
 
 ;; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 schmal
 ;[_line]
 ;Type=0x10413
-;String=0x00,Alpine Trail T3 / T4
-;String=0x01,Sentier alpin T3 / T4
-;String=0x02,Bergwanderweg T3 / T4
-;String=0x03,Bergpad T3 / T4
-;String=0x04,Alpine Trail T3 / T4
-;String=0x05,Sentiero alpino T3 / T4
-;String=0x10,Trilha alpina T3 / T4
-;String=0x15,Trasa wspinaczkowa T3 / T4
-;String=0x19,Горная тропа T3 / T4
+;String=0x00,Alpine Trail T3/T4
+;String=0x01,Sentier (T3/T4)
+;String=0x02,Bergwanderweg T3/T4
+;String=0x03,Bergpad T3/T4
+;String=0x04,Alpine Trail T3/T4
+;String=0x05,Sentiero alpino T3/T4
+;String=0x10,Trilha alpina T3/T4
+;String=0x15,Trasa wspinaczkowa T3/T4
+;String=0x19,Горная тропа T3/T4
 ;[end]
 
 ;; Alpine Trail T5 / T6 <=> Bergwanderweg T5 / T6 schmal
 ;[_line]
 ;Type=0x10414
-;String=0x00,Alpine Trail T5 / T6
-;String=0x01,Sentier alpin T5 / T6
-;String=0x02,Bergwanderweg T5 / T6
-;String=0x03,Bergpad T5 / T6
-;String=0x04,Alpine Trail T5 / T6
-;String=0x05,Sentiero alpino T5 / T6
-;String=0x10,Trilha alpina T5 / T6
-;String=0x15,Trasa wspinaczkowa T5 / T6
-;String=0x19,Горная тропа T5 / T6
+;String=0x00,Alpine Trail T5/T6
+;String=0x01,Sentier (T5/T6)
+;String=0x02,Bergwanderweg T5/T6
+;String=0x03,Bergpad T5/T6
+;String=0x04,Alpine Trail T5/T6
+;String=0x05,Sentiero alpino T5/T6
+;String=0x10,Trilha alpina T5/T6
+;String=0x15,Trasa wspinaczkowa T5/T6
+;String=0x19,Горная тропа T5/T6
 ;[end]
 
 ;; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 schmal
 ;[_line]
 ;Type=0x10415
-;String=0x00,Alpine Trail T1 / T2
-;String=0x01,Sentier alpin T1 / T2
-;String=0x02,Bergwanderweg T1 / T2
-;String=0x03,Bergpad T1 / T2
-;String=0x04,Alpine Trail T1 / T2
-;String=0x05,Sentiero alpino T1 / T2
-;String=0x10,Trilha alpina T1 / T2
-;String=0x15,Trasa wspinaczkowa T1 / T2
-;String=0x19,Горная тропа T1 / T2
+;String=0x00,Alpine Trail T1/T2
+;String=0x01,Sentier (T1/T2)
+;String=0x02,Bergwanderweg T1/T2
+;String=0x03,Bergpad T1/T2
+;String=0x04,Alpine Trail T1/T2
+;String=0x05,Sentiero alpino T1/T2
+;String=0x10,Trilha alpina T1/T2
+;String=0x15,Trasa wspinaczkowa T1/T2
+;String=0x19,Горная тропа T1/T2
 ;[end]
 
 ; Taxiway <=> Rollweg (breit)
@@ -2278,7 +2280,7 @@ String=0x19,Путь
 [_line]
 Type=0x10e07
 String=0x00,Track/Dirt Road (1)
-String=0x01,Piste/Chemin de terre (1)
+String=0x01,Chemin/Piste (1)
 String=0x02,Feld- / Waldweg (1)
 String=0x03,Onverharde bosweg (1)
 String=0x04,Track/Dirt Road (1)
@@ -2292,7 +2294,7 @@ String=0x19,Грунтовая дорога (1)
 [_line]
 Type=0x10e08
 String=0x00,Track/Dirt Road (n.a,2,3)
-String=0x01,Piste/Chemin de terre (n.a,2,3)
+String=0x01,Chemin/Piste (n.a,2,3)
 String=0x02,Feld- / Waldweg (ohne,2,3)
 String=0x03,Onverharde bosweg (n.a,2,3)
 String=0x04,Track/Dirt Road (n.a,2,3)
@@ -2306,7 +2308,7 @@ String=0x19,Грунтовая дорога (кроме 2,3)
 [_line]
 Type=0x10e09
 String=0x00,Track/Dirt Road (1)
-String=0x01,Piste/Chemin de terre (1)
+String=0x01,Chemin/Piste (1)
 String=0x02,Feld- / Waldweg (1)
 String=0x03,Onverharde bosweg (1)
 String=0x04,Track/Dirt Road (1)
@@ -2344,14 +2346,14 @@ String=0x15,Autostrada
 String=0x19,Федеральная трасса
 [end]
 
-; path <=> Weg / Pfad breit
+; Path <=> Weg / Pfad breit
 [_line]
 Type=0x10e0c
-String=0x00,path
-String=0x01,Route étroite / Chemin
+String=0x00,Path
+String=0x01,Chemin
 String=0x02,Schmaler Weg / Pfad
 String=0x03,Pad
-String=0x04,path
+String=0x04,Path
 String=0x05,Percorso
 String=0x10,Passagem
 String=0x15,Ścieżka
@@ -2447,7 +2449,7 @@ String=0x19,Путь (ограниченный доступ)
 [_line]
 Type=0x10e13
 String=0x00,Track/Dirt Road (1) (restricted)
-String=0x01,Piste/Chemin de terre (1) (accès limité)
+String=0x01,Chemin/Piste (1) (accès limité)
 String=0x02,Feld- / Waldweg (1) (Eingeschränkt)
 String=0x03,Onverharde weg (1) (afgesloten)
 String=0x04,Track/Dirt Road (1) (restricted)
@@ -2461,7 +2463,7 @@ String=0x19,Грунтовая дорога (1) (ограниченный дос
 [_line]
 Type=0x10e14
 String=0x00,Track/Dirt Road (1) (restricted)
-String=0x01,Piste/Chemin de terre (1) (accès limité)
+String=0x01,Chemin/Piste (1) (accès limité)
 String=0x02,Feld- / Waldweg (1) (Eingeschränkt)
 String=0x03,Onverharde weg (1) (afgesloten)
 String=0x04,Track/Dirt Road (1) (restricted)
@@ -2475,7 +2477,7 @@ String=0x19,Грунтовая дорога (1) (ограниченный дос
 [_line]
 Type=0x10e15
 String=0x00,Track/Dirt Road (n.a,2,3) (restricted)
-String=0x01,Piste/Chemin de terre (n.a,2,3) (accès limité)
+String=0x01,Chemin/Piste (n.a,2,3) (accès limité)
 String=0x02,Feld- / Waldweg (ohne,2,3) (Eingeschränkt)
 String=0x03,Onverharde weg (n.a,2,3) (afgesloten)
 String=0x04,Track/Dirt Road (n.a,2,3) (restricted)
@@ -2489,7 +2491,7 @@ String=0x19,Грунтовая дорога (н/д,2,3) (ограниченны�
 [_line]
 Type=0x10e16
 String=0x00,Track/Dirt Road (n.a,2,3) (restricted)
-String=0x01,Piste/Chemin de terre (n.a,2,3) (accès limité)
+String=0x01,Chemin/Piste (n.a,2,3) (accès limité)
 String=0x02,Feld- / Waldweg (ohne,2,3) (Eingeschränkt)
 String=0x03,Onverharde weg (n.a,2,3) (afgesloten)
 String=0x04,Track/Dirt Road (n.a,2,3) (restricted)
@@ -2503,7 +2505,7 @@ String=0x19,Грунтовая дорога (н/д,2,3) (ограниченны�
 [_line]
 Type=0x10e17
 String=0x00,Track/Dirt Road (4,5) (restricted)
-String=0x01,Piste/Chemin de terre (4,5) (accès limité)
+String=0x01,Chemin/Piste (4,5) (accès limité)
 String=0x02,Feld- / Waldweg (4,5) (Eingeschränkt)
 String=0x03,Onverharde weg (4,5) (afgesloten)
 String=0x04,Track/Dirt Road (4,5) (restricted)
@@ -2517,7 +2519,7 @@ String=0x19,Грунтовая дорога (4,5) (ограниченный до
 [_line]
 Type=0x10e18
 String=0x00,Track/Dirt Road (n.a,2,3)
-String=0x01,Piste/Chemin de terre (n.a,2,3)
+String=0x01,Chemin/Piste (n.a,2,3)
 String=0x02,Feld- / Waldweg (ohne,2,3)
 String=0x03,Onverharde weg (n.a,2,3)
 String=0x04,Track/Dirt Road (n.a,2,3)
@@ -2601,7 +2603,7 @@ String=0x19,Платформа
 [_line]
 Type=0x10e1e
 String=0x00,Track/Dirt Road (4,5) (restricted)
-String=0x01,Piste/Chemin de terre (4,5) (accès limité)
+String=0x01,Chemin/Piste (4,5) (accès limité)
 String=0x02,Feld- / Waldweg (4,5) (Eingeschränkt)
 String=0x03,Onverharde weg (4,5) (afgesloten)
 String=0x04,Track/Dirt Road (4,5) (restricted)
@@ -2657,7 +2659,7 @@ String=0x19,Тестовая линия
 [_line]
 Type=0x10f03
 String=0x00,Living Street
-String=0x01,Rue résidentielle
+String=0x01,Zone de rencontre
 String=0x02,Verkehrsberuhigter Bereich
 String=0x03,Woonerf
 String=0x04,Living Street
@@ -2671,7 +2673,7 @@ String=0x19,Улица для детских игр
 [_line]
 Type=0x10f04
 String=0x00,Living Street
-String=0x01,Rue résidentielle
+String=0x01,Zone de rencontre
 String=0x02,Verkehrsberuhigter Bereich
 String=0x03,Woonerf
 String=0x04,Living Street
@@ -2685,7 +2687,7 @@ String=0x19,Улица для детских игр
 [_line]
 Type=0x10f05
 String=0x00,Living Street (restricted)
-String=0x01,Rue résidentielle (accès limité)
+String=0x01,Zone de rencontre (accès limité)
 String=0x02,Verkehrsberuhigter Bereich (Eingeschränkt)
 String=0x03,Woonerf (afgesloten)
 String=0x04,Living Street (restricted)
@@ -2699,7 +2701,7 @@ String=0x19,Улица для детских игр (ограниченный д
 [_line]
 Type=0x10f06
 String=0x00,Living Street (restricted)
-String=0x01,Rue résidentielle (accès limité)
+String=0x01,Zone de rencontre (accès limité)
 String=0x02,Verkehrsberuhigter Bereich (Eingeschränkt)
 String=0x03,Woonerf (afgesloten)
 String=0x04,Living Street (restricted)
@@ -3146,23 +3148,23 @@ String=0x19,Ограждение
 ; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 breit
 [_line]
 Type=0x11f07
-String=0x00,Alpine Trail T3 / T4
-String=0x01,Sentier alpin T3 / T4
-String=0x02,Bergwanderweg T3 / T4
-String=0x03,Bergpad T3 / T4
-String=0x04,Alpine Trail T3 / T4
-String=0x05,Sentiero alpino T3 / T4
-String=0x10,Trilha alpina T3 / T4
-String=0x15,Trasa wspinaczkowa T3 / T4
-String=0x19,Горная тропа T3 / T4
+String=0x00,Alpine Trail T3/T4
+String=0x01,Sentier (T3/T4)
+String=0x02,Bergwanderweg T3/T4
+String=0x03,Bergpad T3/T4
+String=0x04,Alpine Trail T3/T4
+String=0x05,Sentiero alpino T3/T4
+String=0x10,Trilha alpina T3/T4
+String=0x15,Trasa wspinaczkowa T3/T4
+String=0x19,Горная тропа T3/T4
 [end]
 
 ; Alpine Trail T5/T6 <=> Bergwanderweg T5 / T6 breit
 [_line]
 Type=0x11f08
 String=0x00,Alpine Trail T5/T6
-String=0x01,Sentier alpin T5/T6
-String=0x02,Bergwanderweg T5 / T6
+String=0x01,Sentier (T5/T6)
+String=0x02,Bergwanderweg T5/T6
 String=0x03,Bergpad T5/T6
 String=0x04,Alpine Trail T5/T6
 String=0x05,Sentiero alpino T5/T6
@@ -3174,57 +3176,57 @@ String=0x19,Горная тропа T5/T6
 ; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 breit
 [_line]
 Type=0x11f09
-String=0x00,Alpine Trail T1 / T2
-String=0x01,Sentier alpin T1 / T2
-String=0x02,Bergwanderweg T1 / T2 breit
-String=0x03,Bergpad T1 / T2
-String=0x04,Alpine Trail T1 / T2
-String=0x05,Sentiero alpino T1 / T2
-String=0x10,Trilha alpina T1 / T2
-String=0x15,Trasa wspinaczkowa T1 / T2
-String=0x19,Горная тропа T1 / T2
+String=0x00,Alpine Trail T1/T2
+String=0x01,Sentier (T1/T2)
+String=0x02,Bergwanderweg T1/T2 breit
+String=0x03,Bergpad T1/T2
+String=0x04,Alpine Trail T1/T2
+String=0x05,Sentiero alpino T1/T2
+String=0x10,Trilha alpina T1/T2
+String=0x15,Trasa wspinaczkowa T1/T2
+String=0x19,Горная тропа T1/T2
 [end]
 
 ; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 schmal
 [_line]
 Type=0x11f0a
-String=0x00,Alpine Trail T3 / T4
-String=0x01,Sentier alpin T3 / T4
-String=0x02,Bergwanderweg T3 / T4
-String=0x03,Bergpad T3 / T4
-String=0x04,Alpine Trail T3 / T4
-String=0x05,Sentiero alpino T3 / T4
-String=0x10,Trilha alpina T3 / T4
-String=0x15,Trasa wspinaczkowa T3 / T4
-String=0x19,Горная тропа T3 / T4
+String=0x00,Alpine Trail T3/T4
+String=0x01,Sentier (T3/T4)
+String=0x02,Bergwanderweg T3/T4
+String=0x03,Bergpad T3/T4
+String=0x04,Alpine Trail T3/T4
+String=0x05,Sentiero alpino T3/T4
+String=0x10,Trilha alpina T3/T4
+String=0x15,Trasa wspinaczkowa T3/T4
+String=0x19,Горная тропа T3/T4
 [end]
 
 ; Alpine Trail T5 / T6 <=> Bergwanderweg T5 / T6 schmal
 [_line]
 Type=0x11f0b
-String=0x00,Alpine Trail T5 / T6
-String=0x01,Sentier alpin T5 / T6
-String=0x02,Bergwanderweg T5 / T6
-String=0x03,Bergpad T5 / T6
-String=0x04,Alpine Trail T5 / T6
-String=0x05,Sentiero alpino T5 / T6
-String=0x10,Trilha alpina T5 / T6
-String=0x15,Trasa wspinaczkowa T5 / T6
-String=0x19,Горная тропа T5 / T6
+String=0x00,Alpine Trail T5/T6
+String=0x01,Sentier (T5/T6)
+String=0x02,Bergwanderweg T5/T6
+String=0x03,Bergpad T5/T6
+String=0x04,Alpine Trail T5/T6
+String=0x05,Sentiero alpino T5/T6
+String=0x10,Trilha alpina T5/T6
+String=0x15,Trasa wspinaczkowa T5/T6
+String=0x19,Горная тропа T5/T6
 [end]
 
 ; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 schmal
 [_line]
 Type=0x11f0c
-String=0x00,Alpine Trail T1 / T2
-String=0x01,Sentier alpin T1 / T2
-String=0x02,Bergwanderweg T1 / T2
-String=0x03,Bergpad T1 / T2
-String=0x04,Alpine Trail T1 / T2
-String=0x05,Sentiero alpino T1 / T2
-String=0x10,Trilha alpina T1 / T2
-String=0x15,Trasa wspinaczkowa T1 / T2
-String=0x19,Горная тропа T1 / T2
+String=0x00,Alpine Trail T1/T2
+String=0x01,Sentier (T1/T2)
+String=0x02,Bergwanderweg T1/T2
+String=0x03,Bergpad T1/T2
+String=0x04,Alpine Trail T1/T2
+String=0x05,Sentiero alpino T1/T2
+String=0x10,Trilha alpina T1/T2
+String=0x15,Trasa wspinaczkowa T1/T2
+String=0x19,Горная тропа T1/T2
 [end]
 
 ; Ferry <=> Fähre
@@ -3371,7 +3373,7 @@ String=0x19,Подъездная дорога
 [_line]
 Type=0x11f1a
 String=0x00,Living Street
-String=0x01,Rue résidentielle
+String=0x01,Zone de rencontre
 String=0x02,Spielstraße
 String=0x03,Woonerf
 String=0x04,Living Street
@@ -4180,7 +4182,7 @@ String=0x19,тропа T1
 [_line]
 Type=0x12203
 String=0x00,Mountain Trail T2/T3
-String=0x01,Sentier alpin T2/T3
+String=0x01,Sentier (T2/T3)
 String=0x02,Bergwanderweg T2/T3
 String=0x03,Bergpad T2/T3
 String=0x04,Mountain Trail T2/T3
@@ -4194,7 +4196,7 @@ String=0x19,Горная тропа T2/T3
 [_line]
 Type=0x12204
 String=0x00,Mountain Trail T2/T3
-String=0x01,Sentier alpin T2/T3
+String=0x01,Sentier (T2/T3)
 String=0x02,Bergwanderweg T2/T3
 String=0x03,Bergpad T2/T3
 String=0x04,Mountain Trail T2/T3
@@ -4208,7 +4210,7 @@ String=0x19,Горная тропа T2/T3
 [_line]
 Type=0x12205
 String=0x00,Alpine Trail T4-T6
-String=0x01,Sentier alpin T4-T6
+String=0x01,Sentier (T4-T6)
 String=0x02,Alpiner Weg T4-T6
 String=0x03,Alpine pad T4-T6
 String=0x04,Alpine Trail T4-T6
@@ -4222,7 +4224,7 @@ String=0x19,Горная тропа T4-T6
 [_line]
 Type=0x12206
 String=0x00,Alpine Trail T4-T6
-String=0x01,Sentier alpin T4-T6
+String=0x01,Sentier (T4-T6)
 String=0x02,Alpiner Weg T4-T6
 String=0x03,Alpine pad T4-T6
 String=0x04,Alpine Trail T4-T6
@@ -4346,7 +4348,7 @@ String=0x19,Маяк
 Type=0x012
 SubType=0x07
 String=0x00,Gate
-String=0x01,Porte
+String=0x01,Barrière
 String=0x02,Tor
 String=0x03,Poort
 String=0x04,Gate
