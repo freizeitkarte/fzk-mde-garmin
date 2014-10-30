@@ -347,7 +347,7 @@ areoway = runway {set aeroway=aerodrome}
 # -------------------------------------------------
 # Adress- / Indexsuche:
 # -------------------------------------------------
-include "indexsearch"
+include "indexsearch";
 
 
 # ------------------------------------------------------------
