@@ -375,7 +375,7 @@
 # -------------------------------------------------
 # Adress- / Indexsuche:
 # -------------------------------------------------
-##include "indexsearch"
+# #include "indexsearch"
 
 
 
@@ -1728,7 +1728,7 @@ cemetery = grave & name = * & (wikipedia:de = * | wikipedia = * | website = *) {
 # ------------------------------------------------
 # add the following lines to your lines file
  <finalize>
-##include 'compat_points';
+# deactivated #include 'compat_points';
 name=* { name '${name}' }
 mkgmap:default_name=* { name '${mkgmap:default_name}' }
 mkgmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }
