@@ -280,12 +280,12 @@ my @maps = (
 
   # Andere Regionen
   [ 9810, 'Freizeitkarte_US_MIDWEST',              'http://download.geofabrik.de/north-america/us-midwest-latest.osm.pbf',                              'US_MIDWEST',              'en', 'no_old_name',                             3, 'NA'             ],
-  [ 9820, 'Freizeitkarte_US_NORTHEAST',            'http://download.geofabrik.de/north-america/us-northeast-latest.osm.pbf',                            'US_NORTHEAST',            'en', 'no_old_name',                             3, 'NA'             ],
-  [ 9830, 'Freizeitkarte_US_PACIFIC',              'http://download.geofabrik.de/north-america/us-pacific-latest.osm.pbf',                              'US_PACIFIC',              'en', 'no_old_name',                             3, 'NA'             ],
-  [ 9840, 'Freizeitkarte_US_SOUTH',                'http://download.geofabrik.de/north-america/us-south-latest.osm.pbf',                                'US_SOUTH',                'en', 'no_old_name',                             3, 'NA'             ],
-  [ 9850, 'Freizeitkarte_US_WEST',                 'http://download.geofabrik.de/north-america/us-west-latest.osm.pbf',                                 'US_WEST',                 'en', 'no_old_name',                             3, 'NA'             ],
-  [ 9860, 'Freizeitkarte_US_ALASKA',               'http://download.geofabrik.de/north-america/us/alaska-latest.osm.pbf',                               'US_ALASKA',               'en', 'no_old_name',                             3, 'NA'             ],
-  [ 9870, 'Freizeitkarte_US_HAWAII',               'http://download.geofabrik.de/north-america/us/hawaii-latest.osm.pbf',                               'US_HAWAII',               'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9811, 'Freizeitkarte_US_NORTHEAST',            'http://download.geofabrik.de/north-america/us-northeast-latest.osm.pbf',                            'US_NORTHEAST',            'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9812, 'Freizeitkarte_US_PACIFIC',              'http://download.geofabrik.de/north-america/us-pacific-latest.osm.pbf',                              'US_PACIFIC',              'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9813, 'Freizeitkarte_US_SOUTH',                'http://download.geofabrik.de/north-america/us-south-latest.osm.pbf',                                'US_SOUTH',                'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9814, 'Freizeitkarte_US_WEST',                 'http://download.geofabrik.de/north-america/us-west-latest.osm.pbf',                                 'US_WEST',                 'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9820, 'Freizeitkarte_US_ALASKA',               'http://download.geofabrik.de/north-america/us/alaska-latest.osm.pbf',                               'US_ALASKA',               'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9830, 'Freizeitkarte_US_HAWAII',               'http://download.geofabrik.de/north-america/us/hawaii-latest.osm.pbf',                               'US_HAWAII',               'en', 'no_old_name',                             3, 'NA'             ],
 
 
   # For faster test runs with regions
@@ -316,7 +316,7 @@ my $ACTIONOPT  = 2;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.8 - 2014/06/15';
+my $VERSION = '1.3.9 - 2014/10/31';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -2326,23 +2326,9 @@ sub create_styletranslations {
 # -----------------------------------------
 sub preprocess_styles {
 
-
-  # copying the files from the style directory into the work directory
-  # adapted for making it possible for include files that don't get processed by PPP
-  #for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
-#  for my $stylefile ( glob "$BASEPATH/$mapstyledir/*" ) {
-#    # Only copy files and leave the existing subdirectories for the moment (may changes lateron)
-#    if ( -f "$stylefile" ) {
-#      copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
-#    }
-#  }
-
-  # Since we support several styles with subdirectories we have to do the copy differently
+  # Since we support several styles with subdirectories we copy the complete selected style dir recursively
   copy_dir_rec("$BASEPATH/$mapstyledir", "$WORKDIRLANG/$mapstyledir");
 
-#  # Create list of *-master files... those we have to run through the PPP XXX to be adapted for redundancy too
-#  chdir "$BASEPATH/$mapstyledir";
-#  my @masterfiles = ( glob "*-master" );
   # Create list of *.master files to be handled via PPP
   my @masterfiles = ();
   chdir "$BASEPATH/$mapstyledir";
@@ -2373,8 +2359,9 @@ sub preprocess_styles {
   # Add the Preprozessor Option for the language
   $ppp_optionen .= "\U-D$maplang";
 
-  # Loop through the list of *-master files
-  for my $masterfile ( @masterfiles ) {
+  # Loop through the list of *-master files 
+  # (sorted to have a reproducible order of sequence independant on filesystem and platform)
+  for my $masterfile ( sort @masterfiles ) {
     
     # Go to the correct directory
     my $masterfilepath = dirname($masterfile);
@@ -2395,35 +2382,8 @@ sub preprocess_styles {
     
   }
 
-#  # process file indexsearch
-#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl indexsearch-master indexsearch -x $ppp_optionen";
-#  process_command ( $command );
-#
-#  # process file info
-#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl info-master info -x $ppp_optionen";
-#  process_command ( $command );
-#
-#  # process file options
-#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl options-master options -x $ppp_optionen";
-#  process_command ( $command );
-#
-#  # process file version
-#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl version-master version -x $ppp_optionen";
-#  process_command ( $command );
-#
-#  # process file polgons
-#  $command = "perl $BASEPATH/tools/ppp/ppp.pl polygons-master polygons -x $ppp_optionen";
-#  process_command ( $command );
-#
-#  # process file lines
-#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl lines-master lines -x $ppp_optionen";
-#  process_command ( $command );
-#
-#  # process file points
-#  $command = "perl  $BASEPATH/tools/ppp/ppp.pl points-master points -x $ppp_optionen";
-#  process_command ( $command );
-
   return;
+
 }
 
 
