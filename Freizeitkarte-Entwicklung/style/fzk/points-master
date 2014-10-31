@@ -373,8 +373,9 @@
 #undef PP_VARS_ACTIVE_IN_STRINGS
 
 # -------------------------------------------------
-# Adress- / Indexsuche:
+# Adress- / Indexsuche: 
 # -------------------------------------------------
+# (handled at the end of the file with mkgmap style include)
 # #include "indexsearch"
 
 
@@ -1743,4 +1744,4 @@ int_ref=* { addlabel '${int_ref|part:;:1}'; addlabel '${int_ref|part:;:2}'; addl
 nat_ref=* { addlabel '${nat_ref|part:;:1}'; addlabel '${nat_ref|part:;:2}'; addlabel '${nat_ref|part:;:3}' }
 reg_ref=* { addlabel '${reg_ref|part:;:1}'; addlabel '${reg_ref|part:;:2}'; addlabel '${reg_ref|part:;:3}' }
 
-include 'indexsearch';
+include "indexsearch";

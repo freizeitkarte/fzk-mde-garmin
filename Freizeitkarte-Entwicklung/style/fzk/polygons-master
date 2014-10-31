@@ -22,6 +22,7 @@
 #                             Change handling of Marina from filled polygone to outline only
 # Version : 0.15 -14.03.2014: Adapting things regarding power = * (station / plant / substation / sub_station)
 # Version : 0.16 -05.05.2014: Adapting finalize section to support new mkgmap version 2096 and newer
+# Version : 0.17 -31.10.2014: Fixing issues with different includes: clarify what is done by PPP and what is done by mkgmap
 
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
@@ -924,7 +925,7 @@ zoo = enclosure {name "${name} ($__COMPOUND__)" | "$__COMPOUND__"} [0x41 resolut
 # ------------------------------------------------
 # add the following lines to your lines file
 <finalize>
-# include 'compat_polygons'; 
+# deactivated include 'compat_polygons'; 
 name=* { name '${name}' }
 mkgmap:default_name=* { name '${mkgmap:default_name}' }
 mkgmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }

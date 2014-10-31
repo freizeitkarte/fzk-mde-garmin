@@ -49,6 +49,8 @@
 # Version : 0.26  17.06.2014 - Adding some map features:
 #                              - barrier = hedge and barrier = hedge_bank
 #                              - natural = tree_row
+# Version : 0.27  31.10.2014 - Fixing Routing issue with trunks/motorway/motorroad restrictions
+#                            - Fixing problems with includes: clearly defining what is done by PPP (no include needed here) and what by mkgmap includes
 
 
 
