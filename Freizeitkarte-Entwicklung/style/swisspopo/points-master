@@ -1,4 +1,4 @@
-# ------------------------------------------------------------
+﻿# ------------------------------------------------------------
 # Zweck   : mkgmap-Regeln für Punkte (POI, Points Of Interest)
 # Version : 0.1 - 23.09.2011
 # Version : 0.2 - 14.10.2011: Adresssuche
@@ -373,9 +373,10 @@
 #undef PP_VARS_ACTIVE_IN_STRINGS
 
 # -------------------------------------------------
-# Adress- / Indexsuche:
+# Adress- / Indexsuche: 
 # -------------------------------------------------
-##include "indexsearch"
+# (handled at the end of the file with mkgmap style include)
+# #include "indexsearch"
 
 
 
@@ -1728,7 +1729,7 @@ cemetery = grave & name = * & (wikipedia:de = * | wikipedia = * | website = *) {
 # ------------------------------------------------
 # add the following lines to your lines file
  <finalize>
-##include 'compat_points';
+# deactivated #include 'compat_points';
 name=* { name '${name}' }
 mkgmap:default_name=* { name '${mkgmap:default_name}' }
 mkgmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }
@@ -1743,4 +1744,4 @@ int_ref=* { addlabel '${int_ref|part:;:1}'; addlabel '${int_ref|part:;:2}'; addl
 nat_ref=* { addlabel '${nat_ref|part:;:1}'; addlabel '${nat_ref|part:;:2}'; addlabel '${nat_ref|part:;:3}' }
 reg_ref=* { addlabel '${reg_ref|part:;:1}'; addlabel '${reg_ref|part:;:2}'; addlabel '${reg_ref|part:;:3}' }
 
-include 'indexsearch';
+include "indexsearch";
