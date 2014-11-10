@@ -316,7 +316,7 @@ my $ACTIONOPT  = 2;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.9 - 2014/10/31';
+my $VERSION = '1.3.9 - 2014/11/10';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -380,7 +380,7 @@ my $mapstyledir = 'style/fzk';
 my $error   = -1;
 my $command = $EMPTY;
 
-my $ALLTYPEFILE = $EMPTY;
+my $alltypfile = $EMPTY;
 my $typfilelangcode = $EMPTY;
 
 
@@ -465,13 +465,13 @@ elsif ( $actionname eq 'fingerprint' ) {
 }
 elsif ( $actionname eq 'alltypfiles' ) {
   show_actionsummary ();
-  $ALLTYPEFILE = "yes";
+  $alltypfile = "yes";
   create_alltypfile_languages ();
   exit(0);
 }
 elsif ( $actionname eq 'replacetyp' ) {
   show_actionsummary ();
-  $ALLTYPEFILE = "yes";
+  $alltypfile = "yes";
   create_allreplacetyp_languages ();
   exit(0);
 }
@@ -1711,6 +1711,10 @@ sub create_alltypfile_languages {
     
     # Get the actual language code like 'en'
     $typfilelangcode = @$actuallanguage [$LANGCODE];
+
+    # Create some output
+    printf { *STDOUT } ( "\nHandling TYP files: $typfilelangcode\n" );
+    printf { *STDOUT } ( "------------------------\n" );
     
     # Check for the existence of the main typfiles directories
     if ( !(-e "$typfileworkdir/$typfilelangcode" ) ) {
@@ -1755,6 +1759,10 @@ sub create_allreplacetyp_languages {
     
     # Get the actual language code like 'en'
     $typfilelangcode = @$actuallanguage [$LANGCODE];
+    
+    # Create some output
+    printf { *STDOUT } ( "\nHandling ReplaceTyp: $typfilelangcode\n" );
+    printf { *STDOUT } ( "--------------------------\n" );
     
     # Check for the existence of the main typfiles directories
     if ( !(-e "$typfileworkdir" ) ) {
@@ -1895,7 +1903,7 @@ sub create_typtranslations {
 
   my $langcode    = $EMPTY;
   # If we're building all typ file languages then use the variable $typfilelangcode
-  if ( $ALLTYPEFILE ) {
+  if ( $alltypfile ) {
     $langcode = $typfilelangcode;
   }
   # Looks like we're building a normal map, so use $maplang
@@ -1920,7 +1928,7 @@ sub create_typtranslations {
   $typfilestringindex{ $typlanguages{ $langcode } } = $stringindex;
   $stringindex++;
   foreach my $tmp ( @typfilelangfixed ) {
-    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) && ( ( $langcodepage{$langcode} eq $langcodepage{$tmp} )  || ( $mapcodepage == 65001 ) ) ) {
+    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) && ( ( $langcodepage{$langcode} eq $langcodepage{$tmp} )  || ( $unicode ) ) ) {
       push ( @typfilelangcode, $typlanguages{ $tmp } );
       $stringindex++;
     }
@@ -2024,7 +2032,7 @@ sub create_typtranslations {
     #$outputfile = "$WORKDIRLANG/$actualfile";
 
     # If we're building all typ file languages we need a different output directory
-    if ( $ALLTYPEFILE ) {
+    if ( $alltypfile ) {
       $outputfile = "$BASEPATH/work/typfiles/$langcode/$actualfile";
     }
     else {
@@ -2128,9 +2136,13 @@ sub create_typtranslations {
 		     print OUT "FID=$mapid\n";
           }
           elsif ( $inputline =~ /^CodePage=.*$/i ) {
-#             print OUT "$inputline";
-#		     print OUT ";$inputline";
-            print OUT "CodePage=$mapcodepage\n";
+            # We need to handle that differently if we run alltypfile: $mapcodepage does not exist then
+            if ( $alltypfile ) {
+              print OUT "CodePage=$langcodepage{$langcode}\n";
+            }
+            else {
+              print OUT "CodePage=$mapcodepage\n";
+            } 
           }
           elsif ( $inputline =~ /^\s*\[end\]/i ) {
             print OUT $inputline . "\n";
@@ -2171,7 +2183,7 @@ sub compile_typfiles {
   my @typfilelist = glob "*.txt" ;
 
   # If we're building all typ file languages then we have to jump to a different directory
-  if ( $ALLTYPEFILE ) {
+  if ( $alltypfile ) {
     chdir "$BASEPATH/work/typfiles/$typfilelangcode";
     # Set $mapid to something less problematic than -1
     $mapid=9999;
