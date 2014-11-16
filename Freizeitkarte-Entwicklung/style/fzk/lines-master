@@ -49,6 +49,8 @@
 # Version : 0.26  17.06.2014 - Adding some map features:
 #                              - barrier = hedge and barrier = hedge_bank
 #                              - natural = tree_row
+# Version : 0.27  31.10.2014 - Fixing Routing issue with trunks/motorway/motorroad restrictions
+#                            - Fixing problems with includes: clearly defining what is done by PPP (no include needed here) and what by mkgmap includes
 
 
 
@@ -289,7 +291,7 @@
 # -------------------------------------------------
 # Adress- / Indexsuche:
 # -------------------------------------------------
-#include "indexsearch"
+include "indexsearch";
 
 
 # ------------------------------------------------------------------
@@ -533,8 +535,11 @@ bicycle = designated                     {set bicycle = yes; set bfdesignated = 
 highway = proposed | highway = raceway | highway = no | highway = crossing | highway =  traffic_signals | highway = platform | highway = streetlamp | highway = emergency_access_point | highway = stop | highway = passing_place| highway = incline_steep | highway = incline | highway = milestone | highway = access_ramp {set access = no; set motorcar = no; set bicycle = no; set foot = no}
 highway = via_ferrata | highway = construction  {set access = no; set motorcar = no; set bicycle = no; set foot = no}
 
+# Motorroad (Kraftfahrstrasse): generell gesperrt fuer Fussganeger und Radfahrer
+motorroad = yes {add foot = no; add bicycle = no}
+ 
 # Autobahnen: generell gesperrt fuer Fussgaenger und Radfahrer
-highway = motorway | highway = trunk {add foot = no; add bicycle = no}
+highway = motorway {add foot = no; add bicycle = no}
 
 # Pfade, Radwege, Feld-/Waldwege: generell gesperrt fuer Autos
 highway = path | highway = cycleway | highway = track {add motorcar = no}
@@ -1901,4 +1906,3 @@ goods=yes | goods=permissive | goods=official | goods=designated { set mkgmap:de
 
 # Reintroduce the old carpool handling which allows access only for bus and emergency plus setting the carpool bit
 mkgmap:carpool_compat=yes  { setaccess=no; set mkgmap:bus=yes; set mkgmap:emergency=yes; set mkgmap:carpool=yes }
-

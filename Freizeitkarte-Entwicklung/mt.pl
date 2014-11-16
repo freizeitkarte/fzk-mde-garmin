@@ -15,10 +15,11 @@ use English '-no_match_vars';
 
 use Cwd;
 use File::Copy;
+use File::Find;
 use File::Path;
 use File::Basename;
 use Getopt::Long;
-#use Data::Dumper;
+use Data::Dumper;
 
 my @actions = (
   # Normal User Actions for maps
@@ -68,10 +69,11 @@ my @supportedlanguages = (
   # Iso639-1
   [ 'de', 'Deutsch' ],
   [ 'en', 'English' ],
+  [ 'fr', 'French' ],
   [ 'it', 'Italian' ],
   [ 'nl', 'Dutch' ],
-  [ 'pt', 'Portuguese' ],
   [ 'pl', 'Polish' ],
+  [ 'pt', 'Portuguese' ],
   [ 'ru', 'Russian' ]
 );
 
@@ -88,6 +90,7 @@ my %langcodepage = (
    'xx' => '1252' ,
    'de' => '1252' ,
    'en' => '1252' ,
+   'fr' => '1252' ,
    'it' => '1252' ,
    'nl' => '1252' ,
    'pt' => '1252' ,   
@@ -166,13 +169,14 @@ my @maps = (
   [ 5860, 'Freizeitkarte_LORRAINE',               'http://download.geofabrik.de/europe/france/lorraine-latest.osm.pbf',                                'LORRAINE',                 'de', 'Freizeitkarte_Lothringen',                3, 'NA'             ],
   [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/europe/france/alsace-latest.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass',                    3, 'NA'             ],
 
-  # Länder, Ländercodes: 6000 + ISO-3166 (numerisch)
+  # Countries
+  # Country codes: 6000 + ISO-3166 (numeric): http://en.wikipedia.org/wiki/ISO_3166-1_numeric
   [ -1,   'Europaeische Laender',                 'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6008, 'Freizeitkarte_ALB',                    'http://download.geofabrik.de/europe/albania-latest.osm.pbf',                                        'ALB',                      'en', 'Freizeitkarte_Albanien',                  3, 'NA'             ],
   [ 6020, 'Freizeitkarte_AND',                    'http://download.geofabrik.de/europe/andorra-latest.osm.pbf',                                        'AND',                      'en', 'Freizeitkarte_Andorra',                   3, 'NA'             ],
   [ 6040, 'Freizeitkarte_AUT',                    'http://download.geofabrik.de/europe/austria-latest.osm.pbf',                                        'AUT',                      'de', 'Freizeitkarte_Oesterreich',               3, 'NA'             ],
   [ 6112, 'Freizeitkarte_BLR',                    'http://download.geofabrik.de/europe/belarus-latest.osm.pbf',                                        'BLR',                      'ru', 'Freizeitkarte_Belarus',                   3, 'NA'             ],
-  [ 6056, 'Freizeitkarte_BEL',                    'http://download.geofabrik.de/europe/belgium-latest.osm.pbf',                                        'BEL',                      'en', 'Freizeitkarte_Belgien',                   3, 'NA'             ],
+  [ 6056, 'Freizeitkarte_BEL',                    'http://download.geofabrik.de/europe/belgium-latest.osm.pbf',                                        'BEL',                      'fr', 'Freizeitkarte_Belgien',                   3, 'NA'             ],
   [ 6070, 'Freizeitkarte_BIH',                    'http://download.geofabrik.de/europe/bosnia-herzegovina-latest.osm.pbf',                             'BIH',                      'en', 'Freizeitkarte_Bosnien-Herzegowina',       3, 'NA'             ],
   [ 6100, 'Freizeitkarte_BGR',                    'http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf',                                       'BGR',                      'en', 'Freizeitkarte_Bulgarien',                 3, 'NA'             ],
   [ 6756, 'Freizeitkarte_CHE',                    'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE',                      'de', 'Freizeitkarte_Schweiz',                   3, 'NA'             ],
@@ -184,7 +188,7 @@ my @maps = (
   [ 6233, 'Freizeitkarte_EST',                    'http://download.geofabrik.de/europe/estonia-latest.osm.pbf',                                        'EST',                      'en', 'Freizeitkarte_Estland',                   3, 'NA'             ],
   [ 6234, 'Freizeitkarte_FRO',                    'http://download.geofabrik.de/europe/faroe-islands-latest.osm.pbf',                                  'FRO',                      'en', 'Freizeitkarte_Faeroeer',                  3, 'NA'             ],
   [ 6246, 'Freizeitkarte_FIN',                    'http://download.geofabrik.de/europe/finland-latest.osm.pbf',                                        'FIN',                      'en', 'Freizeitkarte_Finnland',                  3, 'NA'             ],
-  [ 6250, 'Freizeitkarte_FRA',                    'http://download.geofabrik.de/europe/france-latest.osm.pbf',                                         'FRA',                      'en', 'Freizeitkarte_Frankreich',                3, 'NA'             ],
+  [ 6250, 'Freizeitkarte_FRA',                    'http://download.geofabrik.de/europe/france-latest.osm.pbf',                                         'FRA',                      'fr', 'Freizeitkarte_Frankreich',                3, 'NA'             ],
   [ 6826, 'Freizeitkarte_GBR',                    'http://download.geofabrik.de/europe/great-britain-latest.osm.pbf',                                  'GBR',                      'en', 'Freizeitkarte_Grossbritannien',           3, 'NA'             ],
   [ 6300, 'Freizeitkarte_GRC',                    'http://download.geofabrik.de/europe/greece-latest.osm.pbf',                                         'GRC',                      'en', 'Freizeitkarte_Griechenland',              3, 'NA'             ],
   [ 6191, 'Freizeitkarte_HRV',                    'http://download.geofabrik.de/europe/croatia-latest.osm.pbf',                                        'HRV',                      'en', 'Freizeitkarte_Kroatien',                  3, 'NA'             ],
@@ -197,7 +201,7 @@ my @maps = (
   [ 6428, 'Freizeitkarte_LVA',                    'http://download.geofabrik.de/europe/latvia-latest.osm.pbf',                                         'LVA',                      'en', 'Freizeitkarte_Lettland',                  3, 'NA'             ],
   [ 6438, 'Freizeitkarte_LIE',                    'http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf',                                  'LIE',                      'en', 'Freizeitkarte_Liechtenstein',             3, 'NA'             ],
   [ 6440, 'Freizeitkarte_LTU',                    'http://download.geofabrik.de/europe/lithuania-latest.osm.pbf',                                      'LTU',                      'en', 'Freizeitkarte_Litauen',                   3, 'NA'             ],
-  [ 6442, 'Freizeitkarte_LUX',                    'http://download.geofabrik.de/europe/luxembourg-latest.osm.pbf',                                     'LUX',                      'en', 'Freizeitkarte_Luxemburg',                 3, 'NA'             ],
+  [ 6442, 'Freizeitkarte_LUX',                    'http://download.geofabrik.de/europe/luxembourg-latest.osm.pbf',                                     'LUX',                      'fr', 'Freizeitkarte_Luxemburg',                 3, 'NA'             ],
   [ 6504, 'Freizeitkarte_MAR',                    'http://download.geofabrik.de/africa/morocco-latest.osm.pbf',                                        'MAR',                      'en', 'Freizeitkarte_Marokko',                   3, 'NA'             ],
   [ 6492, 'Freizeitkarte_MCO',                    'http://download.geofabrik.de/europe/monaco-latest.osm.pbf',                                         'MCO',                      'en', 'Freizeitkarte_Monaco',                    3, 'NA'             ],
   [ 6498, 'Freizeitkarte_MDA',                    'http://download.geofabrik.de/europe/moldova-latest.osm.pbf',                                        'MDA',                      'en', 'Freizeitkarte_Moldawien',                 3, 'NA'             ],
@@ -218,7 +222,8 @@ my @maps = (
   
   [ -1,   'Andere Laender',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6032, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'no_old_name',                             3, 'NA'             ],
-
+  [ 6392, 'Freizeitkarte_JPN',                    'http://download.geofabrik.de/asia/japan-latest.osm.pbf',                                            'JPN',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6408, 'Freizeitkarte_KOR',                    'http://download.geofabrik.de/asia/south-korea-latest.osm.pbf',                                      'KOR',                      'en', 'no_old_name',                             3, 'NA'             ],
 
   # Andere Regionen
 #  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
@@ -230,14 +235,14 @@ my @maps = (
 #  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
 
   # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
-  [ -1,   'Freizeitkarte PLUS Laender',            'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
-  [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                        														   'AUT+',                     'de', 'no_old_name',               			    2, 'EUROPE'         ],
+  [ -1,   'Freizeitkarte PLUS Laender',           'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                                                                                'AUT+',                     'de', 'no_old_name',               			    2, 'EUROPE'         ],
   [ 7056, 'Freizeitkarte_BEL+',                   'NA',                                                                                                'BEL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7756, 'Freizeitkarte_CHE+',                   'NA',                                    															   'CHE+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7276, 'Freizeitkarte_DEU+',                   'NA',                                        														   'DEU+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7756, 'Freizeitkarte_CHE+',                   'NA',                                                                                                'CHE+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7276, 'Freizeitkarte_DEU+',                   'NA',                                                                                                'DEU+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7208, 'Freizeitkarte_DNK+',                   'NA',                                                                                                'DNK+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7724, 'Freizeitkarte_ESP+',                   'NA',                                                                                                'ESP+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
-  [ 7250, 'Freizeitkarte_FRA+',                   'NA',                                                                                                'FRA+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7250, 'Freizeitkarte_FRA+',                   'NA',                                                                                                'FRA+',                     'fr', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7826, 'Freizeitkarte_GBR+',                   'NA',                                                                                                'GBR+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7372, 'Freizeitkarte_IRL+',                   'NA',                                                                                                'IRL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7380, 'Freizeitkarte_ITA+',                   'NA',                                                                                                'ITA+',                     'it', 'no_old_name',                             2, 'EUROPE'         ],
@@ -245,7 +250,7 @@ my @maps = (
   [ 7620, 'Freizeitkarte_PRT+',                   'NA',                                                                                                'PRT+',                     'pt', 'no_old_name',                             2, 'EUROPE'         ],
 
   [ -1,   'Andere Laender',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
-  [ 7032, 'Freizeitkarte_ARG+',                   'NA',                                        														   'ARG+',                     'en', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
+  [ 7032, 'Freizeitkarte_ARG+',                   'NA',                                                                                                'ARG+',                     'en', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
 
 
 
@@ -266,11 +271,22 @@ my @maps = (
   [ 8520, 'Freizeitkarte_SAOPAULO',               'NA',                                                                                                'SAOPAULO',                 'de', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
 
   # Andere Regionen
-#  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
+  [ -1,   'Andere Regionen',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 9010, 'Freizeitkarte_RUS_EUR',                 'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'RUS_EUR',                 'ru', 'Freizeitkarte_Euro-Russland',             1, 'NA'             ],
+  [ 9011, 'Freizeitkarte_RUS',                     'http://data.gis-lab.info/osm_dump/dump/latest/RU.osm.pbf',                                          'RUS',                     'ru', 'no_old_name',                             1, 'NA'             ],
   [ 9020, 'Freizeitkarte_ESP_CANARIAS',            'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'ESP_CANARIAS',            'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
-  [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS_EUR'        ],
+  [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS_EUR'            ],
   [ 9040, 'Freizeitkarte_AZORES',                  'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                  'pt', 'Freizeitkarte_Azoren',                    3, 'NA'             ],
+
+  # Andere Regionen
+  [ 9810, 'Freizeitkarte_US_MIDWEST',              'http://download.geofabrik.de/north-america/us-midwest-latest.osm.pbf',                              'US_MIDWEST',              'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9811, 'Freizeitkarte_US_NORTHEAST',            'http://download.geofabrik.de/north-america/us-northeast-latest.osm.pbf',                            'US_NORTHEAST',            'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9812, 'Freizeitkarte_US_PACIFIC',              'http://download.geofabrik.de/north-america/us-pacific-latest.osm.pbf',                              'US_PACIFIC',              'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9813, 'Freizeitkarte_US_SOUTH',                'http://download.geofabrik.de/north-america/us-south-latest.osm.pbf',                                'US_SOUTH',                'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9814, 'Freizeitkarte_US_WEST',                 'http://download.geofabrik.de/north-america/us-west-latest.osm.pbf',                                 'US_WEST',                 'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9820, 'Freizeitkarte_US_ALASKA',               'http://download.geofabrik.de/north-america/us/alaska-latest.osm.pbf',                               'US_ALASKA',               'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9830, 'Freizeitkarte_US_HAWAII',               'http://download.geofabrik.de/north-america/us/hawaii-latest.osm.pbf',                               'US_HAWAII',               'en', 'no_old_name',                             3, 'NA'             ],
+
 
   # For faster test runs with regions
   [ -1,   'Regions - Maps for test purposes',     'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
@@ -300,7 +316,7 @@ my $ACTIONOPT  = 2;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.8 - 2014/06/15';
+my $VERSION = '1.3.9 - 2014/11/10';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -336,8 +352,10 @@ my $cores    = 2;
 my $ele      = 25;
 my $clm      = 1;   # eventually unused ?
 my $typfile  = $EMPTY;
+my $styledir = $EMPTY;
 my $language = $EMPTY;
 my $nametaglist = $EMPTY;
+my $unicode     = $EMPTY;
 
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
@@ -351,20 +369,23 @@ my $mapnameold = $EMPTY;
 my $osmurl     = $EMPTY;
 my $mapcode    = $EMPTY;
 my $maplang    = $EMPTY;
+my $mapcodepage= $EMPTY;
 my $maptype    = $EMPTY;
 my $mapparent  = $EMPTY;
 my $langdesc   = $EMPTY;
 my $maptypfile = "freizeit.TYP";
+my $mapstyle    = "fzk";
+my $mapstyledir = 'style/fzk';
 
 my $error   = -1;
 my $command = $EMPTY;
 
-my $ALLTYPEFILE = $EMPTY;
+my $alltypfile = $EMPTY;
 my $typfilelangcode = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -444,13 +465,13 @@ elsif ( $actionname eq 'fingerprint' ) {
 }
 elsif ( $actionname eq 'alltypfiles' ) {
   show_actionsummary ();
-  $ALLTYPEFILE = "yes";
+  $alltypfile = "yes";
   create_alltypfile_languages ();
   exit(0);
 }
 elsif ( $actionname eq 'replacetyp' ) {
   show_actionsummary ();
-  $ALLTYPEFILE = "yes";
+  $alltypfile = "yes";
   create_allreplacetyp_languages ();
   exit(0);
 }
@@ -518,6 +539,15 @@ for my $languagedata ( @supportedlanguages ) {
   }
 }
 
+# Check if the user did choose unicode, else set the codepage to the codepage of the choosen language
+if ( $unicode ) {
+  $mapcodepage = 65001;
+}
+else {
+  $mapcodepage = $langcodepage{$maplang};
+}
+
+
 # Error due to invalid language code
 if ( $error ) {
   printf { *STDOUT } ( "ERROR:\n  Language '" . $maplang . "' not supported.\n\n\n" );
@@ -542,8 +572,29 @@ if ( $error ) {
   exit(1);
 }
 
-# Check nametaglist (if given) for potential problems
+# Did user choose a style dir via argument -style=xx ?
+if ( $styledir ne $EMPTY ) {
+  $mapstyle = $styledir;
+}
 
+# Check if the choosen style does exist and set the Style Directory accordingly by testing points-master in the choosen dir
+$error = 1;
+if ( ( -e "$BASEPATH/style/$mapstyle/points" ) || ( -e "$BASEPATH/style/$mapstyle/points-master" ) ) {
+        $error   = 0;
+        $mapstyledir = "style/$mapstyle";
+}
+elsif ( ( $mapstyle eq "fzk" ) && ( -e "$BASEPATH/style/points-master") ) {
+        $error   = 0;
+        $mapstyledir = "style";
+}
+if ( $error ) {
+  printf { *STDOUT } ( "ERROR:\n  Style '" . $mapstyle . "' not found.\n\n\n" );
+  show_usage ();
+  exit(1);
+}
+  
+
+# Check nametaglist (if given) for potential problems
 if ( $nametaglist ne $EMPTY ) {
  
    # Let's check if we have the general fallback 'name' somewhere in the specified nametaglist
@@ -781,6 +832,40 @@ sub trim {
   $string =~ s/\s+$//;
 
   return ( $string );
+}
+
+
+# -----------------------------------------
+# Copy directory recursively
+# -----------------------------------------
+sub copy_dir_rec {
+
+  my $src_dir = shift;
+  my $dst_dir = shift;
+
+  mkpath "$dst_dir"
+    unless -d "$dst_dir";
+
+  die "unable to copy directory: Source $src_dir not a directory\n"
+     unless -d $src_dir;
+  die "unable to copy directory: Destination $dst_dir not a directory\n"
+     unless -d $dst_dir;
+
+  chdir $src_dir;
+  
+  find( sub {
+    # $_ is just the filename, "test.txt"
+    # $File::Find::name is the full "/path/to/the/file/test.txt".
+    # we could filter here for specific files, but we don't
+    #return if $_ !~ /\.txt$/i;
+    return unless -f;   # We want files only
+    mkpath "$dst_dir/$File::Find::dir" 
+      unless -d "$dst_dir/$File::Find::dir";
+    copy "$_", "$dst_dir/$File::Find::dir"
+      or die "Can't copy the file $File::Find::name...";
+  }, ".");
+
+  return;
 }
 
 
@@ -1236,7 +1321,7 @@ sub create_cfgfile {
       . "# --latin1\n" 
       . "#   This is equivalent to --code-page=1252.\n" 
       . "# latin1\n" 
-      . "code-page=" . $langcodepage{$maplang} . "\n" );
+      . "code-page=" . $mapcodepage . "\n" );
       
   printf { $fh }
     (   "\n"
@@ -1373,7 +1458,7 @@ sub create_cfgfile {
       . "#   (see resources/styles/default for an example).  The directory\n"
       . "#   path must be absolute or relative to the current working\n"
       . "#   directory when mkgmap is invoked.\n"
-      . "style-file=$WORKDIRLANG\n" );
+      . "style-file=$WORKDIRLANG/$mapstyledir\n" );
 
   printf { $fh } ( "\n# Product description options:\n" );
   printf { $fh } ( "# ---------------------------\n" );
@@ -1626,6 +1711,10 @@ sub create_alltypfile_languages {
     
     # Get the actual language code like 'en'
     $typfilelangcode = @$actuallanguage [$LANGCODE];
+
+    # Create some output
+    printf { *STDOUT } ( "\nHandling TYP files: $typfilelangcode\n" );
+    printf { *STDOUT } ( "------------------------\n" );
     
     # Check for the existence of the main typfiles directories
     if ( !(-e "$typfileworkdir/$typfilelangcode" ) ) {
@@ -1670,6 +1759,10 @@ sub create_allreplacetyp_languages {
     
     # Get the actual language code like 'en'
     $typfilelangcode = @$actuallanguage [$LANGCODE];
+    
+    # Create some output
+    printf { *STDOUT } ( "\nHandling ReplaceTyp: $typfilelangcode\n" );
+    printf { *STDOUT } ( "--------------------------\n" );
     
     # Check for the existence of the main typfiles directories
     if ( !(-e "$typfileworkdir" ) ) {
@@ -1810,7 +1903,7 @@ sub create_typtranslations {
 
   my $langcode    = $EMPTY;
   # If we're building all typ file languages then use the variable $typfilelangcode
-  if ( $ALLTYPEFILE ) {
+  if ( $alltypfile ) {
     $langcode = $typfilelangcode;
   }
   # Looks like we're building a normal map, so use $maplang
@@ -1835,7 +1928,7 @@ sub create_typtranslations {
   $typfilestringindex{ $typlanguages{ $langcode } } = $stringindex;
   $stringindex++;
   foreach my $tmp ( @typfilelangfixed ) {
-    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) && ( $langcodepage{$langcode} eq $langcodepage{$tmp} ) ) {
+    if ( ( $tmp ne $langcode ) && ( $stringindex le 4 ) && ( ( $langcodepage{$langcode} eq $langcodepage{$tmp} )  || ( $unicode ) ) ) {
       push ( @typfilelangcode, $typlanguages{ $tmp } );
       $stringindex++;
     }
@@ -1876,8 +1969,10 @@ sub create_typtranslations {
   # Read through the inputfile
   while ( <IN> ) {
 
-    # Get the line
+    # Get the line and make sure that line endings are correct
     $inputline = $_;
+    chomp ($inputline);
+    $inputline =~ s/\r$//;    
 
     # empty the temporary variables
     $thisobjectform    = '';
@@ -1891,10 +1986,14 @@ sub create_typtranslations {
 
       # read nextline
       $inputline = <IN>;
+      chomp($inputline);
+      $inputline =~ s/\r$//;          
       $inputline =~ /^Type=(0x[0-9A-F]{2,5})/i;
       $thisobjecttype = $1;
       if ( $thisobjectform eq "point" ) {
         $inputline = <IN>;
+        chomp($inputline);
+        $inputline =~ s/\r$//;          
         $inputline =~ /^SubType=(0x[0-9A-F]{2,5})/i;
         $thisobjectsubtype = $1;
       }
@@ -1906,6 +2005,8 @@ sub create_typtranslations {
       while ( <IN> ) {
         last if /^\[end\]/;    # Object finished, get on
         $inputline = $_;
+        chomp($inputline);
+        $inputline =~ s/\r$//;          
         # Check for strings
         if ( $inputline =~ /^String[0-9]*=(0x[0-9A-F]{2}),(.*)$/i ) {
           $thisobjectstringhash = $thisobjectid . "_$1";
@@ -1931,7 +2032,7 @@ sub create_typtranslations {
     #$outputfile = "$WORKDIRLANG/$actualfile";
 
     # If we're building all typ file languages we need a different output directory
-    if ( $ALLTYPEFILE ) {
+    if ( $alltypfile ) {
       $outputfile = "$BASEPATH/work/typfiles/$langcode/$actualfile";
     }
     else {
@@ -1945,8 +2046,10 @@ sub create_typtranslations {
     # Read through the inputfile
     while ( <IN> ) {
 
-      # Get the line
+      # Get the line and make sure that line endings are correct
       $inputline = $_;
+      chomp ($inputline);
+      $inputline =~ s/\r$//;    
 
       # empty the temporary variables
       $thisobjectform        = '';
@@ -1957,19 +2060,23 @@ sub create_typtranslations {
       %thisobjectstrings     = ();
 
       if ( $inputline =~ /^\[_(line|polygon|point)\]$/ ) {
-        print OUT $inputline;
+        print OUT $inputline . "\n";
 
         $thisobjectform = $1;
 
         # read nextline
         $inputline = <IN>;
-        print OUT $inputline;
+        chomp($inputline);
+        $inputline =~ s/\r$//;          
+        print OUT $inputline . "\n";
 
         $inputline =~ /^Type=(0x[0-9A-F]{2,5})/i;
         $thisobjecttype = $1;
         if ( $thisobjectform eq "point" ) {
           $inputline = <IN>;
-          print OUT $inputline;
+          chomp($inputline);
+          $inputline =~ s/\r$//;          
+          print OUT $inputline . "\n";
           $inputline =~ /^SubType=(0x[0-9A-F]{2,5})/i;
           $thisobjectsubtype = $1;
         }
@@ -1980,6 +2087,8 @@ sub create_typtranslations {
         # Get strings
         while ( <IN> ) {
           $inputline = $_;
+          chomp($inputline);
+          $inputline =~ s/\r$//;          
 
           # Check for strings
           if ( $inputline =~ /^String[0-4]*=(0x[0-9A-F]{2},.*)$/i ) {
@@ -1993,29 +2102,31 @@ sub create_typtranslations {
                 else {
                   print "WARNING: $actualfile: string with ID $thisobjectstringhash not defined in the translation file\n";
                   $thisobjectstringsdone = 0;
-                  print OUT $inputline;
+                  print OUT $inputline . "\n";
                   last;
                 }
               }
             }
           }
           elsif ( $inputline =~ /^\[end\]/ ) {
-            print OUT $inputline;
+            print OUT $inputline . "\n";
             last;
           }
           else {
-            print OUT $inputline;
+            print OUT $inputline . "\n";
           }
         }
       }
  
       # we have to filter out and adapt some strings inside the [_id] section
       elsif ( $inputline =~ /^\[_(id)\]$/ ) {
-	     print OUT $inputline;	 
+	     print OUT $inputline . "\n";	 
 	     
         # Get strings
         while ( <IN> ) {
           $inputline = $_;
+          chomp($inputline);
+          $inputline =~ s/\r$//;          
 
           # Check for strings
           if ( $inputline =~ /^ProductCode=.*$/i ) {
@@ -2025,23 +2136,27 @@ sub create_typtranslations {
 		     print OUT "FID=$mapid\n";
           }
           elsif ( $inputline =~ /^CodePage=.*$/i ) {
-#             print OUT "$inputline";
-#		     print OUT ";$inputline";
-            print OUT "CodePage=$langcodepage{$langcode}\n";
+            # We need to handle that differently if we run alltypfile: $mapcodepage does not exist then
+            if ( $alltypfile ) {
+              print OUT "CodePage=$langcodepage{$langcode}\n";
+            }
+            else {
+              print OUT "CodePage=$mapcodepage\n";
+            } 
           }
           elsif ( $inputline =~ /^\s*\[end\]/i ) {
-            print OUT $inputline;
+            print OUT $inputline . "\n";
             last;
           }
           else {
-            print OUT $inputline;
+            print OUT $inputline . "\n";
           }
         }
 
 	      
 	  }
       else {
-        print OUT $inputline;
+        print OUT $inputline . "\n";
       }
     }
 
@@ -2068,7 +2183,7 @@ sub compile_typfiles {
   my @typfilelist = glob "*.txt" ;
 
   # If we're building all typ file languages then we have to jump to a different directory
-  if ( $ALLTYPEFILE ) {
+  if ( $alltypfile ) {
     chdir "$BASEPATH/work/typfiles/$typfilelangcode";
     # Set $mapid to something less problematic than -1
     $mapid=9999;
@@ -2137,6 +2252,7 @@ sub create_styletranslations {
   # Set some Variables
   my $inputfile  = "$BASEPATH/translations/style-translations-master";
   my $outputfile = "$WORKDIRLANG/style-translations";
+  # fill $langcode with UpperCase of $maplang
   my $langcode   = "\U$maplang";
   my @input;
   my %translation = ();
@@ -2222,19 +2338,27 @@ sub create_styletranslations {
 # -----------------------------------------
 sub preprocess_styles {
 
+  # Since we support several styles with subdirectories we copy the complete selected style dir recursively
+  copy_dir_rec("$BASEPATH/$mapstyledir", "$WORKDIRLANG/$mapstyledir");
 
-  # copying the files from the style directory into the work directory
-  # adapted for making it possible for include files that don't get processed by PPP
-  #for my $stylefile ( glob "$BASEPATH/style/*-master" ) {
-  for my $stylefile ( glob "$BASEPATH/style/*" ) {
-    # Only copy files and leave the existing subdirectories for the moment (may changes lateron)
-    if ( -f "$stylefile" ) {
-      copy ( $stylefile, $WORKDIRLANG ) or die ( "copy() of style files failed: $!\n" );
-    }
-  }
+  # Create list of *.master files to be handled via PPP
+  my @masterfiles = ();
+  chdir "$BASEPATH/$mapstyledir";
+  find( sub{
+    # $_ is just the filename, "test.txt"
+    # $File::Find::name is the full "/path/to/the/file/test.txt".
+    # we could filter here for specific files, but we don't
+    return if $_ !~ /-master$/;
+    return unless -f;   # We want files only
+    push @masterfiles, $File::Find::name;
+  }, ".");
 
+  # Dump and exit
+#  print Dumper @masterfiles;
+#  exit;
+  
   # Go to the Workdir LANG
-  chdir "$WORKDIRLANG";
+#  chdir "$WORKDIRLANG";
 
   # Put the Options for the PPP preprocessor together (options that are given behind mapname)
   # $ARGV[ 0 ]                = Aktion;
@@ -2247,35 +2371,31 @@ sub preprocess_styles {
   # Add the Preprozessor Option for the language
   $ppp_optionen .= "\U-D$maplang";
 
-  # process file indexsearch
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl indexsearch-master indexsearch -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file info
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl info-master info -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file options
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl options-master options -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file version
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl version-master version -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file polgons
-  $command = "perl $BASEPATH/tools/ppp/ppp.pl polygons-master polygons -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file lines
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl lines-master lines -x $ppp_optionen";
-  process_command ( $command );
-
-  # process file points
-  $command = "perl  $BASEPATH/tools/ppp/ppp.pl points-master points -x $ppp_optionen";
-  process_command ( $command );
+  # Loop through the list of *-master files 
+  # (sorted to have a reproducible order of sequence independant on filesystem and platform)
+  for my $masterfile ( sort @masterfiles ) {
+    
+    # Go to the correct directory
+    my $masterfilepath = dirname($masterfile);
+    print "\n\nPPP handling of: $mapstyledir/$masterfile";
+    chdir "$WORKDIRLANG/$mapstyledir/$masterfilepath";
+    
+    # create the proper filenames
+    my $masterfilename = basename($masterfile);
+    my $newfilename = $masterfilename;
+    $newfilename =~ s/-master$//;
+    
+    # Copy the style-translations to the actual directory
+    copy("$WORKDIRLANG/style-translations", "$WORKDIRLANG/$mapstyledir/$masterfilepath");
+    
+    # Put the preprocessor command together and run it
+    $command = "perl  $BASEPATH/tools/ppp/ppp.pl $masterfilename $newfilename -x $ppp_optionen";
+    process_command ( $command );
+    
+  }
 
   return;
+
 }
 
 
@@ -4052,7 +4172,9 @@ sub show_actionsummary {
   else {
     printf { *STDOUT }   ( "Map:        %s (%s)\n", $mapname, $mapid );
     printf { *STDOUT }   ( "Language:   %s (%s)\n", $langdesc, $maplang );
+    printf { *STDOUT }   ( "CodePage:   %s\n",      $mapcodepage );
     printf { *STDOUT }   ( "Typ file:   %s.TYP\n",  $maptypfile );
+    printf { *STDOUT }   ( "Style Dir:  %s\n",  $mapstyledir );
     printf { *STDOUT }   ( "elevation:  %s m\n",    $ele );
     if ( $maptype == 3 ) {
       printf { *STDOUT } ( "Map type:   downloadable OSM extract\n" );
@@ -4079,12 +4201,16 @@ sub show_usage {
   # Print the Usage
   printf { *STDOUT } (
     "Usage:\n"
-      . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>] [--typfile=\"<filename>\"] [--language=\"<lang>\"] <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
+      . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>] \\\n"
+      . "           [--typfile=\"<filename>\"] [--style=\"<dirname>\"] \\\n"
+      . "           [--language=\"<lang>\"] [--unicode] \\\n"
+      . "           [--ntl=\"<name-tag-list>\"] \\\n"
+      . "           <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
       . "  or\n"
       . "perl $programName bootstrap [urls <url_bounds> <url_sea>]\n"
       . "perl $programName bootstrap list\n\n"
       . "  or for getting help:\n"
-      . "  perl $programName -? | -h\n"
+      . "perl $programName -? | -h\n"
       . "\n\n"
   );
 
@@ -4101,9 +4227,6 @@ sub show_help {
   
   # Print the details of the help
   printf { *STDOUT } (
-#    "Usage:\n"
-#      . "perl $programName [--ram=Value] [--cores=Value] [--ele=Value] [--typfile=\"filename\"] [--language=\"lang\"] <Action> <ID | Code | Map> [PPO] ... [PPO]\n\n"
-#      . "Examples:\n"
       "Examples:\n"
       . "perl $programName                              bootstrap\n"
       . "perl $programName                              build     Freizeitkarte_Hamburg\n"
@@ -4116,9 +4239,12 @@ sub show_help {
       . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
       . "--ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
       . "--typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
+      . "--style    = name of the style to be used, must be a directory below styles (default = fzk)\n"
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
       . "             if you build a map for another language than the map's default language,\n"
       . "             this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
+      . "--unicode  = Build the map in unicode (CP65001) instead of in the native codepage of the map language.\n"
+      . "                --unicode\n"
       . "--ntl      = overwrite the default name-tag-list for the mkgmap run (name) with a specific list, e.g.\n"
       . "                --ntl=\"name:en,int_name,name\"\n"
       . "             Please check mkgmap documentation for more information.\n"
