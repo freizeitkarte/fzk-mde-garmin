@@ -440,19 +440,18 @@ if ( $error ) {
 }
 
 
+# First we handle those actiona that either complete the environment or don't need a complete one
+# - bootstrap, checkurl, fingerprint
+# (help is handled already before)
+
 # Are we doing bootstrapping for completing the environment ?
 if ( $actionname eq 'bootstrap' ) {
   printf { *STDOUT } ( "Action = %s\n", $actiondesc );
   bootstrap_environment ();
   exit(0);
 }
-
-# Not bootstrapping, therefore we should now perform some checks of the environment
-check_environment ();
-
-
 # Now let's handle other actions that do not need maps
-if ( $actionname eq 'checkurl' ) {
+elsif ( $actionname eq 'checkurl' ) {
   show_actionsummary ();
   check_downloadurls ();
   exit(0);
@@ -463,7 +462,13 @@ elsif ( $actionname eq 'fingerprint' ) {
   show_fingerprint ();
   exit(0);
 }
-elsif ( $actionname eq 'alltypfiles' ) {
+
+# After that we only have actions that need a complete environment (bootstrapping done)
+# Therefore we need to check the environment now
+check_environment ();
+
+# Not related to a map directly (no map argument needeD)
+if ( $actionname eq 'alltypfiles' ) {
   show_actionsummary ();
   $alltypfile = "yes";
   create_alltypfile_languages ();
@@ -475,7 +480,6 @@ elsif ( $actionname eq 'replacetyp' ) {
   create_allreplacetyp_languages ();
   exit(0);
 }
-
 
 # Here we start with actions that need a map and therefore an additional argument
 
