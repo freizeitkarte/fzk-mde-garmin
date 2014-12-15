@@ -101,6 +101,7 @@ my %langcodepage = (
 # Define the download base URLs for the Elevation Data
 my %elevationbaseurl = (
   'ele10' => "http://download.freizeitkarte-osm.de/Development/ele_10_100_200",
+  'ele20' => "http://download.freizeitkarte-osm.de/Development/ele_20_100_200",
   'ele25' => "http://download.freizeitkarte-osm.de/Development/ele_25_250_500",
   );
   
@@ -996,6 +997,16 @@ sub check_downloadurls {
         }
         print "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
     
+        # Check the ElevationData 20m
+        $returnvalue = system( $command . "$elevationbaseurl{ele20}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
+        if ( $returnvalue != 0 ) {
+    		print "FAIL: ele20: ";
+    	}
+    	else {
+    		print "OK:   ele20: ";
+        }
+        print "$elevationbaseurl{ele20}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
+    
         # Check the ElevationData 25m
         $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
         if ( $returnvalue != 0 ) {
@@ -1009,6 +1020,7 @@ sub check_downloadurls {
 	else {
 		# No elevation Data to download, we don't need it
 		print "N/A:  ele10: (this map doesn't need downloadable elevation Data)\n";		
+		print "N/A:  ele20: (this map doesn't need downloadable elevation Data)\n";		
 		print "N/A:  ele25: (this map doesn't need downloadable elevation Data)\n";		
 	}
 	  
@@ -1079,6 +1091,9 @@ sub fetch_eledata {
   my $eleurl = '';
   if ( $ele == 10 ) {
     $eleurl = "$elevationbaseurl{ele10}/Hoehendaten_$mapname.osm.pbf";
+  }
+  elsif ( $ele == 20 ) {
+    $eleurl = "$elevationbaseurl{ele20}/Hoehendaten_$mapname.osm.pbf";
   }
   else {
     # Default = 25 Meter
