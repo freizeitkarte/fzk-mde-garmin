@@ -101,6 +101,7 @@ my %langcodepage = (
 # Define the download base URLs for the Elevation Data
 my %elevationbaseurl = (
   'ele10' => "http://download.freizeitkarte-osm.de/Development/ele_10_100_200",
+  'ele20' => "http://download.freizeitkarte-osm.de/Development/ele_20_100_500",
   'ele25' => "http://download.freizeitkarte-osm.de/Development/ele_25_250_500",
   );
   
@@ -224,6 +225,7 @@ my @maps = (
   [ 6032, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'no_old_name',                             3, 'NA'             ],
   [ 6392, 'Freizeitkarte_JPN',                    'http://download.geofabrik.de/asia/japan-latest.osm.pbf',                                            'JPN',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6408, 'Freizeitkarte_KOR',                    'http://download.geofabrik.de/asia/south-korea-latest.osm.pbf',                                      'KOR',                      'en', 'no_old_name',                             3, 'NA'             ],
+#  [ 6124, 'Freizeitkarte_CAN',                    'http://download.geofabrik.de/north-america/canada-latest.osm.pbf',                                  'CAN',                      'en', 'no_old_name',                             3, 'NA'             ],
 
   # Andere Regionen
 #  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
@@ -279,6 +281,7 @@ my @maps = (
   [ 9040, 'Freizeitkarte_AZORES',                  'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                  'pt', 'Freizeitkarte_Azoren',                    3, 'NA'             ],
 
   # Andere Regionen
+  [ 9800, 'Freizeitkarte_CENTRAL_AMERICA',         'http://download.geofabrik.de/central-america-latest.osm.pbf',                                       'CENTRAL_AMERICA',         'en', 'no_old_name',                             3, 'NA'             ],
   [ 9810, 'Freizeitkarte_US_MIDWEST',              'http://download.geofabrik.de/north-america/us-midwest-latest.osm.pbf',                              'US_MIDWEST',              'en', 'no_old_name',                             3, 'NA'             ],
   [ 9811, 'Freizeitkarte_US_NORTHEAST',            'http://download.geofabrik.de/north-america/us-northeast-latest.osm.pbf',                            'US_NORTHEAST',            'en', 'no_old_name',                             3, 'NA'             ],
   [ 9812, 'Freizeitkarte_US_PACIFIC',              'http://download.geofabrik.de/north-america/us-pacific-latest.osm.pbf',                              'US_PACIFIC',              'en', 'no_old_name',                             3, 'NA'             ],
@@ -286,6 +289,19 @@ my @maps = (
   [ 9814, 'Freizeitkarte_US_WEST',                 'http://download.geofabrik.de/north-america/us-west-latest.osm.pbf',                                 'US_WEST',                 'en', 'no_old_name',                             3, 'NA'             ],
   [ 9820, 'Freizeitkarte_US_ALASKA',               'http://download.geofabrik.de/north-america/us/alaska-latest.osm.pbf',                               'US_ALASKA',               'en', 'no_old_name',                             3, 'NA'             ],
   [ 9830, 'Freizeitkarte_US_HAWAII',               'http://download.geofabrik.de/north-america/us/hawaii-latest.osm.pbf',                               'US_HAWAII',               'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9850, 'Freizeitkarte_CAN_AB',                  'http://download.geofabrik.de/north-america/canada/alberta-latest.osm.pbf',                          'CAN_AB',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9851, 'Freizeitkarte_CAN_BC',                  'http://download.geofabrik.de/north-america/canada/british-columbia-latest.osm.pbf',                 'CAN_BC',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9852, 'Freizeitkarte_CAN_MB',                  'http://download.geofabrik.de/north-america/canada/manitoba-latest.osm.pbf',                         'CAN_MB',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9853, 'Freizeitkarte_CAN_NB',                  'http://download.geofabrik.de/north-america/canada/new-brunswick-latest.osm.pbf',                    'CAN_NB',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9854, 'Freizeitkarte_CAN_NL',                  'http://download.geofabrik.de/north-america/canada/newfoundland-and-labrador-latest.osm.pbf',        'CAN_NL',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9855, 'Freizeitkarte_CAN_NS',                  'http://download.geofabrik.de/north-america/canada/nova-scotia-latest.osm.pbf',                      'CAN_NS',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9856, 'Freizeitkarte_CAN_NT',                  'http://download.geofabrik.de/north-america/canada/northwest-territories-latest.osm.pbf',            'CAN_NT',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9857, 'Freizeitkarte_CAN_NU',                  'http://download.geofabrik.de/north-america/canada/nunavut-latest.osm.pbf',                          'CAN_NU',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9858, 'Freizeitkarte_CAN_ON',                  'http://download.geofabrik.de/north-america/canada/ontario-latest.osm.pbf',                          'CAN_ON',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9859, 'Freizeitkarte_CAN_PE',                  'http://download.geofabrik.de/north-america/canada/prince-edward-island-latest.osm.pbf',             'CAN_PE',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9860, 'Freizeitkarte_CAN_QC',                  'http://download.geofabrik.de/north-america/canada/quebec-latest.osm.pbf',                           'CAN_QC',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9861, 'Freizeitkarte_CAN_SK',                  'http://download.geofabrik.de/north-america/canada/saskatchewan-latest.osm.pbf',                     'CAN_SK',                  'en', 'no_old_name',                             3, 'NA'             ],
+  [ 9862, 'Freizeitkarte_CAN_YT',                  'http://download.geofabrik.de/north-america/canada/yukon-latest.osm.pbf',                            'CAN_YT',                  'en', 'no_old_name',                             3, 'NA'             ],
 
 
   # For faster test runs with regions
@@ -440,19 +456,18 @@ if ( $error ) {
 }
 
 
+# First we handle those actiona that either complete the environment or don't need a complete one
+# - bootstrap, checkurl, fingerprint
+# (help is handled already before)
+
 # Are we doing bootstrapping for completing the environment ?
 if ( $actionname eq 'bootstrap' ) {
   printf { *STDOUT } ( "Action = %s\n", $actiondesc );
   bootstrap_environment ();
   exit(0);
 }
-
-# Not bootstrapping, therefore we should now perform some checks of the environment
-check_environment ();
-
-
 # Now let's handle other actions that do not need maps
-if ( $actionname eq 'checkurl' ) {
+elsif ( $actionname eq 'checkurl' ) {
   show_actionsummary ();
   check_downloadurls ();
   exit(0);
@@ -463,7 +478,13 @@ elsif ( $actionname eq 'fingerprint' ) {
   show_fingerprint ();
   exit(0);
 }
-elsif ( $actionname eq 'alltypfiles' ) {
+
+# After that we only have actions that need a complete environment (bootstrapping done)
+# Therefore we need to check the environment now
+check_environment ();
+
+# Not related to a map directly (no map argument needeD)
+if ( $actionname eq 'alltypfiles' ) {
   show_actionsummary ();
   $alltypfile = "yes";
   create_alltypfile_languages ();
@@ -475,7 +496,6 @@ elsif ( $actionname eq 'replacetyp' ) {
   create_allreplacetyp_languages ();
   exit(0);
 }
-
 
 # Here we start with actions that need a map and therefore an additional argument
 
@@ -991,6 +1011,16 @@ sub check_downloadurls {
         }
         print "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
     
+        # Check the ElevationData 20m
+        $returnvalue = system( $command . "$elevationbaseurl{ele20}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
+        if ( $returnvalue != 0 ) {
+    		print "FAIL: ele20: ";
+    	}
+    	else {
+    		print "OK:   ele20: ";
+        }
+        print "$elevationbaseurl{ele20}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
+    
         # Check the ElevationData 25m
         $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
         if ( $returnvalue != 0 ) {
@@ -1004,6 +1034,7 @@ sub check_downloadurls {
 	else {
 		# No elevation Data to download, we don't need it
 		print "N/A:  ele10: (this map doesn't need downloadable elevation Data)\n";		
+		print "N/A:  ele20: (this map doesn't need downloadable elevation Data)\n";		
 		print "N/A:  ele25: (this map doesn't need downloadable elevation Data)\n";		
 	}
 	  
@@ -1074,6 +1105,9 @@ sub fetch_eledata {
   my $eleurl = '';
   if ( $ele == 10 ) {
     $eleurl = "$elevationbaseurl{ele10}/Hoehendaten_$mapname.osm.pbf";
+  }
+  elsif ( $ele == 20 ) {
+    $eleurl = "$elevationbaseurl{ele20}/Hoehendaten_$mapname.osm.pbf";
   }
   else {
     # Default = 25 Meter
