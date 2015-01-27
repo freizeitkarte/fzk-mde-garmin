@@ -550,15 +550,45 @@ highway = bridleway {add motorcar = no; add bicycle = no; add foot = no}
 # Wege und Bereiche speziell fuer Fussgaenger: generell fuer Autos und Radfahrer gesperrt
 highway = footway | highway = elevator | highway = steps | highway = pedestrian {add motorcar = no; add bicycle = no}
 
-# Bergwege; ueber Wege der Kategorien 3-6 wird aus Sicherheitsgruenden nicht geroutet; Ausnahme: T36ROUTING ist explizit definiert
+# # Bergwege; ueber Wege der Kategorien 3-6 wird aus Sicherheitsgruenden nicht geroutet; Ausnahme: T36ROUTING ist explizit definiert
+# #ifdef T36ROUTING
+#   highway = path & (sac_scale = hiking                    | sac_scale = mountain_hiking)         {set highway = bergweg12}
+#   highway = path & (sac_scale = demanding_mountain_hiking | sac_scale = alpine_hiking)           {set highway = bergweg34}
+#   highway = path & (sac_scale = demanding_alpine_hiking   | sac_scale = difficult_alpine_hiking) {set highway = bergweg56}
+# #else
+#   highway = path & (sac_scale = hiking                    | sac_scale = mountain_hiking)         {set highway = bergweg12}
+#   highway = path & (sac_scale = demanding_mountain_hiking | sac_scale = alpine_hiking)           {set highway = bergweg34; set access = no; set motorcar = no; set bicycle = no; set foot = no}
+#   highway = path & (sac_scale = demanding_alpine_hiking   | sac_scale = difficult_alpine_hiking) {set highway = bergweg56; set access = no; set motorcar = no; set bicycle = no; set foot = no}
+# #endif
+
+# Bergwege; T4 - T6 für routing aus Sicherheitsgründen gesperrt; Ausnahme: T36ROUTING ist explizit definiert
+# Alpine Trails; T4 - T6 expluded from routing for security reasons; Exception: T36ROUTING set
 #ifdef T36ROUTING
-  highway = path & (sac_scale = hiking                    | sac_scale = mountain_hiking)         {set highway = bergweg12}
-  highway = path & (sac_scale = demanding_mountain_hiking | sac_scale = alpine_hiking)           {set highway = bergweg34}
-  highway = path & (sac_scale = demanding_alpine_hiking   | sac_scale = difficult_alpine_hiking) {set highway = bergweg56}
+  # T1
+  highway = path & sac_scale = hiking                     {set highway = sacscalet1}
+  # T2
+  highway = path & sac_scale = mountain_hiking            {set highway = sacscalet2t3}
+  # T3
+  highway = path & sac_scale = demanding_mountain_hiking  {set highway = sacscalet2t3}
+  # T4
+  highway = path & sac_scale = alpine_hiking              {set highway = sacscalet4t5t6}
+  # T5
+  highway = path & sac_scale = demanding_alpine_hiking    {set highway = sacscalet4t5t6}
+  # T6
+  highway = path & sac_scale = difficult_alpine_hiking    {set highway = sacscalet4t5t6}
 #else
-  highway = path & (sac_scale = hiking                    | sac_scale = mountain_hiking)         {set highway = bergweg12}
-  highway = path & (sac_scale = demanding_mountain_hiking | sac_scale = alpine_hiking)           {set highway = bergweg34; set access = no; set motorcar = no; set bicycle = no; set foot = no}
-  highway = path & (sac_scale = demanding_alpine_hiking   | sac_scale = difficult_alpine_hiking) {set highway = bergweg56; set access = no; set motorcar = no; set bicycle = no; set foot = no}
+  # T1
+  highway = path & sac_scale = hiking                     {set highway = sacscalet1}
+  # T2
+  highway = path & sac_scale = mountain_hiking            {set highway = sacscalet2t3}
+  # T3
+  highway = path & sac_scale = demanding_mountain_hiking  {set highway = sacscalet2t3}
+  # T4
+  highway = path & sac_scale = alpine_hiking              {set highway = sacscalet4t5t6; set access = no; set motorcar = no; set bicycle = no; set foot = no}
+  # T5
+  highway = path & sac_scale = demanding_alpine_hiking    {set highway = sacscalet4t5t6; set access = no; set motorcar = no; set bicycle = no; set foot = no}
+  # T6
+  highway = path & sac_scale = difficult_alpine_hiking    {set highway = sacscalet4t5t6; set access = no; set motorcar = no; set bicycle = no; set foot = no}
 #endif
 
 # access
@@ -1198,28 +1228,40 @@ highway = pedestrian & (area != * | area = no) [0x010f09 resolution 21-22]
 #   - sac_scale=alpine_hiking = T4 (Alpinwandern )
 #   - sac_scale=demanding_alpine_hiking = T5 (anspruchsvolles Alpinwandern )
 #   - sac_scale=difficult_alpine_hiking = T6 (schwieriges Alpinwandern)
-# Routing nur auf T1-T2 (aus Sicherheitsgruenden).
+# Routing nur auf T1-T3 (aus Sicherheitsgruenden).
 
 # Bruecke / Tunnel / Deich
-(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & bridge = yes     [0x010407 resolution 24 continue]
-(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & tunnel = yes     [0x010408 resolution 24 continue]
-(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & man_made = dyke  [0x011f05 resolution 24 continue]
+#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & bridge = yes     [0x010407 resolution 24 continue]
+#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & tunnel = yes     [0x010408 resolution 24 continue]
+#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & man_made = dyke  [0x011f05 resolution 24 continue]
 ### (highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & embankment = yes [0x011f05 resolution 24 continue]
+(highway = sacscalet1 | highway = sacscalet2t3 | highway = sacscalet4t5t6) & bridge = yes     [0x010407 resolution 24 continue]
+(highway = sacscalet1 | highway = sacscalet2t3 | highway = sacscalet4t5t6) & tunnel = yes     [0x010408 resolution 24 continue]
+(highway = sacscalet1 | highway = sacscalet2t3 | highway = sacscalet4t5t6) & man_made = dyke  [0x011f05 resolution 24 continue]
+
+# 0x010e0c = Bitmap 2 (breit, NoLabel)
+# 0x010e06 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
+highway = sacscalet1 [0x010e0c resolution 24 continue]
+highway = sacscalet1 [0x010e06 resolution 23-23]
 
 # 0x011f09 = Bitmap 2 (breit, NoLabel)
 # 0x011f0c = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = bergweg12 [0x011f09 resolution 24 continue]
-highway = bergweg12 [0x011f0c resolution 23-23]
+#highway = bergweg12 [0x011f09 resolution 24 continue]
+#highway = bergweg12 [0x011f0c resolution 23-23]
 
 # 0x011f07 = Bitmap 2 (breit, NoLabel)
 # 0x011f0a = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = bergweg34 [0x011f07 resolution 24 continue]
-highway = bergweg34 [0x011f0a resolution 23-23]
+#highway = bergweg34 [0x011f07 resolution 24 continue]
+#highway = bergweg34 [0x011f0a resolution 23-23]
+highway = sacscalet2t3 [0x011f07 resolution 24 continue]
+highway = sacscalet2t3 [0x011f0a resolution 23-23]
 
 # 0x011f08 = Bitmap 2 (breit, NoLabel)
 # 0x011f0b = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = bergweg56 [0x011f08 resolution 24 continue]
-highway = bergweg56 [0x011f0b resolution 23-23]
+#highway = bergweg56 [0x011f08 resolution 24 continue]
+#highway = bergweg56 [0x011f0b resolution 23-23]
+highway = sacscalet4t5t6 [0x011f08 resolution 24 continue]
+highway = sacscalet4t5t6 [0x011f0b resolution 23-23]
 
 
 # Allgemeiner Weg oder Pfad:
