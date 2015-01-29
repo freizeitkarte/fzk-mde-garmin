@@ -4267,7 +4267,7 @@ sub show_help {
       . "perl $programName  --ram=1536    --cores=2     build     Freizeitkarte_Hamburg\n"
       . "perl $programName  --ram=6000                  build     5815\n"
       . "perl $programName  --ram=6000    --cores=max   build     5815\n"
-      . "perl $programName  --ram=6000    --cores=max   build     Freizeitkarte_Oesterreich  DT36ROUTING\n\n"
+      . "perl $programName  --ram=6000    --cores=max   build     Freizeitkarte_Oesterreich  DEXTENDEDROUTING\n\n"
       . "Options:\n"
       . "--ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
       . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"

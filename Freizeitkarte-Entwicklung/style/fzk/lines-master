@@ -51,6 +51,8 @@
 #                              - natural = tree_row
 # Version : 0.27  31.10.2014 - Fixing Routing issue with trunks/motorway/motorroad restrictions
 #                            - Fixing problems with includes: clearly defining what is done by PPP (no include needed here) and what by mkgmap includes
+# Version : 0.28  29.01.2014 - Recategorisation of paths with sac_scale: before it was T1T2, T3T4 and T5T6, now it is T1, T2T3, T4T5T6
+#                            - Renaming T36ROUTING option to EXTENDEDROUTING
 
 
 
@@ -284,7 +286,7 @@
 #
 # Optionale Features:
 # - WINTERSPORT: Linien für Wintersportaktivitäten (Pisten, Loipen, ...)
-# - T36ROUTING: Routing auch über (Berg-)Wanderwege der Klassen T3-T6
+# - EXTENDEDROUTING: Routing auch über (Berg-)Wanderwege der Klassen T3-T6
 # -------------------------------------------------
 
 
@@ -561,9 +563,9 @@ highway = footway | highway = elevator | highway = steps | highway = pedestrian 
 #   highway = path & (sac_scale = demanding_alpine_hiking   | sac_scale = difficult_alpine_hiking) {set highway = bergweg56; set access = no; set motorcar = no; set bicycle = no; set foot = no}
 # #endif
 
-# Bergwege; T4 - T6 für routing aus Sicherheitsgründen gesperrt; Ausnahme: T36ROUTING ist explizit definiert
-# Alpine Trails; T4 - T6 expluded from routing for security reasons; Exception: T36ROUTING set
-#ifdef T36ROUTING
+# Bergwege; T4 - T6 für routing aus Sicherheitsgründen gesperrt; Ausnahme: EXTENDEDROUTING ist explizit definiert
+# Alpine Trails; T4 - T6 expluded from routing for security reasons; Exception: EXTENDEDROUTING set
+#ifdef EXTENDEDROUTING
   # T1
   highway = path & sac_scale = hiking                     {set highway = sacscalet1}
   # T2
