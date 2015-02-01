@@ -2817,6 +2817,17 @@
 #define $__HIGHWAYSERVICEAREA__RU Автосервис
 #define $__HIGHWAYSERVICEAREA__PT Área de serviço
 
+## Alpine Wanderwege (mit SAC Scale)
+#define $__ALPINETRAIL__ Bergwanderweg
+#define $__ALPINETRAIL__DE Bergwanderweg
+#define $__ALPINETRAIL__EN Alpine Trail
+#define $__ALPINETRAIL__FR Sentier
+#define $__ALPINETRAIL__IT Sentiero alpino
+#define $__ALPINETRAIL__NL Bergpad
+#define $__ALPINETRAIL__PL Trasa wspinaczkowa
+#define $__ALPINETRAIL__RU Горная тропа
+#define $__ALPINETRAIL__PT Trilha alpina
+
 
 ## --------------------------------------------
 ## Freizeit / leisure:
