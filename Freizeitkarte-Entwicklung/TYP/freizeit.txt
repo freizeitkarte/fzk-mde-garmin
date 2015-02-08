@@ -6016,11 +6016,13 @@ CustomColor=No
 [_line]
 Type=0x1210b
 UseOrientation=Y
-Xpm="32 2 2  1"
+Xpm="32 4 2  1"
 "! c #A0A0A0"
 "  c none"
-" !  !    !  !    !  !    !  !   "
-"!    !  !    !  !    !  !    !  "
+"                            !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"!!  !!  !!  !!  !!  !!  !!  !!  "
+"                            !!  "
 ;12345678901234567890123456789012
 String1=0x00,Klettersteig breit
 String2=0x01,Klettersteig breit
@@ -6035,11 +6037,12 @@ CustomColor=No
 [_line]
 Type=0x1210c
 UseOrientation=Y
-Xpm="32 2 2  1"
+Xpm="32 3 2  1"
 "! c #A0A0A0"
 "  c none"
+"                            !!  "
 "!!  !!  !!  !!  !!  !!  !!  !!  "
-"                                "
+"                            !!  "
 ;12345678901234567890123456789012
 String1=0x00,Klettersteig schmal
 String2=0x01,Klettersteig schmal
