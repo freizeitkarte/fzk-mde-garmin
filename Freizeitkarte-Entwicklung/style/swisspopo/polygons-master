@@ -23,6 +23,7 @@
 # Version : 0.15 -14.03.2014: Adapting things regarding power = * (station / plant / substation / sub_station)
 # Version : 0.16 -05.05.2014: Adapting finalize section to support new mkgmap version 2096 and newer
 # Version : 0.17 -31.10.2014: Fixing issues with different includes: clarify what is done by PPP and what is done by mkgmap
+# Version : 0.18 -13.02.2015: Handling natural=shingle same as natural=scree
 
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
@@ -550,7 +551,7 @@ natural = rock | natural = bedrock | natural = bare_rock [0x16 resolution 17]
 natural = sand [0x47 resolution 20]
 
 # Geröll. [point, closedway]
-natural = scree [0x43 resolution 20]
+natural = scree | natural = shingle [0x43 resolution 20]
 
 # Unkultiviertes Land (Unterholz / Busch). [point, closedway]
 natural = scrub [0x4f resolution 20]
