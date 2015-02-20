@@ -1711,6 +1711,15 @@ railway = abandoned                    [0x012102 resolution 24]
 # 0x010e1d = 2 (NoLabel)
 railway = platform & (area != * | area = no) [0x010e1d resolution 24]
 
+# Eisenbahn (service) (kann auch teilweise unterirdisch verkehren).
+# Railway service
+# 0x012109 = Bitmap 2 (NoLabel)
+# 0x012113 = Bitmap 2 (NoLabel)
+railway = rail & service = * & bridge = yes     [0x010407 resolution 24 continue]
+railway = rail & service = * & tunnel = yes     [0x012109 resolution 23]
+### railway = rail & embankment = yes [0x011f05 resolution 24 continue]
+railway = rail & service = *                    [0x012113 resolution 23]
+
 # Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
 # 0x012109 = Bitmap 2 (NoLabel)
 # 0x012103 = Bitmap 2 (NoLabel)

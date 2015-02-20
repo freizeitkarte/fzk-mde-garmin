@@ -4154,6 +4154,20 @@ String=0x19,дерево строка
 
 
 [_line]
+Type=0x12113
+String=0x00,Railway (Service)
+String=0x01,Chemin de fer (service)
+String=0x02,Bahn (Dienstgleis)
+String=0x03,Spoorbaan (dienst)
+String=0x04,Railway (Service)
+String=0x05,Ferrovia (servizio)
+String=0x10,Via férrea (serviço)
+String=0x15,Linia kolejowa (serwis)
+String=0x19,Железная дорога (служба)
+[end]
+
+
+[_line]
 Type=0x12201
 String=0x00,Hiking Trail T1
 String=0x01,Chemin de randonnée T1
