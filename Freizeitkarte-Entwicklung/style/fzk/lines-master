@@ -1683,7 +1683,8 @@ aeroway = taxiway [0x010e1c resolution 21-21]
 # ---------------
 
 # Nicht mehr in Benutzung, aber Schienen sind noch da (wie Eisenbahn).
-railway = disused {set railway = rail}
+# (Now handled as Service rails)
+#railway = disused {set railway = rail}
 
 # Museumsbahn (wie Eisenbahn).
 railway = preserved {set railway = rail}
@@ -1717,8 +1718,14 @@ railway = platform & (area != * | area = no) [0x010e1d resolution 24]
 # 0x012113 = Bitmap 2 (NoLabel)
 railway = rail & service = * & bridge = yes     [0x010407 resolution 24 continue]
 railway = rail & service = * & tunnel = yes     [0x012109 resolution 23]
-### railway = rail & embankment = yes [0x011f05 resolution 24 continue]
 railway = rail & service = *                    [0x012113 resolution 23]
+
+# Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
+# 0x012109 = Bitmap 2 (NoLabel)
+# 0x012113 = Bitmap 2 (NoLabel)
+railway = disused & bridge = yes     [0x010407 resolution 24 continue]
+railway = disused & tunnel = yes     [0x012109 resolution 22]
+railway = disused                    [0x012113 resolution 22]
 
 # Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
 # 0x012109 = Bitmap 2 (NoLabel)
@@ -1727,6 +1734,7 @@ railway = rail & bridge = yes     [0x010407 resolution 24 continue]
 railway = rail & tunnel = yes     [0x012109 resolution 22]
 ### railway = rail & embankment = yes [0x011f05 resolution 24 continue]
 railway = rail                    [0x012103 resolution 22]
+
 
 # S-Bahn (wie Eisenbahn; kann auch teilweise unterirdisch verkehren).
 # 0x012108 = Bitmap 2 (Label, SmallFont)
