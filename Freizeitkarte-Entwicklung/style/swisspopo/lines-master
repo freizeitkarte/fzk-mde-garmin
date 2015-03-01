@@ -51,8 +51,9 @@
 #                              - natural = tree_row
 # Version : 0.27  31.10.2014 - Fixing Routing issue with trunks/motorway/motorroad restrictions
 #                            - Fixing problems with includes: clearly defining what is done by PPP (no include needed here) and what by mkgmap includes
-# Version : 0.28  29.01.2014 - Recategorisation of paths with sac_scale: before it was T1T2, T3T4 and T5T6, now it is T1, T2T3, T4T5T6
+# Version : 0.28  29.01.2015 - Recategorisation of paths with sac_scale: before it was T1T2, T3T4 and T5T6, now it is T1, T2T3, T4T5T6
 #                            - Renaming T36ROUTING option to EXTENDEDROUTING
+# Version : 0.29  01.03.2015 - Showning some less important rails later with a different pattern style ( service = *, railway = disused, usage = industrial)
 
 
 
@@ -1715,7 +1716,8 @@ aeroway = taxiway [0x010e1c resolution 21-21]
 # ---------------
 
 # Nicht mehr in Benutzung, aber Schienen sind noch da (wie Eisenbahn).
-railway = disused {set railway = rail}
+# (Now handled as Service rails)
+#railway = disused {set railway = rail}
 
 # Museumsbahn (wie Eisenbahn).
 railway = preserved {set railway = rail}
@@ -1743,6 +1745,21 @@ railway = abandoned                    [0x012102 resolution 24]
 # 0x010e1d = 2 (NoLabel)
 railway = platform & (area != * | area = no) [0x010e1d resolution 24]
 
+# Eisenbahn (service) (kann auch teilweise unterirdisch verkehren).
+# Railway service
+# 0x012109 = Bitmap 2 (NoLabel)
+# 0x012113 = Bitmap 2 (NoLabel)
+railway = rail & service = * & bridge = yes     [0x010407 resolution 24 continue]
+railway = rail & service = * & tunnel = yes     [0x012109 resolution 23]
+railway = rail & service = *                    [0x012113 resolution 23]
+
+# Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
+# 0x012109 = Bitmap 2 (NoLabel)
+# 0x012113 = Bitmap 2 (NoLabel)
+railway = disused & bridge = yes     [0x010407 resolution 24 continue]
+railway = disused & tunnel = yes     [0x012109 resolution 22]
+railway = disused                    [0x012113 resolution 22]
+
 # Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
 # 0x012109 = Bitmap 2 (NoLabel)
 # 0x012103 = Bitmap 2 (NoLabel)
@@ -1750,6 +1767,7 @@ railway = rail & bridge = yes     [0x010407 resolution 24 continue]
 railway = rail & tunnel = yes     [0x012109 resolution 22]
 ### railway = rail & embankment = yes [0x011f05 resolution 24 continue]
 railway = rail                    [0x012103 resolution 22]
+
 
 # S-Bahn (wie Eisenbahn; kann auch teilweise unterirdisch verkehren).
 # 0x012108 = Bitmap 2 (Label, SmallFont)

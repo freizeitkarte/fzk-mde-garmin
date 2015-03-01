@@ -51,8 +51,9 @@
 #                              - natural = tree_row
 # Version : 0.27  31.10.2014 - Fixing Routing issue with trunks/motorway/motorroad restrictions
 #                            - Fixing problems with includes: clearly defining what is done by PPP (no include needed here) and what by mkgmap includes
-# Version : 0.28  29.01.2014 - Recategorisation of paths with sac_scale: before it was T1T2, T3T4 and T5T6, now it is T1, T2T3, T4T5T6
+# Version : 0.28  29.01.2015 - Recategorisation of paths with sac_scale: before it was T1T2, T3T4 and T5T6, now it is T1, T2T3, T4T5T6
 #                            - Renaming T36ROUTING option to EXTENDEDROUTING
+# Version : 0.29  01.03.2015 - Showning some less important rails later with a different pattern style ( service = *, railway = disused, usage = industrial)
 
 
 
