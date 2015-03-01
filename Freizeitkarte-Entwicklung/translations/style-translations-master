@@ -43,6 +43,7 @@
 ###*                             Changed the ID of two different 'Kreisstrassen' to avoid problems on newer devices.
 ###* Version: 0.9 - 20.10.2014   Added French translation
 ###* Version: 0.9a- 20.10.2014   Blanks before CRLF removed
+###* Version: 0.10- 01.03.2015   - implemented new model for Alpine Trails with SAC Scale
 
 
 
