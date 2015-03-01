@@ -5781,7 +5781,7 @@ CustomColor=No
 
 
 [_line]
-Type=0x12103
+Type=0x12113
 UseOrientation=N
 Xpm="32 2 2  1"
 "! c #B4B4B4"
