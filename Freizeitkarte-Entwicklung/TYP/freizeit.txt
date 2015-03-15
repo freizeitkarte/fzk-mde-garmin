@@ -4871,10 +4871,7 @@ Xpm="32 2 2  1"
 "!!  !!  !!  !!  !!  !!  !!  !!  "
 "!!  !!  !!  !!  !!  !!  !!  !!  "
 ;12345678901234567890123456789012
-String1=0x00,Bergwanderweg T3 / T4 breit
-String2=0x01,Bergwanderweg T3 / T4 breit
-String3=0x02,Bergwanderweg T3 / T4
-String4=0x04,Alpine Trail T3 / T4
+String1=0x00,Alpine Trail T2/T3
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
@@ -4890,16 +4887,14 @@ Xpm="32 2 2  1"
 "!!  !!  !!  !!  !!  !!  !!  !!  "
 "!!  !!  !!  !!  !!  !!  !!  !!  "
 ;12345678901234567890123456789012
-String1=0x00,Bergwanderweg T5 / T6 breit
-String2=0x01,Bergwanderweg T5 / T6 breit
-String3=0x02,Bergwanderweg T5 / T6
-String4=0x04,Alpine Trail T5/T6
+String1=0x00,Alpine Trail T4/T5/T6
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
 [end]
 
 
+;Unused at the moment
 [_line]
 Type=0x11f09
 UseOrientation=Y
@@ -4910,9 +4905,6 @@ Xpm="32 2 2  1"
 "!!  !!  !!  !!  !!  !!  !!  !!  "
 ;12345678901234567890123456789012
 String1=0x00,Bergwanderweg T1 / T2 breit
-String2=0x01,Bergwanderweg T1 / T2 breit
-String3=0x02,Bergwanderweg T1 / T2 breit
-String4=0x04, Alpine Trail T1 / T2
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
@@ -4928,10 +4920,7 @@ Xpm="32 2 2  1"
 "!!  !!  !!  !!  !!  !!  !!  !!  "
 "                                "
 ;12345678901234567890123456789012
-String1=0x00,Bergwanderweg T3 / T4 schmal
-String2=0x01,Bergwanderweg T3 / T4 schmal
-String3=0x02,Bergwanderweg T3 / T4
-String4=0x04, Alpine Trail T3 / T4
+String1=0x00,Alpine Trail T2/T3
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
@@ -4948,15 +4937,13 @@ Xpm="32 2 2  1"
 "                                "
 ;12345678901234567890123456789012
 String1=0x00,Bergwanderweg T5 / T6 schmal
-String2=0x01,Bergwanderweg T5 / T6 schmal
-String3=0x02,Bergwanderweg T5 / T6
-String4=0x04,Alpine Trail T5 / T6
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
 [end]
 
 
+;Unused at the moment
 [_line]
 Type=0x11f0c
 UseOrientation=Y
@@ -4967,9 +4954,6 @@ Xpm="32 2 2  1"
 "                                "
 ;12345678901234567890123456789012
 String1=0x00,Bergwanderweg T1 / T2 schmal
-String2=0x01,Bergwanderweg T1 / T2 schmal
-String3=0x02,Bergwanderweg T1 / T2
-String4=0x04,Alpine Trail T1 / T2
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
@@ -6032,11 +6016,13 @@ CustomColor=No
 [_line]
 Type=0x1210b
 UseOrientation=Y
-Xpm="32 2 2  1"
+Xpm="32 4 2  1"
 "! c #A0A0A0"
 "  c none"
+"                            !!  "
 "!!  !!  !!  !!  !!  !!  !!  !!  "
 "!!  !!  !!  !!  !!  !!  !!  !!  "
+"                            !!  "
 ;12345678901234567890123456789012
 String1=0x00,Klettersteig breit
 String2=0x01,Klettersteig breit
@@ -6051,11 +6037,12 @@ CustomColor=No
 [_line]
 Type=0x1210c
 UseOrientation=Y
-Xpm="32 2 2  1"
+Xpm="32 3 2  1"
 "! c #A0A0A0"
 "  c none"
+"                            !!  "
 "!!  !!  !!  !!  !!  !!  !!  !!  "
-"                                "
+"                            !!  "
 ;12345678901234567890123456789012
 String1=0x00,Klettersteig schmal
 String2=0x01,Klettersteig schmal
@@ -6173,6 +6160,24 @@ ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
 [end]
+
+
+[_line]
+Type=0x12113
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #B4B4B4"
+"# c #F0F0F0"
+"!!!!!!!!!#######!!!!!!!!!#######"
+"!!!!!!!!!#######!!!!!!!!!#######"
+;12345678901234567890123456789012
+String1=0x00,Bahn (Service)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
 
 
 ;====================== POINTS ==========================

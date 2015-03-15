@@ -5946,6 +5946,7 @@ FontStyle=NoLabel (invisible)
 CustomColor=No
 [end]
 
+
 [_line]
 Type=0x12104
 UseOrientation=Y
@@ -6208,6 +6209,22 @@ Xpm="32 4 2  1"
 String1=0x00,Tree Row
 String3=0x02,Baumreihe
 String4=0x04,Tree Row
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12113
+UseOrientation=N
+Xpm="32 2 2  1"
+"! c #B4B4B4"
+"# c #F0F0F0"
+"!!!!!!!!!#######!!!!!!!!!#######"
+"!!!!!!!!!#######!!!!!!!!!#######"
+;12345678901234567890123456789012
+String1=0x00,Railway (service)
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No

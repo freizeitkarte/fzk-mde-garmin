@@ -175,6 +175,7 @@ my @maps = (
   [ -1,   'Europaeische Laender',                 'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6008, 'Freizeitkarte_ALB',                    'http://download.geofabrik.de/europe/albania-latest.osm.pbf',                                        'ALB',                      'en', 'Freizeitkarte_Albanien',                  3, 'NA'             ],
   [ 6020, 'Freizeitkarte_AND',                    'http://download.geofabrik.de/europe/andorra-latest.osm.pbf',                                        'AND',                      'en', 'Freizeitkarte_Andorra',                   3, 'NA'             ],
+  [ 6051, 'Freizeitkarte_ARM',                    'http://be.gis-lab.info/data/osm_dump/dump/latest/AM.osm.pbf',                                       'ARM',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6040, 'Freizeitkarte_AUT',                    'http://download.geofabrik.de/europe/austria-latest.osm.pbf',                                        'AUT',                      'de', 'Freizeitkarte_Oesterreich',               3, 'NA'             ],
   [ 6112, 'Freizeitkarte_BLR',                    'http://download.geofabrik.de/europe/belarus-latest.osm.pbf',                                        'BLR',                      'ru', 'Freizeitkarte_Belarus',                   3, 'NA'             ],
   [ 6056, 'Freizeitkarte_BEL',                    'http://download.geofabrik.de/europe/belgium-latest.osm.pbf',                                        'BEL',                      'fr', 'Freizeitkarte_Belgien',                   3, 'NA'             ],
@@ -191,6 +192,7 @@ my @maps = (
   [ 6246, 'Freizeitkarte_FIN',                    'http://download.geofabrik.de/europe/finland-latest.osm.pbf',                                        'FIN',                      'en', 'Freizeitkarte_Finnland',                  3, 'NA'             ],
   [ 6250, 'Freizeitkarte_FRA',                    'http://download.geofabrik.de/europe/france-latest.osm.pbf',                                         'FRA',                      'fr', 'Freizeitkarte_Frankreich',                3, 'NA'             ],
   [ 6826, 'Freizeitkarte_GBR',                    'http://download.geofabrik.de/europe/great-britain-latest.osm.pbf',                                  'GBR',                      'en', 'Freizeitkarte_Grossbritannien',           3, 'NA'             ],
+  [ 6268, 'Freizeitkarte_GEO',                    'http://be.gis-lab.info/data/osm_dump/dump/latest/GE.osm.pbf',                                       'GEO',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6300, 'Freizeitkarte_GRC',                    'http://download.geofabrik.de/europe/greece-latest.osm.pbf',                                         'GRC',                      'en', 'Freizeitkarte_Griechenland',              3, 'NA'             ],
   [ 6191, 'Freizeitkarte_HRV',                    'http://download.geofabrik.de/europe/croatia-latest.osm.pbf',                                        'HRV',                      'en', 'Freizeitkarte_Kroatien',                  3, 'NA'             ],
   [ 6348, 'Freizeitkarte_HUN',                    'http://download.geofabrik.de/europe/hungary-latest.osm.pbf',                                        'HUN',                      'en', 'Freizeitkarte_Ungarn',                    3, 'NA'             ],
@@ -238,7 +240,7 @@ my @maps = (
 
   # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
   [ -1,   'Freizeitkarte PLUS Laender',           'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
-  [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                                                                                'AUT+',                     'de', 'no_old_name',               			    2, 'EUROPE'         ],
+  [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                                                                                'AUT+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7056, 'Freizeitkarte_BEL+',                   'NA',                                                                                                'BEL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7756, 'Freizeitkarte_CHE+',                   'NA',                                                                                                'CHE+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7276, 'Freizeitkarte_DEU+',                   'NA',                                                                                                'DEU+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
@@ -332,7 +334,7 @@ my $ACTIONOPT  = 2;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.10 - 2015/01/17';
+my $VERSION = '1.3.11 - 2015/02/17';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -365,7 +367,7 @@ my $help     = $EMPTY;
 my $optional = $EMPTY;
 my $ram      = $EMPTY;
 my $cores    = 2;
-my $ele      = 25;
+my $ele      = 20;
 my $clm      = 1;   # eventually unused ?
 my $typfile  = $EMPTY;
 my $styledir = $EMPTY;
@@ -4267,7 +4269,7 @@ sub show_help {
       . "perl $programName  --ram=1536    --cores=2     build     Freizeitkarte_Hamburg\n"
       . "perl $programName  --ram=6000                  build     5815\n"
       . "perl $programName  --ram=6000    --cores=max   build     5815\n"
-      . "perl $programName  --ram=6000    --cores=max   build     Freizeitkarte_Oesterreich  DT36ROUTING\n\n"
+      . "perl $programName  --ram=6000    --cores=max   build     Freizeitkarte_Oesterreich  DEXTENDEDROUTING\n\n"
       . "Options:\n"
       . "--ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
       . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"

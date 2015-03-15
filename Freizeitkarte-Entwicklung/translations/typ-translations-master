@@ -97,6 +97,8 @@
 ;                              - natural = tree_row
 ; Version: 0.16  27.10.2014 - Added french translation
 ;                           - adopted some other languages regarding capitalization and spaces
+; Version: 0.17  01.03.2015 - implemented new model for alpine trails with SAC Scale
+;                           - implemented service rails separately from normal rails
 
 
 
@@ -3145,40 +3147,41 @@ String=0x15,Ogrodzenie
 String=0x19,Ограждение
 [end]
 
-; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 breit
+; Alpine Trail T2 / T3 <=> Bergwanderweg T2 / T3 breit
 [_line]
 Type=0x11f07
-String=0x00,Alpine Trail T3/T4
-String=0x01,Sentier T3/T4
-String=0x02,Bergwanderweg T3/T4
-String=0x03,Bergpad T3/T4
-String=0x04,Alpine Trail T3/T4
-String=0x05,Sentiero alpino T3/T4
-String=0x10,Trilha alpina T3/T4
-String=0x15,Trasa wspinaczkowa T3/T4
-String=0x19,Горная тропа T3/T4
+String=0x00,Alpine Trail T2/T3
+String=0x01,Sentier T2/T3
+String=0x02,Bergweg T2/T3
+String=0x03,Bergpad T2/T3
+String=0x04,Alpine Trail T2/T3
+String=0x05,Sentiero alpino T2/T3
+String=0x10,Trilha alpina T2/T3
+String=0x15,Trasa wspinaczkowa T2/T3
+String=0x19,Горная тропа T2/T3
 [end]
 
-; Alpine Trail T5/T6 <=> Bergwanderweg T5 / T6 breit
+; Alpine Trail T4/T5/T6 <=> Bergwanderweg T4/T5/T6 breit
 [_line]
 Type=0x11f08
-String=0x00,Alpine Trail T5/T6
-String=0x01,Sentier T5/T6
-String=0x02,Bergwanderweg T5/T6
-String=0x03,Bergpad T5/T6
-String=0x04,Alpine Trail T5/T6
-String=0x05,Sentiero alpino T5/T6
-String=0x10,Trilha alpina T5/T6
-String=0x15,Trasa wspinaczkowa T5/T6
-String=0x19,Горная тропа T5/T6
+String=0x00,Alpine Trail T4/T5/T6
+String=0x01,Sentier T4/T5/T6
+String=0x02,Bergweg T4/T5/T6
+String=0x03,Bergpad T4/T5/T6
+String=0x04,Alpine Trail T4/T5/T6
+String=0x05,Sentiero alpino T4/T5/T6
+String=0x10,Trilha alpina T4/T5/T6
+String=0x15,Trasa wspinaczkowa T4/T5/T6
+String=0x19,Горная тропа T4/T5/T6
 [end]
 
 ; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 breit
+; Unused at the moment
 [_line]
 Type=0x11f09
 String=0x00,Alpine Trail T1/T2
 String=0x01,Sentier T1/T2
-String=0x02,Bergwanderweg T1/T2 breit
+String=0x02,Bergweg T1/T2 breit
 String=0x03,Bergpad T1/T2
 String=0x04,Alpine Trail T1/T2
 String=0x05,Sentiero alpino T1/T2
@@ -3187,40 +3190,41 @@ String=0x15,Trasa wspinaczkowa T1/T2
 String=0x19,Горная тропа T1/T2
 [end]
 
-; Alpine Trail T3 / T4 <=> Bergwanderweg T3 / T4 schmal
+; Alpine Trail T2/T3 <=> Bergwanderweg T2/T3 schmal
 [_line]
 Type=0x11f0a
-String=0x00,Alpine Trail T3/T4
-String=0x01,Sentier T3/T4
-String=0x02,Bergwanderweg T3/T4
-String=0x03,Bergpad T3/T4
-String=0x04,Alpine Trail T3/T4
-String=0x05,Sentiero alpino T3/T4
-String=0x10,Trilha alpina T3/T4
-String=0x15,Trasa wspinaczkowa T3/T4
-String=0x19,Горная тропа T3/T4
+String=0x00,Alpine Trail T2/T3
+String=0x01,Sentier T2/T3
+String=0x02,Bergweg T2/T3
+String=0x03,Bergpad T2/T3
+String=0x04,Alpine Trail T2/T3
+String=0x05,Sentiero alpino T2/T3
+String=0x10,Trilha alpina T2/T3
+String=0x15,Trasa wspinaczkowa T2/T3
+String=0x19,Горная тропа T2/T3
 [end]
 
-; Alpine Trail T5 / T6 <=> Bergwanderweg T5 / T6 schmal
+; Alpine Trail T4/T5/T6 <=> Bergwanderweg T4/T5/T6 schmal
 [_line]
 Type=0x11f0b
-String=0x00,Alpine Trail T5/T6
-String=0x01,Sentier T5/T6
-String=0x02,Bergwanderweg T5/T6
-String=0x03,Bergpad T5/T6
-String=0x04,Alpine Trail T5/T6
-String=0x05,Sentiero alpino T5/T6
-String=0x10,Trilha alpina T5/T6
-String=0x15,Trasa wspinaczkowa T5/T6
-String=0x19,Горная тропа T5/T6
+String=0x00,Alpine Trail T4/T5/T6
+String=0x01,Sentier T4/T5/T6
+String=0x02,Bergweg T4/T5/T6
+String=0x03,Bergpad T4/T5/T6
+String=0x04,Alpine Trail T4/T5/T6
+String=0x05,Sentiero alpino T4/T5/T6
+String=0x10,Trilha alpina T4/T5/T6
+String=0x15,Trasa wspinaczkowa T4/T5/T6
+String=0x19,Горная тропа T4/T5/T6
 [end]
 
 ; Alpine Trail T1 / T2 <=> Bergwanderweg T1 / T2 schmal
+; unused at the moment (due to recategorisation)
 [_line]
 Type=0x11f0c
 String=0x00,Alpine Trail T1/T2
 String=0x01,Sentier T1/T2
-String=0x02,Bergwanderweg T1/T2
+String=0x02,Bergweg T1/T2
 String=0x03,Bergpad T1/T2
 String=0x04,Alpine Trail T1/T2
 String=0x05,Sentiero alpino T1/T2
@@ -4152,6 +4156,20 @@ String=0x19,дерево строка
 
 
 [_line]
+Type=0x12113
+String=0x00,Railway (Service)
+String=0x01,Chemin de fer (service)
+String=0x02,Bahn (Dienstgleis)
+String=0x03,Spoorbaan (dienst)
+String=0x04,Railway (Service)
+String=0x05,Ferrovia (servizio)
+String=0x10,Via férrea (serviço)
+String=0x15,Linia kolejowa (serwis)
+String=0x19,Железная дорога (служба)
+[end]
+
+
+[_line]
 Type=0x12201
 String=0x00,Hiking Trail T1
 String=0x01,Chemin de randonnée T1
@@ -4183,7 +4201,7 @@ String=0x19,тропа T1
 Type=0x12203
 String=0x00,Mountain Trail T2/T3
 String=0x01,Sentier T2/T3
-String=0x02,Bergwanderweg T2/T3
+String=0x02,Bergweg T2/T3
 String=0x03,Bergpad T2/T3
 String=0x04,Mountain Trail T2/T3
 String=0x05,Sentiero alpino T2/T3
@@ -4197,7 +4215,7 @@ String=0x19,Горная тропа T2/T3
 Type=0x12204
 String=0x00,Mountain Trail T2/T3
 String=0x01,Sentier T2/T3
-String=0x02,Bergwanderweg T2/T3
+String=0x02,Bergweg T2/T3
 String=0x03,Bergpad T2/T3
 String=0x04,Mountain Trail T2/T3
 String=0x05,Sentiero alpino T2/T3

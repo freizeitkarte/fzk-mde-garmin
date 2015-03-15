@@ -5500,6 +5500,22 @@ CustomColor=No
 [end]
 
 
+[_line]
+Type=0x12113
+UseOrientation=N
+Xpm="32 2 2 1"
+"! c #B4B4B4"
+"# c #FFFFFF"
+"!!!!!!!!!#######!!!!!!!!!#######"
+"!!!!!!!!!#######!!!!!!!!!#######"
+;12345678901234567890123456789012
+String1=0x02,Bahn (Service)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
 ;====================== POINTS ==========================
 
 
