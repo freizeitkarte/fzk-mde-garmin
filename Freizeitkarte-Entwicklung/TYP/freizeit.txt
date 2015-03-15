@@ -4921,7 +4921,7 @@ Xpm="32 2 2  1"
 "                                "
 ;12345678901234567890123456789012
 String1=0x00,Alpine Trail T2/T3
-xtendedLabels=Y
+ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
 [end]
