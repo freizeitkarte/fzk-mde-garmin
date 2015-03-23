@@ -100,19 +100,19 @@ my %langcodepage = (
 
 # Define the download base URLs for the Elevation Data
 my %elevationbaseurl = (
-  'ele10' => "http://download.freizeitkarte-osm.de/Development/ele_10_100_200",
-  'ele20' => "http://download.freizeitkarte-osm.de/Development/ele_20_100_500",
-  'ele25' => "http://download.freizeitkarte-osm.de/Development/ele_25_250_500",
+  'ele10' => "http://develop.freizeitkarte-osm.de/ele_10_100_200",
+  'ele20' => "http://develop.freizeitkarte-osm.de/ele_20_100_500",
+  'ele25' => "http://develop.freizeitkarte-osm.de/ele_25_250_500",
   );
   
 # Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
 my @boundariesurl = (
-  'http://download.freizeitkarte-osm.de/Development/boundaries/bounds.zip',
+  'http://develop.freizeitkarte-osm.de/boundaries/bounds.zip',
   'http://osm2.pleiades.uni-wuppertal.de/bounds/latest/bounds.zip',
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=1', 
   );
 my @seaboundariesurl = (
-  'http://download.freizeitkarte-osm.de/Development/boundaries/sea.zip',
+  'http://develop.freizeitkarte-osm.de/boundaries/sea.zip',
   'http://osm2.pleiades.uni-wuppertal.de/sea/latest/sea.zip',
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
   );
