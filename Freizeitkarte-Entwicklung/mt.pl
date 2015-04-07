@@ -15,6 +15,7 @@ use English '-no_match_vars';
 
 use Cwd;
 use File::Copy;
+use File::Copy "cp";
 use File::Find;
 use File::Path;
 use File::Basename;
@@ -1821,7 +1822,7 @@ sub create_allreplacetyp_languages {
     chdir "$BASEPATH/tools/ReplaceTyp/";
     for my $file ( <*> ) {
       printf { *STDOUT } ( "Copying %s\n", $file );
-      copy ( $file, "$typfileworkdir/$typfilelangcode/ReplaceTyp" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+      cp ( $file, "$typfileworkdir/$typfilelangcode/ReplaceTyp" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
     }
     # TYP files
     chdir "$typfileworkdir/$typfilelangcode/";
