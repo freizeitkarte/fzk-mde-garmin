@@ -315,6 +315,20 @@ String=0x15,Budynek
 String=0x19,Здание
 [end]
 
+; Picnic Area <=> Rastplatz (Picknick)
+[_polygon]
+Type=0x14
+String=0x00,Picnic Area
+String=0x01,Aire de picnic
+String=0x02,Rastplatz (Picknick)
+String=0x03,Picknickplaats
+String=0x04,Picnic Area
+String=0x05,Area Picnic
+String=0x10,Local de piquenique
+String=0x15,Miejscie piknikowe
+String=0x19,Место для пикника
+[end]
+
 ; Deciduous Forest <=> Laubwald
 [_polygon]
 Type=0x15

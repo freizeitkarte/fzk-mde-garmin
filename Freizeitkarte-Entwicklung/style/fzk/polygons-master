@@ -133,11 +133,11 @@
 # 0x0d  Naturreservat (8)              Reservation (beige) [Schrift klein]
 # 0x0e  -                              Airport Runway (anthrazit) [Schrift klein]
 # 0x0f  Spielplatz (7)                 -
-# 0x10  Camping (7)                    -
+# 0x10  Camping (4)                    -
 # 0x11  Attraktion (8)                 -
 # 0x12  Steinbruch (4)                 -
 # 0x13  Gebäude (9)                    Man made area (weiss) [Schrift klein]
-# 0x14  -                              National park (grün) [Schrift klein]
+# 0x14  Picnic (7)                     -                                    
 # 0x15  Laubwald (5)                   National park (grün) [Schrift klein]
 # 0x16  Fels (6)                       National park (grün) [Schrift klein]
 # 0x17  Wiese (6)                      City Park (grün) [Schrift klein]
@@ -829,7 +829,7 @@ tourism = caravan_site [0x10 resolution 20]
 # tourism = museum (wird derzeit nicht unterstützt)
 
 # Rastplatz (Picknick). [point, closedway]
-tourism = picnic_site [0x10 resolution 20]
+tourism = picnic_site [0x14 resolution 20]
 
 # Freizeitpark, Themenpark. [point, closedway]
 # Diese Feature wird als nicht sinnvoll angesehen.
