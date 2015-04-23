@@ -6227,6 +6227,34 @@ CustomColor=No
 [end]
 
 
+[_line]
+Type=0x12114
+UseOrientation=Y
+LineWidth=1
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #BD9500"
+"2 c #BABABA"
+String1=0x00,Track/Dirt Road (1) Narrow
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
+
+
+[_line]
+Type=0x12115
+UseOrientation=Y
+LineWidth=2
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #BD9500"
+"2 c #BABABA"
+String1=0x00,Track/Dirt Road (1)
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+[end]
 
 
 ;====================== POINTS ==========================

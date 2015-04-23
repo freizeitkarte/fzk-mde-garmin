@@ -4183,6 +4183,35 @@ String=0x19,Железная дорога (служба)
 [end]
 
 
+; Track/Dirt Road 1 <=> Feld- / Waldweg 1 schmal
+[_line]
+Type=0x12114
+String=0x00,Track/Dirt Road 1
+String=0x01,Chemin/Piste 1
+String=0x02,Feld-/Waldweg 1
+String=0x03,Onverharde bosweg 1
+String=0x04,Track/Dirt Road 1
+String=0x05,Strada non asfaltata 1
+String=0x10,Trilha 1
+String=0x15,Polna droga 1
+String=0x19,Грунтовая дорога 1
+[end]
+
+
+; Track/Dirt Road 1 <=> Feld-/Waldweg 1 breit
+[_line]
+Type=0x12115
+String=0x00,Track/Dirt Road 1
+String=0x01,Chemin/Piste 1
+String=0x02,Feld-/Waldweg 1
+String=0x03,Onverharde bosweg 1
+String=0x04,Track/Dirt Road 1
+String=0x05,Strada non asfaltata 1
+String=0x10,Trilha 1
+String=0x15,Polna droga 1
+String=0x19,Грунтовая дорога 1
+[end]
+
 [_line]
 Type=0x12201
 String=0x00,Hiking Trail T1

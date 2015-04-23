@@ -1353,10 +1353,10 @@ highway = feldweg1 & auto = no [0x010e09 resolution 24 continue]
 highway = feldweg1 & auto = no [0x010e07 resolution 23-23]
 
 # Allgemein oeffentlich
-# 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
-# 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
-highway = feldweg1 [0x010f18 resolution 24 continue]
-highway = feldweg1 [0x010106 resolution 23-23]
+# 0x012115 = 2/1 (mittel, NoLabel) (like feldweg1 but with casing)
+# 0x012114 = 1/1 (schmal, NoLabel) (like feldweg1 but with casing, narrow)
+highway = feldweg1 [0x012115 resolution 24 continue]
+highway = feldweg1 [0x012114 resolution 23-23]
 
 
 # Feld- / Waldweg der Gueteklassen 0,2,3:
@@ -1374,17 +1374,24 @@ highway = feldweg023 & man_made = dyke  [0x011f05 resolution 24 continue]
 highway = feldweg023 & keinrouting = yes [0x010e15 resolution 24 continue]
 highway = feldweg023 & keinrouting = yes [0x010e16 resolution 23-23]
 
-# Nicht fuer Autos freigegeben
+# Nicht fuer Autos freigegeben oder öffentlich
 # 0x010e18 = Bitmap 2 (breit, NoLabel)
 # 0x010e08 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = feldweg023 & auto = no [0x010e18 resolution 24 continue]
-highway = feldweg023 & auto = no [0x010e08 resolution 23-23]
+highway = feldweg023 [0x010e18 resolution 24 continue]
+highway = feldweg023 [0x010e08 resolution 23-23]
 
-# Allgemein oeffentlich
-# 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
-# 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
-highway = feldweg023 [0x010f18 resolution 24 continue]
-highway = feldweg023 [0x010106 resolution 23-23]
+# Replaced with above, no distinction for auto=yes or auto=no
+## Nicht fuer Autos freigegeben
+## 0x010e18 = Bitmap 2 (breit, NoLabel)
+## 0x010e08 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
+#highway = feldweg023 & auto = no [0x010e18 resolution 24 continue]
+#highway = feldweg023 & auto = no [0x010e08 resolution 23-23]
+#
+## Allgemein oeffentlich
+## 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
+## 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
+#highway = feldweg023 [0x010f18 resolution 24 continue]
+#highway = feldweg023 [0x010106 resolution 23-23]
 
 
 # Feld- / Waldweg der Gueteklassen 4,5:
@@ -1403,18 +1410,26 @@ highway = feldweg45 & keinrouting = yes [0x010e17 resolution 24 continue]
 highway = feldweg45 & keinrouting = yes [0x010e1e resolution 23-23]
 
 
-# Nicht fuer Autos freigegeben
+# Nicht fuer Autos freigegeben oder öffentlich
 # 0x010109 = Bitmap 2 (breit, NoLabel)
 # 0x01011d = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = feldweg45 & auto = no [0x010109 resolution 24 continue]
-highway = feldweg45 & auto = no [0x01011d resolution 23-23]
+highway = feldweg45 [0x010109 resolution 24 continue]
+highway = feldweg45 [0x01011d resolution 23-23]
 
 
-# Allgemein oeffentlich
-# 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
-# 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
-highway = feldweg45 [0x010f18 resolution 24 continue]
-highway = feldweg45 [0x010106 resolution 23-23]
+# Replaced with above, no distinction for auto=yes or auto=no
+## Nicht fuer Autos freigegeben
+## 0x010109 = Bitmap 2 (breit, NoLabel)
+## 0x01011d = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
+#highway = feldweg45 & auto = no [0x010109 resolution 24 continue]
+#highway = feldweg45 & auto = no [0x01011d resolution 23-23]
+#
+#
+## Allgemein oeffentlich
+## 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
+## 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
+#highway = feldweg45 [0x010f18 resolution 24 continue]
+#highway = feldweg45 [0x010106 resolution 23-23]
 
 
 # Strasse unbekannter Klassifikation:
