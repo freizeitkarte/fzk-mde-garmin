@@ -4113,7 +4113,7 @@ sub bootstrap_environment {
 	# Set the commands depending on the OS we're running on
 	if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
        # OS X, Linux, FreeBSD, OpenBSD
-       $command = "unzip -j $bootstrapdir/$directory.zip -d $BASEPATH/$directory";
+       $command = "unzip -j -q $bootstrapdir/$directory.zip -d $BASEPATH/$directory";
     }
     elsif ( $OSNAME eq 'MSWin32' ) {
        # Windows
