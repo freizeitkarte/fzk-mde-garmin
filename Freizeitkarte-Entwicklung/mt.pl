@@ -228,7 +228,9 @@ my @maps = (
   [ 6032, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'no_old_name',                             3, 'NA'             ],
   [ 6392, 'Freizeitkarte_JPN',                    'http://download.geofabrik.de/asia/japan-latest.osm.pbf',                                            'JPN',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6408, 'Freizeitkarte_KOR',                    'http://download.geofabrik.de/asia/south-korea-latest.osm.pbf',                                      'KOR',                      'en', 'no_old_name',                             3, 'NA'             ],
-  [ 6524, 'Freizeitkarte_NPL',                    'http://download.geofabrik.de/asia/nepal-latest.osm.pbf',                                            'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
+  # updates mehrmals täglich
+  [ 6524, 'Freizeitkarte_NPL',                    'http://labs.geofabrik.de/nepal/latest.osm.pbf',                                                     'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
+#  [ 6524, 'Freizeitkarte_NPL',                    'http://download.geofabrik.de/asia/nepal-latest.osm.pbf',                                            'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
 #  [ 6124, 'Freizeitkarte_CAN',                    'http://download.geofabrik.de/north-america/canada-latest.osm.pbf',                                  'CAN',                      'en', 'no_old_name',                             3, 'NA'             ],
 
   # Andere Regionen
