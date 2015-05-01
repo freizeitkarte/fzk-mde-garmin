@@ -440,13 +440,16 @@ landuse = farmyard [0x49 resolution 20]
 # Zur Unterscheidung der Baumarten kann zusätzlich das tag wood=coniferous/deciduous/mixed
 # für Nadel-, Laub- oder Mischwald gesetzt werden.
 # Laubwald
-landuse = forest & wood = deciduous [0x15 resolution 17]
+landuse = forest | natural = wood  & ( wood = deciduous | leaf_type = broadleaved ) [0x15 resolution 17]
+natural = wood  & ( wood = deciduous | leaf_type = broadleaved ) [0x15 resolution 17]
 # Nadelwald
-landuse = forest & wood = coniferous [0x50 resolution 17]
+landuse = forest & ( wood = coniferous | leaf_type = needleleaved ) [0x50 resolution 17]
+natural = wood & ( wood = coniferous | leaf_type = needleleaved ) [0x50 resolution 17]
 # Mischwald
-landuse = forest & wood = mixed [0x52 resolution 17]
+landuse = forest & ( wood = mixed | leaf_type = mixed) [0x52 resolution 17]
+natural = wood & ( wood = mixed | leaf_type = mixed) [0x52 resolution 17]
 # keine Angabe = Mischwald
-landuse = forest [0x52 resolution 17]
+landuse = forest | natural = wood [0x52 resolution 17]
 
 # Garagen auf größerer Fläche, Garagenhof (nicht für Einzelgarage) (s.a. amenity=parking). [closedway]
 landuse = garages [0x05 resolution 20]
@@ -573,7 +576,8 @@ natural = wetland {set name = ''} [0x51 resolution 20]
 
 # Naturwald oder vollkommen unbewirtschaftete Wälder. [point, closedway]
 # Wird als Mischwald behandelt.
-natural = wood [0x52 resolution 17]
+# (see landuse = forest)
+#natural = wood [0x52 resolution 17]
 
 # "Schwarzer Fleck" (für Qualitätssicherung).
 # natural = * {name '${name} - natural'} [0x53 resolution 20]
