@@ -440,7 +440,7 @@ landuse = farmyard [0x49 resolution 20]
 # Zur Unterscheidung der Baumarten kann zusätzlich das tag wood=coniferous/deciduous/mixed
 # für Nadel-, Laub- oder Mischwald gesetzt werden.
 # Laubwald
-landuse = forest | natural = wood  & ( wood = deciduous | leaf_type = broadleaved ) [0x15 resolution 17]
+landuse = forest & ( wood = deciduous | leaf_type = broadleaved ) [0x15 resolution 17]
 natural = wood  & ( wood = deciduous | leaf_type = broadleaved ) [0x15 resolution 17]
 # Nadelwald
 landuse = forest & ( wood = coniferous | leaf_type = needleleaved ) [0x50 resolution 17]
