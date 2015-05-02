@@ -26,6 +26,7 @@
 # Version : 0.15 -05.05.2014: Adapting finalize section to support new mkgmap version 2096 and newer
 # Version : 0.16 -02.09.2014: Fixing problem with ammenity=parking & (access=yes | access=public)
 #           0.17 -14.09.2014: Fixing a new bug introduced regarding restricted parking
+# Version : 0.18 -02.05.2015: Changes regarding amenity = place_of_worship and buildings
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #
@@ -405,7 +406,8 @@ tourism = alpine_hut                      {name "$__ALPINEHUT__"}          [0x48
 tourism = aquarium & name = * {name "${name} ($__AQUARIUM__)"} [0x2c07 resolution 24]
 
 # Sehenswürdigkeit. [point, closedway]
-tourism = attraction & name = * {name "${name} ($__ATTRACTION__)"} [0x6600 resolution 24]
+# (Excluding worship places here, that tag should be stronger than attraction)
+tourism = attraction & name = * & amenity != place_of_worship {name "${name} ($__ATTRACTION__)"} [0x6600 resolution 24]
 
 # Kunstwerk, Kunstobjekt. [point, closedway]
 tourism = artwork & name = * {name "${name} ($__ARTWORK__)"} [0x6600 resolution 24]

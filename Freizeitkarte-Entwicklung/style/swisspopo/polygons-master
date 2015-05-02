@@ -25,6 +25,7 @@
 # Version : 0.17 -31.10.2014: Fixing issues with different includes: clarify what is done by PPP and what is done by mkgmap
 # Version : 0.18 -13.02.2015: Handling natural=shingle same as natural=scree
 # Version : 0.19 -02.05.2015: Spliting up caravan and picnic site: for moving camping_site to drawOrder 4
+#                             Changes regarding amenity = place_of_worship and buildings
 
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
@@ -370,6 +371,9 @@ building = station [0x24 resolution 24]
 building = supermarket [0x35 resolution 24]
 
 # TODO - Flughafen-Terminal nacharbeiten.
+
+# Special handling of worship places
+building = * & building != no & amenity = place_of_worship [0x36 resolution 24]
 
 # Gebäude oder Bauwerk allgemein.
 # building = * [0x13 resolution 20]
@@ -796,7 +800,7 @@ amenity = kindergarten [0x0a resolution 20]
 amenity = parking [0x05 resolution 20]
 
 # Anbetungsort (Kirche, Synagoge, Moschee, …). [point, closedway]
-amenity  = place_of_worship [0x36 resolution 20]
+amenity = place_of_worship [0x36 resolution 20]
 
 # Schule. [point, closedway]
 amenity = school [0x0a resolution 20]

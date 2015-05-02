@@ -26,6 +26,7 @@
 # Version : 0.15 -05.05.2014: Adapting finalize section to support new mkgmap version 2096 and newer
 # Version : 0.16 -02.09.2014: Fixing problem with ammenity=parking & (access=yes | access=public)
 #           0.17 -14.09.2014: Fixing a new bug introduced regarding restricted parking
+# Version : 0.18 -02.05.2015: Changes regarding amenity = place_of_worship and buildings
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #
