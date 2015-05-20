@@ -99,6 +99,7 @@
 ;                           - adopted some other languages regarding capitalization and spaces
 ; Version: 0.17  01.03.2015 - implemented new model for alpine trails with SAC Scale
 ;                           - implemented service rails separately from normal rails
+; Version: 0.19 -02.05.2015 - Spliting up caravan and picnic site: for moving camping_site to drawOrder 4
 
 
 
@@ -313,6 +314,20 @@ String=0x05,Edificio
 String=0x10,Edifício
 String=0x15,Budynek
 String=0x19,Здание
+[end]
+
+; Picnic Area <=> Rastplatz (Picknick)
+[_polygon]
+Type=0x14
+String=0x00,Picnic Area
+String=0x01,Aire de picnic
+String=0x02,Rastplatz (Picknick)
+String=0x03,Picknickplaats
+String=0x04,Picnic Area
+String=0x05,Area Picnic
+String=0x10,Local de piquenique
+String=0x15,Miejscie piknikowe
+String=0x19,Место для пикника
 [end]
 
 ; Deciduous Forest <=> Laubwald
@@ -2408,14 +2423,14 @@ String=0x19,Грунтовая дорога (ограниченный досту
 ; Bridleway narrow <=> Rad- / Fußweg schmal
 [_line]
 Type=0x10e10
-String=0x00,Bridleway narrow
+String=0x00,Cycle-/Footway narrow
 String=0x01,Sentier étroit
-String=0x02,Radweg
-String=0x03,Ruiterpad nauw
-String=0x04,Bridleway narrow
-String=0x05,Mulattiera stretta
-String=0x10,Caminho estreito
-String=0x15,Droga dla koni
+String=0x02,Rad-/Fußweg
+String=0x03,Fietspad/Voetpad nauw
+String=0x04,Cycle-/Footway narrow
+String=0x05,Sentiero pedonale/ciclabile stretta
+String=0x10,Ciclovia/Pedestres estreito
+String=0x15,ścieżka rowerowa/chodnik 
 String=0x19,Вело-/пешеходная дорожка
 [end]
 
@@ -3404,14 +3419,14 @@ String=0x19,Пешеходная улица
 ; Bridleway <=> Rad- / Fußweg breit
 [_line]
 Type=0x11f1c
-String=0x00,Bridleway
+String=0x00,Cycle-/Footway
 String=0x01,Sentier
-String=0x02,Radweg
-String=0x03,Ruiterpad
-String=0x04,Bridleway
-String=0x05,Mulattiera
+String=0x02,Rad-/Fußweg
+String=0x03,Fietspad/Voetpad nauw
+String=0x04,Cycle-/Footway
+String=0x05,Sentiero pedonale/ciclabile
 String=0x10,Ciclovia/Pedestres
-String=0x15,Pasaż dla pieszych
+String=0x15,ścieżka rowerowa/chodnik
 String=0x19,Вело-/пешеходная дорожка
 [end]
 

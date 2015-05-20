@@ -15,6 +15,7 @@ use English '-no_match_vars';
 
 use Cwd;
 use File::Copy;
+use File::Copy "cp";
 use File::Find;
 use File::Path;
 use File::Basename;
@@ -100,19 +101,19 @@ my %langcodepage = (
 
 # Define the download base URLs for the Elevation Data
 my %elevationbaseurl = (
-  'ele10' => "http://download.freizeitkarte-osm.de/Development/ele_10_100_200",
-  'ele20' => "http://download.freizeitkarte-osm.de/Development/ele_20_100_500",
-  'ele25' => "http://download.freizeitkarte-osm.de/Development/ele_25_250_500",
+  'ele10' => "http://develop.freizeitkarte-osm.de/ele_10_100_200",
+  'ele20' => "http://develop.freizeitkarte-osm.de/ele_20_100_500",
+  'ele25' => "http://develop.freizeitkarte-osm.de/ele_25_250_500",
   );
   
 # Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
 my @boundariesurl = (
-  'http://download.freizeitkarte-osm.de/Development/boundaries/bounds.zip',
+  'http://develop.freizeitkarte-osm.de/boundaries/bounds.zip',
   'http://osm2.pleiades.uni-wuppertal.de/bounds/latest/bounds.zip',
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=1', 
   );
 my @seaboundariesurl = (
-  'http://download.freizeitkarte-osm.de/Development/boundaries/sea.zip',
+  'http://develop.freizeitkarte-osm.de/boundaries/sea.zip',
   'http://osm2.pleiades.uni-wuppertal.de/sea/latest/sea.zip',
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
   );
@@ -227,6 +228,9 @@ my @maps = (
   [ 6032, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'no_old_name',                             3, 'NA'             ],
   [ 6392, 'Freizeitkarte_JPN',                    'http://download.geofabrik.de/asia/japan-latest.osm.pbf',                                            'JPN',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6408, 'Freizeitkarte_KOR',                    'http://download.geofabrik.de/asia/south-korea-latest.osm.pbf',                                      'KOR',                      'en', 'no_old_name',                             3, 'NA'             ],
+  # updates mehrmals täglich
+  [ 6524, 'Freizeitkarte_NPL',                    'http://labs.geofabrik.de/nepal/latest.osm.pbf',                                                     'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
+#  [ 6524, 'Freizeitkarte_NPL',                    'http://download.geofabrik.de/asia/nepal-latest.osm.pbf',                                            'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
 #  [ 6124, 'Freizeitkarte_CAN',                    'http://download.geofabrik.de/north-america/canada-latest.osm.pbf',                                  'CAN',                      'en', 'no_old_name',                             3, 'NA'             ],
 
   # Andere Regionen
@@ -1821,7 +1825,7 @@ sub create_allreplacetyp_languages {
     chdir "$BASEPATH/tools/ReplaceTyp/";
     for my $file ( <*> ) {
       printf { *STDOUT } ( "Copying %s\n", $file );
-      copy ( $file, "$typfileworkdir/$typfilelangcode/ReplaceTyp" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+      cp ( $file, "$typfileworkdir/$typfilelangcode/ReplaceTyp" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
     }
     # TYP files
     chdir "$typfileworkdir/$typfilelangcode/";
@@ -4112,7 +4116,7 @@ sub bootstrap_environment {
 	# Set the commands depending on the OS we're running on
 	if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
        # OS X, Linux, FreeBSD, OpenBSD
-       $command = "unzip -j $bootstrapdir/$directory.zip -d $BASEPATH/$directory";
+       $command = "unzip -j -q $bootstrapdir/$directory.zip -d $BASEPATH/$directory";
     }
     elsif ( $OSNAME eq 'MSWin32' ) {
        # Windows

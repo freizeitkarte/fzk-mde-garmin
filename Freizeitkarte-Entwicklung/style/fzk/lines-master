@@ -54,6 +54,7 @@
 # Version : 0.28  29.01.2015 - Recategorisation of paths with sac_scale: before it was T1T2, T3T4 and T5T6, now it is T1, T2T3, T4T5T6
 #                            - Renaming T36ROUTING option to EXTENDEDROUTING
 # Version : 0.29  01.03.2015 - Showning some less important rails later with a different pattern style ( service = *, railway = disused, usage = industrial)
+#         : 0.30  01.05.2015 - Changes regarding highway = track and tracktype = grade*: don't show as unspecified road if cars allowed 
 
 
 
@@ -437,19 +438,19 @@ leisure = marina [0x01201e resolution 23 continue]
 # Setzen der road-class wenn maxspeed gegeben ist
 # Bevor die Auffahrten umdefiniert sind, um ihnen eine niedrigere class geben zu können
 # -----------------------------------------------------------------
-maxspeed = * & ( maxspeedkmh() > 120 | maxspeed = none ) & ( highway = motorway | highway = trunk ) 																										{ set mkgmap:road-speed-class = 7 }
-maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 100 & ( highway = motorway | highway = trunk ) 																		{ set mkgmap:road-speed-class = 6 }
-maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 80 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link ) 	{ set mkgmap:road-speed-class = 5 }
-maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 60 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary ) 																																																{ set mkgmap:road-speed-class = 4 }
-maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 40 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary | highway = primary_link ) 																																									   { set mkgmap:road-speed-class = 3 }
-maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 30 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary | highway = primary_link | highway = secondary_link | highway = tertiary_link | highway = residential  | highway = unclassified | highway = service ) 										   { set mkgmap:road-speed-class = 2 }
-maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 10 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary | highway = primary_link | highway = secondary_link | highway = tertiary_link | highway = residential  | highway = unclassified | highway = service ) 										   { set mkgmap:road-speed-class = 1 }
+maxspeed = * & ( maxspeedkmh() > 120 | maxspeed = none ) & ( highway = motorway | highway = trunk )                                                                                                                                                                                                                                                                              { set mkgmap:road-speed-class = 7 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 100 & ( highway = motorway | highway = trunk )                                                                                                                                                                                                                                                                     { set mkgmap:road-speed-class = 6 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 80 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link )                                                                                                                                                                                                { set mkgmap:road-speed-class = 5 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 60 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary )                                                                                                                                                     { set mkgmap:road-speed-class = 4 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 40 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary | highway = primary_link )                                                                                                                            { set mkgmap:road-speed-class = 3 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 30 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary | highway = primary_link | highway = secondary_link | highway = tertiary_link | highway = residential  | highway = unclassified | highway = service ) { set mkgmap:road-speed-class = 2 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 10 & ( highway = motorway | highway = trunk  | highway = primary | highway = motorway_link | highway = trunk_link | highway = secondary | highway = tertiary | highway = primary_link | highway = secondary_link | highway = tertiary_link | highway = residential  | highway = unclassified | highway = service ) { set mkgmap:road-speed-class = 1 }
 
-maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 80 																													{ set mkgmap:road-speed-class = 4 }
-maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 60 																													{ set mkgmap:road-speed-class = 3 }
-maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 40 																													{ set mkgmap:road-speed-class = 2 }
-maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 30 																													{ set mkgmap:road-speed-class = 1 }
-maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() < 11 																													{ set mkgmap:road-speed-class = 0 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 80            { set mkgmap:road-speed-class = 4 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 60            { set mkgmap:road-speed-class = 3 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 40            { set mkgmap:road-speed-class = 2 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 30            { set mkgmap:road-speed-class = 1 }
+maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() < 11            { set mkgmap:road-speed-class = 0 }
 
 
 
@@ -679,12 +680,12 @@ highway = * & motorcycle = * { delete motorcycle }
 
 
 # mkgmap:car, mkgmap:foot, mkgmap:bicycle setzen
-auto = yes 		{set mkgmap:car = yes; set keinrouting = no}
-fahrrad = yes 		{set mkgmap:bicycle = yes; set keinrouting = no}
-fuss = yes 		{set mkgmap:foot = yes; set keinrouting = no}
-auto = no 		{set mkgmap:car = no}
-fahrrad = no 		{set mkgmap:bicycle = no}
-fuss = no 		{set mkgmap:foot = no}
+auto = yes       {set mkgmap:car = yes; set keinrouting = no}
+fahrrad = yes    {set mkgmap:bicycle = yes; set keinrouting = no}
+fuss = yes       {set mkgmap:foot = yes; set keinrouting = no}
+auto = no        {set mkgmap:car = no}
+fahrrad = no     {set mkgmap:bicycle = no}
+fuss = no        {set mkgmap:foot = no}
 
 # Fuer die Indexsuche muessen Wege routbar sein, damit sie gefunden werden
 # auto = no  & fahrrad = no  & fuss = no & name = * {set  keinrouting = yes;  set access = no; set motorcar = no; set bicycle = no; set foot = no}
@@ -1099,9 +1100,9 @@ highway = living_street & (area != * | area = no) [0x010f04 resolution 21-22]
 # - highway = path,     foot = designated, bicycle = designated, segregated = yes
 # - highway = path,     foot = official,   bicycle = official,   segregated = yes
 
-highway = footway  & fahrrad = yes 	& fuss = yes          				{set highway = radfussweg}
-highway = path     & fahrrad = yes 	& fuss = yes & bfdesignated = yes 	{set highway = radfussweg}
-highway = cycleway & fahrrad = yes 	& fuss = yes               			{set highway = radfussweg}
+highway = footway  & fahrrad = yes & fuss = yes                       {set highway = radfussweg}
+highway = path     & fahrrad = yes & fuss = yes & bfdesignated = yes  {set highway = radfussweg}
+highway = cycleway & fahrrad = yes & fuss = yes                       {set highway = radfussweg}
 
 
 # Ausgeschilderter Fussweg (nur Fussgaenger erlaubt):
@@ -1110,7 +1111,7 @@ highway = cycleway & fahrrad = yes 	& fuss = yes               			{set highway =
 # - highway = footway, foot = designated
 
 highway = path    & fuss = yes & bfdesignated = yes {set highway = fussweg}
-highway = footway & fuss = yes                     	{set highway = fussweg}
+highway = footway & fuss = yes                      {set highway = fussweg}
 
 
 # Ausgeschilderter Radweg (nur Radfahrer erlaubt):
@@ -1346,17 +1347,24 @@ highway = feldweg1 & man_made = dyke [0x011f04 resolution 24 continue]
 highway = feldweg1 & keinrouting = yes [0x010e13 resolution 24 continue]
 highway = feldweg1 & keinrouting = yes [0x010e14 resolution 23-23]
 
-# Nicht fuer Autos freigegeben
+# Nicht fuer Autos freigegeben oder öffentlich
 # 0x010e09 = 3 (breit, NoLabel)
 # 0x010e07 = 2 (schmal, NoLabel)
-highway = feldweg1 & auto = no [0x010e09 resolution 24 continue]
-highway = feldweg1 & auto = no [0x010e07 resolution 23-23]
+highway = feldweg1  [0x010e09 resolution 24 continue]
+highway = feldweg1  [0x010e07 resolution 23-23]
 
-# Allgemein oeffentlich
-# 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
-# 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
-highway = feldweg1 [0x010f18 resolution 24 continue]
-highway = feldweg1 [0x010106 resolution 23-23]
+# Replaced with above, no distinction for auto=yes or auto=no
+## Nicht fuer Autos freigegeben
+## 0x010e09 = 3 (breit, NoLabel)
+## 0x010e07 = 2 (schmal, NoLabel)
+#highway = feldweg1 & auto = no [0x010e09 resolution 24 continue]
+#highway = feldweg1 & auto = no [0x010e07 resolution 23-23]
+#
+## Allgemein oeffentlich
+## 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
+## 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
+#highway = feldweg1 [0x010f18 resolution 24 continue]
+#highway = feldweg1 [0x010106 resolution 23-23]
 
 
 # Feld- / Waldweg der Gueteklassen 0,2,3:
@@ -1374,17 +1382,24 @@ highway = feldweg023 & man_made = dyke  [0x011f05 resolution 24 continue]
 highway = feldweg023 & keinrouting = yes [0x010e15 resolution 24 continue]
 highway = feldweg023 & keinrouting = yes [0x010e16 resolution 23-23]
 
-# Nicht fuer Autos freigegeben
+# Nicht fuer Autos freigegeben oder öffentlich
 # 0x010e18 = Bitmap 2 (breit, NoLabel)
 # 0x010e08 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = feldweg023 & auto = no [0x010e18 resolution 24 continue]
-highway = feldweg023 & auto = no [0x010e08 resolution 23-23]
+highway = feldweg023 [0x010e18 resolution 24 continue]
+highway = feldweg023 [0x010e08 resolution 23-23]
 
-# Allgemein oeffentlich
-# 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
-# 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
-highway = feldweg023 [0x010f18 resolution 24 continue]
-highway = feldweg023 [0x010106 resolution 23-23]
+# Replaced with above, no distinction for auto=yes or auto=no
+## Nicht fuer Autos freigegeben
+## 0x010e18 = Bitmap 2 (breit, NoLabel)
+## 0x010e08 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
+#highway = feldweg023 & auto = no [0x010e18 resolution 24 continue]
+#highway = feldweg023 & auto = no [0x010e08 resolution 23-23]
+#
+## Allgemein oeffentlich
+## 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
+## 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
+#highway = feldweg023 [0x010f18 resolution 24 continue]
+#highway = feldweg023 [0x010106 resolution 23-23]
 
 
 # Feld- / Waldweg der Gueteklassen 4,5:
@@ -1403,18 +1418,26 @@ highway = feldweg45 & keinrouting = yes [0x010e17 resolution 24 continue]
 highway = feldweg45 & keinrouting = yes [0x010e1e resolution 23-23]
 
 
-# Nicht fuer Autos freigegeben
+# Nicht fuer Autos freigegeben oder öffentlich
 # 0x010109 = Bitmap 2 (breit, NoLabel)
 # 0x01011d = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = feldweg45 & auto = no [0x010109 resolution 24 continue]
-highway = feldweg45 & auto = no [0x01011d resolution 23-23]
+highway = feldweg45 [0x010109 resolution 24 continue]
+highway = feldweg45 [0x01011d resolution 23-23]
 
 
-# Allgemein oeffentlich
-# 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
-# 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
-highway = feldweg45 [0x010f18 resolution 24 continue]
-highway = feldweg45 [0x010106 resolution 23-23]
+# Replaced with above, no distinction for auto=yes or auto=no
+## Nicht fuer Autos freigegeben
+## 0x010109 = Bitmap 2 (breit, NoLabel)
+## 0x01011d = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
+#highway = feldweg45 & auto = no [0x010109 resolution 24 continue]
+#highway = feldweg45 & auto = no [0x01011d resolution 23-23]
+#
+#
+## Allgemein oeffentlich
+## 0x010f18 = 2/1 (mittel, NoLabel) (wie highway=unclassified)
+## 0x010106 = 1/1 (schmal, NoLabel) (wie highway=unclassified)
+#highway = feldweg45 [0x010f18 resolution 24 continue]
+#highway = feldweg45 [0x010106 resolution 23-23]
 
 
 # Strasse unbekannter Klassifikation:
