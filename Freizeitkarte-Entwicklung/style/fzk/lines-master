@@ -834,9 +834,9 @@ highway = * & oneway = -1 & (cycleway = opposite | cycleway=opposite_lane | cycl
 # Typischerweise zwei Fahrspuren je Fahrtrichtung oder mehr und ein Standstreifen.
 
 # Bruecke / Tunnel / Deich
-highway = motorway & bridge = yes     [0x010409 resolution 24 continue]
-highway = motorway & tunnel = yes     [0x01040a resolution 24 continue]
-highway = motorway & man_made = dyke  [0x011f02 resolution 24 continue]
+highway = motorway & bridge = * & bridge != no   [0x010409 resolution 24 continue]
+highway = motorway & tunnel = yes                [0x01040a resolution 24 continue]
+highway = motorway & man_made = dyke             [0x011f02 resolution 24 continue]
 ### highway = motorway & embankment = yes [0x011f02 resolution 24 continue]
 
 # Allgemein oeffentlich
@@ -857,9 +857,9 @@ highway = motorway [0x010e0a resolution 14-19]
 # Autobahnaehnlich ausgebaute Strasse, aber keine Autobahn. Typischerweise unter zentraler Verwaltung.
 
 # Bruecke / Tunnel / Deich
-highway = trunk & bridge = yes     [0x01040b resolution 24 continue with_actions]
-highway = trunk & tunnel = yes     [0x01040c resolution 24 continue with_actions]
-highway = trunk & man_made = dyke  [0x011f03 resolution 24 continue with_actions]
+highway = trunk & bridge = * & bridge != no     [0x01040b resolution 24 continue with_actions]
+highway = trunk & tunnel = yes                  [0x01040c resolution 24 continue with_actions]
+highway = trunk & man_made = dyke               [0x011f03 resolution 24 continue with_actions]
 ### highway = trunk & embankment = yes [0x011f03 resolution 24 continue with_actions]
 
 # Allgemein oeffentlich
@@ -881,10 +881,10 @@ highway = trunk {set name = '${ref}' | ''}             [0x010e0b resolution 18-1
 # verbindet und dem ueberregionalem Verkehr dient. Ausserdem: Strassen mit uebergeordneter Verkehrsbedeutung.
 
 # Bruecke / Tunnel / Deich
-highway = primary & bridge = yes     [0x01040b resolution 24 continue with_actions]
-highway = primary & tunnel = yes     [0x01040c resolution 24 continue with_actions]
-highway = primary & man_made = dyke  [0x011f03 resolution 24 continue with_actions]
-### highway = primary & embankment = yes [0x011f03 resolution 24 continue with_actions]
+highway = primary & bridge = * & bridge != no  [0x01040b resolution 24 continue with_actions]
+highway = primary & tunnel = yes               [0x01040c resolution 24 continue with_actions]
+highway = primary & man_made = dyke            [0x011f03 resolution 24 continue with_actions]
+### highway = primary & embankment = yes       [0x011f03 resolution 24 continue with_actions]
 
 # Allgemein oeffentlich
 # 0x011f15 = 4/1 (breit, NoLabel)
@@ -903,9 +903,9 @@ highway = primary {set name = '${ref}' | ''}             [0x010f0f resolution 20
 # Diese Strassen dienen dem zwischenregionalem Verkehr.
 
 # Bruecke / Tunnel / Deich
-highway = secondary & bridge = yes     [0x01040b resolution 24 continue with_actions]
-highway = secondary & tunnel = yes     [0x01040c resolution 24 continue with_actions]
-highway = secondary & man_made = dyke  [0x01040c resolution 24 continue with_actions]
+highway = secondary & bridge = * & bridge != no [0x01040b resolution 24 continue with_actions]
+highway = secondary & tunnel = yes              [0x01040c resolution 24 continue with_actions]
+highway = secondary & man_made = dyke           [0x01040c resolution 24 continue with_actions]
 ### highway = secondary & embankment = yes [0x01040c resolution 24 continue with_actions]
 
 # Allgemein oeffentlich
@@ -925,9 +925,9 @@ highway = secondary {set name = '${ref}' | ''} [0x010f11 resolution 20-21]
 # Wenig befahrene Vorfahrtstrasse, die kleinere Orte verbindet. Innerstaedtische Vorfahrtstrassen mit Durchfahrtscharakter.
 
 # Bruecke / Tunnel / Deich
-highway = tertiary & bridge = yes     [0x01040b resolution 24 continue with_actions]
-highway = tertiary & tunnel = yes     [0x01040c resolution 24 continue with_actions]
-highway = tertiary & man_made = dyke  [0x011f03 resolution 24 continue with_actions]
+highway = tertiary & bridge = * & bridge != no  [0x01040b resolution 24 continue with_actions]
+highway = tertiary & tunnel = yes               [0x01040c resolution 24 continue with_actions]
+highway = tertiary & man_made = dyke            [0x011f03 resolution 24 continue with_actions]
 ### highway = tertiary & embankment = yes [0x011f03 resolution 24 continue with_actions]
 
 # Allgemein oeffentlich
@@ -944,9 +944,9 @@ highway = tertiary {set name = '${ref}' | ''}             [0x010f13 resolution 2
 # Die Strasse gehoert keiner anderen Strassenklasse an.
 
 # Bruecke / Tunnel / Deich
-highway = residential & (area != * | area = no) & bridge = yes     [0x01040b resolution 24 continue]
-highway = residential & (area != * | area = no) & tunnel = yes     [0x01040c resolution 24 continue]
-highway = residential & (area != * | area = no) & man_made = dyke  [0x011f03 resolution 24 continue]
+highway = residential & (area != * | area = no) & bridge = * & bridge != no [0x01040b resolution 24 continue]
+highway = residential & (area != * | area = no) & tunnel = yes              [0x01040c resolution 24 continue]
+highway = residential & (area != * | area = no) & man_made = dyke           [0x011f03 resolution 24 continue]
 ### highway = residential & (area != * | area = no) & embankment = yes [0x011f03 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
@@ -980,9 +980,9 @@ highway = residential & (area != * | area = no) [0x010f15 resolution 21-22]
 # Z.B. Gemeindestrassen mit Verbindungscharakter, die zu schmal sind, um als Kreisstrasse zu gelten.
 
 # Bruecke / Tunnel / Deich
-highway = unclassified & (area != * | area = no) & bridge = yes     [0x01040b resolution 24 continue]
-highway = unclassified & (area != * | area = no) & tunnel = yes     [0x01040c resolution 24 continue]
-highway = unclassified & (area != * | area = no) & man_made = dyke  [0x011f03 resolution 24 continue]
+highway = unclassified & (area != * | area = no) & bridge = * & bridge != no  [0x01040b resolution 24 continue]
+highway = unclassified & (area != * | area = no) & tunnel = yes               [0x01040c resolution 24 continue]
+highway = unclassified & (area != * | area = no) & man_made = dyke            [0x011f03 resolution 24 continue]
 ### highway = unclassified & (area != * | area = no) & embankment = yes [0x011f03 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
@@ -1015,9 +1015,9 @@ highway = unclassified & (area != * | area = no) [0x010106 resolution 21-22]
 # Erschliessungsweg z.B. zu Sportanlagen, Straenden, Autobahnraststaetten oder allgemein zu Gebaeuden.
 
 # Bruecke / Tunnel / Deich
-highway = service & (area != * | area = no) & bridge = yes     [0x01040b resolution 24 continue]
-highway = service & (area != * | area = no) & tunnel = yes     [0x01040c resolution 24 continue]
-highway = service & (area != * | area = no) & man_made = dyke  [0x011f03 resolution 24 continue]
+highway = service & (area != * | area = no) & bridge = * & bridge != no  [0x01040b resolution 24 continue]
+highway = service & (area != * | area = no) & tunnel = yes               [0x01040c resolution 24 continue]
+highway = service & (area != * | area = no) & man_made = dyke            [0x011f03 resolution 24 continue]
 ### highway = service & (area != * | area = no) & embankment = yes [0x011f03 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
@@ -1051,9 +1051,9 @@ highway = service & (area != * | area = no) [0x010107 resolution 21-22]
 # bevorzugt behandelt werden und nur Schrittgeschwindigkeit erlaubt ist.
 
 # Bruecke / Tunnel / Deich
-highway = living_street & (area != * | area = no) & bridge = yes     [0x01040b resolution 24 continue]
-highway = living_street & (area != * | area = no) & tunnel = yes     [0x01040c resolution 24 continue]
-highway = living_street & (area != * | area = no) & man_made = dyke  [0x011f03 resolution 24 continue]
+highway = living_street & (area != * | area = no) & bridge = * & bridge != no  [0x01040b resolution 24 continue]
+highway = living_street & (area != * | area = no) & tunnel = yes               [0x01040c resolution 24 continue]
+highway = living_street & (area != * | area = no) & man_made = dyke            [0x011f03 resolution 24 continue]
 ### highway = living_street & (area != * | area = no) & embankment = yes [0x011f03 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
@@ -1132,9 +1132,9 @@ highway = path     & fahrrad = yes & bfdesignated = yes {set highway = radweg}
 highway = cycleway {set highway = radweg}
 
 # Bruecke / Tunnel / Deich
-highway = radweg & bridge = yes     [0x010407 resolution 24 continue]
-highway = radweg & tunnel = yes     [0x010408 resolution 24 continue]
-highway = radweg & man_made = dyke  [0x011f05 resolution 24 continue]
+highway = radweg & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+highway = radweg & tunnel = yes               [0x010408 resolution 24 continue]
+highway = radweg & man_made = dyke            [0x011f05 resolution 24 continue]
 ### highway = radweg & embankment = yes [0x011f05 resolution 24 continue]
 
 # Allgemein oeffentlich
@@ -1151,9 +1151,9 @@ highway = radweg [0x010f07 resolution 23-23]
 highway = footway {set highway = fussweg}
 
 # Bruecke / Tunnel / Deich
-highway = fussweg & bridge = yes     [0x010407 resolution 24 continue]
-highway = fussweg & tunnel = yes     [0x010408 resolution 24 continue]
-highway = fussweg & man_made = dyke  [0x011f05 resolution 24 continue]
+highway = fussweg & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+highway = fussweg & tunnel = yes               [0x010408 resolution 24 continue]
+highway = fussweg & man_made = dyke            [0x011f05 resolution 24 continue]
 ### highway = fussweg & embankment = yes [0x011f05 resolution 24 continue]
 
 # Allgemein oeffentlich
@@ -1167,9 +1167,9 @@ highway = fussweg [0x010e05 resolution 23-23]
 # -------------------------
 
 # Bruecke / Tunnel / Deich
-highway = radfussweg & bridge = yes     [0x010407 resolution 24 continue]
-highway = radfussweg & tunnel = yes     [0x010408 resolution 24 continue]
-highway = radfussweg & man_made = dyke  [0x011f05 resolution 24 continue]
+highway = radfussweg & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+highway = radfussweg & tunnel = yes               [0x010408 resolution 24 continue]
+highway = radfussweg & man_made = dyke            [0x011f05 resolution 24 continue]
 ### highway = radfussweg & embankment = yes [0x011f05 resolution 24 continue]
 
 # Allgemein oeffentlich
@@ -1187,9 +1187,9 @@ highway = path  & horse = designated {set highway = reitweg}
 highway = bridleway                  {set highway = reitweg}
 
 # Bruecke / Tunnel / Deich
-highway = reitweg & bridge = yes     [0x010407 resolution 24 continue]
-highway = reitweg & tunnel = yes     [0x010408 resolution 24 continue]
-highway = reitweg & man_made = dyke  [0x011f05 resolution 24 continue]
+highway = reitweg & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+highway = reitweg & tunnel = yes               [0x010408 resolution 24 continue]
+highway = reitweg & man_made = dyke            [0x011f05 resolution 24 continue]
 ### highway = reitweg & embankment = yes [0x011f05 resolution 24 continue]
 
 # Kein Routing
@@ -1201,9 +1201,9 @@ highway = reitweg [0x010e03 resolution 24]
 # --------------------------------
 
 # Bruecke / Tunnel / Deich
-highway = steps & bridge = yes     [0x010405 resolution 24 continue]
-highway = steps & tunnel = yes     [0x010406 resolution 24 continue]
-highway = steps & man_made = dyke  [0x011f04 resolution 24 continue]
+highway = steps & bridge = * & bridge != no  [0x010405 resolution 24 continue]
+highway = steps & tunnel = yes               [0x010406 resolution 24 continue]
+highway = steps & man_made = dyke            [0x011f04 resolution 24 continue]
 ### highway = steps & embankment = yes [0x011f04 resolution 24 continue]
 
 # Allgemein oeffentlich
@@ -1216,9 +1216,9 @@ highway = steps [0x011f11 resolution 24 continue]
 # Z.B. Fussgaengerstrasse, -zone, typisch fuer Einkaufspassagen.
 
 # Bruecke / Tunnel / Deich
-highway = pedestrian & (area != * | area = no) & bridge = yes     [0x01040b resolution 24 continue]
-highway = pedestrian & (area != * | area = no) & tunnel = yes     [0x01040c resolution 24 continue]
-highway = pedestrian & (area != * | area = no) & man_made = dyke  [0x011f03 resolution 24 continue]
+highway = pedestrian & (area != * | area = no) & bridge = * & bridge != no  [0x01040b resolution 24 continue]
+highway = pedestrian & (area != * | area = no) & tunnel = yes               [0x01040c resolution 24 continue]
+highway = pedestrian & (area != * | area = no) & man_made = dyke            [0x011f03 resolution 24 continue]
 ### highway = pedestrian & (area != * | area = no) & embankment = yes [0x011f03 resolution 24 continue]
 
 # Allgemein oeffentlich
@@ -1242,13 +1242,13 @@ highway = pedestrian & (area != * | area = no) [0x010f09 resolution 21-22]
 # Routing nur auf T1-T3 (aus Sicherheitsgruenden).
 
 # Bruecke / Tunnel / Deich
-#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & bridge = yes     [0x010407 resolution 24 continue]
-#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & tunnel = yes     [0x010408 resolution 24 continue]
-#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & man_made = dyke  [0x011f05 resolution 24 continue]
+#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & bridge = yes               [0x010407 resolution 24 continue]
+#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & tunnel = yes               [0x010408 resolution 24 continue]
+#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & man_made = dyke            [0x011f05 resolution 24 continue]
 ### (highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & embankment = yes [0x011f05 resolution 24 continue]
-(highway = sacscalet1 | highway = sacscalet2t3 | highway = sacscalet4t5t6) & bridge = yes     [0x010407 resolution 24 continue]
-(highway = sacscalet1 | highway = sacscalet2t3 | highway = sacscalet4t5t6) & tunnel = yes     [0x010408 resolution 24 continue]
-(highway = sacscalet1 | highway = sacscalet2t3 | highway = sacscalet4t5t6) & man_made = dyke  [0x011f05 resolution 24 continue]
+(highway = sacscalet1 | highway = sacscalet2t3 | highway = sacscalet4t5t6) & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+(highway = sacscalet1 | highway = sacscalet2t3 | highway = sacscalet4t5t6) & tunnel = yes               [0x010408 resolution 24 continue]
+(highway = sacscalet1 | highway = sacscalet2t3 | highway = sacscalet4t5t6) & man_made = dyke            [0x011f05 resolution 24 continue]
 
 # 0x010e0c = Bitmap 2 (breit, NoLabel)
 # 0x010e06 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
@@ -1282,9 +1282,9 @@ highway = sacscalet4t5t6 [0x011f0b resolution 23-23]
 # - fuer Fussgaenger, Radfahrer und Reiter
 
 # Bruecke / Tunnel / Deich
-highway = path & bridge = yes     [0x010407 resolution 24 continue]
-highway = path & tunnel = yes     [0x010408 resolution 24 continue]
-highway = path & man_made = dyke  [0x011f05 resolution 24 continue]
+highway = path & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+highway = path & tunnel = yes               [0x010408 resolution 24 continue]
+highway = path & man_made = dyke            [0x011f05 resolution 24 continue]
 ### highway = path & embankment = yes [0x011f05 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
@@ -1336,9 +1336,9 @@ highway = track {set highway = feldweg023}
 # ----------------------------------
 
 # Bruecke / Tunnel / Deich
-highway = feldweg1 & bridge = yes    [0x010405 resolution 24 continue]
-highway = feldweg1 & tunnel = yes    [0x010406 resolution 24 continue]
-highway = feldweg1 & man_made = dyke [0x011f04 resolution 24 continue]
+highway = feldweg1 & bridge = * & bridge != no  [0x010405 resolution 24 continue]
+highway = feldweg1 & tunnel = yes               [0x010406 resolution 24 continue]
+highway = feldweg1 & man_made = dyke            [0x011f04 resolution 24 continue]
 # highway = feldweg1 & enbankment = yes [0x011f04 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
@@ -1371,9 +1371,9 @@ highway = feldweg1  [0x010e07 resolution 23-23]
 # ---------------------------------------
 
 # Bruecke / Tunnel / Deich
-highway = feldweg023 & bridge = yes     [0x010407 resolution 24 continue]
-highway = feldweg023 & tunnel = yes     [0x010408 resolution 24 continue]
-highway = feldweg023 & man_made = dyke  [0x011f05 resolution 24 continue]
+highway = feldweg023 & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+highway = feldweg023 & tunnel = yes               [0x010408 resolution 24 continue]
+highway = feldweg023 & man_made = dyke            [0x011f05 resolution 24 continue]
 ### highway = feldweg023 & embankment = yes [0x011f05 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
@@ -1406,9 +1406,9 @@ highway = feldweg023 [0x010e08 resolution 23-23]
 # -------------------------------------
 
 # Bruecke / Tunnel / Deich
-highway = feldweg45 & bridge = yes     [0x010407 resolution 24 continue]
-highway = feldweg45 & tunnel = yes     [0x010408 resolution 24 continue]
-highway = feldweg45 & man_made = dyke  [0x011f05 resolution 24 continue]
+highway = feldweg45 & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+highway = feldweg45 & tunnel = yes               [0x010408 resolution 24 continue]
+highway = feldweg45 & man_made = dyke            [0x011f05 resolution 24 continue]
 ### highway = feldweg45 & embankment = yes [0x011f05 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
@@ -1446,9 +1446,9 @@ highway = feldweg45 [0x01011d resolution 23-23]
 # bis ihnen die richtigen Eigenschaften zugewiesen werden koennen.
 
 # Bruecken / Tunnel / Deich
-highway = road & bridge = yes     [0x010405 resolution 24 continue]
-highway = road & tunnel = yes     [0x010406 resolution 24 continue]
-highway = road & man_made = dyke  [0x011f04 resolution 24 continue]
+highway = road & bridge = * & bridge != no  [0x010405 resolution 24 continue]
+highway = road & tunnel = yes               [0x010406 resolution 24 continue]
+highway = road & man_made = dyke            [0x011f04 resolution 24 continue]
 ### highway = road & embankment = yes [0x011f04 resolution 24 continue]
 
 # Benutzung verboten, kein Routing
@@ -1727,10 +1727,10 @@ railway = funicular {set railway = rail}
 # 3. Das Gelaende wird fuer eine neue Nutzung umgebaut (taggen der neuen Nutzung).
 # Zwischen den einzelnen Phasen liegen durchaus mehrere Jahre.
 # 0x012102 = Bitmap 2 (NoLabel)
-railway = abandoned & bridge = yes     [0x010407 resolution 24 continue]
-railway = abandoned & tunnel = yes     [0x010408 resolution 24 continue]
+railway = abandoned & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+railway = abandoned & tunnel = yes               [0x010408 resolution 24 continue]
 ### railway = abandoned & embankment = yes [0x011f05 resolution 24 continue]
-railway = abandoned                    [0x012102 resolution 24]
+railway = abandoned                              [0x012102 resolution 24]
 
 # Der Bahnsteig verlaeuft parallel zu den Gleisen. [point, way, closedway]
 # 0x010e1d = 2 (NoLabel)
@@ -1740,60 +1740,60 @@ railway = platform & (area != * | area = no) [0x010e1d resolution 24]
 # Railway service
 # 0x012109 = Bitmap 2 (NoLabel)
 # 0x012113 = Bitmap 2 (NoLabel)
-railway = rail & service = * & bridge = yes     [0x010407 resolution 24 continue]
-railway = rail & service = * & tunnel = yes     [0x012109 resolution 23]
-railway = rail & service = *                    [0x012113 resolution 23]
+railway = rail & service = * & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+railway = rail & service = * & tunnel = yes               [0x012109 resolution 23]
+railway = rail & service = *                              [0x012113 resolution 23]
 
 # Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
 # 0x012109 = Bitmap 2 (NoLabel)
 # 0x012113 = Bitmap 2 (NoLabel)
-railway = disused & bridge = yes     [0x010407 resolution 24 continue]
-railway = disused & tunnel = yes     [0x012109 resolution 22]
-railway = disused                    [0x012113 resolution 22]
+railway = disused & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+railway = disused & tunnel = yes               [0x012109 resolution 22]
+railway = disused                              [0x012113 resolution 22]
 
 # Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
 # 0x012109 = Bitmap 2 (NoLabel)
 # 0x012103 = Bitmap 2 (NoLabel)
-railway = rail & bridge = yes     [0x010407 resolution 24 continue]
-railway = rail & tunnel = yes     [0x012109 resolution 22]
+railway = rail & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+railway = rail & tunnel = yes               [0x012109 resolution 22]
 ### railway = rail & embankment = yes [0x011f05 resolution 24 continue]
-railway = rail                    [0x012103 resolution 22]
+railway = rail                              [0x012103 resolution 22]
 
 
 # S-Bahn (wie Eisenbahn; kann auch teilweise unterirdisch verkehren).
 # 0x012108 = Bitmap 2 (Label, SmallFont)
 # 0x012106 = 2 (Label, SmallFont)
-railway = light_rail & bridge = yes     [0x010407 resolution 24 continue]
-railway = light_rail & tunnel = yes     [0x012108 resolution 22]
+railway = light_rail & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+railway = light_rail & tunnel = yes               [0x012108 resolution 22]
 ### railway = light_rail & embankment = yes [0x011f05 resolution 24 continue]
-railway = light_rail                    [0x012106 resolution 22]
+railway = light_rail                              [0x012106 resolution 22]
 
 # Monorail (wie Eisenbahn; kann auch teilweise unterirdisch verkehren).
 # 0x012108 = Bitmap 2 (Label, SmallFont)
 # 0x012106 = 2 (Label, SmallFont)
-railway = monorail & bridge = yes     [0x010407 resolution 24 continue]
-railway = monorail & tunnel = yes     [0x012108 resolution 22]
+railway = monorail & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+railway = monorail & tunnel = yes               [0x012108 resolution 22]
 ### railway = light_rail & embankment = yes [0x011f05 resolution 24 continue]
-railway = monorail                    [0x012106 resolution 22]
+railway = monorail                              [0x012106 resolution 22]
 
 # U-Bahn (Untergrundbahn; kann auch teilweise oberirdisch verkehren).
 # 0x012107 = Bitmap 2 (Label, SmallFont)
 # 0x01210a = 2 (Label, SmallFont)
-railway = subway & bridge = yes [0x010407 resolution 24 continue]
-railway = subway & tunnel = yes [0x012107 resolution 22]
+railway = subway & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+railway = subway & tunnel = yes               [0x012107 resolution 22]
 # oberirdisch
-railway = subway & tunnel = no      [0x01210a resolution 22]
+railway = subway & tunnel = no                [0x01210a resolution 22]
 ### railway = subway & embankment = yes [0x011f03 resolution 24 continue]
-railway = subway                    [0x01210a resolution 22]
+railway = subway                              [0x01210a resolution 22]
 
 # Strassenbahn.
 # Die Strassenbahnfuehrung verlaeuft mitunter innerhalb der Strasse (z.B. Koeln).
 # 0x14     = Bitmap 4 (Label, SmallFont)
 # 0x01210e = Bitmap 2 (Label, SmallFont)
-railway = tram & bridge = yes     [0x010405 resolution 24 continue]
-railway = tram & tunnel = yes     [0x01210e resolution 23]
+railway = tram & bridge = * & bridge != no  [0x010405 resolution 24 continue]
+railway = tram & tunnel = yes               [0x01210e resolution 23]
 ### railway = tram & embankment = yes [0x011f04 resolution 24 continue]
-railway = tram                    [0x14     resolution 23]
+railway = tram                              [0x14     resolution 23]
 
 
 # ------------------------------------------------------------
