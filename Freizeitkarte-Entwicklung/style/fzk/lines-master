@@ -55,6 +55,7 @@
 #                            - Renaming T36ROUTING option to EXTENDEDROUTING
 # Version : 0.29  01.03.2015 - Showning some less important rails later with a different pattern style ( service = *, railway = disused, usage = industrial)
 #         : 0.30  01.05.2015 - Changes regarding highway = track and tracktype = grade*: don't show as unspecified road if cars allowed 
+#           0.31  30.05.2015 - Changes regarding bridges on highways and railways (different types): bridge can have other values than only 'yes'
 
 
 
