@@ -171,7 +171,7 @@
 # 0x32  Meer (2)                       Sea (blau) [Schrift GROSS]
 # 0x33  Fußgängerzone (6)              -
 # 0x35  Supermarkt (9)                 -
-# 0x36  Andachtsstätte (7)             -
+# 0x36  Andachtsstätte (9)             -
 # 0x37  Spielfeld / Laufbahn (7)       -
 # 0x38  Terminal (7)                   -
 # 0x39  Anlegestelle (8)               -
@@ -184,7 +184,7 @@
 # 0x40  Alm / Bergwiese (4)            Lake (blau) [Schrift klein]
 # 0x41  Spielfeld (7)                  Lake (blau) [Schrift klein]
 # 0x42  Station (6)                    Lake (blau) [Schrift klein]
-# 0x43  Geröll (5)                     Lake (blau) [Schrift klein]
+# 0x43  Geröll (6)                     Lake (blau) [Schrift klein]
 # 0x44  Raststätte (5)                 Lake (blau) [Schrift klein]
 # 0x45  -                              Blue-Unknown (nicht sichtbar in BaseCamp) (KTO, 20.05.2011)
 # 0x46  Flussufer (7)                  River (blau) [Schrift klein]
