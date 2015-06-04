@@ -818,7 +818,7 @@ sub process_command {
   # The return value is the exit status of the program as returned by the wait call.
   # To get the actual exit value, shift right by eight (see below).
   if ( $systemReturncode != 0 ) {
-    printf { *STDERR } ( "Warning: system($command) failed: $?\n" );
+    print { *STDERR } ( "\nWarning: system($command) failed: $?\n" );
 
     if ( $systemReturncode == -1 ) {
       printf { *STDERR } ( "Failed to execute: $!\n" );
