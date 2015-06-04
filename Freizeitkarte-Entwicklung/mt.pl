@@ -1069,7 +1069,7 @@ sub fetch_osmdata {
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
     chdir "$BASEPATH/tools/wget/windows";
-    $command = "wget.exe --output-document=\"$filename\" \"$osmurl\"";
+    $command = "wget.exe -nv --output-document=\"$filename\" \"$osmurl\"";
   }
   else {
     die ( "\nError: Operating system $OSNAME not supported.\n" );
@@ -1127,7 +1127,7 @@ sub fetch_eledata {
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
     chdir "$BASEPATH/tools/wget/windows";
-    $command = "wget.exe --output-document=\"$filename\" \"$eleurl\"";
+    $command = "wget.exe -nv --output-document=\"$filename\" \"$eleurl\"";
   }
   else {
     die ( "\nError: Operating system $OSNAME not supported.\n" );
@@ -4008,7 +4008,7 @@ sub bootstrap_environment {
     }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
-      $command = "$BASEPATH/tools/wget/windows/wget.exe --output-document=\"bounds.zip\" \"$actualurl\"";
+      $command = "$BASEPATH/tools/wget/windows/wget.exe -nv --output-document=\"bounds.zip\" \"$actualurl\"";
     }
     else {
       printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
@@ -4047,7 +4047,7 @@ sub bootstrap_environment {
     }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
-      $command = "$BASEPATH/tools/wget/windows/wget.exe --output-document=\"sea.zip\" \"$actualurl\"";
+      $command = "$BASEPATH/tools/wget/windows/wget.exe -nv --output-document=\"sea.zip\" \"$actualurl\"";
     }
     else {
       printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
