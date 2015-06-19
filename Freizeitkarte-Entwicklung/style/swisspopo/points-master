@@ -27,6 +27,7 @@
 # Version : 0.16 -02.09.2014: Fixing problem with ammenity=parking & (access=yes | access=public)
 #           0.17 -14.09.2014: Fixing a new bug introduced regarding restricted parking
 # Version : 0.18 -02.05.2015: Changes regarding amenity = place_of_worship and buildings
+# Version : 0.19 -19.06.2015: Proper handling place_of_worship without names (to show name and symbol too)
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #
@@ -976,12 +977,16 @@ amenity = embassy & name = * {name "${name} ($__EMBASSY__)"} [0x3003 resolution 
 amenity = fire_station & name = * {name "${name} ($__FIRESTATION__)"} [0x3008 resolution 24]
 
 # Anbetungsort (Kirche, Moschee, Synagoge). [point, closedway]
-amenity = place_of_worship & religion = christian & name = * {name "${name} ($__CHRISTIAN__, $__PLACEOFWORSHIP__)"}   [0x2c0b resolution 24]
-amenity = place_of_worship & religion = muslim    & name = * {name "${name} ($__MUSLIM__, $__PLACEOFWORSHIP__)"}  [0x2c0d resolution 24]
-amenity = place_of_worship & religion = jewish    & name = * {name "${name} ($__JEWISH__, $__PLACEOFWORSHIP__)"} [0x2c0e resolution 24]
+amenity = place_of_worship & religion = christian & name = * {name "${name} ($__CHRISTIAN__, $__PLACEOFWORSHIP__)"} [0x2c0b resolution 24]
+amenity = place_of_worship & religion = christian            {name "$__CHRISTIAN__, $__PLACEOFWORSHIP__"}           [0x2c0b resolution 24]
+amenity = place_of_worship & religion = muslim    & name = * {name "${name} ($__MUSLIM__, $__PLACEOFWORSHIP__)"}    [0x2c0d resolution 24]
+amenity = place_of_worship & religion = muslim               {name "$__MUSLIM__, $__PLACEOFWORSHIP__"}              [0x2c0d resolution 24]
+amenity = place_of_worship & religion = jewish    & name = * {name "${name} ($__JEWISH__, $__PLACEOFWORSHIP__)"}    [0x2c0e resolution 24]
+amenity = place_of_worship & religion = jewish               {name "$__JEWISH__, $__PLACEOFWORSHIP__"}              [0x2c0e resolution 24]
 
 # Anbetungsort (allgemein). [point, closedway]
 amenity = place_of_worship & name = * {name "${name} ($__PLACEOFWORSHIP__)"} [0x6405 resolution 24]
+amenity = place_of_worship            {name "$__PLACEOFWORSHIP__"}           [0x6405 resolution 24]
 
 # Polizeistation. [point, closedway]
 amenity = police {name "${name} ($__POLICE__)" | "$__POLICE__"} [0x3001 resolution 24]
