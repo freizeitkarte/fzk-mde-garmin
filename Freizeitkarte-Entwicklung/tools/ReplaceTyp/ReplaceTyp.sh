@@ -32,7 +32,11 @@ imgfile=$1
 typfile=$2
 
 # Tool to change the type file including path
-gmt=./gmt
+if [ "$(uname)" == "Darwin" ]; then
+    gmt=./gmt_darwin
+else
+    gmt=./gmt
+fi
 
 # Check if we have a first parameter. We need this all the time as we
 # need to know which image we should operate on
