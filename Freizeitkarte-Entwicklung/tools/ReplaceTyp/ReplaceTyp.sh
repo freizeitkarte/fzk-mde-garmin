@@ -27,6 +27,10 @@
 #
 #====================================================================
 
+# Update 2015-10-13:
+# - support for OS Darwin
+# - make sure the script runs also with legacy shell, not only bash
+
 # Try to get parameters to be able to work non-interactive
 imgfile=$1
 typfile=$2
@@ -40,7 +44,7 @@ fi
 
 # Check if we have a first parameter. We need this all the time as we
 # need to know which image we should operate on
-if (( $# == 0 )); then
+if [ $# -eq 0 ]; then
 	echo "Please pass the imgfile you wish to change as argument:"
 	echo ""
 	echo "  $ ReplaceTyp.sh gmapsupp.img"
@@ -63,7 +67,7 @@ fi
 # Check if we got a second parameter, and if so, check if a file of
 # that name exists. Then we will not ask for a type file but just use
 # the one passed on.
-if (( $# == 2 )); then
+if [ $# -eq 2 ]; then
 	if [ -f $2 ]; then
 		echo Using passed type $typfile
 	else
