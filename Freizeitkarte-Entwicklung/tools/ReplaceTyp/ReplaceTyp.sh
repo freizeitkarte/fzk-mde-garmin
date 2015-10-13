@@ -36,7 +36,7 @@ imgfile=$1
 typfile=$2
 
 # Tool to change the type file including path
-if [ "$(uname)" == "Darwin" ]; then
+if [ "`uname`" == "Darwin" ]; then
     gmt=./gmt_darwin
 else
     gmt=./gmt
