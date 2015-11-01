@@ -19,7 +19,7 @@ The two most important features are:
 First
 -----
 You will need a lot of memory on your computer if you intend to split a large
-area. A few options allow to configure how much memory you need. With the default
+area. A few options allow configuring how much memory you need. With the default
 parameters, you need about 4-5 bytes for every node and way. This doesn't sound a
 lot but there are about 1700 million nodes in the whole planet file and so you
 cannot process the whole planet in one pass file on a 32 bit machine using this
@@ -83,6 +83,11 @@ faster to read, but requires more space on the disk.
 Options
 -------
 There are a number of options to fine tune things that you might want to try.
+
+--boundary-tags=use-exclude-list
+    A comma separated list of tag values for relations. Used to filter
+    multipolygon and boundary relations for problem-list processing. See also
+    option --wanted-admin-level. Default: use-exclude-list
 
 --cache=
     Deprecated, now does nothing.
@@ -215,6 +220,13 @@ There are a number of options to fine tune things that you might want to try.
 --stop-after
     Debugging: stop after a given program phase. Can be split, gen-problem-list,
     or handle-problem-list Default is dist which means execute all phases.
+
+--wanted-admin-level
+    Specifies the lowest admin_level value of boundary relations that should be
+    kept complete. Used to filter boundary relations for problem-list processing.
+    The default value 5 means that boundary relations are kept complete when the
+    admin_level is 5 or higher (5..11). The parameter is ignored if
+    --keep-complete=false. Default: 5
 
 --write-kml
     The name of a kml file to write out the areas to. This is in addition to
