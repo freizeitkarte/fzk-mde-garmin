@@ -38,7 +38,7 @@ File options
 
 --output-dir=filename
     The directory in which all output files are written. It defaults to the
-    current working directory, ie. the directory the command is executed from.
+    current working directory, i.e. the directory the command is executed from.
 
 -n name
 --mapname=name
@@ -49,7 +49,7 @@ File options
 
 --description=text
     Sets the descriptive text for the map. This may be displayed in QLandkarte,
-    MapSource on on a GPS etc, where it is normally shown below the family name.
+    MapSource or on a GPS, where it is normally shown below the family name.
     Example: --description="Germany, Denmark" Please note: if you use
     splitter.jar to build a template.args file and use -c template.args, then
     that file may contain a "description" that will override this option. Use
@@ -75,12 +75,16 @@ Label options
 --latin1
     This is equivalent to --code-page=1252.
 
+--unicode
+    This is equivalent to --code-page=65001. Note that only newer devices support
+    Unicode.
+
 --code-page=number
     This option enables the use of international characters. Only 8 bit character
     sets are supported and so you have to specify which code page you want to
     use.
 
-    It is entirely dependant on the device firmware which code pages are
+    It is entirely dependent on the device firmware which code pages are
     supported.
 
 --charset=name
@@ -114,22 +118,22 @@ Address search options
 
     The address fields are assigned by special mkgmap address tags using the
     style file:
-      mkgmap:country
-      mkgmap:region
-      mkgmap:city
-      mkgmap:postal_code
-      mkgmap:street
-      mkgmap:housenumber
-      mkgmap:phone
-      (mkgmap:is_in - used by location-autofill=is_in)
+     mkgmap:country
+     mkgmap:region
+     mkgmap:city
+     mkgmap:postal_code
+     mkgmap:street
+     mkgmap:housenumber
+     mkgmap:phone
+     (mkgmap:is_in - used by location-autofill=is_in)
 
     If the index is created from previously compiled .img files, then the same
-    code page and sorting options (eg. --code-page, --latin1 etc) must be used as
+    code page and sorting options (e.g. --code-page, --latin1) must be used as
     were used to compile the individual map tiles.
 
 --bounds=directory|zipfile
-    A directory or a zipfile containing the preprocessed bounds files. Bounds
-    files in a zipfile must be located in the zipfiles root directory.
+    A directory or a zip file containing the preprocessed bounds files. Bounds
+    files in a zip file must be located in the zip file's root directory.
 
     The preprocessed boundaries are used to add special tags to all elements
     (points, lines and polygons) containing the elements location information.
@@ -137,16 +141,16 @@ Address search options
     mkgmap:region etc. using these values.
 
     The following special tags are added:
-      mkgmap:admin_level2 : Name of the admin_level=2 boundary 
-      mkgmap:admin_level3 : Name of the admin_level=3 boundary
-      ..
-      mkgmap:admin_level11
-      mkgmap:postcode : the postal_code value
+     mkgmap:admin_level2 : Name of the admin_level=2 boundary 
+     mkgmap:admin_level3 : Name of the admin_level=3 boundary
+     ..
+     mkgmap:admin_level11
+     mkgmap:postcode : the postal_code value
 
     Preprocessed bounds can be created with the following command:
-      java -cp mkgmap.jar 
-        uk.me.parabola.mkgmap.reader.osm.boundary.BoundaryPreprocessor
-        <inputfile> <boundsdir>
+     java -cp mkgmap.jar 
+       uk.me.parabola.mkgmap.reader.osm.boundary.BoundaryPreprocessor
+       <inputfile> <boundsdir>
 
     The input file must contain the boundaries that should be preprocessed. It
     can have OSM, PBF or O5M fileformat. It is recommended that it contains the
@@ -171,14 +175,17 @@ Address search options
 --housenumbers
     Enables house number search for OSM input files.
 
-    All nodes and polygons having addr:housenumber and addr:street set are
-    matched to streets. A match between a house number element and a street is
-    created if the street is located within a radius of 150m and the addr:street
-    tag value of the house number element equals the mgkmap:street tag value of
-    the street. The mkgmap:street tag must be added to the street in the style
-    file.
+    All nodes and polygons having addr:housenumber set are matched to streets. A
+    match between a house number element and a street is created if the street is
+    located within a radius of 150m and the addr:street tag value of the house
+    number element equals the mgkmap:street tag value of the street or the
+    addr:street tag is missing and the number is plausible for the street. The
+    mkgmap:street tag must be added to the street in the style file. For optimal
+    results, the tags mkgmap:city and mkgmap:postal_code should be set for the
+    housenumber element. If a street connects two or more cities this allows to
+    find all addresses along the road, even they have the same number.
 
-    Example:
+    Example for given street name:
 
     Node - addr:street=Main Street addr:housenumber=2
 
@@ -190,8 +197,11 @@ Address search options
 
         Way 4 - name=Main Street [A504]
 
-    The node matches to way 2. It has mkgmap:street set with a value equal to the
-    addr:street tag value of the house number node.
+    The node 1 matches to Way 2. It has mkgmap:street set with a value equal to
+    the addr:street tag value of the house number node.
+
+    If the street is not given with addr:housenumber, mkgmap uses heuristics to
+    find the best match.
 
 Overview map options
 ~~~~~~~~~~~~~~~~~~~~
@@ -236,14 +246,14 @@ Style options
 --style=name
     Specify a style name. Must be used if --style-file points to a directory or
     zip file containing multiple styles. If --style-file is not used, it selects
-    one of the builtin styles.
+    one of the built-in styles.
 
 --list-styles
-    List the available styles. If this option is preceeded by a style-file option
+    List the available styles. If this option is preceded by a style-file option
     then it lists the styles available within that file.
 
 --check-styles
-    Perform some checks on the available styles. If this option is preceeded by a
+    Perform some checks on the available styles. If this option is preceded by a
     style-file option then it checks the styles available within that file. If it
     is also preceded by the style option it will only check that style.
 
@@ -255,7 +265,7 @@ Style options
 
 --name-tag-list
     Get the tag that will be used to supply the name. Useful for language
-    variations. You can supply a list and the first one will be used. eg.
+    variations. You can supply a list and the first one will be used. e.g.
     --name-tag-list=name:en,int_name,name
 
 --map-features=file
@@ -292,9 +302,14 @@ Product description options
 --copyright-message=note
     Specify a copyright message for files that do not contain one.
 
+--copyright-file=file
+    Specify copyright messages from a file. Note that the first copyright message
+    is not displayed on a device, but is shown in BaseCamp. The copyright file
+    must include at least two lines.
+
 --license-file=file
-    Specify a file which content will be added as license. All entrys of all maps
-    will be merged in the overview map.
+    Specify a file which content will be added as license. All entries of all
+    maps will be merged in the overview map.
 
 Optimization options
 ~~~~~~~~~~~~~~~~~~~~
@@ -307,7 +322,7 @@ Optimization options
     which should lead to invisible changes)
 
 --reduce-point-density-polygon=NUM
-    Allows to set the maximal allowed error distance for the DP algorythm to be
+    Allows to set the maximal allowed error distance for the DP algorithm to be
     applied against polygons. Recommended setting is 8.
 
 --merge-lines
@@ -352,12 +367,19 @@ Miscellaneous options
 --route
     Create maps that support routing.
 
+--drive-on=left|right|detect|detect,left|detect,right
+    Explicitly specify which side of the road vehicles are expected to drive on.
+    If the first option is detect, the program tries to find out the proper flag.
+    If that detection fails, the second value is used (or right if none is
+    given). With OSM data as input, the detection tries to find out the country
+    each road is in and compares the number of drive-on-left roads with the rest.
+    Use the --bounds option to make sure that the detection finds the correct
+    country.
+
 --drive-on-left
 --drive-on-right
-    Explicitly specify which side of the road vehicles are expected to drive on.
-    If neither of these options are specified, it is assumed that vehicles drive
-    on the right unless --check-roundabouts is specified and the first roundabout
-    processed is clockwise.
+    Deprecated: Use drive-on instead. The options are translated to
+    drive-on=left|right.
 
 --check-roundabouts
     Check that roundabouts have the expected direction (clockwise when vehicles
@@ -367,7 +389,7 @@ Miscellaneous options
 
 --check-roundabout-flares
     Sanity check roundabout flare roads - warn if they don't point in the correct
-    direction or if they are not oneway or if they extend too far.
+    direction or if they are not one-way or if they extend too far.
 
 --max-flare-length-ratio=NUM
     When checking flare roads, ignore roads whose length is greater than NUM (an
@@ -382,9 +404,10 @@ Miscellaneous options
     tags.
 
 --ignore-builtin-relations
-    When reading OSM files, skip the built-in processing of relations. This
-    speeds up the processing non-routable map layers that do not contain
-    multipolygons. This implies --ignore-turn-restrictions.
+    Now ignored, former usage: When reading OSM files, skip the built-in
+    processing of relations. This speeds up the processing non-routable map
+    layers that do not contain multipolygons. This implies
+    --ignore-turn-restrictions.
 
 --ignore-turn-restrictions
     When reading OSM files, ignore any "restriction" relations.
@@ -404,19 +427,26 @@ Miscellaneous options
     cause routing problems. If MinLength is specified (in metres), arcs shorter
     than that length will be removed. If a length is not specified, only
     zero-length arcs will be removed.
-     
+    
 
 --adjust-turn-headings[=BITMASK]
-    Where possible, ensure that turns off to side roads change heading
-    sufficiently so that the GPS believes that a turn is required rather than a
-    fork. This also avoids spurious instructions to "keep right/left" when the
-    road doesn't actually fork.
+    now ignored, former explanation: Where possible, ensure that turns off to
+    side roads change heading sufficiently so that the GPS believes that a turn
+    is required rather than a fork. This also avoids spurious instructions to
+    "keep right/left" when the road doesn't actually fork.
 
     Optional BITMASK (default value 3) allows you to specify which adjustments
     are to be made (where necessary):
 
     * 1 = increase angle between side road and outgoing main road
     * 2 = increase angle between side road and incoming main road
+
+--cycle-map
+    Tells mkgmap that the map is for cyclists. This assumes that different
+    vehicles are different kinds of bicycles, e.g. a way with mkgmap:car=yes and
+    mkgmap:bicycle=no may be a road that is good for racing bikes, but not for
+    other cyclists. This allows to optimise sharp angles at junctions of those
+    roads. Don't use with the default style as that is a general style!
 
 --report-similar-arcs
     Issue a warning when more than one arc connects two nodes and the ways that
@@ -428,13 +458,14 @@ Miscellaneous options
     if this option is not specified) determines those roads to report:
 
     * 0 = none
-    * 1 = multiple oneway roads that join together but go nowhere
-    * 2 = individual oneway roads that go nowhere.
+    * 1 = multiple one-way roads that join together but go nowhere
+    * 2 = individual one-way roads that go nowhere.
 
 --road-name-pois[=GarminCode]
-    Generate a POI for each named road. By default, the POIs' Garmin type code is
-    0x640a. If desired, a different type code can be specified with this option.
-    This s a workaround for not being able to search for roads.
+    Now ignored, former meaning: Generate a POI for each named road. By default,
+    the POIs' Garmin type code is 0x640a. If desired, a different type code can
+    be specified with this option. This s a workaround for not being able to
+    search for roads.
 
     0x2f15: a blue dot in the middle of the road, and if you select, or 'hover'
     over it, the streetname appears.
@@ -463,32 +494,32 @@ Miscellaneous options
 
         * the first node tagged with a tag defined by the pois-to-areas-placement
           option
-        * the center point
+        * the centre point
           *
     multipolygons:
         First rule that applies:
 
         * the node with role=label
-        * the center point of the biggest area
+        * the centre point of the biggest area
           *
 --pois-to-areas-placement[=taglist]
     A semicolon separated list of tag=value definitions. A POI is placed at the
     first node of the polygon tagged with the first tag/value pair. If none of
     the nodes are tagged with the first tag-value pair the first node tagged with
     the second tag-value pair is used and so on. If none of the tag-value pairs
-    matches or the taglist is empty the center of the polygon is used. It is
+    matches or the taglist is empty the centre of the polygon is used. It is
     possible to define wildcards for tag values like entrance=*.
 
     Default: entrance=main;entrance=yes;building=entrance
 
 --precomp-sea=directory|zipfile
     Defines the directory or a zip file that contains precompiled sea tiles. Sea
-    files in a zipfile must be located in the zipfiles root directory or in a sub
-    directory sea. When this option is defined all natural=coastline tags from
-    the input OSM tiles are removed and the precompiled data is used instead.
-    This option can be combined with the generate-sea options multipolygon,
-    polygons and land-tag. The coastlinefile option is ignored if precomp-sea is
-    set.
+    files in a zip file must be located in the zip files root directory or in a
+    sub directory sea. When this option is defined all natural=coastline tags
+    from the input OSM tiles are removed and the precompiled data is used
+    instead. This option can be combined with the generate-sea options
+    multipolygon, polygons and land-tag. The coastlinefile option is ignored if
+    precomp-sea is set.
 
 --coastlinefile=filename[,filename]
     Defines a comma separated list of files that contain coastline data. The
@@ -555,18 +586,22 @@ Miscellaneous options
     System (NSIS) to create a Windows Mapsource Installer.
 
 --make-all-cycleways
-    Turn on all of the options that make cycleways.
+    Deprecated, use --make-opposite-cycleways instead. Former meaning:
+       Turn on all of the options that make cycleways.
 
 --make-opposite-cycleways
-    Some oneway streets allow bicycle traffic in the reverse direction and this
+    Some one-way streets allow bicycle traffic in the reverse direction and this
     option makes a way with the same points as the original that allows bicycle
     traffic (in both directions).
 
 --make-cycleways
-    Some streets have a separate cycleway track/lane just for bicycle traffic and
-    this option makes a way with the same points as the original that allows
-    bicycle traffic. Also, bicycle traffic is prohibited from using the original
-    way (unless that way's bicycle access has been defined).
+    Now ignored, former meaning:
+       Some streets have a separate cycleway track/lane just for
+
+    bicycle traffic and this option makes a way with the same points as the
+    original that allows bicycle traffic. Also, bicycle traffic is prohibited
+    from using the original way (unless that way's bicycle access has been
+    defined).
 
 --link-pois-to-ways
     This option may copy some specific attributes of a POI to a small part of the
@@ -583,26 +618,28 @@ Miscellaneous options
     ignored for pedestrian-only ways.
 
 --process-destination
-    Splits all motorway_link and trunk_link ways tagged with destination into two
-    or three parts where the second part is additionally tagged with
-    mkgmap:dest_hint=true. This allows to use any routable Garmin type (except
-    0x08 and 0x09) for that part so that the Garmin device tells the name of this
-    part as hint which destination to follow.
+    Splits all motorway_link, trunk_link, and primary_link ways tagged with
+    destination into two or three parts where the second part is additionally
+    tagged with mkgmap:dest_hint=true. This allows using any routable Garmin type
+    (except 0x08 and 0x09) for that part so that the Garmin device tells the name
+    of this part as hint which destination to follow. See also --process-exits.
 
 --process-exits
     Usual Garmin devices do not tell the name of the exit on motorways while
-    routing with mkgmap created maps. This option splits the each motorway_link
-    and trunk_link into three parts. All parts are tagged with the original tags
-    of the link. Additionally the middle part is tagged with the following tags:
-      mkgmap:exit_hint=true
-      mkgmap:exit_hint_ref=<ref tag value of the exit>
-      mkgmap:exit_hint_name=<name tag value of the exit>
-      mkgmap:exit_hint_exit_to=<exit_to tag value of the exit>
+    routing with mkgmap created maps. This option splits each motorway_link,
+    trunk_link and primary_link way into three parts. All parts are tagged with
+    the original tags of the link. Additionally the middle part is tagged with
+    the following tags:
+     mkgmap:exit_hint=true
+     mkgmap:exit_hint_ref=<ref tag value of the exit>
+     mkgmap:exit_hint_name=<name tag value of the exit>
+     mkgmap:exit_hint_exit_to=<exit_to tag value of the exit>
 
     Adding a rule checking the mkgmap:exit_hint=true makes it possible to use any
     routable Garmin type (except 0x08 and 0x09) for the middle part so that the
     Garmin device tells the name of this middle part as hint where to leave the
-    motorway/trunk.
+    motorway/trunk. The first part must have type 0x08 or 0x09 so that Garmin
+    uses the hint.
 
 --delete-tags-file=FILENAME
     Names a file that should contain one or more lines of the form TAG=VALUE or

@@ -8,6 +8,8 @@
 # and http://wiki.openstreetmap.org/wiki/Mkgmap/help/Custom_styles
 # for more information.
 
+addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
+
 leisure=* & sport=* & name=* { set name='${name} (${sport})' }
 leisure=* & sport=* & name!=* { add name='${sport}' }
 
@@ -28,7 +30,7 @@ amenity=school [0x0a resolution 22]
 amenity=supermarket [0x08 resolution 22]
 amenity=university [0x0a resolution 21]
 
-healthcare=hospital | amenity=hospital [0x0b resolution 22]
+healthcare=hospital | amenity=hospital | amenity=clinic [0x0b resolution 22]
 healthcare=* | amenity=dentist | amenity=doctors | amenity=nursing_home
 [0x0b resolution 23]
 
@@ -61,14 +63,16 @@ historic=museum | historic=memorial [0x1e resolution 21]
 historic=archaeological_site | historic=ruins [0x1e resolution 21]
 
 # building tag should be last
-(building=* | amenity=*) & area!=no [0x13 resolution 24]
-tourism=* & area!=no & waterway!=* [0x13 resolution 24]
+(building=* | amenity=*) & area!=no & amenity!=grave_yard [0x13 resolution 24]
+tourism=* & area!=no & waterway!=* [0x1f resolution 24]
 # man_made can be used on areas or lines
 man_made=* & area!=no
 & (man_made!=door & man_made!=embankment & man_made!=breakwater
    & man_made!=cable_line & man_made!=cutline & man_made!=cutting
-   & man_made!=levee & man_made!=trench)
+   & man_made!=levee & man_made!=trench
+   & man_made!=groyne & man_made!=reinforced_slope)
 [0x13 resolution 24]
+
 man_made=* & area=yes
 [0x13 resolution 24]
 
@@ -77,5 +81,8 @@ include 'inc/landuse_polygons';
 
 <finalize>
 # The finalizer section is executed for each element when a rule with an element type matches
+
+# we need addrees info from buildings for the address search
+include 'inc/address';
 
 name=* { name '${name}' }

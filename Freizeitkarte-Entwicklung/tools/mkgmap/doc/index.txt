@@ -7,7 +7,7 @@ also available using the command:
 --
 [1] /doc/options
 
- mkgmap --help=options
+mkgmap --help=options
 Style Manual[2] [pdf] This is the complete documentation of the style rules that
 determine how the OSM taged features are converted into the Garmin features.
 --
