@@ -18,75 +18,171 @@ CodePage=1252
 
 ;=========== POLYGONES : PRIORITE DANS L'AFFICHAGE ======
 [_drawOrder]
+; DrawOrder 1
+; -----------
+; Background
 Type=0x04b,1
+
+; DrawOrder 2;
+; -----------
+; sea
 Type=0x032,2
+
+; DrawOrder 3
+; -----------
+; land
 Type=0x03a,3
+
+; DrawOrder 4:
+; -----------
+; residential
 Type=0x002,4
+; retail
 Type=0x008,4
+; college, school, kindergarden
 Type=0x00a,4
+; hospital
 Type=0x00b,4
+; harbour, industrial, railway
 Type=0x00c,4
+; camp_site, caravan_site
 Type=0x010,4
+; quarry (Steinbruch)
 Type=0x012,4
+; golf_course, miniatur_golf
 Type=0x018,4
+; park, dog_park, recreation_ground
 Type=0x01e,4
+; allotments (Schrebergärten)
 Type=0x023,4
+; railway station
 Type=0x024,4
+; commercial (Business Parks)
 Type=0x026,4
+; fell (Bergwiese)
 Type=0x040,4
+
+; DrawOrder 5
+; -----------
+; forest (broadleaved) 
 Type=0x015,5
+; vineyard
 Type=0x01b,5
+; landfill (Deponie, Aufschüttung)
 Type=0x02a,5
+; heath (Heide)
 Type=0x02b,5
+; mud
 Type=0x02f,5
+; Raststätte (unused ?)
 Type=0x044,5
+; farmyard (Gehöft)
 Type=0x049,5
+; forest (coniferous)
 Type=0x050,5
+; forest (mixed)
 Type=0x052,5
+
+; DrawOrder 6
+; -----------
+; rock 
 Type=0x016,6
+; grass, meadow, gardens
 Type=0x017,6
+; sports_centre
 Type=0x019,6
+; zoo
 Type=0x022,6
+; powerstations (different sizes)
 Type=0x025,6
+; brownfield, constructions, greenfields
 Type=0x027,6
+; aerodrom, helipad, airfield
 Type=0x02d,6
+; beach
 Type=0x02e,6
+; living_street
 Type=0x030,6
+; highway - residential, service as polygon
 Type=0x031,6
+; pedestrian
 Type=0x033,6
+; stadium
 Type=0x042,6
+; scree, shingle
 Type=0x043,6
+; sand
 Type=0x047,6
+; glacier
 Type=0x04d,6
+; greenhouse_horticulture, orchard, plant_nursery
 Type=0x04e,6
+; scrub
 Type=0x04f,6
+
+; DrawOrder 7
+; -----------
+; parking
 Type=0x005,7
+; playground
 Type=0x00f,7
+; picnic_site
 Type=0x014,7
+; cemetery
 Type=0x01a,7
+; barracks, bunker
 Type=0x01c,7
+; apron (Rangierfläche, Wartungsfläche)
 Type=0x02c,7
+; track (Lauf oder Rennbahn)
 Type=0x037,7
+; terminal, hangar, tower 
 Type=0x038,7
+; water, dock, swimming_pool
 Type=0x03c,7
+; railway platform
 Type=0x03e,7
+; basin, reservoir, salt_pond
 Type=0x03f,7
+; pitch, zoo enclosure (?)
 Type=0x041,7
+; riverbank, canal, ditch
 Type=0x046,7
+
+; DrawOrder 8
+; -----------
+; military
 Type=0x004,8
+; marina
 Type=0x009,8
+; nature_reserve
 Type=0x00d,8
+; tourist attraction
 Type=0x011,8
+; military danger_area
 Type=0x021,8
+; pier
 Type=0x039,8
+; dock
 Type=0x04c,8
+; marsh, wetland
 Type=0x051,8
+
+; DrawOrder 9
+; -----------
+; building
 Type=0x013,9
+; supermarket
 Type=0x035,9
+; building - place_of_worship
 Type=0x036,9
+; dam, weir
 Type=0x03d,9
+; Black Spot for test reasons only
 Type=0x053,9
+; wetland tidalflat
 Type=0x056,9
+
 [End]
 
 
