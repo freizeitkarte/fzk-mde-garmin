@@ -284,7 +284,7 @@ my @maps = (
 # [ 9011, 'Freizeitkarte_RUS',                     'http://data.gis-lab.info/osm_dump/dump/latest/RU.osm.pbf',                                          'RUS',                     'ru', 'no_old_name',                             1, 'NA'             ],
   [ 9011, 'Freizeitkarte_RUS',                     'http://download.geofabrik.de/russia-latest.osm.pbf',                                                'RUS',                     'ru', 'no_old_name',                             1, 'NA'             ],
   [ 9020, 'Freizeitkarte_ESP_CANARIAS',            'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'ESP_CANARIAS',            'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
-  [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS_EUR'            ],
+  [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS'            ],
   [ 9040, 'Freizeitkarte_AZORES',                  'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                  'pt', 'Freizeitkarte_Azoren',                    3, 'NA'             ],
 
   # Andere Regionen
