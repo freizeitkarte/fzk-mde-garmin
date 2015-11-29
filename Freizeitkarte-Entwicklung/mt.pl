@@ -380,6 +380,7 @@ my $language = $EMPTY;
 my $nametaglist = $EMPTY;
 my $unicode     = $EMPTY;
 my $downloadbar = $EMPTY;
+my $continuedownload = $EMPTY;
 
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
@@ -409,7 +410,7 @@ my $typfilelangcode = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'continuedownload' => \$continuedownload, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -1063,8 +1064,8 @@ sub download_url {
   # Initialize the default verbosity (no downloadbar) and other options
   my $downloadbar_wget = "-nv";
   my $downloadbar_curl = "--silent";
-  my $download_continue_wget = "--continue";
-  my $download_continue_curl = "-C -";
+  my $download_continue_wget = "";
+  my $download_continue_curl = "";
 
   # Check if option was used to show downloadbar
   if ( $downloadbar ) {
@@ -1073,9 +1074,9 @@ sub download_url {
   }
   
   # Disable Continue for bootstrap (to avoid possible manual intervention)
-  if ( $actionname eq 'bootstrap' ) {
-    $download_continue_wget = "";
-    $download_continue_curl = "";
+  if ( $actionname ne 'bootstrap' && ( $continuedownload )  ) {
+    $download_continue_wget = "--continue";
+    $download_continue_curl = "-C -";
 }
 
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
