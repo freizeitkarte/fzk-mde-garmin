@@ -1060,9 +1060,11 @@ sub download_url {
   my $download_src = shift;
   my $download_dst = shift;
 
-  # Initialize the default verbosity (no downloadbar)
+  # Initialize the default verbosity (no downloadbar) and other options
   my $downloadbar_wget = "-nv";
   my $downloadbar_curl = "--silent";
+  my $download_continue_wget = "--continue";
+  my $download_continue_curl = "-C -";
 
   # Check if option was used to show downloadbar
   if ( $downloadbar ) {
@@ -1070,14 +1072,19 @@ sub download_url {
     $downloadbar_curl = "";
   }
   
+  # Disable Continue for bootstrap (to avoid possible manual intervention)
+  if ( $actionname eq 'bootstrap' ) {
+    $download_continue_wget = "";
+    $download_continue_curl = "";
+}
 
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # OS X, Linux, FreeBSD, OpenBSD
-    $command = "curl $downloadbar_curl -C - --fail --location --url \"$download_src\" --output \"$download_dst\" --write \"Downloaded %{size_download} bytes in %{time_connect} seconds (%{speed_download} bytes/s)\"";
+    $command = "curl $downloadbar_curl $download_continue_curl --fail --location --url \"$download_src\" --output \"$download_dst\" --write \"Downloaded %{size_download} bytes in %{time_connect} seconds (%{speed_download} bytes/s)\"";
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    $command = "$BASEPATH/tools/wget/windows/wget.exe $downloadbar_wget --continue --output-document=\"$download_dst\" \"$download_src\"";
+    $command = "$BASEPATH/tools/wget/windows/wget.exe $downloadbar_wget $download_continue_wget --output-document=\"$download_dst\" \"$download_src\"";
   }
   else {
     die ( "\nError: Operating system $OSNAME not supported.\n" );
