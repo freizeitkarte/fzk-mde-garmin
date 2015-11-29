@@ -379,6 +379,7 @@ my $styledir = $EMPTY;
 my $language = $EMPTY;
 my $nametaglist = $EMPTY;
 my $unicode     = $EMPTY;
+my $downloadbar = $EMPTY;
 
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
@@ -408,7 +409,7 @@ my $typfilelangcode = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -1051,6 +1052,47 @@ sub check_downloadurls {
   
 }
 
+# -------------------------------------------
+# Download URL Routine (used in other places)
+# -------------------------------------------
+sub download_url {
+
+  my $download_src = shift;
+  my $download_dst = shift;
+
+  # Initialize the default verbosity (no downloadbar)
+  my $downloadbar_wget = "-nv";
+  my $downloadbar_curl = "--silent";
+
+  # Check if option was used to show downloadbar
+  if ( $downloadbar ) {
+    $downloadbar_wget = "";
+    $downloadbar_curl = "";
+  }
+  
+
+  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+    # OS X, Linux, FreeBSD, OpenBSD
+    $command = "curl $downloadbar_curl -C - --fail --location --url \"$download_src\" --output \"$download_dst\" --write \"Downloaded %{size_download} bytes in %{time_connect} seconds (%{speed_download} bytes/s)\"";
+  }
+  elsif ( $OSNAME eq 'MSWin32' ) {
+    # Windows
+    $command = "$BASEPATH/tools/wget/windows/wget.exe $downloadbar_wget --continue --output-document=\"$download_dst\" \"$download_src\"";
+  }
+  else {
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
+    return ( 1 );
+  }
+  
+  # Run the command
+  process_command ( $command );
+  
+  # Return the status
+  return ( $? );
+
+}
+
+
 # -----------------------------------------
 # Download OSM map data from the Internet
 # -----------------------------------------
@@ -1061,26 +1103,10 @@ sub fetch_osmdata {
   # Check for existence of WORKDIR
   if ( !( -e $WORKDIR ) ) {
     die ( "\nERROR:\nThe directory $WORKDIR is missing.\nDid you run the Action 'create' for creating the necessary directories ?\n\n" );
-  }    
-
-  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-    # OS X, Linux, FreeBSD, OpenBSD
-    $command = "curl --silent --fail --location --url \"$osmurl\" --output \"$filename\" --write \"Downloaded %{size_download} bytes in %{time_connect} seconds (%{speed_download} bytes/s)\"";
-  }
-  elsif ( $OSNAME eq 'MSWin32' ) {
-    # Windows
-    chdir "$BASEPATH/tools/wget/windows";
-    $command = "wget.exe -nv --output-document=\"$filename\" \"$osmurl\"";
-  }
-  else {
-    die ( "\nError: Operating system $OSNAME not supported.\n" );
-    return ( 1 );
   }
   
-  # Run the command
-  process_command ( $command );
+  download_url ( $osmurl, $filename );
   
-  # Check Return Value
   if ( $? != 0 ) {
       die ( "ERROR:\n  download of osm data from $osmurl failed.\n\n" );
   }  
@@ -1121,22 +1147,7 @@ sub fetch_eledata {
     $eleurl = "$elevationbaseurl{ele25}/Hoehendaten_$mapname.osm.pbf";
   }
 
-  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-    # OS X, Linux, FreeBSD, OpenBSD
-    $command = "curl --silent --fail --location --url \"$eleurl\" --output \"$filename\" --write \"Downloaded %{size_download} bytes in %{time_connect} seconds (%{speed_download} bytes/s)\"";
-  }
-  elsif ( $OSNAME eq 'MSWin32' ) {
-    # Windows
-    chdir "$BASEPATH/tools/wget/windows";
-    $command = "wget.exe -nv --output-document=\"$filename\" \"$eleurl\"";
-  }
-  else {
-    die ( "\nError: Operating system $OSNAME not supported.\n" );
-    return ( 1 );
-  }
-
-  # Run the command
-  process_command ( $command );
+   download_url( $eleurl, $filename);
 
   # Check Return Value
   if ( $? != 0 ) {
@@ -4002,22 +4013,8 @@ sub bootstrap_environment {
   # First we take the boundaries (bigger file)
   foreach $actualurl ( @boundariesurl ) {
     
-    # Set the commands according to the OS we're running on  
-    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-      # OS X, Linux, FreeBSD, OpenBSD
-      $command = "curl --silent --fail --location --url \"$actualurl\" --output \"bounds.zip\" --write \"Downloaded %{size_download} bytes in %{time_connect} seconds (%{speed_download} bytes/s)\"";
-    }
-    elsif ( $OSNAME eq 'MSWin32' ) {
-      # Windows
-      $command = "$BASEPATH/tools/wget/windows/wget.exe -nv --output-document=\"bounds.zip\" \"$actualurl\"";
-    }
-    else {
-      printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
-    }
-      
-    # Now run the command to download it
-    process_command ( $command );
-    
+    download_url( $actualurl, "bounds.zip");
+        
     # Check Return Value
     if ( $? != 0 ) {
         printf "\n\nWARNING: Downloadurl $actualurl seems not to work .... \n";
@@ -4041,21 +4038,7 @@ sub bootstrap_environment {
   # Now we take the seatiles (smaller file)
   foreach $actualurl ( @seaboundariesurl ) {
     
-    # Set the commands according to the OS we're running on  
-    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-      # OS X, Linux, FreeBSD, OpenBSD
-      $command = "curl --silent --fail --location --url \"$actualurl\" --output \"sea.zip\" --write \"Downloaded %{size_download} bytes in %{time_connect} seconds (%{speed_download} bytes/s)\"";
-    }
-    elsif ( $OSNAME eq 'MSWin32' ) {
-      # Windows
-      $command = "$BASEPATH/tools/wget/windows/wget.exe -nv --output-document=\"sea.zip\" \"$actualurl\"";
-    }
-    else {
-      printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
-    }
-      
-    # Now run the command to download it
-    process_command ( $command );
+    download_url($actualurl, "sea.zip");
     
     # Check Return Value
     if ( $? != 0 ) {
