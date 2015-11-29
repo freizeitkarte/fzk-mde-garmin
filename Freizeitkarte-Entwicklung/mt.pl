@@ -4236,7 +4236,7 @@ sub show_usage {
       . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>] \\\n"
       . "           [--typfile=\"<filename>\"] [--style=\"<dirname>\"] \\\n"
       . "           [--language=\"<lang>\"] [--unicode] \\\n"
-      . "           [--ntl=\"<name-tag-list>\"] \\\n"
+      . "           [--ntl=\"<name-tag-list>\"] [--downloadbar] [--continuedownload]\\\n"
       . "           <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
       . "  or\n"
       . "perl $programName bootstrap [urls <url_bounds> <url_sea>]\n"
@@ -4280,7 +4280,19 @@ sub show_help {
       . "--ntl      = overwrite the default name-tag-list for the mkgmap run (name) with a specific list, e.g.\n"
       . "                --ntl=\"name:en,int_name,name\"\n"
       . "             Please check mkgmap documentation for more information.\n"
-      . "PPO        = preprocessor options (multiple possible), to be invoked with D<option>\n\n"
+      . "--downloadbar\n"
+      . "           = Show a download progress bar during actions 'bootstrap', 'fetch_osm' and 'fetch_ele'.\n"
+      . "                --downloadbar\n"
+      . "--continuedownload\n"
+      . "           = try to continue interrupted downloads for actions 'fetch_osm' and 'fetch_ele'.\n"
+      . "                --continuedownload\n"
+      . "             Restrictions:\n"
+      . "             - can only work if you don't use the 'create' action, which cleans out any files from the working directories\n"
+      . "             - using this option on fully completed downloads will fail to download anything new.\n"
+      . "             - not guaranteed to work always and might create data garbage, but worth a try on huge downloads\n"
+      . "\n"
+      . "PPO        = preprocessor options (multiple possible), to be invoked with D<option>\n"
+      . "\n"
       . "Arguments:\n"
       . "Action     = Action to be processed\n"
       . "ID         = ID of the to processed map\n"
@@ -4297,7 +4309,7 @@ sub show_help {
         printf { *STDOUT } ( "\n" );
         $printdelimiter = 'done';
       }
-      printf { *STDOUT } ( "%-11s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
+      printf { *STDOUT } ( "%-10s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
     }
   }
 #  if ( $optional ) {
