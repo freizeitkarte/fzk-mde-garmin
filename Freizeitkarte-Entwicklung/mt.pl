@@ -429,7 +429,7 @@ if ( $ram ne $EMPTY ) {
 # Beispiel: --max-jobs=4
 if ( lc ( $cores ) eq 'max' ) {
   $max_jobs    = ' --max-jobs';
-  $max_threads = ' --max-threads';
+  $max_threads = ' --max-threads=auto';
 }
 else {
   $max_jobs    = ' --max-jobs=' . $cores;
