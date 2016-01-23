@@ -697,6 +697,8 @@ elsif ( $actionname eq 'nsis' ) {
   create_typfile      ();
   create_nsis_nsifile ();
   create_nsis_exefile ();
+  create_nsis_nsifile2 ();
+  create_nsis_exefile2 ();
 }
 elsif ( $actionname eq 'gmapsupp' ) {
   create_typfile      ();
@@ -720,9 +722,11 @@ elsif ( $actionname eq 'compiletyp' ) {
 }
 elsif ( $actionname eq 'nsicfg' ) {
   create_nsis_nsifile ();
+  create_nsis_nsifile2 ();
 }
 elsif ( $actionname eq 'nsiexe' ) {
   create_nsis_exefile ();
+  create_nsis_exefile2 ();
 }
 elsif ( $actionname eq 'gmap2' ) {
   create_typfile   ();
@@ -756,6 +760,8 @@ elsif ( $actionname eq 'bam' ) {
   create_gmapsuppfile    ();
   create_nsis_nsifile    ();
   create_nsis_exefile    ();
+  create_nsis_nsifile2   ();
+  create_nsis_exefile2   ();
 }
 elsif ( $actionname eq 'pmd' ) {
   purge_dirs               ();
@@ -784,7 +790,10 @@ elsif ( $actionname eq 'bml' ) {
   create_gmapsuppfile    ();
   create_nsis_nsifile    ();
   create_nsis_exefile    ();
-}elsif ( $actionname eq 'zip' ) {
+  create_nsis_nsifile2    ();
+  create_nsis_exefile2   ();
+}
+elsif ( $actionname eq 'zip' ) {
   zip_maps ();
 }
 elsif ( $actionname eq 'regions' ) {
@@ -2517,6 +2526,7 @@ sub create_gmap2file {
 
 # -----------------------------------------
 # Create the NSI file needed for compiling the Windows Installer
+# (old style installer including ImageDir Set)
 # -----------------------------------------
 sub create_nsis_nsifile {
 
@@ -2927,6 +2937,7 @@ sub create_nsis_nsifile {
 
 # -----------------------------------------
 # Compile the NSI file into the final Installer for Windows
+# (old style Installer containing ImageDir files)
 # Tool : makensis.exe
 # OS   : Linux, Windows
 # -----------------------------------------
@@ -3021,6 +3032,360 @@ sub create_nsis_exefile {
 
   # Delete the zip file again, not needed anymore
   unlink ( $mapname . "_InstallFiles.zip" );
+
+  return;
+
+}
+
+
+# -----------------------------------------
+# Create the NSI file needed for compiling the Windows Installer
+# (old style installer including ImageDir Set)
+# -----------------------------------------
+sub create_nsis_nsifile2 {
+
+  # Jump into the correct directory
+  chdir "$WORKDIRLANG";
+
+  # Get all TYP files
+  my @typfiles = ( glob ( "*.TYP" ) );
+  for my $thistypfile ( @typfiles ) {
+    printf { *STDOUT } ( "TYP-File = $thistypfile\n" );
+  }
+
+  # Set and show the family-ID
+  #my $familyID = substr ( $typfiles[ 0 ], 0, 4 );
+  my $familyID = $mapid;
+  printf { *STDOUT } ( "Family-ID = $familyID\n" );
+
+  # Get and show imagefile names
+  my @imgfiles = glob ( $familyID . "*.img" );
+  for my $imgfile ( @imgfiles ) {
+    printf { *STDOUT } ( "IMG-File = $imgfile\n" );
+  }
+
+  # Create and show the Release Number (creation out of date)
+  # example: 11.07 = year.month
+  my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
+  my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
+  my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
+  printf { *STDOUT } ( "Ausgabe %d.%02d\n", ( $year - 100 ), ( $mon + 1 ) );
+
+  # Create output
+  my $filename = $mapname . "-gmap.nsi";
+  printf { *STDOUT } ( "\nCreating $filename ...\n" );
+
+  # open ( my $fh, '+>:encoding(UTF-8)', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+  open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+
+  printf { $fh } ( "; ------------------------------------------------------------\n" );
+  printf { $fh } ( "; Script  : %s.nsi\n", $filename );
+  printf { $fh } ( "; Version : $VERSION\n" );
+  printf { $fh } ( "; Created : %s\n", scalar ( localtime () ) );
+  printf { $fh } ( ";\n" );
+  printf { $fh } ( "; Remarks:\n" );
+  printf { $fh } ( "; - Separate installer for gmap zip files\n" );
+  printf { $fh } ( "; - Just unzippes gmap zip file (in same directory as installer)\n" );
+  printf { $fh } ( ";   into the correct location for BaseCamp\n" );
+  printf { $fh } ( "; - No Uninstall right now\n" );
+  printf { $fh } ( "; ------------------------------------------------------------\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; General Settings\n" );
+  printf { $fh } ( "; ----------------\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Map Description\n" );
+  printf { $fh } ( "!define KARTEN_BESCHREIBUNG \"%s\"\n", $mapname );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Release\n" );
+  printf { $fh } ( "!define KARTEN_AUSGABE \"(Ausgabe %d.%02d)\"\n", ( $year - 100 ), ( $mon + 1 ) );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Name of the executable installer\n" );
+  printf { $fh } ( "!define INSTALLER_EXE_NAME \"GMAP_Installer_%s_%s\"\n", $mapname, $maplang );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Name of the map\n" );
+  printf { $fh } ( "!define MAPNAME \"%s\"\n",     $mapname );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Name of the GMAP Archive\n" );
+  printf { $fh } ( "!define GMAP_ARCHIVE \"%s_%s.gmap.zip\"\n",     $mapname, $maplang );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Product-ID der Karte\n" );
+  printf { $fh } ( "!define PRODUCT_ID \"1\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Compressor Settings\n" );
+  printf { $fh } ( "; -------------------\n" );
+  printf { $fh } ( "SetCompress off\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Include Modern UI\n" );
+  printf { $fh } ( "; -----------------\n" );
+  printf { $fh } ( "!include \"MUI2.nsh\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Interface Settings\n" );
+  printf { $fh } ( "; ------------------\n" );
+  printf { $fh } ( "!define MUI_LANGDLL_ALLLANGUAGES\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Installer Pages\n" );
+  printf { $fh } ( "; ---------------\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"\$(INWpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TEXT \"\$(INWpText)\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE_3LINES\n" );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE \"\$(INFpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TEXT \"\$(INFpText)\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "!define MUI_WELCOMEFINISHPAGE_BITMAP Install.bmp\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "!insertmacro MUI_PAGE_WELCOME\n" );
+  printf { $fh } ( "!insertmacro MUI_PAGE_LICENSE \$(licenseFile)\n" );
+  printf { $fh } ( ";!insertmacro MUI_PAGE_DIRECTORY\n" );
+  printf { $fh } ( "!insertmacro MUI_PAGE_INSTFILES\n" );
+  printf { $fh } ( "!insertmacro MUI_PAGE_FINISH\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Init Routine\n" );
+  printf { $fh } ( "; ------------\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "!define MUI_CUSTOMFUNCTION_GUIINIT myGuiInit\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Uninstaller Pages\n" );
+  printf { $fh } ( "; -----------------\n" );
+  printf { $fh } ( ";!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
+  printf { $fh } ( ";!define MUI_WELCOMEPAGE_TITLE \"\$(UIWpTitle)\"\n" );
+  printf { $fh } ( ";!define MUI_WELCOMEPAGE_TEXT \"\$(UIWpText)\"\n" );
+  printf { $fh } ( ";\n" );
+  printf { $fh } ( ";!define MUI_FINISHPAGE_TITLE_3LINES\n" );
+  printf { $fh } ( ";!define MUI_FINISHPAGE_TITLE \"\$(UIFpTitle)\"\n" );
+  printf { $fh } ( ";!define MUI_FINISHPAGE_TEXT \"\$(UIFpText)\"\n" );
+  printf { $fh } ( ";\n" );
+  printf { $fh } ( ";!define MUI_UNWELCOMEFINISHPAGE_BITMAP Deinstall.bmp\n" );
+  printf { $fh } ( ";\n" );
+  printf { $fh } ( ";!insertmacro MUI_UNPAGE_WELCOME\n" );
+  printf { $fh } ( ";!insertmacro MUI_UNPAGE_CONFIRM\n" );
+  printf { $fh } ( ";!insertmacro MUI_UNPAGE_INSTFILES\n" );
+  printf { $fh } ( ";!insertmacro MUI_UNPAGE_FINISH\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Language Settings\n" );
+  printf { $fh } ( "; -----------------\n" );
+  printf { $fh } ( "!insertmacro MUI_LANGUAGE \"English\"\n" );
+  printf { $fh } ( "!insertmacro MUI_LANGUAGE \"German\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString INWpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString INWpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\n\Make sure you have the correct GMAP zip file downloaded to the same directory as this installer.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
+  printf { $fh } ( "LangString INWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nBitte stellen Sie sicher, dass die korrekte GMAP ZIP Datei schon in das gleiche Verzeichnis heruntergeladen wurde, wie dieser Installer.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"lizenz_haftung_erstellung_en.txt\"\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"lizenz_haftung_erstellung.txt\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString INFpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
+  printf { $fh } ( "LangString INFpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
+  printf { $fh } ( "LangString INFpText \${LANG_ENGLISH} \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} has been succesfully installed on your computer.\$\\n\$\\nHave fun using the map.\$\\n\$\\nFor ensuring and increasing the quality of the map also your feedback is helpful (e.g. defects or improvements). Already now many thanks for it.\$\\n\$\\nChoose Finish to terminate the installation.\"\n" );
+  printf { $fh } ( "LangString INFpText \${LANG_GERMAN} \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich auf Ihrem Computer installiert.\$\\n\$\\nViel Erfolg und Freude bei der Nutzung der Karte.\$\\n\$\\nUm die Qualitaet dieser Karte zu sichern und zu verbessern ist auch Ihr Feedback (z.B. zu Defekten oder Verbesserungen) hilfreich. An dieser Stelle schon einmal Danke hierfuer.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Installation abzuschliessen.\"\n" );
+  printf { $fh } ( ";\n" );
+  printf { $fh } ( ";LangString UIWpTitle \${LANG_ENGLISH} \"Deinstalling \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( ";LangString UIWpTitle \${LANG_GERMAN} \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( ";LangString UIWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the deinstallation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}.\$\\n\$\\nBefore deinstallation BaseCamp must be closed for allowing deletion of the map data.\$\\n\$\\nChoose Next for starting the deinstallation.\"\n" );
+  printf { $fh } ( ";LangString UIWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Deistallation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor dem Entfernen muss das Programm BaseCamp geschlossen werden damit Kartendateien geloescht werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Deinstallation zu beginnen.\"\n" );
+  printf { $fh } ( ";\n" );
+  printf { $fh } ( ";LangString UIFpTitle \${LANG_ENGLISH} \"Deinstallation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
+  printf { $fh } ( ";LangString UIFpTitle \${LANG_GERMAN} \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
+  printf { $fh } ( ";LangString UIFpText \${LANG_ENGLISH} \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} has been succesfully deinstalled from your computer.\$\\n\$\\nChoose Finish to terminate the deinstallation.\"\n" );
+  printf { $fh } ( ";LangString UIFpText \${LANG_GERMAN} \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich von Ihrem Computer entfernt.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Deinstallation abzuschliessen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString AlreadyInstalled \${LANG_ENGLISH} \"There is already a version of \${KARTEN_BESCHREIBUNG} installed.\$\\nThis version needs to be deinstalled first.\"\n" );
+  printf { $fh } ( "LangString AlreadyInstalled \${LANG_GERMAN} \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\nDiese Version muss zunaechst entfernt werden.\"\n" );
+  
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString MissingGmap \${LANG_ENGLISH} \"Are you sure you have downloaded the needed GMAP Zip file to the same directory ?\"\n" );
+  printf { $fh } ( "LangString MissingGmap \${LANG_GERMAN} \"Sind Sie sicher, dass die GMAP Zip Datei im richtigen Verzeichnis bereitliegt ?\"\n" );
+  
+  printf { $fh } ( ";LangString AlreadyInstalledOldName \${LANG_ENGLISH} \"There is already a version of \${KARTEN_BESCHREIBUNG} installed.\$\\n(still using the old name \${REG_KEY_OLD})\$\\nThis version needs to be deinstalled first.\"\n" );
+  printf { $fh } ( ";LangString AlreadyInstalledOldName \${LANG_GERMAN} \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\n(noch mit altem Namen \${REG_KEY_OLD})\$\\nDiese Version muss zunaechst entfernt werden.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Initialize NSI-Variables\n" );
+  printf { $fh } ( "; ------------------------\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Uninstall key: DisplayName - Name of the application\n" );
+  printf { $fh } ( "Name \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Installer-EXE\n" );
+  printf { $fh } ( "OutFile \"\${INSTALLER_EXE_NAME}.exe\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Installationsverzeichnis\n" );
+  printf { $fh } ( ";InstallDir \"\${INSTALLATIONS_VERZEICHNIS}\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "Function myGUIInit\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Call the language selection dialog\n" );
+  printf { $fh } ( "  ; -------------------------------------------\n" );
+  printf { $fh } ( "  ;!insertmacro MUI_LANGDLL_DISPLAY\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Get the Common App Data Directory\n" );
+  printf { $fh } ( "  ; -------------------------------------------\n" );
+  printf { $fh } ( "  Var /Global MyDestDir\n" );
+  printf { $fh } ( "  SetShellVarContext all\n" );
+  printf { $fh } ( "  StrCpy \$MyDestDir \"\$APPDATA\\Garmin\\Maps\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Check if the map to be installed already exists\n" );
+  printf { $fh } ( "  ; -----------------------------------------------\n" );
+  printf { $fh } ( "  IfFileExists \"\$MyDestDir\\\${MAPNAME}.gmap\\*.*\" askfordeletion\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  goto nogmapinstalled\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  askfordeletion:\n" );
+  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"\$(AlreadyInstalled)\" IDOK deletegmap\n" );
+  printf { $fh } ( "  Abort\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; If needed and wished: remove old existing gmap\n" );
+  printf { $fh } ( "  ; ----------------------------------------------\n" );
+  printf { $fh } ( "  deletegmap:\n" );
+  printf { $fh } ( "    RMDir /r \"\$MyDestDir\\\${MAPNAME}.gmap\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  nogmapinstalled:\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "FunctionEnd\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Installer Section\n" );
+  printf { $fh } ( "; -----------------\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "Section \"MainSection\" SectionMain\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Files to be installed\n" );
+  printf { $fh } ( "  ; ---------------------\n" );
+  printf { $fh } ( ";  SetOutPath \"\$MyTempDir\"\n" );
+  printf { $fh } ( ";  File \"\${MAPNAME}_InstallFiles.zip\"\n" );
+
+  printf { $fh } ( "  !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\"\n", $BASEPATH );
+
+  printf { $fh } ( "  nsisunz::UnzipToLog \"\$EXEDIR\\\${GMAP_ARCHIVE}\" \"\$MyDestDir\"\n" );
+  printf { $fh } ( "  Pop \$0\n" );
+  printf { $fh } ( "  StrCmp \$0 \"success\" +2\n" );
+  printf { $fh } ( "    call InstallError\n" );
+
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Clear Errors and continue\n" );
+  printf { $fh } ( "  ClearErrors\n" );
+
+  printf { $fh } ( "\n" );
+  printf { $fh } ( ";  ; Write uninstaller\n" );
+  printf { $fh } ( ";  ; -----------------\n" );
+  printf { $fh } ( ";  WriteUninstaller \"\$INSTDIR\\Uninstall.exe\"\n" );
+  printf { $fh } ( ";\n" );
+  printf { $fh } ( ";  ; Create uninstaller registry keys\n" );
+  printf { $fh } ( ";  ; --------------------------------\n" );
+  printf { $fh }
+    (
+    ";  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"DisplayName\" \"\$(^Name)\"\n" );
+  printf { $fh }
+    (
+    ";  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"UninstallString\" \"\$INSTDIR\\Uninstall.exe\"\n"
+    );
+  printf { $fh }
+    ( ";  WriteRegDWORD HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"NoModify\" 1\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "SectionEnd\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Uninstaller Section\n" );
+  printf { $fh } ( "; -------------------\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( ";Section \"Uninstall\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Nothing to be done here\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( ";SectionEnd\n" );
+
+  printf { $fh } ( "\n\n" );
+  printf { $fh } ( "Function InstallError\n" );
+  printf { $fh } ( "  DetailPrint \"\$0\"\n" );
+  printf { $fh } ( "  DetailPrint \" \"\n" );
+  printf { $fh } ( "  DetailPrint \"\$(MissingGmap)\"\n" );
+  printf { $fh } ( "  Abort\n" );
+  printf { $fh } ( "FunctionEnd\n" );
+
+  close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
+
+  return;
+}
+
+
+# -----------------------------------------
+# Compile the NSI file into the final Installer for Windows
+# (old style Installer containing ImageDir files)
+# Tool : makensis.exe
+# OS   : Linux, Windows
+# -----------------------------------------
+sub create_nsis_exefile2 {
+
+  my $source      = $EMPTY;
+  my $destination = $EMPTY;
+  my $zipper      = $EMPTY;
+
+  # Prep for creating the Installer: get OS dependent command name for nsis and zipper
+  if ( $OSNAME eq 'darwin' ) {
+    # OS X
+    die ( "\nError: Function on OS X not possible.\n" );
+    return ( 1 );
+  }
+  elsif ( $OSNAME eq 'MSWin32' ) {
+    # Windows
+    $command = "$BASEPATH/tools/NSIS/windows/makensis.exe $mapname" . "-gmap.nsi";
+  }
+  elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+    # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+    $command = "makensis $mapname" . ".nsi";
+  }
+  else {
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
+    return ( 1 );
+  }
+
+  # go to nsis directory
+  chdir "$BASEPATH/nsis";
+
+  # copy license files and needed bitmaps
+  copy ( "lizenz_haftung_erstellung.txt", "$WORKDIRLANG/lizenz_haftung_erstellung.txt" )
+    or die ( "copy() failed: $!\n" );
+  copy ( "lizenz_haftung_erstellung_en.txt", "$WORKDIRLANG/lizenz_haftung_erstellung_en.txt" )
+    or die ( "copy() failed: $!\n" );
+  copy ( "Install.bmp",   "$WORKDIRLANG/Install.bmp" )   or die ( "copy() failed: $!" );
+  copy ( "Deinstall.bmp", "$WORKDIRLANG/Deinstall.bmp" ) or die ( "copy() failed: $!" );
+
+  # go back to work directory
+  chdir "$WORKDIRLANG";
+
+  # Run the actual NSIS compiler
+  process_command ( $command );
+
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  Compilation of Windowsinstaller for $mapname failed.\n\n" );
+  }
+
+  # Put the Installer Name together
+  my $filename = "GMAP_Installer_" . $mapname . "_" . $maplang . ".exe";
+
+  # sleep needed on windows... perl is faster than windows... (Viruschecking ? FortiClient AppDetection)
+  if ( $OSNAME eq 'MSWin32' ) {
+    # Windows
+    printf { *STDOUT } ( "   (...sleeping a while for preventing viruschecking to lock files...)\n" );
+#    sleep 60;
+    sleep 5;
+  }
+  
+  # Try to move the Installer into the install directory
+  move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!: move $filename $INSTALLDIR/$filename\n" );
 
   return;
 
