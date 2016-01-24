@@ -3047,22 +3047,22 @@ sub create_nsis_nsifile2 {
   # Jump into the correct directory
   chdir "$WORKDIRLANG";
 
-  # Get all TYP files
-  my @typfiles = ( glob ( "*.TYP" ) );
-  for my $thistypfile ( @typfiles ) {
-    printf { *STDOUT } ( "TYP-File = $thistypfile\n" );
-  }
-
-  # Set and show the family-ID
-  #my $familyID = substr ( $typfiles[ 0 ], 0, 4 );
-  my $familyID = $mapid;
-  printf { *STDOUT } ( "Family-ID = $familyID\n" );
-
-  # Get and show imagefile names
-  my @imgfiles = glob ( $familyID . "*.img" );
-  for my $imgfile ( @imgfiles ) {
-    printf { *STDOUT } ( "IMG-File = $imgfile\n" );
-  }
+;  # Get all TYP files
+;  my @typfiles = ( glob ( "*.TYP" ) );
+;  for my $thistypfile ( @typfiles ) {
+;    printf { *STDOUT } ( "TYP-File = $thistypfile\n" );
+;  }
+;
+;  # Set and show the family-ID
+;  #my $familyID = substr ( $typfiles[ 0 ], 0, 4 );
+;  my $familyID = $mapid;
+;  printf { *STDOUT } ( "Family-ID = $familyID\n" );
+;
+;  # Get and show imagefile names
+;  my @imgfiles = glob ( $familyID . "*.img" );
+;  for my $imgfile ( @imgfiles ) {
+;    printf { *STDOUT } ( "IMG-File = $imgfile\n" );
+;  }
 
   # Create and show the Release Number (creation out of date)
   # example: 11.07 = year.month
@@ -3107,9 +3107,6 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name of the GMAP Archive\n" );
   printf { $fh } ( "!define GMAP_ARCHIVE \"%s_%s.gmap.zip\"\n",     $mapname, $maplang );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "; Product-ID der Karte\n" );
-  printf { $fh } ( "!define PRODUCT_ID \"1\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Compressor Settings\n" );
@@ -3201,13 +3198,15 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString AlreadyInstalled \${LANG_ENGLISH} \"There is already a version of \${KARTEN_BESCHREIBUNG} installed.\$\\nThis version needs to be deinstalled first.\"\n" );
   printf { $fh } ( "LangString AlreadyInstalled \${LANG_GERMAN} \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\nDiese Version muss zunaechst entfernt werden.\"\n" );
-  
   printf { $fh } ( "\n" );
-  printf { $fh } ( "LangString MissingGmap \${LANG_ENGLISH} \"Are you sure you have downloaded the needed GMAP Zip file to the same directory ?\"\n" );
-  printf { $fh } ( "LangString MissingGmap \${LANG_GERMAN} \"Sind Sie sicher, dass die GMAP Zip Datei im richtigen Verzeichnis bereitliegt ?\"\n" );
-  
-  printf { $fh } ( ";LangString AlreadyInstalledOldName \${LANG_ENGLISH} \"There is already a version of \${KARTEN_BESCHREIBUNG} installed.\$\\n(still using the old name \${REG_KEY_OLD})\$\\nThis version needs to be deinstalled first.\"\n" );
-  printf { $fh } ( ";LangString AlreadyInstalledOldName \${LANG_GERMAN} \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\n(noch mit altem Namen \${REG_KEY_OLD})\$\\nDiese Version muss zunaechst entfernt werden.\"\n" );
+  printf { $fh } ( "LangString MsgBoxMissingGmapZip \${LANG_ENGLISH} \"Can't find the needed ZIP file containing the gmap version of the map:\$\\n    \$EXEDIR\\\${GMAP_ARCHIVE}\$\\n\$\\nPlease download it and save it to above location.\"\n" );
+  printf { $fh } ( "LangString MsgBoxMissingGmapZip \${LANG_GERMAN} \"Zip Datei mit GMAP Version der Karte fehlt:\$\\n    \$EXEDIR\\\${GMAP_ARCHIVE}\$\\n\$\\nBitte laden Sie sie herunter und speichern sie an die oben angegebene Stelle.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString ActionUnzippingGMAP \${LANG_ENGLISH} \"Unzipping GMAP Zip File...\"\n" );
+  printf { $fh } ( "LangString ActionUnzippingGMAP \${LANG_GERMAN} \"Entpacken der GMAP Zip Datei...\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString UnzipGmapError \${LANG_ENGLISH} \"There was a problem uncompressing the GMAP Zip file:\"\n" );
+  printf { $fh } ( "LangString UnzipGmapError \${LANG_GERMAN} \"Fehler beim entpacken der GMAP Zip Datei:\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Initialize NSI-Variables\n" );
@@ -3219,15 +3218,23 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "; Installer-EXE\n" );
   printf { $fh } ( "OutFile \"\${INSTALLER_EXE_NAME}.exe\"\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "; Installationsverzeichnis\n" );
-  printf { $fh } ( ";InstallDir \"\${INSTALLATIONS_VERZEICHNIS}\"\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "Function myGUIInit\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Call the language selection dialog\n" );
   printf { $fh } ( "  ; -------------------------------------------\n" );
   printf { $fh } ( "  ;!insertmacro MUI_LANGDLL_DISPLAY\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Check if the needed zip file containing GMAP exists\n" );
+  printf { $fh } ( "  ; ---------------------------------------------------\n" );
+  printf { $fh } ( "  IfFileExists \"\$EXEDIR\\\${GMAP_ARCHIVE}\" gmapzipexists\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Missing Gmap Archive\n" );
+  printf { $fh } ( "  MessageBox MB_OK|MB_ICONEXCLAMATION \"$\(MsgBoxMissingGmapZip)\"\n" );
+  printf { $fh } ( "  abort\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; GMAP Archive exists - continue\n" );
+  printf { $fh } ( "  gmapzipexists:\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Get the Common App Data Directory\n" );
   printf { $fh } ( "  ; -------------------------------------------\n" );
@@ -3251,7 +3258,6 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "    RMDir /r \"\$MyDestDir\\\${MAPNAME}.gmap\"\n" );
   printf { $fh } ( "  \n" );
   printf { $fh } ( "  nogmapinstalled:\n" );
-  printf { $fh } ( "  \n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "FunctionEnd\n" );
   printf { $fh } ( "\n" );
@@ -3263,36 +3269,20 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Files to be installed\n" );
   printf { $fh } ( "  ; ---------------------\n" );
-  printf { $fh } ( ";  SetOutPath \"\$MyTempDir\"\n" );
-  printf { $fh } ( ";  File \"\${MAPNAME}_InstallFiles.zip\"\n" );
-
+  printf { $fh } ( "  DetailPrint \"\$(ActionUnzippingGMAP)\"\n" );
   printf { $fh } ( "  !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\"\n", $BASEPATH );
-
   printf { $fh } ( "  nsisunz::UnzipToLog \"\$EXEDIR\\\${GMAP_ARCHIVE}\" \"\$MyDestDir\"\n" );
   printf { $fh } ( "  Pop \$0\n" );
   printf { $fh } ( "  StrCmp \$0 \"success\" +2\n" );
   printf { $fh } ( "    call InstallError\n" );
-
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Clear Errors and continue\n" );
   printf { $fh } ( "  ClearErrors\n" );
-
   printf { $fh } ( "\n" );
   printf { $fh } ( ";  ; Write uninstaller\n" );
   printf { $fh } ( ";  ; -----------------\n" );
   printf { $fh } ( ";  WriteUninstaller \"\$INSTDIR\\Uninstall.exe\"\n" );
   printf { $fh } ( ";\n" );
-  printf { $fh } ( ";  ; Create uninstaller registry keys\n" );
-  printf { $fh } ( ";  ; --------------------------------\n" );
-  printf { $fh }
-    (
-    ";  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"DisplayName\" \"\$(^Name)\"\n" );
-  printf { $fh }
-    (
-    ";  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"UninstallString\" \"\$INSTDIR\\Uninstall.exe\"\n"
-    );
-  printf { $fh }
-    ( ";  WriteRegDWORD HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"NoModify\" 1\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "SectionEnd\n" );
   printf { $fh } ( "\n" );
@@ -3310,7 +3300,8 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "Function InstallError\n" );
   printf { $fh } ( "  DetailPrint \"\$0\"\n" );
   printf { $fh } ( "  DetailPrint \" \"\n" );
-  printf { $fh } ( "  DetailPrint \"\$(MissingGmap)\"\n" );
+  printf { $fh } ( "  DetailPrint \"\$(UnzipGmapError)\"\n" );
+  printf { $fh } ( "  DetailPrint \"\$EXEDIR\\\${GMAP_ARCHIVE}\"\n" );
   printf { $fh } ( "  Abort\n" );
   printf { $fh } ( "FunctionEnd\n" );
 
@@ -3659,6 +3650,13 @@ sub zip_maps {
     process_command ( $command );
   }
 
+  # nsis (example: GMAP_Installer_Freizeitkarte_DEU_de.exe )
+  $source      = "GMAP_Installer_" . $mapname . '_' . $maplang . '.exe';
+  $destination = "GMAP_Installer_" . $mapname . '_' . $maplang . '.zip';
+  $command     = $zipper . "$destination $source";
+  if ( -e $source ) {
+    process_command ( $command );
+  }
 
   # gmapsupp (example: gmapsupp.img -> DEU_de_gmapsupp.img.zip)
   $source = 'gmapsupp.img';
