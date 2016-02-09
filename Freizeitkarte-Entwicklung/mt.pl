@@ -46,6 +46,7 @@ my @actions = (
   [ 'compiletyp', 'B. compile TYP files out of text files' ,               'optional' ],
   [ 'nsicfg',     'C. create nsi configuration file (for NSIS compiler)' , 'optional' ],
   [ 'nsiexe',     'C. create nsi installer exe (via NSIS compiler)' ,      'optional' ],
+  [ 'nsis2',      'C. create nsis installer (GMAP for BaseCamp Windows)' , 'optional' ],
   [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ,     'optional' ],
   [ 'bim',        'E1.build images: create, fetch_*, join, split, build' , 'optional' ],
   [ 'bam',        'E2.build all maps: gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
@@ -700,6 +701,11 @@ elsif ( $actionname eq 'nsis' ) {
   create_nsis_nsifile2 ();
   create_nsis_exefile2 ();
 }
+elsif ( $actionname eq 'nsis2' ) {
+  create_nsis_nsifile2 ();
+  create_nsis_exefile2 ();
+}
+
 elsif ( $actionname eq 'gmapsupp' ) {
   create_typfile      ();
   create_gmapsuppfile ();
