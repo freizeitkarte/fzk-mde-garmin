@@ -3236,7 +3236,7 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "  IfFileExists \"\$EXEDIR\\\${GMAP_ARCHIVE}\" gmapzipexists\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Missing Gmap Archive\n" );
-  printf { $fh } ( "  MessageBox MB_OK|MB_ICONEXCLAMATION \"$\(MsgBoxMissingGmapZip)\"\n" );
+  printf { $fh } ( "  MessageBox MB_OK|MB_ICONEXCLAMATION \"\$\(MsgBoxMissingGmapZip)\"\n" );
   printf { $fh } ( "  abort\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; GMAP Archive exists - continue\n" );
