@@ -3341,7 +3341,7 @@ sub create_nsis_exefile2 {
   }
   elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-    $command = "makensis $mapname" . ".nsi";
+    $command = "makensis $mapname" . "-gmap.nsi";
   }
   else {
     die ( "\nError: Operating system $OSNAME not supported.\n" );
