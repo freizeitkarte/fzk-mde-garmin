@@ -3287,7 +3287,7 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "\n" );
   printf { $fh } ( "  DetailPrint \"\$(ActionUnzippingGMAP)\"\n" );
 
-  printf { $fh } ( "  ExecWait '\"\$MyTempDir\\7za.exe\" x \$EXEDIR\\\${GMAP_ARCHIVE} -aoa -o\$MyDestDir' \$0\n" );
+  printf { $fh } ( "  ExecWait '\"\$MyTempDir\\7za.exe\" x \"\$EXEDIR\\\${GMAP_ARCHIVE}\" -aoa -o\"\$MyDestDir\"' \$0\n" );
   printf { $fh } ( "  Pop \$0\n" );
   printf { $fh } ( "  IntCmp \$0 0 +2\n" );
   printf { $fh } ( "    call InstallError\n" );
