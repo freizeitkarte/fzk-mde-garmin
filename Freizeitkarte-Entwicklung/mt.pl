@@ -57,6 +57,7 @@ my @actions = (
   [ 'extract_osm','I. extract single map from big region data' ,           'optional' ],
   [ 'alltypfiles','J. Create all languages of the TYP files' ,             'optional' ],
   [ 'replacetyp', 'K. Create all language versions of ReplaceTyp.zip' ,    'optional' ],
+  [ 'check_osmid','L. Check overlapping OSM ID ranges for map ane ele',    'optional' ],
 #  [ 'fetch_map',  'J. fetch map data from Europe directory' ,              'optional' ],
 
   # Hidden Actions not related to maps 
@@ -675,6 +676,9 @@ elsif ( $actionname eq 'fetch_osm' ) {
 elsif ( $actionname eq 'fetch_ele' ) {
   fetch_eledata ();
 }
+elsif ( $actionname eq 'check_osmid' ) {
+  check_osmid ();
+}
 elsif ( $actionname eq 'join' ) {
   join_mapdata ();
 }
@@ -1182,6 +1186,166 @@ sub fetch_eledata {
     printf { *STDERR } ( "\nError: File <$filename> is not a valid osm.pbf file.\n" );
     die ( "Please check this file concerning error hints (eg. communications errors).\n" );
     return ( 1 );
+  }
+
+  return;
+}
+
+
+# -----------------------------------------
+# Join osm map data and elevation data into a complete map
+# -----------------------------------------
+sub check_osmid {
+
+  # change the directory
+  chdir "$WORKDIR";
+
+  # Initialize some variables
+  my $filename_kartendaten  = "$WORKDIR/Kartendaten_$mapname.osm.pbf";
+  my $available_kartendaten = 0;
+  my $filename_hoehendaten  = "$WORKDIR/Hoehendaten_$mapname.osm.pbf";
+  my $available_hoehendaten = 0;
+  my $cmdpath = "";
+  my $cmdoutput = "";
+  my $osm_nid_min = "";
+  my $osm_nid_max = "";
+  my $osm_wid_min = "";
+  my $osm_wid_max = "";
+  my $ele_nid_min = "";
+  my $ele_nid_max = "";
+  my $ele_wid_min = "";
+  my $ele_wid_max = "";
+  my $osm_idcheck_ok = "0";
+
+  # check if the osm map file exists and has the proper format
+  if ( -e $filename_kartendaten ) {
+    if ( check_osmpbf ( $filename_kartendaten ) ) {
+      $available_kartendaten = 1;
+    }
+  }
+
+  if ( -e $filename_hoehendaten ) {
+    # check if the elevation data exists and has the proper format
+    if ( check_osmpbf ( $filename_hoehendaten ) ) {
+      $available_hoehendaten = 1;
+    }
+  }
+
+  # All there and so far ok, let's continue
+  if ( $available_kartendaten && $available_hoehendaten ) {
+
+    printf { *STDERR } ( "\nChecking map and elevation data for overlapping osm IDs...\n" );
+
+    # Create the basepath, depending OS
+    if ( $OSNAME eq 'darwin' ) {
+      # OS X
+      $cmdpath = "$BASEPATH/tools/osmconvert/osx/osmconvert";
+    }	
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $cmdpath = "$BASEPATH\\tools\\osmconvert\\windows\\osmconvert.exe";
+    }
+    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+      $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert32";
+    }
+
+    # Get the statistics of the map data
+    $cmdoutput = `$cmdpath ${filename_kartendaten} --out-statistics 2>&1`;
+
+    # Try to match the different things
+    if ( $cmdoutput =~ /^node id min: (.*)$/m ) {
+	  $osm_nid_min = $1;
+    }
+    if ( $cmdoutput =~ /^node id min: (.*)$/m ) {
+	  $osm_nid_max = $1;
+    }
+    if ( $cmdoutput =~ /^way id min: (.*)$/m ) {
+	  $osm_wid_min = $1;
+    }
+    if ( $cmdoutput =~ /^way id min: (.*)$/m ) {
+	  $osm_wid_max = $1;
+    }
+
+    # Get the statistics of the map ele
+    $cmdoutput = `$cmdpath ${filename_hoehendaten} --out-statistics 2>&1`;
+
+    # Try to match the different things
+    if ( $cmdoutput =~ /^node id min: (.*)$/m ) {
+	  $ele_nid_min = $1;
+    }
+    if ( $cmdoutput =~ /^node id min: (.*)$/m ) {
+	  $ele_nid_max = $1;
+    }
+    if ( $cmdoutput =~ /^way id min: (.*)$/m ) {
+	  $ele_wid_min = $1;
+    }
+    if ( $cmdoutput =~ /^way id min: (.*)$/m ) {
+	  $ele_wid_max = $1;
+    }
+
+    # Print the IDs
+    printf { *STDERR } ( "\n " . \
+                         " Map: node id min: %15d\n" . \
+                         " Map: node id max: %15d\n" . \
+                         " Map: way id min:  %15d\n" . \
+                         " Map: way id max:  %15d\n" . \
+                         " Ele: node id max: %15d\n" . \ 
+                         " Ele: node id min: %15d\n" . \
+                         " Ele: node id max: %15d\n" . \
+                         " Ele: way id min:  %15d\n" . \
+                         " Ele: way id max:  %15d\n\n", \
+                         $osm_nid_min, ${osm_nid_max}, ${osm_wid_min}, ${osm_wid_max}, \
+                         ${ele_nid_min}, ${ele_nid_max}, ${ele_wid_min}, ${ele_wid_max} );
+
+
+#    # Make sure that the Java options are brought into the osmosis call
+#    my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
+#    $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
+#
+#    # Put the osmosis parameter together
+#    my $osmosis_parameter = 
+#        " --read-pbf $filename_kartendaten" 
+#      . " --read-pbf $filename_hoehendaten" 
+#      . " --merge" 
+#      . " --write-pbf $filename_ergebnisdaten" 
+#      . " omitmetadata=true";
+#
+#    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+#      # OS X, Linux, FreeBSD, OpenBSD
+#      $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
+#    }
+#    elsif ( $OSNAME eq 'MSWin32' ) {
+#      # Windows
+#      $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
+#    }
+#    else {
+#      die ( "\nFehler: Operating system $OSNAME not supported.\n" );
+#      return ( 1 );
+#    }
+#    
+#    # run the command
+#    process_command ( $command );
+#      
+#    # Check Return Value
+#    if ( $? != 0 ) {
+#        die ( "ERROR:\n  Joining map and elevation data for $mapname failed.\n\n" );
+#    }
+#    
+#  }
+#  elsif ( $available_kartendaten ) {
+#    # only mapdata there, elevation stuff missing, but let's continue anyway
+#    printf { *STDERR } ( "\nWarning: Elevation data file <$filename_hoehendaten> not found.\n" );
+#    printf { *STDERR } ( "\nCopying map data ...\n" );
+#
+#    # so let's copy mapdata only
+#    copy ( $filename_kartendaten, $filename_ergebnisdaten ) or die ( "copy() failed: $!\n" );
+#  }
+#  else {
+#    # no map data and no elevation data available
+#    die ( "\nError: Map data file <$filename_kartendaten> not found.\n" );
+#    return ( 1 );
+
   }
 
   return;
@@ -3181,7 +3345,7 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString INWpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
   printf { $fh } ( "LangString INWpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
-  printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\n\Make sure you have the correct GMAP zip file downloaded to the same directory as this installer.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
+  printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\nMake sure you have the correct GMAP zip file downloaded to the same directory as this installer.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
   printf { $fh } ( "LangString INWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nBitte stellen Sie sicher, dass die korrekte GMAP ZIP Datei schon in das gleiche Verzeichnis heruntergeladen wurde, wie dieser Installer.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"lizenz_haftung_erstellung_en.txt\"\n" );
