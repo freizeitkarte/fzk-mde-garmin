@@ -1215,7 +1215,8 @@ sub check_osmid {
   my $ele_nid_max = "";
   my $ele_wid_min = "";
   my $ele_wid_max = "";
-  my $osm_idcheck_ok = "0";
+  my $osm_idcheck_ok = "1";
+  my $osm_idcheck_remark = "";
 
   # check if the osm map file exists and has the proper format
   if ( -e $filename_kartendaten ) {
@@ -1255,16 +1256,18 @@ sub check_osmid {
 
     # Try to match the different things
     if ( $cmdoutput =~ /^node id min: (.*)$/m ) {
-	  $osm_nid_min = $1;
+	     $osm_nid_min = $1;
     }
-    if ( $cmdoutput =~ /^node id min: (.*)$/m ) {
-	  $osm_nid_max = $1;
-    }
-    if ( $cmdoutput =~ /^way id min: (.*)$/m ) {
-	  $osm_wid_min = $1;
+    if ( $cmdoutput =~ /^node id max: (.*)$/m ) {
+	     $osm_nid_max = $1;
+#       $osm_nid_max = 8500000000;
     }
     if ( $cmdoutput =~ /^way id min: (.*)$/m ) {
-	  $osm_wid_max = $1;
+	     $osm_wid_min = $1;
+    }
+    if ( $cmdoutput =~ /^way id max: (.*)$/m ) {
+	     $osm_wid_max = $1;
+#       $osm_wid_max = 8500000000;
     }
 
     # Get the statistics of the map ele
@@ -1272,79 +1275,88 @@ sub check_osmid {
 
     # Try to match the different things
     if ( $cmdoutput =~ /^node id min: (.*)$/m ) {
-	  $ele_nid_min = $1;
+	     $ele_nid_min = $1;
     }
-    if ( $cmdoutput =~ /^node id min: (.*)$/m ) {
-	  $ele_nid_max = $1;
-    }
-    if ( $cmdoutput =~ /^way id min: (.*)$/m ) {
-	  $ele_wid_min = $1;
+    if ( $cmdoutput =~ /^node id max: (.*)$/m ) {
+	     $ele_nid_max = $1;
     }
     if ( $cmdoutput =~ /^way id min: (.*)$/m ) {
-	  $ele_wid_max = $1;
+	     $ele_wid_min = $1;
+    }
+    if ( $cmdoutput =~ /^way id max: (.*)$/m ) {
+	     $ele_wid_max = $1;
     }
 
-    # Print the IDs
-    printf { *STDERR } ( "\n " . \
-                         " Map: node id min: %15d\n" . \
-                         " Map: node id max: %15d\n" . \
-                         " Map: way id min:  %15d\n" . \
-                         " Map: way id max:  %15d\n" . \
-                         " Ele: node id max: %15d\n" . \ 
-                         " Ele: node id min: %15d\n" . \
-                         " Ele: node id max: %15d\n" . \
-                         " Ele: way id min:  %15d\n" . \
-                         " Ele: way id max:  %15d\n\n", \
-                         $osm_nid_min, ${osm_nid_max}, ${osm_wid_min}, ${osm_wid_max}, \
-                         ${ele_nid_min}, ${ele_nid_max}, ${ele_wid_min}, ${ele_wid_max} );
+    # Let's print the IDs, even if something is wrong with them
+    printf { *STDERR } ( " Map: node id min: %15s\n" , $osm_nid_min ); 
+    printf { *STDERR } ( " Map: node id max: %15s\n" , $osm_nid_max ); 
+    printf { *STDERR } ( " Ele: node id min: %15s\n" , $ele_nid_min ); 
+    printf { *STDERR } ( " Ele: node id max: %15s\n" , $ele_nid_max ); 
+    printf { *STDERR } ( "\n" ); 
+    printf { *STDERR } ( " Map: way id min:  %15s\n" , $osm_wid_min ); 
+    printf { *STDERR } ( " Map: way id max:  %15s\n" , $osm_wid_max ); 
+    printf { *STDERR } ( " Ele: way id min:  %15s\n" , $ele_wid_min ); 
+    printf { *STDERR } ( " Ele: way id max:  %15s\n" , $ele_wid_max ); 
+    printf { *STDERR } ( "\n" ); 
 
+    # Check if all IDs could be set
+    # Map data
+    if ( $osm_nid_min eq "" || $osm_nid_max eq "" || $osm_wid_min eq "" || $osm_wid_max eq "") {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data is invalid\n";
+    }
+    # Ele data
+    if ( $ele_nid_min eq "" || $ele_nid_max eq "" || $ele_wid_min eq "" || $ele_wid_max eq "") {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data is invalid\n";
+    }
 
-#    # Make sure that the Java options are brought into the osmosis call
-#    my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
-#    $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
-#
-#    # Put the osmosis parameter together
-#    my $osmosis_parameter = 
-#        " --read-pbf $filename_kartendaten" 
-#      . " --read-pbf $filename_hoehendaten" 
-#      . " --merge" 
-#      . " --write-pbf $filename_ergebnisdaten" 
-#      . " omitmetadata=true";
-#
-#    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-#      # OS X, Linux, FreeBSD, OpenBSD
-#      $command = "sh $BASEPATH/tools/osmosis/bin/osmosis $osmosis_parameter";
-#    }
-#    elsif ( $OSNAME eq 'MSWin32' ) {
-#      # Windows
-#      $command = "$BASEPATH/tools/osmosis/bin/osmosis.bat $osmosis_parameter";
-#    }
-#    else {
-#      die ( "\nFehler: Operating system $OSNAME not supported.\n" );
-#      return ( 1 );
-#    }
-#    
-#    # run the command
-#    process_command ( $command );
-#      
-#    # Check Return Value
-#    if ( $? != 0 ) {
-#        die ( "ERROR:\n  Joining map and elevation data for $mapname failed.\n\n" );
-#    }
-#    
-#  }
-#  elsif ( $available_kartendaten ) {
-#    # only mapdata there, elevation stuff missing, but let's continue anyway
-#    printf { *STDERR } ( "\nWarning: Elevation data file <$filename_hoehendaten> not found.\n" );
-#    printf { *STDERR } ( "\nCopying map data ...\n" );
-#
-#    # so let's copy mapdata only
-#    copy ( $filename_kartendaten, $filename_ergebnisdaten ) or die ( "copy() failed: $!\n" );
-#  }
-#  else {
-#    # no map data and no elevation data available
-#    die ( "\nError: Map data file <$filename_kartendaten> not found.\n" );
-#    return ( 1 );
+    # Stop here if something is wrong already
+    if ( $osm_idcheck_ok == 0 ) {
+       die ( "\nError:\n${osm_idcheck_remark}\n" );
+       return ( 1 );
+    }
+    
+    # Check if any of the IDs is zero or negative (should not happen ?)
+    # Map data
+    if ( $osm_nid_min <= 0 || $osm_nid_max <= 0 || $osm_wid_min <= 0 || $osm_wid_max <= 0) {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data is either zero or negative\n";
+    }
+    # Ele data
+    if ( $ele_nid_min <= 0 || $ele_nid_max <= 0 || $ele_wid_min <= 0 || $ele_wid_max <= 0) {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data is either zero or negative\n";
+    }
+
+    # Stop here if something is wrong already
+    if ( $osm_idcheck_ok == 0 ) {
+       die ( "\nError:\n${osm_idcheck_remark}\n" );
+       return ( 1 );
+    }
+
+    # Check for overlapping ID ranges
+    # Node IDs
+    if ( ! ( ( ( $osm_nid_min < $osm_nid_max ) and ( $osm_nid_max < $ele_nid_min ) and ( $ele_nid_min < $ele_nid_max ) ) xor ( ( $ele_nid_min < $ele_nid_max ) and ( $ele_nid_max < $osm_nid_min ) and ( $osm_nid_min < $osm_nid_max ) ) ) ) {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the node id values\n";
+    }
+    # Way IDs
+    if ( ! ( ( ( $osm_wid_min < $osm_wid_max ) and ( $osm_wid_max < $ele_wid_min ) and ( $ele_wid_min < $ele_wid_max ) ) xor ( ( $ele_wid_min < $ele_wid_max ) and ( $ele_wid_max < $osm_wid_min ) and ( $osm_wid_min < $osm_wid_max ) ) ) ) {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the way id values\n";
+    }
+
+    # Stop here if something is wrong already else let user know that all seems to be ok
+    if ( $osm_idcheck_ok == 0 ) {
+#    printf { *STDERR } ( "${osm_idcheck_remark}" ); 
+       die ( "\nError:\n${osm_idcheck_remark}\n" );
+       return ( 1 );
+    }
+    else {
+       printf { *STDERR } ( "\nOK:\nno potential conflicts found\n\n" ); 
+    }
+    
 
   }
 
