@@ -57,7 +57,7 @@ my @actions = (
   [ 'extract_osm','I. extract single map from big region data' ,           'optional' ],
   [ 'alltypfiles','J. Create all languages of the TYP files' ,             'optional' ],
   [ 'replacetyp', 'K. Create all language versions of ReplaceTyp.zip' ,    'optional' ],
-  [ 'check_osmid','L. Check overlapping OSM ID ranges for map ane ele',    'optional' ],
+  [ 'check_osmid','L. Check overlapping OSM ID ranges for map and ele',    'optional' ],
 #  [ 'fetch_map',  'J. fetch map data from Europe directory' ,              'optional' ],
 
   # Hidden Actions not related to maps 
@@ -1193,7 +1193,7 @@ sub fetch_eledata {
 
 
 # -----------------------------------------
-# Join osm map data and elevation data into a complete map
+# Check osm ids for potential conflicts (gives nasty artefacts in map)
 # -----------------------------------------
 sub check_osmid {
 
