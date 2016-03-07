@@ -404,6 +404,9 @@ my $maptypfile = "freizeit.TYP";
 my $mapstyle    = "fzk";
 my $mapstyledir = 'style/fzk';
 
+my $releasestring  = $EMPTY;
+my $releasenumeric = $EMPTY;
+
 my $error   = -1;
 my $command = $EMPTY;
 
@@ -634,12 +637,6 @@ if ( $nametaglist ne $EMPTY ) {
    }
 }
 
-
-# Print out the Information about the choosen action and map
-#printf { *STDOUT } ( "Action = %s\n", $actiondesc );
-#printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
-show_actionsummary ();
-
 # Create the WORKDIR, WORKDIRLANG and the INSTALLDIR variables, used at a lot of places
 my $WORKDIR     = '';
 my $WORKDIRLANG = '';
@@ -660,6 +657,15 @@ my $INSTALLDIR  = '';
 $WORKDIR     = "$BASEPATH/work/$mapname";
 $WORKDIRLANG = "$BASEPATH/work/$mapname" . "_$maplang";
 $INSTALLDIR  = "$BASEPATH/install/$mapname" . "_$maplang";
+
+# Put the needed release numbers together
+get_release ();
+
+# Print out the Information about the choosen action and map
+#printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+#printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
+show_actionsummary ();
+
 
 # Make sure that the directories set above are existing
 create_dirs   ();
@@ -1303,12 +1309,12 @@ sub check_osmid {
     # Map data
     if ( $osm_nid_min eq "" || $osm_nid_max eq "" || $osm_wid_min eq "" || $osm_wid_max eq "") {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data is invalid\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data for $mapcode is invalid\n";
     }
     # Ele data
     if ( $ele_nid_min eq "" || $ele_nid_max eq "" || $ele_wid_min eq "" || $ele_wid_max eq "") {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data is invalid\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data for $mapcode is invalid\n";
     }
 
     # Stop here if something is wrong already
@@ -1321,12 +1327,12 @@ sub check_osmid {
     # Map data
     if ( $osm_nid_min <= 0 || $osm_nid_max <= 0 || $osm_wid_min <= 0 || $osm_wid_max <= 0) {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data is either zero or negative\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data for $mapcode is either zero or negative\n";
     }
     # Ele data
     if ( $ele_nid_min <= 0 || $ele_nid_max <= 0 || $ele_wid_min <= 0 || $ele_wid_max <= 0) {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data is either zero or negative\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data for $mapcode is either zero or negative\n";
     }
 
     # Stop here if something is wrong already
@@ -1339,12 +1345,12 @@ sub check_osmid {
     # Node IDs
     if ( ! ( ( ( $osm_nid_min < $osm_nid_max ) and ( $osm_nid_max < $ele_nid_min ) and ( $ele_nid_min < $ele_nid_max ) ) xor ( ( $ele_nid_min < $ele_nid_max ) and ( $ele_nid_max < $osm_nid_min ) and ( $osm_nid_min < $osm_nid_max ) ) ) ) {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the node id values\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the node id values for $mapcode\n";
     }
     # Way IDs
     if ( ! ( ( ( $osm_wid_min < $osm_wid_max ) and ( $osm_wid_max < $ele_wid_min ) and ( $ele_wid_min < $ele_wid_max ) ) xor ( ( $ele_wid_min < $ele_wid_max ) and ( $ele_wid_max < $osm_wid_min ) and ( $osm_wid_min < $osm_wid_max ) ) ) ) {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the way id values\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the way id values for $mapcode\n";
     }
 
     # Stop here if something is wrong already else let user know that all seems to be ok
@@ -4741,6 +4747,35 @@ sub check_environment {
 
 }
 
+# -----------------------------------------
+# Put the release numbers together
+# -----------------------------------------
+sub get_release {
+
+  my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = "";
+
+  # Try to get the creation time from the map data file
+  my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
+  if ( -e $filename_source ) {
+     
+     # File exists, get creation date and it's components
+     my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
+     ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
+    
+  }
+  else {
+    
+     # no File, get actual date and it's components
+     ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ();
+    
+  }
+  
+  # Create the needed release numbers
+  $releasestring  = sprintf ( "%d.%02d", ( $year - 100 ), ( $mon + 1 ) );
+  $releasenumeric = sprintf ( "%d%02d",  ( $year - 100 ), ( $mon + 1 ) );
+
+}
+
 
 # -----------------------------------------
 # Show action summary
@@ -4778,6 +4813,7 @@ sub show_actionsummary {
       printf { *STDOUT } ( "ntl:        name-tag-list=%s\n", $nametaglist );  
     }
   }
+  printf { *STDOUT }   ( "release:    %s / %s\n",$releasestring,$releasenumeric );
 
 }
 
