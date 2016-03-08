@@ -1509,10 +1509,13 @@ sub split_mapdata {
 # -----------------------------------------
 sub create_cfgfile {
 
+  # Disabled, handled in sub
+  ## Initialize some variables
+  #my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
+  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
+  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
+
   # Initialize some variables
-  my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
-  my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
   my $filename = "$WORKDIRLANG/$mapname.cfg";
 
   # Dump some output
@@ -1564,10 +1567,9 @@ sub create_cfgfile {
       . "#   an use -c template.args, then that file may contain a\n" 
       . "#   \"description\" that will override this option. Use \"--description\" in\n" 
       . "#   splitter.jar to change the description in the template.args file.\n" 
-      . "description=\"%s (Release %d.%d)\"\n", 
+      . "description=\"%s (Release %s)\"\n", 
     $mapname, 
-    ( $year - 100 ), 
-    ( $mon + 1 ) 
+    $releasestring 
   );
 
   printf { $fh } ( "\n# Label options:\n" );
@@ -1749,7 +1751,7 @@ sub create_cfgfile {
       . "# --product-version\n" 
       . "#   The version of the product. Default value is 1.\n" 
       . "product-version=%d\n",
-      ( ( ( $year - 100 ) * 100 ) + ( $mon + 1 ) ) );
+      $releasenumeric );
 
   printf { $fh } (
     "\n"
@@ -1919,7 +1921,7 @@ sub create_cfgfile {
     }
 
     if ( $identifier eq 'description' ) {
-      printf { $fh } ( "%s: %d.%d%s", $identifier, ( $year - 100 ), ( $mon + 1 ), $rest );
+      printf { $fh } ( "%s: %s%s", $identifier, $releasestring, $rest );
     }
 
     if ( $identifier eq 'input-file' ) {
@@ -2738,12 +2740,14 @@ sub create_nsis_nsifile {
     printf { *STDOUT } ( "IMG-File = $imgfile\n" );
   }
 
-  # Create and show the Release Number (creation out of date)
-  # example: 11.07 = year.month
-  my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
-  my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-  printf { *STDOUT } ( "Ausgabe %d.%02d\n", ( $year - 100 ), ( $mon + 1 ) );
+  # Disabled; handled in sub
+  ## Create and show the Release Number (creation out of date)
+  ## example: 11.07 = year.month
+  #my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
+  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
+  # Disabled, handled by sub
+  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
+  printf { *STDOUT } ( "Ausgabe %s\n", $releasestring );
 
   # Create output
   my $filename = $mapname . ".nsi";
@@ -2774,7 +2778,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "!define KARTEN_BESCHREIBUNG \"%s\"\n", $mapname );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Ausgabe der Karte\n" );
-  printf { $fh } ( "!define KARTEN_AUSGABE \"(Ausgabe %d.%02d)\"\n", ( $year - 100 ), ( $mon + 1 ) );
+  printf { $fh } ( "!define KARTEN_AUSGABE \"(Ausgabe %s)\"\n", $releasestring );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name der Installer-EXE-Datei\n" );
   printf { $fh } ( "!define INSTALLER_EXE_NAME \"Install_%s_%s\"\n", $mapname, $maplang );
@@ -3252,12 +3256,13 @@ sub create_nsis_nsifile2 {
 ;    printf { *STDOUT } ( "IMG-File = $imgfile\n" );
 ;  }
 
-  # Create and show the Release Number (creation out of date)
-  # example: 11.07 = year.month
-  my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
-  my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-  printf { *STDOUT } ( "Ausgabe %d.%02d\n", ( $year - 100 ), ( $mon + 1 ) );
+  #Disabled, handled in sub
+  ## Create and show the Release Number (creation out of date)
+  ## example: 11.07 = year.month
+  #my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
+  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
+  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
+  printf { *STDOUT } ( "Ausgabe %s\n", $releasestring );
 
   # Create output
   my $filename = $mapname . "-gmap.nsi";
@@ -3285,7 +3290,7 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "!define KARTEN_BESCHREIBUNG \"%s\"\n", $mapname );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Release\n" );
-  printf { $fh } ( "!define KARTEN_AUSGABE \"(Ausgabe %d.%02d)\"\n", ( $year - 100 ), ( $mon + 1 ) );
+  printf { $fh } ( "!define KARTEN_AUSGABE \"(Ausgabe %s)\"\n", $releasestring );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name of the executable installer\n" );
   printf { $fh } ( "!define INSTALLER_EXE_NAME \"GMAP_Installer_%s_%s\"\n", $mapname, $maplang );
@@ -3712,11 +3717,12 @@ sub create_gmapsuppfile {
   # Jump to the work directory
   chdir "$WORKDIRLANG";
 
-  # Initialize some variables
-  my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
-  my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-  my $mapversion = sprintf ( "%d.%d", ( $year - 100 ), ( $mon + 1 ) );
+  # Disabled, handled in sub
+  ## Initialize some variables
+  #my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
+  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
+  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
+  #my $mapversion = sprintf ( "%d.%d", ( $year - 100 ), ( $mon + 1 ) );
 
   # copy License file
   copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
@@ -3728,10 +3734,10 @@ sub create_gmapsuppfile {
   # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
-        "--index --gmapsupp --product-id=1 --family-id=$mapid --family-name=\"$mapname $mapversion\" "
-      . "--series-name=\"$mapname $mapversion\" --description=\"$mapname $mapversion\" --overview-mapnumber=%s0000 "
+        "--index --gmapsupp --product-id=1 --family-id=$mapid --family-name=\"$mapname $releasestring\" "
+      . "--series-name=\"$mapname $releasestring\" --description=\"$mapname $releasestring\" --overview-mapnumber=%s0000 "
       . "--product-version=%d $mapid*.img $mapid.TYP ",
-      $mapid, ( ( ( $year - 100 ) * 100 ) + ( $mon + 1 ) )
+      $mapid, $releasenumeric
   );
 
   # run mkgmap to create the actual gmapsupp.img
