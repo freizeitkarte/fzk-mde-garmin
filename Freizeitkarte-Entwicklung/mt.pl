@@ -4,6 +4,7 @@
 # Version : siehe unten
 #
 # Copyright (C) 2011-2013 Klaus Tockloth <Klaus.Tockloth@googlemail.com>
+#               2013-2015 Adaptions by Patrik Brunner <keenonkites@gmx.net>
 # - modified for Ubuntu through GVE
 #
 # Programmcode formatiert mit "perltidy".
@@ -341,7 +342,7 @@ my $ACTIONOPT  = 2;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.11 - 2015/02/17';
+my $VERSION = '1.3.12 - 2016/03/11';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -686,6 +687,7 @@ elsif ( $actionname eq 'check_osmid' ) {
   check_osmid ();
 }
 elsif ( $actionname eq 'join' ) {
+  check_osmid  ();
   join_mapdata ();
 }
 elsif ( $actionname eq 'split' ) {
@@ -759,6 +761,7 @@ elsif ( $actionname eq 'bim' ) {
 	  fetch_osmdata        ();
   }
   fetch_eledata            ();
+  check_osmid              ();
   join_mapdata             ();
   split_mapdata            ();
   create_cfgfile           ();
@@ -790,6 +793,7 @@ elsif ( $actionname eq 'pmd' ) {
 	  fetch_osmdata        ();
   }
   fetch_eledata            ();
+  check_osmid              ();
   join_mapdata             ();
   split_mapdata            ();
 }
@@ -1309,17 +1313,17 @@ sub check_osmid {
     # Map data
     if ( $osm_nid_min eq "" || $osm_nid_max eq "" || $osm_wid_min eq "" || $osm_wid_max eq "") {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data for $mapcode is invalid\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data is invalid\n";
     }
     # Ele data
     if ( $ele_nid_min eq "" || $ele_nid_max eq "" || $ele_wid_min eq "" || $ele_wid_max eq "") {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data for $mapcode is invalid\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data is invalid\n";
     }
 
     # Stop here if something is wrong already
     if ( $osm_idcheck_ok == 0 ) {
-       die ( "\nError:\n${osm_idcheck_remark}\n" );
+       die ( "\nError: OSM ID conflict check: $mapcode\n${osm_idcheck_remark}\n" );
        return ( 1 );
     }
     
@@ -1327,17 +1331,17 @@ sub check_osmid {
     # Map data
     if ( $osm_nid_min <= 0 || $osm_nid_max <= 0 || $osm_wid_min <= 0 || $osm_wid_max <= 0) {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data for $mapcode is either zero or negative\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data is either zero or negative\n";
     }
     # Ele data
     if ( $ele_nid_min <= 0 || $ele_nid_max <= 0 || $ele_wid_min <= 0 || $ele_wid_max <= 0) {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data for $mapcode is either zero or negative\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data is either zero or negative\n";
     }
 
     # Stop here if something is wrong already
     if ( $osm_idcheck_ok == 0 ) {
-       die ( "\nError:\n${osm_idcheck_remark}\n" );
+       die ( "\nError: OSM ID conflict check: $mapcode\n${osm_idcheck_remark}\n" );
        return ( 1 );
     }
 
@@ -1345,22 +1349,22 @@ sub check_osmid {
     # Node IDs
     if ( ! ( ( ( $osm_nid_min < $osm_nid_max ) and ( $osm_nid_max < $ele_nid_min ) and ( $ele_nid_min < $ele_nid_max ) ) xor ( ( $ele_nid_min < $ele_nid_max ) and ( $ele_nid_max < $osm_nid_min ) and ( $osm_nid_min < $osm_nid_max ) ) ) ) {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the node id values for $mapcode\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the node id values\n";
     }
     # Way IDs
     if ( ! ( ( ( $osm_wid_min < $osm_wid_max ) and ( $osm_wid_max < $ele_wid_min ) and ( $ele_wid_min < $ele_wid_max ) ) xor ( ( $ele_wid_min < $ele_wid_max ) and ( $ele_wid_max < $osm_wid_min ) and ( $osm_wid_min < $osm_wid_max ) ) ) ) {
         $osm_idcheck_ok = "0";
-        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the way id values for $mapcode\n";
+        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the way id values\n";
     }
 
     # Stop here if something is wrong already else let user know that all seems to be ok
     if ( $osm_idcheck_ok == 0 ) {
 #    printf { *STDERR } ( "${osm_idcheck_remark}" ); 
-       die ( "\nError:\n${osm_idcheck_remark}\n" );
+       die ( "\nError: OSM ID conflict check: $mapcode\n${osm_idcheck_remark}\n" );
        return ( 1 );
     }
     else {
-       printf { *STDERR } ( "\nOK:\nno potential conflicts found\n\n" ); 
+       printf { *STDERR } ( "\nOK: OSM ID conflict check: $mapcode\nno potential conflicts found\n\n" ); 
     }
     
 
