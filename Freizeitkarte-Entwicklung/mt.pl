@@ -106,7 +106,7 @@ my %langcodepage = (
 my %elevationbaseurl = (
   'ele10' => "http://develop.freizeitkarte-osm.de/ele_10_100_200",
   'ele20' => "http://develop.freizeitkarte-osm.de/ele_20_100_500",
-  'ele25' => "http://develop.freizeitkarte-osm.de/ele_25_250_500",
+#  'ele25' => "http://develop.freizeitkarte-osm.de/ele_25_250_500",
   );
   
 # Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
@@ -1060,21 +1060,21 @@ sub check_downloadurls {
         }
         print "$elevationbaseurl{ele20}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
     
-        # Check the ElevationData 25m
-        $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
-        if ( $returnvalue != 0 ) {
-    		print "FAIL: ele25: ";
-    	}
-    	else {
-    		print "OK:   ele25: ";
-        }
-        print "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";      
+#        # Check the ElevationData 25m
+#        $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
+#        if ( $returnvalue != 0 ) {
+#    		print "FAIL: ele25: ";
+#    	}
+#    	else {
+#    		print "OK:   ele25: ";
+#        }
+#        print "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";      
 	}
 	else {
 		# No elevation Data to download, we don't need it
 		print "N/A:  ele10: (this map doesn't need downloadable elevation Data)\n";		
 		print "N/A:  ele20: (this map doesn't need downloadable elevation Data)\n";		
-		print "N/A:  ele25: (this map doesn't need downloadable elevation Data)\n";		
+#		print "N/A:  ele25: (this map doesn't need downloadable elevation Data)\n";		
 	}
 	  
   }
@@ -1182,7 +1182,8 @@ sub fetch_eledata {
   }
   else {
     # Default = 25 Meter
-    $eleurl = "$elevationbaseurl{ele25}/Hoehendaten_$mapname.osm.pbf";
+    # $eleurl = "$elevationbaseurl{ele25}/Hoehendaten_$mapname.osm.pbf";
+    die ( "ERROR:\n  elevation data: unsupported constant contour value of $ele choosen.\n\n" );
   }
 
    download_url( $eleurl, $filename);
@@ -4872,7 +4873,7 @@ sub show_help {
       . "Options:\n"
       . "--ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
       . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
-      . "--ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
+      . "--ele      = equidistance of elevation lines (fetch_ele) (10, 20; default = 20)\n"
       . "--typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
       . "--style    = name of the style to be used, must be a directory below styles (default = fzk)\n"
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
