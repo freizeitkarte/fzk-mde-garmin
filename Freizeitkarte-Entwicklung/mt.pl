@@ -3245,29 +3245,6 @@ sub create_nsis_nsifile2 {
   # Jump into the correct directory
   chdir "$WORKDIRLANG";
 
-;  # Get all TYP files
-;  my @typfiles = ( glob ( "*.TYP" ) );
-;  for my $thistypfile ( @typfiles ) {
-;    printf { *STDOUT } ( "TYP-File = $thistypfile\n" );
-;  }
-;
-;  # Set and show the family-ID
-;  #my $familyID = substr ( $typfiles[ 0 ], 0, 4 );
-;  my $familyID = $mapid;
-;  printf { *STDOUT } ( "Family-ID = $familyID\n" );
-;
-;  # Get and show imagefile names
-;  my @imgfiles = glob ( $familyID . "*.img" );
-;  for my $imgfile ( @imgfiles ) {
-;    printf { *STDOUT } ( "IMG-File = $imgfile\n" );
-;  }
-
-  #Disabled, handled in sub
-  ## Create and show the Release Number (creation out of date)
-  ## example: 11.07 = year.month
-  #my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
-  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
   printf { *STDOUT } ( "Ausgabe %s\n", $releasestring );
 
   # Create output
@@ -3277,6 +3254,7 @@ sub create_nsis_nsifile2 {
   # open ( my $fh, '+>:encoding(UTF-8)', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
   open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
 
+  # Print header Information
   printf { $fh } ( "; ------------------------------------------------------------\n" );
   printf { $fh } ( "; Script  : %s.nsi\n", $filename );
   printf { $fh } ( "; Version : $VERSION\n" );
@@ -3288,9 +3266,10 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( ";   into the correct location for BaseCamp\n" );
   printf { $fh } ( "; ------------------------------------------------------------\n" );
   printf { $fh } ( "\n" );
+  
+  # Settings and definitions
   printf { $fh } ( "; General Settings\n" );
   printf { $fh } ( "; ----------------\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "; Map Description\n" );
   printf { $fh } ( "!define KARTEN_BESCHREIBUNG \"%s\"\n", $mapname );
   printf { $fh } ( "\n" );
@@ -3303,7 +3282,7 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "; Name of the map\n" );
   printf { $fh } ( "!define MAPNAME \"%s\"\n",     $mapname );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "; Name des Windows-Registrierungsschlüssels\n" );
+  printf { $fh } ( "; Name of the Windows Registry\n" );
   printf { $fh } ( "!define REG_KEY \"%s\"\n",     $mapname );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name of the GMAP Archive\n" );
@@ -3325,9 +3304,9 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "!define MUI_LANGDLL_ALLLANGUAGES\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
   printf { $fh } ( "; Installer Pages\n" );
   printf { $fh } ( "; ---------------\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"\$(INWpTitle)\"\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TEXT \"\$(INWpText)\"\n" );
@@ -3345,12 +3324,13 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "!insertmacro MUI_PAGE_FINISH\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
   printf { $fh } ( "; Init Routine\n" );
   printf { $fh } ( "; ------------\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_CUSTOMFUNCTION_GUIINIT myGuiInit\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
   printf { $fh } ( "; Uninstaller Pages\n" );
   printf { $fh } ( "; -----------------\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
@@ -3369,6 +3349,8 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "!insertmacro MUI_UNPAGE_FINISH\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
+  # Language Settings and String Definitions
   printf { $fh } ( "; Language Settings\n" );
   printf { $fh } ( "; -----------------\n" );
   printf { $fh } ( "!insertmacro MUI_LANGUAGE \"English\"\n" );
@@ -3410,9 +3392,9 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "LangString UnzipGmapError \${LANG_GERMAN} \"Fehler beim entpacken der GMAP Zip Datei:\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
   printf { $fh } ( "; Initialize NSI-Variables\n" );
   printf { $fh } ( "; ------------------------\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "; Uninstall key: DisplayName - Name of the application\n" );
   printf { $fh } ( "Name \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
   printf { $fh } ( "\n" );
@@ -3421,6 +3403,9 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
 
+  # Function .onInit
+  printf { $fh } ( "; Function .onInit: needed for getting ProgramData dir early enough\n" );
+  printf { $fh } ( "; -------------------------------------------------------------------\n" );
   printf { $fh } ( "Function .onInit\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Put the Common App Data Directory as installation default\n" );
@@ -3430,43 +3415,45 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "\n" );
   printf { $fh } ( "FunctionEnd\n" );
   printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
 
+  # Function myGUIINIT
+  printf { $fh } ( "; Function myGUIInit: Check requirements and uninstall if needed\n" );
+  printf { $fh } ( "; -------------------------------------------------------------------\n" );
   printf { $fh } ( "Function myGUIInit\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Call the language selection dialog\n" );
   printf { $fh } ( "  ; -------------------------------------------\n" );
   printf { $fh } ( "  ;!insertmacro MUI_LANGDLL_DISPLAY\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "  ; Check if the needed zip file containing GMAP exists\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Check if the needed ZIP file containing GMAP exists\n" );
   printf { $fh } ( "  ; ---------------------------------------------------\n" );
   printf { $fh } ( "  IfFileExists \"\$EXEDIR\\\${GMAP_ARCHIVE}\" gmapzipexists\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Missing Gmap Archive\n" );
   printf { $fh } ( "  MessageBox MB_OK|MB_ICONEXCLAMATION \"\$\(MsgBoxMissingGmapZip)\"\n" );
   printf { $fh } ( "  abort\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; GMAP Archive exists - continue\n" );
   printf { $fh } ( "  gmapzipexists:\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "  ; Uninstall before Installing (actual mapname)\n" );
-  printf { $fh } ( "  ; --------------------------------------------\n" );
-  printf { $fh } ( "  ReadRegStr \$R0 HKLM \\\n" );
-  printf { $fh } ( "  \"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \\\n" );
-  printf { $fh } ( "  \"UninstallString\"\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Check if we already have the same map installed via NSIS\n" );
+  printf { $fh } ( "  ; --------------------------------------------------------\n" );
+  printf { $fh } ( "  ReadRegStr \$R0 HKLM \"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"UninstallString\"\n" );
   printf { $fh } ( "  StrCmp \$R0 \"\" noactualmap\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Yes, map installed: aks user to deinstall\n" );
   printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"NSIS: \$(AlreadyInstalled)\" IDOK uninstactualmap\n" );
   printf { $fh } ( "  Abort\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Run the Uninstaller and goto the installation (no further checks about dir and shortcut)\n" );
-  printf { $fh } ( "  ; ----------------------------------------------------------------------------------------\n" );
   printf { $fh } ( "  uninstactualmap:\n" );
   printf { $fh } ( "  Exec \$R0\n" );
   printf { $fh } ( "  goto finished\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Same Map not installed via NSIS, lets continue\n" );
   printf { $fh } ( "  noactualmap:\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Get the Common App Data Directory\n" );
   printf { $fh } ( "  ; -------------------------------------------\n" );
   printf { $fh } ( "  Var /Global GarminMapsDir\n" );
@@ -3476,34 +3463,33 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "  ; Check if the map to be installed already exists: Directory\n" );
   printf { $fh } ( "  ; ----------------------------------------------------------\n" );
   printf { $fh } ( "  IfFileExists \"\$GarminMapsDir\\\${MAPNAME}.gmap\\*.*\" askfordirdeletion\n" );
-  printf { $fh } ( "  \n" );
   printf { $fh } ( "  goto nogmapdirinstalled\n" );
   printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ;the GMAP directory for this map exists already: ask user\n" );
   printf { $fh } ( "  askfordirdeletion:\n" );
   printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"Directory: \$(AlreadyInstalled)\" IDOK deletegmapdir\n" );
   printf { $fh } ( "  Abort\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "  ; If needed and wished: remove old existing gmap\n" );
-  printf { $fh } ( "  ; ----------------------------------------------\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; If needed and wished: remove old existing gmap directory\n" );
   printf { $fh } ( "  deletegmapdir:\n" );
-  printf { $fh } ( "    RMDir /r \"\$GarminMapsDir\\\${MAPNAME}.gmap\"\n" );
+  printf { $fh } ( "  RMDir /r \"\$GarminMapsDir\\\${MAPNAME}.gmap\"\n" );
   printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; no existing GMAP directory for this map, lets continue\n" );
   printf { $fh } ( "  nogmapdirinstalled:\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "  ; Check if there is a shortcut in the GarminMapsDir\n" );
-  printf { $fh } ( "  ; ----------------------------------------------------------\n" );
-  printf { $fh } ( "  IfFileExists \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\" askforlinkdeletion\n" );
   printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Check if there is a shortcut in the GarminMapsDir for this map\n" );
+  printf { $fh } ( "  ; --------------------------------------------------------------\n" );
+  printf { $fh } ( "  IfFileExists \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\" askforlinkdeletion\n" );
   printf { $fh } ( "  goto nogmaplinkinstalled\n" );
   printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; There is a shortcut for this map: ask user\n" );
   printf { $fh } ( "  askforlinkdeletion:\n" );
   printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"ShortCut: \$(AlreadyInstalled)\" IDOK deletegmaplink\n" );
   printf { $fh } ( "  Abort\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "  ; If needed and wished: remove old existing gmap\n" );
-  printf { $fh } ( "  ; ----------------------------------------------\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; If needed and wished: remove old existing gmap shortcut\n" );
   printf { $fh } ( "  deletegmaplink:\n" );
-  printf { $fh } ( "    Delete \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\"\n" );
+  printf { $fh } ( "  Delete \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\"\n" );
   printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; All fine, lets continue\n" );
   printf { $fh } ( "  nogmaplinkinstalled:\n" );
@@ -3513,57 +3499,56 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
 
+  # Installer Section
   printf { $fh } ( "; Installer Section\n" );
   printf { $fh } ( "; -----------------\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "Section \"MainSection\" SectionMain\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Get and create a temporary directory\n" );
   printf { $fh } ( "  ; ------------------------------------\n" );
   printf { $fh } ( "  Var /Global MyTempDir\n" );
   printf { $fh } ( "  GetTempFileName \$MyTempDir\n" );
   printf { $fh } ( "  Delete \$MyTempDir\n" );
   printf { $fh } ( "  CreateDirectory \$MyTempDir\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Extract 7za.exe\n" );
   printf { $fh } ( "  ; ---------------------\n" );
   printf { $fh } ( "  SetOutPath \"\$MyTempDir\"\n" );
   printf { $fh } ( "  File \"\%s\\tools\\zip\\windows\\7-Zip\\7za.exe\"\n", $BASEPATH );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Execute 7za.exe to unzip GMAP Archive to choosen directory\n" );
   printf { $fh } ( "  ; ----------------------------------------------------------\n" );
   printf { $fh } ( "  DetailPrint \"\$(ActionUnzippingGMAP)\"\n" );
   printf { $fh } ( "  ExecWait '\"\$MyTempDir\\7za.exe\" x \"\$EXEDIR\\\${GMAP_ARCHIVE}\" -aoa -o\"\$INSTDIR\"' \$0\n" );
   printf { $fh } ( "  Pop \$0\n" );
   printf { $fh } ( "  IntCmp \$0 0 +2\n" );
-  printf { $fh } ( "    call InstallError\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  call InstallError\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Clear Errors and continue\n" );
   printf { $fh } ( "  ClearErrors\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Create the sortcut if needed (INSTDIR <> GarminMapsDir)\n" );
   printf { $fh } ( "  ; -------------------------------------------------------\n" );
-  printf { $fh } ( "  StrCmp \$INSTDIR \$GarminMapsDir noShortcutNeeded\n\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "    ; Shortcut needed\n" );
-  printf { $fh } ( "    CreateShortCut \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\" \"\$INSTDIR\\\${MAPNAME}.gmap\"\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  StrCmp \$INSTDIR \$GarminMapsDir noShortcutNeeded\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Shortcut needed\n" );
+  printf { $fh } ( "  CreateShortCut \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\" \"\$INSTDIR\\\${MAPNAME}.gmap\"\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Check for errors\n" );
   printf { $fh } ( "  IfErrors 0 +2\n" );
-  printf { $fh } ( "    Call InstallError\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  Call InstallError\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; No Shortcut needed, let's continue\n" );
-  printf { $fh } ( "  ; ----------------------------------\n" );
   printf { $fh } ( "  noShortcutNeeded:\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Delete temporary directory and content\n" );
   printf { $fh } ( "  ; --------------------------------------\n" );
   printf { $fh } ( "  RMDir /r \$MyTempDir\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Write Uninstaller\n" );
   printf { $fh } ( "  ; -----------------\n" );
   printf { $fh } ( "  WriteUninstaller \"\$INSTDIR\\\${MAPNAME}-Uninstall.exe\"\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Create Uninstaller registry keys\n" );
   printf { $fh } ( "  ; --------------------------------\n" );
   printf { $fh } ( "  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"DisplayName\" \"\$(^Name)\"\n" );
@@ -3573,43 +3558,41 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"URLInfoAbout\" \"http://www.freizeitkarte-osm.de\"\n" );
   printf { $fh } ( "  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"DisplayVersion\" \"\${KARTEN_AUSGABE}\"\n" );
   printf { $fh } ( "  WriteRegDWORD HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"NoModify\" 1\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "SectionEnd\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
 
+  # Uninstaller Section
   printf { $fh } ( "; Uninstaller Section\n" );
   printf { $fh } ( "; -------------------\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "Section \"Uninstall\"\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Remove existing GMAP directory\n" );
   printf { $fh } ( "  RMDir /r \"\$INSTDIR\\\${MAPNAME}.gmap\"\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Get the Common App Data Directory\n" );
-  printf { $fh } ( "  ; -------------------------------------------\n" );
   printf { $fh } ( "  SetShellVarContext all\n" );
   printf { $fh } ( "  StrCpy \$GarminMapsDir \"\$APPDATA\\Garmin\\Maps\"\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Do we need to delete a shortcut ? (INSTDIR <> GarminMapsDir)\n" );
-  printf { $fh } ( "  ; ------------------------------------------------------------\n" );
   printf { $fh } ( "  StrCmp \$INSTDIR \$GarminMapsDir +2\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Delete the shortcut\n" );
   printf { $fh } ( "  Delete \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\"\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Registry cleanup\n" );
-  printf { $fh } ( "  ; ----------------\n" );
   printf { $fh } ( "  DeleteRegKey HKLM \"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\"\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Delete the Installer itself\n" );
-  printf { $fh } ( "  ; ---------------------------\n" );
   printf { $fh } ( "  Delete \"\$INSTDIR\\\${MAPNAME}-Uninstall.exe\"\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "SectionEnd\n" );
-  printf { $fh } ( "\n\n" );
+  printf { $fh } ( "\n" );
 
+  # Function InstallError
+  printf { $fh } ( "; Function InstallError\n" );
+  printf { $fh } ( "; ---------------------\n" );
   printf { $fh } ( "Function InstallError\n" );
   printf { $fh } ( "  DetailPrint \"\$0\"\n" );
   printf { $fh } ( "  RMDir /r \$MyTempDir\n" );
