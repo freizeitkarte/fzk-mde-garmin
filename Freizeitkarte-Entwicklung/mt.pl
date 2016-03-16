@@ -2846,7 +2846,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "!define MUI_CUSTOMFUNCTION_GUIINIT myGuiInit\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( ";  Pages\n" );
+  printf { $fh } ( "; Uninstaller Pages\n" );
   printf { $fh } ( "; -----------------\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"\$(UIWpTitle)\"\n" );
@@ -2928,7 +2928,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"\$(AlreadyInstalled)\" IDOK uninstactualcard\n" );
   printf { $fh } ( "  Abort\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "  ; Run the \n" );
+  printf { $fh } ( "  ; Run the Uninstaller\n" );
   printf { $fh } ( "  ; -------------------\n" );
   printf { $fh } ( "  uninstactualcard:\n" );
   printf { $fh } ( "  Exec \$R0\n" );
@@ -2946,7 +2946,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"\$(AlreadyInstalledOldName)\" IDOK uninstoldcard\n" );
   printf { $fh } ( "  Abort\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "  ; Run the \n" );
+  printf { $fh } ( "  ; Run the Uninstaller\n" );
   printf { $fh } ( "  ; -------------------\n" );
   printf { $fh } ( "  uninstoldcard:\n" );
   printf { $fh } ( "  Exec \$R0\n" );
@@ -3061,7 +3061,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Write uninstaller\n" );
   printf { $fh } ( "  ; -----------------\n" );
-  printf { $fh } ( "  Write \"\$INSTDIR\\Uninstall.exe\"\n" );
+  printf { $fh } ( "  WriteUninstaller \"\$INSTDIR\\Uninstall.exe\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Create uninstaller registry keys\n" );
   printf { $fh } ( "  ; --------------------------------\n" );
@@ -3078,7 +3078,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "SectionEnd\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( ";  Section\n" );
+  printf { $fh } ( "; Uninstaller Section\n" );
   printf { $fh } ( "; -------------------\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "Section \"Uninstall\"\n" );
