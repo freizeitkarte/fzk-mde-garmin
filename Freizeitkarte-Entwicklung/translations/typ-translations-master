@@ -4826,10 +4826,12 @@ String=0x15,Pokoje gościnne do wynajęcia
 String=0x19,Мини-гостиница
 [end]
 
+
+; remapped 16.3.2016 from 2b03 to 2b05 due to categorization problems with GPSMap 64s
 ; Camping <=> Camping
 [_point]
 Type=0x02b
-SubType=0x03
+SubType=0x05
 String=0x00,Camping
 String=0x01,Camping
 String=0x02,Campingplatz

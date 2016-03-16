@@ -28,6 +28,7 @@
 #           0.17 -14.09.2014: Fixing a new bug introduced regarding restricted parking
 # Version : 0.18 -02.05.2015: Changes regarding amenity = place_of_worship and buildings
 # Version : 0.19 -19.06.2015: Proper handling place_of_worship without names (to show name and symbol too)
+# Version : 0.20 -16.03.2016: Remapped Camping from 0x2B03 to 0x2B05 due to categorization problems with GPSMap 64s
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #
@@ -430,10 +431,10 @@ amenity = shelter & shelter_type = basic_hut                      {name "$__BASI
 tourism = bed_and_breakfast & name = * { name "${name} ($__BEDANDBREAKFAST__)" } [0x2b02 resolution 24]
 
 # Campingplatz. [point, closedway]
-tourism = camp_site & name = * {name "${name} ($__CAMPSITE__)"} [0x2b03 resolution 24]
+tourism = camp_site & name = * {name "${name} ($__CAMPSITE__)"} [0x2b05 resolution 24]
 
 # Stellplatz für Wohnmobile (Reisemobile). [point, closedway]
-tourism = caravan_site & name = * {name "${name} ($__CARAVANSITE__)"} [0x2b03 resolution 24]
+tourism = caravan_site & name = * {name "${name} ($__CARAVANSITE__)"} [0x2b05 resolution 24]
 
 # Ferienwohnung, Ferienhaus, Sennhütte. [point, closedway]
 tourism = chalet & name = * { name "${name} ($__CHALET__)" } [0x2b02 resolution 24]

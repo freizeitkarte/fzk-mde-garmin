@@ -7183,9 +7183,10 @@ DayXpm="6 5 2 1"   Colormode=16
 [end]
 
 
+; remapped 16.3.2016 from 2b03 to 2b05 due to categorization problems with GPSMap 64s
 [_point]
 Type=0x02b
-SubType=0x03
+SubType=0x05
 String1=0x00,Camping
 String2=0x01,Camping
 String3=0x02,Camping
