@@ -499,7 +499,7 @@ elsif ( $actionname eq 'fingerprint' ) {
 # Therefore we need to check the environment now
 check_environment ();
 
-# Not related to a map directly (no map argument needeD)
+# Not related to a map directly (no map argument needed)
 if ( $actionname eq 'alltypfiles' ) {
   show_actionsummary ();
   $alltypfile = "yes";
@@ -4897,7 +4897,7 @@ sub show_actionsummary {
     printf { *STDOUT }   ( "CodePage:   %s\n",      $mapcodepage );
     printf { *STDOUT }   ( "Typ file:   %s.TYP\n",  $maptypfile );
     printf { *STDOUT }   ( "Style Dir:  %s\n",  $mapstyledir );
-    printf { *STDOUT }   ( "elevation:  %s m\n",    $ele );
+    printf { *STDOUT }   ( "Elevation:  %s m\n",    $ele );
     if ( $maptype == 3 ) {
       printf { *STDOUT } ( "Map type:   downloadable OSM extract\n" );
     }
@@ -4909,10 +4909,12 @@ sub show_actionsummary {
       printf { *STDOUT } ( "Map type:   parent map\n" );      
     }
     if ( $nametaglist ne $EMPTY ) {
-      printf { *STDOUT } ( "ntl:        name-tag-list=%s\n", $nametaglist );  
+      printf { *STDOUT } ( "Ntl:        name-tag-list=%s\n", $nametaglist );  
+    }
+    if ( ( $releasestring ne $EMPTY ) && ( $releasenumeric ne $EMPTY ) ) {
+        printf { *STDOUT }   ( "Release:    %s / %s\n",$releasestring,$releasenumeric );
     }
   }
-  printf { *STDOUT }   ( "release:    %s / %s\n",$releasestring,$releasenumeric );
 
 }
 
