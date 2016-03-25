@@ -4402,7 +4402,7 @@ sub show_fingerprint {
 
     # osmconvert (not triggered)
     # --------------------------
-    printf "osmconvert - not used during build\n";
+    printf "osmconvert\n";
     printf "======================================\n";
     if ( $OSNAME eq 'darwin' ) {
       # OS X
