@@ -1482,6 +1482,13 @@ sub split_mapdata {
     return ( 1 );
   }
 
+# Call of split eventually to be changes with one or several of below options
+#  . " --no-trim" 
+#  . " --ignore-osm-bounds"
+#  . " --polygon-file=something.poly"
+
+
+#
   # split the map
   $command = 
      "java -Xmx" 
@@ -1489,7 +1496,7 @@ sub split_mapdata {
    . " -jar $BASEPATH/tools/splitter/splitter.jar" 
    . $max_threads 
    . " --geonames-file=$BASEPATH/cities/cities15000.zip" 
-   . " --no-trim" 
+   . " --no-trim"
    . " --precomp-sea=$BASEPATH/sea" 
    . " --keep-complete=true" 
    . " --mapid=" 
