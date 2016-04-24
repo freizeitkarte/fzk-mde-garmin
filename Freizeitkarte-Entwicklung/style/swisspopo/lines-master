@@ -56,6 +56,7 @@
 # Version : 0.29  01.03.2015 - Showning some less important rails later with a different pattern style ( service = *, railway = disused, usage = industrial)
 #         : 0.30  01.05.2015 - Changes regarding highway = track and tracktype = grade*: don't show as unspecified road if cars allowed 
 #           0.31  30.05.2015 - Changes regarding bridges on highways and railways (different types): bridge can have other values than only 'yes'
+# Version : 0.32  25.04.2016 - Showing aerialway = rope-tow also
 
 
 
@@ -1848,6 +1849,10 @@ aerialway = cable_car | aerialway = gondola | aerialway = mixed_lift | aerialway
 # 0x011f1e = Bitmap 4 (3 Pixel gefuellt, NoLabel)
 aerialway = drag_lift | aerialway=t-bar [0x11 road_class=0 road_speed=0 resolution 24 continue]
 aerialway = drag_lift | aerialway=t-bar [0x011f1e resolution 23]
+
+# rope-tow: A tow-line for skiers and riders. The passengers hold the rope by hand or use special tow grabbers (nutcrackers). 
+# 0x011f1e = Bitmap 4 (3 Pixel gefuellt, NoLabel)
+aerialway = rope_tow [0x011f1e resolution 23]
 
 # Materialseilbahn. Personentransport ist normalerweise nicht erlaubt.
 # 0x01210d = Bitmap 4 (3 Pixel gefuellt, NoLabel)
