@@ -4,6 +4,7 @@
 # Version : siehe unten
 #
 # Copyright (C) 2011-2013 Klaus Tockloth <Klaus.Tockloth@googlemail.com>
+#               2013-2015 Adaptions by Patrik Brunner <keenonkites@gmx.net>
 # - modified for Ubuntu through GVE
 #
 # Programmcode formatiert mit "perltidy".
@@ -57,6 +58,7 @@ my @actions = (
   [ 'extract_osm','I. extract single map from big region data' ,           'optional' ],
   [ 'alltypfiles','J. Create all languages of the TYP files' ,             'optional' ],
   [ 'replacetyp', 'K. Create all language versions of ReplaceTyp.zip' ,    'optional' ],
+  [ 'check_osmid','L. Check overlapping OSM ID ranges for map and ele',    'optional' ],
 #  [ 'fetch_map',  'J. fetch map data from Europe directory' ,              'optional' ],
 
   # Hidden Actions not related to maps 
@@ -104,7 +106,7 @@ my %langcodepage = (
 my %elevationbaseurl = (
   'ele10' => "http://develop.freizeitkarte-osm.de/ele_10_100_200",
   'ele20' => "http://develop.freizeitkarte-osm.de/ele_20_100_500",
-  'ele25' => "http://develop.freizeitkarte-osm.de/ele_25_250_500",
+#  'ele25' => "http://develop.freizeitkarte-osm.de/ele_25_250_500",
   );
   
 # Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
@@ -229,6 +231,7 @@ my @maps = (
   [ 6032, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'no_old_name',                             3, 'NA'             ],
   [ 6392, 'Freizeitkarte_JPN',                    'http://download.geofabrik.de/asia/japan-latest.osm.pbf',                                            'JPN',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6408, 'Freizeitkarte_KOR',                    'http://download.geofabrik.de/asia/south-korea-latest.osm.pbf',                                      'KOR',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6144, 'Freizeitkarte_LKA',                    'http://download.geofabrik.de/asia/sri-lanka-latest.osm.pbf',                                        'LKA',                      'en', 'no_old_name',                             3, 'NA'             ],
   # updates mehrmals täglich
   [ 6524, 'Freizeitkarte_NPL',                    'http://labs.geofabrik.de/nepal/latest.osm.pbf',                                                     'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
 #  [ 6524, 'Freizeitkarte_NPL',                    'http://download.geofabrik.de/asia/nepal-latest.osm.pbf',                                            'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
@@ -340,7 +343,7 @@ my $ACTIONOPT  = 2;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.11 - 2015/02/17';
+my $VERSION = '1.3.12 - 2016/03/11';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -402,6 +405,9 @@ my $langdesc   = $EMPTY;
 my $maptypfile = "freizeit.TYP";
 my $mapstyle    = "fzk";
 my $mapstyledir = 'style/fzk';
+
+my $releasestring  = $EMPTY;
+my $releasenumeric = $EMPTY;
 
 my $error   = -1;
 my $command = $EMPTY;
@@ -493,7 +499,7 @@ elsif ( $actionname eq 'fingerprint' ) {
 # Therefore we need to check the environment now
 check_environment ();
 
-# Not related to a map directly (no map argument needeD)
+# Not related to a map directly (no map argument needed)
 if ( $actionname eq 'alltypfiles' ) {
   show_actionsummary ();
   $alltypfile = "yes";
@@ -633,12 +639,6 @@ if ( $nametaglist ne $EMPTY ) {
    }
 }
 
-
-# Print out the Information about the choosen action and map
-#printf { *STDOUT } ( "Action = %s\n", $actiondesc );
-#printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
-show_actionsummary ();
-
 # Create the WORKDIR, WORKDIRLANG and the INSTALLDIR variables, used at a lot of places
 my $WORKDIR     = '';
 my $WORKDIRLANG = '';
@@ -660,6 +660,15 @@ $WORKDIR     = "$BASEPATH/work/$mapname";
 $WORKDIRLANG = "$BASEPATH/work/$mapname" . "_$maplang";
 $INSTALLDIR  = "$BASEPATH/install/$mapname" . "_$maplang";
 
+# Put the needed release numbers together
+get_release ();
+
+# Print out the Information about the choosen action and map
+#printf { *STDOUT } ( "Action = %s\n", $actiondesc );
+#printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
+show_actionsummary ();
+
+
 # Make sure that the directories set above are existing
 create_dirs   ();
 
@@ -675,7 +684,11 @@ elsif ( $actionname eq 'fetch_osm' ) {
 elsif ( $actionname eq 'fetch_ele' ) {
   fetch_eledata ();
 }
+elsif ( $actionname eq 'check_osmid' ) {
+  check_osmid ();
+}
 elsif ( $actionname eq 'join' ) {
+  check_osmid  ();
   join_mapdata ();
 }
 elsif ( $actionname eq 'split' ) {
@@ -749,6 +762,7 @@ elsif ( $actionname eq 'bim' ) {
 	  fetch_osmdata        ();
   }
   fetch_eledata            ();
+  check_osmid              ();
   join_mapdata             ();
   split_mapdata            ();
   create_cfgfile           ();
@@ -780,6 +794,7 @@ elsif ( $actionname eq 'pmd' ) {
 	  fetch_osmdata        ();
   }
   fetch_eledata            ();
+  check_osmid              ();
   join_mapdata             ();
   split_mapdata            ();
 }
@@ -1045,21 +1060,21 @@ sub check_downloadurls {
         }
         print "$elevationbaseurl{ele20}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
     
-        # Check the ElevationData 25m
-        $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
-        if ( $returnvalue != 0 ) {
-    		print "FAIL: ele25: ";
-    	}
-    	else {
-    		print "OK:   ele25: ";
-        }
-        print "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";      
+#        # Check the ElevationData 25m
+#        $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
+#        if ( $returnvalue != 0 ) {
+#    		print "FAIL: ele25: ";
+#    	}
+#    	else {
+#    		print "OK:   ele25: ";
+#        }
+#        print "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";      
 	}
 	else {
 		# No elevation Data to download, we don't need it
 		print "N/A:  ele10: (this map doesn't need downloadable elevation Data)\n";		
 		print "N/A:  ele20: (this map doesn't need downloadable elevation Data)\n";		
-		print "N/A:  ele25: (this map doesn't need downloadable elevation Data)\n";		
+#		print "N/A:  ele25: (this map doesn't need downloadable elevation Data)\n";		
 	}
 	  
   }
@@ -1167,7 +1182,8 @@ sub fetch_eledata {
   }
   else {
     # Default = 25 Meter
-    $eleurl = "$elevationbaseurl{ele25}/Hoehendaten_$mapname.osm.pbf";
+    # $eleurl = "$elevationbaseurl{ele25}/Hoehendaten_$mapname.osm.pbf";
+    die ( "ERROR:\n  elevation data: unsupported constant contour value of $ele choosen.\n\n" );
   }
 
    download_url( $eleurl, $filename);
@@ -1182,6 +1198,178 @@ sub fetch_eledata {
     printf { *STDERR } ( "\nError: File <$filename> is not a valid osm.pbf file.\n" );
     die ( "Please check this file concerning error hints (eg. communications errors).\n" );
     return ( 1 );
+  }
+
+  return;
+}
+
+
+# -----------------------------------------
+# Check osm ids for potential conflicts (gives nasty artefacts in map)
+# -----------------------------------------
+sub check_osmid {
+
+  # change the directory
+  chdir "$WORKDIR";
+
+  # Initialize some variables
+  my $filename_kartendaten  = "$WORKDIR/Kartendaten_$mapname.osm.pbf";
+  my $available_kartendaten = 0;
+  my $filename_hoehendaten  = "$WORKDIR/Hoehendaten_$mapname.osm.pbf";
+  my $available_hoehendaten = 0;
+  my $cmdpath = "";
+  my $cmdoutput = "";
+  my $osm_nid_min = "";
+  my $osm_nid_max = "";
+  my $osm_wid_min = "";
+  my $osm_wid_max = "";
+  my $ele_nid_min = "";
+  my $ele_nid_max = "";
+  my $ele_wid_min = "";
+  my $ele_wid_max = "";
+  my $osm_idcheck_ok = "1";
+  my $osm_idcheck_remark = "";
+
+  # check if the osm map file exists and has the proper format
+  if ( -e $filename_kartendaten ) {
+    if ( check_osmpbf ( $filename_kartendaten ) ) {
+      $available_kartendaten = 1;
+    }
+  }
+
+  if ( -e $filename_hoehendaten ) {
+    # check if the elevation data exists and has the proper format
+    if ( check_osmpbf ( $filename_hoehendaten ) ) {
+      $available_hoehendaten = 1;
+    }
+  }
+
+  # All there and so far ok, let's continue
+  if ( $available_kartendaten && $available_hoehendaten ) {
+
+    printf { *STDERR } ( "\nChecking map and elevation data for overlapping osm IDs...\n" );
+
+    # Create the basepath, depending OS
+    if ( $OSNAME eq 'darwin' ) {
+      # OS X
+      $cmdpath = "$BASEPATH/tools/osmconvert/osx/osmconvert";
+    }	
+    elsif ( $OSNAME eq 'MSWin32' ) {
+      # Windows
+      $cmdpath = "$BASEPATH\\tools\\osmconvert\\windows\\osmconvert.exe";
+    }
+    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+      $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert32";
+    }
+
+    # Get the statistics of the map data
+    $cmdoutput = `$cmdpath ${filename_kartendaten} --out-statistics 2>&1`;
+
+    # Try to match the different things
+    if ( $cmdoutput =~ /^node id min: (.*)$/m ) {
+	     $osm_nid_min = $1;
+    }
+    if ( $cmdoutput =~ /^node id max: (.*)$/m ) {
+	     $osm_nid_max = $1;
+#       $osm_nid_max = 8500000000;
+    }
+    if ( $cmdoutput =~ /^way id min: (.*)$/m ) {
+	     $osm_wid_min = $1;
+    }
+    if ( $cmdoutput =~ /^way id max: (.*)$/m ) {
+	     $osm_wid_max = $1;
+#       $osm_wid_max = 8500000000;
+    }
+
+    # Get the statistics of the map ele
+    $cmdoutput = `$cmdpath ${filename_hoehendaten} --out-statistics 2>&1`;
+
+    # Try to match the different things
+    if ( $cmdoutput =~ /^node id min: (.*)$/m ) {
+	     $ele_nid_min = $1;
+    }
+    if ( $cmdoutput =~ /^node id max: (.*)$/m ) {
+	     $ele_nid_max = $1;
+    }
+    if ( $cmdoutput =~ /^way id min: (.*)$/m ) {
+	     $ele_wid_min = $1;
+    }
+    if ( $cmdoutput =~ /^way id max: (.*)$/m ) {
+	     $ele_wid_max = $1;
+    }
+
+    # Let's print the IDs, even if something is wrong with them
+    printf { *STDERR } ( " Map: node id min: %15s\n" , $osm_nid_min ); 
+    printf { *STDERR } ( " Map: node id max: %15s\n" , $osm_nid_max ); 
+    printf { *STDERR } ( " Ele: node id min: %15s\n" , $ele_nid_min ); 
+    printf { *STDERR } ( " Ele: node id max: %15s\n" , $ele_nid_max ); 
+    printf { *STDERR } ( "\n" ); 
+    printf { *STDERR } ( " Map: way id min:  %15s\n" , $osm_wid_min ); 
+    printf { *STDERR } ( " Map: way id max:  %15s\n" , $osm_wid_max ); 
+    printf { *STDERR } ( " Ele: way id min:  %15s\n" , $ele_wid_min ); 
+    printf { *STDERR } ( " Ele: way id max:  %15s\n" , $ele_wid_max ); 
+    printf { *STDERR } ( "\n" ); 
+
+    # Check if all IDs could be set
+    # Map data
+    if ( $osm_nid_min eq "" || $osm_nid_max eq "" || $osm_wid_min eq "" || $osm_wid_max eq "") {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data is invalid\n";
+    }
+    # Ele data
+    if ( $ele_nid_min eq "" || $ele_nid_max eq "" || $ele_wid_min eq "" || $ele_wid_max eq "") {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data is invalid\n";
+    }
+
+    # Stop here if something is wrong already
+    if ( $osm_idcheck_ok == 0 ) {
+       die ( "\nError: OSM ID conflict check: $mapcode\n${osm_idcheck_remark}\n" );
+       return ( 1 );
+    }
+    
+    # Check if any of the IDs is zero or negative (should not happen ?)
+    # Map data
+    if ( $osm_nid_min <= 0 || $osm_nid_max <= 0 || $osm_wid_min <= 0 || $osm_wid_max <= 0) {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the map data is either zero or negative\n";
+    }
+    # Ele data
+    if ( $ele_nid_min <= 0 || $ele_nid_max <= 0 || $ele_wid_min <= 0 || $ele_wid_max <= 0) {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "At least one ID of the ele data is either zero or negative\n";
+    }
+
+    # Stop here if something is wrong already
+    if ( $osm_idcheck_ok == 0 ) {
+       die ( "\nError: OSM ID conflict check: $mapcode\n${osm_idcheck_remark}\n" );
+       return ( 1 );
+    }
+
+    # Check for overlapping ID ranges
+    # Node IDs
+    if ( ! ( ( ( $osm_nid_min < $osm_nid_max ) and ( $osm_nid_max < $ele_nid_min ) and ( $ele_nid_min < $ele_nid_max ) ) xor ( ( $ele_nid_min < $ele_nid_max ) and ( $ele_nid_max < $osm_nid_min ) and ( $osm_nid_min < $osm_nid_max ) ) ) ) {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the node id values\n";
+    }
+    # Way IDs
+    if ( ! ( ( ( $osm_wid_min < $osm_wid_max ) and ( $osm_wid_max < $ele_wid_min ) and ( $ele_wid_min < $ele_wid_max ) ) xor ( ( $ele_wid_min < $ele_wid_max ) and ( $ele_wid_max < $osm_wid_min ) and ( $osm_wid_min < $osm_wid_max ) ) ) ) {
+        $osm_idcheck_ok = "0";
+        $osm_idcheck_remark = $osm_idcheck_remark . "We have potential conflicts with the way id values\n";
+    }
+
+    # Stop here if something is wrong already else let user know that all seems to be ok
+    if ( $osm_idcheck_ok == 0 ) {
+#    printf { *STDERR } ( "${osm_idcheck_remark}" ); 
+       die ( "\nError: OSM ID conflict check: $mapcode\n${osm_idcheck_remark}\n" );
+       return ( 1 );
+    }
+    else {
+       printf { *STDERR } ( "\nOK: OSM ID conflict check: $mapcode\nno potential conflicts found\n\n" ); 
+    }
+    
+
   }
 
   return;
@@ -1294,6 +1482,13 @@ sub split_mapdata {
     return ( 1 );
   }
 
+# Call of split eventually to be changes with one or several of below options
+#  . " --no-trim" 
+#  . " --ignore-osm-bounds"
+#  . " --polygon-file=something.poly"
+
+
+#
   # split the map
   $command = 
      "java -Xmx" 
@@ -1301,7 +1496,7 @@ sub split_mapdata {
    . " -jar $BASEPATH/tools/splitter/splitter.jar" 
    . $max_threads 
    . " --geonames-file=$BASEPATH/cities/cities15000.zip" 
-   . " --no-trim" 
+   . " --no-trim"
    . " --precomp-sea=$BASEPATH/sea" 
    . " --keep-complete=true" 
    . " --mapid=" 
@@ -1327,10 +1522,13 @@ sub split_mapdata {
 # -----------------------------------------
 sub create_cfgfile {
 
+  # Disabled, handled in sub
+  ## Initialize some variables
+  #my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
+  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
+  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
+
   # Initialize some variables
-  my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
-  my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
   my $filename = "$WORKDIRLANG/$mapname.cfg";
 
   # Dump some output
@@ -1382,10 +1580,9 @@ sub create_cfgfile {
       . "#   an use -c template.args, then that file may contain a\n" 
       . "#   \"description\" that will override this option. Use \"--description\" in\n" 
       . "#   splitter.jar to change the description in the template.args file.\n" 
-      . "description=\"%s (Release %d.%d)\"\n", 
+      . "description=\"%s (Release %s)\"\n", 
     $mapname, 
-    ( $year - 100 ), 
-    ( $mon + 1 ) 
+    $releasestring 
   );
 
   printf { $fh } ( "\n# Label options:\n" );
@@ -1567,7 +1764,7 @@ sub create_cfgfile {
       . "# --product-version\n" 
       . "#   The version of the product. Default value is 1.\n" 
       . "product-version=%d\n",
-      ( ( ( $year - 100 ) * 100 ) + ( $mon + 1 ) ) );
+      $releasenumeric );
 
   printf { $fh } (
     "\n"
@@ -1737,7 +1934,7 @@ sub create_cfgfile {
     }
 
     if ( $identifier eq 'description' ) {
-      printf { $fh } ( "%s: %d.%d%s", $identifier, ( $year - 100 ), ( $mon + 1 ), $rest );
+      printf { $fh } ( "%s: %s%s", $identifier, $releasestring, $rest );
     }
 
     if ( $identifier eq 'input-file' ) {
@@ -2556,12 +2753,14 @@ sub create_nsis_nsifile {
     printf { *STDOUT } ( "IMG-File = $imgfile\n" );
   }
 
-  # Create and show the Release Number (creation out of date)
-  # example: 11.07 = year.month
-  my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
-  my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-  printf { *STDOUT } ( "Ausgabe %d.%02d\n", ( $year - 100 ), ( $mon + 1 ) );
+  # Disabled; handled in sub
+  ## Create and show the Release Number (creation out of date)
+  ## example: 11.07 = year.month
+  #my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
+  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
+  # Disabled, handled by sub
+  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
+  printf { *STDOUT } ( "Ausgabe %s\n", $releasestring );
 
   # Create output
   my $filename = $mapname . ".nsi";
@@ -2592,7 +2791,7 @@ sub create_nsis_nsifile {
   printf { $fh } ( "!define KARTEN_BESCHREIBUNG \"%s\"\n", $mapname );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Ausgabe der Karte\n" );
-  printf { $fh } ( "!define KARTEN_AUSGABE \"(Ausgabe %d.%02d)\"\n", ( $year - 100 ), ( $mon + 1 ) );
+  printf { $fh } ( "!define KARTEN_AUSGABE \"(Ausgabe %s)\"\n", $releasestring );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name der Installer-EXE-Datei\n" );
   printf { $fh } ( "!define INSTALLER_EXE_NAME \"Install_%s_%s\"\n", $mapname, $maplang );
@@ -3053,29 +3252,7 @@ sub create_nsis_nsifile2 {
   # Jump into the correct directory
   chdir "$WORKDIRLANG";
 
-;  # Get all TYP files
-;  my @typfiles = ( glob ( "*.TYP" ) );
-;  for my $thistypfile ( @typfiles ) {
-;    printf { *STDOUT } ( "TYP-File = $thistypfile\n" );
-;  }
-;
-;  # Set and show the family-ID
-;  #my $familyID = substr ( $typfiles[ 0 ], 0, 4 );
-;  my $familyID = $mapid;
-;  printf { *STDOUT } ( "Family-ID = $familyID\n" );
-;
-;  # Get and show imagefile names
-;  my @imgfiles = glob ( $familyID . "*.img" );
-;  for my $imgfile ( @imgfiles ) {
-;    printf { *STDOUT } ( "IMG-File = $imgfile\n" );
-;  }
-
-  # Create and show the Release Number (creation out of date)
-  # example: 11.07 = year.month
-  my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
-  my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-  printf { *STDOUT } ( "Ausgabe %d.%02d\n", ( $year - 100 ), ( $mon + 1 ) );
+  printf { *STDOUT } ( "Ausgabe %s\n", $releasestring );
 
   # Create output
   my $filename = $mapname . "-gmap.nsi";
@@ -3084,6 +3261,7 @@ sub create_nsis_nsifile2 {
   # open ( my $fh, '+>:encoding(UTF-8)', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
   open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
 
+  # Print header Information
   printf { $fh } ( "; ------------------------------------------------------------\n" );
   printf { $fh } ( "; Script  : %s.nsi\n", $filename );
   printf { $fh } ( "; Version : $VERSION\n" );
@@ -3093,23 +3271,26 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "; - Separate installer for gmap zip files\n" );
   printf { $fh } ( "; - Just unzippes gmap zip file (in same directory as installer)\n" );
   printf { $fh } ( ";   into the correct location for BaseCamp\n" );
-  printf { $fh } ( "; - No Uninstall right now\n" );
   printf { $fh } ( "; ------------------------------------------------------------\n" );
   printf { $fh } ( "\n" );
+  
+  # Settings and definitions
   printf { $fh } ( "; General Settings\n" );
   printf { $fh } ( "; ----------------\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "; Map Description\n" );
   printf { $fh } ( "!define KARTEN_BESCHREIBUNG \"%s\"\n", $mapname );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Release\n" );
-  printf { $fh } ( "!define KARTEN_AUSGABE \"(Ausgabe %d.%02d)\"\n", ( $year - 100 ), ( $mon + 1 ) );
+  printf { $fh } ( "!define KARTEN_AUSGABE \"(Ausgabe %s)\"\n", $releasestring );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name of the executable installer\n" );
   printf { $fh } ( "!define INSTALLER_EXE_NAME \"GMAP_Installer_%s_%s\"\n", $mapname, $maplang );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name of the map\n" );
   printf { $fh } ( "!define MAPNAME \"%s\"\n",     $mapname );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "; Name of the Windows Registry\n" );
+  printf { $fh } ( "!define REG_KEY \"%s\"\n",     $mapname );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name of the GMAP Archive\n" );
   printf { $fh } ( "!define GMAP_ARCHIVE \"%s_%s.gmap.zip\"\n",     $mapname, $maplang );
@@ -3130,9 +3311,9 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "!define MUI_LANGDLL_ALLLANGUAGES\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
   printf { $fh } ( "; Installer Pages\n" );
   printf { $fh } ( "; ---------------\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"\$(INWpTitle)\"\n" );
   printf { $fh } ( "!define MUI_WELCOMEPAGE_TEXT \"\$(INWpText)\"\n" );
@@ -3145,35 +3326,38 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_WELCOME\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_LICENSE \$(licenseFile)\n" );
-  printf { $fh } ( ";!insertmacro MUI_PAGE_DIRECTORY\n" );
+  printf { $fh } ( "!insertmacro MUI_PAGE_DIRECTORY\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_INSTFILES\n" );
   printf { $fh } ( "!insertmacro MUI_PAGE_FINISH\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
   printf { $fh } ( "; Init Routine\n" );
   printf { $fh } ( "; ------------\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "!define MUI_CUSTOMFUNCTION_GUIINIT myGuiInit\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
   printf { $fh } ( "; Uninstaller Pages\n" );
   printf { $fh } ( "; -----------------\n" );
-  printf { $fh } ( ";!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
-  printf { $fh } ( ";!define MUI_WELCOMEPAGE_TITLE \"\$(UIWpTitle)\"\n" );
-  printf { $fh } ( ";!define MUI_WELCOMEPAGE_TEXT \"\$(UIWpText)\"\n" );
-  printf { $fh } ( ";\n" );
-  printf { $fh } ( ";!define MUI_FINISHPAGE_TITLE_3LINES\n" );
-  printf { $fh } ( ";!define MUI_FINISHPAGE_TITLE \"\$(UIFpTitle)\"\n" );
-  printf { $fh } ( ";!define MUI_FINISHPAGE_TEXT \"\$(UIFpText)\"\n" );
-  printf { $fh } ( ";\n" );
-  printf { $fh } ( ";!define MUI_UNWELCOMEFINISHPAGE_BITMAP Deinstall.bmp\n" );
-  printf { $fh } ( ";\n" );
-  printf { $fh } ( ";!insertmacro MUI_UNPAGE_WELCOME\n" );
-  printf { $fh } ( ";!insertmacro MUI_UNPAGE_CONFIRM\n" );
-  printf { $fh } ( ";!insertmacro MUI_UNPAGE_INSTFILES\n" );
-  printf { $fh } ( ";!insertmacro MUI_UNPAGE_FINISH\n" );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE_3LINES\n" );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TITLE \"\$(UIWpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_WELCOMEPAGE_TEXT \"\$(UIWpText)\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE_3LINES\n" );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TITLE \"\$(UIFpTitle)\"\n" );
+  printf { $fh } ( "!define MUI_FINISHPAGE_TEXT \"\$(UIFpText)\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "!define MUI_UNWELCOMEFINISHPAGE_BITMAP Deinstall.bmp\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "!insertmacro MUI_UNPAGE_WELCOME\n" );
+  printf { $fh } ( "!insertmacro MUI_UNPAGE_CONFIRM\n" );
+  printf { $fh } ( "!insertmacro MUI_UNPAGE_INSTFILES\n" );
+  printf { $fh } ( "!insertmacro MUI_UNPAGE_FINISH\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
+  # Language Settings and String Definitions
   printf { $fh } ( "; Language Settings\n" );
   printf { $fh } ( "; -----------------\n" );
   printf { $fh } ( "!insertmacro MUI_LANGUAGE \"English\"\n" );
@@ -3181,7 +3365,7 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString INWpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
   printf { $fh } ( "LangString INWpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
-  printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\n\Make sure you have the correct GMAP zip file downloaded to the same directory as this installer.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
+  printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\nMake sure you have the correct GMAP zip file downloaded to the same directory as this installer.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
   printf { $fh } ( "LangString INWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nBitte stellen Sie sicher, dass die korrekte GMAP ZIP Datei schon in das gleiche Verzeichnis heruntergeladen wurde, wie dieser Installer.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"lizenz_haftung_erstellung_en.txt\"\n" );
@@ -3191,16 +3375,16 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "LangString INFpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
   printf { $fh } ( "LangString INFpText \${LANG_ENGLISH} \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} has been succesfully installed on your computer.\$\\n\$\\nHave fun using the map.\$\\n\$\\nFor ensuring and increasing the quality of the map also your feedback is helpful (e.g. defects or improvements). Already now many thanks for it.\$\\n\$\\nChoose Finish to terminate the installation.\"\n" );
   printf { $fh } ( "LangString INFpText \${LANG_GERMAN} \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich auf Ihrem Computer installiert.\$\\n\$\\nViel Erfolg und Freude bei der Nutzung der Karte.\$\\n\$\\nUm die Qualitaet dieser Karte zu sichern und zu verbessern ist auch Ihr Feedback (z.B. zu Defekten oder Verbesserungen) hilfreich. An dieser Stelle schon einmal Danke hierfuer.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Installation abzuschliessen.\"\n" );
-  printf { $fh } ( ";\n" );
-  printf { $fh } ( ";LangString UIWpTitle \${LANG_ENGLISH} \"Deinstalling \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
-  printf { $fh } ( ";LangString UIWpTitle \${LANG_GERMAN} \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
-  printf { $fh } ( ";LangString UIWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the deinstallation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}.\$\\n\$\\nBefore deinstallation BaseCamp must be closed for allowing deletion of the map data.\$\\n\$\\nChoose Next for starting the deinstallation.\"\n" );
-  printf { $fh } ( ";LangString UIWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Deistallation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor dem Entfernen muss das Programm BaseCamp geschlossen werden damit Kartendateien geloescht werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Deinstallation zu beginnen.\"\n" );
-  printf { $fh } ( ";\n" );
-  printf { $fh } ( ";LangString UIFpTitle \${LANG_ENGLISH} \"Deinstallation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
-  printf { $fh } ( ";LangString UIFpTitle \${LANG_GERMAN} \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
-  printf { $fh } ( ";LangString UIFpText \${LANG_ENGLISH} \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} has been succesfully deinstalled from your computer.\$\\n\$\\nChoose Finish to terminate the deinstallation.\"\n" );
-  printf { $fh } ( ";LangString UIFpText \${LANG_GERMAN} \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich von Ihrem Computer entfernt.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Deinstallation abzuschliessen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString UIWpTitle \${LANG_ENGLISH} \"Deinstalling \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString UIWpTitle \${LANG_GERMAN} \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "LangString UIWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the deinstallation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}.\$\\n\$\\nBefore deinstallation BaseCamp must be closed for allowing deletion of the map data.\$\\n\$\\nChoose Next for starting the deinstallation.\"\n" );
+  printf { $fh } ( "LangString UIWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Deistallation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor dem Entfernen muss das Programm BaseCamp geschlossen werden damit Kartendateien geloescht werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Deinstallation zu beginnen.\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "LangString UIFpTitle \${LANG_ENGLISH} \"Deinstallation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
+  printf { $fh } ( "LangString UIFpTitle \${LANG_GERMAN} \"Entfernen der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
+  printf { $fh } ( "LangString UIFpText \${LANG_ENGLISH} \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} has been succesfully deinstalled from your computer.\$\\n\$\\nChoose Finish to terminate the deinstallation.\"\n" );
+  printf { $fh } ( "LangString UIFpText \${LANG_GERMAN} \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich von Ihrem Computer entfernt.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Deinstallation abzuschliessen.\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString AlreadyInstalled \${LANG_ENGLISH} \"There is already a version of \${KARTEN_BESCHREIBUNG} installed.\$\\nThis version needs to be deinstalled first.\"\n" );
   printf { $fh } ( "LangString AlreadyInstalled \${LANG_GERMAN} \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\nDiese Version muss zunaechst entfernt werden.\"\n" );
@@ -3208,16 +3392,16 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "LangString MsgBoxMissingGmapZip \${LANG_ENGLISH} \"Can't find the needed ZIP file containing the gmap version of the map:\$\\n    \$EXEDIR\\\${GMAP_ARCHIVE}\$\\n\$\\nPlease download it and save it to above location.\"\n" );
   printf { $fh } ( "LangString MsgBoxMissingGmapZip \${LANG_GERMAN} \"Zip Datei mit GMAP Version der Karte fehlt:\$\\n    \$EXEDIR\\\${GMAP_ARCHIVE}\$\\n\$\\nBitte laden Sie sie herunter und speichern sie an die oben angegebene Stelle.\"\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "LangString ActionUnzippingGMAP \${LANG_ENGLISH} \"Unzipping GMAP Zip File...\"\n" );
-  printf { $fh } ( "LangString ActionUnzippingGMAP \${LANG_GERMAN} \"Entpacken der GMAP Zip Datei...\"\n" );
+  printf { $fh } ( "LangString ActionUnzippingGMAP \${LANG_ENGLISH} \"Unzipping GMAP Zip File with external 7za.exe ... please wait\"\n" );
+  printf { $fh } ( "LangString ActionUnzippingGMAP \${LANG_GERMAN} \"Entpacken der GMAP Zip Datei with external 7za.exe ... please wait\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString UnzipGmapError \${LANG_ENGLISH} \"There was a problem uncompressing the GMAP Zip file:\"\n" );
   printf { $fh } ( "LangString UnzipGmapError \${LANG_GERMAN} \"Fehler beim entpacken der GMAP Zip Datei:\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
   printf { $fh } ( "; Initialize NSI-Variables\n" );
   printf { $fh } ( "; ------------------------\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "; Uninstall key: DisplayName - Name of the application\n" );
   printf { $fh } ( "Name \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE}\"\n" );
   printf { $fh } ( "\n" );
@@ -3225,86 +3409,200 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "OutFile \"\${INSTALLER_EXE_NAME}.exe\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
+  # Function .onInit
+  printf { $fh } ( "; Function .onInit: needed for getting ProgramData dir early enough\n" );
+  printf { $fh } ( "; -------------------------------------------------------------------\n" );
+  printf { $fh } ( "Function .onInit\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Put the Common App Data Directory as installation default\n" );
+  printf { $fh } ( "  ; ---------------------------------------------------------\n" );
+  printf { $fh } ( "  SetShellVarContext all\n" );
+  printf { $fh } ( "  StrCpy \$InstDir \"\$APPDATA\\Garmin\\Maps\"\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "FunctionEnd\n" );
+  printf { $fh } ( "\n" );
+  printf { $fh } ( "\n" );
+
+  # Function myGUIINIT
+  printf { $fh } ( "; Function myGUIInit: Check requirements and uninstall if needed\n" );
+  printf { $fh } ( "; -------------------------------------------------------------------\n" );
   printf { $fh } ( "Function myGUIInit\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Call the language selection dialog\n" );
   printf { $fh } ( "  ; -------------------------------------------\n" );
   printf { $fh } ( "  ;!insertmacro MUI_LANGDLL_DISPLAY\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "  ; Check if the needed zip file containing GMAP exists\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Check if the needed ZIP file containing GMAP exists\n" );
   printf { $fh } ( "  ; ---------------------------------------------------\n" );
   printf { $fh } ( "  IfFileExists \"\$EXEDIR\\\${GMAP_ARCHIVE}\" gmapzipexists\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Missing Gmap Archive\n" );
   printf { $fh } ( "  MessageBox MB_OK|MB_ICONEXCLAMATION \"\$\(MsgBoxMissingGmapZip)\"\n" );
   printf { $fh } ( "  abort\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; GMAP Archive exists - continue\n" );
   printf { $fh } ( "  gmapzipexists:\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Check if we already have the same map installed via NSIS\n" );
+  printf { $fh } ( "  ; --------------------------------------------------------\n" );
+  printf { $fh } ( "  ReadRegStr \$R0 HKLM \"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"UninstallString\"\n" );
+  printf { $fh } ( "  StrCmp \$R0 \"\" noactualmap\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Yes, map installed: aks user to deinstall\n" );
+  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"NSIS: \$(AlreadyInstalled)\" IDOK uninstactualmap\n" );
+  printf { $fh } ( "  Abort\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Run the Uninstaller and goto the installation (no further checks about dir and shortcut)\n" );
+  printf { $fh } ( "  uninstactualmap:\n" );
+  printf { $fh } ( "  Exec \$R0\n" );
+  printf { $fh } ( "  goto finished\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Same Map not installed via NSIS, lets continue\n" );
+  printf { $fh } ( "  noactualmap:\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Get the Common App Data Directory\n" );
   printf { $fh } ( "  ; -------------------------------------------\n" );
-  printf { $fh } ( "  Var /Global MyDestDir\n" );
+  printf { $fh } ( "  Var /Global GarminMapsDir\n" );
   printf { $fh } ( "  SetShellVarContext all\n" );
-  printf { $fh } ( "  StrCpy \$MyDestDir \"\$APPDATA\\Garmin\\Maps\"\n" );
+  printf { $fh } ( "  StrCpy \$GarminMapsDir \"\$APPDATA\\Garmin\\Maps\"\n" );
   printf { $fh } ( "  \n" );
-  printf { $fh } ( "  ; Check if the map to be installed already exists\n" );
-  printf { $fh } ( "  ; -----------------------------------------------\n" );
-  printf { $fh } ( "  IfFileExists \"\$MyDestDir\\\${MAPNAME}.gmap\\*.*\" askfordeletion\n" );
+  printf { $fh } ( "  ; Check if the map to be installed already exists: Directory\n" );
+  printf { $fh } ( "  ; ----------------------------------------------------------\n" );
+  printf { $fh } ( "  IfFileExists \"\$GarminMapsDir\\\${MAPNAME}.gmap\\*.*\" askfordirdeletion\n" );
+  printf { $fh } ( "  goto nogmapdirinstalled\n" );
   printf { $fh } ( "  \n" );
-  printf { $fh } ( "  goto nogmapinstalled\n" );
-  printf { $fh } ( "  \n" );
-  printf { $fh } ( "  askfordeletion:\n" );
-  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"\$(AlreadyInstalled)\" IDOK deletegmap\n" );
+  printf { $fh } ( "  ;the GMAP directory for this map exists already: ask user\n" );
+  printf { $fh } ( "  askfordirdeletion:\n" );
+  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"Directory: \$(AlreadyInstalled)\" IDOK deletegmapdir\n" );
   printf { $fh } ( "  Abort\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "  ; If needed and wished: remove old existing gmap\n" );
-  printf { $fh } ( "  ; ----------------------------------------------\n" );
-  printf { $fh } ( "  deletegmap:\n" );
-  printf { $fh } ( "    RMDir /r \"\$MyDestDir\\\${MAPNAME}.gmap\"\n" );
   printf { $fh } ( "  \n" );
-  printf { $fh } ( "  nogmapinstalled:\n" );
+  printf { $fh } ( "  ; If needed and wished: remove old existing gmap directory\n" );
+  printf { $fh } ( "  deletegmapdir:\n" );
+  printf { $fh } ( "  RMDir /r \"\$GarminMapsDir\\\${MAPNAME}.gmap\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; no existing GMAP directory for this map, lets continue\n" );
+  printf { $fh } ( "  nogmapdirinstalled:\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Check if there is a shortcut in the GarminMapsDir for this map\n" );
+  printf { $fh } ( "  ; --------------------------------------------------------------\n" );
+  printf { $fh } ( "  IfFileExists \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\" askforlinkdeletion\n" );
+  printf { $fh } ( "  goto nogmaplinkinstalled\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; There is a shortcut for this map: ask user\n" );
+  printf { $fh } ( "  askforlinkdeletion:\n" );
+  printf { $fh } ( "  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \"ShortCut: \$(AlreadyInstalled)\" IDOK deletegmaplink\n" );
+  printf { $fh } ( "  Abort\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; If needed and wished: remove old existing gmap shortcut\n" );
+  printf { $fh } ( "  deletegmaplink:\n" );
+  printf { $fh } ( "  Delete \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; All fine, lets continue\n" );
+  printf { $fh } ( "  nogmaplinkinstalled:\n" );
+  printf { $fh } ( "  finished:\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "FunctionEnd\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
+  # Installer Section
   printf { $fh } ( "; Installer Section\n" );
   printf { $fh } ( "; -----------------\n" );
-  printf { $fh } ( "\n" );
   printf { $fh } ( "Section \"MainSection\" SectionMain\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "  ; Files to be installed\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Get and create a temporary directory\n" );
+  printf { $fh } ( "  ; ------------------------------------\n" );
+  printf { $fh } ( "  Var /Global MyTempDir\n" );
+  printf { $fh } ( "  GetTempFileName \$MyTempDir\n" );
+  printf { $fh } ( "  Delete \$MyTempDir\n" );
+  printf { $fh } ( "  CreateDirectory \$MyTempDir\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Extract 7za.exe\n" );
   printf { $fh } ( "  ; ---------------------\n" );
+  printf { $fh } ( "  SetOutPath \"\$MyTempDir\"\n" );
+  printf { $fh } ( "  File \"\%s\\tools\\zip\\windows\\7-Zip\\7za.exe\"\n", $BASEPATH );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Execute 7za.exe to unzip GMAP Archive to choosen directory\n" );
+  printf { $fh } ( "  ; ----------------------------------------------------------\n" );
   printf { $fh } ( "  DetailPrint \"\$(ActionUnzippingGMAP)\"\n" );
-  printf { $fh } ( "  !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\"\n", $BASEPATH );
-  printf { $fh } ( "  nsisunz::UnzipToLog \"\$EXEDIR\\\${GMAP_ARCHIVE}\" \"\$MyDestDir\"\n" );
+  printf { $fh } ( "  ExecWait '\"\$MyTempDir\\7za.exe\" x \"\$EXEDIR\\\${GMAP_ARCHIVE}\" -aoa -o\"\$INSTDIR\"' \$0\n" );
   printf { $fh } ( "  Pop \$0\n" );
-  printf { $fh } ( "  StrCmp \$0 \"success\" +2\n" );
-  printf { $fh } ( "    call InstallError\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  IntCmp \$0 0 +2\n" );
+  printf { $fh } ( "  call InstallError\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Clear Errors and continue\n" );
   printf { $fh } ( "  ClearErrors\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( ";  ; Write uninstaller\n" );
-  printf { $fh } ( ";  ; -----------------\n" );
-  printf { $fh } ( ";  WriteUninstaller \"\$INSTDIR\\Uninstall.exe\"\n" );
-  printf { $fh } ( ";\n" );
-  printf { $fh } ( "\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Create the sortcut if needed (INSTDIR <> GarminMapsDir)\n" );
+  printf { $fh } ( "  ; -------------------------------------------------------\n" );
+  printf { $fh } ( "  StrCmp \$INSTDIR \$GarminMapsDir noShortcutNeeded\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Shortcut needed\n" );
+  printf { $fh } ( "  CreateShortCut \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\" \"\$INSTDIR\\\${MAPNAME}.gmap\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Check for errors\n" );
+  printf { $fh } ( "  IfErrors 0 +2\n" );
+  printf { $fh } ( "  Call InstallError\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; No Shortcut needed, let's continue\n" );
+  printf { $fh } ( "  noShortcutNeeded:\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Delete temporary directory and content\n" );
+  printf { $fh } ( "  ; --------------------------------------\n" );
+  printf { $fh } ( "  RMDir /r \$MyTempDir\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Write Uninstaller\n" );
+  printf { $fh } ( "  ; -----------------\n" );
+  printf { $fh } ( "  WriteUninstaller \"\$INSTDIR\\\${MAPNAME}-Uninstall.exe\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Create Uninstaller registry keys\n" );
+  printf { $fh } ( "  ; --------------------------------\n" );
+  printf { $fh } ( "  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"DisplayName\" \"\$(^Name)\"\n" );
+  printf { $fh } ( "  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"UninstallString\" \"\$INSTDIR\\\${MAPNAME}-Uninstall.exe\"\n" );
+  printf { $fh } ( "  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"InstallLocation\" \"\$INSTDIR\\\${MAPNAME}.gmap\"\n" );
+  printf { $fh } ( "  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"Publisher\" \"Freizeitkarte OSM\"\n" );
+  printf { $fh } ( "  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"URLInfoAbout\" \"http://www.freizeitkarte-osm.de\"\n" );
+  printf { $fh } ( "  WriteRegStr HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"DisplayVersion\" \"\${KARTEN_AUSGABE}\"\n" );
+  printf { $fh } ( "  WriteRegDWORD HKLM \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"NoModify\" 1\n" );
+  printf { $fh } ( "  \n" );
   printf { $fh } ( "SectionEnd\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "\n" );
+
+  # Uninstaller Section
   printf { $fh } ( "; Uninstaller Section\n" );
   printf { $fh } ( "; -------------------\n" );
+  printf { $fh } ( "Section \"Uninstall\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Remove existing GMAP directory\n" );
+  printf { $fh } ( "  RMDir /r \"\$INSTDIR\\\${MAPNAME}.gmap\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Get the Common App Data Directory\n" );
+  printf { $fh } ( "  SetShellVarContext all\n" );
+  printf { $fh } ( "  StrCpy \$GarminMapsDir \"\$APPDATA\\Garmin\\Maps\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Do we need to delete a shortcut ? (INSTDIR <> GarminMapsDir)\n" );
+  printf { $fh } ( "  StrCmp \$INSTDIR \$GarminMapsDir +2\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Delete the shortcut\n" );
+  printf { $fh } ( "  Delete \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Registry cleanup\n" );
+  printf { $fh } ( "  DeleteRegKey HKLM \"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "  ; Delete the Installer itself\n" );
+  printf { $fh } ( "  Delete \"\$INSTDIR\\\${MAPNAME}-Uninstall.exe\"\n" );
+  printf { $fh } ( "  \n" );
+  printf { $fh } ( "SectionEnd\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( ";Section \"Uninstall\"\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( "  ; Nothing to be done here\n" );
-  printf { $fh } ( "\n" );
-  printf { $fh } ( ";SectionEnd\n" );
 
-  printf { $fh } ( "\n\n" );
+  # Function InstallError
+  printf { $fh } ( "; Function InstallError\n" );
+  printf { $fh } ( "; ---------------------\n" );
   printf { $fh } ( "Function InstallError\n" );
   printf { $fh } ( "  DetailPrint \"\$0\"\n" );
+  printf { $fh } ( "  RMDir /r \$MyTempDir\n" );
   printf { $fh } ( "  DetailPrint \" \"\n" );
   printf { $fh } ( "  DetailPrint \"\$(UnzipGmapError)\"\n" );
   printf { $fh } ( "  DetailPrint \"\$EXEDIR\\\${GMAP_ARCHIVE}\"\n" );
@@ -3519,11 +3817,12 @@ sub create_gmapsuppfile {
   # Jump to the work directory
   chdir "$WORKDIRLANG";
 
-  # Initialize some variables
-  my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
-  my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-  my $mapversion = sprintf ( "%d.%d", ( $year - 100 ), ( $mon + 1 ) );
+  # Disabled, handled in sub
+  ## Initialize some variables
+  #my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
+  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
+  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
+  #my $mapversion = sprintf ( "%d.%d", ( $year - 100 ), ( $mon + 1 ) );
 
   # copy License file
   copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
@@ -3535,10 +3834,10 @@ sub create_gmapsuppfile {
   # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
-        "--index --gmapsupp --product-id=1 --family-id=$mapid --family-name=\"$mapname $mapversion\" "
-      . "--series-name=\"$mapname $mapversion\" --description=\"$mapname $mapversion\" --overview-mapnumber=%s0000 "
+        "--index --gmapsupp --product-id=1 --family-id=$mapid --family-name=\"$mapname $releasestring\" "
+      . "--series-name=\"$mapname $releasestring\" --description=\"$mapname $releasestring\" --overview-mapnumber=%s0000 "
       . "--product-version=%d $mapid*.img $mapid.TYP ",
-      $mapid, ( ( ( $year - 100 ) * 100 ) + ( $mon + 1 ) )
+      $mapid, $releasenumeric
   );
 
   # run mkgmap to create the actual gmapsupp.img
@@ -4110,7 +4409,7 @@ sub show_fingerprint {
 
     # osmconvert (not triggered)
     # --------------------------
-    printf "osmconvert - not used during build\n";
+    printf "osmconvert\n";
     printf "======================================\n";
     if ( $OSNAME eq 'darwin' ) {
       # OS X
@@ -4554,6 +4853,35 @@ sub check_environment {
 
 }
 
+# -----------------------------------------
+# Put the release numbers together
+# -----------------------------------------
+sub get_release {
+
+  my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = "";
+
+  # Try to get the creation time from the map data file
+  my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
+  if ( -e $filename_source ) {
+     
+     # File exists, get creation date and it's components
+     my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
+     ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
+    
+  }
+  else {
+    
+     # no File, get actual date and it's components
+     ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ();
+    
+  }
+  
+  # Create the needed release numbers
+  $releasestring  = sprintf ( "%d.%02d", ( $year - 100 ), ( $mon + 1 ) );
+  $releasenumeric = sprintf ( "%d%02d",  ( $year - 100 ), ( $mon + 1 ) );
+
+}
+
 
 # -----------------------------------------
 # Show action summary
@@ -4576,7 +4904,7 @@ sub show_actionsummary {
     printf { *STDOUT }   ( "CodePage:   %s\n",      $mapcodepage );
     printf { *STDOUT }   ( "Typ file:   %s.TYP\n",  $maptypfile );
     printf { *STDOUT }   ( "Style Dir:  %s\n",  $mapstyledir );
-    printf { *STDOUT }   ( "elevation:  %s m\n",    $ele );
+    printf { *STDOUT }   ( "Elevation:  %s m\n",    $ele );
     if ( $maptype == 3 ) {
       printf { *STDOUT } ( "Map type:   downloadable OSM extract\n" );
     }
@@ -4588,7 +4916,10 @@ sub show_actionsummary {
       printf { *STDOUT } ( "Map type:   parent map\n" );      
     }
     if ( $nametaglist ne $EMPTY ) {
-      printf { *STDOUT } ( "ntl:        name-tag-list=%s\n", $nametaglist );  
+      printf { *STDOUT } ( "Ntl:        name-tag-list=%s\n", $nametaglist );  
+    }
+    if ( ( $releasestring ne $EMPTY ) && ( $releasenumeric ne $EMPTY ) ) {
+        printf { *STDOUT }   ( "Release:    %s / %s\n",$releasestring,$releasenumeric );
     }
   }
 
@@ -4638,7 +4969,7 @@ sub show_help {
       . "Options:\n"
       . "--ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
       . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
-      . "--ele      = equidistance of elevation lines (fetch_ele) (10, 25; default = 25)\n"
+      . "--ele      = equidistance of elevation lines (fetch_ele) (10, 20; default = 20)\n"
       . "--typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
       . "--style    = name of the style to be used, must be a directory below styles (default = fzk)\n"
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
