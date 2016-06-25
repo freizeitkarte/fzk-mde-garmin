@@ -233,8 +233,8 @@ my @maps = (
   [ 6408, 'Freizeitkarte_KOR',                    'http://download.geofabrik.de/asia/south-korea-latest.osm.pbf',                                      'KOR',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6144, 'Freizeitkarte_LKA',                    'http://download.geofabrik.de/asia/sri-lanka-latest.osm.pbf',                                        'LKA',                      'en', 'no_old_name',                             3, 'NA'             ],
   # updates mehrmals täglich
-  [ 6524, 'Freizeitkarte_NPL',                    'http://labs.geofabrik.de/nepal/latest.osm.pbf',                                                     'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
-#  [ 6524, 'Freizeitkarte_NPL',                    'http://download.geofabrik.de/asia/nepal-latest.osm.pbf',                                            'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
+  #[ 6524, 'Freizeitkarte_NPL',                    'http://labs.geofabrik.de/nepal/latest.osm.pbf',                                                     'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6524, 'Freizeitkarte_NPL',                    'http://download.geofabrik.de/asia/nepal-latest.osm.pbf',                                            'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
 #  [ 6124, 'Freizeitkarte_CAN',                    'http://download.geofabrik.de/north-america/canada-latest.osm.pbf',                                  'CAN',                      'en', 'no_old_name',                             3, 'NA'             ],
 
   # Andere Regionen
@@ -292,6 +292,7 @@ my @maps = (
   [ 9040, 'Freizeitkarte_AZORES',                  'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                  'pt', 'Freizeitkarte_Azoren',                    3, 'NA'             ],
 
   # Andere Regionen
+  [ 9701, 'Freizeitkarte_US_WASHINGTON',           'http://download.geofabrik.de/north-america/us/washington-latest.osm.pbf',                           'US_WASHINGTON',           'en', 'no_old_name',                             3, 'NA'             ],
   [ 9800, 'Freizeitkarte_CENTRAL_AMERICA',         'http://download.geofabrik.de/central-america-latest.osm.pbf',                                       'CENTRAL_AMERICA',         'en', 'no_old_name',                             3, 'NA'             ],
   [ 9810, 'Freizeitkarte_US_MIDWEST',              'http://download.geofabrik.de/north-america/us-midwest-latest.osm.pbf',                              'US_MIDWEST',              'en', 'no_old_name',                             3, 'NA'             ],
   [ 9811, 'Freizeitkarte_US_NORTHEAST',            'http://download.geofabrik.de/north-america/us-northeast-latest.osm.pbf',                            'US_NORTHEAST',            'en', 'no_old_name',                             3, 'NA'             ],
