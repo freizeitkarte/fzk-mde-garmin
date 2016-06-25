@@ -175,7 +175,8 @@ my @maps = (
   [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/europe/france/alsace-latest.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass',                    3, 'NA'             ],
 
   # Countries
-  # Country codes: 6000 + ISO-3166 (numeric): http://en.wikipedia.org/wiki/ISO_3166-1_numeric
+  # mapid:   6000 + ISO-3166 (numeric): http://en.wikipedia.org/wiki/ISO_3166-1_numeric
+  # mapcode: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
   [ -1,   'Europaeische Laender',                 'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6008, 'Freizeitkarte_ALB',                    'http://download.geofabrik.de/europe/albania-latest.osm.pbf',                                        'ALB',                      'en', 'Freizeitkarte_Albanien',                  3, 'NA'             ],
   [ 6020, 'Freizeitkarte_AND',                    'http://download.geofabrik.de/europe/andorra-latest.osm.pbf',                                        'AND',                      'en', 'Freizeitkarte_Andorra',                   3, 'NA'             ],
@@ -229,14 +230,20 @@ my @maps = (
   
   [ -1,   'Andere Laender',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6032, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'no_old_name',                             3, 'NA'             ],
+  [ 6068, 'Freizeitkarte_BOL',                    'http://download.geofabrik.de/south-america/bolivia-latest.osm.pbf',                                 'BOL',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6076, 'Freizeitkarte_BRA',                    'http://download.geofabrik.de/south-america/brazil-latest.osm.pbf',                                  'BRA',                      'en', 'no_old_name',                             3, 'NA'             ],
+#  [ 6124, 'Freizeitkarte_CAN',                    'http://download.geofabrik.de/north-america/canada-latest.osm.pbf',                                  'CAN',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6144, 'Freizeitkarte_LKA',                    'http://download.geofabrik.de/asia/sri-lanka-latest.osm.pbf',                                        'LKA',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6152, 'Freizeitkarte_CHL',                    'http://download.geofabrik.de/south-america/chile-latest.osm.pbf',                                   'CHL',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6392, 'Freizeitkarte_JPN',                    'http://download.geofabrik.de/asia/japan-latest.osm.pbf',                                            'JPN',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6408, 'Freizeitkarte_KOR',                    'http://download.geofabrik.de/asia/south-korea-latest.osm.pbf',                                      'KOR',                      'en', 'no_old_name',                             3, 'NA'             ],
-  [ 6144, 'Freizeitkarte_LKA',                    'http://download.geofabrik.de/asia/sri-lanka-latest.osm.pbf',                                        'LKA',                      'en', 'no_old_name',                             3, 'NA'             ],
-  # updates mehrmals täglich
+  # multiple updates per day
   #[ 6524, 'Freizeitkarte_NPL',                    'http://labs.geofabrik.de/nepal/latest.osm.pbf',                                                     'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6524, 'Freizeitkarte_NPL',                    'http://download.geofabrik.de/asia/nepal-latest.osm.pbf',                                            'NPL',                      'en', 'no_old_name',                             3, 'NA'             ],
-#  [ 6124, 'Freizeitkarte_CAN',                    'http://download.geofabrik.de/north-america/canada-latest.osm.pbf',                                  'CAN',                      'en', 'no_old_name',                             3, 'NA'             ],
-
+  [ 6600, 'Freizeitkarte_PRY',                    'http://download.geofabrik.de/south-america/paraguay-latest.osm.pbf',                                'PRY',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6604, 'Freizeitkarte_PER',                    'http://download.geofabrik.de/south-america/peru-latest.osm.pbf',                                    'PER',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6858, 'Freizeitkarte_URY',                    'http://download.geofabrik.de/south-america/uruguay-latest.osm.pbf',                                 'URY',                      'en', 'no_old_name',                             3, 'NA'             ],
+  
   # Andere Regionen
 #  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
 #  [ 7010, 'Freizeitkarte_ALPS-SMALL',             'http://download.geofabrik.de/europe/alps-latest.osm.pbf',                                           'ALPS-SMALL',               'en', 'Freizeitkarte_Alpen',                     3, 'NA'             ],
