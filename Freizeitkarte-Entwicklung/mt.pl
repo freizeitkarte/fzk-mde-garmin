@@ -246,6 +246,7 @@ my @maps = (
   [ 6554, 'Freizeitkarte_NZL',                    'http://download.geofabrik.de/australia-oceania/new-zealand-latest.osm.pbf',                         'NZL',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6600, 'Freizeitkarte_PRY',                    'http://download.geofabrik.de/south-america/paraguay-latest.osm.pbf',                                'PRY',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6604, 'Freizeitkarte_PER',                    'http://download.geofabrik.de/south-america/peru-latest.osm.pbf',                                    'PER',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6704, 'Freizeitkarte_VNM',                    'http://download.geofabrik.de/asia/vietnam-latest.osm.pbf',                                          'VNM',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6740, 'Freizeitkarte_SUR',                    'http://download.geofabrik.de/south-america/suriname-latest.osm.pbf',                                'SUR',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6858, 'Freizeitkarte_URY',                    'http://download.geofabrik.de/south-america/uruguay-latest.osm.pbf',                                 'URY',                      'en', 'no_old_name',                             3, 'NA'             ],
 
