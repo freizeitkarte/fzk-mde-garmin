@@ -39,7 +39,7 @@ my @actions = (
   [ 'gmapsupp',  '6.  create gmapsupp image (for GPS receiver)' ,          '-' ],
   [ 'imagedir',  '6.  create image directory (e.g. for QLandkarte)' ,      '-' ],
 
-  # Optional Actions for maps (Hidden from normal users) 
+  # Optional Actions for maps (Hidden from normal users)
   # (This might change without notification)
   # 'Action',     'Description'
   [ 'cfg',        'A. create individual cfg file' ,                        'optional' ],
@@ -61,7 +61,7 @@ my @actions = (
   [ 'check_osmid','L. Check overlapping OSM ID ranges for map and ele',    'optional' ],
 #  [ 'fetch_map',  'J. fetch map data from Europe directory' ,              'optional' ],
 
-  # Hidden Actions not related to maps 
+  # Hidden Actions not related to maps
   # (This might change without notification)
   # 'Action',     'Description'
   [ 'checkurl',   '   Check all download URLs for existence' ,             'optional' ],
@@ -97,7 +97,7 @@ my %langcodepage = (
    'fr' => '1252' ,
    'it' => '1252' ,
    'nl' => '1252' ,
-   'pt' => '1252' ,   
+   'pt' => '1252' ,
    'pl' => '1250' ,
    'ru' => '1251' ,
    );
@@ -108,17 +108,17 @@ my %elevationbaseurl = (
   'ele20' => "http://develop.freizeitkarte-osm.de/ele_20_100_500",
 #  'ele25' => "http://develop.freizeitkarte-osm.de/ele_25_250_500",
   );
-  
+
 # Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
 my @boundariesurl = (
   'http://develop.freizeitkarte-osm.de/boundaries/bounds.zip',
   'http://osm2.pleiades.uni-wuppertal.de/bounds/latest/bounds.zip',
-  'http://www.navmaps.eu/boundaries?task=weblink.go&id=1', 
+  'http://www.navmaps.eu/boundaries?task=weblink.go&id=1',
   );
 my @seaboundariesurl = (
   'http://develop.freizeitkarte-osm.de/boundaries/sea.zip',
   'http://osm2.pleiades.uni-wuppertal.de/sea/latest/sea.zip',
-  'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
+  'http://www.navmaps.eu/boundaries?task=weblink.go&id=2',
   );
 
 
@@ -227,7 +227,7 @@ my @maps = (
   [ 6752, 'Freizeitkarte_SWE',                    'http://download.geofabrik.de/europe/sweden-latest.osm.pbf',                                         'SWE',                      'en', 'Freizeitkarte_Schweden',                  3, 'NA'             ],
   [ 6792, 'Freizeitkarte_TUR',                    'http://download.geofabrik.de/europe/turkey-latest.osm.pbf',                                         'TUR',                      'en', 'Freizeitkarte_Tuerkei',                   3, 'NA'             ],
   [ 6804, 'Freizeitkarte_UKR',                    'http://download.geofabrik.de/europe/ukraine-latest.osm.pbf',                                        'UKR',                      'en', 'Freizeitkarte_Ukraine',                   3, 'NA'             ],
-  
+
   [ -1,   'Andere Laender',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6032, 'Freizeitkarte_ARG',                    'http://download.geofabrik.de/south-america/argentina-latest.osm.pbf',                               'ARG',                      'de', 'no_old_name',                             3, 'NA'             ],
   [ 6036, 'Freizeitkarte_AUS',                    'http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf',                           'AUS',                      'en', 'no_old_name',                             3, 'NA'             ],
@@ -334,8 +334,8 @@ my @maps = (
   [ 9990, 'Freizeitkarte_CHE_R',                  'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE_R',                    'de', 'no_old_name',                             1, 'NA'             ],
   [ 9991, 'Freizeitkarte_ZUG+',                   'NA',                                                                                                'ZUG+',                     'de', 'no_old_name',                             2, 'CHE_R'          ],
   [ 9992, 'Freizeitkarte_ZHSEE+',                 'NA',                                                                                                'ZHSEE+',                   'de', 'no_old_name',                             2, 'CHE_R'          ],
-  
-  
+
+
 );
 
 # pseudo constants
@@ -434,7 +434,7 @@ my $typfilelangcode = $EMPTY;
 if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'continuedownload' => \$continuedownload, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
-  exit(1);   
+  exit(1);
  }
 
 # Show help if wished
@@ -642,11 +642,11 @@ if ( $error ) {
   show_usage ();
   exit(1);
 }
-  
+
 
 # Check nametaglist (if given) for potential problems
 if ( $nametaglist ne $EMPTY ) {
- 
+
    # Let's check if we have the general fallback 'name' somewhere in the specified nametaglist
    if ( $nametaglist !~ /(^|,)name(,|$)/ ) {
 	 printf { *STDOUT } ( "WARNING:\n  The specified name-tag-list '" . $nametaglist . "' does not contain the tag 'name'.\n  Make sure this is really what you want\n\n\n" );
@@ -844,7 +844,7 @@ exit ( 0 );
 
 # ==================================================================
 #
-# Start of Subroutines 
+# Start of Subroutines
 # --------------------
 #
 # ==================================================================
@@ -871,10 +871,10 @@ sub process_command {
       printf { *STDERR } ( "Failed to execute: $!\n" );
     }
     elsif ( $systemReturncode & 127 ) {
-      $temp_string = sprintf ( 
-        "Child died with signal %d, %s coredump\n", 
-        ( $systemReturncode & 127 ), 
-        ( $systemReturncode & 128 ) ? 'with' : 'without' 
+      $temp_string = sprintf (
+        "Child died with signal %d, %s coredump\n",
+        ( $systemReturncode & 127 ),
+        ( $systemReturncode & 128 ) ? 'with' : 'without'
       );
       printf { *STDERR } $temp_string;
     }
@@ -925,14 +925,14 @@ sub copy_dir_rec {
      unless -d $dst_dir;
 
   chdir $src_dir;
-  
+
   find( sub {
     # $_ is just the filename, "test.txt"
     # $File::Find::name is the full "/path/to/the/file/test.txt".
     # we could filter here for specific files, but we don't
     #return if $_ !~ /\.txt$/i;
     return unless -f;   # We want files only
-    mkpath "$dst_dir/$File::Find::dir" 
+    mkpath "$dst_dir/$File::Find::dir"
       unless -d "$dst_dir/$File::Find::dir";
     copy "$_", "$dst_dir/$File::Find::dir"
       or die "Can't copy the file $File::Find::name...";
@@ -985,17 +985,17 @@ sub create_dirs {
   # WORKDIR is needed for all types of map
   if ( !(-e $WORKDIR ) ) {
     mkpath ( "$WORKDIR" );
-  }    
-  
+  }
+
   # WORKDIRLANG and INSTALLDIR only needed for final map, not for downloaded regions we use for own extracts only
   if ( $maptype != 1 ) {
      if ( !(-e $WORKDIRLANG ) ) {
        mkpath ( "$WORKDIRLANG" );
-     }    
+     }
      if ( !(-e $INSTALLDIR ) ) {
        mkpath ( "$INSTALLDIR" );
      }
-  }    
+  }
 
   printf { *STDOUT } ( "\n" );
 
@@ -1024,7 +1024,7 @@ sub check_downloadurls {
 
   # run through the complete maps array
   for my $mapdata ( @maps ) {
-	
+
 	# Jump to next it's not a real map
 #	if ( ( @$mapdata[ $MAPID ] == -1 ) || ( @$mapdata[ $OSMURL ] eq "NA" ) ) {
 	if ( @$mapdata[ $MAPID ] == -1 ) {
@@ -1045,13 +1045,13 @@ sub check_downloadurls {
     	else {
     		print "OK:   OSM:   ";
         }
-        print @$mapdata[ $OSMURL ] ."\n";	
+        print @$mapdata[ $OSMURL ] ."\n";
 	}
 	else {
 		# No OSM Data to download, will be extracted by script
 		print "N/A:  OSM:   (this map doesn't need downloadable OSM Data)\n";
 	}
-	
+
     # Check the MapURL for map types 2 and 3 (downloadable elevation data)
     if ( ( @$mapdata[ $MAPTYPE ] == 2 ) || ( @$mapdata[ $MAPTYPE ] == 3 ) ) {
         # Check the ElevationData 10m
@@ -1062,8 +1062,8 @@ sub check_downloadurls {
     	else {
     		print "OK:   ele10: ";
         }
-        print "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
-    
+        print "$elevationbaseurl{ele10}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";
+
         # Check the ElevationData 20m
         $returnvalue = system( $command . "$elevationbaseurl{ele20}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
         if ( $returnvalue != 0 ) {
@@ -1072,8 +1072,8 @@ sub check_downloadurls {
     	else {
     		print "OK:   ele20: ";
         }
-        print "$elevationbaseurl{ele20}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";  
-    
+        print "$elevationbaseurl{ele20}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";
+
 #        # Check the ElevationData 25m
 #        $returnvalue = system( $command . "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" );
 #        if ( $returnvalue != 0 ) {
@@ -1082,19 +1082,19 @@ sub check_downloadurls {
 #    	else {
 #    		print "OK:   ele25: ";
 #        }
-#        print "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";      
+#        print "$elevationbaseurl{ele25}/Hoehendaten_" . @$mapdata[ $MAPNAME ] . ".osm.pbf" . "\n";
 	}
 	else {
 		# No elevation Data to download, we don't need it
-		print "N/A:  ele10: (this map doesn't need downloadable elevation Data)\n";		
-		print "N/A:  ele20: (this map doesn't need downloadable elevation Data)\n";		
-#		print "N/A:  ele25: (this map doesn't need downloadable elevation Data)\n";		
+		print "N/A:  ele10: (this map doesn't need downloadable elevation Data)\n";
+		print "N/A:  ele20: (this map doesn't need downloadable elevation Data)\n";
+#		print "N/A:  ele25: (this map doesn't need downloadable elevation Data)\n";
 	}
-	  
+
   }
-	
+
   print "\n\n";
-  
+
 }
 
 # -------------------------------------------
@@ -1116,7 +1116,7 @@ sub download_url {
     $downloadbar_wget = "";
     $downloadbar_curl = "";
   }
-  
+
   # Disable Continue for bootstrap (to avoid possible manual intervention)
   if ( $actionname ne 'bootstrap' && ( $continuedownload )  ) {
     $download_continue_wget = "--continue";
@@ -1135,10 +1135,10 @@ sub download_url {
     die ( "\nError: Operating system $OSNAME not supported.\n" );
     return ( 1 );
   }
-  
+
   # Run the command
   process_command ( $command );
-  
+
   # Return the status
   return ( $? );
 
@@ -1156,12 +1156,12 @@ sub fetch_osmdata {
   if ( !( -e $WORKDIR ) ) {
     die ( "\nERROR:\nThe directory $WORKDIR is missing.\nDid you run the Action 'create' for creating the necessary directories ?\n\n" );
   }
-  
+
   download_url ( $osmurl, $filename );
-  
+
   if ( $? != 0 ) {
       die ( "ERROR:\n  download of osm data from $osmurl failed.\n\n" );
-  }  
+  }
 
   # auf gültige osm.pbf-Datei prüfen
   if ( !check_osmpbf ( $filename ) ) {
@@ -1184,7 +1184,7 @@ sub fetch_eledata {
   # Check for existence of WORKDIR
   if ( !( -e $WORKDIR ) ) {
     die ( "\nERROR:\nThe directory $WORKDIR is missing.\nDid you run the Action 'create' for creating the necessary directories ?\n\n" );
-  }    
+  }
 
   # Download-URL
   my $eleurl = '';
@@ -1206,7 +1206,7 @@ sub fetch_eledata {
   if ( $? != 0 ) {
       die ( "ERROR:\n  download of elevation data from $eleurl failed.\n\n" );
   }
-  
+
   # auf gültige osm.pbf-Datei prüfen
   if ( !check_osmpbf ( $filename ) ) {
     printf { *STDERR } ( "\nError: File <$filename> is not a valid osm.pbf file.\n" );
@@ -1267,7 +1267,7 @@ sub check_osmid {
     if ( $OSNAME eq 'darwin' ) {
       # OS X
       $cmdpath = "$BASEPATH/tools/osmconvert/osx/osmconvert";
-    }	
+    }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
       $cmdpath = "$BASEPATH\\tools\\osmconvert\\windows\\osmconvert.exe";
@@ -1314,16 +1314,16 @@ sub check_osmid {
     }
 
     # Let's print the IDs, even if something is wrong with them
-    printf { *STDERR } ( " Map: node id min: %15s\n" , $osm_nid_min ); 
-    printf { *STDERR } ( " Map: node id max: %15s\n" , $osm_nid_max ); 
-    printf { *STDERR } ( " Ele: node id min: %15s\n" , $ele_nid_min ); 
-    printf { *STDERR } ( " Ele: node id max: %15s\n" , $ele_nid_max ); 
-    printf { *STDERR } ( "\n" ); 
-    printf { *STDERR } ( " Map: way id min:  %15s\n" , $osm_wid_min ); 
-    printf { *STDERR } ( " Map: way id max:  %15s\n" , $osm_wid_max ); 
-    printf { *STDERR } ( " Ele: way id min:  %15s\n" , $ele_wid_min ); 
-    printf { *STDERR } ( " Ele: way id max:  %15s\n" , $ele_wid_max ); 
-    printf { *STDERR } ( "\n" ); 
+    printf { *STDERR } ( " Map: node id min: %15s\n" , $osm_nid_min );
+    printf { *STDERR } ( " Map: node id max: %15s\n" , $osm_nid_max );
+    printf { *STDERR } ( " Ele: node id min: %15s\n" , $ele_nid_min );
+    printf { *STDERR } ( " Ele: node id max: %15s\n" , $ele_nid_max );
+    printf { *STDERR } ( "\n" );
+    printf { *STDERR } ( " Map: way id min:  %15s\n" , $osm_wid_min );
+    printf { *STDERR } ( " Map: way id max:  %15s\n" , $osm_wid_max );
+    printf { *STDERR } ( " Ele: way id min:  %15s\n" , $ele_wid_min );
+    printf { *STDERR } ( " Ele: way id max:  %15s\n" , $ele_wid_max );
+    printf { *STDERR } ( "\n" );
 
     # Check if all IDs could be set
     # Map data
@@ -1342,7 +1342,7 @@ sub check_osmid {
        die ( "\nError: OSM ID conflict check: $mapcode\n${osm_idcheck_remark}\n" );
        return ( 1 );
     }
-    
+
     # Check if any of the IDs is zero or negative (should not happen ?)
     # Map data
     if ( $osm_nid_min <= 0 || $osm_nid_max <= 0 || $osm_wid_min <= 0 || $osm_wid_max <= 0) {
@@ -1375,14 +1375,14 @@ sub check_osmid {
 
     # Stop here if something is wrong already else let user know that all seems to be ok
     if ( $osm_idcheck_ok == 0 ) {
-#    printf { *STDERR } ( "${osm_idcheck_remark}" ); 
+#    printf { *STDERR } ( "${osm_idcheck_remark}" );
        die ( "\nError: OSM ID conflict check: $mapcode\n${osm_idcheck_remark}\n" );
        return ( 1 );
     }
     else {
-       printf { *STDERR } ( "\nOK: OSM ID conflict check: $mapcode\nno potential conflicts found\n\n" ); 
+       printf { *STDERR } ( "\nOK: OSM ID conflict check: $mapcode\nno potential conflicts found\n\n" );
     }
-    
+
 
   }
 
@@ -1429,11 +1429,11 @@ sub join_mapdata {
     $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
 
     # Put the osmosis parameter together
-    my $osmosis_parameter = 
-        " --read-pbf $filename_kartendaten" 
-      . " --read-pbf $filename_hoehendaten" 
-      . " --merge" 
-      . " --write-pbf $filename_ergebnisdaten" 
+    my $osmosis_parameter =
+        " --read-pbf $filename_kartendaten"
+      . " --read-pbf $filename_hoehendaten"
+      . " --merge"
+      . " --write-pbf $filename_ergebnisdaten"
       . " omitmetadata=true";
 
     if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
@@ -1448,15 +1448,15 @@ sub join_mapdata {
       die ( "\nFehler: Operating system $OSNAME not supported.\n" );
       return ( 1 );
     }
-    
+
     # run the command
     process_command ( $command );
-      
+
     # Check Return Value
     if ( $? != 0 ) {
         die ( "ERROR:\n  Joining map and elevation data for $mapname failed.\n\n" );
     }
-    
+
   }
   elsif ( $available_kartendaten ) {
     # only mapdata there, elevation stuff missing, but let's continue anyway
@@ -1480,7 +1480,7 @@ sub join_mapdata {
 # Split the map into tiles
 # -----------------------------------------
 sub split_mapdata {
-  
+
   # Intialize variables
   my $filename_ergebnisdaten = "$WORKDIR/$mapname.osm.pbf";
 
@@ -1497,26 +1497,26 @@ sub split_mapdata {
   }
 
 # Call of split eventually to be changes with one or several of below options
-#  . " --no-trim" 
+#  . " --no-trim"
 #  . " --ignore-osm-bounds"
 #  . " --polygon-file=something.poly"
 
 
 #
   # split the map
-  $command = 
-     "java -Xmx" 
-   . $javaheapsize . "M" 
-   . " -jar $BASEPATH/tools/splitter/splitter.jar" 
-   . $max_threads 
-   . " --geonames-file=$BASEPATH/cities/cities15000.zip" 
+  $command =
+     "java -Xmx"
+   . $javaheapsize . "M"
+   . " -jar $BASEPATH/tools/splitter/splitter.jar"
+   . $max_threads
+   . " --geonames-file=$BASEPATH/cities/cities15000.zip"
    . " --no-trim"
-   . " --precomp-sea=$BASEPATH/sea" 
-   . " --keep-complete=true" 
-   . " --mapid=" 
-   . $mapid . "0001" 
-   . " --max-nodes=800000" 
-   . " --output=xml" 
+   . " --precomp-sea=$BASEPATH/sea"
+   . " --keep-complete=true"
+   . " --mapid="
+   . $mapid . "0001"
+   . " --max-nodes=800000"
+   . " --output=xml"
    . " --output-dir=$WORKDIR $filename_ergebnisdaten";
   process_command ( $command );
 
@@ -1548,18 +1548,18 @@ sub create_cfgfile {
   # Dump some output
   printf { *STDOUT } ( "\n" );
   printf { *STDOUT } ( "Creating $filename ...\n" );
-  
+
   # Try to open the file
   open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
 
   # Write the needed options into the file
-  printf { $fh } 
-    (   "# ------------------------------------------------------------------------------\n" 
-      . "# Zweck   : mkgmap-Konfigurationsdatei\n" 
-      . "# Version : " 
-      . $VERSION . "\n" 
-      . "# Erzeugt : " 
-      . localtime () . "\n" 
+  printf { $fh }
+    (   "# ------------------------------------------------------------------------------\n"
+      . "# Zweck   : mkgmap-Konfigurationsdatei\n"
+      . "# Version : "
+      . $VERSION . "\n"
+      . "# Erzeugt : "
+      . localtime () . "\n"
       . "# ------------------------------------------------------------------------------\n" );
 
   printf { $fh } ( "\n# General options:\n" );
@@ -1573,42 +1573,42 @@ sub create_cfgfile {
   #     . "#   this option is set. Files must have OSM or PBF fileformat.\n"
   #     . "coastlinefile: $BASEPATH/coasts/coastlines.osm.pbf\n" );
 
-  printf { $fh } 
-    (   "\n" 
-      . "# --precomp-sea=directoryname\n" 
-      . "#   Defines the directory that contains the precompiled sea tiles.\n" 
-      . "#   When this option is defined all natural=coastline tags from the\n" 
-      . "#   input OSM tiles are removed and the precompiled data is used instead.\n" 
-      . "#   This option can be combined with the generate-sea options\n" 
-      . "#   multipolygon, polygons and land-tag. The coastlinefile option\n" 
-      . "#   is ignored if precomp-sea is set.\n" 
+  printf { $fh }
+    (   "\n"
+      . "# --precomp-sea=directoryname\n"
+      . "#   Defines the directory that contains the precompiled sea tiles.\n"
+      . "#   When this option is defined all natural=coastline tags from the\n"
+      . "#   input OSM tiles are removed and the precompiled data is used instead.\n"
+      . "#   This option can be combined with the generate-sea options\n"
+      . "#   multipolygon, polygons and land-tag. The coastlinefile option\n"
+      . "#   is ignored if precomp-sea is set.\n"
       . "precomp-sea=$BASEPATH/sea\n" );
 
-  printf { $fh } 
-    (   "\n" 
-      . "# --description=text\n" 
-      . "#   Sets the descriptive text for the map. This may be displayed in\n" 
-      . "#   QLandkarte, MapSource or on a GPS etc, where it is normally shown\n" 
-      . "#   below the family name. Example: --description=\"Germany, Denmark\"\n" 
-      . "#   Please note: if you use splitter.jar to build a template.args file\n" 
-      . "#   an use -c template.args, then that file may contain a\n" 
-      . "#   \"description\" that will override this option. Use \"--description\" in\n" 
-      . "#   splitter.jar to change the description in the template.args file.\n" 
-      . "description=\"%s (Release %s)\"\n", 
-    $mapname, 
-    $releasestring 
+  printf { $fh }
+    (   "\n"
+      . "# --description=text\n"
+      . "#   Sets the descriptive text for the map. This may be displayed in\n"
+      . "#   QLandkarte, MapSource or on a GPS etc, where it is normally shown\n"
+      . "#   below the family name. Example: --description=\"Germany, Denmark\"\n"
+      . "#   Please note: if you use splitter.jar to build a template.args file\n"
+      . "#   an use -c template.args, then that file may contain a\n"
+      . "#   \"description\" that will override this option. Use \"--description\" in\n"
+      . "#   splitter.jar to change the description in the template.args file.\n"
+      . "description=\"%s (Release %s)\"\n",
+    $mapname,
+    $releasestring
   );
 
   printf { $fh } ( "\n# Label options:\n" );
   printf { $fh } ( "# -------------\n" );
 
-  printf { $fh } 
-    (   "\n" 
-      . "# --latin1\n" 
-      . "#   This is equivalent to --code-page=1252.\n" 
-      . "# latin1\n" 
+  printf { $fh }
+    (   "\n"
+      . "# --latin1\n"
+      . "#   This is equivalent to --code-page=1252.\n"
+      . "# latin1\n"
       . "code-page=" . $mapcodepage . "\n" );
-      
+
   printf { $fh }
     (   "\n"
       . "# --name-tag-list=list"
@@ -1616,26 +1616,26 @@ sub create_cfgfile {
       . "#   Useful for language variations. You can supply a list and the first one will be used.\n"
       . "#   Example: --name-tag-list=name:en,int_name,name\n" );
   if ( $nametaglist ne $EMPTY ) {
-     printf { $fh }    
-        (   "name-tag-list=$nametaglist\n" );  
+     printf { $fh }
+        (   "name-tag-list=$nametaglist\n" );
   }
   else {
-     printf { $fh }    
+     printf { $fh }
         (   "#name-tag-list=name:de,name:en,int_name,name\n" );
   }
 
   printf { $fh } ( "\n# Address search options:\n" );
   printf { $fh } ( "# ----------------------\n" );
 
-  printf { $fh } 
-    (   "\n" 
-      . "# --index\n" 
-      . "#   Generate a global index that can be used with MapSource.\n" 
-      . "#   Makes the find places functions in MapSource available.\n" 
-      . "#   The index consists of two files named osmmap.mdx and osmmap_mdr.img\n" 
-      . "#   by default.  The overview-mapname can be used to change the name.\n" 
-      . "#   If the mapset is sent to the device from MapSource, it will enable\n" 
-      . "#   find by name and address search on the GPS.\n" 
+  printf { $fh }
+    (   "\n"
+      . "# --index\n"
+      . "#   Generate a global index that can be used with MapSource.\n"
+      . "#   Makes the find places functions in MapSource available.\n"
+      . "#   The index consists of two files named osmmap.mdx and osmmap_mdr.img\n"
+      . "#   by default.  The overview-mapname can be used to change the name.\n"
+      . "#   If the mapset is sent to the device from MapSource, it will enable\n"
+      . "#   find by name and address search on the GPS.\n"
       . "index\n" );
 
   printf { $fh }
@@ -1750,9 +1750,9 @@ sub create_cfgfile {
   printf { $fh } ( "# ---------------------------\n" );
 
   printf { $fh }
-    (   "\n" 
+    (   "\n"
       . "# --family-id\n"
-      . "#   This is an integer that identifies a family of products.\n" 
+      . "#   This is an integer that identifies a family of products.\n"
       . "family-id=%s\n",
       $mapid );
 
@@ -1774,9 +1774,9 @@ sub create_cfgfile {
 
   # Beispiel: 11.07 = 1107; 1107 / 100 = 11; 1107 % 100 = 7;
   printf { $fh }
-    (   "\n" 
-      . "# --product-version\n" 
-      . "#   The version of the product. Default value is 1.\n" 
+    (   "\n"
+      . "# --product-version\n"
+      . "#   The version of the product. Default value is 1.\n"
       . "product-version=%d\n",
       $releasenumeric );
 
@@ -1897,10 +1897,10 @@ sub create_cfgfile {
       . "#   to a small region of the way near the POI.\n"
       . "link-pois-to-ways\n" );
 
-  printf { $fh } 
-    (   "\n" 
-      . "# --tdbfile\n" 
-      . "#   Write a .tdb file.\n" 
+  printf { $fh }
+    (   "\n"
+      . "# --tdbfile\n"
+      . "#   Write a .tdb file.\n"
       . "tdbfile\n" );
 
   printf { $fh }
@@ -1912,13 +1912,13 @@ sub create_cfgfile {
       . "show-profiles=1\n" );
 
   printf { $fh }
-    (   "\n" 
-      . "# --verbose\n" 
-      . "#   Makes some operations more verbose. Mostly used with --list-styles.\n" 
+    (   "\n"
+      . "# --verbose\n"
+      . "#   Makes some operations more verbose. Mostly used with --list-styles.\n"
       . "verbose\n" );
 
 #  printf { $fh }
-#    (   "\n" 
+#    (   "\n"
 #      . "# --x-housenumbers\n"
 #      . "#   Housenumbers that are tagged with addr:housenumber and addr:street are now\n"
 #      . "#   applied. It can be enabled with the undocumented parameter --x-housenumbers.\n"
@@ -1971,12 +1971,12 @@ sub create_cfgfile {
 # Create all different possible TYP files (all per language)
 # -----------------------------------------
 sub create_alltypfile_languages {
-  
+
   # Initialize Variables
   # --------------------
   my $typfileworkdir    = "$BASEPATH/work/typfiles";
   my $typfileinstalldir = "$BASEPATH/install/typfiles";
-  
+
   # Purge the directories if needed
   # -------------------------------
   if ( -e "$typfileworkdir" ) {
@@ -1990,32 +1990,32 @@ sub create_alltypfile_languages {
   # ---------------------------------
   mkpath ( "$typfileworkdir" );
   mkpath ( "$typfileinstalldir" );
-   
+
   # Loop through all supported languages
   # ----------------------------------
   for my $actuallanguage ( @supportedlanguages )  {
-    
+
     # Get the actual language code like 'en'
     $typfilelangcode = @$actuallanguage [$LANGCODE];
 
     # Create some output
     printf { *STDOUT } ( "\nHandling TYP files: $typfilelangcode\n" );
     printf { *STDOUT } ( "------------------------\n" );
-    
+
     # Check for the existence of the main typfiles directories
     if ( !(-e "$typfileworkdir/$typfilelangcode" ) ) {
       mkpath ( "$typfileworkdir/$typfilelangcode" );
-    }    
+    }
     if ( !(-e "$typfileinstalldir/$typfilelangcode" ) ) {
       mkpath ( "$typfileinstalldir/$typfilelangcode" );
-    }    
-    
+    }
+
     # Create the complete source files together with the translations
     create_typtranslations ();
-    
+
     # Compile these source files into the final TYP files
     compile_typfiles ();
-    
+
     # copy all compiled TYP files over to install directory
     chdir "$typfileworkdir/$typfilelangcode";
     for my $file ( <*.TYP> ) {
@@ -2032,39 +2032,39 @@ sub create_alltypfile_languages {
 # Create all different possible ReplaceTyp.zip files
 # -----------------------------------------
 sub create_allreplacetyp_languages {
-  
+
   # Initialize Variables
   # --------------------
   my $typfileworkdir    = "$BASEPATH/work/typfiles";
   my $typfileinstalldir = "$BASEPATH/install/typfiles";
-  
-    
+
+
   # Loop through all supported languages
   # ----------------------------------
   for my $actuallanguage ( @supportedlanguages )  {
-    
+
     # Get the actual language code like 'en'
     $typfilelangcode = @$actuallanguage [$LANGCODE];
-    
+
     # Create some output
     printf { *STDOUT } ( "\nHandling ReplaceTyp: $typfilelangcode\n" );
     printf { *STDOUT } ( "--------------------------\n" );
-    
+
     # Check for the existence of the main typfiles directories
     if ( !(-e "$typfileworkdir" ) ) {
       die ( "\nERROR:\nThe directory $typfileworkdir/$typfilelangcode is missing.\nDid you run the Action 'alltypfiles' to get all needed files ?\n\n" );
-    }    
+    }
     if ( !(-e "$typfileinstalldir/$typfilelangcode" ) ) {
       die ( "\nERROR:\nThe directory $typfileinstalldir/$typfilelangcode is missing.\nDid you run the Action 'alltypfiles' to get all needed files ?\n\n" );
-    }    
+    }
 
     # Create the needed ReplaceTyp directory
     # --------------------------------------
     if ( !(-e "$typfileworkdir/$typfilelangcode/ReplaceTyp" ) ) {
       mkpath ( "$typfileworkdir/$typfilelangcode/ReplaceTyp" );
-    }    
-    
-    
+    }
+
+
     # Put the ReplaceTyp directory together
     # -------------------------------------
     # Skeleton (everything except the TYP files)
@@ -2079,7 +2079,7 @@ sub create_allreplacetyp_languages {
       printf { *STDOUT } ( "Copying %s\n", $file );
       copy ( $file, "$typfileworkdir/$typfilelangcode/ReplaceTyp" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
     }
-    
+
     # Now zip the result
     # ------------------
     # Initialize some variables
@@ -2113,7 +2113,7 @@ sub create_allreplacetyp_languages {
     # ----------------------------------------
     copy ( "ReplaceTyp.zip", "$typfileinstalldir/$typfilelangcode/ReplaceTyp.zip" ) or die ( "copy() ReplaceTyp.zip failed: $!\n" );
 
-  }  
+  }
 
 }
 
@@ -2121,14 +2121,14 @@ sub create_allreplacetyp_languages {
 # Deduct the file map specific 'typ-translations' containing all needed strings
 # -----------------------------------------
 sub create_typtranslations {
-  
+
   # Attention: called from different places and reacting differently
   # (directories) depending on the action
 
   # Create some output (just to know where we are)
   print "\nCreating complete source txt files for the TYP files\n"
       . "  (containing all needed language strings)\n\n";
-	
+
 
   # Short description of the process:
   # ---------------------------------
@@ -2244,7 +2244,7 @@ sub create_typtranslations {
     }
   }
   %typfilestringhex = reverse %typfilestringindex;
-  
+
 
   # 2) Read all TYP file translations into hashes
   # ----------------------------------------------
@@ -2258,7 +2258,7 @@ sub create_typtranslations {
     # Get the line and make sure that line endings are correct
     $inputline = $_;
     chomp ($inputline);
-    $inputline =~ s/\r$//;    
+    $inputline =~ s/\r$//;
 
     # empty the temporary variables
     $thisobjectform    = '';
@@ -2273,13 +2273,13 @@ sub create_typtranslations {
       # read nextline
       $inputline = <IN>;
       chomp($inputline);
-      $inputline =~ s/\r$//;          
+      $inputline =~ s/\r$//;
       $inputline =~ /^Type=(0x[0-9A-F]{2,5})/i;
       $thisobjecttype = $1;
       if ( $thisobjectform eq "point" ) {
         $inputline = <IN>;
         chomp($inputline);
-        $inputline =~ s/\r$//;          
+        $inputline =~ s/\r$//;
         $inputline =~ /^SubType=(0x[0-9A-F]{2,5})/i;
         $thisobjectsubtype = $1;
       }
@@ -2292,7 +2292,7 @@ sub create_typtranslations {
         last if /^\[end\]/;    # Object finished, get on
         $inputline = $_;
         chomp($inputline);
-        $inputline =~ s/\r$//;          
+        $inputline =~ s/\r$//;
         # Check for strings
         if ( $inputline =~ /^String[0-9]*=(0x[0-9A-F]{2}),(.*)$/i ) {
           $thisobjectstringhash = $thisobjectid . "_$1";
@@ -2335,7 +2335,7 @@ sub create_typtranslations {
       # Get the line and make sure that line endings are correct
       $inputline = $_;
       chomp ($inputline);
-      $inputline =~ s/\r$//;    
+      $inputline =~ s/\r$//;
 
       # empty the temporary variables
       $thisobjectform        = '';
@@ -2353,7 +2353,7 @@ sub create_typtranslations {
         # read nextline
         $inputline = <IN>;
         chomp($inputline);
-        $inputline =~ s/\r$//;          
+        $inputline =~ s/\r$//;
         print OUT $inputline . "\n";
 
         $inputline =~ /^Type=(0x[0-9A-F]{2,5})/i;
@@ -2361,7 +2361,7 @@ sub create_typtranslations {
         if ( $thisobjectform eq "point" ) {
           $inputline = <IN>;
           chomp($inputline);
-          $inputline =~ s/\r$//;          
+          $inputline =~ s/\r$//;
           print OUT $inputline . "\n";
           $inputline =~ /^SubType=(0x[0-9A-F]{2,5})/i;
           $thisobjectsubtype = $1;
@@ -2374,7 +2374,7 @@ sub create_typtranslations {
         while ( <IN> ) {
           $inputline = $_;
           chomp($inputline);
-          $inputline =~ s/\r$//;          
+          $inputline =~ s/\r$//;
 
           # Check for strings
           if ( $inputline =~ /^String[0-4]*=(0x[0-9A-F]{2},.*)$/i ) {
@@ -2403,16 +2403,16 @@ sub create_typtranslations {
           }
         }
       }
- 
+
       # we have to filter out and adapt some strings inside the [_id] section
       elsif ( $inputline =~ /^\[_(id)\]$/ ) {
-	     print OUT $inputline . "\n";	 
-	     
+	     print OUT $inputline . "\n";
+
         # Get strings
         while ( <IN> ) {
           $inputline = $_;
           chomp($inputline);
-          $inputline =~ s/\r$//;          
+          $inputline =~ s/\r$//;
 
           # Check for strings
           if ( $inputline =~ /^ProductCode=.*$/i ) {
@@ -2428,7 +2428,7 @@ sub create_typtranslations {
             }
             else {
               print OUT "CodePage=$mapcodepage\n";
-            } 
+            }
           }
           elsif ( $inputline =~ /^\s*\[end\]/i ) {
             print OUT $inputline . "\n";
@@ -2439,7 +2439,7 @@ sub create_typtranslations {
           }
         }
 
-	      
+
 	  }
       else {
         print OUT $inputline . "\n";
@@ -2457,11 +2457,11 @@ sub create_typtranslations {
 # Compilation of TYP files out of txt source files
 # -----------------------------------------
 sub compile_typfiles {
-	
+
 
   # Create some output (just to know where we are)
   print "\nCompiling source txt files into binary TYP files:\n\n";
-	
+
 
   # Jump to correct directory
 #  chdir "$WORKDIR/TYP";
@@ -2480,7 +2480,7 @@ sub compile_typfiles {
   }
 
 
-  
+
   # Run through the existing textfiles
   for my $thistypfile ( @typfilelist ) {
 
@@ -2497,7 +2497,7 @@ sub compile_typfiles {
 
     # Run the compiler
     process_command ( $command );
-    
+
     # Check Return Value
     if ( $? != 0 ) {
         die ( "ERROR:\n  Compilation of $thistypfile failed.\n\n" );
@@ -2511,7 +2511,7 @@ sub compile_typfiles {
   # Remove unneeded generated files
   unlink ( "osmmap.tdb" );
   unlink ( "osmmap.img" );
-  
+
   return;
 }
 
@@ -2642,7 +2642,7 @@ sub preprocess_styles {
   # Dump and exit
 #  print Dumper @masterfiles;
 #  exit;
-  
+
   # Go to the Workdir LANG
 #  chdir "$WORKDIRLANG";
 
@@ -2657,27 +2657,27 @@ sub preprocess_styles {
   # Add the Preprozessor Option for the language
   $ppp_optionen .= "\U-D$maplang";
 
-  # Loop through the list of *-master files 
+  # Loop through the list of *-master files
   # (sorted to have a reproducible order of sequence independant on filesystem and platform)
   for my $masterfile ( sort @masterfiles ) {
-    
+
     # Go to the correct directory
     my $masterfilepath = dirname($masterfile);
     print "\n\nPPP handling of: $mapstyledir/$masterfile";
     chdir "$WORKDIRLANG/$mapstyledir/$masterfilepath";
-    
+
     # create the proper filenames
     my $masterfilename = basename($masterfile);
     my $newfilename = $masterfilename;
     $newfilename =~ s/-master$//;
-    
+
     # Copy the style-translations to the actual directory
     copy("$WORKDIRLANG/style-translations", "$WORKDIRLANG/$mapstyledir/$masterfilepath");
-    
+
     # Put the preprocessor command together and run it
     $command = "perl  $BASEPATH/tools/ppp/ppp.pl $masterfilename $newfilename -x $ppp_optionen";
     process_command ( $command );
-    
+
   }
 
   return;
@@ -3021,18 +3021,18 @@ sub create_nsis_nsifile {
 
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}_mdr.img\" \"\$INSTDIR\\\${MAPNAME}_mdr.img\"\n" );
   printf { $fh } ( "  Delete \"\$MyTempDir\\\${MAPNAME}_mdr.img\"\n" );
-  
+
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}.mdx\" \"\$INSTDIR\\\${MAPNAME}.mdx\"\n" );
   printf { $fh } ( "  Delete \"\$MyTempDir\\\${MAPNAME}.mdx\"\n" );
-  
+
   for my $thistypfile ( @typfiles ) {
     printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\%s\" \"\$INSTDIR\\\%s\"\n", $thistypfile, $thistypfile );
     printf { $fh } ( "  Delete \"\$MyTempDir\\\%s\"\n", $thistypfile );
   }
-  
+
   printf { $fh } ( "  CopyFiles \"\$MyTempDir\\\${MAPNAME}.tdb\" \"\$INSTDIR\\\${MAPNAME}.tdb\"\n" );
   printf { $fh } ( "  Delete \"\$MyTempDir\\\${MAPNAME}.tdb\"\n" );
-  
+
   printf { $fh } ( "\n" );
 
   printf { $fh } ( "  ; Copy the tiles\n" );
@@ -3245,7 +3245,7 @@ sub create_nsis_exefile {
 #    sleep 60;
     sleep 5;
   }
-  
+
   # Try to move the Installer into the install directory
   move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!: move $filename $INSTALLDIR/$filename\n" );
 
@@ -3287,7 +3287,7 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( ";   into the correct location for BaseCamp\n" );
   printf { $fh } ( "; ------------------------------------------------------------\n" );
   printf { $fh } ( "\n" );
-  
+
   # Settings and definitions
   printf { $fh } ( "; General Settings\n" );
   printf { $fh } ( "; ----------------\n" );
@@ -3692,7 +3692,7 @@ sub create_nsis_exefile2 {
 #    sleep 60;
     sleep 5;
   }
-  
+
   # Try to move the Installer into the install directory
   move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!: move $filename $INSTALLDIR/$filename\n" );
 
@@ -3709,15 +3709,15 @@ sub create_nsis_exefile2 {
 #
 # Usage:
 # jmc_cli source_folder
-# 
+#
 # or
-# 
+#
 # jmc_cli -src=source_folder [-dest=destination_folder] [-bmap=basemap.img] [-gmap=mapname.gmap] [-v]
-# 
+#
 # or
-# 
+#
 # jmc_cli -config=mapname.cfg [-v]
-# 
+#
 # Parameters:
 # -src     (Relative) path to folder with map files you want to convert
 # -dest    (Relative) path to folder where the .gmap folder will be created
@@ -3727,12 +3727,12 @@ sub create_nsis_exefile2 {
 # -gmap    Name of .gmap folder (optional; when omitted the map name will be used)
 # -v       Verbose output: display every step in the process (optional)
 # -config  Use parameters from config file; see sample
-# 
+#
 # Use quotes around paths when they contain spaces, or (Mac/Linux only) escape
 # the spaces with backslashes (not in the config file!).
-# 
+#
 # Status codes:
-# 
+#
 # 0: success
 # 1: wrong parameters
 # 2: missing files
@@ -3752,25 +3752,25 @@ sub create_gmapfile {
   printf { *STDOUT } ( "Creating $filename ...\n" );
   open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
 
-  printf { $fh } 
-    (   "# ------------------------------------------------------------------------------\n" 
+  printf { $fh }
+    (   "# ------------------------------------------------------------------------------\n"
       . "# Configurationfile used for jmc_cli call\n"
       . "# Version needed: 0.7 (or higher)\n"
-      . "# created : " 
+      . "# created : "
       . localtime () . "\n\n"
-      . "# (complete example configuration file can be found in binary directory)\n" 
+      . "# (complete example configuration file can be found in binary directory)\n"
       . "# ------------------------------------------------------------------------------\n" );
 
   printf { $fh } ( "\n# Required options:\n" );
   printf { $fh } ( "# -----------------\n" );
-  
+
   # add requiered source and destination directory to the config file
   printf { $fh } ( "sourcefolder = $WORKDIRLANG\n" );
   printf { $fh } ( "destfolder = $INSTALLDIR\n" );
-  
+
   printf { $fh } ( "\n# Optional stuff options:\n" );
   printf { $fh } ( "# -----------------------\n" );
-  
+
   # add requiered source and destination directory to the config file
   printf { $fh } ( "basemap = $mapname.img\n" );
   printf { $fh } ( "TYPfile = $mapid.TYP\n" );
@@ -3788,7 +3788,7 @@ sub create_gmapfile {
     # OS X
     $command = "$BASEPATH/tools/jmc/osx/jmc_cli $jmc_parameter";
 #    process_command ( $command );
-  }	
+  }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
     $command = "$BASEPATH/tools/jmc/windows/jmc_cli.exe $jmc_parameter";
@@ -3817,7 +3817,7 @@ sub create_gmapfile {
 #  for my $file ( <*.TYP> ) {
 #    printf { *STDOUT } ( "Copying %s\n", $file );
 #    copy ( $file, "$INSTALLDIR/$mapname.gmap" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
-#  }  
+#  }
 
   return;
 }
@@ -3879,7 +3879,7 @@ sub create_gmapsuppfile {
 
 
 # -----------------------------------------
-# Create imageDir format readable by 
+# Create imageDir format readable by
 # - BaseCamp and Mapsource (with the needed Registry entries on Windows)
 # - Qlandkarte GT
 # Content:
@@ -3921,7 +3921,7 @@ sub create_image_directory {
     printf { *STDOUT } ( "Copying %s\n", $file );
     copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
   }
-  
+
   return;
 }
 
@@ -4031,7 +4031,7 @@ sub extract_regions {
 
   # If this map is a downloaded extract from which we extract further regions, continue
   if ( $maptype == 1 ) {
-  
+
      # Initialisations
      # we don't need to cut 'joined' stuff anymore, just the OSM data
      #my $source_filename = "$WORKDIR/$mapname.osm.pbf";
@@ -4042,7 +4042,7 @@ sub extract_regions {
      my @childmapnames = ();
      my $osmosis_runs = 0;
      my $actual_tee = 0;
-   
+
      # Check if the source file exists and is a valid osm.pbf file
      if ( -e $source_filename ) {
        if ( !check_osmpbf ( $source_filename ) ) {
@@ -4054,7 +4054,7 @@ sub extract_regions {
        die ( "\nError: Source data file <$source_filename> does not exists.\n" );
        return ( 1 );
      }
-   
+
      # add the Java-Options for the osmosis call (Environment)
      my $javacmd_options = '-Xmx' . $javaheapsize . 'M';
      $ENV{ JAVACMD_OPTIONS } = $javacmd_options;
@@ -4065,34 +4065,34 @@ sub extract_regions {
 		   push(@childmapnames, @$tmp_mapdata[ $MAPNAME ]);
 		}
 	 }
-     
+
      # Check how many times we'll have to run osmosis
      $osmosis_runs = int ( ( scalar @childmapnames - 1 ) / $max_tee ) + 1;
-     
-     # Loop for the possibly multiple 
+
+     # Loop for the possibly multiple
      for (my $i=1 ; $i <= $osmosis_runs; $i++ ) {
-		        
+
         #Initialisation
         $osmosis_parameter_bw = "";
         my $childmapname = "";
         $actual_tee = 0;
-                
+
         # Loop through the the childmaps until max is reached or we're finished
         for (my $j=1 ; ( $j <= $max_tee and scalar @childmapnames >= 1 ) ; $j++ ) {
 
            # keep the current counter
            $actual_tee = $j;
-           
+
            # Get the actual childmapname
            $childmapname = shift(@childmapnames);
-           
+
            # Add the needed arguments for the osmosis run for this childmap
            $osmosis_parameter_bw = $osmosis_parameter_bw
              . " --bounding-polygon file=$BASEPATH/poly/$childmapname.poly"
              . " --write-pbf file=$WORKDIR/Kartendaten_$childmapname.osm.pbf omitmetadata=yes";
-		   		   
+
 		}
-		
+
     	# ok, enough together, let's run it (MISSING: IS IT THE LAST ?)
 		printf { *STDERR } ( "\nExtracting Freizeitkarte regions ...\n" );
 
@@ -4114,8 +4114,8 @@ sub extract_regions {
         else {
           die ( "\nFehler: Operating System $OSNAME not supported.\n" );
           return ( 1 );
-        }	
-        
+        }
+
         # Run the acual extraction via osmosis
         process_command ( $command );
 
@@ -4140,13 +4140,13 @@ sub extract_regions {
 # if already cut, just copy it
 # ---------------------------------------------------------------------
 sub extract_osm {
-	
+
   # If this map is a regions that needed to be extracted, try to fetch the extracted region
   if ( $maptype == 2 ) {
 
      # Initialisation
      my $mapparentname = $EMPTY;
-	 
+
 	 # Get the proper Map Parent's Name
 	 for my $tmp_mapdata ( @maps ) {
 	    if ( @$tmp_mapdata[ $MAPCODE ] eq $mapparent ) {
@@ -4163,7 +4163,7 @@ sub extract_osm {
      # Check if the source file does exist already
      if ( !(-e $source_filename ) ) {
 		# NOT existing, let's try to cut it
-		
+
 		# Initialise few variables for the osmosis run
         my $osmosis_parameter = "";
 
@@ -4179,7 +4179,7 @@ sub extract_osm {
            printf ( "       Did you already download the osmdata of the map $mapparentname ?\n\n" );
            return ( 1 );
          }
-		 
+
 		 # Let's put the parameters together for the osmosis run
          $osmosis_parameter =
             " --read-pbf file=$parent_filename"
@@ -4199,7 +4199,7 @@ sub extract_osm {
          }
          else {
            die ( "\nError: Operating System $OSNAME not supported.\n" );
-         }	
+         }
 
         # Run the acual extraction via osmosis
         process_command ( $command );
@@ -4217,7 +4217,7 @@ sub extract_osm {
      copy ( "$source_filename", "$destination_filename" ) or die ( "copy($source_filename , $destination_filename) failed: $!\n" );
      printf { *STDERR } ( "\n") ;
 
-  }  
+  }
   else {
      die ( "\nERROR: $mapname is not a region that needed local extraction.\n" );
   }
@@ -4229,13 +4229,13 @@ sub extract_osm {
 # Get stuff already prepared in a bigger regions map directory
 # -----------------------------------------------
 sub fetch_mapdata {
-	
+
   # If this map is a regions that needed to be extracted, try to fetch the extracted region
   if ( $maptype == 2 ) {
 
      # Initialisation
      my $mapparentname = $EMPTY;
-	 
+
 	 # Get the proper Map Parent's Name
 	 for my $tmp_mapdata ( @maps ) {
 	    if ( @$tmp_mapdata[ $MAPCODE ] eq $mapparent ) {
@@ -4249,13 +4249,13 @@ sub fetch_mapdata {
      my $destination_filename = "$WORKDIR/$mapname.osm.pbf";
 
      # Check if the source file does exist (means that the regions have been prepared properly)
-     if ( !( -e $source_filename ) ) { 
+     if ( !( -e $source_filename ) ) {
 	    die ( "Can't find the source map file $source_filename !\n... looks like something is not prepared properly\n" );
      }
-  
+
      # Source file exists, therefore fetch it
      copy ( "$source_filename", "$destination_filename" ) or die ( "copy($source_filename , $destination_filename) failed: $!\n" );
-	  
+
   }
   else {
      die ( "\nERROR: $mapname is not a region that needed local extraction.\n" );
@@ -4270,23 +4270,23 @@ sub fetch_mapdata {
 # Show fingerprint: versions of tools and files
 # -----------------------------------------------
 sub show_fingerprint {
-	
+
 	my $versioncmd = "";
 	my $cmdoutput = "";
 	my $filehandle = "";
 	my $lineoffile = "";
 	my $inputfile = "";
-	
+
 	printf "\n\n\n";
     printf "================================================\n";
     printf "+                                              +\n";
     printf "+ Fingerprint:                                 +\n";
-    printf "+ ------------                                 +\n";    
-    printf "+ Show versions of used tools                  +\n";    
-    printf "+                                              +\n";    
+    printf "+ ------------                                 +\n";
+    printf "+ Show versions of used tools                  +\n";
+    printf "+                                              +\n";
     printf "================================================\n";
     printf "\n";
-    	
+
 
 	# java
 	# ----
@@ -4294,7 +4294,7 @@ sub show_fingerprint {
     printf "======================================\n";
 	$cmdoutput = `java -version 2>&1`;
 	printf "$cmdoutput\n\n";
-	
+
 
 	# osmosis
 	# -------
@@ -4327,12 +4327,12 @@ sub show_fingerprint {
     printf "======================================\n";
     $cmdoutput = `java -jar tools/splitter/splitter.jar --version 2>&1`;
 	printf "$cmdoutput\n\n";
-    
+
 
     # mkgmap
     # ------
     printf "mkgmap\n";
-    printf "======================================\n";    
+    printf "======================================\n";
     $cmdoutput = `java -jar tools/mkgmap/mkgmap.jar --version 2>&1`;
     # Try to match
     if ( $cmdoutput =~ /^(\d{4,})/m ) {
@@ -4345,7 +4345,7 @@ sub show_fingerprint {
         printf "$cmdoutput\n";
         printf "----------------------------\n\n\n";
     }
-    
+
 
 
     # PPP
@@ -4368,7 +4368,7 @@ sub show_fingerprint {
         printf "$1\n";
     }
     printf "\n\n";
-    
+
 
     # 7za (Windows only)
     # ------------------
@@ -4391,7 +4391,7 @@ sub show_fingerprint {
     }
     printf "\n\n";
 
-    
+
     # jmc_cli
     # ------------
     printf "jmc_cli\n";
@@ -4399,7 +4399,7 @@ sub show_fingerprint {
     if ( $OSNAME eq 'darwin' ) {
       # OS X
       $cmdoutput = `$BASEPATH/tools/jmc/osx/jmc_cli 2>&1`;
-    }	
+    }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
       $cmdoutput = `$BASEPATH\\tools\\jmc\\windows\\jmc_cli.exe 2>&1`;
@@ -4419,7 +4419,7 @@ sub show_fingerprint {
         printf "$cmdoutput\n";
         printf "----------------------------\n\n\n";
     }
-    
+
 
     # osmconvert (not triggered)
     # --------------------------
@@ -4428,7 +4428,7 @@ sub show_fingerprint {
     if ( $OSNAME eq 'darwin' ) {
       # OS X
       $cmdoutput = `$BASEPATH/tools/osmconvert/osx/osmconvert --help 2>&1`;
-    }	
+    }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
       $cmdoutput = `$BASEPATH\\tools\\osmconvert\\windows\\osmconvert.exe --help 2>&1`;
@@ -4449,7 +4449,7 @@ sub show_fingerprint {
         printf "----------------------------\n\n\n";
     }
 
-    
+
     # osmfilter (not triggered)
     # -------------------------
     printf "osmfilter - not used during build\n";
@@ -4457,7 +4457,7 @@ sub show_fingerprint {
     if ( $OSNAME eq 'darwin' ) {
       # OS X
       $cmdoutput = `$BASEPATH/tools/osmfilter/osx/osmfilter --help 2>&1`;
-    }	
+    }
     elsif ( $OSNAME eq 'MSWin32' ) {
       # Windows
       $cmdoutput = `$BASEPATH\\tools\\osmfilter\\windows\\osmfilter.exe --help 2>&1`;
@@ -4477,7 +4477,7 @@ sub show_fingerprint {
         printf "$cmdoutput\n";
         printf "----------------------------\n\n\n";
     }
-    
+
 
     # wget (windows directory)
     # ------------------------
@@ -4502,7 +4502,7 @@ sub show_fingerprint {
        }
     }
     printf "\n\n";
-    
+
 
     # NSIS (windows directory), has to be installed on Linux
 	# -------------------------------------------------------
@@ -4561,15 +4561,15 @@ sub show_fingerprint {
         printf "$!\n";
         printf "----------------------------\n\n\n";
 	}
-    
+
 
     # TYPViewer (windows directory), GUI tool, not used, just there for convenience
 
     # IMGinfo (not triggered, GUI tool)
-        
+
     # gmapi-builder.py
-    
-    
+
+
     printf "\n\n";
 }
 
@@ -4578,7 +4578,7 @@ sub show_fingerprint {
 # Bootstrap: load 'missing' big chunks from the Internet
 # --------------------------------------------------------
 sub bootstrap_environment {
-  
+
   # Some local variables
   my $bootstrapdir = "$BASEPATH/work/bootstrap";
   my $actualurl = "";
@@ -4588,7 +4588,7 @@ sub bootstrap_environment {
   my $bs_boundariesurl = "";
   my $bs_seaboundariesurl = "";
   my $returnvalue = "";
-  
+
   # Check if the bootstrap directory exists, else create it and go to it
   # --------------------------------------------------------------------
   if ( !( -e "$BASEPATH/work" ) ) {
@@ -4599,7 +4599,7 @@ sub bootstrap_environment {
     mkdir ( $bootstrapdir );
     printf { *STDOUT } ( "\nDirectory %s created.\n\n", $bootstrapdir );
   }
-  
+
   chdir $bootstrapdir;
 
   # Check for additional parameters with bootstrap
@@ -4630,7 +4630,7 @@ sub bootstrap_environment {
      printf { *STDOUT } ( "\n   we're done with listing the downloadurls... exiting ... \n\n" );
 	 exit;
   }
-  
+
   # handle the 'list' subcommando
   # -----------------------------
   elsif ( $bs_subcmd eq 'urls' ) {
@@ -4680,20 +4680,20 @@ sub bootstrap_environment {
         show_usage ();
         exit(1);
 	}
-	
+
 	# Now we have to 'override' the array containing the downloadurls
 	@boundariesurl = ( "$bs_boundariesurl" );
 	@seaboundariesurl = ( "$bs_seaboundariesurl" );
 
   }
-  
+
   # Check if there is an 'unknown' subcommando... if yes: exit
   elsif ( $bs_subcmd ne '' ) {
      printf { *STDOUT } ( "ERROR:\n  There was an additional unknown subcommand following 'bootstratp.\n\n\n", $bs_seaboundariesurl );
      show_usage ();
      exit(1);
   }
-  
+
   # Try to download the latest version of the boundaries
   # ----------------------------------------------------
 
@@ -4702,9 +4702,9 @@ sub bootstrap_environment {
 
   # First we take the boundaries (bigger file)
   foreach $actualurl ( @boundariesurl ) {
-    
+
     download_url( $actualurl, "bounds.zip");
-        
+
     # Check Return Value
     if ( $? != 0 ) {
         printf "\n\nWARNING: Downloadurl $actualurl seems not to work .... \n";
@@ -4716,7 +4716,7 @@ sub bootstrap_environment {
         last;
     }
   }
-  
+
   # Loop finished let's check if we need to exit or can continue
   unless ( $success ) {
 	  die ( "\n\nERROR: Unable to download the boundaries from any of the given URLs\n");
@@ -4727,9 +4727,9 @@ sub bootstrap_environment {
 
   # Now we take the seatiles (smaller file)
   foreach $actualurl ( @seaboundariesurl ) {
-    
+
     download_url($actualurl, "sea.zip");
-    
+
     # Check Return Value
     if ( $? != 0 ) {
         printf "\n\nWARNING: Downloadurl $actualurl seems not to work .... \n";
@@ -4741,16 +4741,16 @@ sub bootstrap_environment {
         last;
     }
   }
-  
+
   # Loop finished let's check if we need to exit or can continue
   unless ( $success ) {
 	  die ( "\n\nERROR: Unable to download the seaboundaries from any of the given URLs\n\n");
   }
-  
+
   # Check the downloaded zip files for consistency
   # -----------------------------------------------
   foreach $directory ( "bounds", "sea" ) {
-  
+
 	# Test the Archive
 	# ----------------
 	# Set the commands depending on the OS we're running on
@@ -4765,7 +4765,7 @@ sub bootstrap_environment {
     else {
        printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
     }
-    
+
     # Run the command
     process_command ( $command );
 
@@ -4774,17 +4774,17 @@ sub bootstrap_environment {
         die "\n\nERROR: Downloaded Archive $directory.zip seems be corrupt .... exiting now\n\n";
     }
   }
-    
+
   # Extract it into the correct location (after cleaning up the old stuff there)
-  # ----------------------------------------------------------------------------  
+  # ----------------------------------------------------------------------------
   foreach $directory ( "bounds", "sea" ) {
-	  	  
+
 	# Recreate the needed directory in an empty state
 	# -----------------------------------------------
     rmtree ( "$BASEPATH/$directory",    0, 1 );
     sleep 1;
     mkpath ( "$BASEPATH/$directory" );
-	
+
 	# Unzip the stuff
 	# ----------------
 	# Set the commands depending on the OS we're running on
@@ -4799,7 +4799,7 @@ sub bootstrap_environment {
     else {
        printf { *STDERR } ( "\nError: Operating system $OSNAME not supported.\n" );
     }
-    
+
     # Run the command
     process_command ( $command );
 
@@ -4819,10 +4819,10 @@ sub bootstrap_environment {
 # Basic Check of the Environment
 # -----------------------------------------
 sub check_environment {
- 
+
   my $directory = "";
   my $count = 0;
-    
+
   # Print out what we're doing
   printf { *STDOUT } ( "\nChecking the Development Environment...\n", $directory );
 
@@ -4848,7 +4848,7 @@ sub check_environment {
   $count = 0;
   ++$count while glob "$directory/bounds_*_*.bnd";
   if ( $count < 10000 ) {
-    die ( "\nERROR:\nThere are only $count bounds_*_*.bnd files in $directory.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );  
+    die ( "\nERROR:\nThere are only $count bounds_*_*.bnd files in $directory.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );
   }
 
   # Check for the existence of the sea directory and the needed files in it
@@ -4859,7 +4859,7 @@ sub check_environment {
   $count = 0;
   ++$count while glob "$directory/sea_*_*.osm.pbf";
   if ( $count < 5000 ) {
-    die ( "\nERROR:\nThere are only $count sea_*_*.osm.pbf files in $directory.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );  
+    die ( "\nERROR:\nThere are only $count sea_*_*.osm.pbf files in $directory.\nDid you run the Action 'bootstrap' to get all needed files ?\n\n" );
   }
 
   # Get an empty line before continuing
@@ -4877,19 +4877,19 @@ sub get_release {
   # Try to get the creation time from the map data file
   my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
   if ( -e $filename_source ) {
-     
+
      # File exists, get creation date and it's components
      my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
      ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-    
+
   }
   else {
-    
+
      # no File, get actual date and it's components
      ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ();
-    
+
   }
-  
+
   # Create the needed release numbers
   $releasestring  = sprintf ( "%d.%02d", ( $year - 100 ), ( $mon + 1 ) );
   $releasenumeric = sprintf ( "%d%02d",  ( $year - 100 ), ( $mon + 1 ) );
@@ -4901,7 +4901,7 @@ sub get_release {
 # Show action summary
 # -----------------------------------------
 sub show_actionsummary {
-  
+
   # delete trailing spaces from the action description
   my $tmpstring = $actiondesc;
   $tmpstring =~   s/^\s+//;
@@ -4923,14 +4923,14 @@ sub show_actionsummary {
       printf { *STDOUT } ( "Map type:   downloadable OSM extract\n" );
     }
     elsif (  $maptype == 2 ) {
-      printf { *STDOUT } ( "Map type:   own extract, parent map needed\n" );      
+      printf { *STDOUT } ( "Map type:   own extract, parent map needed\n" );
       printf { *STDOUT } ( "Parent Map: %s\n",      $mapparent );
     }
     elsif (  $maptype == 1 ) {
-      printf { *STDOUT } ( "Map type:   parent map\n" );      
+      printf { *STDOUT } ( "Map type:   parent map\n" );
     }
     if ( $nametaglist ne $EMPTY ) {
-      printf { *STDOUT } ( "Ntl:        name-tag-list=%s\n", $nametaglist );  
+      printf { *STDOUT } ( "Ntl:        name-tag-list=%s\n", $nametaglist );
     }
     if ( ( $releasestring ne $EMPTY ) && ( $releasenumeric ne $EMPTY ) ) {
         printf { *STDOUT }   ( "Release:    %s / %s\n",$releasestring,$releasenumeric );
@@ -4970,7 +4970,7 @@ sub show_help {
 
   # Show the sort Usage
   show_usage ();
-  
+
   # Print the details of the help
   printf { *STDOUT } (
       "Examples:\n"
@@ -5014,7 +5014,7 @@ sub show_help {
       . "Map        = Name of the to be processed map\n\n",
     $javaheapsize, $cores
   );
-  
+
   my $printdelimiter = $EMPTY;
   printf { *STDOUT } ( "Actions:\n" );
   foreach my $i ( 0 .. $#actions ) {
