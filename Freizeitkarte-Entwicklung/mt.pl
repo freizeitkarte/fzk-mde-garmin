@@ -22,6 +22,7 @@ use File::Path;
 use File::Basename;
 use Getopt::Long;
 use Data::Dumper;
+use POSIX qw(uname);
 
 my @actions = (
   # Normal User Actions for maps
@@ -1274,7 +1275,13 @@ sub check_osmid {
     }
     elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert32";
+      my @uname = uname();
+      if ( $uname[4] eq 'x86_64' || $uname[4] eq 'amd64' ) {
+        $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert64";
+      }
+      else {
+        $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert32";
+      }
     }
 
     # Get the statistics of the map data
