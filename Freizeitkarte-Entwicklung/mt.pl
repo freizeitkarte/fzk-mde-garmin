@@ -379,6 +379,19 @@ my $programName = basename ( $PROGRAM_NAME );
 my $programInfo = "$programName - Map Tool for creating Garmin maps";
 printf { *STDOUT } ( "\n%s, %s\n\n", $programInfo, $VERSION );
 
+# Check if we're running 64bit or 32bit kernel
+#---------------------------------------------
+my $os_arch_bit = "UNKNOWN";
+if ( $OSNAME eq 'linux' ) {
+  # Check 4 field of uname
+  my @uname = uname();
+  if ( $uname[4] eq 'x86_64' || $uname[4] eq 'amd64' ) {
+    $os_arch_bit = "64";
+    }
+  }
+
+
+
 # OS X = 'darwin'; Windows = 'MSWin32'; Linux = 'linux'; FreeBSD = 'freebsd'; OpenBSD = 'openbsd';
 # printf { *STDOUT } ( "OSNAME = %s\n", $OSNAME );
 # printf { *STDOUT } ( "PERL_VERSION = %s\n", $PERL_VERSION );
@@ -1273,7 +1286,14 @@ sub check_osmid {
     }
     elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert32";
+      if ( ( $OSNAME eq 'linux' ) && ( $os_arch_bit eq '64' ) ) {
+        $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert64";
+      }
+      else
+      {
+        $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert32";
+      }
+      
     }
 
     # Get the statistics of the map data
@@ -4434,7 +4454,13 @@ sub show_fingerprint {
     }
     elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
+      if ( ( $OSNAME eq 'linux' ) && ( $os_arch_bit eq '64' ) ) {
+        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
+      }
+      else
+      {
+        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert64 --help 2>&1`;
+      }
     }
     # Try to match
     if ( $cmdoutput =~ /^(osmconvert .*)$/m ) {
