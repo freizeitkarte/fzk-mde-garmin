@@ -384,8 +384,8 @@ printf { *STDOUT } ( "\n%s, %s\n\n", $programInfo, $VERSION );
 my $os_arch_bit = "UNKNOWN";
 if ( $OSNAME eq 'linux' ) {
   # Check 4 field of uname
-  my @uname = uname();
-  if ( $uname[4] eq 'x86_64' || $uname[4] eq 'amd64' ) {
+  my $cmdoutput = `uname -m`;
+  if ( $cmdoutput eq 'x86_64' || $cmdoutput eq 'amd64' ) {
     $os_arch_bit = "64";
     }
   }
