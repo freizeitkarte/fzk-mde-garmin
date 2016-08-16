@@ -4310,6 +4310,7 @@ sub show_fingerprint {
     # ----------------------
     printf "OS General\n";
     printf "======================================\n";
+    printf "Perl Version:     $PERL_VERSION\n";
 	printf "OS Name:          $OSNAME\n";
 	printf "OS Sysname:       $os_sysname\n";
 	printf "OS Nodename:      $os_nodename\n";
