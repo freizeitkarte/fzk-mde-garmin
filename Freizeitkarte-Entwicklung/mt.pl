@@ -4301,7 +4301,15 @@ sub show_fingerprint {
     printf "+                                              +\n";    
     printf "================================================\n";
     printf "\n";
-    	
+    
+    # General OS Information
+    # ----------------------
+    printf "OS General\n";
+    printf "======================================\n";
+	printf "OS Name:          $OSNAME\n";
+	printf "OS Arch:          $osarch\n";
+	printf "OS Arch bits:     $osarch_bit\n\n";
+	
 
 	# java
 	# ----
