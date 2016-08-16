@@ -382,8 +382,12 @@ printf { *STDOUT } ( "\n%s, %s\n\n", $programInfo, $VERSION );
 
 # Get some Details about OS
 #---------------------------------------------
-my $osarch     = "";
-my $osarch_bit = "";
+my $os_sysname  = "";
+my $os_nodename = "";
+my $os_release  = "";
+my $os_version  = "";
+my $os_machine  = "";
+my $os_archbit  = "";
 get_osdetails();
 
 
@@ -1282,7 +1286,7 @@ sub check_osmid {
     }
     elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      if ( ( $OSNAME eq 'linux' ) && ( $osarch_bit eq '64' ) ) {
+      if ( ( $OSNAME eq 'linux' ) && ( $os_archbit eq '64' ) ) {
         $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert64";
       }
       else
@@ -4307,8 +4311,12 @@ sub show_fingerprint {
     printf "OS General\n";
     printf "======================================\n";
 	printf "OS Name:          $OSNAME\n";
-	printf "OS Arch:          $osarch\n";
-	printf "OS Arch bits:     $osarch_bit\n";
+	printf "OS Sysname:       $os_sysname\n";
+	printf "OS Nodename:      $os_nodename\n";
+	printf "OS Release:       $os_release\n";
+	printf "OS Version:       $os_version\n";
+	printf "OS Machine:       $os_machine\n";
+	printf "OS Architecture:  $os_archbit\n";
 	printf "\n\n";
 	
 
@@ -4459,7 +4467,7 @@ sub show_fingerprint {
     }
     elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      if ( ( $OSNAME eq 'linux' ) && ( $osarch_bit eq '64' ) ) {
+      if ( ( $OSNAME eq 'linux' ) && ( $os_archbit eq '64' ) ) {
         $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert64 --help 2>&1`;
       }
       else
@@ -4934,15 +4942,19 @@ sub get_osdetails {
   # Get systemdetails into array
   my @uname = uname();
 
-  # set osarch
-  $osarch = $uname[4];
+  # Get the different parts from uname
+  $os_sysname  = $uname[0];
+  $os_nodename = $uname[1];
+  $os_release  = $uname[2];
+  $os_version  = $uname[3];
+  $os_machine  = $uname[4];
   
   # If Linux or OpenBSD
   if ( $OSNAME eq 'linux' || $OSNAME eq 'OpenBSD' ) {
 
     # Check for 64bit String
-    if ( $osarch eq 'x86_64' || $osarch eq 'amd64' ) {
-      $osarch_bit = "64";
+    if ( $os_machine eq 'x86_64' || $os_machine eq 'amd64' ) {
+      $os_archbit = "64";
     }
   }
 
