@@ -22,6 +22,7 @@ use File::Path;
 use File::Basename;
 use Getopt::Long;
 use Data::Dumper;
+use POSIX qw(uname);
 
 my @actions = (
   # Normal User Actions for maps
@@ -379,16 +380,11 @@ my $programName = basename ( $PROGRAM_NAME );
 my $programInfo = "$programName - Map Tool for creating Garmin maps";
 printf { *STDOUT } ( "\n%s, %s\n\n", $programInfo, $VERSION );
 
-# Check if we're running 64bit or 32bit kernel
+# Get some Details about OS
 #---------------------------------------------
-my $os_arch_bit = "UNKNOWN";
-if ( $OSNAME eq 'linux' ) {
-  # Check 4 field of uname
-  my $cmdoutput = `uname -m`;
-  if ( $cmdoutput eq 'x86_64' || $cmdoutput eq 'amd64' ) {
-    $os_arch_bit = "64";
-    }
-  }
+my $osarch     = "";
+my $osarch_bit = "";
+get_osdetails();
 
 
 
@@ -1286,7 +1282,7 @@ sub check_osmid {
     }
     elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      if ( ( $OSNAME eq 'linux' ) && ( $os_arch_bit eq '64' ) ) {
+      if ( ( $OSNAME eq 'linux' ) && ( $osarch_bit eq '64' ) ) {
         $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert64";
       }
       else
@@ -4454,12 +4450,12 @@ sub show_fingerprint {
     }
     elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      if ( ( $OSNAME eq 'linux' ) && ( $os_arch_bit eq '64' ) ) {
-        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
+      if ( ( $OSNAME eq 'linux' ) && ( $osarch_bit eq '64' ) ) {
+        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert64 --help 2>&1`;
       }
       else
       {
-        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert64 --help 2>&1`;
+        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
       }
     }
     # Try to match
@@ -4921,6 +4917,27 @@ sub get_release {
 
 }
 
+# -----------------------------------------
+# Check Operating systems for 64bit
+# -----------------------------------------
+sub get_osdetails {
+  
+  # Get systemdetails into array
+  my @uname = uname();
+
+  # set osarch
+  $osarch = $uname[4];
+  
+  # If Linux or OpenBSD
+  if ( $OSNAME eq 'linux' || $OSNAME eq 'OpenBSD' ) {
+
+    # Check for 64bit String
+    if ( $osarch eq 'x86_64' || $osarch eq 'amd64' ) {
+      $osarch_bit = "64";
+    }
+  }
+
+}
 
 # -----------------------------------------
 # Show action summary
