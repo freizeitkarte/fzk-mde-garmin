@@ -22,6 +22,7 @@ use File::Path;
 use File::Basename;
 use Getopt::Long;
 use Data::Dumper;
+use POSIX qw(uname);
 
 my @actions = (
   # Normal User Actions for maps
@@ -246,6 +247,7 @@ my @maps = (
   [ 6554, 'Freizeitkarte_NZL',                    'http://download.geofabrik.de/australia-oceania/new-zealand-latest.osm.pbf',                         'NZL',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6600, 'Freizeitkarte_PRY',                    'http://download.geofabrik.de/south-america/paraguay-latest.osm.pbf',                                'PRY',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6604, 'Freizeitkarte_PER',                    'http://download.geofabrik.de/south-america/peru-latest.osm.pbf',                                    'PER',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6704, 'Freizeitkarte_VNM',                    'http://download.geofabrik.de/asia/vietnam-latest.osm.pbf',                                          'VNM',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6740, 'Freizeitkarte_SUR',                    'http://download.geofabrik.de/south-america/suriname-latest.osm.pbf',                                'SUR',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6858, 'Freizeitkarte_URY',                    'http://download.geofabrik.de/south-america/uruguay-latest.osm.pbf',                                 'URY',                      'en', 'no_old_name',                             3, 'NA'             ],
 
@@ -378,6 +380,18 @@ my $BASEPATH = getcwd ( $PROGRAM_NAME );
 my $programName = basename ( $PROGRAM_NAME );
 my $programInfo = "$programName - Map Tool for creating Garmin maps";
 printf { *STDOUT } ( "\n%s, %s\n\n", $programInfo, $VERSION );
+
+# Get some Details about OS
+#---------------------------------------------
+my $os_sysname  = "";
+my $os_nodename = "";
+my $os_release  = "";
+my $os_version  = "";
+my $os_machine  = "";
+my $os_archbit  = "";
+get_osdetails();
+
+
 
 # OS X = 'darwin'; Windows = 'MSWin32'; Linux = 'linux'; FreeBSD = 'freebsd'; OpenBSD = 'openbsd';
 # printf { *STDOUT } ( "OSNAME = %s\n", $OSNAME );
@@ -1273,7 +1287,14 @@ sub check_osmid {
     }
     elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert32";
+      if ( ( $OSNAME eq 'linux' ) && ( $os_archbit eq '64' ) ) {
+        $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert64";
+      }
+      else
+      {
+        $cmdpath = "$BASEPATH/tools/osmconvert/linux/osmconvert32";
+      }
+      
     }
 
     # Get the statistics of the map data
@@ -4285,7 +4306,21 @@ sub show_fingerprint {
     printf "+                                              +\n";    
     printf "================================================\n";
     printf "\n";
-    	
+    
+    # General OS Information
+    # ----------------------
+    printf "OS General\n";
+    printf "======================================\n";
+    printf "Perl Version:     $PERL_VERSION\n";
+	printf "OS Name:          $OSNAME\n";
+	printf "OS Sysname:       $os_sysname\n";
+	printf "OS Nodename:      $os_nodename\n";
+	printf "OS Release:       $os_release\n";
+	printf "OS Version:       $os_version\n";
+	printf "OS Machine:       $os_machine\n";
+	printf "OS Architecture:  $os_archbit\n";
+	printf "\n\n";
+	
 
 	# java
 	# ----
@@ -4434,7 +4469,13 @@ sub show_fingerprint {
     }
     elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
       # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
+      if ( ( $OSNAME eq 'linux' ) && ( $os_archbit eq '64' ) ) {
+        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert64 --help 2>&1`;
+      }
+      else
+      {
+        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
+      }
     }
     # Try to match
     if ( $cmdoutput =~ /^(osmconvert .*)$/m ) {
@@ -4895,6 +4936,31 @@ sub get_release {
 
 }
 
+# -----------------------------------------
+# Check Operating systems for 64bit
+# -----------------------------------------
+sub get_osdetails {
+  
+  # Get systemdetails into array
+  my @uname = uname();
+
+  # Get the different parts from uname
+  $os_sysname  = $uname[0];
+  $os_nodename = $uname[1];
+  $os_release  = $uname[2];
+  $os_version  = $uname[3];
+  $os_machine  = $uname[4];
+  
+  # If Linux or OpenBSD
+  if ( $OSNAME eq 'linux' || $OSNAME eq 'OpenBSD' ) {
+
+    # Check for 64bit String
+    if ( $os_machine eq 'x86_64' || $os_machine eq 'amd64' ) {
+      $os_archbit = "64";
+    }
+  }
+
+}
 
 # -----------------------------------------
 # Show action summary
