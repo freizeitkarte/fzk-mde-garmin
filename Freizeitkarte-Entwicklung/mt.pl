@@ -109,6 +109,10 @@ my %elevationbaseurl = (
   'ele20' => "http://develop.freizeitkarte-osm.de/ele_20_100_500",
 #  'ele25' => "http://develop.freizeitkarte-osm.de/ele_25_250_500",
   );
+my %hqelevationbaseurl = (
+  'ele10' => "http://develop.freizeitkarte-osm.de/ele_special/ele_10_100_200",
+  'ele20' => "http://develop.freizeitkarte-osm.de/ele_special/ele_20_100_500",
+  );
   
 # Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
 my @boundariesurl = (
@@ -404,6 +408,7 @@ my $optional = $EMPTY;
 my $ram      = $EMPTY;
 my $cores    = 2;
 my $ele      = 20;
+my $hqele    = $EMPTY;
 my $clm      = 1;   # eventually unused ?
 my $typfile  = $EMPTY;
 my $styledir = $EMPTY;
@@ -444,7 +449,7 @@ my $typfilelangcode = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'continuedownload' => \$continuedownload, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'continuedownload' => \$continuedownload, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'hqele' => \$hqele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -1202,10 +1207,20 @@ sub fetch_eledata {
   # Download-URL
   my $eleurl = '';
   if ( $ele == 10 ) {
-    $eleurl = "$elevationbaseurl{ele10}/Hoehendaten_$mapname.osm.pbf";
+     if ( $hqele ) {
+	    $eleurl = "$hqelevationbaseurl{ele10}/Hoehendaten_$mapname.osm.pbf";
+	 }
+     else {
+        $eleurl = "$elevationbaseurl{ele10}/Hoehendaten_$mapname.osm.pbf";
+	 }	 
   }
   elsif ( $ele == 20 ) {
-    $eleurl = "$elevationbaseurl{ele20}/Hoehendaten_$mapname.osm.pbf";
+     if ( $hqele ) {
+	    $eleurl = "$hqelevationbaseurl{ele20}/Hoehendaten_$mapname.osm.pbf";
+	 }
+     else {
+        $eleurl = "$elevationbaseurl{ele20}/Hoehendaten_$mapname.osm.pbf";
+	 }	 
   }
   else {
     # Default = 25 Meter
