@@ -653,9 +653,9 @@ auto != * & highway = * {set auto = no}
 # Duerfen hier Fahrraeder fahren?
 # -------------------------------
 
-highway = * & access != * & bicycle != * & vehicle != * {add fahrrad = yes}
-highway = * & bicycle = no                              {add fahrrad = no}
-highway = * & bicycle = yes                             {set fahrrad = yes}
+highway = * & access != * & bicycle != * & vehicle != * & bfdesignated != * {add fahrrad = yes}
+highway = * & bicycle = no                                                  {add fahrrad = no}
+highway = * & bicycle = yes                                                 {set fahrrad = yes}
 
 fahrrad != * & highway = * & vehicle = no  {set fahrrad = no}
 fahrrad != * & highway = * & vehicle = yes {set fahrrad = yes}
@@ -668,9 +668,9 @@ fahrrad != * & highway = * {set fahrrad = no}
 # Darf man hier als Fussgaenger laufen?
 # -------------------------------------
 
-highway = * & access != * & foot != * {add fuss = yes}
-highway = * & foot = no               {add fuss = no}
-highway = * & foot = yes              {set fuss = yes}
+highway = * & access != * & foot != * & bfdesignated != * {add fuss = yes}
+highway = * & foot = no                                   {add fuss = no}
+highway = * & foot = yes                                  {set fuss = yes}
 
 fuss != * & highway = * & access = no  {set fuss = no}
 fuss != * & highway = * & access = yes {set fuss = yes}
