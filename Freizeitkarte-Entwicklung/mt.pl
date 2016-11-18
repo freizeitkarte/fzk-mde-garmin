@@ -126,44 +126,6 @@ my @seaboundariesurl = (
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
   );
 
-# Licenses - Default values
-# FZK maps: static
-my %lic_fzk = (
-   'license_type'           => 'free for research and private use' ,
-   'license_string_short'   => 'FZK project ' ,
-   'license_string_medium'  => 'FZK project (Freizeitkarte), freizeitkarte-osm.de' ,
-   'license_string_long'    => 'FZK project (Freizeitkarte), freizeitkarte-osm.de, free for research and private use' ,
-   'data_provider_name'     => 'Freizeitkarte' ,
-   'data_provider_homepage' => 'freizeitkarte-osm.de' ,
-   'additional_info_de'     => "Die hier verfügbaren Karten stellen ein aus den Karten- und Höhendaten abgeleitetes Werk (produced work) dar. Die Karten können für private oder wissenschaftliche Zwecke frei (uneingeschränkt) genutzt werden.\n",
-   'additional_info_en'     => "The available maps are a derived work from map and elevation data. The maps can be used free for personal or academic purposes.\n",
-   'use_de'                 => "Nutzung des Kartenmaterial:\nDie Nutzung des Kartenmaterials erfolgt auf eigene Gefahr. Das Kartenmaterial und oder das Routing kann Fehler enthalten oder unzureichend sein. Die Ersteller dieser Karten übernehmen keinerlei Gewährleistung oder Haftung für Schäden die direkt oder indirekt durch die Nutzung des Kartenmaterial entstehen.\n",
-   'use_en'                 => "Use of the maps:\nThe use of maps is at your own risk. The map data and / or the routing may contain errors or may be insufficient.\nThe creators of these maps are not liable for any damage resulting directly or indirectly from the use of the maps.\n",
-   'help_de'                => "Deine Mithilfe ist erwünscht:\nHilf mit die OpenStreetMap-Quelldaten dieser Karte, und damit auch diese Themenkarte, zu verbessern. Fehlende oder inkorrekte Kartendaten kannst auch du auf OpenStreetMap eintragen oder korrigieren. Dies geht viel leichter als du vielleicht glaubst. Melde dich hierzu auf OpenStreetMap an und versuche es einfach mal. Alle anderen Kartennutzer können so von deinem Wissen profitieren.\nAuch Information über Defekte, die dir bei der Nutzung dieser Karte auffallen, sind hilfreich - ebenso Änderungs- oder Verbesserungsvorschläge.\nDanke für deine Unterstützung.\n ",
-   'help_en'                => "Your help is welcome:\nYou can help to improve the OpenStreetMap source data, and therefore also this map. If something is missing or wrong in the source data you can add or correct that on OpenStreetMap. That's easier as you might think. Get registered on OpenStreetMap and just try it out. This way everyone can profit from your knowledge.\nInformation about defects found while using this map are also helpful. Also ideas about changes and improvments are very welcome.\nMany thanks for your support.\n",
-   );
-# OSM data: static
-my %lic_osm = (
-   'license_type'           => 'ODbl' ,
-   'license_string_short'   => 'OSM contributors' ,
-   'license_string_medium'  => 'OSM contributors, www.openstreetmap.org' ,
-   'license_string_long'    => 'OSM contributors, www.openstreetmap.org, ODbl' ,
-   'data_provider_name'     => 'OpenStreetMap' ,
-   'data_provider_homepage' => 'www.openstreetmap.org' ,
-   'additional_info_de'     => "Die dargestellten Kartenobjekte basieren auf den Daten des OpenStreetMap-Projektes. OpenStreetMap ist eine freie, editierbare Karte der gesamten Welt, die von Menschen wie dir erstellt wird. OpenStreetMap ermöglicht es geographische Daten gemeinschaftlich von überall auf der Welt anzuschauen und zu bearbeiten.\n",
-   'additional_info_en'     => "All maps are based on data from the OpenStreetMap project. OpenStreetMap is a free editable map of the whole world that is created by people like you. OpenStreetMap allows geographic data to look at collaborative way from anywhere in the world and edit it.\n",
-   );
-# Elevation Data: default for viewfinderpanorama, can be overridden by sidefile to Elevation PBF: Hoehendaten_Freizeitkarte_SOMETHING.osm.pbf.license
-my %lic_ele = (
-   'license_type'           => 'public domain or free for research and private use' ,
-   'license_string_short'   => 'U.S. Geological Survey or J. de Ferranti' ,
-   'license_string_medium'  => 'U.S. Geological Survey, eros.usgs.gov or viewfinderpanoramas by J. de Ferranti, www.viewfinderpanoramas.org' ,
-   'license_string_long'    => 'U.S. Geological Survey (public domain), eros.usgs.gov or viewfinderpanoramas by J. de Ferranti (free for research and private use), www.viewfinderpanoramas.org' ,
-   'data_provider_name'     => 'U.S. Geological Survey or viewfinderpanoramas by J. de Ferranti' ,
-   'data_provider_homepage' => 'eros.usgs.gov or www.viewfinderpanoramas.org' ,
-   'additional_info_de'     => "",
-   'additional_info_en'     => "",
-   );
 
 my @maps = (
   # ID, 'Karte', 'URL der Quelle', 'Code', 'language', 'oldName', 'Type', 'Parent'
@@ -765,7 +727,6 @@ elsif ( $actionname eq 'split' ) {
   split_mapdata ();
 }
 elsif ( $actionname eq 'build' ) {
-  update_ele_license       ();
   create_cfgfile           ();
   create_typtranslations   ();
   compile_typfiles         ();
@@ -799,7 +760,6 @@ elsif ( $actionname eq 'imagedir' ) {
   create_image_directory ();
 }
 elsif ( $actionname eq 'cfg' ) {
-  update_ele_license       ();
   create_cfgfile ();
 }
 elsif ( $actionname eq 'typ' ) {
@@ -837,7 +797,6 @@ elsif ( $actionname eq 'bim' ) {
   check_osmid              ();
   join_mapdata             ();
   split_mapdata            ();
-  update_ele_license       ();
   create_cfgfile           ();
   create_typtranslations   ();
   compile_typfiles         ();
@@ -872,7 +831,6 @@ elsif ( $actionname eq 'pmd' ) {
   split_mapdata            ();
 }
 elsif ( $actionname eq 'bml' ) {
-  update_ele_license       ();
   create_cfgfile           ();
   create_typtranslations   ();
   compile_typfiles         ();
@@ -1283,99 +1241,8 @@ sub fetch_eledata {
     die ( "Please check this file concerning error hints (eg. communications errors).\n" );
     return ( 1 );
   }
-  
-  # Try to fetch the additional files *.info *.license
-  download_url( "$eleurl.info", "$filename.info");
-  download_url( "$eleurl.license", "$filename.license");
 
   return;
-}
-
-
-# -----------------------------------------
-# Read a given local licensefile into hash
-# -----------------------------------------
-sub read_licensefile {
-
-  # Argument handed over
-  my $licensefile = shift;
-  
-  # Some needed local variables
-  my $line;
-  my @alllines;
-  my %tmphash = ();
-  
-  # Let's try to open 
-  if ( open IN,  "< $licensefile" ) {
-    
-    while ( <IN> ) {
-      # Get the line
-      $line = $_;
-      
-      # Only look at lines with '=' somewhere in the middle
-      next unless $line =~ /^.*=.*+/;
-      
-      # Get rid of leading and trailing whitespace
-      $line =~ s/^\s+//;
-      $line =~ s/\s+$//;
-      
-      # Put result in the prepared input array
-      chomp ( $line );
-      push ( @alllines, $line );
-      
-    }
-    
-    # Close the file again
-    close IN;
-    
-    # run through the array and fill the tmphash
-    foreach $line ( @alllines ) {
-      # create the hashtable
-      $line =~ /^(.*)=(.*)$/;
-      $tmphash{ $1 } = "$2";
-    }
-    
-  }
-  
-  return ( %tmphash );
-
-}
-
-# -----------------------------------------
-# Try to update the license about elevation
-# -----------------------------------------
-sub update_ele_license {
-
-  # Argument handed over
-  my $ele_licensefile = "$WORKDIR/Hoehendaten_$mapname.osm.pbf.license";
-    
-  # Some needed local variables
-  my %ele_tmphash = ();
-  
-  # Get eventually overriding values
-  %ele_tmphash = read_licensefile($ele_licensefile);
-
-#  # DEBUG PRINT
-#  print "\nDEBUG: ele license before update\n";
-#  print "-----------------------------------\n";
-#  foreach my $hashkey ( sort ( keys %lic_ele ) ) {
-#    print "$hashkey ISEQUAL $lic_ele{$hashkey}\n";
-#  }
-#
-  # Override (or set) found values
-  foreach my $hashkey ( sort ( keys %ele_tmphash ) ) {
-    $lic_ele{$hashkey} = $ele_tmphash{$hashkey};
-  }
-
-#  # DEBUG PRINT
-#  print "\nDEBUG: ele license after update\n";
-#  print "-----------------------------------\n";
-#  foreach my $hashkey ( sort ( keys %lic_ele ) ) {
-#    print "$hashkey ISEQUAL $lic_ele{$hashkey}\n";
-#  }
-#
-  return;
-
 }
 
 
@@ -1698,163 +1565,6 @@ sub split_mapdata {
 
 
 # -----------------------------------------
-# Create the map specific license file needed by mkgmap
-# -----------------------------------------
-sub create_licensefile {
-
-  # Initialize some variables
-  my $filename = "$WORKDIRLANG/$mapname.license";
-
-  # Dump some output
-  printf { *STDOUT } ( "\n" );
-  printf { *STDOUT } ( "Creating $filename ...\n" );
-  
-  # Try to open the file
-  open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
-
-  # Write license into the file
-  printf { $fh }
-    (   "Map: %s; Map Data: %s; Contour Data: %s\n", 
-      $lic_fzk{'license_string_short'}, $lic_osm{'license_string_short'}, $lic_ele{'license_string_short'} );
-
-
-  # Try to close the file again
-  close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
-
-  printf { *STDOUT } ( "Done\n" );
-
-  return;
-}
-
-
-# -----------------------------------------
-# Create the map specific license file needed by mkgmap
-# -----------------------------------------
-sub create_licensefile_nsis {
-
-  # Initialize some variables
-  my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.de";
-  my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.en";
-
-  # Dump some output
-  printf { *STDOUT } ( "\n" );
-  
-  # Try to open the files
-  printf { *STDOUT } ( "Creating $filename_de  ...\n" );
-  open ( my $fh_de, '+>', $filename_de ) or die ( "Can't open $filename_de: $OS_ERROR\n" );
-  printf { *STDOUT } ( "Creating $filename_en  ...\n" );
-  open ( my $fh_en, '+>', $filename_en ) or die ( "Can't open $filename_en: $OS_ERROR\n" );
-
-  # DE: Use
-  printf { $fh_de }
-    (   "%s\n", 
-      $lic_fzk{'use_de'} );
-  # EN: Use
-  printf { $fh_en }
-    (   "%s\n", 
-      $lic_fzk{'use_en'} );
-
-  # DE: Help
-  printf { $fh_de }
-    (   "%s\n", 
-      $lic_fzk{'help_de'} );
-  # EN: Help
-  printf { $fh_en }
-    (   "%s\n", 
-      $lic_fzk{'help_en'} );
-
-  # DE: License map
-  printf { $fh_de }
-    (   "Lizenzbedingungen der Karte:\n"
-      . "Lizenztyp: %s\n"
-      . "Von: %s\n"
-      . "Name: %s\n"
-      . "Webseite: %s\n"
-      . "%s\n", 
-      $lic_fzk{'license_type'}, 
-      $lic_fzk{'license_string_short'}, 
-      $lic_fzk{'data_provider_name'},
-      $lic_fzk{'data_provider_homepage'},
-      $lic_fzk{'additional_info_de'} );
-  # EN: License map
-  printf { $fh_en }
-    (   "License conditions of the maps:\n"
-      . "Licensetype: %s\n"
-      . "By: %s\n"
-      . "Name: %s\n"
-      . "Link: %s\n"
-      . "%s\n", 
-      $lic_fzk{'license_type'}, 
-      $lic_fzk{'license_string_short'}, 
-      $lic_fzk{'data_provider_name'},
-      $lic_fzk{'data_provider_homepage'},
-      $lic_fzk{'additional_info_en'} );
-
-  # DE: License OSM
-  printf { $fh_de }
-    (   "Lizenzbedingungen der Kartendaten:\n"
-      . "Lizenztyp: %s\n"
-      . "Von: %s\n"
-      . "Name: %s\n"
-      . "Webseite: %s\n"
-      . "%s\n", 
-      $lic_osm{'license_type'}, 
-      $lic_osm{'license_string_short'}, 
-      $lic_osm{'data_provider_name'},
-      $lic_osm{'data_provider_homepage'},
-      $lic_osm{'additional_info_de'} );
-  # EN: License OSM
-  printf { $fh_en }
-    (   "License conditions of the map data:\n"
-      . "Licensetype: %s\n"
-      . "By: %s\n"
-      . "Name: %s\n"
-      . "Link: %s\n"
-      . "%s\n", 
-      $lic_osm{'license_type'}, 
-      $lic_osm{'license_string_short'}, 
-      $lic_osm{'data_provider_name'},
-      $lic_osm{'data_provider_homepage'},
-      $lic_osm{'additional_info_en'} );
-
-  # DE: License Contour data
-  printf { $fh_de }
-    (   "Lizenzbedingungen der Kartendaten:\n"
-      . "Lizenztyp: %s\n"
-      . "Von: %s\n"
-      . "Name: %s\n"
-      . "Webseite: %s\n"
-      . "%s\n", 
-      $lic_ele{'license_type'}, 
-      $lic_ele{'license_string_short'}, 
-      $lic_ele{'data_provider_name'},
-      $lic_ele{'data_provider_homepage'},
-      $lic_ele{'additional_info_de'} );
-  # EN: License Contour data
-  printf { $fh_en }
-    (   "License conditions of the map data:\n"
-      . "Licensetype: %s\n"
-      . "By: %s\n"
-      . "Name: %s\n"
-      . "Link: %s\n"
-      . "%s\n", 
-      $lic_ele{'license_type'}, 
-      $lic_ele{'license_string_short'}, 
-      $lic_ele{'data_provider_name'},
-      $lic_ele{'data_provider_homepage'},
-      $lic_ele{'additional_info_en'} );
-
-  # Try to close the files again
-  close ( $fh_de ) or die ( "Can't close $filename_de: $OS_ERROR\n" );
-  close ( $fh_en ) or die ( "Can't close $filename_en: $OS_ERROR\n" );
-
-  printf { *STDOUT } ( "Done\n" );
-
-  return;
-}
-
-
-# -----------------------------------------
 # Create the map specific CFG file needed by mkgmap
 # - Note that option order is significant.
 # - An option only applies to subsequent input files.
@@ -2117,8 +1827,7 @@ sub create_cfgfile {
     (   "\n"
       . "# --copyright-message=note\n"
       . "#   Specify a copyright message for files that do not contain one.\n"
-      . "copyright-message = \"Map: %s; Map Data: %s; Contour Data: %s\"\n", 
-      $lic_fzk{'license_string_short'}, $lic_osm{'license_string_short'}, $lic_ele{'license_string_short'} );
+      . "copyright-message = \"Map: FZK project; Data: OSM contributors, U.S.G.S, de Ferranti\"\n" );
 
   printf { $fh }
     (   "\n"
@@ -2126,8 +1835,7 @@ sub create_cfgfile {
       . "#   Specify a file which content will be added as license. Every\n"
       . "#   line is one entry. All entrys of all maps will be merged, unified\n"
       . "#   and shown in random order.\n"
-      . "license-file=%s.license\n", 
-      $mapname );
+      . "license-file=license.txt\n" );
 
   printf { $fh } ( "\n# Optimization options:\n" );
   printf { $fh } ( "# --------------------\n" );
@@ -3019,13 +2727,10 @@ sub build_map {
 
   # change to directory WORKDIR LANG
   chdir "$WORKDIRLANG";
-  
-  # Try to update license info for elevation data
-  update_ele_license;
 
-  # create the licence file
-  create_licensefile;
-  
+  # copy the licence file
+  copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
+
   # run mkgmap to build the map from the OSM data (-Dlog.config=logging.properties) (with checking style files first with --check-styles)
   $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg --check-styles";
   process_command ( $command );
@@ -3225,8 +2930,8 @@ sub create_nsis_nsifile {
   printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
   printf { $fh } ( "LangString INWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"%s\"\n", "$mapname.nsis.license.en" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"%s\"\n", "$mapname.nsis.license.de" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"lizenz_haftung_erstellung_en.txt\"\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"lizenz_haftung_erstellung.txt\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
@@ -3546,10 +3251,11 @@ sub create_nsis_exefile {
   # go to nsis directory
   chdir "$BASEPATH/nsis";
 
-  # Create needed nsis license files
-  create_licensefile_nsis;
-  
-  # copy needed bitmaps
+  # copy license files and needed bitmaps
+  copy ( "lizenz_haftung_erstellung.txt", "$WORKDIRLANG/lizenz_haftung_erstellung.txt" )
+    or die ( "copy() failed: $!\n" );
+  copy ( "lizenz_haftung_erstellung_en.txt", "$WORKDIRLANG/lizenz_haftung_erstellung_en.txt" )
+    or die ( "copy() failed: $!\n" );
   copy ( "Install.bmp",   "$WORKDIRLANG/Install.bmp" )   or die ( "copy() failed: $!" );
   copy ( "Deinstall.bmp", "$WORKDIRLANG/Deinstall.bmp" ) or die ( "copy() failed: $!" );
 
@@ -3711,8 +3417,8 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\nMake sure you have the correct GMAP zip file downloaded to the same directory as this installer.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
   printf { $fh } ( "LangString INWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nBitte stellen Sie sicher, dass die korrekte GMAP ZIP Datei schon in das gleiche Verzeichnis heruntergeladen wurde, wie dieser Installer.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"%s\"\n", "$mapname.nsis.license.en" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"%s\"\n", "$mapname.nsis.license.de" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"lizenz_haftung_erstellung_en.txt\"\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"lizenz_haftung_erstellung.txt\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
@@ -3992,10 +3698,11 @@ sub create_nsis_exefile2 {
   # go to nsis directory
   chdir "$BASEPATH/nsis";
 
-  # Create needed nsis license files
-  create_licensefile_nsis;
-  
-  # copy needed bitmaps
+  # copy license files and needed bitmaps
+  copy ( "lizenz_haftung_erstellung.txt", "$WORKDIRLANG/lizenz_haftung_erstellung.txt" )
+    or die ( "copy() failed: $!\n" );
+  copy ( "lizenz_haftung_erstellung_en.txt", "$WORKDIRLANG/lizenz_haftung_erstellung_en.txt" )
+    or die ( "copy() failed: $!\n" );
   copy ( "Install.bmp",   "$WORKDIRLANG/Install.bmp" )   or die ( "copy() failed: $!" );
   copy ( "Deinstall.bmp", "$WORKDIRLANG/Deinstall.bmp" ) or die ( "copy() failed: $!" );
 
@@ -4166,11 +3873,8 @@ sub create_gmapsuppfile {
   #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
   #my $mapversion = sprintf ( "%d.%d", ( $year - 100 ), ( $mon + 1 ) );
 
-  # Try to update license info for elevation data
-  update_ele_license;
-
-  # create License file
-  create_licensefile;
+  # copy License file
+  copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
 
   # mkgmap-Parameter
   # --description: Anzeige des Kartennamens in BaseCamp
@@ -4189,7 +3893,7 @@ sub create_gmapsuppfile {
   $command =
       "java -Xmx"
     . $javaheapsize . "M"
-    . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --license-file=$mapname.license $mkgmap_parameter";
+    . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --license-file=license.txt $mkgmap_parameter";
   process_command ( $command );
 
   # Check Return Value
