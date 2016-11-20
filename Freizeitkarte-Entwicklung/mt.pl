@@ -1742,15 +1742,23 @@ sub create_licensefile {
       
   print "Debug: Is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
   
+#  if ( $unicode ) {
+#    $encodedstring = Encode::decode_utf8($encodedstring);
+#    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
+#  }
+#  else {
+#    $encodedstring = encode('utf-8',decode($mapisolang,$encodedstring));
+#    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
+#  }
+
   if ( $unicode ) {
     $encodedstring = Encode::decode_utf8($encodedstring);
     print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
   }
   else {
-    $encodedstring = encode('utf-8',decode($mapisolang,$encodedstring));
+    utf8::upgrade($encodedstring);
     print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
   }
-
   
 ###$line = Encode::decode_utf8($line);
 
