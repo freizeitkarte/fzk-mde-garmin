@@ -1747,7 +1747,7 @@ sub create_licensefile {
     print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
   }
   else {
-    $encodedstring = decode($mapisolang,$encodedstring);
+    $encodedstring = encode('utf-8',decode($mapisolang,$encodedstring));
     print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
   }
 
