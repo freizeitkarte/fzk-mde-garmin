@@ -56,8 +56,10 @@
 # Version : 0.29  01.03.2015 - Showning some less important rails later with a different pattern style ( service = *, railway = disused, usage = industrial)
 #         : 0.30  01.05.2015 - Changes regarding highway = track and tracktype = grade*: don't show as unspecified road if cars allowed 
 #           0.31  30.05.2015 - Changes regarding bridges on highways and railways (different types): bridge can have other values than only 'yes'
-# Version : 0.32  25.04.2016 - Showing aerialway = rope-tow also
-
+# Version : 0.32  29.11.2015 - Handling highway = primary & motorroad = yes same way as trunk for low resolutions (18-19)
+#                            - Excluded railway=abandoned from display
+# Version : 0.33  25.04.2016 - Showing aerialway = rope-tow also
+# Version : 0.34  11.11.2016 - Fixing issue with highway=path and foot=designated wrongly classified as radfussweg
 
 
 #
@@ -656,9 +658,9 @@ auto != * & highway = * {set auto = no}
 # Duerfen hier Fahrraeder fahren?
 # -------------------------------
 
-highway = * & access != * & bicycle != * & vehicle != * {add fahrrad = yes}
-highway = * & bicycle = no                              {add fahrrad = no}
-highway = * & bicycle = yes                             {set fahrrad = yes}
+highway = * & access != * & bicycle != * & vehicle != * & bfdesignated != * {add fahrrad = yes}
+highway = * & bicycle = no                                                  {add fahrrad = no}
+highway = * & bicycle = yes                                                 {set fahrrad = yes}
 
 fahrrad != * & highway = * & vehicle = no  {set fahrrad = no}
 fahrrad != * & highway = * & vehicle = yes {set fahrrad = yes}
@@ -671,9 +673,9 @@ fahrrad != * & highway = * {set fahrrad = no}
 # Darf man hier als Fussgaenger laufen?
 # -------------------------------------
 
-highway = * & access != * & foot != * {add fuss = yes}
-highway = * & foot = no               {add fuss = no}
-highway = * & foot = yes              {set fuss = yes}
+highway = * & access != * & foot != * & bfdesignated != * {add fuss = yes}
+highway = * & foot = no                                   {add fuss = no}
+highway = * & foot = yes                                  {set fuss = yes}
 
 fuss != * & highway = * & access = no  {set fuss = no}
 fuss != * & highway = * & access = yes {set fuss = yes}
@@ -923,11 +925,12 @@ highway = primary & man_made = dyke            [0x011f03 resolution 24 continue 
 # 0x012101 = 4/1 (breit, Label, SmallFont)
 # 0x010f0e = 2/1 (mittel, NoLabel)
 # 0x010f0f = 1/1 (schmal, NoLabel)
-highway = primary {set name = '${name}' | '${ref}' | ''} [0x011f15 resolution 24 continue with_actions]
-highway = primary {set name = '${name}' | '${ref}' | ''} [0x012101 resolution 23-23 continue with_actions]
-highway = primary {set name = '${ref}' | ''}             [0x010f0e resolution 22-22 continue with_actions]
-highway = primary {set name = '${ref}' | ''}             [0x010f0f resolution 20-21]
-
+# 0x010e0b = 1 (sehr schmal, NoLabel)
+highway = primary {set name = '${name}' | '${ref}' | ''}        [0x011f15 resolution 24 continue with_actions]
+highway = primary {set name = '${name}' | '${ref}' | ''}        [0x012101 resolution 23-23 continue with_actions]
+highway = primary {set name = '${ref}' | ''}                    [0x010f0e resolution 22-22 continue with_actions]
+highway = primary {set name = '${ref}' | ''}                    [0x010f0f resolution 20-21 continue with_actions]
+highway = primary & motorroad = yes {set name = '${ref}' | ''}  [0x010e0b resolution 18-19]
 
 # Land- oder sehr gut ausgebaute Kreisstrasse:
 # --------------------------------------------
@@ -1760,11 +1763,13 @@ railway = funicular {set railway = rail}
 # 2. Die Schienen und der Schotter werden entfernt, aber ansonsten bleibt das Gelaende unveraendert (railway=abandoned).
 # 3. Das Gelaende wird fuer eine neue Nutzung umgebaut (taggen der neuen Nutzung).
 # Zwischen den einzelnen Phasen liegen durchaus mehrere Jahre.
-# 0x012102 = Bitmap 2 (NoLabel)
-railway = abandoned & bridge = * & bridge != no  [0x010407 resolution 24 continue]
-railway = abandoned & tunnel = yes               [0x010408 resolution 24 continue]
+
+# Abondoned: disabled 2015-11-29
+#railway = abandoned & bridge = * & bridge != no  [0x010407 resolution 24 continue]
+#railway = abandoned & tunnel = yes               [0x010408 resolution 24 continue]
 ### railway = abandoned & embankment = yes [0x011f05 resolution 24 continue]
-railway = abandoned                              [0x012102 resolution 24]
+# 0x012102 = Bitmap 2 (NoLabel)
+#railway = abandoned                              [0x012102 resolution 24]
 
 # Der Bahnsteig verlaeuft parallel zu den Gleisen. [point, way, closedway]
 # 0x010e1d = 2 (NoLabel)
@@ -1778,12 +1783,12 @@ railway = rail & service = * & bridge = * & bridge != no  [0x010407 resolution 2
 railway = rail & service = * & tunnel = yes               [0x012109 resolution 23]
 railway = rail & service = *                              [0x012113 resolution 23]
 
-# Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
+# Eisenbahn, auch S-Bahn: disused
 # 0x012109 = Bitmap 2 (NoLabel)
 # 0x012113 = Bitmap 2 (NoLabel)
 railway = disused & bridge = * & bridge != no  [0x010407 resolution 24 continue]
-railway = disused & tunnel = yes               [0x012109 resolution 22]
-railway = disused                              [0x012113 resolution 22]
+railway = disused & tunnel = yes               [0x012109 resolution 24]
+railway = disused                              [0x012113 resolution 24]
 
 # Eisenbahn, auch S-Bahn (kann auch teilweise unterirdisch verkehren).
 # 0x012109 = Bitmap 2 (NoLabel)
