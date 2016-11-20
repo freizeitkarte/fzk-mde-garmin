@@ -24,6 +24,11 @@ use Getopt::Long;
 use Data::Dumper;
 use POSIX qw(uname);
 
+#use open qw(:std :utf8);
+#use Encode qw(decode_utf8);
+#@ARGV = map { decode_utf8($_, 1) } @ARGV;
+use Encode qw(is_utf8 decode encode);
+
 my @actions = (
   # Normal User Actions for maps
   # (This actions should not be deleted/changed)
@@ -103,6 +108,13 @@ my %langcodepage = (
    'ru' => '1251' ,
    );
 
+# Relation from (windows) codepage to isocode
+my %cpisocode = (
+   '1250' => 'iso-8859-2' ,
+   '1251' => 'iso-8859-5' , 
+   '1252' => 'iso-8859-1' ,
+   );
+   
 # Define the download base URLs for the Elevation Data
 my %elevationbaseurl = (
   'ele10' => "http://develop.freizeitkarte-osm.de/ele_10_100_200",
@@ -126,11 +138,49 @@ my @seaboundariesurl = (
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
   );
 
+# Licenses - Default values
+# FZK maps: static
+my %lic_fzk = (
+   'license_type'           => 'free for research and private use' ,
+   'license_string_short'   => encode('utf8', decode('iso-8859-1','FZK project')) ,
+   'license_string_medium'  => 'FZK project (Freizeitkarte), freizeitkarte-osm.de' ,
+   'license_string_long'    => 'FZK project (Freizeitkarte), freizeitkarte-osm.de, free for research and private use' ,
+   'data_provider_name'     => 'Freizeitkarte' ,
+   'data_provider_homepage' => 'freizeitkarte-osm.de' ,
+   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"Die hier verfï¿½gbaren Karten stellen ein aus den Karten- und Hï¿½hendaten abgeleitetes Werk (produced work) dar. Die Karten kï¿½nnen fï¿½r private oder wissenschaftliche Zwecke frei (uneingeschrï¿½nkt) genutzt werden.\n")),
+   'additional_info_en'     => "The available maps are a derived work from map and elevation data. The maps can be used free for personal or academic purposes.\n",
+   'use_de'                 => encode('utf8', decode('iso-8859-1',"Nutzung des Kartenmaterial:\nDie Nutzung des Kartenmaterials erfolgt auf eigene Gefahr. Das Kartenmaterial und oder das Routing kann Fehler enthalten oder unzureichend sein. Die Ersteller dieser Karten ï¿½bernehmen keinerlei Gewï¿½hrleistung oder Haftung fï¿½r Schï¿½den die direkt oder indirekt durch die Nutzung des Kartenmaterial entstehen.\n")),
+   'use_en'                 => "Use of the maps:\nThe use of maps is at your own risk. The map data and / or the routing may contain errors or may be insufficient.\nThe creators of these maps are not liable for any damage resulting directly or indirectly from the use of the maps.\n",
+   'help_de'                => encode('utf8', decode('iso-8859-1',"Deine Mithilfe ist erwï¿½nscht:\nHilf mit die OpenStreetMap-Quelldaten dieser Karte, und damit auch diese Themenkarte, zu verbessern. Fehlende oder inkorrekte Kartendaten kannst auch du auf OpenStreetMap eintragen oder korrigieren. Dies geht viel leichter als du vielleicht glaubst. Melde dich hierzu auf OpenStreetMap an und versuche es einfach mal. Alle anderen Kartennutzer kï¿½nnen so von deinem Wissen profitieren.\nAuch Information ï¿½ber Defekte, die dir bei der Nutzung dieser Karte auffallen, sind hilfreich - ebenso ï¿½nderungs- oder Verbesserungsvorschlï¿½ge.\nDanke fï¿½r deine Unterstï¿½tzung.\n ")),
+   'help_en'                => "Your help is welcome:\nYou can help to improve the OpenStreetMap source data, and therefore also this map. If something is missing or wrong in the source data you can add or correct that on OpenStreetMap. That's easier as you might think. Get registered on OpenStreetMap and just try it out. This way everyone can profit from your knowledge.\nInformation about defects found while using this map are also helpful. Also ideas about changes and improvments are very welcome.\nMany thanks for your support.\n",
+   );
+# OSM data: static
+my %lic_osm = (
+   'license_type'           => 'ODbl' ,
+   'license_string_short'   => encode('utf8', decode('iso-8859-1','OSM contributors')) ,
+   'license_string_medium'  => 'OSM contributors, www.openstreetmap.org' ,
+   'license_string_long'    => 'OSM contributors, www.openstreetmap.org, ODbl' ,
+   'data_provider_name'     => 'OpenStreetMap' ,
+   'data_provider_homepage' => 'www.openstreetmap.org' ,
+   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"Die dargestellten Kartenobjekte basieren auf den Daten des OpenStreetMap-Projektes. OpenStreetMap ist eine freie, editierbare Karte der gesamten Welt, die von Menschen wie dir erstellt wird. OpenStreetMap ermï¿½glicht es geographische Daten gemeinschaftlich von ï¿½berall auf der Welt anzuschauen und zu bearbeiten.\n")),
+   'additional_info_en'     => "All maps are based on data from the OpenStreetMap project. OpenStreetMap is a free editable map of the whole world that is created by people like you. OpenStreetMap allows geographic data to look at collaborative way from anywhere in the world and edit it.\n",
+   );
+# Elevation Data: default for viewfinderpanorama, can be overridden by sidefile to Elevation PBF: Hoehendaten_Freizeitkarte_SOMETHING.osm.pbf.license
+my %lic_ele = (
+   'license_type'           => encode('utf8', decode('iso-8859-1','public domain or free for research and private use')) ,
+   'license_string_short'   => encode('utf8', decode('iso-8859-1','U.S. Geological Survey or J. de Ferranti' )),
+   'license_string_medium'  => 'U.S. Geological Survey, eros.usgs.gov or viewfinderpanoramas by J. de Ferranti, www.viewfinderpanoramas.org' ,
+   'license_string_long'    => 'U.S. Geological Survey (public domain), eros.usgs.gov or viewfinderpanoramas by J. de Ferranti (free for research and private use), www.viewfinderpanoramas.org' ,
+   'data_provider_name'     => 'U.S. Geological Survey or viewfinderpanoramas by J. de Ferranti' ,
+   'data_provider_homepage' => 'eros.usgs.gov or www.viewfinderpanoramas.org' ,
+   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"")),
+   'additional_info_en'     => "",
+   );
 
 my @maps = (
   # ID, 'Karte', 'URL der Quelle', 'Code', 'language', 'oldName', 'Type', 'Parent'
 
-  # Bundesländer
+  # Bundeslï¿½nder
   [ -1,   'Bundeslaender',                        'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 5810, 'Freizeitkarte_BADEN-WUERTTEMBERG',     'http://download.geofabrik.de/europe/germany/baden-wuerttemberg-latest.osm.pbf',                     'BADEN-WUERTTEMBERG',       'de', 'Freizeitkarte_Baden-Wuerttemberg',        3, 'NA'             ],
   [ 5811, 'Freizeitkarte_BAYERN',                 'http://download.geofabrik.de/europe/germany/bayern-latest.osm.pbf',                                 'BAYERN',                   'de', 'Freizeitkarte_Bayern',                    3, 'NA'             ],
@@ -174,7 +224,7 @@ my @maps = (
   [ 5855, 'Freizeitkarte_SCHWABEN',               'http://download.geofabrik.de/europe/germany/bayern/schwaben-latest.osm.pbf',                        'SCHWABEN',                 'de', 'Freizeitkarte_Schwaben',                  3, 'NA'             ],
   [ 5856, 'Freizeitkarte_UNTERFRANKEN',           'http://download.geofabrik.de/europe/germany/bayern/unterfranken-latest.osm.pbf',                    'UNTERFRANKEN',             'de', 'Freizeitkarte_Unterfranken',              3, 'NA'             ],
 
-  # Regionen in Frankreich (unvollständig)
+  # Regionen in Frankreich (unvollstï¿½ndig)
   [ -1,   'Regionen Frankreich',                  'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 5860, 'Freizeitkarte_LORRAINE',               'http://download.geofabrik.de/europe/france/lorraine-latest.osm.pbf',                                'LORRAINE',                 'de', 'Freizeitkarte_Lothringen',                3, 'NA'             ],
   [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/europe/france/alsace-latest.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass',                    3, 'NA'             ],
@@ -264,7 +314,7 @@ my @maps = (
 #  [ 7050, 'Freizeitkarte_EUROP-RUSSIA',           'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'EUROP-RUSSIA',             'en', 'Freizeitkarte_Euro-Russland',             3, 'NA'             ],
 #  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
 
-  # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
+  # PLUS Lï¿½nder, Lï¿½ndercodes: 7000 + ISO-3166 (numerisch)
   [ -1,   'Freizeitkarte PLUS Laender',           'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                                                                                'AUT+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7056, 'Freizeitkarte_BEL+',                   'NA',                                                                                                'BEL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
@@ -431,6 +481,7 @@ my $osmurl     = $EMPTY;
 my $mapcode    = $EMPTY;
 my $maplang    = $EMPTY;
 my $mapcodepage= $EMPTY;
+my $mapisolang = $EMPTY;
 my $maptype    = $EMPTY;
 my $mapparent  = $EMPTY;
 my $langdesc   = $EMPTY;
@@ -610,9 +661,11 @@ for my $languagedata ( @supportedlanguages ) {
 # Check if the user did choose unicode, else set the codepage to the codepage of the choosen language
 if ( $unicode ) {
   $mapcodepage = 65001;
+  $mapisolang  = 'utf-8';
 }
 else {
   $mapcodepage = $langcodepage{$maplang};
+  $mapisolang  = $cpisocode{$mapcodepage};
 }
 
 
@@ -727,6 +780,7 @@ elsif ( $actionname eq 'split' ) {
   split_mapdata ();
 }
 elsif ( $actionname eq 'build' ) {
+  update_ele_license       ();
   create_cfgfile           ();
   create_typtranslations   ();
   compile_typfiles         ();
@@ -740,6 +794,7 @@ elsif ( $actionname eq 'gmap' ) {
   create_gmapfile ();
 }
 elsif ( $actionname eq 'nsis' ) {
+  update_ele_license       ();
   create_typfile      ();
   create_nsis_nsifile ();
   create_nsis_exefile ();
@@ -747,19 +802,23 @@ elsif ( $actionname eq 'nsis' ) {
   create_nsis_exefile2 ();
 }
 elsif ( $actionname eq 'nsis2' ) {
+  update_ele_license       ();
   create_nsis_nsifile2 ();
   create_nsis_exefile2 ();
 }
 
 elsif ( $actionname eq 'gmapsupp' ) {
+  update_ele_license       ();
   create_typfile      ();
   create_gmapsuppfile ();
 }
 elsif ( $actionname eq 'imagedir' ) {
+  update_ele_license       ();
   create_typfile         ();
   create_image_directory ();
 }
 elsif ( $actionname eq 'cfg' ) {
+  update_ele_license       ();
   create_cfgfile ();
 }
 elsif ( $actionname eq 'typ' ) {
@@ -772,6 +831,7 @@ elsif ( $actionname eq 'compiletyp' ) {
   compile_typfiles ();
 }
 elsif ( $actionname eq 'nsicfg' ) {
+  update_ele_license       ();
   create_nsis_nsifile ();
   create_nsis_nsifile2 ();
 }
@@ -780,6 +840,7 @@ elsif ( $actionname eq 'nsiexe' ) {
   create_nsis_exefile2 ();
 }
 elsif ( $actionname eq 'gmap2' ) {
+  update_ele_license       ();
   create_typfile   ();
   create_gmap2file ();
 }
@@ -797,6 +858,7 @@ elsif ( $actionname eq 'bim' ) {
   check_osmid              ();
   join_mapdata             ();
   split_mapdata            ();
+  update_ele_license       ();
   create_cfgfile           ();
   create_typtranslations   ();
   compile_typfiles         ();
@@ -831,6 +893,7 @@ elsif ( $actionname eq 'pmd' ) {
   split_mapdata            ();
 }
 elsif ( $actionname eq 'bml' ) {
+  update_ele_license       ();
   create_cfgfile           ();
   create_typtranslations   ();
   compile_typfiles         ();
@@ -1181,7 +1244,7 @@ sub fetch_osmdata {
       die ( "ERROR:\n  download of osm data from $osmurl failed.\n\n" );
   }  
 
-  # auf gültige osm.pbf-Datei prüfen
+  # auf gï¿½ltige osm.pbf-Datei prï¿½fen
   if ( !check_osmpbf ( $filename ) ) {
     printf { *STDERR } ( "\nError: File <$filename> is not a valid osm.pbf file.\n" );
     die ( "Please check this file concerning error hints (eg. communications errors).\n" );
@@ -1235,14 +1298,105 @@ sub fetch_eledata {
       die ( "ERROR:\n  download of elevation data from $eleurl failed.\n\n" );
   }
   
-  # auf gültige osm.pbf-Datei prüfen
+  # auf gï¿½ltige osm.pbf-Datei prï¿½fen
   if ( !check_osmpbf ( $filename ) ) {
     printf { *STDERR } ( "\nError: File <$filename> is not a valid osm.pbf file.\n" );
     die ( "Please check this file concerning error hints (eg. communications errors).\n" );
     return ( 1 );
   }
+  
+  # Try to fetch the additional files *.info *.license
+  download_url( "$eleurl.info", "$filename.info");
+  download_url( "$eleurl.license", "$filename.license");
 
   return;
+}
+
+
+# -----------------------------------------
+# Read a given local licensefile into hash
+# -----------------------------------------
+sub read_licensefile {
+
+  # Argument handed over
+  my $licensefile = shift;
+  
+  # Some needed local variables
+  my $line;
+  my @alllines;
+  my %tmphash = ();
+  
+  # Let's try to open 
+  if ( open IN,  "<", $licensefile ) {
+    
+    while ( <IN> ) {
+      # Get the line
+      $line = $_;
+      
+      # Only look at lines with '=' somewhere in the middle
+      next unless $line =~ /^.*=.*+/;
+      
+      # Get rid of leading and trailing whitespace
+      $line =~ s/^\s+//;
+      $line =~ s/\s+$//;
+      
+      # Put result in the prepared input array
+      chomp ( $line );
+      push ( @alllines, $line );
+      
+    }
+    
+    # Close the file again
+    close IN;
+    
+    # run through the array and fill the tmphash
+    foreach $line ( @alllines ) {
+      # create the hashtable
+      $line =~ /^(.*)=(.*)$/;
+      $tmphash{ $1 } = "$2";
+    }
+    
+  }
+  
+  return ( %tmphash );
+
+}
+
+# -----------------------------------------
+# Try to update the license about elevation
+# -----------------------------------------
+sub update_ele_license {
+
+  # Argument handed over
+  my $ele_licensefile = "$WORKDIR/Hoehendaten_$mapname.osm.pbf.license";
+    
+  # Some needed local variables
+  my %ele_tmphash = ();
+  
+  # Get eventually overriding values
+  %ele_tmphash = read_licensefile($ele_licensefile);
+
+#  # DEBUG PRINT
+#  print "\nDEBUG: ele license before update\n";
+#  print "-----------------------------------\n";
+#  foreach my $hashkey ( sort ( keys %lic_ele ) ) {
+#    print "$hashkey ISEQUAL $lic_ele{$hashkey}\n";
+#  }
+#
+  # Override (or set) found values
+  foreach my $hashkey ( sort ( keys %ele_tmphash ) ) {
+    $lic_ele{$hashkey} = $ele_tmphash{$hashkey};
+  }
+
+#  # DEBUG PRINT
+#  print "\nDEBUG: ele license after update\n";
+#  print "-----------------------------------\n";
+#  foreach my $hashkey ( sort ( keys %lic_ele ) ) {
+#    print "$hashkey ISEQUAL $lic_ele{$hashkey}\n";
+#  }
+#
+  return;
+
 }
 
 
@@ -1565,6 +1719,186 @@ sub split_mapdata {
 
 
 # -----------------------------------------
+# Create the map specific license file needed by mkgmap
+# -----------------------------------------
+sub create_licensefile {
+
+  # Initialize some variables
+  my $filename = "$WORKDIRLANG/$mapname.license";
+
+  # Dump some output
+  printf { *STDOUT } ( "\n" );
+  printf { *STDOUT } ( "Creating $filename ...\n" );
+  
+  # Try to open the file in destination codepage (isocode)
+  open ( my $fh, "+>:encoding($mapisolang)", $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+  binmode( $fh, ":encoding($mapisolang)");
+  
+  print "Debug: $mapisolang\n";
+  print "Debug: Is this utf8: ",is_utf8($lic_fzk{'license_string_short'}) ? "Yes" : "No", "\n";
+  print "Debug: Is this utf8: ",is_utf8($lic_osm{'license_string_short'}) ? "Yes" : "No", "\n";
+  print "Debug: Is this utf8: ",is_utf8($lic_ele{'license_string_short'}) ? "Yes" : "No", "\n";
+  
+  # Write license into the file
+  my $encodedstring = sprintf
+    ( "Map: %s; Map Data: %s; Contour Data: %s\n", 
+      $lic_fzk{'license_string_short'}, $lic_osm{'license_string_short'}, $lic_ele{'license_string_short'} );
+      
+  print "Debug: Is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
+  
+  if ( $unicode ) {
+    $encodedstring = Encode::decode_utf8($encodedstring);
+    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
+  }
+###$line = Encode::decode_utf8($line);
+
+  printf { $fh } ("%s", $encodedstring );
+
+
+  # Try to close the file again
+  close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
+
+  printf { *STDOUT } ( "Done\n" );
+  
+  
+  return;
+}
+
+
+# -----------------------------------------
+# Create the map specific license file needed by mkgmap
+# -----------------------------------------
+sub create_licensefile_nsis {
+
+  # Initialize some variables
+#  my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.de";
+#  my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.en";
+  my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.en";
+  my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.de";
+
+  # Dump some output
+  printf { *STDOUT } ( "\n" );
+  
+  # Try to open the files for writing (always in Latin1 as we support only german and english in the installer)
+  printf { *STDOUT } ( "Creating $filename_de  ...\n" );
+  open ( my $fh_de, '+>:encoding(iso-8859-1)', $filename_de ) or die ( "Can't open $filename_de: $OS_ERROR\n" );
+  binmode( $fh_de, ":encoding(iso-8859-1)");
+
+  printf { *STDOUT } ( "Creating $filename_en  ...\n" );
+  open ( my $fh_en, '+>:encoding(iso-8859-1)', $filename_en ) or die ( "Can't open $filename_en: $OS_ERROR\n" );
+  binmode( $fh_en, ":encoding(iso-8859-1)");
+
+
+  # DE: Use
+  printf { $fh_de }
+    (   "%s\n", 
+      $lic_fzk{'use_de'} );
+  # EN: Use
+  printf { $fh_en }
+    (   "%s\n", 
+      $lic_fzk{'use_en'} );
+
+  # DE: Help
+  printf { $fh_de }
+    (   "%s\n", 
+      $lic_fzk{'help_de'} );
+  # EN: Help
+  printf { $fh_en }
+    (   "%s\n", 
+      $lic_fzk{'help_en'} );
+
+  # DE: License map
+  printf { $fh_de }
+    (   "Lizenzbedingungen der Karte:\n"
+      . "Lizenztyp: %s\n"
+      . "Von: %s\n"
+      . "Name: %s\n"
+      . "Webseite: %s\n"
+      . "%s\n", 
+      $lic_fzk{'license_type'}, 
+      $lic_fzk{'license_string_short'}, 
+      $lic_fzk{'data_provider_name'},
+      $lic_fzk{'data_provider_homepage'},
+      $lic_fzk{'additional_info_de'} );
+  # EN: License map
+  printf { $fh_en }
+    (   "License conditions of the maps:\n"
+      . "Licensetype: %s\n"
+      . "By: %s\n"
+      . "Name: %s\n"
+      . "Link: %s\n"
+      . "%s\n", 
+      $lic_fzk{'license_type'}, 
+      $lic_fzk{'license_string_short'}, 
+      $lic_fzk{'data_provider_name'},
+      $lic_fzk{'data_provider_homepage'},
+      $lic_fzk{'additional_info_en'} );
+
+  # DE: License OSM
+  printf { $fh_de }
+    (   "Lizenzbedingungen der Kartendaten:\n"
+      . "Lizenztyp: %s\n"
+      . "Von: %s\n"
+      . "Name: %s\n"
+      . "Webseite: %s\n"
+      . "%s\n", 
+      $lic_osm{'license_type'}, 
+      $lic_osm{'license_string_short'}, 
+      $lic_osm{'data_provider_name'},
+      $lic_osm{'data_provider_homepage'},
+      $lic_osm{'additional_info_de'} );
+  # EN: License OSM
+  printf { $fh_en }
+    (   "License conditions of the map data:\n"
+      . "Licensetype: %s\n"
+      . "By: %s\n"
+      . "Name: %s\n"
+      . "Link: %s\n"
+      . "%s\n", 
+      $lic_osm{'license_type'}, 
+      $lic_osm{'license_string_short'}, 
+      $lic_osm{'data_provider_name'},
+      $lic_osm{'data_provider_homepage'},
+      $lic_osm{'additional_info_en'} );
+
+  # DE: License Contour data
+  printf { $fh_de }
+    (   encode('utf8', decode('iso-8859-1',"Lizenzbedingungen der Hï¿½henlinien:\n"))
+      . "Lizenztyp: %s\n"
+      . "Von: %s\n"
+      . "Name: %s\n"
+      . "Webseite: %s\n"
+      . "%s\n", 
+      $lic_ele{'license_type'}, 
+      $lic_ele{'license_string_short'}, 
+      $lic_ele{'data_provider_name'},
+      $lic_ele{'data_provider_homepage'},
+      $lic_ele{'additional_info_de'} );
+  # EN: License Contour data
+  printf { $fh_en }
+    (   "License conditions of the contour data:\n"
+      . "Licensetype: %s\n"
+      . "By: %s\n"
+      . "Name: %s\n"
+      . "Link: %s\n"
+      . "%s\n", 
+      $lic_ele{'license_type'}, 
+      $lic_ele{'license_string_short'}, 
+      $lic_ele{'data_provider_name'},
+      $lic_ele{'data_provider_homepage'},
+      $lic_ele{'additional_info_en'} );
+
+  # Try to close the files again
+  close ( $fh_de ) or die ( "Can't close $filename_de: $OS_ERROR\n" );
+  close ( $fh_en ) or die ( "Can't close $filename_en: $OS_ERROR\n" );
+
+  printf { *STDOUT } ( "Done\n" );
+
+  return;
+}
+
+
+# -----------------------------------------
 # Create the map specific CFG file needed by mkgmap
 # - Note that option order is significant.
 # - An option only applies to subsequent input files.
@@ -1586,6 +1920,8 @@ sub create_cfgfile {
   
   # Try to open the file
   open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+#  open ( my $fh, "+>:encoding($mapisolang)", $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+#  binmode( $fh, ":encoding($mapisolang)");
 
   # Write the needed options into the file
   printf { $fh } 
@@ -1827,7 +2163,17 @@ sub create_cfgfile {
     (   "\n"
       . "# --copyright-message=note\n"
       . "#   Specify a copyright message for files that do not contain one.\n"
-      . "copyright-message = \"Map: FZK project; Data: OSM contributors, U.S.G.S, de Ferranti\"\n" );
+      . "#copyright-message = \"Map: %s; Map Data: %s; Contour Data: %s\"\n", 
+      $lic_fzk{'license_string_short'}, $lic_osm{'license_string_short'}, $lic_ele{'license_string_short'} );
+
+  printf { $fh }
+    (   "\n"
+      . "# --copyright-file=file\n"
+      . "#   Specify copyright messages from a file.\n"
+      . "#   Note that the first copyright message is not displayed on a device, but is shown in BaseCamp.\n"
+      . "#   The copyright file must include at least two lines.\n"
+      . "copyright-file=%s.license\n",
+      $mapname );
 
   printf { $fh }
     (   "\n"
@@ -1835,7 +2181,8 @@ sub create_cfgfile {
       . "#   Specify a file which content will be added as license. Every\n"
       . "#   line is one entry. All entrys of all maps will be merged, unified\n"
       . "#   and shown in random order.\n"
-      . "license-file=license.txt\n" );
+      . "license-file=%s.license\n", 
+      $mapname );
 
   printf { $fh } ( "\n# Optimization options:\n" );
   printf { $fh } ( "# --------------------\n" );
@@ -1992,7 +2339,7 @@ sub create_cfgfile {
     }
   }
 
-  # -- no more options after that line / hier keine Optionen anfügen --
+  # -- no more options after that line / hier keine Optionen anfï¿½gen --
 
   # Try to close the file again
   close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
@@ -2727,10 +3074,13 @@ sub build_map {
 
   # change to directory WORKDIR LANG
   chdir "$WORKDIRLANG";
+  
+  # Try to update license info for elevation data
+  update_ele_license;
 
-  # copy the licence file
-  copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
-
+  # create the licence file
+  create_licensefile;
+  
   # run mkgmap to build the map from the OSM data (-Dlog.config=logging.properties) (with checking style files first with --check-styles)
   $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg --check-styles";
   process_command ( $command );
@@ -2745,7 +3095,7 @@ sub build_map {
 
 
 # -----------------------------------------
-# Garmin-Map-File für BaseCamp erzeugen.
+# Garmin-Map-File fï¿½r BaseCamp erzeugen.
 # Tool : gmapi-builder.py
 # OS   : OS X
 # -----------------------------------------
@@ -2825,8 +3175,8 @@ sub create_nsis_nsifile {
   printf { $fh } ( ";\n" );
   printf { $fh } ( "; Bemerkungen:\n" );
   printf { $fh } ( "; - Kopieren der Kartendateien\n" );
-  printf { $fh } ( "; - Eintragen der Windows-Registry-Keys für die Kartennutzung\n" );
-  printf { $fh } ( "; - Eintragen der Windows-Registry-Keys für die Deinstallation\n" );
+  printf { $fh } ( "; - Eintragen der Windows-Registry-Keys fï¿½r die Kartennutzung\n" );
+  printf { $fh } ( "; - Eintragen der Windows-Registry-Keys fï¿½r die Deinstallation\n" );
   printf { $fh } ( "; - Kopieren des Deinstallationsprogramms\n" );
   printf { $fh } ( "; ------------------------------------------------------------\n" );
   printf { $fh } ( "\n" );
@@ -2851,10 +3201,10 @@ sub create_nsis_nsifile {
   printf { $fh } ( "; Product-ID der Karte\n" );
   printf { $fh } ( "!define PRODUCT_ID \"1\"\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "; Name des Windows-Registrierungsschlüssels\n" );
+  printf { $fh } ( "; Name des Windows-Registrierungsschlï¿½ssels\n" );
   printf { $fh } ( "!define REG_KEY \"%s\"\n",     $mapname );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "; Name des alten Windows-Registrierungsschlüssels (vor Umbenennung der Karten)\n" );
+  printf { $fh } ( "; Name des alten Windows-Registrierungsschlï¿½ssels (vor Umbenennung der Karten)\n" );
   printf { $fh } ( "!define REG_KEY_OLD \"%s\"\n", $mapnameold );
   printf { $fh } ( "\n" );
   printf { $fh } ( "; Name des kartenspezifischen TYP-Files\n" );
@@ -2930,8 +3280,8 @@ sub create_nsis_nsifile {
   printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
   printf { $fh } ( "LangString INWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"lizenz_haftung_erstellung_en.txt\"\n" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"lizenz_haftung_erstellung.txt\"\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"%s\"\n", "$mapname.nsis.license.en" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"%s\"\n", "$mapname.nsis.license.de" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
@@ -3251,11 +3601,7 @@ sub create_nsis_exefile {
   # go to nsis directory
   chdir "$BASEPATH/nsis";
 
-  # copy license files and needed bitmaps
-  copy ( "lizenz_haftung_erstellung.txt", "$WORKDIRLANG/lizenz_haftung_erstellung.txt" )
-    or die ( "copy() failed: $!\n" );
-  copy ( "lizenz_haftung_erstellung_en.txt", "$WORKDIRLANG/lizenz_haftung_erstellung_en.txt" )
-    or die ( "copy() failed: $!\n" );
+  # copy needed bitmaps
   copy ( "Install.bmp",   "$WORKDIRLANG/Install.bmp" )   or die ( "copy() failed: $!" );
   copy ( "Deinstall.bmp", "$WORKDIRLANG/Deinstall.bmp" ) or die ( "copy() failed: $!" );
 
@@ -3417,8 +3763,8 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\nMake sure you have the correct GMAP zip file downloaded to the same directory as this installer.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
   printf { $fh } ( "LangString INWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nBitte stellen Sie sicher, dass die korrekte GMAP ZIP Datei schon in das gleiche Verzeichnis heruntergeladen wurde, wie dieser Installer.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"lizenz_haftung_erstellung_en.txt\"\n" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"lizenz_haftung_erstellung.txt\"\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"%s\"\n", "$mapname.nsis.license.en" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"%s\"\n", "$mapname.nsis.license.de" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
@@ -3698,11 +4044,7 @@ sub create_nsis_exefile2 {
   # go to nsis directory
   chdir "$BASEPATH/nsis";
 
-  # copy license files and needed bitmaps
-  copy ( "lizenz_haftung_erstellung.txt", "$WORKDIRLANG/lizenz_haftung_erstellung.txt" )
-    or die ( "copy() failed: $!\n" );
-  copy ( "lizenz_haftung_erstellung_en.txt", "$WORKDIRLANG/lizenz_haftung_erstellung_en.txt" )
-    or die ( "copy() failed: $!\n" );
+  # copy needed bitmaps
   copy ( "Install.bmp",   "$WORKDIRLANG/Install.bmp" )   or die ( "copy() failed: $!" );
   copy ( "Deinstall.bmp", "$WORKDIRLANG/Deinstall.bmp" ) or die ( "copy() failed: $!" );
 
@@ -3873,14 +4215,14 @@ sub create_gmapsuppfile {
   #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
   #my $mapversion = sprintf ( "%d.%d", ( $year - 100 ), ( $mon + 1 ) );
 
-  # copy License file
-  copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
+  # create License file
+  create_licensefile;
 
   # mkgmap-Parameter
   # --description: Anzeige des Kartennamens in BaseCamp
-  # --description: alleinige Anzeige des Kartennamens in einigen GPS-Geräten (z.B. 62er)
-  # --description: zusätzliche Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
-  # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
+  # --description: alleinige Anzeige des Kartennamens in einigen GPS-Gerï¿½ten (z.B. 62er)
+  # --description: zusï¿½tzliche Anzeige des Kartennamens in einigen GPS-Gerï¿½ten (z.B. Dakota)
+  # --family-name: primï¿½re Anzeige des Kartennamens in einigen GPS-Gerï¿½ten (z.B. Dakota)
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
         "--index --gmapsupp --product-id=1 --family-id=$mapid --family-name=\"$mapname $releasestring\" "
@@ -3893,7 +4235,7 @@ sub create_gmapsuppfile {
   $command =
       "java -Xmx"
     . $javaheapsize . "M"
-    . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --license-file=license.txt $mkgmap_parameter";
+    . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --license-file=$mapname.license $mkgmap_parameter";
   process_command ( $command );
 
   # Check Return Value
@@ -5116,7 +5458,7 @@ sub show_help {
 
   for my $mapdata ( @maps ) {
     if ( $optional ) {
-      # alle Länder und Regionen
+      # alle Lï¿½nder und Regionen
       if ( @$mapdata[ $MAPID ] == -1 ) {
         printf { *STDOUT } ( "\n%s:\n", @$mapdata[ $MAPNAME ] );    # Kommentar
       }
@@ -5126,12 +5468,12 @@ sub show_help {
     }
     else {
       # nur ausgewaehlte Karten
-      if (   ( ( @$mapdata[ $MAPID ] <= 5825 ) && ( @$mapdata[ $MAPID ] >= 5810 ) )  # Bundesländer
+      if (   ( ( @$mapdata[ $MAPID ] <= 5825 ) && ( @$mapdata[ $MAPID ] >= 5810 ) )  # Bundeslï¿½nder
         || ( @$mapdata[ $MAPID ] == 6276 )                                        # Deutschland
-        || ( @$mapdata[ $MAPID ] == 6208 )                                        # Dänemark
+        || ( @$mapdata[ $MAPID ] == 6208 )                                        # Dï¿½nemark
         || ( @$mapdata[ $MAPID ] == 6616 )                                        # Polen
         || ( @$mapdata[ $MAPID ] == 6203 )                                        # Tschechien
-        || ( @$mapdata[ $MAPID ] == 6040 )                                        # Österreich
+        || ( @$mapdata[ $MAPID ] == 6040 )                                        # ï¿½sterreich
         || ( @$mapdata[ $MAPID ] == 6756 )                                        # Schweiz
         || ( @$mapdata[ $MAPID ] == 7010 )                                        # Alpen
         || ( @$mapdata[ $MAPID ] == 6250 )                                        # Frankreich
