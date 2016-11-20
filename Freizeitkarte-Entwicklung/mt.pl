@@ -138,7 +138,7 @@ my @seaboundariesurl = (
 # FZK maps: static
 my %lic_fzk = (
    'license_type'           => 'free for research and private use' ,
-   'license_string_short'   => encode('utf8', decode('iso-8859-1','FZK project')) ,
+   'license_string_short'   => encode('utf8', decode('iso-8859-1','FZK project äöüéèê')) ,
    'license_string_medium'  => 'FZK project (Freizeitkarte), freizeitkarte-osm.de' ,
    'license_string_long'    => 'FZK project (Freizeitkarte), freizeitkarte-osm.de, free for research and private use' ,
    'data_provider_name'     => 'Freizeitkarte' ,
@@ -153,7 +153,7 @@ my %lic_fzk = (
 # OSM data: static
 my %lic_osm = (
    'license_type'           => 'ODbl' ,
-   'license_string_short'   => encode('utf8', decode('iso-8859-1','OSM contributors')) ,
+   'license_string_short'   => encode('utf8', decode('iso-8859-1','OSM contributors äöüéèê')) ,
    'license_string_medium'  => 'OSM contributors, www.openstreetmap.org' ,
    'license_string_long'    => 'OSM contributors, www.openstreetmap.org, ODbl' ,
    'data_provider_name'     => 'OpenStreetMap' ,
