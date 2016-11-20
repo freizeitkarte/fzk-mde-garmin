@@ -22,12 +22,8 @@ use File::Path;
 use File::Basename;
 use Getopt::Long;
 use Data::Dumper;
-use POSIX qw(uname);
-
-#use open qw(:std :utf8);
-#use Encode qw(decode_utf8);
-#@ARGV = map { decode_utf8($_, 1) } @ARGV;
-use Encode qw(is_utf8 decode encode);
+use POSIX qw(uname setlocale locale_h LC_ALL LC_CTYPE);
+use Encode qw(is_utf8 decode encode );
 
 my @actions = (
   # Normal User Actions for maps
@@ -4669,13 +4665,14 @@ sub show_fingerprint {
     printf "OS General\n";
     printf "======================================\n";
     printf "Perl Version:     $PERL_VERSION\n";
+  printf "Perl LC_CTYPE:    " . setlocale(LC_CTYPE) . "\n";
 	printf "OS Name:          $OSNAME\n";
 	printf "OS Sysname:       $os_sysname\n";
 	printf "OS Nodename:      $os_nodename\n";
 	printf "OS Release:       $os_release\n";
 	printf "OS Version:       $os_version\n";
 	printf "OS Machine:       $os_machine\n";
-	printf "OS Architecture:  $os_archbit\n";
+	printf "OS Architecture:  $os_archbit\n"; 
 	printf "\n\n";
 	
 
