@@ -4055,6 +4055,9 @@ sub create_nsis_exefile2 {
   # go to nsis directory
   chdir "$BASEPATH/nsis";
 
+  # Create the needed license files
+  create_licensefile_nsis();
+
   # copy needed bitmaps
   copy ( "Install.bmp",   "$WORKDIRLANG/Install.bmp" )   or die ( "copy() failed: $!" );
   copy ( "Deinstall.bmp", "$WORKDIRLANG/Deinstall.bmp" ) or die ( "copy() failed: $!" );
