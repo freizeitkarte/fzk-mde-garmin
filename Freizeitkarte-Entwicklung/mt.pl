@@ -1873,7 +1873,7 @@ sub create_licensefile_nsis {
 
   # DE: License Contour data
   printf { $fh_de }
-    (   encode('utf8', decode('iso-8859-1',"Lizenzbedingungen der Hï¿½henlinien:\n"))
+    (   encode('utf8', decode('iso-8859-1',"Lizenzbedingungen der Höhenlinien:\n"))
       . "Lizenztyp: %s\n"
       . "Von: %s\n"
       . "Name: %s\n"
