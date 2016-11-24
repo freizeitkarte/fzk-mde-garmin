@@ -37,7 +37,7 @@ my @actions = (
   [ 'split',     '4.  split map data into tiles' ,                         '-' ],
   [ 'build',     '5.  build map files (img, mdx, tdb)' ,                   '-' ],
   [ 'gmap',      '6.  create gmap file (for BaseCamp OS X, Windows)' ,     '-' ],
-  [ 'nsis',      '6.  create nsis installer (for BaseCamp Windows)' ,      '-' ],
+  [ 'nsis',      '6.  create nsis installer (full installer for Windows)' ,'-' ],
   [ 'gmapsupp',  '6.  create gmapsupp image (for GPS receiver)' ,          '-' ],
   [ 'imagedir',  '6.  create image directory (e.g. for QLandkarte)' ,      '-' ],
 
@@ -47,9 +47,7 @@ my @actions = (
   [ 'cfg',        'A. create individual cfg file' ,                        'optional' ],
   [ 'typ',        'B. create individual typ file from master' ,            'optional' ],
   [ 'compiletyp', 'B. compile TYP files out of text files' ,               'optional' ],
-  [ 'nsicfg',     'C. create nsi configuration file (for NSIS compiler)' , 'optional' ],
-  [ 'nsiexe',     'C. create nsi installer exe (via NSIS compiler)' ,      'optional' ],
-  [ 'nsis2',      'C. create nsis installer (GMAP for BaseCamp Windows)' , 'optional' ],
+  [ 'nsisgmap',   'C. create nsis installer (GMAP for BaseCamp Windows)' , 'optional' ],
   [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ,     'optional' ],
   [ 'bim',        'E1.build images: create, fetch_*, join, split, build' , 'optional' ],
   [ 'bam',        'E2.build all maps: gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
@@ -792,15 +790,13 @@ elsif ( $actionname eq 'gmap' ) {
 elsif ( $actionname eq 'nsis' ) {
   update_ele_license       ();
   create_typfile      ();
-  create_nsis_nsifile ();
-  create_nsis_exefile ();
-  create_nsis_nsifile2 ();
-  create_nsis_exefile2 ();
+  create_nsis_nsi_full ();
+  create_nsis_exe_full ();
 }
-elsif ( $actionname eq 'nsis2' ) {
+elsif ( $actionname eq 'nsisgmap' ) {
   update_ele_license       ();
-  create_nsis_nsifile2 ();
-  create_nsis_exefile2 ();
+  create_nsis_nsi_gmap ();
+  create_nsis_exe_gmap ();
 }
 
 elsif ( $actionname eq 'gmapsupp' ) {
@@ -825,15 +821,6 @@ elsif ( $actionname eq 'typ' ) {
 elsif ( $actionname eq 'compiletyp' ) {
   create_typtranslations ();
   compile_typfiles ();
-}
-elsif ( $actionname eq 'nsicfg' ) {
-  update_ele_license       ();
-  create_nsis_nsifile ();
-  create_nsis_nsifile2 ();
-}
-elsif ( $actionname eq 'nsiexe' ) {
-  create_nsis_exefile ();
-  create_nsis_exefile2 ();
 }
 elsif ( $actionname eq 'gmap2' ) {
   update_ele_license       ();
@@ -868,10 +855,11 @@ elsif ( $actionname eq 'bam' ) {
   create_image_directory ();
   create_gmapfile        ();
   create_gmapsuppfile    ();
-  create_nsis_nsifile    ();
-  create_nsis_exefile    ();
-  create_nsis_nsifile2   ();
-  create_nsis_exefile2   ();
+  update_ele_license       ();
+  create_nsis_nsi_gmap   ();
+  create_nsis_exe_gmap   ();
+  create_nsis_nsi_full    ();
+  create_nsis_exe_full    ();
 }
 elsif ( $actionname eq 'pmd' ) {
   purge_dirs               ();
@@ -900,10 +888,10 @@ elsif ( $actionname eq 'bml' ) {
   create_image_directory ();
   create_gmapfile        ();
   create_gmapsuppfile    ();
-  create_nsis_nsifile    ();
-  create_nsis_exefile    ();
-  create_nsis_nsifile2    ();
-  create_nsis_exefile2   ();
+  create_nsis_nsi_gmap    ();
+  create_nsis_exe_gmap   ();
+  create_nsis_nsi_full    ();
+  create_nsis_exe_full    ();
 }
 elsif ( $actionname eq 'zip' ) {
   zip_maps ();
@@ -3138,7 +3126,7 @@ sub create_gmap2file {
 # Create the NSI file needed for compiling the Windows Installer
 # (old style installer including ImageDir Set)
 # -----------------------------------------
-sub create_nsis_nsifile {
+sub create_nsis_nsi_full {
 
   # Jump into the correct directory
   chdir "$WORKDIRLANG";
@@ -3553,7 +3541,7 @@ sub create_nsis_nsifile {
 # Tool : makensis.exe
 # OS   : Linux, Windows
 # -----------------------------------------
-sub create_nsis_exefile {
+sub create_nsis_exe_full {
 
   my $source      = $EMPTY;
   my $destination = $EMPTY;
@@ -3653,7 +3641,7 @@ sub create_nsis_exefile {
 # Create the NSI file needed for compiling the Windows Installer
 # (old style installer including ImageDir Set)
 # -----------------------------------------
-sub create_nsis_nsifile2 {
+sub create_nsis_nsi_gmap {
 
   # Jump into the correct directory
   chdir "$WORKDIRLANG";
@@ -4027,7 +4015,7 @@ sub create_nsis_nsifile2 {
 # Tool : makensis.exe
 # OS   : Linux, Windows
 # -----------------------------------------
-sub create_nsis_exefile2 {
+sub create_nsis_exe_gmap {
 
   my $source      = $EMPTY;
   my $destination = $EMPTY;
