@@ -133,9 +133,8 @@ my @seaboundariesurl = (
   );
 
 # Licenses - Default values
-# FZK maps: static
 my %lic_fzk = (
-   'license_type'           => 'free for research and private use' ,
+   'license_type'           => '-unknown-' ,
    'license_string_short'   => encode('utf8', decode('iso-8859-1','FZK project äöüéèê')) ,
    'license_string_medium'  => 'FZK project (Freizeitkarte), freizeitkarte-osm.de' ,
    'license_string_long'    => 'FZK project (Freizeitkarte), freizeitkarte-osm.de, free for research and private use' ,
@@ -161,7 +160,8 @@ my %lic_osm = (
    );
 # Elevation Data: default for viewfinderpanorama, can be overridden by sidefile to Elevation PBF: Hoehendaten_Freizeitkarte_SOMETHING.osm.pbf.license
 my %lic_ele = (
-   'license_type'           => encode('utf8', decode('iso-8859-1','public domain or free for research and private use')) ,
+   'license_type_strongest' => "1",
+   'license_type'           => encode('utf8', decode('iso-8859-1','free for research and private use')) ,
    'license_string_short'   => encode('utf8', decode('iso-8859-1','U.S. Geological Survey or J. de Ferranti' )),
    'license_string_medium'  => 'U.S. Geological Survey, eros.usgs.gov or viewfinderpanoramas by J. de Ferranti, www.viewfinderpanoramas.org' ,
    'license_string_long'    => 'U.S. Geological Survey (public domain), eros.usgs.gov or viewfinderpanoramas by J. de Ferranti (free for research and private use), www.viewfinderpanoramas.org' ,
@@ -171,6 +171,7 @@ my %lic_ele = (
    'additional_info_en'     => "",
    );
 
+# FZK maps: static
 my @maps = (
   # ID, 'Karte', 'URL der Quelle', 'Code', 'language', 'oldName', 'Type', 'Parent'
 
@@ -1359,26 +1360,26 @@ sub update_ele_license {
   
   # Get eventually overriding values
   %ele_tmphash = read_licensefile($ele_licensefile);
+  
+  # In case we have updates
+  if ( keys %ele_tmphash > 0 ) {
+    
+    # Set strongest flag to 0
+    $lic_ele{license_type_strongest} = "";
 
-#  # DEBUG PRINT
-#  print "\nDEBUG: ele license before update\n";
-#  print "-----------------------------------\n";
-#  foreach my $hashkey ( sort ( keys %lic_ele ) ) {
-#    print "$hashkey ISEQUAL $lic_ele{$hashkey}\n";
-#  }
-#
-  # Override (or set) found values
-  foreach my $hashkey ( sort ( keys %ele_tmphash ) ) {
-    $lic_ele{$hashkey} = $ele_tmphash{$hashkey};
+    # Override (or set) found values
+    foreach my $hashkey ( sort ( keys %ele_tmphash ) ) {
+      $lic_ele{$hashkey} = $ele_tmphash{$hashkey};
+    }
+  
   }
 
-#  # DEBUG PRINT
-#  print "\nDEBUG: ele license after update\n";
-#  print "-----------------------------------\n";
-#  foreach my $hashkey ( sort ( keys %lic_ele ) ) {
-#    print "$hashkey ISEQUAL $lic_ele{$hashkey}\n";
-#  }
-#
+  # If license type of ele is strongest, then override fzk license type
+  if ( $lic_ele{license_type_strongest}) {
+    $lic_fzk{license_type} = $lic_ele{license_type};
+  }
+
+
   return;
 
 }
@@ -1717,18 +1718,20 @@ sub create_licensefile {
   # Try to open the file in destination codepage (isocode)
   open ( my $fh, "+>:encoding($mapisolang)", $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
   binmode( $fh, ":encoding($mapisolang)");
+#  open ( my $fh, "+>:encoding(UTF-8)", $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+#  binmode( $fh, ":encoding(UTF-8)");
   
-  print "Debug: $mapisolang\n";
-  print "Debug: Is this utf8: ",is_utf8($lic_fzk{'license_string_short'}) ? "Yes" : "No", "\n";
-  print "Debug: Is this utf8: ",is_utf8($lic_osm{'license_string_short'}) ? "Yes" : "No", "\n";
-  print "Debug: Is this utf8: ",is_utf8($lic_ele{'license_string_short'}) ? "Yes" : "No", "\n";
+#  print "Debug: $mapisolang\n";
+#  print "Debug: Is this utf8: ",is_utf8($lic_fzk{'license_string_short'}) ? "Yes" : "No", "\n";
+#  print "Debug: Is this utf8: ",is_utf8($lic_osm{'license_string_short'}) ? "Yes" : "No", "\n";
+#  print "Debug: Is this utf8: ",is_utf8($lic_ele{'license_string_short'}) ? "Yes" : "No", "\n";
   
   # Write license into the file
   my $encodedstring = sprintf
-    ( "Map: %s; Map Data: %s; Contour Data: %s\n", 
-      $lic_fzk{'license_string_short'}, $lic_osm{'license_string_short'}, $lic_ele{'license_string_short'} );
+    ( "(c) Map: %s (%s); Map Data: %s; Contour Data: %s\n", 
+      $lic_fzk{'license_string_short'},$lic_fzk{'license_type'}, $lic_osm{'license_string_short'}, $lic_ele{'license_string_short'} );
       
-  print "Debug: Is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
+#  print "Debug: Is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
   
 #  if ( $unicode ) {
 #    $encodedstring = Encode::decode_utf8($encodedstring);
@@ -1739,14 +1742,14 @@ sub create_licensefile {
 #    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
 #  }
 
-  if ( $unicode ) {
-    $encodedstring = Encode::decode_utf8($encodedstring);
-    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
-  }
-  else {
-    utf8::upgrade($encodedstring);
-    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
-  }
+#  if ( $unicode ) {
+#    $encodedstring = Encode::decode_utf8($encodedstring);
+#    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
+#  }
+#  else {
+#    utf8::upgrade($encodedstring);
+#    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
+#  }
   
 ###$line = Encode::decode_utf8($line);
 
@@ -2865,14 +2868,6 @@ sub compile_typfiles {
     # run that file through the compiler
     $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --product-id=1 --family-id=$mapid $thistypfile";
 
-    ## FIX for Russia/Cyrillic... actually mkgmap doesn't compile UTF8 files containing cyrillic strings... let's choose english only
-    ## Just to let everything run through properly for the moment
-#    if ( $maplang eq 'ru' ) {
-#		$command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$langcodepage{'en'} --product-id=1 --family-id=$mapid $thistypfile";
-#	}
-	## ENDFIX (can be deleted if problem with mkgmap is fixed
-
-
     # Run the compiler
     process_command ( $command );
     
@@ -3078,7 +3073,10 @@ sub build_map {
   create_licensefile;
   
   # run mkgmap to build the map from the OSM data (-Dlog.config=logging.properties) (with checking style files first with --check-styles)
-  $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg --check-styles";
+  #$command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg --check-styles";
+  
+  # Test with calling java via UTF8
+  $command = "java -Xmx" . $javaheapsize . "M" . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg --check-styles";
   process_command ( $command );
 
   # Check Return Value
@@ -4234,10 +4232,17 @@ sub create_gmapsuppfile {
   );
 
   # run mkgmap to create the actual gmapsupp.img
+#  $command =
+#      "java -Xmx"
+#    . $javaheapsize . "M"
+#    . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --license-file=$mapname.license $mkgmap_parameter";
+
+# Test with calling java via utf8
   $command =
       "java -Xmx"
     . $javaheapsize . "M"
-    . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --license-file=$mapname.license $mkgmap_parameter";
+    . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --license-file=$mapname.license $mkgmap_parameter";
+
   process_command ( $command );
 
   # Check Return Value
@@ -4686,9 +4691,23 @@ sub show_fingerprint {
 	# ----
     printf "Java\n";
     printf "======================================\n";
-	$cmdoutput = `java -version 2>&1`;
-	printf "$cmdoutput\n\n";
+    chdir "$BASEPATH/tools/fzkJavaLocale";
+    $cmdoutput = `java -version 2>&1`;
+    printf "$cmdoutput\n\n";
 	
+    printf "Java Encodings (no parameters)\n";
+    printf "--------------------------------------\n";
+    chdir "$BASEPATH/tools/fzkJavaLocale";
+    $cmdoutput = `java fzkJavaLocale`;
+    printf "$cmdoutput\n\n";
+	
+    printf "Java Encodings (file.encoding=UTF-8)\n";
+    printf "--------------------------------------\n";
+    chdir "$BASEPATH/tools/fzkJavaLocale";
+    $cmdoutput = `java "-Dfile.encoding=UTF-8" fzkJavaLocale`;
+    printf "$cmdoutput\n\n";
+    chdir "$BASEPATH";
+
 
 	# osmosis
 	# -------
@@ -4719,7 +4738,7 @@ sub show_fingerprint {
     # --------
     printf "splitter\n";
     printf "======================================\n";
-    $cmdoutput = `java -jar tools/splitter/splitter.jar --version 2>&1`;
+    $cmdoutput = `java -jar $BASEPATH/tools/splitter/splitter.jar --version 2>&1`;
 	printf "$cmdoutput\n\n";
     
 
@@ -4727,7 +4746,7 @@ sub show_fingerprint {
     # ------
     printf "mkgmap\n";
     printf "======================================\n";    
-    $cmdoutput = `java -jar tools/mkgmap/mkgmap.jar --version 2>&1`;
+    $cmdoutput = `java -jar $BASEPATH/tools/mkgmap/mkgmap.jar --version 2>&1`;
     # Try to match
     if ( $cmdoutput =~ /^(\d{4,})/m ) {
 	  printf "mkgmap r$1\n\n\n";
