@@ -1772,10 +1772,11 @@ sub create_licensefile {
 sub create_licensefile_nsis {
 
   # Initialize some variables
-#  my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.de";
-#  my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.en";
-  my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.en";
-  my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.de";
+  my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.de";
+  my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.en";
+  # Reverse file assignement in order to check German Umlaute for EN Map like LUX (for tests)
+  #my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.en";
+  #my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.de";
 
   # Dump some output
   printf { *STDOUT } ( "\n" );
