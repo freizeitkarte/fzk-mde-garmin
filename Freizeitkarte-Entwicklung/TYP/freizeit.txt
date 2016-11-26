@@ -68,6 +68,8 @@ Type=0x040,4
 Type=0x015,5
 ; vineyard
 Type=0x01b,5
+; zoo
+Type=0x022,5
 ; landfill (Deponie, Aufschüttung)
 Type=0x02a,5
 ; heath (Heide)
@@ -91,8 +93,6 @@ Type=0x016,6
 Type=0x017,6
 ; sports_centre
 Type=0x019,6
-; zoo
-Type=0x022,6
 ; powerstations (different sizes)
 Type=0x025,6
 ; brownfield, constructions, greenfields
@@ -876,7 +876,7 @@ ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
 Xpm="0 0 1 0"
-"1 c #33CC99"
+"1 c #F0F0D8"
 [end]
 
 

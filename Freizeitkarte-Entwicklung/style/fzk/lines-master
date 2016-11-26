@@ -1303,8 +1303,8 @@ highway = path & keinrouting = yes [0x010e12 resolution 23-23]
 # Allgemein oeffentlich
 # 0x010e0c = Bitmap 2 (breit, NoLabel)
 # 0x010e06 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = path [0x010e0c resolution 24 continue]
-highway = path [0x010e06 resolution 23-23]
+highway = path  & (area != * | area = no) [0x010e0c resolution 24 continue]
+highway = path  & (area != * | area = no) [0x010e06 resolution 23-23]
 
 
 # Wirtschafts-, Feld- oder Waldweg:
