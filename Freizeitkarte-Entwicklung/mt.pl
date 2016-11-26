@@ -134,7 +134,7 @@ my @seaboundariesurl = (
 
 # Licenses - Default values
 my %lic_fzk = (
-   'license_type'           => '-unknown-' ,
+   'license_type'           => 'CC BY 3.0' ,
    'license_string_short'   => encode('utf8', decode('iso-8859-1','FZK project äöüéèê')) ,
    'license_string_medium'  => 'FZK project (Freizeitkarte), freizeitkarte-osm.de' ,
    'license_string_long'    => 'FZK project (Freizeitkarte), freizeitkarte-osm.de, free for research and private use' ,
