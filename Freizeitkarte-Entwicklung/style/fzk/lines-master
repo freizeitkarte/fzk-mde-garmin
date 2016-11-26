@@ -60,6 +60,7 @@
 #                            - Excluded railway=abandoned from display
 # Version : 0.33  25.04.2016 - Showing aerialway = rope-tow also
 # Version : 0.34  11.11.2016 - Fixing issue with highway=path and foot=designated wrongly classified as radfussweg
+# Version : 0.35  26.11.2016 - Fixing highway = path & area = yes
 
 
 
