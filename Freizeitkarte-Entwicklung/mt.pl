@@ -1836,12 +1836,14 @@ sub create_licensefile_nsis {
   
   # Try to open the files for writing (always in Latin1 as we support only german and english in the installer)
   printf { *STDOUT } ( "Creating $filename_de  ...\n" );
-  open ( my $fh_de, '+>:encoding(iso-8859-1)', $filename_de ) or die ( "Can't open $filename_de: $OS_ERROR\n" );
-  binmode( $fh_de, ":encoding(iso-8859-1)");
+  open ( my $fh_de, '+>', $filename_de ) or die ( "Can't open $filename_de: $OS_ERROR\n" );
+  #open ( my $fh_de, '+>:encoding(iso-8859-1)', $filename_de ) or die ( "Can't open $filename_de: $OS_ERROR\n" );
+  #binmode( $fh_de, ":encoding(iso-8859-1)");
 
   printf { *STDOUT } ( "Creating $filename_en  ...\n" );
-  open ( my $fh_en, '+>:encoding(iso-8859-1)', $filename_en ) or die ( "Can't open $filename_en: $OS_ERROR\n" );
-  binmode( $fh_en, ":encoding(iso-8859-1)");
+  open ( my $fh_en, '+>', $filename_en ) or die ( "Can't open $filename_en: $OS_ERROR\n" );
+  #open ( my $fh_en, '+>:encoding(iso-8859-1)', $filename_en ) or die ( "Can't open $filename_en: $OS_ERROR\n" );
+  #binmode( $fh_en, ":encoding(iso-8859-1)");
 
 
   # DE: Use
@@ -2049,6 +2051,14 @@ sub create_cfgfile {
      printf { $fh }    
         (   "#name-tag-list=name:de,name:en,int_name,name\n" );
   }
+  
+  printf { $fh } 
+  (   "\n" 
+    . "# --lower-case\n" 
+    . "#   Allow labels to contain lower case letters.\n" 
+    . "#   Note that most or all Garmin devices are not able to display\n" 
+    . "#   lower case letters at an angle so this option is not generally useful.\n" 
+    . "lower-case\n" );
 
   printf { $fh } ( "\n# Address search options:\n" );
   printf { $fh } ( "# ----------------------\n" );
