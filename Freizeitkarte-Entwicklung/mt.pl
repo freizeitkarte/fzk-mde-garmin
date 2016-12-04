@@ -1324,6 +1324,8 @@ sub read_licensefile {
   my $line;
   my @alllines;
   my %tmphash = ();
+  my $tmphash_key;
+  my $tmphash_value;
   
   # Let's try to open 
   if ( open IN,  "<:encoding(UTF-8)", $licensefile ) {
@@ -1354,8 +1356,9 @@ sub read_licensefile {
     # run through the array and fill the tmphash
     foreach $line ( @alllines ) {
       # create the hashtable
-      $line =~ /^(.*)=(.*)$/;
-      $tmphash{ $1 } = "$2";
+      $line =~ /^(.*)=(.*)$/;      
+      $tmphash{ $1 } = join( "\n", split ( /\\n/, $2 ));
+      
     }
     
   }
@@ -1773,41 +1776,31 @@ sub create_licensefile {
 #  binmode( $fh, ":encoding($mapisolang)");
   open ( my $fh, "+>:encoding(UTF-8)", $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
   binmode( $fh, ":encoding(UTF-8)");
-  
-#  print "Debug: $mapisolang\n";
-#  print "Debug: Is this utf8: ",is_utf8($lic_fzk{'license_string_short'}) ? "Yes" : "No", "\n";
-#  print "Debug: Is this utf8: ",is_utf8($lic_osm{'license_string_short'}) ? "Yes" : "No", "\n";
-#  print "Debug: Is this utf8: ",is_utf8($lic_ele{'license_string_short'}) ? "Yes" : "No", "\n";
-  
+    
   # Write license into the file
-  my $encodedstring = sprintf
-    ( "(c) Map: %s (%s)\n(c) Map Data: %s\n(c) Contour Data: %s\n", 
-      $lic_fzk{'license_string_short'},$lic_fzk{'license_type'}, $lic_osm{'license_string_short'}, $lic_ele{'license_string_short'} );
+  #my $encodedstring = sprintf
+  #  ( "(c) Map: %s (%s)\n(c) Map Data: %s\n(c) Contour Data: %s\n", 
+  #    $lic_fzk{'license_string_short'},$lic_fzk{'license_type'}, $lic_osm{'license_string_short'}, $lic_ele{'license_string_short'} );
+  #printf { $fh } ("%s", $encodedstring );
+
+#       $lic_ele{'title_long_en'},
       
-#  print "Debug: Is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
-  
-#  if ( $unicode ) {
-#    $encodedstring = Encode::decode_utf8($encodedstring);
-#    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
-#  }
-#  else {
-#    $encodedstring = encode('utf-8',decode($mapisolang,$encodedstring));
-#    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
-#  }
-
-#  if ( $unicode ) {
-#    $encodedstring = Encode::decode_utf8($encodedstring);
-#    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
-#  }
-#  else {
-#    utf8::upgrade($encodedstring);
-#    print "Debug: and now is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
-#  }
-  
-###$line = Encode::decode_utf8($line);
-
-  printf { $fh } ("%s", $encodedstring );
-
+  # New: 3 line of licenses
+  printf { $fh } ("(c) %s: %s (%s)\n", 
+    $lic_fzk{'title_short'}, 
+    $lic_fzk{'license_string_short'},
+    $lic_fzk{'license_type'} 
+    );
+  printf { $fh } ("(c) %s: %s (%s)\n", 
+    $lic_osm{'title_short'}, 
+    $lic_osm{'license_string_short'},
+    $lic_osm{'license_type'} 
+    );
+  printf { $fh } ("(c) %s: %s (%s)\n", 
+    $lic_ele{'title_short'}, 
+    $lic_ele{'license_string_short'},
+    $lic_ele{'license_type'} 
+    );
 
   # Try to close the file again
   close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
@@ -1848,57 +1841,63 @@ sub create_licensefile_nsis {
 
   # DE: Use
   printf { $fh_de }
-    (   "%s\n", 
+    (   "%s\n\n", 
       $lic_fzk{'use_de'} );
   # EN: Use
   printf { $fh_en }
-    (   "%s\n", 
+    (   "%s\n\n", 
       $lic_fzk{'use_en'} );
 
   # DE: Help
   printf { $fh_de }
-    (   "%s\n", 
+    (   "%s\n\n", 
       $lic_fzk{'help_de'} );
   # EN: Help
   printf { $fh_en }
-    (   "%s\n", 
+    (   "%s\n\n", 
       $lic_fzk{'help_en'} );
 
   # DE: License map
   printf { $fh_de }
-    (   "Lizenzbedingungen der Karte:\n"
+    (   "%s:\n"
       . "Lizenztyp: %s\n"
       . "Von: %s\n"
       . "Name: %s\n"
-      . "Webseite: %s\n"
-      . "%s\n", 
+      . "Webseite: %s\n" 
+      . "%s\n\n", 
+      $lic_fzk{'title_long_de'},
       $lic_fzk{'license_type'}, 
       $lic_fzk{'license_string_short'}, 
       $lic_fzk{'data_provider_name'},
       $lic_fzk{'data_provider_homepage'},
-      $lic_fzk{'additional_info_de'} );
+      $lic_fzk{'additional_info_de'} 
+      );
+
   # EN: License map
   printf { $fh_en }
-    (   "License conditions of the maps:\n"
+    (   "%s:\n"
       . "Licensetype: %s\n"
       . "By: %s\n"
       . "Name: %s\n"
-      . "Link: %s\n"
-      . "%s\n", 
+      . "Link: %s\n" 
+      . "%s\n\n", 
+      $lic_fzk{'title_long_en'},
       $lic_fzk{'license_type'}, 
       $lic_fzk{'license_string_short'}, 
       $lic_fzk{'data_provider_name'},
       $lic_fzk{'data_provider_homepage'},
-      $lic_fzk{'additional_info_en'} );
+      $lic_fzk{'additional_info_en'} 
+      );
 
   # DE: License OSM
   printf { $fh_de }
-    (   "Lizenzbedingungen der Kartendaten:\n"
+    (   "%s:\n"
       . "Lizenztyp: %s\n"
       . "Von: %s\n"
       . "Name: %s\n"
       . "Webseite: %s\n"
-      . "%s\n", 
+      . "%s\n\n", 
+      $lic_osm{'title_long_de'},
       $lic_osm{'license_type'}, 
       $lic_osm{'license_string_short'}, 
       $lic_osm{'data_provider_name'},
@@ -1906,12 +1905,13 @@ sub create_licensefile_nsis {
       $lic_osm{'additional_info_de'} );
   # EN: License OSM
   printf { $fh_en }
-    (   "License conditions of the map data:\n"
+    (   "%s:\n"
       . "Licensetype: %s\n"
       . "By: %s\n"
       . "Name: %s\n"
       . "Link: %s\n"
-      . "%s\n", 
+      . "%s\n\n", 
+      $lic_osm{'title_long_de'},
       $lic_osm{'license_type'}, 
       $lic_osm{'license_string_short'}, 
       $lic_osm{'data_provider_name'},
@@ -1920,12 +1920,13 @@ sub create_licensefile_nsis {
 
   # DE: License Contour data
   printf { $fh_de }
-    (   encode('utf8', decode('iso-8859-1',"Lizenzbedingungen der Höhenlinien:\n"))
+    (   "%s:\n"
       . "Lizenztyp: %s\n"
       . "Von: %s\n"
       . "Name: %s\n"
       . "Webseite: %s\n"
-      . "%s\n", 
+      . "%s\n\n", 
+      $lic_ele{'title_long_de'},
       $lic_ele{'license_type'}, 
       $lic_ele{'license_string_short'}, 
       $lic_ele{'data_provider_name'},
@@ -1933,12 +1934,13 @@ sub create_licensefile_nsis {
       $lic_ele{'additional_info_de'} );
   # EN: License Contour data
   printf { $fh_en }
-    (   "License conditions of the contour data:\n"
+    (   "%s:\n"
       . "Licensetype: %s\n"
       . "By: %s\n"
       . "Name: %s\n"
       . "Link: %s\n"
-      . "%s\n", 
+      . "%s\n\n", 
+      $lic_ele{'title_long_en'},
       $lic_ele{'license_type'}, 
       $lic_ele{'license_string_short'}, 
       $lic_ele{'data_provider_name'},
@@ -2246,7 +2248,7 @@ sub create_cfgfile {
       . "#   Specify a file which content will be added as license. Every\n"
       . "#   line is one entry. All entrys of all maps will be merged, unified\n"
       . "#   and shown in random order.\n"
-      . "license-file=%s.license\n", 
+      . "#license-file=%s.license\n", 
       $mapname );
 
   printf { $fh } ( "\n# Optimization options:\n" );
