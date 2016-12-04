@@ -82,7 +82,7 @@ class EndOfFile(IOError):
 class FileFormatError(Exception):
     pass
 
-# Auxillary functions that make life easier to read bytes, shorts, ints and
+# Auxiliary functions that make life easier to read bytes, shorts, int and
 # so on from a file.
 def getX(length, fmt):
     def get(f):
@@ -429,6 +429,10 @@ def parse_options(option_list):
             help="the name of this mapset's TDB file")
     oparser.add_option("-b", "--baseimg", dest="baseimg",
             help="the name of the base img")
+    oparser.add_option("-i", "--idxfile", dest="mdx",
+            help="the name of this mapset's index (mdx) file")
+    oparser.add_option("-m", "--mdrfile", dest="mdr",
+            help="the name of this mapset's MDR file")
     oparser.add_option("-v", "--verbose", dest="verbosity",
             action="count", help="verbosity")
     oparser.add_option("-s", "--style", dest="style",
@@ -458,6 +462,14 @@ def parse_options(option_list):
         if not os.path.isfile(options.style):
             error_exit("\nError: Style file not found.")
 
+    if options.mdx:
+        if not os.path.isfile(options.mdx):
+            error_exit("\nError: Index (mdx) file not found.")
+
+    if options.mdr:
+        if not os.path.isfile(options.mdr):
+            error_exit("\nError: MDR file not found.")
+            
     if not args:
         oparser.print_help()
         error_exit('No filenames specified!')
@@ -483,7 +495,7 @@ def prepare_output_dir(tdbfile, options):
     os.mkdir(gmap)
     return gmap
 
-def write_xml_file(tdbfile, options, output_dir, newTYPname):
+def write_xml_file(tdbfile, options, output_dir):
     def write_field(field, value, indent):
         f.write('%s<%s>%s</%s>\n' % (indent * '    ', field, value, field))
     f = open(os.path.join(output_dir, 'Info.xml'), 'w')
@@ -500,8 +512,16 @@ def write_xml_file(tdbfile, options, output_dir, newTYPname):
     if tdbfile.header_block['Family ID'] > 0:
         write_field('ID', tdbfile.header_block['Family ID'], 1)
         f.write('\n')
+    if options.mdx:
+        write_field('IDX', os.path.basename(options.mdx), 1)
+        f.write('\n')
+    if options.mdr: 
+        mdr = os.path.basename(options.mdr)
+        mdr = mdr[:mdr.rfind('.')]
+        write_field('MDR', mdr, 1)
+        f.write('\n')
     if options.style:
-        write_field('TYP', newTYPname, 1)
+        write_field('TYP', os.path.basename(options.style), 1)
         f.write('\n')
     f.write('    <SubProduct>\n')
     write_field('Name', tdbfile.header_block['Map Series'], 2)
@@ -509,7 +529,7 @@ def write_xml_file(tdbfile, options, output_dir, newTYPname):
     baseimg = os.path.basename(options.baseimg)
     baseimg = baseimg[:baseimg.rfind('.')]
     write_field('BaseMap', baseimg, 2)
-    write_field('TDB', os.path.basename(options.tdbfile).upper(), 2)
+    write_field('TDB', os.path.basename(options.tdbfile), 2)
     write_field('Directory', 'OSMTiles', 2)
     f.write('    </SubProduct>\n')
     f.write('</MapProduct>\n')
@@ -523,28 +543,34 @@ if __name__ == '__main__':
     except IOError:
         error_exit("Could not open '%s' for reading." % options.tdbfile)
 
-    if options.style:
-        newTYPname = os.path.basename(options.style).upper()
-    else:
-        newTYPname = ''
-
     if not options.dryrun:
         output_dir = prepare_output_dir(tdbfile, options)
-        write_xml_file(tdbfile, options, output_dir, newTYPname)
+        write_xml_file(tdbfile, options, output_dir)
 
     try:
         if not options.dryrun:
             imgoutput = os.path.join(output_dir, 'OSMTiles')
             os.mkdir(imgoutput)
-            shutil.copy(options.tdbfile, os.path.join(imgoutput, os.path.basename(options.tdbfile).upper()))
+            shutil.copy(options.tdbfile, os.path.join(imgoutput, os.path.basename(options.tdbfile)))
             if options.style:
-                shutil.copy(options.style, os.path.join(output_dir, newTYPname))
+                shutil.copy(options.style, os.path.join(output_dir, os.path.basename(options.style)))
+
+            if options.mdx:
+                shutil.copy(options.mdx, os.path.join(output_dir, os.path.basename(options.mdx)))
+
+            if options.mdr:
+                mdr_file = os.path.basename(options.mdr)
 
         for fn in filenames:
+            logger.info("Processing " + fn)
             imgfile = IMGFile(fn)
             imgfile.print_info()
             if not options.dryrun:
-                imgfile.dump(imgoutput)
+                if fn != options.mdr:
+                    imgfile.dump(imgoutput)
+                else:
+                    logger.info("MDR file")
+                    imgfile.dump(output_dir)
             imgfile.close()
     except IOError:
             error_exit("Could not open '%s' for reading." % fn)
