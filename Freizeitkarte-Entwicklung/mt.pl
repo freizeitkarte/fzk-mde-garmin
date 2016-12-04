@@ -133,45 +133,57 @@ my @seaboundariesurl = (
   );
 
 # Licenses - Default values
-my %lic_fzk = (
-   'license_type'           => 'CC BY 3.0' ,
+# --------------------------
+# (encode decode sequence needed as mt.pl is in cp1252)
+# Freizeitkarte: static but license type can be overwritten by more relevant value from elevation data
+
+#my %lic_fzk = (
+#   'license_type'           => encode('utf8', decode('iso-8859-1','CC BY 3.0')) ,
+##   'license_string_short'   => encode('utf8', decode('iso-8859-1','FZK project 123456')) ,
 #   'license_string_short'   => encode('utf8', decode('iso-8859-1','FZK project äöüéèê')) ,
-   'license_string_short'   => 'FZK project äöüéèê' ,
-   'license_string_medium'  => 'FZK project (Freizeitkarte), freizeitkarte-osm.de' ,
-   'license_string_long'    => 'FZK project (Freizeitkarte), freizeitkarte-osm.de, free for research and private use' ,
-   'data_provider_name'     => 'Freizeitkarte' ,
-   'data_provider_homepage' => 'freizeitkarte-osm.de' ,
-   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"Die hier verfügbaren Karten stellen ein aus den Karten- und Höhendaten abgeleitetes Werk (produced work) dar. Die Karten können für private oder wissenschaftliche Zwecke frei (uneingeschränkt) genutzt werden.\n")),
-   'additional_info_en'     => "The available maps are a derived work from map and elevation data. The maps can be used free for personal or academic purposes.\n",
-   'use_de'                 => encode('utf8', decode('iso-8859-1',"Nutzung des Kartenmaterial:\nDie Nutzung des Kartenmaterials erfolgt auf eigene Gefahr. Das Kartenmaterial und oder das Routing kann Fehler enthalten oder unzureichend sein. Die Ersteller dieser Karten übernehmen keinerlei Gewährleistung oder Haftung für Schäden die direkt oder indirekt durch die Nutzung des Kartenmaterial entstehen.\n")),
-   'use_en'                 => "Use of the maps:\nThe use of maps is at your own risk. The map data and / or the routing may contain errors or may be insufficient.\nThe creators of these maps are not liable for any damage resulting directly or indirectly from the use of the maps.\n",
-   'help_de'                => encode('utf8', decode('iso-8859-1',"Deine Mithilfe ist erwünscht:\nHilf mit die OpenStreetMap-Quelldaten dieser Karte, und damit auch diese Themenkarte, zu verbessern. Fehlende oder inkorrekte Kartendaten kannst auch du auf OpenStreetMap eintragen oder korrigieren. Dies geht viel leichter als du vielleicht glaubst. Melde dich hierzu auf OpenStreetMap an und versuche es einfach mal. Alle anderen Kartennutzer können so von deinem Wissen profitieren.\nAuch Information über Defekte, die dir bei der Nutzung dieser Karte auffallen, sind hilfreich - ebenso Änderungs- oder Verbesserungsvorschläge.\nDanke für deine Unterstützung.\n ")),
-   'help_en'                => "Your help is welcome:\nYou can help to improve the OpenStreetMap source data, and therefore also this map. If something is missing or wrong in the source data you can add or correct that on OpenStreetMap. That's easier as you might think. Get registered on OpenStreetMap and just try it out. This way everyone can profit from your knowledge.\nInformation about defects found while using this map are also helpful. Also ideas about changes and improvments are very welcome.\nMany thanks for your support.\n",
-   );
+#   'license_string_medium'  => encode('utf8', decode('iso-8859-1','FZK project (Freizeitkarte), freizeitkarte-osm.de')) ,
+#   'license_string_long'    => encode('utf8', decode('iso-8859-1','FZK project (Freizeitkarte), freizeitkarte-osm.de, free for research and private use' )),
+#   'data_provider_name'     => encode('utf8', decode('iso-8859-1','Freizeitkarte' )),
+#   'data_provider_homepage' => encode('utf8', decode('iso-8859-1','freizeitkarte-osm.de' )),
+#   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"Die hier verfügbaren Karten stellen ein aus den Karten- und Höhendaten abgeleitetes Werk (produced work) dar. Die Karten können für private oder wissenschaftliche Zwecke frei (uneingeschränkt) genutzt werden.\n")) ,
+#   'additional_info_en'     => encode('utf8', decode('iso-8859-1',"The available maps are a derived work from map and elevation data. The maps can be used free for personal or academic purposes.\n")) ,
+#   'use_de'                 => encode('utf8', decode('iso-8859-1',"Nutzung des Kartenmaterial:\nDie Nutzung des Kartenmaterials erfolgt auf eigene Gefahr. Das Kartenmaterial und oder das Routing kann Fehler enthalten oder unzureichend sein. Die Ersteller dieser Karten übernehmen keinerlei Gewährleistung oder Haftung für Schäden die direkt oder indirekt durch die Nutzung des Kartenmaterial entstehen.\n")),
+#   'use_en'                 => encode('utf8', decode('iso-8859-1',"Use of the maps:\nThe use of maps is at your own risk. The map data and / or the routing may contain errors or may be insufficient.\nThe creators of these maps are not liable for any damage resulting directly or indirectly from the use of the maps.\n")) ,
+#   'help_de'                => encode('utf8', decode('iso-8859-1',"Deine Mithilfe ist erwünscht:\nHilf mit die OpenStreetMap-Quelldaten dieser Karte, und damit auch diese Themenkarte, zu verbessern. Fehlende oder inkorrekte Kartendaten kannst auch du auf OpenStreetMap eintragen oder korrigieren. Dies geht viel leichter als du vielleicht glaubst. Melde dich hierzu auf OpenStreetMap an und versuche es einfach mal. Alle anderen Kartennutzer können so von deinem Wissen profitieren.\nAuch Information über Defekte, die dir bei der Nutzung dieser Karte auffallen, sind hilfreich - ebenso Änderungs- oder Verbesserungsvorschläge.\nDanke für deine Unterstützung.\n ")),
+#   'help_en'                => encode('utf8', decode('iso-8859-1',"Your help is welcome:\nYou can help to improve the OpenStreetMap source data, and therefore also this map. If something is missing or wrong in the source data you can add or correct that on OpenStreetMap. That's easier as you might think. Get registered on OpenStreetMap and just try it out. This way everyone can profit from your knowledge.\nInformation about defects found while using this map are also helpful. Also ideas about changes and improvments are very welcome.\nMany thanks for your support.\n")),
+#   );
+my %lic_fzk = ();
+
 # OSM data: static
-my %lic_osm = (
-   'license_type'           => 'ODbl' ,
-   'license_string_short'   => 'OSM contributors äöüéèê' ,
+#my %lic_osm = (
+#   'license_type'           => encode('utf8', decode('iso-8859-1','ODbl')) ,
+##   'license_string_short'   => encode('utf8', decode('iso-8859-1','OSM contributors 123456')) ,
 #   'license_string_short'   => encode('utf8', decode('iso-8859-1','OSM contributors äöüéèê')) ,
-   'license_string_medium'  => 'OSM contributors, www.openstreetmap.org' ,
-   'license_string_long'    => 'OSM contributors, www.openstreetmap.org, ODbl' ,
-   'data_provider_name'     => 'OpenStreetMap' ,
-   'data_provider_homepage' => 'www.openstreetmap.org' ,
-   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"Die dargestellten Kartenobjekte basieren auf den Daten des OpenStreetMap-Projektes. OpenStreetMap ist eine freie, editierbare Karte der gesamten Welt, die von Menschen wie dir erstellt wird. OpenStreetMap ermöglicht es geographische Daten gemeinschaftlich von überall auf der Welt anzuschauen und zu bearbeiten.\n")),
-   'additional_info_en'     => "All maps are based on data from the OpenStreetMap project. OpenStreetMap is a free editable map of the whole world that is created by people like you. OpenStreetMap allows geographic data to look at collaborative way from anywhere in the world and edit it.\n",
-   );
+#   'license_string_medium'  => encode('utf8', decode('iso-8859-1','OSM contributors, www.openstreetmap.org')) ,
+#   'license_string_long'    => encode('utf8', decode('iso-8859-1','OSM contributors, www.openstreetmap.org, ODbl')) ,
+#   'data_provider_name'     => encode('utf8', decode('iso-8859-1','OpenStreetMap')) ,
+#   'data_provider_homepage' => encode('utf8', decode('iso-8859-1','www.openstreetmap.org')) ,
+#   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"Die dargestellten Kartenobjekte basieren auf den Daten des OpenStreetMap-Projektes. OpenStreetMap ist eine freie, editierbare Karte der gesamten Welt, die von Menschen wie dir erstellt wird. OpenStreetMap ermöglicht es geographische Daten gemeinschaftlich von überall auf der Welt anzuschauen und zu bearbeiten.\n")) ,
+#   'additional_info_en'     => encode('utf8', decode('iso-8859-1',"All maps are based on data from the OpenStreetMap project. OpenStreetMap is a free editable map of the whole world that is created by people like you. OpenStreetMap allows geographic data to look at collaborative way from anywhere in the world and edit it.\n")) ,
+#   );
+my %lic_osm = ();
+
 # Elevation Data: default for viewfinderpanorama, can be overridden by sidefile to Elevation PBF: Hoehendaten_Freizeitkarte_SOMETHING.osm.pbf.license
-my %lic_ele = (
-   'license_type_strongest' => "1",
-   'license_type'           => encode('utf8', decode('iso-8859-1','free for research and private use')) ,
-   'license_string_short'   => encode('utf8', decode('iso-8859-1','U.S. Geological Survey or J. de Ferranti' )),
-   'license_string_medium'  => 'U.S. Geological Survey, eros.usgs.gov or viewfinderpanoramas by J. de Ferranti, www.viewfinderpanoramas.org' ,
-   'license_string_long'    => 'U.S. Geological Survey (public domain), eros.usgs.gov or viewfinderpanoramas by J. de Ferranti (free for research and private use), www.viewfinderpanoramas.org' ,
-   'data_provider_name'     => 'U.S. Geological Survey or viewfinderpanoramas by J. de Ferranti' ,
-   'data_provider_homepage' => 'eros.usgs.gov or www.viewfinderpanoramas.org' ,
-   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"")),
-   'additional_info_en'     => "",
-   );
+#my %lic_ele = (
+#   'license_type_strongest' => "1",
+#   'license_type'           => encode('utf8', decode('iso-8859-1','free for research and private use')) ,
+#   'license_string_short'   => encode('utf8', decode('iso-8859-1','U.S. Geological Survey or J. de Ferranti' )),
+#   'license_string_medium'  => encode('utf8', decode('iso-8859-1','U.S. Geological Survey, eros.usgs.gov or viewfinderpanoramas by J. de Ferranti, www.viewfinderpanoramas.org')) ,
+#   'license_string_long'    => encode('utf8', decode('iso-8859-1','U.S. Geological Survey (public domain), eros.usgs.gov or viewfinderpanoramas by J. de Ferranti (free for research and private use), www.viewfinderpanoramas.org')) ,
+#   'data_provider_name'     => encode('utf8', decode('iso-8859-1','U.S. Geological Survey or viewfinderpanoramas by J. de Ferranti')) ,
+#   'data_provider_homepage' => encode('utf8', decode('iso-8859-1','eros.usgs.gov or www.viewfinderpanoramas.org')) ,
+#   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"")) ,
+#   'additional_info_en'     => encode('utf8', decode('iso-8859-1',"")) ,
+#   );
+my %lic_ele = ();
+
+# Read the license default values
+read_default_licenses ();
 
 # FZK maps: static
 my @maps = (
@@ -1314,7 +1326,10 @@ sub read_licensefile {
   my %tmphash = ();
   
   # Let's try to open 
-  if ( open IN,  "<", $licensefile ) {
+  if ( open IN,  "<:encoding(UTF-8)", $licensefile ) {
+
+    binmode( IN, ":encoding(UTF-8)");
+
     
     while ( <IN> ) {
       # Get the line
@@ -1346,6 +1361,42 @@ sub read_licensefile {
   }
   
   return ( %tmphash );
+
+}
+
+# -----------------------------------------
+# Read the default license information
+# -----------------------------------------
+sub read_default_licenses {
+
+  # Set filenames
+  my $fzk_licensefile = "licenses/default-freizeitkarte.license";
+  my $osm_licensefile = "licenses/default-osm.license";
+  my $ele_licensefile = "licenses/default-elevation.license";
+    
+  # Handle fzk license file
+  my %lic_tmphash = ();
+  %lic_tmphash = read_licensefile($fzk_licensefile);
+  foreach my $hashkey ( sort ( keys %lic_tmphash ) ) {
+    $lic_fzk{$hashkey} = $lic_tmphash{$hashkey};
+  }
+  
+  # Handle osm license file
+  %lic_tmphash = ();
+  %lic_tmphash = read_licensefile($osm_licensefile);
+  foreach my $hashkey ( sort ( keys %lic_tmphash ) ) {
+    $lic_osm{$hashkey} = $lic_tmphash{$hashkey};
+  }
+
+  # Handle ele license file
+  %lic_tmphash = ();
+  %lic_tmphash = read_licensefile($ele_licensefile);
+  foreach my $hashkey ( sort ( keys %lic_tmphash ) ) {
+    $lic_ele{$hashkey} = $lic_tmphash{$hashkey};
+  }
+
+
+  return;
 
 }
 
@@ -1730,7 +1781,7 @@ sub create_licensefile {
   
   # Write license into the file
   my $encodedstring = sprintf
-    ( "(c) Map: %s (%s); Map Data: %s; Contour Data: %s\n", 
+    ( "(c) Map: %s (%s)\n(c) Map Data: %s\n(c) Contour Data: %s\n", 
       $lic_fzk{'license_string_short'},$lic_fzk{'license_type'}, $lic_osm{'license_string_short'}, $lic_ele{'license_string_short'} );
       
 #  print "Debug: Is encodedstring utf8: ",is_utf8($encodedstring) ? "Yes" : "No", "\n";
@@ -1769,16 +1820,16 @@ sub create_licensefile {
 
 
 # -----------------------------------------
-# Create the map specific license file needed by mkgmap
+# Create the map specific license file needed by nsis
 # -----------------------------------------
 sub create_licensefile_nsis {
 
   # Initialize some variables
-  my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.de";
-  my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.en";
+  #my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.de";
+  #my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.en";
   # Reverse file assignement in order to check German Umlaute for EN Map like LUX (for tests)
-  #my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.en";
-  #my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.de";
+  my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.en";
+  my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.de";
 
   # Dump some output
   printf { *STDOUT } ( "\n" );
@@ -3100,8 +3151,8 @@ sub build_map {
 # -----------------------------------------
 sub create_gmap2file {
 
-  if ( $OSNAME ne 'darwin' ) {
-    printf { *STDERR } ( "\nError: Function only on OS X possible.\n" );
+  if ( $OSNAME ne 'darwin' and $OSNAME ne 'linux') {
+    printf { *STDERR } ( "\nError: Function only on OS X and linux possible.\n" );
     return;
   }
 
