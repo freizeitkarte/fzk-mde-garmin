@@ -49,6 +49,7 @@ my @actions = (
   [ 'compiletyp', 'B. compile TYP files out of text files' ,               'optional' ],
   [ 'nsisgmap',   'C. create nsis installer (GMAP for BaseCamp Windows)' , 'optional' ],
   [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ,     'optional' ],
+  [ 'gmap3',      'D. create gmap file (for BaseCamp OS X, Windows)' ,     'optional' ],
   [ 'bim',        'E1.build images: create, fetch_*, join, split, build' , 'optional' ],
   [ 'bam',        'E2.build all maps: gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
   [ 'pmd',        'F1.Prepare Map Data: create, fetch_*, join, split' ,    'optional' ],
@@ -841,6 +842,11 @@ elsif ( $actionname eq 'gmap2' ) {
   update_ele_license       ();
   create_typfile   ();
   create_gmap2file ();
+}
+elsif ( $actionname eq 'gmap3' ) {
+  update_ele_license       ();
+  create_typfile   ();
+  create_gmap3 ();
 }
 elsif ( $actionname eq 'bim' ) {
   purge_dirs               ();
@@ -1776,15 +1782,10 @@ sub create_licensefile {
 #  binmode( $fh, ":encoding($mapisolang)");
   open ( my $fh, "+>:encoding(UTF-8)", $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
   binmode( $fh, ":encoding(UTF-8)");
-    
-  # Write license into the file
-  #my $encodedstring = sprintf
-  #  ( "(c) Map: %s (%s)\n(c) Map Data: %s\n(c) Contour Data: %s\n", 
-  #    $lic_fzk{'license_string_short'},$lic_fzk{'license_type'}, $lic_osm{'license_string_short'}, $lic_ele{'license_string_short'} );
-  #printf { $fh } ("%s", $encodedstring );
-
-#       $lic_ele{'title_long_en'},
       
+  # Empty line (copyright-file issue)
+  printf { $fh } ("\n" );
+
   # New: 3 line of licenses
   printf { $fh } ("(c) %s: %s (%s)\n", 
     $lic_fzk{'title_short'}, 
@@ -1818,11 +1819,11 @@ sub create_licensefile {
 sub create_licensefile_nsis {
 
   # Initialize some variables
-  #my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.de";
-  #my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.en";
+  my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.de";
+  my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.en";
   # Reverse file assignement in order to check German Umlaute for EN Map like LUX (for tests)
-  my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.en";
-  my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.de";
+  #my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.en";
+  #my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.de";
 
   # Dump some output
   printf { *STDOUT } ( "\n" );
@@ -1833,7 +1834,7 @@ sub create_licensefile_nsis {
   #open ( my $fh_de, '+>:encoding(iso-8859-1)', $filename_de ) or die ( "Can't open $filename_de: $OS_ERROR\n" );
   #binmode( $fh_de, ":encoding(iso-8859-1)");
 
-  printf { *STDOUT } ( "Creating $filename_en  ...\n" );
+printf { *STDOUT } ( "Creating $filename_en  ...\n" );
   open ( my $fh_en, '+>', $filename_en ) or die ( "Can't open $filename_en: $OS_ERROR\n" );
   #open ( my $fh_en, '+>:encoding(iso-8859-1)', $filename_en ) or die ( "Can't open $filename_en: $OS_ERROR\n" );
   #binmode( $fh_en, ":encoding(iso-8859-1)");
@@ -1963,12 +1964,6 @@ sub create_licensefile_nsis {
 # - An option only applies to subsequent input files.
 # -----------------------------------------
 sub create_cfgfile {
-
-  # Disabled, handled in sub
-  ## Initialize some variables
-  #my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
-  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
 
   # Initialize some variables
   my $filename = "$WORKDIRLANG/$mapname.cfg";
@@ -2248,7 +2243,7 @@ sub create_cfgfile {
       . "#   Specify a file which content will be added as license. Every\n"
       . "#   line is one entry. All entrys of all maps will be merged, unified\n"
       . "#   and shown in random order.\n"
-      . "#license-file=%s.license\n", 
+      . "license-file=%s.license\n", 
       $mapname );
 
   printf { $fh } ( "\n# Optimization options:\n" );
@@ -2446,6 +2441,7 @@ sub create_alltypfile_languages {
     
     # Get the actual language code like 'en'
     $typfilelangcode = @$actuallanguage [$LANGCODE];
+    $mapcodepage = $langcodepage{$typfilelangcode};
 
     # Create some output
     printf { *STDOUT } ( "\nHandling TYP files: $typfilelangcode\n" );
@@ -2669,18 +2665,6 @@ sub create_typtranslations {
     }
   }
 
-  ## FIX for Russia: cyrillic in Typ Source file gives problem with mkgmap typcompiler
-  ## Overwrite the array typfilelangcode and hash typfilestringindex again
-  ## (actually it works with 'special build'.... for cp1251 we empty the string again, needs to be implemented nicely lateron
-#  if ( $langcode eq 'ru' ) {
-#	  @typfilelangcode = ();
-#	  %typfilestringindex = ();
-#	  $stringindex = 1;
-#	  push ( @typfilelangcode, $typlanguages{ 'ru' } );
-#      $typfilestringindex{ $typlanguages{ 'ru' } } = $stringindex;
-#      $stringindex++;
-#  }
-#  ## ENDFIX (can be deleted again/or adapted for codepage1251 only if mkgmap compiles properly)
 
   # Fill the hash with the languages and the stringindex (properly sorted)
   $stringindex = 1;
@@ -2934,8 +2918,8 @@ sub compile_typfiles {
   for my $thistypfile ( @typfilelist ) {
 
     # run that file through the compiler
-    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --product-id=1 --family-id=$mapid $thistypfile";
-
+    $command = "java -Xmx" . $javaheapsize . "M" . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$mapcodepage --product-id=1 --family-id=$mapid $thistypfile";
+ 
     # Run the compiler
     process_command ( $command );
     
@@ -3141,9 +3125,6 @@ sub build_map {
   create_licensefile;
   
   # run mkgmap to build the map from the OSM data (-Dlog.config=logging.properties) (with checking style files first with --check-styles)
-  #$command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg --check-styles";
-  
-  # Test with calling java via UTF8
   $command = "java -Xmx" . $javaheapsize . "M" . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg --check-styles";
   process_command ( $command );
 
@@ -3214,13 +3195,6 @@ sub create_nsis_nsi_full {
     printf { *STDOUT } ( "IMG-File = $imgfile\n" );
   }
 
-  # Disabled; handled in sub
-  ## Create and show the Release Number (creation out of date)
-  ## example: 11.07 = year.month
-  #my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
-  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  # Disabled, handled by sub
-  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
   printf { *STDOUT } ( "Ausgabe %s\n", $releasestring );
 
   # Create output
@@ -4276,13 +4250,6 @@ sub create_gmapsuppfile {
   # Jump to the work directory
   chdir "$WORKDIRLANG";
 
-  # Disabled, handled in sub
-  ## Initialize some variables
-  #my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
-  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-  #my $mapversion = sprintf ( "%d.%d", ( $year - 100 ), ( $mon + 1 ) );
-
   # create License file
   create_licensefile;
 
@@ -4293,19 +4260,13 @@ sub create_gmapsuppfile {
   # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
-        "--index --gmapsupp --product-id=1 --family-id=$mapid --family-name=\"$mapname $releasestring\" "
+        "--index --gmapsupp --code-page=$mapcodepage --product-id=1 --family-id=$mapid --family-name=\"$mapname $releasestring\" "
       . "--series-name=\"$mapname $releasestring\" --description=\"$mapname $releasestring\" --overview-mapnumber=%s0000 "
       . "--product-version=%d $mapid*.img $mapid.TYP ",
       $mapid, $releasenumeric
   );
-
+ 
   # run mkgmap to create the actual gmapsupp.img
-#  $command =
-#      "java -Xmx"
-#    . $javaheapsize . "M"
-#    . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --license-file=$mapname.license $mkgmap_parameter";
-
-# Test with calling java via utf8
   $command =
       "java -Xmx"
     . $javaheapsize . "M"
@@ -4326,6 +4287,55 @@ sub create_gmapsuppfile {
   unlink ( "osmmap.tdb" );
   unlink ( "osmmap.img" );
 
+  return;
+}
+
+
+# -----------------------------------------
+# create gmap for basecamp: using mkgmap
+# -----------------------------------------
+sub create_gmap3 {
+
+  # Jump to the work directory
+  chdir "$WORKDIRLANG";
+
+  # create License file
+  create_licensefile;
+
+  # mkgmap-Parameter
+  # --description: Anzeige des Kartennamens in BaseCamp
+  # --description: alleinige Anzeige des Kartennamens in einigen GPS-Geräten (z.B. 62er)
+  # --description: zusätzliche Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
+  # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
+  # --series-name: This name will be displayed in MapSource in the map selection drop-down.
+  my $mkgmap_parameter = sprintf (
+        "--index  --code-page=$mapcodepage --gmapi --product-id=1 --family-id=$mapid --family-name=\"$mapname $releasestring\" "
+      . "--series-name=\"$mapname $releasestring\" --description=\"$mapname $releasestring\" --overview-mapnumber=%s0000 "
+      . "--product-version=%d $mapid*.img $mapid.TYP ",
+      $mapid, $releasenumeric
+  );
+
+  # run mkgmap to create the actual gmap archive
+  $command =
+      "java -Xmx"
+    . $javaheapsize . "M"
+    . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap.gmapi/mkgmap.jar $max_jobs --license-file=$mapname.license $mkgmap_parameter";
+
+  process_command ( $command );
+
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  Creation of the GMAP Archive for $mapname failed.\n\n" );
+  }
+
+  ## copy the created gmapsupp to the install directory
+  #my $filename = "gmapsupp.img";
+  #move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!\n" );
+  #
+  ## remove the unneeded temporary files again
+  #unlink ( "osmmap.tdb" );
+  #unlink ( "osmmap.img" );
+  
   return;
 }
 
@@ -4730,20 +4740,20 @@ sub show_fingerprint {
 	my $inputfile = "";
 	
 	printf "\n\n\n";
-    printf "================================================\n";
-    printf "+                                              +\n";
-    printf "+ Fingerprint:                                 +\n";
-    printf "+ ------------                                 +\n";    
-    printf "+ Show versions of used tools                  +\n";    
-    printf "+                                              +\n";    
-    printf "================================================\n";
-    printf "\n";
-    
-    # General OS Information
-    # ----------------------
-    printf "OS General\n";
-    printf "======================================\n";
-    printf "Perl Version:     $PERL_VERSION\n";
+  printf "================================================\n";
+  printf "+                                              +\n";
+  printf "+ Fingerprint:                                 +\n";
+  printf "+ ------------                                 +\n";    
+  printf "+ Show versions of used tools                  +\n";    
+  printf "+                                              +\n";    
+  printf "================================================\n";
+  printf "\n";
+  
+  # General OS Information
+  # ----------------------
+  printf "OS General\n";
+  printf "======================================\n";
+  printf "Perl Version:     $PERL_VERSION\n";
   printf "Perl LC_CTYPE:    " . setlocale(LC_CTYPE) . "\n";
 	printf "OS Name:          $OSNAME\n";
 	printf "OS Sysname:       $os_sysname\n";
@@ -4757,287 +4767,287 @@ sub show_fingerprint {
 
 	# java
 	# ----
-    printf "Java\n";
-    printf "======================================\n";
-    chdir "$BASEPATH/tools/fzkJavaLocale";
-    $cmdoutput = `java -version 2>&1`;
-    printf "$cmdoutput\n\n";
-	
-    printf "Java Encodings (no parameters)\n";
-    printf "--------------------------------------\n";
-    chdir "$BASEPATH/tools/fzkJavaLocale";
-    $cmdoutput = `java fzkJavaLocale`;
-    printf "$cmdoutput\n\n";
-	
-    printf "Java Encodings (file.encoding=UTF-8)\n";
-    printf "--------------------------------------\n";
-    chdir "$BASEPATH/tools/fzkJavaLocale";
-    $cmdoutput = `java "-Dfile.encoding=UTF-8" fzkJavaLocale`;
-    printf "$cmdoutput\n\n";
-    chdir "$BASEPATH";
+  printf "Java\n";
+  printf "======================================\n";
+  chdir "$BASEPATH/tools/fzkJavaLocale";
+  $cmdoutput = `java -version 2>&1`;
+  printf "$cmdoutput\n\n";
+
+  printf "Java Encodings (no parameters)\n";
+  printf "--------------------------------------\n";
+  chdir "$BASEPATH/tools/fzkJavaLocale";
+  $cmdoutput = `java fzkJavaLocale`;
+  printf "$cmdoutput\n\n";
+
+  printf "Java Encodings (file.encoding=UTF-8)\n";
+  printf "--------------------------------------\n";
+  chdir "$BASEPATH/tools/fzkJavaLocale";
+  $cmdoutput = `java "-Dfile.encoding=UTF-8" fzkJavaLocale`;
+  printf "$cmdoutput\n\n";
+  chdir "$BASEPATH";
 
 
 	# osmosis
 	# -------
-    printf "osmosis\n";
-    printf "======================================\n";
-    # OS X, Linux, FreeBSD, OpenBSD
-    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-       $cmdoutput = `sh $BASEPATH/tools/osmosis/bin/osmosis -v 2>&1`;
-    }
-    # Windows
-    elsif ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\tools\\osmosis\\bin\\osmosis.bat -v 2>&1`;
-    }
-    # Try to match
-    if ( $cmdoutput =~ /INFO: (.* Version .*)/ ) {
-	  printf "$1\n\n\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
+  printf "osmosis\n";
+  printf "======================================\n";
+  # OS X, Linux, FreeBSD, OpenBSD
+  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+     $cmdoutput = `sh $BASEPATH/tools/osmosis/bin/osmosis -v 2>&1`;
+  }
+  # Windows
+  elsif ( $OSNAME eq 'MSWin32' ) {
+     $cmdoutput = `$BASEPATH\\tools\\osmosis\\bin\\osmosis.bat -v 2>&1`;
+  }
+  # Try to match
+  if ( $cmdoutput =~ /INFO: (.* Version .*)/ ) {
+ printf "$1\n\n\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
 
 
-    # splitter
-    # --------
-    printf "splitter\n";
-    printf "======================================\n";
-    $cmdoutput = `java -jar $BASEPATH/tools/splitter/splitter.jar --version 2>&1`;
+  # splitter
+  # --------
+  printf "splitter\n";
+  printf "======================================\n";
+  $cmdoutput = `java -jar $BASEPATH/tools/splitter/splitter.jar --version 2>&1`;
 	printf "$cmdoutput\n\n";
     
 
-    # mkgmap
-    # ------
-    printf "mkgmap\n";
-    printf "======================================\n";    
-    $cmdoutput = `java -jar $BASEPATH/tools/mkgmap/mkgmap.jar --version 2>&1`;
-    # Try to match
-    if ( $cmdoutput =~ /^(\d{4,})/m ) {
-	  printf "mkgmap r$1\n\n\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
+  # mkgmap
+  # ------
+  printf "mkgmap\n";
+  printf "======================================\n";    
+  $cmdoutput = `java -jar $BASEPATH/tools/mkgmap/mkgmap.jar --version 2>&1`;
+  # Try to match
+  if ( $cmdoutput =~ /^(\d{4,})/m ) {
+      printf "mkgmap r$1\n\n\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
+  
+
+
+  # PPP
+  # ----------------
+  printf "PPP - Perl Preprocessor\n";
+  printf "======================================\n";
+  $cmdoutput = `perl $BASEPATH/tools/ppp/ppp.pl 2>&1`;
+  # Try to match
+  if ( $cmdoutput =~ /^(PERL .*)$/m ) {
+      printf "$1\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
+  if ( $cmdoutput =~ /^(.*Copyright.*)$/m ) {
+      printf "$1\n";
+  }
+  printf "\n\n";
     
 
+  # 7za (Windows only)
+  # ------------------
+  printf "7-Zip CLI (7za) - Windows only\n";
+  printf "======================================\n";
+  # Windows
+  if ( $OSNAME eq 'MSWin32' ) {
+     $cmdoutput = `$BASEPATH\\tools\\zip\\windows\\7-Zip\\7za.exe 2>&1`;
+     # Try to match
+     if ( $cmdoutput =~ /(7-Zip .*)$/m ) {
+  	  printf "$1\n";
+     }
+     else {
+         printf "PROBLEM: either tool not found or no match for version string.\n";
+         printf "         see detailed command output below:\n";
+         printf "----------------------------\n";
+         printf "$cmdoutput\n";
+         printf "----------------------------\n\n\n";
+     }
+  }
+  printf "\n\n";
 
-    # PPP
-    # ----------------
-    printf "PPP - Perl Preprocessor\n";
-    printf "======================================\n";
-    $cmdoutput = `perl $BASEPATH/tools/ppp/ppp.pl 2>&1`;
-    # Try to match
-    if ( $cmdoutput =~ /^(PERL .*)$/m ) {
-	  printf "$1\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
-    if ( $cmdoutput =~ /^(.*Copyright.*)$/m ) {
-        printf "$1\n";
-    }
-    printf "\n\n";
     
-
-    # 7za (Windows only)
-    # ------------------
-    printf "7-Zip CLI (7za) - Windows only\n";
-    printf "======================================\n";
+  # jmc_cli
+  # ------------
+  printf "jmc_cli\n";
+  printf "======================================\n";
+  if ( $OSNAME eq 'darwin' ) {
+    # OS X
+    $cmdoutput = `$BASEPATH/tools/jmc/osx/jmc_cli 2>&1`;
+  }	
+  elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    if ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\tools\\zip\\windows\\7-Zip\\7za.exe 2>&1`;
-       # Try to match
-       if ( $cmdoutput =~ /(7-Zip .*)$/m ) {
-    	  printf "$1\n";
-       }
-       else {
-           printf "PROBLEM: either tool not found or no match for version string.\n";
-           printf "         see detailed command output below:\n";
-           printf "----------------------------\n";
-           printf "$cmdoutput\n";
-           printf "----------------------------\n\n\n";
-       }
-    }
-    printf "\n\n";
+    $cmdoutput = `$BASEPATH\\tools\\jmc\\windows\\jmc_cli.exe 2>&1`;
+  }
+  elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+    # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+    $cmdoutput = `$BASEPATH/tools/jmc/linux/jmc_cli 2>&1`;
+  }
+  # Try to match
+  if ( $cmdoutput =~ /^(.*version.*)$/m ) {
+      printf "$1\n\n\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
+  
 
-    
-    # jmc_cli
-    # ------------
-    printf "jmc_cli\n";
-    printf "======================================\n";
-    if ( $OSNAME eq 'darwin' ) {
-      # OS X
-      $cmdoutput = `$BASEPATH/tools/jmc/osx/jmc_cli 2>&1`;
-    }	
-    elsif ( $OSNAME eq 'MSWin32' ) {
-      # Windows
-      $cmdoutput = `$BASEPATH\\tools\\jmc\\windows\\jmc_cli.exe 2>&1`;
-    }
-    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      $cmdoutput = `$BASEPATH/tools/jmc/linux/jmc_cli 2>&1`;
-    }
-    # Try to match
-    if ( $cmdoutput =~ /^(.*version.*)$/m ) {
-	  printf "$1\n\n\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
-    
-
-    # osmconvert (not triggered)
-    # --------------------------
-    printf "osmconvert\n";
-    printf "======================================\n";
-    if ( $OSNAME eq 'darwin' ) {
-      # OS X
-      $cmdoutput = `$BASEPATH/tools/osmconvert/osx/osmconvert --help 2>&1`;
-    }	
-    elsif ( $OSNAME eq 'MSWin32' ) {
-      # Windows
-      $cmdoutput = `$BASEPATH\\tools\\osmconvert\\windows\\osmconvert.exe --help 2>&1`;
-    }
-    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      if ( ( $OSNAME eq 'linux' ) && ( $os_archbit eq '64' ) ) {
-        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert64 --help 2>&1`;
-      }
-      else
-      {
-        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
-      }
-    }
-    # Try to match
-    if ( $cmdoutput =~ /^(osmconvert .*)$/m ) {
-	  printf "$1\n\n\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
-
-    
-    # osmfilter (not triggered)
-    # -------------------------
-    printf "osmfilter - not used during build\n";
-    printf "======================================\n";
-    if ( $OSNAME eq 'darwin' ) {
-      # OS X
-      $cmdoutput = `$BASEPATH/tools/osmfilter/osx/osmfilter --help 2>&1`;
-    }	
-    elsif ( $OSNAME eq 'MSWin32' ) {
-      # Windows
-      $cmdoutput = `$BASEPATH\\tools\\osmfilter\\windows\\osmfilter.exe --help 2>&1`;
-    }
-    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      $cmdoutput = `$BASEPATH/tools/osmfilter/linux/osmfilter32 --help 2>&1`;
-    }
-    # Try to match
-    if ( $cmdoutput =~ /^(osmfilter .*)$/m ) {
-	  printf "$1\n\n\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
-    
-
-    # wget (windows directory)
-    # ------------------------
-    printf "GNU Wget - Windows only\n";
-    printf "======================================\n";
+  # osmconvert (not triggered)
+  # --------------------------
+  printf "osmconvert\n";
+  printf "======================================\n";
+  if ( $OSNAME eq 'darwin' ) {
+    # OS X
+    $cmdoutput = `$BASEPATH/tools/osmconvert/osx/osmconvert --help 2>&1`;
+  }	
+  elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    if ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\tools\\wget\\windows\\wget.exe --version 2>&1`;
-       # Try to match
-       if ( $cmdoutput =~ /(GNU Wget .*)$/m ) {
-   	       printf "$1\n";
-       }
-       else {
-           printf "PROBLEM: either tool not found or no match for version string.\n";
-           printf "         see detailed command output below:\n";
-           printf "----------------------------\n";
-           printf "$cmdoutput\n";
-           printf "----------------------------\n\n\n";
-       }
-       if ( $cmdoutput =~ /^(\+.*)$/m ) {
-   	       printf "$1\n";
-       }
+    $cmdoutput = `$BASEPATH\\tools\\osmconvert\\windows\\osmconvert.exe --help 2>&1`;
+  }
+  elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+    # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+    if ( ( $OSNAME eq 'linux' ) && ( $os_archbit eq '64' ) ) {
+      $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert64 --help 2>&1`;
     }
-    printf "\n\n";
-    
+    else
+    {
+      $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
+    }
+  }
+  # Try to match
+  if ( $cmdoutput =~ /^(osmconvert .*)$/m ) {
+      printf "$1\n\n\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
 
-    # NSIS (windows directory), has to be installed on Linux
+  
+  # osmfilter (not triggered)
+  # -------------------------
+  printf "osmfilter - not used during build\n";
+  printf "======================================\n";
+  if ( $OSNAME eq 'darwin' ) {
+    # OS X
+    $cmdoutput = `$BASEPATH/tools/osmfilter/osx/osmfilter --help 2>&1`;
+  }	
+  elsif ( $OSNAME eq 'MSWin32' ) {
+    # Windows
+    $cmdoutput = `$BASEPATH\\tools\\osmfilter\\windows\\osmfilter.exe --help 2>&1`;
+  }
+  elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+    # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+    $cmdoutput = `$BASEPATH/tools/osmfilter/linux/osmfilter32 --help 2>&1`;
+  }
+  # Try to match
+  if ( $cmdoutput =~ /^(osmfilter .*)$/m ) {
+      printf "$1\n\n\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
+  
+
+  # wget (windows directory)
+  # ------------------------
+  printf "GNU Wget - Windows only\n";
+  printf "======================================\n";
+  # Windows
+  if ( $OSNAME eq 'MSWin32' ) {
+     $cmdoutput = `$BASEPATH\\tools\\wget\\windows\\wget.exe --version 2>&1`;
+     # Try to match
+     if ( $cmdoutput =~ /(GNU Wget .*)$/m ) {
+ 	      printf "$1\n";
+     }
+     else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+     }
+     if ( $cmdoutput =~ /^(\+.*)$/m ) {
+ 	      printf "$1\n";
+     }
+  }
+  printf "\n\n";
+  
+
+  # NSIS (windows directory), has to be installed on Linux
 	# -------------------------------------------------------
-    printf "NSIS: makensis - Windows and linux\n";
-    printf "======================================\n";
-    # Linux, FreeBSD, OpenBSD
-    if ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-       $cmdoutput = `makensis -version 2>&1`;
-       printf "MakeNSIS $cmdoutput\n";
-    }
-    # Windows
-    elsif ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\tools\\NSIS\\windows\\makensis.exe /Version 2>&1`;
-       printf "MakeNSIS $cmdoutput\n";
-    }
-    printf "\n\n";
+  printf "NSIS: makensis - Windows and linux\n";
+  printf "======================================\n";
+  # Linux, FreeBSD, OpenBSD
+  if ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+     $cmdoutput = `makensis -version 2>&1`;
+     printf "MakeNSIS $cmdoutput\n";
+  }
+  # Windows
+  elsif ( $OSNAME eq 'MSWin32' ) {
+     $cmdoutput = `$BASEPATH\\tools\\NSIS\\windows\\makensis.exe /Version 2>&1`;
+     printf "MakeNSIS $cmdoutput\n";
+  }
+  printf "\n\n";
 
 
-    # bounds and sea
+  # bounds and sea
 	# ---------------
-    printf "Bounderies (bounds)\n";
-    printf "======================================\n";
-    $inputfile = "$BASEPATH/bounds/version.txt";
-    if (open( my $filehandle, "<  $inputfile ") ) {
-		while ( $lineoffile = <$filehandle> ) {
-			chomp $lineoffile;
-			print "$lineoffile\n\n\n";
-		}
-		close ( $filehandle );
+  printf "Bounderies (bounds)\n";
+  printf "======================================\n";
+  $inputfile = "$BASEPATH/bounds/version.txt";
+  if (open( my $filehandle, "<  $inputfile ") ) {
+    while ( $lineoffile = <$filehandle> ) {
+	    chomp $lineoffile;
+	    print "$lineoffile\n\n\n";
+    }
+    close ( $filehandle );
 	}
 	else {
-        printf "PROBLEM: either boundaries not found at all or file\n";
-        printf "           $inputfile\n";
-        printf "         not existing.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$!\n";
-        printf "----------------------------\n\n\n";
+      printf "PROBLEM: either boundaries not found at all or file\n";
+      printf "           $inputfile\n";
+      printf "         not existing.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$!\n";
+      printf "----------------------------\n\n\n";
 	}
-    printf "Sea Bounderies (sea)\n";
-    printf "======================================\n";
-    $inputfile = "$BASEPATH/sea/version.txt";
-    if (open( my $filehandle, "<  $inputfile ") ) {
-		while ( $lineoffile = <$filehandle> ) {
-			chomp $lineoffile;
-			print "$lineoffile\n\n\n";
-		}
-		close ( $filehandle );
+  printf "Sea Bounderies (sea)\n";
+  printf "======================================\n";
+  $inputfile = "$BASEPATH/sea/version.txt";
+  if (open( my $filehandle, "<  $inputfile ") ) {
+    while ( $lineoffile = <$filehandle> ) {
+	     chomp $lineoffile;
+	     print "$lineoffile\n\n\n";
+    }
+    close ( $filehandle );
 	}
 	else {
         printf "PROBLEM: either sea boundaries not found at all or file\n";
@@ -5050,14 +5060,15 @@ sub show_fingerprint {
 	}
     
 
-    # TYPViewer (windows directory), GUI tool, not used, just there for convenience
+  # TYPViewer (windows directory), GUI tool, not used, just there for convenience
 
-    # IMGinfo (not triggered, GUI tool)
-        
-    # gmapi-builder.py
+  # IMGinfo (not triggered, GUI tool)
+      
+  # gmapi-builder.py
     
     
-    printf "\n\n";
+  printf "\n\n";
+
 }
 
 
