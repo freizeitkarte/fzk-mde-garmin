@@ -4260,10 +4260,12 @@ sub create_gmapsuppfile {
   # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
-        "--index --gmapsupp --code-page=$mapcodepage --product-id=1 --family-id=$mapid --family-name=\"$mapname $releasestring\" "
-      . "--series-name=\"$mapname $releasestring\" --description=\"$mapname $releasestring\" --overview-mapnumber=%s0000 "
-      . "--product-version=%d $mapid*.img $mapid.TYP ",
-      $mapid, $releasenumeric
+        "--index --code-page=$mapcodepage --gmapsupp "
+      . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
+      . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
+      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
+      . "--product-version=\"%d\" $mapid*.img $mapid.TYP ",
+      $mapid,$releasenumeric
   );
  
   # run mkgmap to create the actual gmapsupp.img
@@ -4311,8 +4313,8 @@ sub create_gmap3 {
   my $mkgmap_parameter = sprintf (
         "--index --code-page=$mapcodepage --gmapi "
       . "--license-file=$mapname.license "
-      . "--product-id=1 --family-id=$mapid --family-name=\"$mapname $releasestring\" "
-      . "--series-name=\"$mapname $releasestring\" --description=\"$mapname $releasestring\" "
+      . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
+      . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
       . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
       . "--product-version=\"%d\" $mapid*.img $mapid.TYP ",
       $mapid,$releasenumeric
@@ -4333,6 +4335,7 @@ sub create_gmap3 {
 
 
   # copy the created gmapsupp to the install directory
+#
   my $filename = "$mapname.gmap";
   rmtree ( "$INSTALLDIR/$filename",    0, 1 );
   move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!\n" );
