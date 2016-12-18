@@ -4261,6 +4261,7 @@ sub create_gmapsuppfile {
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
         "--index --code-page=$mapcodepage --gmapsupp "
+      . "--license-file=$mapname.license "
       . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
       . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
       . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
@@ -4272,7 +4273,7 @@ sub create_gmapsuppfile {
   $command =
       "java -Xmx"
     . $javaheapsize . "M"
-    . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --license-file=$mapname.license $mkgmap_parameter";
+    . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs $mkgmap_parameter";
 
   process_command ( $command );
 
@@ -4324,7 +4325,7 @@ sub create_gmap3 {
   $command =
       "java -Xmx"
     . $javaheapsize . "M"
-    . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap.gmapi/mkgmap.jar $max_jobs $mkgmap_parameter";
+    . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs $mkgmap_parameter";
 
   process_command ( $command );
 
