@@ -314,6 +314,7 @@ my @maps = (
   [ 6704, 'Freizeitkarte_VNM',                    'http://download.geofabrik.de/asia/vietnam-latest.osm.pbf',                                          'VNM',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6740, 'Freizeitkarte_SUR',                    'http://download.geofabrik.de/south-america/suriname-latest.osm.pbf',                                'SUR',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6858, 'Freizeitkarte_URY',                    'http://download.geofabrik.de/south-america/uruguay-latest.osm.pbf',                                 'URY',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6710, 'Freizeitkarte_ZAF',                    'http://download.geofabrik.de/africa/south-africa-and-lesotho-latest.osm.pbf',                       'ZAF',                      'en', 'no_old_name',                             3, 'NA'             ],
 
   # Andere Regionen
 #  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
