@@ -4267,7 +4267,8 @@ sub create_gmapsuppfile {
       . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
       . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
       . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
-      . "--product-version=\"%d\" $mapid*.img $mapid.TYP ",
+      . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
+      . "--show-profiles=1 ",
       $mapid,$releasenumeric
   );
  
@@ -4319,7 +4320,8 @@ sub create_gmap3 {
       . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
       . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
       . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
-      . "--product-version=\"%d\" $mapid*.img $mapid.TYP ",
+      . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
+      . "--show-profiles=1 ",
       $mapid,$releasenumeric
   );
 
