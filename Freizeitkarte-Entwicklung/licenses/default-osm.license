@@ -1,0 +1,11 @@
+license_type=ODbl
+license_string_short=OSM contributors
+license_string_medium=OSM contributors, www.openstreetmap.org
+license_string_long=OSM contributors, www.openstreetmap.org, ODbl
+data_provider_name=OpenStreetMap
+data_provider_homepage=www.openstreetmap.org
+title_long_de=Lizenzbedingungen der Kartendaten
+title_long_en=License conditions of the map data
+title_short=Map data
+additional_info_de=Die dargestellten Kartenobjekte basieren auf den Daten des OpenStreetMap-Projektes. OpenStreetMap ist eine freie, editierbare Karte der gesamten Welt, die von Menschen wie dir erstellt wird. OpenStreetMap ermöglicht es geographische Daten gemeinschaftlich von überall auf der Welt anzuschauen und zu bearbeiten.\n
+additional_info_en=All maps are based on data from the OpenStreetMap project. OpenStreetMap is a free editable map of the whole world that is created by people like you. OpenStreetMap allows geographic data to look at collaborative way from anywhere in the world and edit it.\n

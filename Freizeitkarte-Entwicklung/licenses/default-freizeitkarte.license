@@ -1,0 +1,15 @@
+license_type=CC BY 3.0
+license_string_short=FZK project
+license_string_medium=FZK project (Freizeitkarte), freizeitkarte-osm.de
+license_string_long=FZK project (Freizeitkarte), freizeitkarte-osm.de, free for research and private use
+data_provider_name=Freizeitkarte
+data_provider_homepage=freizeitkarte-osm.de
+title_long_de=Lizenzbedingungen der Karte
+title_long_en=License conditions of the maps
+title_short=Map
+additional_info_de=Die hier verfügbaren Karten stellen ein aus den Karten- und Höhendaten abgeleitetes Werk (produced work) dar. Die Karten können für private oder wissenschaftliche Zwecke frei (uneingeschränkt) genutzt werden.\n
+additional_info_en=The available maps are a derived work from map and elevation data. The maps can be used free for personal or academic purposes.\n
+use_de=Nutzung des Kartenmaterial:\nDie Nutzung des Kartenmaterials erfolgt auf eigene Gefahr. Das Kartenmaterial und oder das Routing kann Fehler enthalten oder unzureichend sein. Die Ersteller dieser Karten übernehmen keinerlei Gewährleistung oder Haftung für Schäden die direkt oder indirekt durch die Nutzung des Kartenmaterial entstehen.\n
+use_en=Use of the maps:\nThe use of maps is at your own risk. The map data and / or the routing may contain errors or may be insufficient.\nThe creators of these maps are not liable for any damage resulting directly or indirectly from the use of the maps.\n
+help_de=Deine Mithilfe ist erwünscht:\nHilf mit die OpenStreetMap-Quelldaten dieser Karte, und damit auch diese Themenkarte, zu verbessern. Fehlende oder inkorrekte Kartendaten kannst auch du auf OpenStreetMap eintragen oder korrigieren. Dies geht viel leichter als du vielleicht glaubst. Melde dich hierzu auf OpenStreetMap an und versuche es einfach mal. Alle anderen Kartennutzer können so von deinem Wissen profitieren.\nAuch Information über Defekte, die dir bei der Nutzung dieser Karte auffallen, sind hilfreich - ebenso Änderungs- oder Verbesserungsvorschläge.\nDanke für deine Unterstützung.\n
+help_en=Your help is welcome:\nYou can help to improve the OpenStreetMap source data, and therefore also this map. If something is missing or wrong in the source data you can add or correct that on OpenStreetMap. That's easier as you might think. Get registered on OpenStreetMap and just try it out. This way everyone can profit from your knowledge.\nInformation about defects found while using this map are also helpful. Also ideas about changes and improvments are very welcome.\nMany thanks for your support.\n

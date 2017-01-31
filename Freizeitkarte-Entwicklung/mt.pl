@@ -22,7 +22,8 @@ use File::Path;
 use File::Basename;
 use Getopt::Long;
 use Data::Dumper;
-use POSIX qw(uname);
+use POSIX qw(uname setlocale locale_h LC_ALL LC_CTYPE);
+use Encode qw(is_utf8 decode encode );
 
 my @actions = (
   # Normal User Actions for maps
@@ -36,7 +37,7 @@ my @actions = (
   [ 'split',     '4.  split map data into tiles' ,                         '-' ],
   [ 'build',     '5.  build map files (img, mdx, tdb)' ,                   '-' ],
   [ 'gmap',      '6.  create gmap file (for BaseCamp OS X, Windows)' ,     '-' ],
-  [ 'nsis',      '6.  create nsis installer (for BaseCamp Windows)' ,      '-' ],
+  [ 'nsis',      '6.  create nsis installer (full installer for Windows)' ,'-' ],
   [ 'gmapsupp',  '6.  create gmapsupp image (for GPS receiver)' ,          '-' ],
   [ 'imagedir',  '6.  create image directory (e.g. for QLandkarte)' ,      '-' ],
 
@@ -46,10 +47,9 @@ my @actions = (
   [ 'cfg',        'A. create individual cfg file' ,                        'optional' ],
   [ 'typ',        'B. create individual typ file from master' ,            'optional' ],
   [ 'compiletyp', 'B. compile TYP files out of text files' ,               'optional' ],
-  [ 'nsicfg',     'C. create nsi configuration file (for NSIS compiler)' , 'optional' ],
-  [ 'nsiexe',     'C. create nsi installer exe (via NSIS compiler)' ,      'optional' ],
-  [ 'nsis2',      'C. create nsis installer (GMAP for BaseCamp Windows)' , 'optional' ],
+  [ 'nsisgmap',   'C. create nsis installer (GMAP for BaseCamp Windows)' , 'optional' ],
   [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ,     'optional' ],
+  [ 'gmap3',      'D. create gmap file (for BaseCamp OS X, Windows)' ,     'optional' ],
   [ 'bim',        'E1.build images: create, fetch_*, join, split, build' , 'optional' ],
   [ 'bam',        'E2.build all maps: gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
   [ 'pmd',        'F1.Prepare Map Data: create, fetch_*, join, split' ,    'optional' ],
@@ -103,6 +103,13 @@ my %langcodepage = (
    'ru' => '1251' ,
    );
 
+# Relation from (windows) codepage to isocode
+my %cpisocode = (
+   '1250' => 'iso-8859-2' ,
+   '1251' => 'iso-8859-5' , 
+   '1252' => 'iso-8859-1' ,
+   );
+   
 # Define the download base URLs for the Elevation Data
 my %elevationbaseurl = (
   'ele10' => "http://develop.freizeitkarte-osm.de/ele_10_100_200",
@@ -126,7 +133,60 @@ my @seaboundariesurl = (
   'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
   );
 
+# Licenses - Default values
+# --------------------------
+# (encode decode sequence needed as mt.pl is in cp1252)
+# Freizeitkarte: static but license type can be overwritten by more relevant value from elevation data
 
+#my %lic_fzk = (
+#   'license_type'           => encode('utf8', decode('iso-8859-1','CC BY 3.0')) ,
+##   'license_string_short'   => encode('utf8', decode('iso-8859-1','FZK project 123456')) ,
+#   'license_string_short'   => encode('utf8', decode('iso-8859-1','FZK project äöüéèê')) ,
+#   'license_string_medium'  => encode('utf8', decode('iso-8859-1','FZK project (Freizeitkarte), freizeitkarte-osm.de')) ,
+#   'license_string_long'    => encode('utf8', decode('iso-8859-1','FZK project (Freizeitkarte), freizeitkarte-osm.de, free for research and private use' )),
+#   'data_provider_name'     => encode('utf8', decode('iso-8859-1','Freizeitkarte' )),
+#   'data_provider_homepage' => encode('utf8', decode('iso-8859-1','freizeitkarte-osm.de' )),
+#   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"Die hier verfügbaren Karten stellen ein aus den Karten- und Höhendaten abgeleitetes Werk (produced work) dar. Die Karten können für private oder wissenschaftliche Zwecke frei (uneingeschränkt) genutzt werden.\n")) ,
+#   'additional_info_en'     => encode('utf8', decode('iso-8859-1',"The available maps are a derived work from map and elevation data. The maps can be used free for personal or academic purposes.\n")) ,
+#   'use_de'                 => encode('utf8', decode('iso-8859-1',"Nutzung des Kartenmaterial:\nDie Nutzung des Kartenmaterials erfolgt auf eigene Gefahr. Das Kartenmaterial und oder das Routing kann Fehler enthalten oder unzureichend sein. Die Ersteller dieser Karten übernehmen keinerlei Gewährleistung oder Haftung für Schäden die direkt oder indirekt durch die Nutzung des Kartenmaterial entstehen.\n")),
+#   'use_en'                 => encode('utf8', decode('iso-8859-1',"Use of the maps:\nThe use of maps is at your own risk. The map data and / or the routing may contain errors or may be insufficient.\nThe creators of these maps are not liable for any damage resulting directly or indirectly from the use of the maps.\n")) ,
+#   'help_de'                => encode('utf8', decode('iso-8859-1',"Deine Mithilfe ist erwünscht:\nHilf mit die OpenStreetMap-Quelldaten dieser Karte, und damit auch diese Themenkarte, zu verbessern. Fehlende oder inkorrekte Kartendaten kannst auch du auf OpenStreetMap eintragen oder korrigieren. Dies geht viel leichter als du vielleicht glaubst. Melde dich hierzu auf OpenStreetMap an und versuche es einfach mal. Alle anderen Kartennutzer können so von deinem Wissen profitieren.\nAuch Information über Defekte, die dir bei der Nutzung dieser Karte auffallen, sind hilfreich - ebenso Änderungs- oder Verbesserungsvorschläge.\nDanke für deine Unterstützung.\n ")),
+#   'help_en'                => encode('utf8', decode('iso-8859-1',"Your help is welcome:\nYou can help to improve the OpenStreetMap source data, and therefore also this map. If something is missing or wrong in the source data you can add or correct that on OpenStreetMap. That's easier as you might think. Get registered on OpenStreetMap and just try it out. This way everyone can profit from your knowledge.\nInformation about defects found while using this map are also helpful. Also ideas about changes and improvments are very welcome.\nMany thanks for your support.\n")),
+#   );
+my %lic_fzk = ();
+
+# OSM data: static
+#my %lic_osm = (
+#   'license_type'           => encode('utf8', decode('iso-8859-1','ODbl')) ,
+##   'license_string_short'   => encode('utf8', decode('iso-8859-1','OSM contributors 123456')) ,
+#   'license_string_short'   => encode('utf8', decode('iso-8859-1','OSM contributors äöüéèê')) ,
+#   'license_string_medium'  => encode('utf8', decode('iso-8859-1','OSM contributors, www.openstreetmap.org')) ,
+#   'license_string_long'    => encode('utf8', decode('iso-8859-1','OSM contributors, www.openstreetmap.org, ODbl')) ,
+#   'data_provider_name'     => encode('utf8', decode('iso-8859-1','OpenStreetMap')) ,
+#   'data_provider_homepage' => encode('utf8', decode('iso-8859-1','www.openstreetmap.org')) ,
+#   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"Die dargestellten Kartenobjekte basieren auf den Daten des OpenStreetMap-Projektes. OpenStreetMap ist eine freie, editierbare Karte der gesamten Welt, die von Menschen wie dir erstellt wird. OpenStreetMap ermöglicht es geographische Daten gemeinschaftlich von überall auf der Welt anzuschauen und zu bearbeiten.\n")) ,
+#   'additional_info_en'     => encode('utf8', decode('iso-8859-1',"All maps are based on data from the OpenStreetMap project. OpenStreetMap is a free editable map of the whole world that is created by people like you. OpenStreetMap allows geographic data to look at collaborative way from anywhere in the world and edit it.\n")) ,
+#   );
+my %lic_osm = ();
+
+# Elevation Data: default for viewfinderpanorama, can be overridden by sidefile to Elevation PBF: Hoehendaten_Freizeitkarte_SOMETHING.osm.pbf.license
+#my %lic_ele = (
+#   'license_type_strongest' => "1",
+#   'license_type'           => encode('utf8', decode('iso-8859-1','free for research and private use')) ,
+#   'license_string_short'   => encode('utf8', decode('iso-8859-1','U.S. Geological Survey or J. de Ferranti' )),
+#   'license_string_medium'  => encode('utf8', decode('iso-8859-1','U.S. Geological Survey, eros.usgs.gov or viewfinderpanoramas by J. de Ferranti, www.viewfinderpanoramas.org')) ,
+#   'license_string_long'    => encode('utf8', decode('iso-8859-1','U.S. Geological Survey (public domain), eros.usgs.gov or viewfinderpanoramas by J. de Ferranti (free for research and private use), www.viewfinderpanoramas.org')) ,
+#   'data_provider_name'     => encode('utf8', decode('iso-8859-1','U.S. Geological Survey or viewfinderpanoramas by J. de Ferranti')) ,
+#   'data_provider_homepage' => encode('utf8', decode('iso-8859-1','eros.usgs.gov or www.viewfinderpanoramas.org')) ,
+#   'additional_info_de'     => encode('utf8', decode('iso-8859-1',"")) ,
+#   'additional_info_en'     => encode('utf8', decode('iso-8859-1',"")) ,
+#   );
+my %lic_ele = ();
+
+# Read the license default values
+read_default_licenses ();
+
+# FZK maps: static
 my @maps = (
   # ID, 'Karte', 'URL der Quelle', 'Code', 'language', 'oldName', 'Type', 'Parent'
 
@@ -239,6 +299,7 @@ my @maps = (
   [ 6068, 'Freizeitkarte_BOL',                    'http://download.geofabrik.de/south-america/bolivia-latest.osm.pbf',                                 'BOL',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6076, 'Freizeitkarte_BRA',                    'http://download.geofabrik.de/south-america/brazil-latest.osm.pbf',                                  'BRA',                      'en', 'no_old_name',                             3, 'NA'             ],
 #  [ 6124, 'Freizeitkarte_CAN',                    'http://download.geofabrik.de/north-america/canada-latest.osm.pbf',                                  'CAN',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6132, 'Freizeitkarte_CPV',                    'http://download.geofabrik.de/africa/cape-verde-latest.osm.pbf',                                     'CPV',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6144, 'Freizeitkarte_LKA',                    'http://download.geofabrik.de/asia/sri-lanka-latest.osm.pbf',                                        'LKA',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6152, 'Freizeitkarte_CHL',                    'http://download.geofabrik.de/south-america/chile-latest.osm.pbf',                                   'CHL',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6170, 'Freizeitkarte_COL',                    'http://download.geofabrik.de/south-america/colombia-latest.osm.pbf',                                'COL',                      'en', 'no_old_name',                             3, 'NA'             ],
@@ -254,6 +315,7 @@ my @maps = (
   [ 6704, 'Freizeitkarte_VNM',                    'http://download.geofabrik.de/asia/vietnam-latest.osm.pbf',                                          'VNM',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6740, 'Freizeitkarte_SUR',                    'http://download.geofabrik.de/south-america/suriname-latest.osm.pbf',                                'SUR',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6858, 'Freizeitkarte_URY',                    'http://download.geofabrik.de/south-america/uruguay-latest.osm.pbf',                                 'URY',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6710, 'Freizeitkarte_ZAF',                    'http://download.geofabrik.de/africa/south-africa-and-lesotho-latest.osm.pbf',                       'ZAF',                      'en', 'no_old_name',                             3, 'NA'             ],
 
   # Andere Regionen
 #  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
@@ -431,6 +493,7 @@ my $osmurl     = $EMPTY;
 my $mapcode    = $EMPTY;
 my $maplang    = $EMPTY;
 my $mapcodepage= $EMPTY;
+my $mapisolang = $EMPTY;
 my $maptype    = $EMPTY;
 my $mapparent  = $EMPTY;
 my $langdesc   = $EMPTY;
@@ -610,9 +673,11 @@ for my $languagedata ( @supportedlanguages ) {
 # Check if the user did choose unicode, else set the codepage to the codepage of the choosen language
 if ( $unicode ) {
   $mapcodepage = 65001;
+  $mapisolang  = 'utf-8';
 }
 else {
   $mapcodepage = $langcodepage{$maplang};
+  $mapisolang  = $cpisocode{$mapcodepage};
 }
 
 
@@ -727,6 +792,7 @@ elsif ( $actionname eq 'split' ) {
   split_mapdata ();
 }
 elsif ( $actionname eq 'build' ) {
+  update_ele_license       ();
   create_cfgfile           ();
   create_typtranslations   ();
   compile_typfiles         ();
@@ -740,26 +806,29 @@ elsif ( $actionname eq 'gmap' ) {
   create_gmapfile ();
 }
 elsif ( $actionname eq 'nsis' ) {
+  update_ele_license       ();
   create_typfile      ();
-  create_nsis_nsifile ();
-  create_nsis_exefile ();
-  create_nsis_nsifile2 ();
-  create_nsis_exefile2 ();
+  create_nsis_nsi_full ();
+  create_nsis_exe_full ();
 }
-elsif ( $actionname eq 'nsis2' ) {
-  create_nsis_nsifile2 ();
-  create_nsis_exefile2 ();
+elsif ( $actionname eq 'nsisgmap' ) {
+  update_ele_license       ();
+  create_nsis_nsi_gmap ();
+  create_nsis_exe_gmap ();
 }
 
 elsif ( $actionname eq 'gmapsupp' ) {
+  update_ele_license       ();
   create_typfile      ();
   create_gmapsuppfile ();
 }
 elsif ( $actionname eq 'imagedir' ) {
+  update_ele_license       ();
   create_typfile         ();
   create_image_directory ();
 }
 elsif ( $actionname eq 'cfg' ) {
+  update_ele_license       ();
   create_cfgfile ();
 }
 elsif ( $actionname eq 'typ' ) {
@@ -771,17 +840,15 @@ elsif ( $actionname eq 'compiletyp' ) {
   create_typtranslations ();
   compile_typfiles ();
 }
-elsif ( $actionname eq 'nsicfg' ) {
-  create_nsis_nsifile ();
-  create_nsis_nsifile2 ();
-}
-elsif ( $actionname eq 'nsiexe' ) {
-  create_nsis_exefile ();
-  create_nsis_exefile2 ();
-}
 elsif ( $actionname eq 'gmap2' ) {
+  update_ele_license       ();
   create_typfile   ();
   create_gmap2file ();
+}
+elsif ( $actionname eq 'gmap3' ) {
+  update_ele_license       ();
+  create_typfile   ();
+  create_gmap3 ();
 }
 elsif ( $actionname eq 'bim' ) {
   purge_dirs               ();
@@ -797,6 +864,7 @@ elsif ( $actionname eq 'bim' ) {
   check_osmid              ();
   join_mapdata             ();
   split_mapdata            ();
+  update_ele_license       ();
   create_cfgfile           ();
   create_typtranslations   ();
   compile_typfiles         ();
@@ -810,10 +878,11 @@ elsif ( $actionname eq 'bam' ) {
   create_image_directory ();
   create_gmapfile        ();
   create_gmapsuppfile    ();
-  create_nsis_nsifile    ();
-  create_nsis_exefile    ();
-  create_nsis_nsifile2   ();
-  create_nsis_exefile2   ();
+  update_ele_license       ();
+  create_nsis_nsi_gmap   ();
+  create_nsis_exe_gmap   ();
+  create_nsis_nsi_full    ();
+  create_nsis_exe_full    ();
 }
 elsif ( $actionname eq 'pmd' ) {
   purge_dirs               ();
@@ -831,6 +900,7 @@ elsif ( $actionname eq 'pmd' ) {
   split_mapdata            ();
 }
 elsif ( $actionname eq 'bml' ) {
+  update_ele_license       ();
   create_cfgfile           ();
   create_typtranslations   ();
   compile_typfiles         ();
@@ -841,10 +911,10 @@ elsif ( $actionname eq 'bml' ) {
   create_image_directory ();
   create_gmapfile        ();
   create_gmapsuppfile    ();
-  create_nsis_nsifile    ();
-  create_nsis_exefile    ();
-  create_nsis_nsifile2    ();
-  create_nsis_exefile2   ();
+  create_nsis_nsi_gmap    ();
+  create_nsis_exe_gmap   ();
+  create_nsis_nsi_full    ();
+  create_nsis_exe_full    ();
 }
 elsif ( $actionname eq 'zip' ) {
   zip_maps ();
@@ -1241,8 +1311,141 @@ sub fetch_eledata {
     die ( "Please check this file concerning error hints (eg. communications errors).\n" );
     return ( 1 );
   }
+  
+  # Try to fetch the additional files *.info *.license
+  download_url( "$eleurl.info", "$filename.info");
+  download_url( "$eleurl.license", "$filename.license");
 
   return;
+}
+
+
+# -----------------------------------------
+# Read a given local licensefile into hash
+# -----------------------------------------
+sub read_licensefile {
+
+  # Argument handed over
+  my $licensefile = shift;
+  
+  # Some needed local variables
+  my $line;
+  my @alllines;
+  my %tmphash = ();
+  my $tmphash_key;
+  my $tmphash_value;
+  
+  # Let's try to open 
+  if ( open IN,  "<:encoding(UTF-8)", $licensefile ) {
+
+    binmode( IN, ":encoding(UTF-8)");
+
+    
+    while ( <IN> ) {
+      # Get the line
+      $line = $_;
+      
+      # Only look at lines with '=' somewhere in the middle
+      next unless $line =~ /^.*=.*+/;
+      
+      # Get rid of leading and trailing whitespace
+      $line =~ s/^\s+//;
+      $line =~ s/\s+$//;
+      
+      # Put result in the prepared input array
+      chomp ( $line );
+      push ( @alllines, $line );
+      
+    }
+    
+    # Close the file again
+    close IN;
+    
+    # run through the array and fill the tmphash
+    foreach $line ( @alllines ) {
+      # create the hashtable
+      $line =~ /^(.*)=(.*)$/;      
+      $tmphash{ $1 } = join( "\n", split ( /\\n/, $2 ));
+      
+    }
+    
+  }
+  
+  return ( %tmphash );
+
+}
+
+# -----------------------------------------
+# Read the default license information
+# -----------------------------------------
+sub read_default_licenses {
+
+  # Set filenames
+  my $fzk_licensefile = "licenses/default-freizeitkarte.license";
+  my $osm_licensefile = "licenses/default-osm.license";
+  my $ele_licensefile = "licenses/default-elevation.license";
+    
+  # Handle fzk license file
+  my %lic_tmphash = ();
+  %lic_tmphash = read_licensefile($fzk_licensefile);
+  foreach my $hashkey ( sort ( keys %lic_tmphash ) ) {
+    $lic_fzk{$hashkey} = $lic_tmphash{$hashkey};
+  }
+  
+  # Handle osm license file
+  %lic_tmphash = ();
+  %lic_tmphash = read_licensefile($osm_licensefile);
+  foreach my $hashkey ( sort ( keys %lic_tmphash ) ) {
+    $lic_osm{$hashkey} = $lic_tmphash{$hashkey};
+  }
+
+  # Handle ele license file
+  %lic_tmphash = ();
+  %lic_tmphash = read_licensefile($ele_licensefile);
+  foreach my $hashkey ( sort ( keys %lic_tmphash ) ) {
+    $lic_ele{$hashkey} = $lic_tmphash{$hashkey};
+  }
+
+
+  return;
+
+}
+
+# -----------------------------------------
+# Try to update the license about elevation
+# -----------------------------------------
+sub update_ele_license {
+
+  # Argument handed over
+  my $ele_licensefile = "$WORKDIR/Hoehendaten_$mapname.osm.pbf.license";
+    
+  # Some needed local variables
+  my %ele_tmphash = ();
+  
+  # Get eventually overriding values
+  %ele_tmphash = read_licensefile($ele_licensefile);
+  
+  # In case we have updates
+  if ( keys %ele_tmphash > 0 ) {
+    
+    # Set strongest flag to 0
+    $lic_ele{license_type_strongest} = "";
+
+    # Override (or set) found values
+    foreach my $hashkey ( sort ( keys %ele_tmphash ) ) {
+      $lic_ele{$hashkey} = $ele_tmphash{$hashkey};
+    }
+  
+  }
+
+  # If license type of ele is strongest, then override fzk license type
+  if ( $lic_ele{license_type_strongest}) {
+    $lic_fzk{license_type} = $lic_ele{license_type};
+  }
+
+
+  return;
+
 }
 
 
@@ -1565,17 +1768,204 @@ sub split_mapdata {
 
 
 # -----------------------------------------
+# Create the map specific license file needed by mkgmap
+# -----------------------------------------
+sub create_licensefile {
+
+  # Initialize some variables
+  my $filename = "$WORKDIRLANG/$mapname.license";
+
+  # Dump some output
+  printf { *STDOUT } ( "\n" );
+  printf { *STDOUT } ( "Creating $filename ...\n" );
+  
+  # Try to open the file in destination codepage (isocode)
+#  open ( my $fh, "+>:encoding($mapisolang)", $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+#  binmode( $fh, ":encoding($mapisolang)");
+  open ( my $fh, "+>:encoding(UTF-8)", $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+  binmode( $fh, ":encoding(UTF-8)");
+      
+  # Empty line (copyright-file issue)
+  printf { $fh } ("\n" );
+
+  # New: 3 line of licenses
+  printf { $fh } ("(c) %s: %s (%s)\n", 
+    $lic_fzk{'title_short'}, 
+    $lic_fzk{'license_string_short'},
+    $lic_fzk{'license_type'} 
+    );
+  printf { $fh } ("(c) %s: %s (%s)\n", 
+    $lic_osm{'title_short'}, 
+    $lic_osm{'license_string_short'},
+    $lic_osm{'license_type'} 
+    );
+  printf { $fh } ("(c) %s: %s (%s)\n", 
+    $lic_ele{'title_short'}, 
+    $lic_ele{'license_string_short'},
+    $lic_ele{'license_type'} 
+    );
+
+  # Try to close the file again
+  close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
+
+  printf { *STDOUT } ( "Done\n" );
+  
+  
+  return;
+}
+
+
+# -----------------------------------------
+# Create the map specific license file needed by nsis
+# -----------------------------------------
+sub create_licensefile_nsis {
+
+  # Initialize some variables
+  my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.de";
+  my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.en";
+  # Reverse file assignement in order to check German Umlaute for EN Map like LUX (for tests)
+  #my $filename_de = "$WORKDIRLANG/$mapname.nsis.license.en";
+  #my $filename_en = "$WORKDIRLANG/$mapname.nsis.license.de";
+
+  # Dump some output
+  printf { *STDOUT } ( "\n" );
+  
+  # Try to open the files for writing (always in Latin1 as we support only german and english in the installer)
+  printf { *STDOUT } ( "Creating $filename_de  ...\n" );
+  open ( my $fh_de, '+>', $filename_de ) or die ( "Can't open $filename_de: $OS_ERROR\n" );
+  #open ( my $fh_de, '+>:encoding(iso-8859-1)', $filename_de ) or die ( "Can't open $filename_de: $OS_ERROR\n" );
+  #binmode( $fh_de, ":encoding(iso-8859-1)");
+
+printf { *STDOUT } ( "Creating $filename_en  ...\n" );
+  open ( my $fh_en, '+>', $filename_en ) or die ( "Can't open $filename_en: $OS_ERROR\n" );
+  #open ( my $fh_en, '+>:encoding(iso-8859-1)', $filename_en ) or die ( "Can't open $filename_en: $OS_ERROR\n" );
+  #binmode( $fh_en, ":encoding(iso-8859-1)");
+
+
+  # DE: Use
+  printf { $fh_de }
+    (   "%s\n\n", 
+      $lic_fzk{'use_de'} );
+  # EN: Use
+  printf { $fh_en }
+    (   "%s\n\n", 
+      $lic_fzk{'use_en'} );
+
+  # DE: Help
+  printf { $fh_de }
+    (   "%s\n\n", 
+      $lic_fzk{'help_de'} );
+  # EN: Help
+  printf { $fh_en }
+    (   "%s\n\n", 
+      $lic_fzk{'help_en'} );
+
+  # DE: License map
+  printf { $fh_de }
+    (   "%s:\n"
+      . "Lizenztyp: %s\n"
+      . "Von: %s\n"
+      . "Name: %s\n"
+      . "Webseite: %s\n" 
+      . "%s\n\n", 
+      $lic_fzk{'title_long_de'},
+      $lic_fzk{'license_type'}, 
+      $lic_fzk{'license_string_short'}, 
+      $lic_fzk{'data_provider_name'},
+      $lic_fzk{'data_provider_homepage'},
+      $lic_fzk{'additional_info_de'} 
+      );
+
+  # EN: License map
+  printf { $fh_en }
+    (   "%s:\n"
+      . "Licensetype: %s\n"
+      . "By: %s\n"
+      . "Name: %s\n"
+      . "Link: %s\n" 
+      . "%s\n\n", 
+      $lic_fzk{'title_long_en'},
+      $lic_fzk{'license_type'}, 
+      $lic_fzk{'license_string_short'}, 
+      $lic_fzk{'data_provider_name'},
+      $lic_fzk{'data_provider_homepage'},
+      $lic_fzk{'additional_info_en'} 
+      );
+
+  # DE: License OSM
+  printf { $fh_de }
+    (   "%s:\n"
+      . "Lizenztyp: %s\n"
+      . "Von: %s\n"
+      . "Name: %s\n"
+      . "Webseite: %s\n"
+      . "%s\n\n", 
+      $lic_osm{'title_long_de'},
+      $lic_osm{'license_type'}, 
+      $lic_osm{'license_string_short'}, 
+      $lic_osm{'data_provider_name'},
+      $lic_osm{'data_provider_homepage'},
+      $lic_osm{'additional_info_de'} );
+  # EN: License OSM
+  printf { $fh_en }
+    (   "%s:\n"
+      . "Licensetype: %s\n"
+      . "By: %s\n"
+      . "Name: %s\n"
+      . "Link: %s\n"
+      . "%s\n\n", 
+      $lic_osm{'title_long_de'},
+      $lic_osm{'license_type'}, 
+      $lic_osm{'license_string_short'}, 
+      $lic_osm{'data_provider_name'},
+      $lic_osm{'data_provider_homepage'},
+      $lic_osm{'additional_info_en'} );
+
+  # DE: License Contour data
+  printf { $fh_de }
+    (   "%s:\n"
+      . "Lizenztyp: %s\n"
+      . "Von: %s\n"
+      . "Name: %s\n"
+      . "Webseite: %s\n"
+      . "%s\n\n", 
+      $lic_ele{'title_long_de'},
+      $lic_ele{'license_type'}, 
+      $lic_ele{'license_string_short'}, 
+      $lic_ele{'data_provider_name'},
+      $lic_ele{'data_provider_homepage'},
+      $lic_ele{'additional_info_de'} );
+  # EN: License Contour data
+  printf { $fh_en }
+    (   "%s:\n"
+      . "Licensetype: %s\n"
+      . "By: %s\n"
+      . "Name: %s\n"
+      . "Link: %s\n"
+      . "%s\n\n", 
+      $lic_ele{'title_long_en'},
+      $lic_ele{'license_type'}, 
+      $lic_ele{'license_string_short'}, 
+      $lic_ele{'data_provider_name'},
+      $lic_ele{'data_provider_homepage'},
+      $lic_ele{'additional_info_en'} );
+
+  # Try to close the files again
+  close ( $fh_de ) or die ( "Can't close $filename_de: $OS_ERROR\n" );
+  close ( $fh_en ) or die ( "Can't close $filename_en: $OS_ERROR\n" );
+
+  printf { *STDOUT } ( "Done\n" );
+
+  return;
+}
+
+
+# -----------------------------------------
 # Create the map specific CFG file needed by mkgmap
 # - Note that option order is significant.
 # - An option only applies to subsequent input files.
 # -----------------------------------------
 sub create_cfgfile {
-
-  # Disabled, handled in sub
-  ## Initialize some variables
-  #my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
-  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
 
   # Initialize some variables
   my $filename = "$WORKDIRLANG/$mapname.cfg";
@@ -1585,7 +1975,9 @@ sub create_cfgfile {
   printf { *STDOUT } ( "Creating $filename ...\n" );
   
   # Try to open the file
-  open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+#  open ( my $fh, '+>', $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+  open ( my $fh, "+>:encoding(UTF-8)", $filename ) or die ( "Can't open $filename: $OS_ERROR\n" );
+  binmode( $fh, ":encoding(UTF-8)");
 
   # Write the needed options into the file
   printf { $fh } 
@@ -1658,6 +2050,14 @@ sub create_cfgfile {
      printf { $fh }    
         (   "#name-tag-list=name:de,name:en,int_name,name\n" );
   }
+  
+  printf { $fh } 
+  (   "\n" 
+    . "# --lower-case\n" 
+    . "#   Allow labels to contain lower case letters.\n" 
+    . "#   Note that most or all Garmin devices are not able to display\n" 
+    . "#   lower case letters at an angle so this option is not generally useful.\n" 
+    . "lower-case\n" );
 
   printf { $fh } ( "\n# Address search options:\n" );
   printf { $fh } ( "# ----------------------\n" );
@@ -1827,7 +2227,17 @@ sub create_cfgfile {
     (   "\n"
       . "# --copyright-message=note\n"
       . "#   Specify a copyright message for files that do not contain one.\n"
-      . "copyright-message = \"Map: FZK project; Data: OSM contributors, U.S.G.S, de Ferranti\"\n" );
+      . "#copyright-message = \"Map: %s; Map Data: %s; Contour Data: %s\"\n", 
+      $lic_fzk{'license_string_short'}, $lic_osm{'license_string_short'}, $lic_ele{'license_string_short'} );
+
+  printf { $fh }
+    (   "\n"
+      . "# --copyright-file=file\n"
+      . "#   Specify copyright messages from a file.\n"
+      . "#   Note that the first copyright message is not displayed on a device, but is shown in BaseCamp.\n"
+      . "#   The copyright file must include at least two lines.\n"
+      . "copyright-file=%s.license\n",
+      $mapname );
 
   printf { $fh }
     (   "\n"
@@ -1835,7 +2245,8 @@ sub create_cfgfile {
       . "#   Specify a file which content will be added as license. Every\n"
       . "#   line is one entry. All entrys of all maps will be merged, unified\n"
       . "#   and shown in random order.\n"
-      . "license-file=license.txt\n" );
+      . "license-file=%s.license\n", 
+      $mapname );
 
   printf { $fh } ( "\n# Optimization options:\n" );
   printf { $fh } ( "# --------------------\n" );
@@ -2032,6 +2443,7 @@ sub create_alltypfile_languages {
     
     # Get the actual language code like 'en'
     $typfilelangcode = @$actuallanguage [$LANGCODE];
+    $mapcodepage = $langcodepage{$typfilelangcode};
 
     # Create some output
     printf { *STDOUT } ( "\nHandling TYP files: $typfilelangcode\n" );
@@ -2255,18 +2667,6 @@ sub create_typtranslations {
     }
   }
 
-  ## FIX for Russia: cyrillic in Typ Source file gives problem with mkgmap typcompiler
-  ## Overwrite the array typfilelangcode and hash typfilestringindex again
-  ## (actually it works with 'special build'.... for cp1251 we empty the string again, needs to be implemented nicely lateron
-#  if ( $langcode eq 'ru' ) {
-#	  @typfilelangcode = ();
-#	  %typfilestringindex = ();
-#	  $stringindex = 1;
-#	  push ( @typfilelangcode, $typlanguages{ 'ru' } );
-#      $typfilestringindex{ $typlanguages{ 'ru' } } = $stringindex;
-#      $stringindex++;
-#  }
-#  ## ENDFIX (can be deleted again/or adapted for codepage1251 only if mkgmap compiles properly)
 
   # Fill the hash with the languages and the stringindex (properly sorted)
   $stringindex = 1;
@@ -2520,16 +2920,8 @@ sub compile_typfiles {
   for my $thistypfile ( @typfilelist ) {
 
     # run that file through the compiler
-    $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --product-id=1 --family-id=$mapid $thistypfile";
-
-    ## FIX for Russia/Cyrillic... actually mkgmap doesn't compile UTF8 files containing cyrillic strings... let's choose english only
-    ## Just to let everything run through properly for the moment
-#    if ( $maplang eq 'ru' ) {
-#		$command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$langcodepage{'en'} --product-id=1 --family-id=$mapid $thistypfile";
-#	}
-	## ENDFIX (can be deleted if problem with mkgmap is fixed
-
-
+    $command = "java -Xmx" . $javaheapsize . "M" . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$mapcodepage --product-id=1 --family-id=$mapid $thistypfile";
+ 
     # Run the compiler
     process_command ( $command );
     
@@ -2727,12 +3119,15 @@ sub build_map {
 
   # change to directory WORKDIR LANG
   chdir "$WORKDIRLANG";
+  
+  # Try to update license info for elevation data
+  update_ele_license;
 
-  # copy the licence file
-  copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
-
+  # create the licence file
+  create_licensefile;
+  
   # run mkgmap to build the map from the OSM data (-Dlog.config=logging.properties) (with checking style files first with --check-styles)
-  $command = "java -Xmx" . $javaheapsize . "M" . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg --check-styles";
+  $command = "java -Xmx" . $javaheapsize . "M" . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs -c $mapname.cfg --check-styles";
   process_command ( $command );
 
   # Check Return Value
@@ -2751,8 +3146,8 @@ sub build_map {
 # -----------------------------------------
 sub create_gmap2file {
 
-  if ( $OSNAME ne 'darwin' ) {
-    printf { *STDERR } ( "\nError: Function only on OS X possible.\n" );
+  if ( $OSNAME ne 'darwin' and $OSNAME ne 'linux') {
+    printf { *STDERR } ( "\nError: Function only on OS X and linux possible.\n" );
     return;
   }
 
@@ -2780,7 +3175,7 @@ sub create_gmap2file {
 # Create the NSI file needed for compiling the Windows Installer
 # (old style installer including ImageDir Set)
 # -----------------------------------------
-sub create_nsis_nsifile {
+sub create_nsis_nsi_full {
 
   # Jump into the correct directory
   chdir "$WORKDIRLANG";
@@ -2802,13 +3197,6 @@ sub create_nsis_nsifile {
     printf { *STDOUT } ( "IMG-File = $imgfile\n" );
   }
 
-  # Disabled; handled in sub
-  ## Create and show the Release Number (creation out of date)
-  ## example: 11.07 = year.month
-  #my $filename_source       = "$WORKDIR/" . $mapname . ".osm.pbf";
-  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  # Disabled, handled by sub
-  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
   printf { *STDOUT } ( "Ausgabe %s\n", $releasestring );
 
   # Create output
@@ -2930,8 +3318,8 @@ sub create_nsis_nsifile {
   printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
   printf { $fh } ( "LangString INWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"lizenz_haftung_erstellung_en.txt\"\n" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"lizenz_haftung_erstellung.txt\"\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"%s\"\n", "$mapname.nsis.license.en" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"%s\"\n", "$mapname.nsis.license.de" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
@@ -3195,7 +3583,7 @@ sub create_nsis_nsifile {
 # Tool : makensis.exe
 # OS   : Linux, Windows
 # -----------------------------------------
-sub create_nsis_exefile {
+sub create_nsis_exe_full {
 
   my $source      = $EMPTY;
   my $destination = $EMPTY;
@@ -3250,12 +3638,11 @@ sub create_nsis_exefile {
 
   # go to nsis directory
   chdir "$BASEPATH/nsis";
+  
+  # Create the needed license files
+  create_licensefile_nsis();
 
-  # copy license files and needed bitmaps
-  copy ( "lizenz_haftung_erstellung.txt", "$WORKDIRLANG/lizenz_haftung_erstellung.txt" )
-    or die ( "copy() failed: $!\n" );
-  copy ( "lizenz_haftung_erstellung_en.txt", "$WORKDIRLANG/lizenz_haftung_erstellung_en.txt" )
-    or die ( "copy() failed: $!\n" );
+  # copy needed bitmaps
   copy ( "Install.bmp",   "$WORKDIRLANG/Install.bmp" )   or die ( "copy() failed: $!" );
   copy ( "Deinstall.bmp", "$WORKDIRLANG/Deinstall.bmp" ) or die ( "copy() failed: $!" );
 
@@ -3296,7 +3683,7 @@ sub create_nsis_exefile {
 # Create the NSI file needed for compiling the Windows Installer
 # (old style installer including ImageDir Set)
 # -----------------------------------------
-sub create_nsis_nsifile2 {
+sub create_nsis_nsi_gmap {
 
   # Jump into the correct directory
   chdir "$WORKDIRLANG";
@@ -3417,8 +3804,8 @@ sub create_nsis_nsifile2 {
   printf { $fh } ( "LangString INWpText \${LANG_ENGLISH} \"This Wizard will be guiding you through the installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nBefore installation BaseCamp must be closed for allowing installation of the map data.\$\\n\$\\nMake sure you have the correct GMAP zip file downloaded to the same directory as this installer.\$\\n\$\\nChoose Next for starting the installation.\"\n" );
   printf { $fh } ( "LangString INWpText \${LANG_GERMAN} \"Dieser Assistent wird Sie durch die Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} begleiten.\$\\n\$\\nVor der Installation muss das Programm BaseCamp geschlossen werden damit Kartendateien ersetzt werden koennen.\$\\n\$\\nBitte stellen Sie sicher, dass die korrekte GMAP ZIP Datei schon in das gleiche Verzeichnis heruntergeladen wurde, wie dieser Installer.\$\\n\$\\nKlicken Sie auf Weiter um mit der Installation zu beginnen.\"\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"lizenz_haftung_erstellung_en.txt\"\n" );
-  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"lizenz_haftung_erstellung.txt\"\n" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_ENGLISH} \"%s\"\n", "$mapname.nsis.license.en" );
+  printf { $fh } ( "LicenseLangString licenseFile \${LANG_GERMAN} \"%s\"\n", "$mapname.nsis.license.de" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_ENGLISH} \"Installation of \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} finished\"\n" );
   printf { $fh } ( "LangString INFpTitle \${LANG_GERMAN} \"Installation der \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} abgeschlossen\"\n" );
@@ -3670,7 +4057,7 @@ sub create_nsis_nsifile2 {
 # Tool : makensis.exe
 # OS   : Linux, Windows
 # -----------------------------------------
-sub create_nsis_exefile2 {
+sub create_nsis_exe_gmap {
 
   my $source      = $EMPTY;
   my $destination = $EMPTY;
@@ -3698,11 +4085,10 @@ sub create_nsis_exefile2 {
   # go to nsis directory
   chdir "$BASEPATH/nsis";
 
-  # copy license files and needed bitmaps
-  copy ( "lizenz_haftung_erstellung.txt", "$WORKDIRLANG/lizenz_haftung_erstellung.txt" )
-    or die ( "copy() failed: $!\n" );
-  copy ( "lizenz_haftung_erstellung_en.txt", "$WORKDIRLANG/lizenz_haftung_erstellung_en.txt" )
-    or die ( "copy() failed: $!\n" );
+  # Create the needed license files
+  create_licensefile_nsis();
+
+  # copy needed bitmaps
   copy ( "Install.bmp",   "$WORKDIRLANG/Install.bmp" )   or die ( "copy() failed: $!" );
   copy ( "Deinstall.bmp", "$WORKDIRLANG/Deinstall.bmp" ) or die ( "copy() failed: $!" );
 
@@ -3866,15 +4252,8 @@ sub create_gmapsuppfile {
   # Jump to the work directory
   chdir "$WORKDIRLANG";
 
-  # Disabled, handled in sub
-  ## Initialize some variables
-  #my $filename_source       = "$WORKDIR/$mapname.osm.pbf";
-  #my $filename_source_mtime = ( stat ( $filename_source ) )[ 9 ];
-  #my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime ( $filename_source_mtime );
-  #my $mapversion = sprintf ( "%d.%d", ( $year - 100 ), ( $mon + 1 ) );
-
-  # copy License file
-  copy ( "$BASEPATH/license.txt", "license.txt" ) or die ( "copy() failed: $!\n" );
+  # create License file
+  create_licensefile;
 
   # mkgmap-Parameter
   # --description: Anzeige des Kartennamens in BaseCamp
@@ -3883,17 +4262,22 @@ sub create_gmapsuppfile {
   # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
-        "--index --gmapsupp --product-id=1 --family-id=$mapid --family-name=\"$mapname $releasestring\" "
-      . "--series-name=\"$mapname $releasestring\" --description=\"$mapname $releasestring\" --overview-mapnumber=%s0000 "
-      . "--product-version=%d $mapid*.img $mapid.TYP ",
-      $mapid, $releasenumeric
+        "--index --code-page=$mapcodepage --gmapsupp "
+      . "--license-file=$mapname.license "
+      . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
+      . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
+      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
+      . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
+      . "--show-profiles=1 ",
+      $mapid,$releasenumeric
   );
-
+ 
   # run mkgmap to create the actual gmapsupp.img
   $command =
       "java -Xmx"
     . $javaheapsize . "M"
-    . " -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --license-file=license.txt $mkgmap_parameter";
+    . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs $mkgmap_parameter";
+
   process_command ( $command );
 
   # Check Return Value
@@ -3909,6 +4293,62 @@ sub create_gmapsuppfile {
   unlink ( "osmmap.tdb" );
   unlink ( "osmmap.img" );
 
+  return;
+}
+
+
+# -----------------------------------------
+# create gmap for basecamp: using mkgmap
+# -----------------------------------------
+sub create_gmap3 {
+
+  # Jump to the work directory
+  chdir "$WORKDIRLANG";
+
+  # create License file
+  create_licensefile;
+
+  # mkgmap-Parameter
+  # --description: Anzeige des Kartennamens in BaseCamp
+  # --description: alleinige Anzeige des Kartennamens in einigen GPS-Geräten (z.B. 62er)
+  # --description: zusätzliche Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
+  # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
+  # --series-name: This name will be displayed in MapSource in the map selection drop-down.
+  my $mkgmap_parameter = sprintf (
+        "--index --code-page=$mapcodepage --gmapi "
+      . "--license-file=$mapname.license "
+      . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
+      . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
+      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
+      . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
+      . "--show-profiles=1 ",
+      $mapid,$releasenumeric
+  );
+
+  # run mkgmap to create the actual gmap archive
+  $command =
+      "java -Xmx"
+    . $javaheapsize . "M"
+    . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs $mkgmap_parameter";
+
+  process_command ( $command );
+
+  # Check Return Value
+  if ( $? != 0 ) {
+      die ( "ERROR:\n  Creation of the GMAP Archive for $mapname failed.\n\n" );
+  }
+
+
+  # copy the created gmapsupp to the install directory
+#
+  my $filename = "$mapname.gmap";
+  rmtree ( "$INSTALLDIR/$filename",    0, 1 );
+  move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!\n" );
+  #
+  ## remove the unneeded temporary files again
+  #unlink ( "osmmap.tdb" );
+  #unlink ( "osmmap.img" );
+  
   return;
 }
 
@@ -4313,20 +4753,21 @@ sub show_fingerprint {
 	my $inputfile = "";
 	
 	printf "\n\n\n";
-    printf "================================================\n";
-    printf "+                                              +\n";
-    printf "+ Fingerprint:                                 +\n";
-    printf "+ ------------                                 +\n";    
-    printf "+ Show versions of used tools                  +\n";    
-    printf "+                                              +\n";    
-    printf "================================================\n";
-    printf "\n";
-    
-    # General OS Information
-    # ----------------------
-    printf "OS General\n";
-    printf "======================================\n";
-    printf "Perl Version:     $PERL_VERSION\n";
+  printf "================================================\n";
+  printf "+                                              +\n";
+  printf "+ Fingerprint:                                 +\n";
+  printf "+ ------------                                 +\n";    
+  printf "+ Show versions of used tools                  +\n";    
+  printf "+                                              +\n";    
+  printf "================================================\n";
+  printf "\n";
+  
+  # General OS Information
+  # ----------------------
+  printf "OS General\n";
+  printf "======================================\n";
+  printf "Perl Version:     $PERL_VERSION\n";
+  printf "Perl LC_CTYPE:    " . setlocale(LC_CTYPE) . "\n";
 	printf "OS Name:          $OSNAME\n";
 	printf "OS Sysname:       $os_sysname\n";
 	printf "OS Nodename:      $os_nodename\n";
@@ -4339,273 +4780,287 @@ sub show_fingerprint {
 
 	# java
 	# ----
-    printf "Java\n";
-    printf "======================================\n";
-	$cmdoutput = `java -version 2>&1`;
-	printf "$cmdoutput\n\n";
-	
+  printf "Java\n";
+  printf "======================================\n";
+  chdir "$BASEPATH/tools/fzkJavaLocale";
+  $cmdoutput = `java -version 2>&1`;
+  printf "$cmdoutput\n\n";
+
+  printf "Java Encodings (no parameters)\n";
+  printf "--------------------------------------\n";
+  chdir "$BASEPATH/tools/fzkJavaLocale";
+  $cmdoutput = `java fzkJavaLocale`;
+  printf "$cmdoutput\n\n";
+
+  printf "Java Encodings (file.encoding=UTF-8)\n";
+  printf "--------------------------------------\n";
+  chdir "$BASEPATH/tools/fzkJavaLocale";
+  $cmdoutput = `java "-Dfile.encoding=UTF-8" fzkJavaLocale`;
+  printf "$cmdoutput\n\n";
+  chdir "$BASEPATH";
+
 
 	# osmosis
 	# -------
-    printf "osmosis\n";
-    printf "======================================\n";
-    # OS X, Linux, FreeBSD, OpenBSD
-    if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-       $cmdoutput = `sh $BASEPATH/tools/osmosis/bin/osmosis -v 2>&1`;
-    }
-    # Windows
-    elsif ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\tools\\osmosis\\bin\\osmosis.bat -v 2>&1`;
-    }
-    # Try to match
-    if ( $cmdoutput =~ /INFO: (.* Version .*)/ ) {
-	  printf "$1\n\n\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
+  printf "osmosis\n";
+  printf "======================================\n";
+  # OS X, Linux, FreeBSD, OpenBSD
+  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+     $cmdoutput = `sh $BASEPATH/tools/osmosis/bin/osmosis -v 2>&1`;
+  }
+  # Windows
+  elsif ( $OSNAME eq 'MSWin32' ) {
+     $cmdoutput = `$BASEPATH\\tools\\osmosis\\bin\\osmosis.bat -v 2>&1`;
+  }
+  # Try to match
+  if ( $cmdoutput =~ /INFO: (.* Version .*)/ ) {
+ printf "$1\n\n\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
 
 
-    # splitter
-    # --------
-    printf "splitter\n";
-    printf "======================================\n";
-    $cmdoutput = `java -jar tools/splitter/splitter.jar --version 2>&1`;
+  # splitter
+  # --------
+  printf "splitter\n";
+  printf "======================================\n";
+  $cmdoutput = `java -jar $BASEPATH/tools/splitter/splitter.jar --version 2>&1`;
 	printf "$cmdoutput\n\n";
     
 
-    # mkgmap
-    # ------
-    printf "mkgmap\n";
-    printf "======================================\n";    
-    $cmdoutput = `java -jar tools/mkgmap/mkgmap.jar --version 2>&1`;
-    # Try to match
-    if ( $cmdoutput =~ /^(\d{4,})/m ) {
-	  printf "mkgmap r$1\n\n\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
+  # mkgmap
+  # ------
+  printf "mkgmap\n";
+  printf "======================================\n";    
+  $cmdoutput = `java -jar $BASEPATH/tools/mkgmap/mkgmap.jar --version 2>&1`;
+  # Try to match
+  if ( $cmdoutput =~ /^(\d{4,})/m ) {
+      printf "mkgmap r$1\n\n\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
+  
+
+
+  # PPP
+  # ----------------
+  printf "PPP - Perl Preprocessor\n";
+  printf "======================================\n";
+  $cmdoutput = `perl $BASEPATH/tools/ppp/ppp.pl 2>&1`;
+  # Try to match
+  if ( $cmdoutput =~ /^(PERL .*)$/m ) {
+      printf "$1\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
+  if ( $cmdoutput =~ /^(.*Copyright.*)$/m ) {
+      printf "$1\n";
+  }
+  printf "\n\n";
     
 
+  # 7za (Windows only)
+  # ------------------
+  printf "7-Zip CLI (7za) - Windows only\n";
+  printf "======================================\n";
+  # Windows
+  if ( $OSNAME eq 'MSWin32' ) {
+     $cmdoutput = `$BASEPATH\\tools\\zip\\windows\\7-Zip\\7za.exe 2>&1`;
+     # Try to match
+     if ( $cmdoutput =~ /(7-Zip .*)$/m ) {
+  	  printf "$1\n";
+     }
+     else {
+         printf "PROBLEM: either tool not found or no match for version string.\n";
+         printf "         see detailed command output below:\n";
+         printf "----------------------------\n";
+         printf "$cmdoutput\n";
+         printf "----------------------------\n\n\n";
+     }
+  }
+  printf "\n\n";
 
-    # PPP
-    # ----------------
-    printf "PPP - Perl Preprocessor\n";
-    printf "======================================\n";
-    $cmdoutput = `perl $BASEPATH/tools/ppp/ppp.pl 2>&1`;
-    # Try to match
-    if ( $cmdoutput =~ /^(PERL .*)$/m ) {
-	  printf "$1\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
-    if ( $cmdoutput =~ /^(.*Copyright.*)$/m ) {
-        printf "$1\n";
-    }
-    printf "\n\n";
     
-
-    # 7za (Windows only)
-    # ------------------
-    printf "7-Zip CLI (7za) - Windows only\n";
-    printf "======================================\n";
+  # jmc_cli
+  # ------------
+  printf "jmc_cli\n";
+  printf "======================================\n";
+  if ( $OSNAME eq 'darwin' ) {
+    # OS X
+    $cmdoutput = `$BASEPATH/tools/jmc/osx/jmc_cli 2>&1`;
+  }	
+  elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    if ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\tools\\zip\\windows\\7-Zip\\7za.exe 2>&1`;
-       # Try to match
-       if ( $cmdoutput =~ /(7-Zip .*)$/m ) {
-    	  printf "$1\n";
-       }
-       else {
-           printf "PROBLEM: either tool not found or no match for version string.\n";
-           printf "         see detailed command output below:\n";
-           printf "----------------------------\n";
-           printf "$cmdoutput\n";
-           printf "----------------------------\n\n\n";
-       }
-    }
-    printf "\n\n";
+    $cmdoutput = `$BASEPATH\\tools\\jmc\\windows\\jmc_cli.exe 2>&1`;
+  }
+  elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+    # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+    $cmdoutput = `$BASEPATH/tools/jmc/linux/jmc_cli 2>&1`;
+  }
+  # Try to match
+  if ( $cmdoutput =~ /^(.*version.*)$/m ) {
+      printf "$1\n\n\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
+  
 
-    
-    # jmc_cli
-    # ------------
-    printf "jmc_cli\n";
-    printf "======================================\n";
-    if ( $OSNAME eq 'darwin' ) {
-      # OS X
-      $cmdoutput = `$BASEPATH/tools/jmc/osx/jmc_cli 2>&1`;
-    }	
-    elsif ( $OSNAME eq 'MSWin32' ) {
-      # Windows
-      $cmdoutput = `$BASEPATH\\tools\\jmc\\windows\\jmc_cli.exe 2>&1`;
-    }
-    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      $cmdoutput = `$BASEPATH/tools/jmc/linux/jmc_cli 2>&1`;
-    }
-    # Try to match
-    if ( $cmdoutput =~ /^(.*version.*)$/m ) {
-	  printf "$1\n\n\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
-    
-
-    # osmconvert (not triggered)
-    # --------------------------
-    printf "osmconvert\n";
-    printf "======================================\n";
-    if ( $OSNAME eq 'darwin' ) {
-      # OS X
-      $cmdoutput = `$BASEPATH/tools/osmconvert/osx/osmconvert --help 2>&1`;
-    }	
-    elsif ( $OSNAME eq 'MSWin32' ) {
-      # Windows
-      $cmdoutput = `$BASEPATH\\tools\\osmconvert\\windows\\osmconvert.exe --help 2>&1`;
-    }
-    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      if ( ( $OSNAME eq 'linux' ) && ( $os_archbit eq '64' ) ) {
-        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert64 --help 2>&1`;
-      }
-      else
-      {
-        $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
-      }
-    }
-    # Try to match
-    if ( $cmdoutput =~ /^(osmconvert .*)$/m ) {
-	  printf "$1\n\n\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
-
-    
-    # osmfilter (not triggered)
-    # -------------------------
-    printf "osmfilter - not used during build\n";
-    printf "======================================\n";
-    if ( $OSNAME eq 'darwin' ) {
-      # OS X
-      $cmdoutput = `$BASEPATH/tools/osmfilter/osx/osmfilter --help 2>&1`;
-    }	
-    elsif ( $OSNAME eq 'MSWin32' ) {
-      # Windows
-      $cmdoutput = `$BASEPATH\\tools\\osmfilter\\windows\\osmfilter.exe --help 2>&1`;
-    }
-    elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-      # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
-      $cmdoutput = `$BASEPATH/tools/osmfilter/linux/osmfilter32 --help 2>&1`;
-    }
-    # Try to match
-    if ( $cmdoutput =~ /^(osmfilter .*)$/m ) {
-	  printf "$1\n\n\n";
-    }
-    else {
-        printf "PROBLEM: either tool not found or no match for version string.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$cmdoutput\n";
-        printf "----------------------------\n\n\n";
-    }
-    
-
-    # wget (windows directory)
-    # ------------------------
-    printf "GNU Wget - Windows only\n";
-    printf "======================================\n";
+  # osmconvert (not triggered)
+  # --------------------------
+  printf "osmconvert\n";
+  printf "======================================\n";
+  if ( $OSNAME eq 'darwin' ) {
+    # OS X
+    $cmdoutput = `$BASEPATH/tools/osmconvert/osx/osmconvert --help 2>&1`;
+  }	
+  elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    if ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\tools\\wget\\windows\\wget.exe --version 2>&1`;
-       # Try to match
-       if ( $cmdoutput =~ /(GNU Wget .*)$/m ) {
-   	       printf "$1\n";
-       }
-       else {
-           printf "PROBLEM: either tool not found or no match for version string.\n";
-           printf "         see detailed command output below:\n";
-           printf "----------------------------\n";
-           printf "$cmdoutput\n";
-           printf "----------------------------\n\n\n";
-       }
-       if ( $cmdoutput =~ /^(\+.*)$/m ) {
-   	       printf "$1\n";
-       }
+    $cmdoutput = `$BASEPATH\\tools\\osmconvert\\windows\\osmconvert.exe --help 2>&1`;
+  }
+  elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+    # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+    if ( ( $OSNAME eq 'linux' ) && ( $os_archbit eq '64' ) ) {
+      $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert64 --help 2>&1`;
     }
-    printf "\n\n";
-    
+    else
+    {
+      $cmdoutput = `$BASEPATH/tools/osmconvert/linux/osmconvert32 --help 2>&1`;
+    }
+  }
+  # Try to match
+  if ( $cmdoutput =~ /^(osmconvert .*)$/m ) {
+      printf "$1\n\n\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
 
-    # NSIS (windows directory), has to be installed on Linux
+  
+  # osmfilter (not triggered)
+  # -------------------------
+  printf "osmfilter - not used during build\n";
+  printf "======================================\n";
+  if ( $OSNAME eq 'darwin' ) {
+    # OS X
+    $cmdoutput = `$BASEPATH/tools/osmfilter/osx/osmfilter --help 2>&1`;
+  }	
+  elsif ( $OSNAME eq 'MSWin32' ) {
+    # Windows
+    $cmdoutput = `$BASEPATH\\tools\\osmfilter\\windows\\osmfilter.exe --help 2>&1`;
+  }
+  elsif ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+    # Linux, FreeBSD (ungetestet), OpenBSD (ungetestet)
+    $cmdoutput = `$BASEPATH/tools/osmfilter/linux/osmfilter32 --help 2>&1`;
+  }
+  # Try to match
+  if ( $cmdoutput =~ /^(osmfilter .*)$/m ) {
+      printf "$1\n\n\n";
+  }
+  else {
+      printf "PROBLEM: either tool not found or no match for version string.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$cmdoutput\n";
+      printf "----------------------------\n\n\n";
+  }
+  
+
+  # wget (windows directory)
+  # ------------------------
+  printf "GNU Wget - Windows only\n";
+  printf "======================================\n";
+  # Windows
+  if ( $OSNAME eq 'MSWin32' ) {
+     $cmdoutput = `$BASEPATH\\tools\\wget\\windows\\wget.exe --version 2>&1`;
+     # Try to match
+     if ( $cmdoutput =~ /(GNU Wget .*)$/m ) {
+ 	      printf "$1\n";
+     }
+     else {
+        printf "PROBLEM: either tool not found or no match for version string.\n";
+        printf "         see detailed command output below:\n";
+        printf "----------------------------\n";
+        printf "$cmdoutput\n";
+        printf "----------------------------\n\n\n";
+     }
+     if ( $cmdoutput =~ /^(\+.*)$/m ) {
+ 	      printf "$1\n";
+     }
+  }
+  printf "\n\n";
+  
+
+  # NSIS (windows directory), has to be installed on Linux
 	# -------------------------------------------------------
-    printf "NSIS: makensis - Windows and linux\n";
-    printf "======================================\n";
-    # Linux, FreeBSD, OpenBSD
-    if ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
-       $cmdoutput = `makensis -version 2>&1`;
-       printf "MakeNSIS $cmdoutput\n";
-    }
-    # Windows
-    elsif ( $OSNAME eq 'MSWin32' ) {
-       $cmdoutput = `$BASEPATH\\tools\\NSIS\\windows\\makensis.exe /Version 2>&1`;
-       printf "MakeNSIS $cmdoutput\n";
-    }
-    printf "\n\n";
+  printf "NSIS: makensis - Windows and linux\n";
+  printf "======================================\n";
+  # Linux, FreeBSD, OpenBSD
+  if ( ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+     $cmdoutput = `makensis -version 2>&1`;
+     printf "MakeNSIS $cmdoutput\n";
+  }
+  # Windows
+  elsif ( $OSNAME eq 'MSWin32' ) {
+     $cmdoutput = `$BASEPATH\\tools\\NSIS\\windows\\makensis.exe /Version 2>&1`;
+     printf "MakeNSIS $cmdoutput\n";
+  }
+  printf "\n\n";
 
 
-    # bounds and sea
+  # bounds and sea
 	# ---------------
-    printf "Bounderies (bounds)\n";
-    printf "======================================\n";
-    $inputfile = "$BASEPATH/bounds/version.txt";
-    if (open( my $filehandle, "<  $inputfile ") ) {
-		while ( $lineoffile = <$filehandle> ) {
-			chomp $lineoffile;
-			print "$lineoffile\n\n\n";
-		}
-		close ( $filehandle );
+  printf "Bounderies (bounds)\n";
+  printf "======================================\n";
+  $inputfile = "$BASEPATH/bounds/version.txt";
+  if (open( my $filehandle, "<  $inputfile ") ) {
+    while ( $lineoffile = <$filehandle> ) {
+	    chomp $lineoffile;
+	    print "$lineoffile\n\n\n";
+    }
+    close ( $filehandle );
 	}
 	else {
-        printf "PROBLEM: either boundaries not found at all or file\n";
-        printf "           $inputfile\n";
-        printf "         not existing.\n";
-        printf "         see detailed command output below:\n";
-        printf "----------------------------\n";
-        printf "$!\n";
-        printf "----------------------------\n\n\n";
+      printf "PROBLEM: either boundaries not found at all or file\n";
+      printf "           $inputfile\n";
+      printf "         not existing.\n";
+      printf "         see detailed command output below:\n";
+      printf "----------------------------\n";
+      printf "$!\n";
+      printf "----------------------------\n\n\n";
 	}
-    printf "Sea Bounderies (sea)\n";
-    printf "======================================\n";
-    $inputfile = "$BASEPATH/sea/version.txt";
-    if (open( my $filehandle, "<  $inputfile ") ) {
-		while ( $lineoffile = <$filehandle> ) {
-			chomp $lineoffile;
-			print "$lineoffile\n\n\n";
-		}
-		close ( $filehandle );
+  printf "Sea Bounderies (sea)\n";
+  printf "======================================\n";
+  $inputfile = "$BASEPATH/sea/version.txt";
+  if (open( my $filehandle, "<  $inputfile ") ) {
+    while ( $lineoffile = <$filehandle> ) {
+	     chomp $lineoffile;
+	     print "$lineoffile\n\n\n";
+    }
+    close ( $filehandle );
 	}
 	else {
         printf "PROBLEM: either sea boundaries not found at all or file\n";
@@ -4618,14 +5073,15 @@ sub show_fingerprint {
 	}
     
 
-    # TYPViewer (windows directory), GUI tool, not used, just there for convenience
+  # TYPViewer (windows directory), GUI tool, not used, just there for convenience
 
-    # IMGinfo (not triggered, GUI tool)
-        
-    # gmapi-builder.py
+  # IMGinfo (not triggered, GUI tool)
+      
+  # gmapi-builder.py
     
     
-    printf "\n\n";
+  printf "\n\n";
+
 }
 
 
@@ -4879,7 +5335,7 @@ sub check_environment {
   my $count = 0;
     
   # Print out what we're doing
-  printf { *STDOUT } ( "\nChecking the Development Environment...\n", $directory );
+  printf { *STDOUT } ( "\nChecking the Development Environment...\n" );
 
   # Check the existence of the 'install' directory and create it if necessary
   $directory = "$BASEPATH/install";
@@ -5116,7 +5572,7 @@ sub show_help {
 
   for my $mapdata ( @maps ) {
     if ( $optional ) {
-      # alle Länder und Regionen
+      # alle Lï¿½nder und Regionen
       if ( @$mapdata[ $MAPID ] == -1 ) {
         printf { *STDOUT } ( "\n%s:\n", @$mapdata[ $MAPNAME ] );    # Kommentar
       }
