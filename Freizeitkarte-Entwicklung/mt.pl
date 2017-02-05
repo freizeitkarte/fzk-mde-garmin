@@ -4266,10 +4266,12 @@ sub create_gmapsuppfile {
       . "--license-file=$mapname.license "
       . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
       . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
-      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
+#      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
       . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
+      . "--tdbfile "
       . "--show-profiles=1 ",
-      $mapid,$releasenumeric
+#      $mapid,$releasenumeric
+      $mapid
   );
  
   # run mkgmap to create the actual gmapsupp.img
@@ -4319,12 +4321,16 @@ sub create_gmap3 {
       . "--license-file=$mapname.license "
       . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
       . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
-      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
+      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000"
       . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
+      . "--tdbfile "
       . "--show-profiles=1 ",
-      $mapid,$releasenumeric
+      $mapid
   );
-
+#  my $mkgmap_parameter = sprintf (
+#        "-c $mapname.cfg --gmapi "
+#  );
+#
   # run mkgmap to create the actual gmap archive
   $command =
       "java -Xmx"
