@@ -2166,7 +2166,7 @@ sub create_cfgfile {
       . "#  These files are used to create the overview map.\n"
       . "#  With option --remove-ovm-work-files=true the files are removed\n"
       . "#  after the overview map was created. The default is to keep the files.\n"
-      . "remove-ovm-work-files\n" );
+      . "#remove-ovm-work-files\n" );
 
   printf { $fh } ( "\n# Style options:\n" );
   printf { $fh } ( "# -------------\n" );
