@@ -3164,7 +3164,7 @@ sub create_gmap2file {
     . " -m $mapname"
     . "_mdr.img"
     . " -b $mapname.img"
-    . " *.img";
+    . " $mapid*.img";
   process_command ( $command );
 
   return;
@@ -3612,7 +3612,7 @@ sub create_nsis_exe_full {
   chdir "$WORKDIRLANG";
 
   # Create the needed zip file
-  $source      = '*.img *.tdb *.mdx *.TYP';
+  $source      = "$mapid*.img $mapname*.img *.tdb *.mdx *.TYP";
   $destination = $mapname . '_InstallFiles.zip';
   $command     = $zipper . "$destination $source";
   process_command ( $command );
@@ -4382,8 +4382,13 @@ sub create_image_directory {
 
   # copy all img files
   for my $file ( <*.img> ) {
-    printf { *STDOUT } ( "Copying %s\n", $file );
-    copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    if ( $file =~ /ovm_/) {
+      # overview file, skip it
+    }
+    else {
+      printf { *STDOUT } ( "Copying %s\n", $file );
+      copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    }
   }
 
   # copy tdb file
