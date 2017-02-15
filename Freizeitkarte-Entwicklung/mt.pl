@@ -238,6 +238,7 @@ my @maps = (
   [ -1,   'Regionen Frankreich',                  'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 5860, 'Freizeitkarte_LORRAINE',               'http://download.geofabrik.de/europe/france/lorraine-latest.osm.pbf',                                'LORRAINE',                 'de', 'Freizeitkarte_Lothringen',                3, 'NA'             ],
   [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/europe/france/alsace-latest.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass',                    3, 'NA'             ],
+  [ 5862, 'Freizeitkarte_LAREUNION',              'http://download.geofabrik.de/europe/france/reunion-latest.osm.pbf',                                 'LAREUNION',                'de', 'no_old_name',                             3, 'NA'             ],
 
   # Countries
   # mapid:   6000 + ISO-3166 (numeric): http://en.wikipedia.org/wiki/ISO_3166-1_numeric
