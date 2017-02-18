@@ -3976,6 +3976,7 @@ sub create_nsis_nsi_gmap {
   printf { $fh } ( "  StrCmp \$INSTDIR \$GarminMapsDir noShortcutNeeded\n" );
   printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Shortcut needed\n" );
+  printf { $fh } ( "  CreateDirectory \$GarminMapsDir\n" );
   printf { $fh } ( "  CreateShortCut \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\" \"\$INSTDIR\\\${MAPNAME}.gmap\"\n" );
   printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Check for errors\n" );
