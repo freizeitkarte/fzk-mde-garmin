@@ -61,6 +61,7 @@
 # Version : 0.33  25.04.2016 - Showing aerialway = rope-tow also
 # Version : 0.34  11.11.2016 - Fixing issue with highway=path and foot=designated wrongly classified as radfussweg
 # Version : 0.35  26.11.2016 - Fixing highway = path & area = yes
+# Version : 0.36  19.03.2017 - Fixing highway = footpath & access=no: no in violet and not red anymore
 
 
 #
@@ -1191,6 +1192,12 @@ highway = fussweg & bridge = * & bridge != no  [0x010407 resolution 24 continue]
 highway = fussweg & tunnel = yes               [0x010408 resolution 24 continue]
 highway = fussweg & man_made = dyke            [0x011f05 resolution 24 continue]
 ### highway = fussweg & embankment = yes [0x011f05 resolution 24 continue]
+
+# Benutzung verboten, kein Routing
+# 0x010e11 = Bitmap 2 (breit, NoLabel)
+# 0x010e12 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
+highway = fussweg & keinrouting = yes [0x010e11 resolution 24 continue]
+highway = fussweg & keinrouting = yes [0x010e12 resolution 23-23]
 
 # Allgemein oeffentlich
 # 0x011f12 = 2 (breit, NoLabel)
