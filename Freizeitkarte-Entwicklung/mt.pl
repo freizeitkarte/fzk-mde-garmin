@@ -238,6 +238,7 @@ my @maps = (
   [ -1,   'Regionen Frankreich',                  'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 5860, 'Freizeitkarte_LORRAINE',               'http://download.geofabrik.de/europe/france/lorraine-latest.osm.pbf',                                'LORRAINE',                 'de', 'Freizeitkarte_Lothringen',                3, 'NA'             ],
   [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/europe/france/alsace-latest.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass',                    3, 'NA'             ],
+  [ 5862, 'Freizeitkarte_LAREUNION',              'http://download.geofabrik.de/europe/france/reunion-latest.osm.pbf',                                 'LAREUNION',                'de', 'no_old_name',                             3, 'NA'             ],
 
   # Countries
   # mapid:   6000 + ISO-3166 (numeric): http://en.wikipedia.org/wiki/ISO_3166-1_numeric
@@ -479,6 +480,7 @@ my $nametaglist = $EMPTY;
 my $unicode     = $EMPTY;
 my $downloadbar = $EMPTY;
 my $continuedownload = $EMPTY;
+my $downloadspeed = $EMPTY;
 
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
@@ -512,7 +514,7 @@ my $typfilelangcode = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'continuedownload' => \$continuedownload, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'hqele' => \$hqele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'continuedownload' => \$continuedownload, 'downloadspeed=s' => \$downloadspeed, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'hqele' => \$hqele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist  ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -1198,6 +1200,8 @@ sub download_url {
   my $downloadbar_curl = "--silent";
   my $download_continue_wget = "";
   my $download_continue_curl = "";
+  my $downloadspeed_wget = "";
+  my $downloadspeed_curl = "";
 
   # Check if option was used to show downloadbar
   if ( $downloadbar ) {
@@ -1205,19 +1209,26 @@ sub download_url {
     $downloadbar_curl = "";
   }
   
-  # Disable Continue for bootstrap (to avoid possible manual intervention)
+  # Fetch option continuedownload (not allowed for bootstrap to avoid possible manual intervention)
   if ( $actionname ne 'bootstrap' && ( $continuedownload )  ) {
     $download_continue_wget = "--continue";
     $download_continue_curl = "-C -";
-}
+  }
+
+  # Check for specific downloadspeed set
+  if ( $downloadspeed ) {
+    $downloadspeed_wget = "--limit-rate=$downloadspeed";
+    $downloadspeed_curl = "--limit-rate $downloadspeed";
+  }
+
 
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # OS X, Linux, FreeBSD, OpenBSD
-    $command = "curl $downloadbar_curl $download_continue_curl --fail --location --url \"$download_src\" --output \"$download_dst\" --write \"Downloaded %{size_download} bytes in %{time_connect} seconds (%{speed_download} bytes/s)\"";
+    $command = "curl $downloadbar_curl $download_continue_curl $downloadspeed_curl --fail --location --url \"$download_src\" --output \"$download_dst\" --write \"Downloaded %{size_download} bytes in %{time_connect} seconds (%{speed_download} bytes/s)\"";
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
-    $command = "$BASEPATH/tools/wget/windows/wget.exe $downloadbar_wget $download_continue_wget --output-document=\"$download_dst\" \"$download_src\"";
+    $command = "$BASEPATH/tools/wget/windows/wget.exe $downloadbar_wget $download_continue_wget $downloadspeed_wget --output-document=\"$download_dst\" \"$download_src\"";
   }
   else {
     die ( "\nError: Operating system $OSNAME not supported.\n" );
@@ -2166,7 +2177,7 @@ sub create_cfgfile {
       . "#  These files are used to create the overview map.\n"
       . "#  With option --remove-ovm-work-files=true the files are removed\n"
       . "#  after the overview map was created. The default is to keep the files.\n"
-      . "remove-ovm-work-files\n" );
+      . "#remove-ovm-work-files\n" );
 
   printf { $fh } ( "\n# Style options:\n" );
   printf { $fh } ( "# -------------\n" );
@@ -3164,7 +3175,7 @@ sub create_gmap2file {
     . " -m $mapname"
     . "_mdr.img"
     . " -b $mapname.img"
-    . " *.img";
+    . " $mapid*.img";
   process_command ( $command );
 
   return;
@@ -3612,7 +3623,7 @@ sub create_nsis_exe_full {
   chdir "$WORKDIRLANG";
 
   # Create the needed zip file
-  $source      = '*.img *.tdb *.mdx *.TYP';
+  $source      = "$mapid*.img $mapname*.img *.tdb *.mdx *.TYP";
   $destination = $mapname . '_InstallFiles.zip';
   $command     = $zipper . "$destination $source";
   process_command ( $command );
@@ -3975,6 +3986,7 @@ sub create_nsis_nsi_gmap {
   printf { $fh } ( "  StrCmp \$INSTDIR \$GarminMapsDir noShortcutNeeded\n" );
   printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Shortcut needed\n" );
+  printf { $fh } ( "  CreateDirectory \$GarminMapsDir\n" );
   printf { $fh } ( "  CreateShortCut \"\$GarminMapsDir\\\${MAPNAME}.gmap.lnk\" \"\$INSTDIR\\\${MAPNAME}.gmap\"\n" );
   printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Check for errors\n" );
@@ -4268,8 +4280,10 @@ sub create_gmapsuppfile {
       . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
       . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
       . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
+      . "--tdbfile "
       . "--show-profiles=1 ",
       $mapid,$releasenumeric
+#      $mapid
   );
  
   # run mkgmap to create the actual gmapsupp.img
@@ -4321,10 +4335,15 @@ sub create_gmap3 {
       . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
       . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
       . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
+      . "--tdbfile "
       . "--show-profiles=1 ",
-      $mapid,$releasenumeric
+      $mapid, $releasenumeric
+#      $mapid,$releasenumeric
   );
-
+#  my $mkgmap_parameter = sprintf (
+#        "-c $mapname.cfg --gmapi "
+#  );
+#
   # run mkgmap to create the actual gmap archive
   $command =
       "java -Xmx"
@@ -4375,8 +4394,13 @@ sub create_image_directory {
 
   # copy all img files
   for my $file ( <*.img> ) {
-    printf { *STDOUT } ( "Copying %s\n", $file );
-    copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    if ( $file =~ /ovm_/) {
+      # overview file, skip it
+    }
+    else {
+      printf { *STDOUT } ( "Copying %s\n", $file );
+      copy ( $file, $destdir . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+    }
   }
 
   # copy tdb file
@@ -4411,6 +4435,8 @@ sub zip_maps {
 
   # Initialize some variables
   my $source      = $EMPTY;
+  my $source1     = $EMPTY;
+  my $source2     = $EMPTY;
   my $destination = $EMPTY;
   my $zipper      = $EMPTY;
 
@@ -4428,7 +4454,7 @@ sub zip_maps {
     return ( 1 );
   }
 
-  # gmap (example: Freizeitkarte_DEUTSCHLAND.gmap -> Freizeitkarte_DEUTSCHLAND_de.gmap.zip)
+  # gmap (example: Freizeitkarte_DEU.gmap -> Freizeitkarte_DEU_de.gmap.zip)
   $source      = $mapname . '.gmap';
   $destination = $mapname . '_' . $maplang . '.gmap.zip';
   $command     = $zipper . "$destination $source";
@@ -4436,7 +4462,7 @@ sub zip_maps {
     process_command ( $command );
   }
 
-  # nsis (example: Install_Freizeitkarte_DEU_de.exe )
+  # old Installer (example: Install_Freizeitkarte_DEU_de.exe )
   $source      = "Install_" . $mapname . '_' . $maplang . '.exe';
   $destination = "Install_" . $mapname . '_' . $maplang . '.zip';
   $command     = $zipper . "$destination $source";
@@ -4444,11 +4470,20 @@ sub zip_maps {
     process_command ( $command );
   }
 
-  # nsis (example: GMAP_Installer_Freizeitkarte_DEU_de.exe )
+  # GMAP Installer (example: GMAP_Installer_Freizeitkarte_DEU_de.exe )
   $source      = "GMAP_Installer_" . $mapname . '_' . $maplang . '.exe';
   $destination = "GMAP_Installer_" . $mapname . '_' . $maplang . '.zip';
   $command     = $zipper . "$destination $source";
   if ( -e $source ) {
+    process_command ( $command );
+  }
+
+  # GMAP Full Package  (example: GMAP_Installer_Freizeitkarte_DEU_de.exe + Freizeitkarte_DEU_de.gmap.zip -> GMAP_Installer_Freizeitkarte_DEU_de_full.zip)
+  $source1     = "GMAP_Installer_" . $mapname . '_' . $maplang . '.exe';
+  $source2     = $mapname . '_' . $maplang . '.gmap.zip';
+  $destination = "GMAP_Installer_" . $mapname . '_' . $maplang . '_full.zip';
+  $command     = $zipper . "$destination $source1 $source2";
+  if ( ( -e $source1 ) and ( -e $source2 ) ) {
     process_command ( $command );
   }
 
@@ -4460,7 +4495,7 @@ sub zip_maps {
     process_command ( $command );
   }
 
-  # imagedir (example: Freizeitkarte_DEUTSCHLAND_Images -> Freizeitkarte_DEUTSCHLAND_de.Images.zip)
+  # imagedir (example: Freizeitkarte_DEU_Images -> Freizeitkarte_DEU_de.Images.zip)
   $source      = $mapname . '_Images';
   $destination = $mapname . '_' . $maplang . '.Images.zip';
   $command     = $zipper . "$destination $source";
@@ -5485,8 +5520,8 @@ sub show_usage {
     "Usage:\n"
       . "perl $programName [--ram=<value>] [--cores=<value>] [--ele=<value>] \\\n"
       . "           [--typfile=\"<filename>\"] [--style=\"<dirname>\"] \\\n"
-      . "           [--language=\"<lang>\"] [--unicode] \\\n"
-      . "           [--ntl=\"<name-tag-list>\"] [--downloadbar] [--continuedownload]\\\n"
+      . "           [--language=\"<lang>\"] [--unicode] [--ntl=\"<name-tag-list>\"] \\\n"
+      . "           [--downloadbar] [--downloadspeed=<value>] [--continuedownload]\\\n"
       . "           <Action> <ID> | <Code> | <Map> [PPO] ... [PPO]\n"
       . "  or\n"
       . "perl $programName bootstrap [urls <url_bounds> <url_sea>]\n"
@@ -5533,6 +5568,12 @@ sub show_help {
       . "--downloadbar\n"
       . "           = Show a download progress bar during actions 'bootstrap', 'fetch_osm' and 'fetch_ele'.\n"
       . "                --downloadbar\n"
+      . "--downloadspeed\n"
+      . "           = Set speed limit for downloads during actions 'bootstrap', 'fetch_osm' and 'fetch_ele'.\n"
+      . "             Setting speed limit in number of bytes:\n"
+      . "                --downloadspeedlimit=15\n"
+      . "             You can also set the speed limit in kilobytes (k), megabytes (m) or gigabytes (g) by using the correct character, e.g.:\n"
+      . "                --downloadspeedlimit=15m\n"
       . "--continuedownload\n"
       . "           = try to continue interrupted downloads for actions 'fetch_osm' and 'fetch_ele'.\n"
       . "                --continuedownload\n"
