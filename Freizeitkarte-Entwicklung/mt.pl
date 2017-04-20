@@ -243,11 +243,13 @@ my @maps = (
   # Countries
   # mapid:   6000 + ISO-3166 (numeric): http://en.wikipedia.org/wiki/ISO_3166-1_numeric
   # mapcode: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
+  # country: https://en.wikipedia.org/wiki/ISO_3166-1
   [ -1,   'Europaeische Laender',                 'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 6008, 'Freizeitkarte_ALB',                    'http://download.geofabrik.de/europe/albania-latest.osm.pbf',                                        'ALB',                      'en', 'Freizeitkarte_Albanien',                  3, 'NA'             ],
   [ 6020, 'Freizeitkarte_AND',                    'http://download.geofabrik.de/europe/andorra-latest.osm.pbf',                                        'AND',                      'en', 'Freizeitkarte_Andorra',                   3, 'NA'             ],
   [ 6051, 'Freizeitkarte_ARM',                    'http://be.gis-lab.info/data/osm_dump/dump/latest/AM.osm.pbf',                                       'ARM',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6040, 'Freizeitkarte_AUT',                    'http://download.geofabrik.de/europe/austria-latest.osm.pbf',                                        'AUT',                      'de', 'Freizeitkarte_Oesterreich',               3, 'NA'             ],
+  [ 6031, 'Freizeitkarte_AZE',                    'http://be.gis-lab.info/data/osm_dump/dump/latest/AZ.osm.pbf',                                       'AZE',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6112, 'Freizeitkarte_BLR',                    'http://download.geofabrik.de/europe/belarus-latest.osm.pbf',                                        'BLR',                      'ru', 'Freizeitkarte_Belarus',                   3, 'NA'             ],
   [ 6056, 'Freizeitkarte_BEL',                    'http://download.geofabrik.de/europe/belgium-latest.osm.pbf',                                        'BEL',                      'fr', 'Freizeitkarte_Belgien',                   3, 'NA'             ],
   [ 6070, 'Freizeitkarte_BIH',                    'http://download.geofabrik.de/europe/bosnia-herzegovina-latest.osm.pbf',                             'BIH',                      'en', 'Freizeitkarte_Bosnien-Herzegowina',       3, 'NA'             ],
