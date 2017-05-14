@@ -3841,8 +3841,8 @@ sub create_nsis_nsi_gmap {
   printf { $fh } ( "LangString UIFpText \${LANG_ENGLISH} \"\${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} has been succesfully deinstalled from your computer.\$\\n\$\\nChoose Finish to terminate the deinstallation.\"\n" );
   printf { $fh } ( "LangString UIFpText \${LANG_GERMAN} \"Die \${KARTEN_BESCHREIBUNG} \${KARTEN_AUSGABE} wurde erfolgreich von Ihrem Computer entfernt.\$\\n\$\\nKlicken Sie auf Fertig stellen um den Assistenten zu beenden und die Deinstallation abzuschliessen.\"\n" );
   printf { $fh } ( "\n" );
-  printf { $fh } ( "LangString AlreadyInstalled \${LANG_ENGLISH} \"There is already a version of \${KARTEN_BESCHREIBUNG} installed.\$\\nThis version needs to be deinstalled first.\"\n" );
-  printf { $fh } ( "LangString AlreadyInstalled \${LANG_GERMAN} \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\nDiese Version muss zunaechst entfernt werden.\"\n" );
+  printf { $fh } ( "LangString AlreadyInstalled \${LANG_ENGLISH} \"There is already a version of \${KARTEN_BESCHREIBUNG} installed.\$\\nThis version will be automatically deinstalled first.\"\n" );
+  printf { $fh } ( "LangString AlreadyInstalled \${LANG_GERMAN} \"Es ist bereits eine Version der \${KARTEN_BESCHREIBUNG} installiert.\$\\nDiese Version wird automatisch entfernt werden.\"\n" );
   printf { $fh } ( "\n" );
   printf { $fh } ( "LangString MsgBoxMissingGmapZip \${LANG_ENGLISH} \"Can't find the needed ZIP file containing the gmap version of the map:\$\\n    \$EXEDIR\\\${GMAP_ARCHIVE}\$\\n\$\\nPlease download it and save it to above location.\"\n" );
   printf { $fh } ( "LangString MsgBoxMissingGmapZip \${LANG_GERMAN} \"Zip Datei mit GMAP Version der Karte fehlt:\$\\n    \$EXEDIR\\\${GMAP_ARCHIVE}\$\\n\$\\nBitte laden Sie sie herunter und speichern sie an die oben angegebene Stelle.\"\n" );
