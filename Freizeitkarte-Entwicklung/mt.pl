@@ -3917,6 +3917,7 @@ sub create_nsis_nsi_gmap {
   printf { $fh } ( "  ; Check if we already have the same map installed via NSIS\n" );
   printf { $fh } ( "  ; --------------------------------------------------------\n" );
   printf { $fh } ( "  ReadRegStr \$R0 HKLM \"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"UninstallString\"\n" );
+  printf { $fh } ( "  ReadRegStr \$R1 HKLM \"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\${REG_KEY}\" \"InstallLocation\"\n" );
   printf { $fh } ( "  StrCmp \$R0 \"\" noactualmap\n" );
   printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Yes, map installed: aks user to deinstall\n" );
@@ -3928,7 +3929,10 @@ sub create_nsis_nsi_gmap {
   printf { $fh } ( "  ; Run the Uninstaller and goto the installation (no further checks about dir and shortcut)\n" );
   printf { $fh } ( "  uninstactualmap:\n" );
   printf { $fh } ( "  LogEx::Write  \"   Uninstalling old installation...\"\n" );
-  printf { $fh } ( "  ExecWait '\"\$R0\" _?=\$INSTDIR'\n" );
+  printf { $fh } ( "  StrLen \$R2 \${REG_KEY}\n" );  
+  printf { $fh } ( "  IntOp \$R2 \$R2 + 5\n" );
+  printf { $fh } ( "  StrCpy \$R3 \$R1 -\$R2\n" );
+  printf { $fh } ( "  ExecWait '\"\$R0\" /S _?=\$R3'\n" );
   printf { $fh } ( "  Delete \"\$R0\"\n" );
   printf { $fh } ( "  BringToFront\n" );
   printf { $fh } ( "  goto finished\n" );
