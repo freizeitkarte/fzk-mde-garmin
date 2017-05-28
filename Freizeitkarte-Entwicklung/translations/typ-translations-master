@@ -100,6 +100,7 @@
 ; Version: 0.17  01.03.2015 - implemented new model for alpine trails with SAC Scale
 ;                           - implemented service rails separately from normal rails
 ; Version: 0.19 -02.05.2015 - Spliting up caravan and picnic site: for moving camping_site to drawOrder 4
+; Version: 0.20  28.05.2017 - Adapted/corrected few Dutch translations
 
 
 
@@ -490,7 +491,7 @@ Type=0x23
 String=0x00,Allotments
 String=0x01,Lotissement
 String=0x02,Kleingärten
-String=0x03,Volktuinen
+String=0x03,Volkstuinen
 String=0x04,Allotments
 String=0x05,Orti
 String=0x10,Loteamentos
@@ -4518,7 +4519,7 @@ SubType=0x01
 String=0x00,Restaurant: American
 String=0x01,Restaurant: Americain
 String=0x02,Restaurant: Amerikanisch
-String=0x03,Restaurant: Americaans
+String=0x03,Restaurant: Amerikaans
 String=0x04,Restaurant: American
 String=0x05,Ristorante: Americano
 String=0x10,Restaurante: Americano
@@ -6019,7 +6020,7 @@ SubType=0x17
 String=0x00,Electricity Pylon
 String=0x01,Pylône électrique
 String=0x02,Strommast
-String=0x03,Electriciteitsmast
+String=0x03,Elektriciteitsmast
 String=0x04,Electricity Pylon
 String=0x05,Traliccio
 String=0x10,Torre de energia
