@@ -28,45 +28,45 @@ use Encode qw(is_utf8 decode encode );
 my @actions = (
   # Normal User Actions for maps
   # (This actions should not be deleted/changed)
-  # 'Action',    'Description'
-  [ 'bootstrap', '    Complete the Environment with needed downloads (boundaries)' ,    '-' ],
-  [ 'create',    '1.  (re)create all directories' ,                        '-' ],
-  [ 'fetch_osm', '2a. fetch osm data from url' ,                           '-' ],
-  [ 'fetch_ele', '2b. fetch elevation data from url' ,                     '-' ],
-  [ 'join',      '3.  join osm and elevation data' ,                       '-' ],
-  [ 'split',     '4.  split map data into tiles' ,                         '-' ],
-  [ 'build',     '5.  build map files (img, mdx, tdb)' ,                   '-' ],
-  [ 'gmap',      '6.  create gmap file (for BaseCamp OS X, Windows)' ,     '-' ],
-  [ 'nsis',      '6.  create nsis installer (full installer for Windows)' ,'-' ],
-  [ 'gmapsupp',  '6.  create gmapsupp image (for GPS receiver)' ,          '-' ],
-  [ 'imagedir',  '6.  create image directory (e.g. for QLandkarte)' ,      '-' ],
+  # 'Action',    'Description',                                                       'show in help', 'langdir ?', 'target map types'
+  [ 'bootstrap', '    Complete the Environment with needed downloads (boundaries)' ,  '-' ,           'no',        '0'   ],
+  [ 'create',    '1.  (re)create all directories' ,                                   '-' ,           'no',        '123' ],
+  [ 'fetch_osm', '2a. fetch osm data from url' ,                                      '-' ,           'no',        '123' ],
+  [ 'fetch_ele', '2b. fetch elevation data from url' ,                                '-' ,           'no',        '23'  ],
+  [ 'join',      '3.  join osm and elevation data' ,                                  '-' ,           'no',        '23'  ],
+  [ 'split',     '4.  split map data into tiles' ,                                    '-' ,           'no',        '23'  ],
+  [ 'build',     '5.  build map files (img, mdx, tdb)' ,                              '-' ,           'yes',       '23'  ],
+  [ 'gmap',      '6.  create gmap file (for BaseCamp OS X, Windows)' ,                '-' ,           'yes',       '23'  ],
+  [ 'nsis',      '6.  create nsis installer (full installer for Windows)' ,           '-' ,           'yes',       '23'  ],
+  [ 'gmapsupp',  '6.  create gmapsupp image (for GPS receiver)' ,                     '-' ,           'yes',       '23'  ],
+  [ 'imagedir',  '6.  create image directory (e.g. for QLandkarte)' ,                 '-' ,           'yes',       '23'  ],
 
   # Optional Actions for maps (Hidden from normal users) 
   # (This might change without notification)
-  # 'Action',     'Description'
-  [ 'cfg',        'A. create individual cfg file' ,                        'optional' ],
-  [ 'typ',        'B. create individual typ file from master' ,            'optional' ],
-  [ 'compiletyp', 'B. compile TYP files out of text files' ,               'optional' ],
-  [ 'nsisgmap',   'C. create nsis installer (GMAP for BaseCamp Windows)' , 'optional' ],
-  [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ,     'optional' ],
-  [ 'gmap3',      'D. create gmap file (for BaseCamp OS X, Windows)' ,     'optional' ],
-  [ 'bim',        'E1.build images: create, fetch_*, join, split, build' , 'optional' ],
-  [ 'bam',        'E2.build all maps: gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
-  [ 'pmd',        'F1.Prepare Map Data: create, fetch_*, join, split' ,    'optional' ],
-  [ 'bml',        'F2.Build Map Language: build, gmap, nsis, gmapsupp, imagedir' ,    'optional' ],
-  [ 'zip',        'G. zip all maps' ,                                      'optional' ],
-  [ 'regions',    'H. extract all needed maps from big region data',       'optional' ],
-  [ 'extract_osm','I. extract single map from big region data' ,           'optional' ],
-  [ 'alltypfiles','J. Create all languages of the TYP files' ,             'optional' ],
-  [ 'replacetyp', 'K. Create all language versions of ReplaceTyp.zip' ,    'optional' ],
-  [ 'check_osmid','L. Check overlapping OSM ID ranges for map and ele',    'optional' ],
-#  [ 'fetch_map',  'J. fetch map data from Europe directory' ,              'optional' ],
+  # 'Action',    'Description',                                                       'show in help', 'langdir ?', 'target map types'
+  [ 'cfg',        'A. create individual cfg file' ,                                   'optional' ,    'yes' ,      '23' ],
+  [ 'typ',        'B. create individual typ file from master' ,                       'optional' ,    'yes' ,      '23' ],
+  [ 'compiletyp', 'B. compile TYP files out of text files' ,                          'optional' ,    'yes' ,      '23' ],
+  [ 'nsisgmap',   'C. create nsis installer (GMAP for BaseCamp Windows)' ,            'optional' ,    'yes' ,      '23' ],
+  [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ,                'optional' ,    'yes' ,      '23' ],
+  [ 'gmap3',      'D. create gmap file (for BaseCamp OS X, Windows)' ,                'optional' ,    'yes' ,      '23' ],
+  [ 'bim',        'E1.build images: create, fetch_*, join, split, build' ,            'optional' ,    'yes' ,      '23' ],
+  [ 'bam',        'E2.build all maps: gmap, nsis, gmapsupp, imagedir' ,               'optional' ,    'yes' ,      '23' ],
+  [ 'pmd',        'F1.Prepare Map Data: create, fetch_*, join, split' ,               'optional' ,    'no' ,       '23' ],
+  [ 'bml',        'F2.Build Map Language: build, gmap, nsis, gmapsupp, imagedir' ,    'optional' ,    'yes' ,      '23' ],
+  [ 'zip',        'G. zip all maps' ,                                                 'optional' ,    'yes' ,      '23' ],
+  [ 'regions',    'H. extract all needed maps from big region data',                  'optional' ,    'no' ,       '1' ],
+  [ 'extract_osm','I. extract single map from big region data' ,                      'optional' ,    'no' ,       '2' ],
+  [ 'alltypfiles','J. Create all languages of the TYP files' ,                        'optional' ,    'no' ,       '0' ],
+  [ 'replacetyp', 'K. Create all language versions of ReplaceTyp.zip' ,               'optional' ,    'no' ,       '0' ],
+  [ 'check_osmid','L. Check overlapping OSM ID ranges for map and ele',               'optional' ,    'no' ,       '23' ],
+  #[ 'fetch_map',  'J. fetch map data from Europe directory' ,                         'optional' ,    'no' ,       '2' ],
 
   # Hidden Actions not related to maps 
   # (This might change without notification)
-  # 'Action',     'Description'
-  [ 'checkurl',   '   Check all download URLs for existence' ,             'optional' ],
-  [ 'fingerprint','   Show the versions of the different tools' ,          'optional' ],
+  # 'Action',    'Description',                                                       'show in help', 'langdir ?', 'target map types'
+  [ 'checkurl',   '   Check all download URLs for existence' ,                        'optional' ,    'no' ,       '0' ],
+  [ 'fingerprint','   Show the versions of the different tools' ,                     'optional' ,    'no' ,       '0' ],
 );
 
 my @supportedlanguages = (
@@ -424,6 +424,8 @@ my $MAPPARENT  = 7;
 my $ACTIONNAME = 0;
 my $ACTIONDESC = 1;
 my $ACTIONOPT  = 2;
+my $ACTIONLANGDIR = 3;
+my $ACTIONTARGET = 4;
 
 my $LANGCODE = 0;
 my $LANGDESC = 1;
@@ -487,6 +489,8 @@ my $downloadspeed = $EMPTY;
 
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
+my $actionlangdir = $EMPTY;
+my $actiontarget = $EMPTY;
 
 # The argument containing MapID, MapName or MapCode comes first into this Variable
 my $mapinput   = $EMPTY;
@@ -559,6 +563,8 @@ for my $actiondata ( @actions ) {
   if ( @$actiondata[ $ACTIONNAME ] eq $actionname ) {
     $actionname = @$actiondata[ $ACTIONNAME ];
     $actiondesc = @$actiondata[ $ACTIONDESC ];
+    $actionlangdir = @$actiondata[ $ACTIONLANGDIR ];
+    $actiontarget = @$actiondata[ $ACTIONTARGET ];
     $error      = 0;
     last;
   }
@@ -769,6 +775,11 @@ get_release ();
 #printf { *STDOUT } ( "Action = %s\n", $actiondesc );
 #printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
 show_actionsummary ();
+
+# In case we run command on wrong target, issue warning
+unless ( $actiontarget =~ /$maptype/ ) {
+  show_wrongtargetwarning ();
+}
 
 
 # Make sure that the directories set above are existing
@@ -1081,7 +1092,8 @@ sub create_dirs {
   }    
   
   # WORKDIRLANG and INSTALLDIR only needed for final map, not for downloaded regions we use for own extracts only
-  if ( $maptype != 1 ) {
+  # (In case someone builds a parent map, directory creation is forced anyway)
+  if ( ( $maptype != 1 ) || ( $actionlangdir eq 'yes' ) ){
      if ( !(-e $WORKDIRLANG ) ) {
        mkpath ( "$WORKDIRLANG" );
      }    
@@ -5594,6 +5606,32 @@ sub show_actionsummary {
     }
   }
 
+}
+
+# -----------------------------------------
+# Show wrong target warning
+# -----------------------------------------
+sub show_wrongtargetwarning {
+
+  # Let the user know about the wrong combination of maps and actions
+  printf { *STDOUT } ( "\n" ); 
+  printf { *STDOUT } ( "\nWarning !   the action '%s' is not supposed to run on this map of type %s.", $actionname, $maptype ); 
+  printf { *STDOUT } ( "\n            The following can happen:" ); 
+  printf { *STDOUT } ( "\n            - the process fails with an error" ); 
+  printf { *STDOUT } ( "\n            - the process is very time and resource consuming" ); 
+  printf { *STDOUT } ( "\n            - the result is not what you expect" ); 
+  printf { *STDOUT } ( "\n" ); 
+  printf { *STDOUT } ( "\n            If you are not sure what you are doing you better stop now with ctrl-C." ); 
+  printf { *STDOUT } ( "\n            Else just stand by for 10 seconds and wait until the process continues automatically." ); 
+  printf { *STDOUT } ( "\n\n" ); 
+
+  # Sleep for 10 seconds
+      sleep 10;
+
+  # User did not stop, therefore let's continue and let user know
+  printf { *STDOUT } ( "\nContinuing now ..." ); 
+  printf { *STDOUT } ( "\n\n" ); 
+ 
 }
 
 # -----------------------------------------
