@@ -19,7 +19,7 @@ echo Q: Quit
 echo.
 
 :: edit this too to match the number of options
-set /p userinp=Enter your choice (A-E, Q):
+set /p userinp=Enter your choice (A-F, Q):
 set userinp=%userinp:~0,1%
 
 :: match the options above; use the typ file names here
