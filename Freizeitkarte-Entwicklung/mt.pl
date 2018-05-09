@@ -8157,12 +8157,6 @@ sub create_cfgfile {
       . "#   which means disabled.\n"
       . "show-profiles=1\n" );
 
-  printf { $fh }
-    (   "\n" 
-      . "# --verbose\n" 
-      . "#   Makes some operations more verbose. Mostly used with --list-styles.\n" 
-      . "verbose\n" );
-
   if ( $dempath ne $EMPTY ) {
      printf { $fh }
        (   "\n"
@@ -8183,8 +8177,19 @@ sub create_cfgfile {
          . "# which DEM data should be added to the map. If not given, the DEM data\n"
          . "# will cover the full tile area.\n"
          . "dem-poly=%s.poly\n", "$BASEPATH/poly/$mapname" );
+     printf { $fh }
+       (   "\n"
+         . "# --dem-dists=number[,number...]\n" 
+         . "dem-dists=9942,19884,29826,39768,49710,59652,69594,79536\n" );
  		 
     }
+
+  printf { $fh }
+    (   "\n" 
+      . "# --verbose\n" 
+      . "#   Makes some operations more verbose. Mostly used with --list-styles.\n" 
+      . "verbose\n" );
+
 #  printf { $fh }
 #    (   "\n" 
 #      . "# --x-housenumbers\n"
