@@ -8180,8 +8180,11 @@ sub create_cfgfile {
      printf { $fh }
        (   "\n"
          . "# --dem-dists=number[,number...]\n" 
-         . "dem-dists=9942,19884,29826,39768,49710,59652,69594,79536\n" );
- 		 
+         # view/srtm 3
+         #. "dem-dists=9942,19884,29826,39768,49710,59652,69594,79536\n";
+         # view/srtm 1
+         #. "dem-dists=3312,6624,9936,13248,16560,19872,23184,26496\n";
+ 		 . "\n");
     }
 
   printf { $fh }
