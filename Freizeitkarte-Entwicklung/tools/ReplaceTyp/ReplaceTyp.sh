@@ -85,14 +85,14 @@ if [ -z "$typfile" ]; then
 	typC="outdoor-light    - no symbols on the areas included     "
 	typD="contrast         - colors are 'stronger' in compare to 'freizeit'"
 	typE="small            - optimized for GPS devices with small displays"
-          typF="outdoor-contrast - similar to contrast, no symbols on areas"
+    typF="outdoor-contrast - similar to contrast, no symbols on areas"
 
 	echo "  A: $typA"
 	echo "  B: $typB"
 	echo "  C: $typC"
 	echo "  D: $typD"
 	echo "  E: $typE"
-          echo "  F: $typF"
+    echo "  F: $typF"
 	echo "  Q: Quit "
 	echo ""
 
