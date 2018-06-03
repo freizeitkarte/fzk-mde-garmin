@@ -6530,13 +6530,17 @@ if ( $dempath ne $EMPTY ) {
    if (( $demtype ne $EMPTY ) && ( $demdists ne $EMPTY) ) {
  	 printf { *STDOUT } ( "WARNING:\n  --demdists overwrites defaults choosen by --demtype.\n  Make sure this is really what you want\n\n\n" );  
    }
+#   elsif (( $demtype eq $EMPTY ) && ( $demdists eq $EMPTY) ) {
+# 	 # all fine, no warning needed, will create only one DEM Level
+#	 #printf { *STDOUT } ( "WARNING:\n  --demdists overwrites defaults choosen by --demtype.\n  Make sure this is really what you want\n\n\n" );  
+#   }
    elsif (( $demtype eq "1" ) && ( $demdists eq $EMPTY) ) {
       $demdists="3312,6624,9936,13248,16560,19872,23184,26496";
    }
    elsif (( $demtype eq "3" ) && ( $demdists eq $EMPTY) ) {
       $demdists="9942,19884,29826,39768,49710,59652,69594,79536";
    }
-   else {
+   elsif ( $demtype ne $EMPTY ) {
  	 printf { *STDOUT } ( "WARNING:\n  demtype value '" . $demtype . "' is not supported, no dem-dists value are set for mkgmap.\n  Make sure this is really what you want\n\n\n" );     
    }
 }
