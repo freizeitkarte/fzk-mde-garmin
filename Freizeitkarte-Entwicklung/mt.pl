@@ -6259,7 +6259,10 @@ my $unicode     = $EMPTY;
 my $downloadbar = $EMPTY;
 my $continuedownload = $EMPTY;
 my $downloadspeed = $EMPTY;
+
 my $dempath = $EMPTY;
+my $demdists = $EMPTY;
+my $demtype = $EMPTY; 
 
 my $actionname = $EMPTY;
 my $actiondesc = $EMPTY;
@@ -6295,7 +6298,7 @@ my $typfilelangcode = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'continuedownload' => \$continuedownload, 'downloadspeed=s' => \$downloadspeed, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'hqele' => \$hqele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist, 'dempath=s' => \$dempath ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'continuedownload' => \$continuedownload, 'downloadspeed=s' => \$downloadspeed, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'hqele' => \$hqele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist, 'dempath=s' => \$dempath, 'demdists=s' => \$demdists, 'demtype=s' => \$demtype ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -6518,6 +6521,23 @@ if ( $nametaglist ne $EMPTY ) {
    # Let's check if we have the general fallback 'name' somewhere in the specified nametaglist
    if ( $nametaglist !~ /(^|,)name(,|$)/ ) {
 	 printf { *STDOUT } ( "WARNING:\n  The specified name-tag-list '" . $nametaglist . "' does not contain the tag 'name'.\n  Make sure this is really what you want\n\n\n" );
+   }
+}
+
+# Check / Set DEM options
+if ( $dempath ne $EMPTY ) {
+
+   if (( $demtype ne $EMPTY ) && ( $demdists ne $EMPTY) ) {
+ 	 printf { *STDOUT } ( "WARNING:\n  --demdists overwrites defaults choosen by --demtype.\n  Make sure this is really what you want\n\n\n" );  
+   }
+   elsif (( $demtype eq "1" ) && ( $demdists eq $EMPTY) ) {
+      $demdists="3312,6624,9936,13248,16560,19872,23184,26496";
+   }
+   elsif (( $demtype eq "3" ) && ( $demdists eq $EMPTY) ) {
+      $demdists="9942,19884,29826,39768,49710,59652,69594,79536";
+   }
+   else {
+ 	 printf { *STDOUT } ( "WARNING:\n  demtype value '" . $demtype . "' is not supported, no dem-dists value are set for mkgmap.\n  Make sure this is really what you want\n\n\n" );     
    }
 }
 
@@ -8177,15 +8197,14 @@ sub create_cfgfile {
          . "# which DEM data should be added to the map. If not given, the DEM data\n"
          . "# will cover the full tile area.\n"
          . "dem-poly=%s.poly\n", "$BASEPATH/poly/$mapname" );
-     printf { $fh }
-       (   "\n"
-         . "# --dem-dists=number[,number...]\n" 
-         # view/srtm 3
-         #. "dem-dists=9942,19884,29826,39768,49710,59652,69594,79536\n";
-         # view/srtm 1
-         #. "dem-dists=3312,6624,9936,13248,16560,19872,23184,26496\n";
- 		 . "\n");
-    }
+     if ( $demdists ne $EMPTY ) {
+	    printf { $fh }
+          (   "\n"
+            . "# --dem-dists=number[,number...]\n"
+	        . "# Details see: http://www.mkgmap.org.uk/doc/options\n"
+            . "dem-dists=%s\n", $demdists );
+        }
+	 }
 
   printf { $fh }
     (   "\n" 
@@ -11405,8 +11424,10 @@ sub show_actionsummary {
     if ( $nametaglist ne $EMPTY ) {
       printf { *STDOUT } ( "Ntl:        name-tag-list=%s\n", $nametaglist );  
     }
-	if (( $actionname eq "build" ) && ( $dempath ne $EMPTY )) {
+	if ( $dempath ne $EMPTY ) {
 	  printf { *STDOUT } ( "DEM path:   %s\n", $dempath );
+	  printf { *STDOUT } ( "DEM type:   %s\n", $demtype );
+	  printf { *STDOUT } ( "DEM dists:  %s\n", $demdists );
 	}
     if ( ( $releasestring ne $EMPTY ) && ( $releasenumeric ne $EMPTY ) ) {
         printf { *STDOUT }   ( "Release:    %s / %s\n",$releasestring,$releasenumeric );
@@ -11514,9 +11535,21 @@ sub show_help {
       . "             - using this option on fully completed downloads will fail to download anything new.\n"
       . "             - not guaranteed to work always and might create data garbage, but worth a try on huge downloads\n"
 	  . "--dempath\n"
-	  . "           = specify a directory with HGT files used to add a Digital Elevation Model subfile to the map (build).\n"
+	  . "           = specify a directory or ZIP file with HGT files used to add a Digital Elevation Model subfile to the map (build).\n"
 	  . "                --dempath=D:/fzk/hgtfiles\n"
+	  . "                --dempath=D:/fzk/hgtfiles\view3.zip"
 	  . "             N.B. On Windows, use forward slashes.\n"
+      . "             Please check mkgmap documentation for more information.\n"
+      . "\n"
+	  . "--demtype\n"
+	  . "           = specify the resolution of the HGT file in arc seconds. Supported resolutions are 1 and 3.\n"
+	  . "             Used to define default demdist values.\n"
+	  . "                --demtype=1\n"
+	  . "                --demtype=3\n"
+      . "\n"
+	  . "--demdists\n"
+	  . "           = Define dem-dists values for mkgmap in case --demtype is not set.\n"
+	  . "                --demdists=\"9942,19884,29826,39768,49710,59652,69594,79536\"\n"
       . "             Please check mkgmap documentation for more information.\n"
       . "\n"
       . "PPO        = preprocessor options (multiple possible), to be invoked with D<option>\n"
