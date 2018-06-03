@@ -29,6 +29,8 @@
 # Version : 0.18 -02.05.2015: Changes regarding amenity = place_of_worship and buildings
 # Version : 0.19 -19.06.2015: Proper handling place_of_worship without names (to show name and symbol too)
 # Version : 0.20 -16.03.2016: Remapped Camping from 0x2B03 to 0x2B05 due to categorization problems with GPSMap 64s
+# Version : 0.21 -03.06.2018: disabling DRINGKINGWATER and implementing NODRINKINGWATER:
+#                             display drinkingwater places per default, except NODRINKINGWATER set
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #
@@ -365,7 +367,8 @@
 #
 # Optionale Features:
 # - TRIGMARK: Darstellung von Trigonometrischen Markierungen
-# - DRINKINGWATER: Darstellung von Trinkwasserstellen
+# - DRINKINGWATER: Darstellung von Trinkwasserstellen (Not needed anymore, always displayed except NODRINKINGWATER is set)
+# - NODRINKINGWATER: Disable display of Drinkingwater
 # ------------------------------------------------------------
 
 # -------------------------------------------------
@@ -967,7 +970,7 @@ amenity = theatre & name = * {name "${name} ($__THEATRE__)"} [0x2d01 resolution 
 amenity = courthouse & name = * {name "${name} ($__COURTHOUSE__)"} [0x3004 resolution 24]
 
 # Trinkwasserstelle: Eine öffentlich zugängliche Trinkwasserstelle.
-#ifdef DRINKINGWATER
+#ifndef NODRINKINGWATER
   amenity = drinking_water {name "${name} ($__DRINKINGWATER__)" | "$__DRINKINGWATER__"} [0x6414 resolution 24]
 #endif
 
