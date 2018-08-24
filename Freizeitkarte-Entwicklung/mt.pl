@@ -11541,7 +11541,7 @@ sub show_help {
 	  . "--dempath\n"
 	  . "           = specify a directory or ZIP file with HGT files used to add a Digital Elevation Model subfile to the map (build).\n"
 	  . "                --dempath=D:/fzk/hgtfiles\n"
-	  . "                --dempath=D:/fzk/hgtfiles\view3.zip"
+	  . "                --dempath=D:/fzk/hgtfiles/view3.zip\n"
 	  . "             N.B. On Windows, use forward slashes.\n"
       . "             Please check mkgmap documentation for more information.\n"
       . "\n"
