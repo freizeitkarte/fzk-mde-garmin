@@ -53,6 +53,10 @@ Now you can build the map
    - Creating a gmapsupp-image-file for Garmin-GPS
      perl mt.pl gmapsupp Freizeitkarte_LUX
 
+To build special maps like Freizeitkarte_DEU+ additional steps are requried:
+- fetch_osm - don't fetch Freizeitkarte_DEU+, but fetch Freizeitkarte_EUROPE
+- before fetch_ele run extract_osm Freizeitkarte_DEU+
+
 Additional options:
 The styles of the maps contain logical switches, the syntax to activate the is the following:
      perl mt.pl build <map> D<option>
