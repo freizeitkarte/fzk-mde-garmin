@@ -1870,13 +1870,27 @@ barrier = hedge_bank [ 0x012111 resolution 24 ]
 # 0x20 = 1 (NoLabel)
 # 0x21 = 2 (Label, SmallFont)
 # 0x22 = 2 (Label, SmallFont)
-contour = elevation & contour_ext = elevation_minor  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 22]
 
-contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x21 resolution 22 continue with_actions]
-contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 20-21]
-
-contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x22 resolution 22 continue with_actions]
-contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 20-21]
+# EXTENDEDELEVATION:
+# per default only elevation lines > 0 are shown (no coastline elevation line, no elevations for areas below zero, like Dead Sea in Israel).
+# With this option all elevation lines are shown, 0 m at coastline (not that nice), as well as all needed lines for areas below 0 (necessary for example for ISR_PSE)
+#ifdef EXTENDEDELEVATION
+  contour = elevation & contour_ext = elevation_minor  { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 22]
+                                                       
+  contour = elevation & contour_ext = elevation_medium { set name = '${ele|conv:m=>ft}'; } [0x21 resolution 22 continue with_actions]
+  contour = elevation & contour_ext = elevation_medium { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 20-21]
+                                                       
+  contour = elevation & contour_ext = elevation_major  { set name = '${ele|conv:m=>ft}'; } [0x22 resolution 22 continue with_actions]
+  contour = elevation & contour_ext = elevation_major  { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 20-21]
+#else
+  contour = elevation & contour_ext = elevation_minor  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 22]
+  
+  contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x21 resolution 22 continue with_actions]
+  contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 20-21]
+  
+  contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x22 resolution 22 continue with_actions]
+  contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 20-21]
+#endif
 
 
 # ------------------------------------------------------------
