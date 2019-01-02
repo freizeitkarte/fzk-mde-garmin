@@ -6527,6 +6527,17 @@ if ( $nametaglist ne $EMPTY ) {
 # Check / Set DEM options
 if ( $dempath ne $EMPTY ) {
 
+   # In case the dempath does not exist, try to add $BASEPATH in front of it
+   # (in case it was relative)
+   unless ( -e "$dempath" ) {
+     if ( -e "$BASEPATH/$dempath" ) {
+	   $dempath="$BASEPATH/$dempath";
+	 }
+	 else {
+	     die "error: dempath $dempath not existing\n";
+	 }
+   }
+
    if (( $demtype ne $EMPTY ) && ( $demdists ne $EMPTY) ) {
  	 printf { *STDOUT } ( "WARNING:\n  --demdists overwrites defaults choosen by --demtype.\n  Make sure this is really what you want\n\n\n" );  
    }
@@ -6573,6 +6584,7 @@ get_release ();
 #printf { *STDOUT } ( "Action = %s\n", $actiondesc );
 #printf { *STDOUT } ( "Map  = %s (%s)\n", $mapname, $mapid );
 show_actionsummary ();
+
 
 # In case we run command on wrong target, issue warning
 unless ( $actiontarget =~ /$maptype/ ) {
