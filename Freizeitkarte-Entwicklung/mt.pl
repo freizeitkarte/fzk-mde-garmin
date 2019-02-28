@@ -124,13 +124,11 @@ my %hqelevationbaseurl = (
 # Define the download URLS for the Boundaries (based on www.navmaps.eu/boundaries)
 my @boundariesurl = (
   'http://develop.freizeitkarte-osm.de/boundaries/bounds.zip',
-  'http://osm2.pleiades.uni-wuppertal.de/bounds/latest/bounds.zip',
-  'http://www.navmaps.eu/boundaries?task=weblink.go&id=1', 
+  'http://osm.thkukuk.de/data/bounds-latest.zip',
   );
 my @seaboundariesurl = (
   'http://develop.freizeitkarte-osm.de/boundaries/sea.zip',
-  'http://osm2.pleiades.uni-wuppertal.de/sea/latest/sea.zip',
-  'http://www.navmaps.eu/boundaries?task=weblink.go&id=2', 
+  'http://osm.thkukuk.de/data/sea-latest.zip',
   );
 
 # Licenses - Default values
