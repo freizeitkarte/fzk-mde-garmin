@@ -31,6 +31,10 @@
 # Version : 0.20 -16.03.2016: Remapped Camping from 0x2B03 to 0x2B05 due to categorization problems with GPSMap 64s
 # Version : 0.21 -03.06.2018: disabling DRINGKINGWATER and implementing NODRINKINGWATER:
 #                             display drinkingwater places per default, except NODRINKINGWATER set
+# Version : 0.22 -02.03.2019: - Adapted deprecated tagging for guest_house
+#                             - Adapted deprecated tagging amenity=public_building
+#                             - Adapted tourism=alpine_hut
+#
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
 #
@@ -395,17 +399,12 @@
 
 # Schutzhütte, Berghütte. [point, closedway]
 # siehe auch "amenity = shelter"
+# tag tourism=alpine_hut always with human presence: https://wiki.openstreetmap.org/wiki/Tag:tourism%3Dalpine_hut
 # Bewirtschaftete Berghütten
-tourism = alpine_hut & name = * & ele = * & amenity = restaurant {name "${name} (${ele})"}   [0x4803 resolution 23]
-tourism = alpine_hut & name = * & amenity = restaurant           {name "${name}"}            [0x4803 resolution 23]
-tourism = alpine_hut & ele = * & amenity = restaurant            {name "$__ALPINEHUT__ (${ele})"} [0x4803 resolution 23]
-tourism = alpine_hut & amenity = restaurant                      {name "$__ALPINEHUT__"}          [0x4803 resolution 23]
-
-# Selbstversorger Berghütten
-tourism = alpine_hut & name = * & ele = * {name "${name} (${ele})"}   [0x4804 resolution 23]
-tourism = alpine_hut & name = *           {name "${name}"}            [0x4804 resolution 23]
-tourism = alpine_hut & ele = *            {name "$__ALPINEHUT__ (${ele})"} [0x4804 resolution 23]
-tourism = alpine_hut                      {name "$__ALPINEHUT__"}          [0x4804 resolution 23]
+tourism = alpine_hut & name = * & ele = * {name "${name} (${ele})"}   [0x4803 resolution 23]
+tourism = alpine_hut & name = *           {name "${name}"}            [0x4803 resolution 23]
+tourism = alpine_hut & ele = *            {name "$__ALPINEHUT__ (${ele})"} [0x4803 resolution 23]
+tourism = alpine_hut                      {name "$__ALPINEHUT__"}          [0x4803 resolution 23]
 
 # Aquarium.
 tourism = aquarium & name = * {name "${name} ($__AQUARIUM__)"} [0x2c07 resolution 24]
