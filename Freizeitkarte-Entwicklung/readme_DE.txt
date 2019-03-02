@@ -70,7 +70,7 @@ Folgende Schalter existieren:
 - WINTERSPORT: Darstellung von Linien für Wintersportaktivitäten (Pisten, Loipen, ...) [lines-master]
 - T36ROUTING: Routing auch über (Berg-)Wanderwege der Klassen T3-T6 [lines-master]
 - TRIGMARK: Darstellung von Trigonometrischen Markierungen [points-master]
-- DRINKINGWATER: Darstellung von Trinkwasserstellen [points-master]
+- NODRINKINGWATER: Abschalten der Darstellung von Trinkwasserstellen [points-master]
 - KULTURLAND: Darstellung von Ackerflächen [polygons-master]
 
 

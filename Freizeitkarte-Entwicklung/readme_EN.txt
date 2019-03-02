@@ -67,7 +67,7 @@ The following options are allowed:
 - WINTERSPORT: Display lines for winter sports (pistes, cross country ski tracks, ...) in map [lines-master]
 - T36ROUTING: Allows routing for mountain trails or hike paths of classes T3-T6 with map [lines-master]
 - TRIGMARK: Display of trigonometric markers in map [points-master]
-- DRINKINGWATER: Display of drinking water spots in map [points-master]
+- NODRINKINGWATER: Do not display of drinking water spots in map [points-master]
 - KULTURLAND: Display of agricultural crop land in map [polygons-master]
 
 
