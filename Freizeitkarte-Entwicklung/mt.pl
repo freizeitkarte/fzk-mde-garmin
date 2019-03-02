@@ -429,7 +429,7 @@ my $ACTIONTARGET = 4;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.14 - 2018/05/07';
+my $VERSION = '1.3.15 - 2019/03/02';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
