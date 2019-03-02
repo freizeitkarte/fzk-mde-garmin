@@ -7909,9 +7909,35 @@ sub create_cfgfile {
       . "#   find by name and address search on the GPS.\n" 
       . "index\n" );
 
+  printf { $fh } 
+    (   "\n" 
+      . "# --split-name-index\n"
+      . "#   Index each part of a street name separately. For example, if the street is \n"
+	  . "#   \"Aleksandra Gryglewskiego\" then you will be able to search for it as both \n"
+	  . "#   \"Aleksandra\" and \"Gryglewskiego\". It will also increase the size of the index.\n"
+	  . "#   Useful in countries where searching for the first word in name is not the right\n"
+	  . "#   thing to do. Words following an opening bracket '(' are ignored.\n" 
+	  . "split-name-index\n" );
+
+  printf { $fh } 
+    (   "\n" 
+      . "# --road-name-config=filename\n"
+      . "#   Provide the name of a file containing commonly used road name prefixes and \n"
+	  . "#   suffixes. This option handles the problem that some countries have road names \n"
+	  . "#   which often start or end with very similar words, e.g. in France the first word \n"
+	  . "#   is very often 'Rue', often followed by a preposition like 'de la' or 'des'. This \n"
+	  . "#   leads to rather long road names like 'Rue de la Concorde' where only the word \n"
+	  . "#   'Concorde' is really interesting. In the USA, you often have names like \n"
+	  . "#   'West Main Street' where only the word 'Main' is important. Garmin software has some \n"
+	  . "#   tricks to handle this problem. It allows the use of special characters in the road \n"
+	  . "#   labels to mark the beginning and end of the important part. In combination with option \n"
+	  . "#   split-name-index only the words in the important part are indexed.\n"
+      . "#road-name-config=$BASEPATH/searchoptions/roadNameConfig.txt\n" );
+
   printf { $fh }
     (   "\n"
-      . "# --bounds=directory\n"
+      
+	  . "# --bounds=directory\n"
       . "#   The directory that contains the preprocessed bounds files.\n"
       . "#   Default: bounds\n"
       . "bounds=$BASEPATH/bounds\n" );
