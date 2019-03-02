@@ -35,6 +35,7 @@
 #                             - Adapted deprecated tagging amenity=public_building
 #                             - Adapted tourism=alpine_hut
 #                             - Adapted handling of special shops
+#                             - moved tourism=attraction as a general rule to the very end
 #
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
@@ -409,10 +410,6 @@ tourism = alpine_hut                      {name "$__ALPINEHUT__"}          [0x48
 
 # Aquarium.
 tourism = aquarium & name = * {name "${name} ($__AQUARIUM__)"} [0x2c07 resolution 24]
-
-# Sehenswürdigkeit. [point, closedway]
-# (Excluding worship places here, that tag should be stronger than attraction)
-tourism = attraction & name = * & amenity != place_of_worship {name "${name} ($__ATTRACTION__)"} [0x6600 resolution 24]
 
 # Kunstwerk, Kunstobjekt. [point, closedway]
 tourism = artwork & name = * {name "${name} ($__ARTWORK__)"} [0x6600 resolution 24]
@@ -1740,6 +1737,10 @@ barrier = lift_gate [0x1210 resolution 24]
 # Grabstellen bedeutender Persönlichkeiten (d.h. Personen mit Wikipedia-Eintrag)
 # cemetery = grave & name = * & (wikipedia:de = * | wikipedia = * | website ~ 'wikipedia') {name "${name} (Ruhestaette)"} [0x6405 resolution 24]
 cemetery = grave & name = * & (wikipedia:de = * | wikipedia = * | website = *) {name "${name} ($__GRAVE__)"} [0x6405 resolution 24]
+
+# allgemeine Sehenswürdigkeit. [point, closedway]
+# (Excluding worship places here, that tag should be stronger than attraction)
+tourism = attraction & name = * {name "${name} ($__ATTRACTION__)"} [0x6600 resolution 24]
 
 
 # ------------------------------------------------
