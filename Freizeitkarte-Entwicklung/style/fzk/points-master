@@ -1002,7 +1002,10 @@ amenity = police {name "${name} ($__POLICE__)" | "$__POLICE__"} [0x3001 resoluti
 amenity = post_office {name "${name} ($__POSTOFFICE__)" | "$__POSTOFFICE__"} [0x2f05 resolution 24]
 
 # Öffentliches Gebäude.
+# deprecated: https://wiki.openstreetmap.org/wiki/DE:Key:amenity
 amenity = public_building & name = * {name "${name} ($__PUBLICBUILDING__)"} [0x3007 resolution 24]
+# New tagging
+building = public & name = * {name "${name} ($__PUBLICBUILDING__)"} [0x3007 resolution 24]
 
 # Ein Unterstand ist ein überdachter offener Platz als Schutz vor der Witterung. [point, closedway]
 amenity = shelter {name "${name} ($__SHELTER__)" | "$__SHELTER__"} [0x2b06 resolution 23]
