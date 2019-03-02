@@ -34,6 +34,7 @@
 # Version : 0.22 -02.03.2019: - Adapted deprecated tagging for guest_house
 #                             - Adapted deprecated tagging amenity=public_building
 #                             - Adapted tourism=alpine_hut
+#                             - Adapted handling of special shops
 #
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
@@ -371,7 +372,8 @@
 #
 # Optionale Features:
 # - TRIGMARK: Darstellung von Trigonometrischen Markierungen
-# - DRINKINGWATER: Darstellung von Trinkwasserstellen
+# - DRINKINGWATER: Darstellung von Trinkwasserstellen (Not needed anymore, always displayed except NODRINKINGWATER is set)
+# - NODRINKINGWATER: Disable display of Drinkingwater
 # ------------------------------------------------------------
 
 # -------------------------------------------------
@@ -1140,8 +1142,10 @@ shop = carpenter            {set shop=carpet; delete carpenter}
 shop = carpentry            {set shop=carpet; delete carpentry}
 shop = carpeting            {set shop=carpet; delete carpeting}
 shop = curtains             {set shop=curtain; delete curtains}
+shop = drugstore            {set shop=chemist; delete drugstore}
 shop = musical_instruments  {set shop=musical_instrument; delete musical_instruments}
-shop = winery               {set shop=wine; delete winery}
+shop = wine                 {set shop=alcohol; set wine=yes; delete wine}
+shop = winery               {set shop=alcohol; set wine=yes; delete winery}
 
 # Bäckerei. [point, closedway]
 shop = bakery & name = * {name "${name} ($__BAKERY__)"} [0x2a0d resolution 24]
@@ -1225,11 +1229,18 @@ shop = trade & name = * {name "${name} ($__TRADESHOP__)"} [0x2e08 resolution 24]
 shop = tyres & name = * {name "${name} ($__TYRES__)"} [0x2f07 resolution 24]
 
 # Spezialitäteneinzelhandel. [point, closedway]
-shop = alcohol             & name = * {name "${name} ($__ALCOHOL__)"} [0x2e0a resolution 24]
-shop = art                 & name = * {name "${name} ($__ARTSHOP__)"} [0x2e0a resolution 24]
+shop = florist             & name = * {name "${name} ($__FLORIST__)"} [0x2e0f resolution 24]
+shop = art                 & name = * {name "${name} ($__ARTSHOP__)"} [0x2e10 resolution 24]
+shop = gift                & name = * {name "${name} ($__GIFTSHOP__)"} [0x2e10 resolution 24]
+shop = music               & name = * {name "${name} ($__MUSICSHOP__)"} [0x2e11 resolution 24]
+shop = video               & name = * {name "${name} ($__VIDEO__)"} [0x2e11 resolution 24]
+shop = sports              & name = * {name "${name} ($__SPORTSSHOP__)"} [0x2e12 resolution 24]
+shop = alcohol & wine = yes & name = * {name "${name} ($__WINESHOP__)"} [0x2e13 resolution 24]
+shop = alcohol             & name = * {name "${name} ($__ALCOHOL__)"} [0x2e13 resolution 24]
+shop = books               & name = * {name "${name} ($__BOOKS__)"} [0x2e14 resolution 24]
+# Spezialitäteneinzelhandel. [point, closedway]
 shop = bed                 & name = * {name "${name} ($__BEDSHOP__)"} [0x2e0a resolution 24]
 shop = beverages           & name = * {name "${name} ($__BEVERAGES__)"} [0x2e0a resolution 24]
-shop = books               & name = * {name "${name} ($__BOOKS__)"} [0x2e0a resolution 24]
 shop = copyshop            & name = * {name "${name} ($__COPYSHOOP__)"} [0x2e0a resolution 24]
 shop = carpet              & name = * {name "${name} ($__CARPET__)"} [0x2e0a resolution 24]
 shop = coffee              & name = * {name "${name} ($__COFFEESHOP__)"} [0x2e0a resolution 24]
@@ -1240,9 +1251,7 @@ shop = fabric              & name = * {name "${name} ($__FABRIC__)"} [0x2e0a res
 shop = farm                & name = * {name "${name} ($__FARMSHOP__)"} [0x2e0a resolution 24]
 shop = fish                & name = * {name "${name} ($__FISHMONGER__)"} [0x2e0a resolution 24]
 shop = fishmonger          & name = * {name "${name} ($__FISHMONGER__)"} [0x2e0a resolution 24]
-shop = florist             & name = * {name "${name} ($__FLORIST__)"} [0x2e0a resolution 24]
 shop = funeral_directors   & name = * {name "${name} ($__FUNERALDIRECTORS__)"} [0x2e0a resolution 24]
-shop = gift                & name = * {name "${name} ($__GIFTSHOP__)"} [0x2e0a resolution 24]
 shop = greengrocer         & name = * {name "${name} ($__GREENGROCER__)"} [0x2e0a resolution 24]
 shop = hearing_aids        & name = * {name "${name} ($__HEARINGAIDS__)"} [0x2e0a resolution 24]
 shop = hifi                & name = * {name "${name} ($__HIFI__)"} [0x2e0a resolution 24]
@@ -1255,7 +1264,6 @@ shop = laundry             & name = * {name "${name} ($__LOUNDRY__)"} [0x2e0a re
 shop = massage             & name = * {name "${name} ($__MASSAGE__)"} [0x2e0a resolution 24]
 shop = mobile_phone        & name = * {name "${name} ($__MOBILEPHONE__)"} [0x2e0a resolution 24]
 shop = motorcycle          & name = * {name "${name} ($__MOTORCYCLE__)"} [0x2e0a resolution 24]
-shop = music               & name = * {name "${name} ($__MUSICSHOP__)"} [0x2e0a resolution 24]
 shop = musical_instrument  & name = * {name "${name} ($__MUSICALINSTRUMENT__)"} [0x2e0a resolution 24]
 shop = newsagent           & name = * {name "${name} ($__NEWSAGENT__)"} [0x2e0a resolution 24]
 shop = optician            & name = * {name "${name} ($__OPTICIAN__)"} [0x2e0a resolution 24]
@@ -1266,7 +1274,6 @@ shop = photo               & name = * {name "${name} ($__PHOTO__)"} [0x2e0a reso
 shop = seafood             & name = * {name "${name} ($__SEAFOODSHOP__)"} [0x2e0a resolution 24]
 shop = second_hand         & name = * {name "${name} ($__SECONDHAND__)"} [0x2e0a resolution 24]
 shop = solarium            & name = * {name "${name} ($__SOLARIUM__)"} [0x2e0a resolution 24]
-shop = sports              & name = * {name "${name} ($__SPORTSSHOP__)"} [0x2e0a resolution 24]
 shop = stationery          & name = * {name "${name} ($__STATIONERY__)"} [0x2e0a resolution 24]
 shop = tanning             & name = * {name "${name} ($__SOLARIUM__)"} [0x2e0a resolution 24]
 shop = tattoo              & name = * {name "${name} ($__TATTOO__)"} [0x2e0a resolution 24]
@@ -1277,8 +1284,6 @@ shop = toys                & name = * {name "${name} ($__TOYS__)"} [0x2e0a resol
 shop = travel_agency       & name = * {name "${name} ($__TRAVELAGENCY__)"} [0x2e0a resolution 24]
 shop = vacant              & name = * {name "${name} ($__VACANT__)"} [0x2e0a resolution 24]
 shop = variety_store       & name = * {name "${name} ($__VARIETYSTORE__)"} [0x2e0a resolution 24]
-shop = video               & name = * {name "${name} ($__VIDEO__)"} [0x2e0a resolution 24]
-shop = wine                & name = * {name "${name} ($__WINESHOP__)"} [0x2e0a resolution 24]
 
 # Alle anderen Geschäfte (Spezialitäteneinzelhandel). [point, closedway]
 shop = * & name = * {name "${name} (${shop})"} [0x2e0a resolution 24]
