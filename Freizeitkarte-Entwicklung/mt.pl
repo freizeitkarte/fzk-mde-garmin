@@ -2143,7 +2143,7 @@ sub create_cfgfile {
 	  . "#   \"Aleksandra\" and \"Gryglewskiego\". It will also increase the size of the index.\n"
 	  . "#   Useful in countries where searching for the first word in name is not the right\n"
 	  . "#   thing to do. Words following an opening bracket '(' are ignored.\n" 
-	  . "split-name-index\n" );
+	  . "#split-name-index\n" );
 
   printf { $fh } 
     (   "\n" 
