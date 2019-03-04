@@ -530,6 +530,8 @@ my $command = $EMPTY;
 my $alltypfile = $EMPTY;
 my $typfilelangcode = $EMPTY;
 
+my $mkgmap_common_parameter = $EMPTY;
+
 
 # get the command line parameters
 if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'continuedownload' => \$continuedownload, 'downloadspeed=s' => \$downloadspeed, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'hqele' => \$hqele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist, 'dempath=s' => \$dempath, 'demdists=s' => \$demdists, 'demtype=s' => \$demtype ) ) {
@@ -2201,7 +2203,7 @@ sub create_cfgfile {
 	  . "#   \"Aleksandra\" and \"Gryglewskiego\". It will also increase the size of the index.\n"
 	  . "#   Useful in countries where searching for the first word in name is not the right\n"
 	  . "#   thing to do. Words following an opening bracket '(' are ignored.\n" 
-	  . "#split-name-index\n" );
+	  . "split-name-index\n" );
 
   printf { $fh } 
     (   "\n" 
@@ -4502,6 +4504,27 @@ sub create_gmapfile_jmc_cli {
   return;
 }
 
+# -----------------------------------------
+# Set the common options for mkgmap
+# -----------------------------------------
+# used for gmapsupp and gmapfile
+sub set_mkgmap_common_parameter {
+
+  $mkgmap_common_parameter = sprintf (
+        "--index --split-name-index "
+	  . "--code-page=$mapcodepage "
+      . "--license-file=$mapname.license "
+      . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
+      . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
+      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
+      . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
+      . "--tdbfile "
+      . "--show-profiles=1 ",
+      $mapid,$releasenumeric
+  );
+
+}
+
 
 # -----------------------------------------
 # create gmapsupp.img: format for GPS device
@@ -4521,16 +4544,8 @@ sub create_gmapsuppfile {
   # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
-        "--index --code-page=$mapcodepage --gmapsupp "
-      . "--license-file=$mapname.license "
-      . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
-      . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
-      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
-      . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
-      . "--tdbfile "
-      . "--show-profiles=1 ",
-      $mapid,$releasenumeric
-#      $mapid
+        "--gmapsupp "
+      . "$mkgmap_common_parameter"
   );
  
   # run mkgmap to create the actual gmapsupp.img
@@ -4576,21 +4591,10 @@ sub create_gmapfile {
   # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
-        "--index --code-page=$mapcodepage --gmapi "
-      . "--license-file=$mapname.license "
-      . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
-      . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
-      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
-      . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
-      . "--tdbfile "
-      . "--show-profiles=1 ",
-      $mapid, $releasenumeric
-#      $mapid,$releasenumeric
+        "--gmapi "
+      . "$mkgmap_common_parameter"
   );
-#  my $mkgmap_parameter = sprintf (
-#        "-c $mapname.cfg --gmapi "
-#  );
-#
+
   # run mkgmap to create the actual gmap archive
   $command =
       "java -Xmx"
