@@ -49,8 +49,8 @@ my @actions = (
   [ 'typ',        'B. create individual typ file from master' ,                       'optional' ,    'yes' ,      '23' ],
   [ 'compiletyp', 'B. compile TYP files out of text files' ,                          'optional' ,    'yes' ,      '23' ],
   [ 'nsisgmap',   'C. create nsis installer (GMAP for BaseCamp Windows)' ,            'optional' ,    'yes' ,      '23' ],
-  [ 'gmap2',      'D. create gmap file (for BaseCamp OS X, Windows)' ,                'optional' ,    'yes' ,      '23' ],
-  [ 'gmap3',      'D. create gmap file (for BaseCamp OS X, Windows)' ,                'optional' ,    'yes' ,      '23' ],
+  [ 'gmap2',      'D. create gmap file - gmapi-builder (for BaseCamp OS X, Windows)', 'optional' ,    'yes' ,      '23' ],
+  [ 'gmap3',      'D. create gmap file - jmc_cli (for BaseCamp OS X, Windows)' ,      'optional' ,    'yes' ,      '23' ],
   [ 'bim',        'E1.build images: create, fetch_*, join, split, build' ,            'optional' ,    'yes' ,      '23' ],
   [ 'bam',        'E2.build all maps: gmap, nsis, gmapsupp, imagedir' ,               'optional' ,    'yes' ,      '23' ],
   [ 'pmd',        'F1.Prepare Map Data: create, fetch_*, join, split' ,               'optional' ,    'no' ,       '23' ],
@@ -908,7 +908,7 @@ elsif ( $actionname eq 'gmap2' ) {
 elsif ( $actionname eq 'gmap3' ) {
   update_ele_license       ();
   create_typfile   ();
-  create_gmap3 ();
+  create_gmapfile_jmc_cli ();
 }
 elsif ( $actionname eq 'bim' ) {
   purge_dirs               ();
@@ -4419,7 +4419,7 @@ sub create_nsis_exe_gmap {
 # 3: error in processing files
 # 4: unhandled exception
 # -----------------------------------------
-sub create_gmapfile {
+sub create_gmapfile_jmc_cli {
 
   # jump to correct directory
   chdir "$WORKDIRLANG";
@@ -4561,7 +4561,7 @@ sub create_gmapsuppfile {
 # -----------------------------------------
 # create gmap for basecamp: using mkgmap
 # -----------------------------------------
-sub create_gmap3 {
+sub create_gmapfile {
 
   # Jump to the work directory
   chdir "$WORKDIRLANG";
