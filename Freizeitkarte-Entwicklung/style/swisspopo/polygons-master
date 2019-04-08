@@ -29,7 +29,6 @@
 #                             Changes regarding new tagging of forests: tag leaf_type implemented
 # Version:  0.20 -26.11.2016  handling highway=path with area=yes
 
-
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
 #
@@ -142,7 +141,7 @@
 # 0x11  Attraktion (8)                 -
 # 0x12  Steinbruch (4)                 -
 # 0x13  Gebäude (9)                    Man made area (weiss) [Schrift klein]
-# 0x14  Picnic (7)                     National park (grün) [Schrift klein]
+# 0x14  Picnic (7)                     -                                    
 # 0x15  Laubwald (5)                   National park (grün) [Schrift klein]
 # 0x16  Fels (6)                       National park (grün) [Schrift klein]
 # 0x17  Wiese (6)                      City Park (grün) [Schrift klein]
@@ -173,7 +172,7 @@
 # 0x32  Meer (2)                       Sea (blau) [Schrift GROSS]
 # 0x33  Fußgängerzone (6)              -
 # 0x35  Supermarkt (9)                 -
-# 0x36  Andachtsstätte (7)             -
+# 0x36  Andachtsstätte (9)             -
 # 0x37  Spielfeld / Laufbahn (7)       -
 # 0x38  Terminal (7)                   -
 # 0x39  Anlegestelle (8)               -
@@ -186,7 +185,7 @@
 # 0x40  Alm / Bergwiese (4)            Lake (blau) [Schrift klein]
 # 0x41  Spielfeld (7)                  Lake (blau) [Schrift klein]
 # 0x42  Station (6)                    Lake (blau) [Schrift klein]
-# 0x43  Geröll (5)                     Lake (blau) [Schrift klein]
+# 0x43  Geröll (6)                     Lake (blau) [Schrift klein]
 # 0x44  Raststätte (5)                 Lake (blau) [Schrift klein]
 # 0x45  -                              Blue-Unknown (nicht sichtbar in BaseCamp) (KTO, 20.05.2011)
 # 0x46  Flussufer (7)                  River (blau) [Schrift klein]
@@ -380,7 +379,7 @@ building = * & building != no & amenity = place_of_worship [0x36 resolution 24]
 
 # Gebäude oder Bauwerk allgemein.
 # building = * [0x13 resolution 20]
-building = * [0x13 resolution 24]
+building = * & building != no [0x13 resolution 24]
 
 
 # ------------------------------------------------------------
@@ -807,7 +806,8 @@ amenity = kindergarten [0x0a resolution 20]
 amenity = parking [0x05 resolution 20]
 
 # Anbetungsort (Kirche, Synagoge, Moschee, …). [point, closedway]
-amenity = place_of_worship [0x36 resolution 20]
+# here we just handle those without a building=* tag (those are handled already)
+amenity = place_of_worship & building != * [0x36 resolution 20]
 
 # Schule. [point, closedway]
 amenity = school [0x0a resolution 20]

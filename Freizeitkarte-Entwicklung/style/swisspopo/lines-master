@@ -934,6 +934,7 @@ highway = primary {set name = '${ref}' | ''}                    [0x010f0e resolu
 highway = primary {set name = '${ref}' | ''}                    [0x010f0f resolution 20-21 continue with_actions]
 highway = primary & motorroad = yes {set name = '${ref}' | ''}  [0x010e0b resolution 18-19]
 
+
 # Land- oder sehr gut ausgebaute Kreisstrasse:
 # --------------------------------------------
 # Strasse mit Mittellinie, die kleinere Staedte oder groessere Orte verbindet.
@@ -1285,9 +1286,9 @@ highway = pedestrian & (area != * | area = no) [0x010f09 resolution 21-22]
 # Routing nur auf T1-T3 (aus Sicherheitsgruenden).
 
 # Bruecke / Tunnel / Deich
-#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & bridge = yes     [0x010407 resolution 24 continue]
-#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & tunnel = yes     [0x010408 resolution 24 continue]
-#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & man_made = dyke  [0x011f05 resolution 24 continue]
+#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & bridge = yes               [0x010407 resolution 24 continue]
+#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & tunnel = yes               [0x010408 resolution 24 continue]
+#(highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & man_made = dyke            [0x011f05 resolution 24 continue]
 ### (highway = bergweg12 | highway = bergweg34 | highway = bergweg56) & embankment = yes [0x011f05 resolution 24 continue]
 (highway = sacscalet1 | highway = sacscalet2t3 | highway = sacscalet4t5t6) & bridge = * & bridge != no  [0x010407 resolution 24 continue]
 (highway = sacscalet1 | highway = sacscalet2t3 | highway = sacscalet4t5t6) & tunnel = yes               [0x010408 resolution 24 continue]
@@ -1924,7 +1925,6 @@ barrier = hedge_bank [ 0x012111 resolution 24 ]
 #endif
 
 
-
 # ------------------------------------------------------------
 # Wintersport (Pisten, Loipen, Rodelbahnen, ...):
 # - Die Erstellung und Pflege Pistenregeln erfolgt durch Roman.
@@ -2064,4 +2064,3 @@ goods=yes | goods=permissive | goods=official | goods=designated { set mkgmap:de
 
 # Reintroduce the old carpool handling which allows access only for bus and emergency plus setting the carpool bit
 mkgmap:carpool_compat=yes  { setaccess no; set mkgmap:bus=yes; set mkgmap:emergency=yes; set mkgmap:carpool=yes }
-

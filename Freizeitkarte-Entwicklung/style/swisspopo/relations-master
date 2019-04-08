@@ -58,22 +58,21 @@ type=route
 #----------------------------
 # Hiking Trails
 #ifdef POPOTRAILS
+
+# Standard Wanderweg
+# CH: yellow::yellow_diamond
 type=route & (route=foot|route=hiking) {
-	apply {
-		set route=hiking;
-	}
+	apply {set route=hiking;}
 }
 
+# CH - Bergwanderweg
 type=route & (route=foot|route=hiking) & osmc:symbol='red:white:red_bar' {
-	apply {
-		set route_red=yes;
-	}
+	apply {set route_red=yes;}
 }
 
+# CH - Alpiner Weg
 type=route & (route=foot|route=hiking) & osmc:symbol='blue:white:blue_bar' {
-	apply {
-		set route_blue=yes;
-	}
+	apply {set route_blue=yes;}
 }
 
 
