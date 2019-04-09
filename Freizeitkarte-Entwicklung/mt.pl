@@ -15,6 +15,7 @@ use warnings;
 use English '-no_match_vars';
 
 use Cwd;
+use Cwd 'abs_path';
 use File::Copy;
 use File::Copy "cp";
 use File::Find;
@@ -429,7 +430,7 @@ my $ACTIONTARGET = 4;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.15 - 2019/03/02';
+my $VERSION = '1.3.16 - 2019/04/09';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -441,7 +442,10 @@ my $max_jobs = $EMPTY;
 my $max_threads = $EMPTY;
 
 # basepath
-my $BASEPATH = getcwd ( $PROGRAM_NAME );
+# fixed below statment, did only work if cwd was already $BASEPATH
+#my $BASEPATH = getcwd ( $PROGRAM_NAME ) ;
+my $BASEPATH = dirname ( abs_path( $PROGRAM_NAME ) );
+
 
 ## Global PC_ReturnCode - used mainly for process_command () - to be rechecked and solved differently eventually
 #my $pc_returncode = 0;
@@ -753,17 +757,17 @@ if ( $nametaglist ne $EMPTY ) {
 # Check / Set DEM options
 if ( $dempath ne $EMPTY ) {
 
-   # In case the dempath does not exist, try to add $BASEPATH in front of it
-   # (in case it was relative)
-   unless ( -e "$dempath" ) {
-     if ( -e "$BASEPATH/$dempath" ) {
-	   $dempath="$BASEPATH/$dempath";
-	 }
-	 else {
-	     die "error: dempath $dempath not existing\n";
-	 }
+   # Create absolute path for dempath: absolut, relativ to cwd or relative to $BASEPATH
+   if ( -e "$BASEPATH/$dempath" ) {
+     $dempath="$BASEPATH/$dempath";
    }
-
+   elsif ( -e "$dempath" ) {
+     $dempath = abs_path( $dempath );
+     }
+   else {
+     die "error: dempath $dempath not existing\n";
+   }
+   
    if (( $demtype ne $EMPTY ) && ( $demdists ne $EMPTY) ) {
  	 printf { *STDOUT } ( "WARNING:\n  --demdists overwrites defaults choosen by --demtype.\n  Make sure this is really what you want\n\n\n" );  
    }
