@@ -1245,6 +1245,44 @@ sub check_downloadurls {
 }
 
 # -------------------------------------------
+# Check single URL Routine
+# -------------------------------------------
+sub check_url {
+
+  my $download_src = shift;
+
+  my $returnvalue;
+  my $url_valid = 1;
+
+  if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
+    # OS X, Linux, FreeBSD, OpenBSD
+    $command = "curl --output /dev/null --silent --fail --head --url \"$download_src\"";
+
+  }
+  elsif ( $OSNAME eq 'MSWin32' ) {
+    # Windows
+    $command = "$BASEPATH/tools/wget/windows/wget.exe -q --spider \"$download_src\"";
+
+  }
+  else {
+    die ( "\nError: Operating system $OSNAME not supported.\n" );
+    return ( 1 );
+  }
+  
+  # Run the command
+  $returnvalue = system( $command );
+  if ( $returnvalue != 0 ) {
+ 	$url_valid = 0;
+  }
+
+ 
+  # Return the status
+  return ( $url_valid );
+
+}
+
+
+# -------------------------------------------
 # Download URL Routine (used in other places)
 # -------------------------------------------
 sub download_url {
@@ -1380,9 +1418,21 @@ sub fetch_eledata {
     return ( 1 );
   }
   
-  # Try to fetch the additional files *.info *.license
-  download_url( "$eleurl.info", "$filename.info");
-  download_url( "$eleurl.license", "$filename.license");
+  # Try to fetch the additional file *.info
+  if ( check_url( "$eleurl.info" ) ) {
+     download_url( "$eleurl.info", "$filename.info");
+  }
+  else {
+      printf { *STDERR } ( "\nINFORMATION: $eleurl.info not existing.\n" );
+  }
+
+  # Try to fetch the additional file *.license  
+  if ( check_url ( "$eleurl.license" ) ) {
+      download_url ( "$eleurl.license", "$filename.license");
+  }
+  else {
+      printf { *STDERR } ( "\nINFORMATION: $eleurl.license not existing.\n" );
+  }
 
   return;
 }
