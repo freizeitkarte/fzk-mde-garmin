@@ -183,7 +183,7 @@ my %lic_osm = ();
 my %lic_ele = ();
 
 # Read the license default values
-read_default_licenses ();
+#read_default_licenses ();
 
 # FZK maps: static
 my @maps = (
@@ -430,7 +430,7 @@ my $ACTIONTARGET = 4;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.16 - 2019/04/09';
+my $VERSION = '1.3.17 - 2019/04/14';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -446,6 +446,8 @@ my $max_threads = $EMPTY;
 #my $BASEPATH = getcwd ( $PROGRAM_NAME ) ;
 my $BASEPATH = dirname ( abs_path( $PROGRAM_NAME ) );
 
+# Read the license default values
+read_default_licenses ();
 
 ## Global PC_ReturnCode - used mainly for process_command () - to be rechecked and solved differently eventually
 #my $pc_returncode = 0;
@@ -1447,9 +1449,9 @@ sub read_licensefile {
 sub read_default_licenses {
 
   # Set filenames
-  my $fzk_licensefile = "licenses/default-freizeitkarte.license";
-  my $osm_licensefile = "licenses/default-osm.license";
-  my $ele_licensefile = "licenses/default-elevation.license";
+  my $fzk_licensefile = "$BASEPATH/licenses/default-freizeitkarte.license";
+  my $osm_licensefile = "$BASEPATH/licenses/default-osm.license";
+  my $ele_licensefile = "$BASEPATH/licenses/default-elevation.license";
     
   # Handle fzk license file
   my %lic_tmphash = ();
