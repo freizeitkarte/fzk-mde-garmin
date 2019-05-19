@@ -320,7 +320,6 @@ my @maps = (
   [ 6858, 'Freizeitkarte_URY',                    'http://download.geofabrik.de/south-america/uruguay-latest.osm.pbf',                                 'URY',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6710, 'Freizeitkarte_ZAF',                    'http://download.geofabrik.de/africa/south-africa-and-lesotho-latest.osm.pbf',                       'ZAF',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6360, 'Freizeitkarte_IDN',                    'http://download.geofabrik.de/asia/indonesia-latest.osm.pbf',                                        'IDN',                      'en', 'no_old_name',                             3, 'NA'             ],
-  [ 6702, 'Freizeitkarte_SGP',                    'http://download.geofabrik.de/asia/malaysia-singapore-brunei-latest.osm.pbf',                        'SGP',                      'en', 'no_old_name',                             3, 'NA'             ],
 
   # Andere Regionen
 #  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
@@ -376,6 +375,7 @@ my @maps = (
   [ 9030, 'Freizeitkarte_RUS_CENTRAL_FD+',         'NA',                                                                                                'RUS_CENTRAL_FD+',         'ru', 'no_old_name',                             2, 'RUS'            ],
   [ 9040, 'Freizeitkarte_AZORES',                  'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                  'pt', 'Freizeitkarte_Azoren',                    3, 'NA'             ],
   [ 9050, 'Freizeitkarte_ISR_PSE',                 'http://download.geofabrik.de/asia/israel-and-palestine-latest.osm.pbf',                             'ISR_PSE',                 'en', 'Freizeitkarte_Israel_Palaestina',         3, 'NA'             ],
+  [ 9060, 'Freizeitkarte_MYS_SGP_BRN',             'http://download.geofabrik.de/asia/malaysia-singapore-brunei-latest.osm.pbf',                        'MYS_SGP_BRN',             'en', 'no_old_name',                             3, 'NA'             ],
 
   # Andere Regionen
   [ 9701, 'Freizeitkarte_US_WASHINGTON',           'http://download.geofabrik.de/north-america/us/washington-latest.osm.pbf',                           'US_WASHINGTON',           'en', 'no_old_name',                             3, 'NA'             ],
