@@ -1738,7 +1738,6 @@ barrier = lift_gate [0x1210 resolution 24]
 cemetery = grave & name = * & (wikipedia:de = * | wikipedia = * | website = *) {name "${name} ($__GRAVE__)"} [0x6405 resolution 24]
 
 # allgemeine Sehenswürdigkeit. [point, closedway]
-# (Excluding worship places here, that tag should be stronger than attraction)
 tourism = attraction & name = * {name "${name} ($__ATTRACTION__)"} [0x6600 resolution 24]
 
 
