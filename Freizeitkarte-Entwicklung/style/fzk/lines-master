@@ -62,6 +62,7 @@
 # Version : 0.34  11.11.2016 - Fixing issue with highway=path and foot=designated wrongly classified as radfussweg
 # Version : 0.35  26.11.2016 - Fixing highway = path & area = yes
 # Version : 0.36  19.03.2017 - Fixing highway = footpath & access=no: no in violet and not red anymore
+# Version : 0.37  20.05.2019 - Adding different types of arealway: j-bar, platter, magic_carpet
 
 
 #
@@ -1827,6 +1828,8 @@ aerialway = cable_car | aerialway = gondola | aerialway = mixed_lift [0x011f1f r
 # chair_lift: Ein Sessellift
 # drag_lift: Ein Schlepplift fuer Skifahrer.
 # t-bar: Ein T-foermiger Schlepplift fuer Skifahrer.
+# j-bar: A type of aerialway=drag_lift. Like t-bar but just on one side.
+# platter: Tellerlift
 # 0x11     = Bitmap 2 (transparent, nur fuer Routing, NoLabel)
 # 0x011f1e = Bitmap 4 (3 Pixel gefuellt, NoLabel)
 aerialway = chair_lift | aerialway = drag_lift | aerialway=t-bar | aerialway=j-bar | aerialway=platter [0x11 road_class=0 road_speed=0 resolution 24 continue]
