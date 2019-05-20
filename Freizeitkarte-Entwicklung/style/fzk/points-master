@@ -36,6 +36,7 @@
 #                             - Adapted tourism=alpine_hut
 #                             - Adapted handling of special shops
 #                             - moved tourism=attraction as a general rule to the very end
+# Version : 0.23 -20.05.2019  - removed rendering of public_transport = stop_position & bus/tram = yes
 #
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
@@ -883,7 +884,6 @@ amenity = bicycle_rental {name "${name} ($__BICYCLERENTAL__)" | "$__BICYCLERENTA
 
 # Busbahnhof (große Haltestelle). [point, closedway] (s.a. highway = bus_stop)
 amenity = bus_station                         {name "${name} ($__BUSSTATION__)" | "$__BUSSTATION__"} [0x2f08 resolution 24]
-public_transport = stop_position & bus = yes  {name "${name} ($__BUSSTOP__)" | "$__BUSSTOP__"} [0x2f08 resolution 24]
 
 # Automobil-Club. [point, closedway]
 amenity = car_club & name = * {name "${name} ($__CARCLUB__)"} [0x2f0d resolution 24]
@@ -1124,7 +1124,6 @@ railway = subway_entrance {name "${name} ($__SUBWAYENTRANCE__)" | "$__SUBWAYENTR
 
 # Straßenbahnhaltestelle: Ein Ort an dem Pasagiere in Straßenbahnen ein- oder aussteigen können. [point]
 railway = tram_stop                            {name "${name} ($__TRAMSTOP__)" | "$__TRAMSTOP__"} [0x2f08 resolution 24]
-public_transport = stop_position & tram = yes  {name "${name} ($__TRAMSTOP__)" | "$__TRAMSTOP__"} [0x2f08 resolution 24]
 
 # Eine Drehscheibe zum Wenden von Schienenfahrzeugen; findet sich häufig in älteren Bahnbetriebswerken. [point]
 # railway = turntable (wird derzeit nicht unterstützt)
