@@ -14,8 +14,8 @@ Dieses Repository beinhaltet die Entwicklungsumgebung die verwendet wird um die 
 
 ### Mehr Informationen
 
-* [Freizeitkarte Hauptseite] (http://freizeitkarte-osm.de/garmin/de/index.html)
-* [Freizeitkarte Karten Entwicklung] (http://freizeitkarte-osm.de/garmin/de/entwicklung.html)
+* [Freizeitkarte Hauptseite](https://www.freizeitkarte-osm.de/garmin/de/index.html)
+* [Freizeitkarte Karten Entwicklung](https://www.freizeitkarte-osm.de/garmin/de/entwicklung.html)
 
 English
 -------
@@ -28,6 +28,6 @@ This repository contains the development environment used for creating the 'Frei
 
 ### More Information
 
-* [Freizeitkarte Main Page] (http://freizeitkarte-osm.de/garmin/en/index.html)
-* [Freizeitkarte Map Development] (http://freizeitkarte-osm.de/garmin/en/development.html)
+* [Freizeitkarte Main Page](https://www.freizeitkarte-osm.de/garmin/en/index.html)
+* [Freizeitkarte Map Development](https://www.freizeitkarte-osm.de/garmin/en/development.html)
 
