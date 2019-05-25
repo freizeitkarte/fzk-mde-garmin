@@ -320,6 +320,7 @@ my @maps = (
   [ 6858, 'Freizeitkarte_URY',                    'http://download.geofabrik.de/south-america/uruguay-latest.osm.pbf',                                 'URY',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6710, 'Freizeitkarte_ZAF',                    'http://download.geofabrik.de/africa/south-africa-and-lesotho-latest.osm.pbf',                       'ZAF',                      'en', 'no_old_name',                             3, 'NA'             ],
   [ 6360, 'Freizeitkarte_IDN',                    'http://download.geofabrik.de/asia/indonesia-latest.osm.pbf',                                        'IDN',                      'en', 'no_old_name',                             3, 'NA'             ],
+  [ 6356, 'Freizeitkarte_IND',                    'http://download.geofabrik.de/asia/india-latest.osm.pbf',                                            'IND',                      'en', 'no_old_name',                             3, 'NA'             ],
 
   # Andere Regionen
 #  [ -1,   'Andere Regionen',                      'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
