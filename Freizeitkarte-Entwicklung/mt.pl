@@ -1387,7 +1387,11 @@ sub fetch_eledata {
 
   # Download-URL
   my $eleurl = '';
-  if ( $ele == 10 ) {
+  if ( $ele == 0 ) {
+    printf { *STDERR } ( "Skip loading of elevation data (--ele=0).\n\n" );
+    return;
+  }
+  elsif ( $ele == 10 ) {
      if ( $hqele ) {
 	    $eleurl = "$hqelevationbaseurl{ele10}/Hoehendaten_$mapname.osm.pbf";
 	 }
@@ -1773,7 +1777,7 @@ sub join_mapdata {
     }
   }
 
-  if ( -e $filename_hoehendaten ) {
+  if ( ( -e $filename_hoehendaten ) && ($ele != 0) ) {
     # check if the elevation data exists and has the proper format
     if ( check_osmpbf ( $filename_hoehendaten ) ) {
       $available_hoehendaten = 1;
@@ -1820,8 +1824,14 @@ sub join_mapdata {
     
   }
   elsif ( $available_kartendaten ) {
+    if ($ele == 0) {
+      # ignore elevation data
+      printf { *STDERR } ( "\nIgnore Elevation data.\n" );
+    }
+    else {
     # only mapdata there, elevation stuff missing, but let's continue anyway
     printf { *STDERR } ( "\nWarning: Elevation data file <$filename_hoehendaten> not found.\n" );
+    }
     printf { *STDERR } ( "\nCopying map data ...\n" );
 
     # so let's copy mapdata only
@@ -5844,7 +5854,7 @@ sub show_help {
       . "Options:\n"
       . "--ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
       . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
-      . "--ele      = equidistance of elevation lines (fetch_ele) (10, 20; default = 20)\n"
+      . "--ele      = equidistance of elevation lines (fetch_ele, join) (10, 20, 0; default = 20)\n"
       . "--typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
       . "--style    = name of the style to be used, must be a directory below styles (default = fzk)\n"
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
