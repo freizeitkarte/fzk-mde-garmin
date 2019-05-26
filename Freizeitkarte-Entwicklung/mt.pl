@@ -493,6 +493,7 @@ my $unicode     = $EMPTY;
 my $downloadbar = $EMPTY;
 my $continuedownload = $EMPTY;
 my $downloadspeed = $EMPTY;
+my $contourmap = $EMPTY;
 
 my $dempath = $EMPTY;
 my $demdists = $EMPTY;
@@ -532,7 +533,9 @@ my $typfilelangcode = $EMPTY;
 
 
 # get the command line parameters
-if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'continuedownload' => \$continuedownload, 'downloadspeed=s' => \$downloadspeed, 'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'hqele' => \$hqele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist, 'dempath=s' => \$dempath, 'demdists=s' => \$demdists, 'demtype=s' => \$demtype ) ) {
+if ( ! GetOptions ( 'h|?|help' => \$help, 'o|optional' => \$optional, 'u|unicode' => \$unicode, 'downloadbar' => \$downloadbar, 'continuedownload' => \$continuedownload, 'downloadspeed=s' => \$downloadspeed, 
+                    'ram=s' => \$ram, 'cores=s' => \$cores, 'ele=s' => \$ele, 'hqele' => \$hqele, 'typfile=s' => \$typfile, 'style=s' => \$styledir, 'language=s' => \$language, 'ntl=s' => \$nametaglist, 
+                    'dempath=s' => \$dempath, 'demdists=s' => \$demdists, 'demtype=s' => \$demtype, 'contourmap' => \$contourmap ) ) {
   printf { *STDOUT } ( "ERROR:\n  Unknown option.\n\n\n" );
   show_usage ();
   exit(1);   
@@ -807,9 +810,12 @@ my $INSTALLDIR  = '';
 #  $WORKDIR    = "$BASEPATH/work/$mapname" . "_$maplang";
 #  $INSTALLDIR = "$BASEPATH/install/$mapname" . "_$maplang";
 #}
-$WORKDIR     = "$BASEPATH/work/$mapname";
-$WORKDIRLANG = "$BASEPATH/work/$mapname" . "_$maplang";
-$INSTALLDIR  = "$BASEPATH/install/$mapname" . "_$maplang";
+my $mapvariantname = $contourmap ? $mapname."_ele" : $mapname;
+my $productid = $contourmap ? 2 : 1;
+
+$WORKDIR     = "$BASEPATH/work/$mapvariantname";
+$WORKDIRLANG = "$BASEPATH/work/$mapvariantname" . "_$maplang";
+$INSTALLDIR  = "$BASEPATH/install/$mapvariantname" . "_$maplang";
 
 # Put the needed release numbers together
 get_release ();
@@ -1384,7 +1390,11 @@ sub fetch_eledata {
 
   # Download-URL
   my $eleurl = '';
-  if ( $ele == 10 ) {
+  if ( $ele == 0 ) {
+    printf { *STDERR } ( "Skip loading of elevation data (--ele=0).\n\n" );
+    return;
+  }
+  elsif ( $ele == 10 ) {
      if ( $hqele ) {
 	    $eleurl = "$hqelevationbaseurl{ele10}/Hoehendaten_$mapname.osm.pbf";
 	 }
@@ -1764,13 +1774,13 @@ sub join_mapdata {
   my $filename_ergebnisdaten = "$WORKDIR/$mapname.osm.pbf";
 
   # check if the osm map file exists and has the proper format
-  if ( -e $filename_kartendaten ) {
+  if ( ( -e $filename_kartendaten ) && (!$contourmap) ) {
     if ( check_osmpbf ( $filename_kartendaten ) ) {
       $available_kartendaten = 1;
     }
   }
 
-  if ( -e $filename_hoehendaten ) {
+  if ( ( -e $filename_hoehendaten ) && ($ele != 0) ) {
     # check if the elevation data exists and has the proper format
     if ( check_osmpbf ( $filename_hoehendaten ) ) {
       $available_hoehendaten = 1;
@@ -1817,12 +1827,33 @@ sub join_mapdata {
     
   }
   elsif ( $available_kartendaten ) {
+    if ($ele == 0) {
+      # ignore elevation data
+      printf { *STDERR } ( "\nIgnore Elevation data.\n" );
+    }
+    else {
     # only mapdata there, elevation stuff missing, but let's continue anyway
     printf { *STDERR } ( "\nWarning: Elevation data file <$filename_hoehendaten> not found.\n" );
+    }
     printf { *STDERR } ( "\nCopying map data ...\n" );
 
     # so let's copy mapdata only
     copy ( $filename_kartendaten, $filename_ergebnisdaten ) or die ( "copy() failed: $!\n" );
+  }
+  elsif ( $available_hoehendaten ) {
+    if ($contourmap) {
+      # intentionally ignore map data if we want to create a contour map
+      printf { *STDERR } ( "\nIgnore map data for contour map creation.\n" );
+    }
+    else
+    {
+      # only elevation data there, map data missing, but let's continue anyway
+      printf { *STDERR } ( "\nWarning: Map data file <$filename_kartendaten> not found.\n" );
+    }
+    printf { *STDERR } ( "\nCopying elevation data ...\n" );
+
+    # so let's copy elevation data only
+    copy ( $filename_hoehendaten, $filename_ergebnisdaten ) or die ( "copy() failed: $!\n" );
   }
   else {
     # no map data and no elevation data available
@@ -2120,6 +2151,7 @@ sub create_cfgfile {
   #     . "#   this option is set. Files must have OSM or PBF fileformat.\n"
   #     . "coastlinefile: $BASEPATH/coasts/coastlines.osm.pbf\n" );
 
+  if ($contourmap eq $EMPTY) {
   printf { $fh } 
     (   "\n" 
       . "# --precomp-sea=directoryname\n" 
@@ -2130,7 +2162,7 @@ sub create_cfgfile {
       . "#   multipolygon, polygons and land-tag. The coastlinefile option\n" 
       . "#   is ignored if precomp-sea is set.\n" 
       . "precomp-sea=$BASEPATH/sea\n" );
-
+  }
   printf { $fh } 
     (   "\n" 
       . "# --description=text\n" 
@@ -2142,7 +2174,7 @@ sub create_cfgfile {
       . "#   \"description\" that will override this option. Use \"--description\" in\n" 
       . "#   splitter.jar to change the description in the template.args file.\n" 
       . "description=\"%s (Release %s)\"\n", 
-    $mapname, 
+    $mapvariantname, 
     $releasestring 
   );
 
@@ -2182,6 +2214,7 @@ sub create_cfgfile {
   printf { $fh } ( "\n# Address search options:\n" );
   printf { $fh } ( "# ----------------------\n" );
 
+  if ($contourmap eq $EMPTY) {
   printf { $fh } 
     (   "\n" 
       . "# --index\n" 
@@ -2217,6 +2250,7 @@ sub create_cfgfile {
 	  . "#   labels to mark the beginning and end of the important part. In combination with option \n"
 	  . "#   split-name-index only the words in the important part are indexed.\n"
       . "#road-name-config=$BASEPATH/searchoptions/roadNameConfig.txt\n" );
+  }
 
   printf { $fh }
     (   "\n"
@@ -2226,6 +2260,7 @@ sub create_cfgfile {
       . "#   Default: bounds\n"
       . "bounds=$BASEPATH/bounds\n" );
 
+  if ($contourmap eq $EMPTY) {
   printf { $fh }
     (   "\n"
       . "# --location-autofill=[option1,[option2]]\n"
@@ -2274,6 +2309,7 @@ sub create_cfgfile {
        . "#    The node matches to way 1 and way 2 but not to way 3 (does not equal exactly)\n"
        . "#    and not to way 4 (only text in round brackets is ignored)\n"
        . "housenumbers\n" );
+  }
 
   printf { $fh } ( "\n# Overview map options:\n" );
   printf { $fh } ( "# ---------------------\n" );
@@ -2344,14 +2380,15 @@ sub create_cfgfile {
       . "#   family name of all of your maps. Garmin will display this\n"
       . "#   in the map selection screen.\n"
       . "family-name=%s\n",
-      $mapname );
+      $mapvariantname );
 
   printf { $fh }
     (   "\n"
       . "# --product-id\n"
       . "#   This is an integer that identifies a product within a family.\n"
       . "#   It is often just 1, which is the default.\n"
-      . "product-id=1\n" );
+      . "product-id=%s\n",
+      $productid );
 
   # Beispiel: 11.07 = 1107; 1107 / 100 = 11; 1107 % 100 = 7;
   printf { $fh }
@@ -2367,7 +2404,7 @@ sub create_cfgfile {
       . "#   This name will be displayed in MapSource in the map selection\n"
       . "#   drop-down. The default is \"OSM map\".\n"
       . "series-name=%s\n",
-      $mapname );
+      $mapvariantname );
 
   printf { $fh }
     (   "\n"
@@ -2400,6 +2437,7 @@ sub create_cfgfile {
   printf { $fh } ( "\n# Miscellaneous options:\n" );
   printf { $fh } ( "# ---------------------\n" );
 
+  if ($contourmap eq $EMPTY) {
   printf { $fh }
     (   "\n"
       . "# --route\n"
@@ -2417,6 +2455,7 @@ sub create_cfgfile {
       . "#   unless --check-roundabouts is specified and the first\n"
       . "#   roundabout processed is clockwise.\n"
       . "drive-on-right\n" );
+  }
 
   printf { $fh }
     (   "\n"
@@ -2426,6 +2465,7 @@ sub create_cfgfile {
       . "#   the order in which the elements are processed is not defined.\n"
       . "preserve-element-order\n" );
 
+  if ($contourmap eq $EMPTY) {
   printf { $fh }
     (   "\n"
       . "# --remove-short-arcs[=MinLength]\n"
@@ -2478,6 +2518,7 @@ sub create_cfgfile {
       . "#   close gaps in coastline that are less than this distance (metres)\n"
       # . "generate-sea:multipolygon,no-sea-sectors,extend-sea-sectors,close-gaps=5000,land-tag=natural=land\n" );
       . "generate-sea=land-tag=natural=land\n" );
+  }
 
   printf { $fh }
     (   "\n"
@@ -2531,6 +2572,23 @@ sub create_cfgfile {
             . "dem-dists=%s\n", $demdists );
         }
 	 }
+
+  if ($contourmap) {
+     printf { $fh }
+       (   "\n"
+         . "# --transparent\n" 
+         . "# Make the map transparent, so that if two maps are loaded that cover the same area,\n"
+         . "# you can see through this map and see the lower map too.\n"
+         . "# Useful for contour line maps among other things.\n"
+         . "transparent\n" );
+     printf { $fh }
+       (   "\n"
+         . "# --draw-priority=Number\n" 
+         . "# When two maps cover the same area, this option controls what order they are drawn in\n"
+         . "# and therefore which map is on top of which.\n"
+         . "# Higher priorities are drawn \"on top\" of lower priorities.\n"
+         . "draw-priority=40\n" );
+  }
 
   printf { $fh }
     (   "\n" 
@@ -3095,7 +3153,7 @@ sub compile_typfiles {
   for my $thistypfile ( @typfilelist ) {
 
     # run that file through the compiler
-    $command = "java -Xmx" . $javaheapsize . "M" . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$mapcodepage --product-id=1 --family-id=$mapid $thistypfile";
+    $command = "java -Xmx" . $javaheapsize . "M" . " -Dfile.encoding=UTF-8 -jar $BASEPATH/tools/mkgmap/mkgmap.jar $max_jobs --code-page=$mapcodepage --product-id=$productid --family-id=$mapid $thistypfile";
  
     # Run the compiler
     process_command ( $command );
@@ -3326,6 +3384,10 @@ sub create_gmap2file {
     return;
   }
 
+  if ($contourmap) {
+    die ( "\nError: parameter '--contourmap' not supported for gmap2.\n" );
+  }
+
   # in work-Verzeichnis wechseln
   chdir "$WORKDIRLANG";
 
@@ -3351,6 +3413,10 @@ sub create_gmap2file {
 # (old style installer including ImageDir Set)
 # -----------------------------------------
 sub create_nsis_nsi_full {
+
+  if ($contourmap) {
+    die ( "\nError: parameter '--contourmap' not supported for nsis, nsisgmap.\n" );
+  }
 
   # Jump into the correct directory
   chdir "$WORKDIRLANG";
@@ -3859,6 +3925,10 @@ sub create_nsis_exe_full {
 # (old style installer including ImageDir Set)
 # -----------------------------------------
 sub create_nsis_nsi_gmap {
+
+  if ($contourmap) {
+    die ( "\nError: parameter '--contourmap' not supported for nsis, nsisgmap.\n" );
+  }
 
   # Jump into the correct directory
   chdir "$WORKDIRLANG";
@@ -4421,6 +4491,10 @@ sub create_nsis_exe_gmap {
 # -----------------------------------------
 sub create_gmapfile {
 
+  if ($contourmap) {
+    die ( "\nError: parameter '--contourmap' not supported for gmap.\n" );
+  }
+
   # jump to correct directory
   chdir "$WORKDIRLANG";
 
@@ -4452,7 +4526,7 @@ sub create_gmapfile {
   printf { $fh } ( "# -----------------------\n" );
   
   # add requiered source and destination directory to the config file
-  printf { $fh } ( "basemap = $mapname.img\n" );
+  printf { $fh } ( "basemap = $mapvariantname.img\n" );
   printf { $fh } ( "TYPfile = $mapid.TYP\n" );
 
   close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
@@ -4489,14 +4563,14 @@ sub create_gmapfile {
 
   # Check Return Value
   if ( $? != 0 ) {
-      die ( "ERROR:\n  creating the gmap version of the map $mapname failed.\n\n" );
+      die ( "ERROR:\n  creating the gmap version of the map $mapvariantname failed.\n\n" );
   }
 
 #  # Copy the rest of the TYP files (actually hidden in a TYP subdirectory of the WORKDIR)
 #  chdir "$WORKDIR/TYP";
 #  for my $file ( <*.TYP> ) {
 #    printf { *STDOUT } ( "Copying %s\n", $file );
-#    copy ( $file, "$INSTALLDIR/$mapname.gmap" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
+#    copy ( $file, "$INSTALLDIR/$mapvariantname.gmap" . "/" . $file ) or die ( "copy() $file failed: $!\n" );
 #  }  
 
   return;
@@ -4523,9 +4597,9 @@ sub create_gmapsuppfile {
   my $mkgmap_parameter = sprintf (
         "--index --code-page=$mapcodepage --gmapsupp "
       . "--license-file=$mapname.license "
-      . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
-      . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
-      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
+      . "--product-id=$productid --family-id=$mapid --family-name=\"$mapvariantname\" "
+      . "--series-name=\"$mapvariantname\" --description=\"$mapvariantname (Release $releasestring)\" "
+      . "--overview-mapname=\"$mapvariantname\" --overview-mapnumber=%s0000 "
       . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
       . "--tdbfile "
       . "--show-profiles=1 ",
@@ -4578,9 +4652,9 @@ sub create_gmap3 {
   my $mkgmap_parameter = sprintf (
         "--index --code-page=$mapcodepage --gmapi "
       . "--license-file=$mapname.license "
-      . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
-      . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
-      . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
+      . "--product-id=$productid --family-id=$mapid --family-name=\"$mapvariantname\" "
+      . "--series-name=\"$mapvariantname\" --description=\"$mapvariantname (Release $releasestring)\" "
+      . "--overview-mapname=\"$mapvariantname\" --overview-mapnumber=%s0000 "
       . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
       . "--tdbfile "
       . "--show-profiles=1 ",
@@ -4601,13 +4675,13 @@ sub create_gmap3 {
 
   # Check Return Value
   if ( $? != 0 ) {
-      die ( "ERROR:\n  Creation of the GMAP Archive for $mapname failed.\n\n" );
+      die ( "ERROR:\n  Creation of the GMAP Archive for $mapvariantname failed.\n\n" );
   }
 
 
   # copy the created gmapsupp to the install directory
 #
-  my $filename = "$mapname.gmap";
+  my $filename = "$mapvariantname.gmap";
   rmtree ( "$INSTALLDIR/$filename",    0, 1 );
   move ( $filename, "$INSTALLDIR/$filename" ) or die ( "move() failed: $!\n" );
   #
@@ -5833,7 +5907,7 @@ sub show_help {
       . "Options:\n"
       . "--ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
       . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
-      . "--ele      = equidistance of elevation lines (fetch_ele) (10, 20; default = 20)\n"
+      . "--ele      = equidistance of elevation lines (fetch_ele, join) (10, 20, 0; default = 20)\n"
       . "--typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
       . "--style    = name of the style to be used, must be a directory below styles (default = fzk)\n"
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
@@ -5877,6 +5951,9 @@ sub show_help {
 	  . "           = Define dem-dists values for mkgmap in case --demtype is not set.\n"
 	  . "                --demdists=\"9942,19884,29826,39768,49710,59652,69594,79536\"\n"
       . "             Please check mkgmap documentation for more information.\n"
+      . "--contourmap\n"
+      . "           = Create a pure contour map without any OSM map data (create, fetch_ele, join, split, build, gmapsupp).\n"
+      . "                --contourmap\n"      
       . "\n"
       . "PPO        = preprocessor options (multiple possible), to be invoked with D<option>\n"
       . "\n"
