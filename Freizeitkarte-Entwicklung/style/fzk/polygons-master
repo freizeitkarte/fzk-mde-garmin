@@ -28,6 +28,7 @@
 #                             Changes regarding amenity = place_of_worship and buildings
 #                             Changes regarding new tagging of forests: tag leaf_type implemented
 # Version:  0.20 -26.11.2016  handling highway=path with area=yes
+# Version:  0.21 -23.12.2019  Überflutete Gebiete in der Slowakei durch falsches Tagging natural=basin; deaktiviert
 
 #
 # Copyright (C) 2011, 2013 Projekt Freizeitkarte <freizeitkarte@googlemail.com>
@@ -246,7 +247,8 @@
 # ************************************************************
 
 natural = allotments {set landuse=allotments; delete natural}
-natural = basin {set landuse=basin; delete natural}
+# falsches Taggin führte zu überfluteten Gebieten (pb/20191223)
+#natural = basin {set landuse=basin; delete natural}
 natural = brownfield {set landuse=brownfield; delete natural}
 natural = cemetery {set landuse=cemetery; delete natural}
 natural = commercial {set landuse=commercial; delete natural}
