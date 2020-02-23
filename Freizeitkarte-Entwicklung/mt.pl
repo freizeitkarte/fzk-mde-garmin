@@ -4511,12 +4511,22 @@ sub create_gmapfile_jmc_cli {
 # used for gmapsupp and gmapfile
 sub set_mkgmap_common_parameter {
 
+  my $tmp_description = "$mapname (Release $releasestring)";
+  
+  # make sure the description is not more than 50 characters
+  if ( length($tmp_description) > 50 ) {
+     $tmp_description = "$mapname ($releasestring)";
+	 if ( length($tmp_description) > 50 ) {
+	 $tmp_description = substr( $tmp_description, 0, 50 );
+	 }
+  }
+
   $mkgmap_common_parameter = sprintf (
         "--index --split-name-index "
 	  . "--code-page=$mapcodepage "
       . "--license-file=$mapname.license "
       . "--product-id=1 --family-id=$mapid --family-name=\"$mapname\" "
-      . "--series-name=\"$mapname\" --description=\"$mapname (Release $releasestring)\" "
+      . "--series-name=\"$mapname\" --description=\"$tmp_description\" "
       . "--overview-mapname=\"$mapname\" --overview-mapnumber=%s0000 "
       . "--product-version=\"%d\" $mapid*.img $mapid.TYP "
       . "--tdbfile "
