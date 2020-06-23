@@ -143,7 +143,7 @@
 # 0x12  Steinbruch (4)                 -
 # 0x13  Gebäude (9)                    Man made area (weiss) [Schrift klein]
 # 0x14  Picnic (7)                     -                                    
-# 0x15  Laubwald (5)                   National park (grün) [Schrift klein]
+# 0x15  Laubwald (4)                   National park (grün) [Schrift klein]
 # 0x16  Fels (6)                       National park (grün) [Schrift klein]
 # 0x17  Wiese (6)                      City Park (grün) [Schrift klein]
 # 0x18  Golfplatz (4)                  Golf (grün) [Schrift klein]
@@ -198,9 +198,9 @@
 # 0x4d  Gletscher (6)                  Glaciers (senkrechte Linien, blau) [Schrift GROSS]
 # 0x4e  Plantage (6)                   Orchard or plantation (senkrechte Linien, grün) [Schrift GROSS]
 # 0x4f  Gebüsch (6)                    Scrub (senkrechte Linien, orange) [Schrift GROSS]
-# 0x50  Nadelwald (5)                  Woods (waagerechte Linien, oliv/braun) [Schrift GROSS]
+# 0x50  Nadelwald (4)                  Woods (waagerechte Linien, oliv/braun) [Schrift GROSS]
 # 0x51  Sumpfgebiet (8)                Wetland (waagerechte Linien, blau) [Schrift GROSS]
-# 0x52  Mischwald (5)                  Tundra (diagonale Linien, links mach rechts, hell violett / grau) [Schrift GROSS]
+# 0x52  Mischwald (4)                  Tundra (diagonale Linien, links mach rechts, hell violett / grau) [Schrift GROSS]
 # 0x53  Schwarzes Loch (9)             Flats (diagonale Linien, rechts nach links, oliv/braun) [Schrift GROSS]
 #
 # Level / Resolution / Maßstab:

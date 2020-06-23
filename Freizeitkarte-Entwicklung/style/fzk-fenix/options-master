@@ -40,32 +40,48 @@
 # specify a list here, the first one that exists will be used.
 name_tag = name:de, name:en, name:fr, int_name, name
 
+# Zoomlevel
+# 24 = 80m
+# 23 = 120m
+# 22 = 200m
+# 21 = 300m
+# 20 = 500m
+# 19 = 800m
+# 18 = 1.2km
+# 17 = 2km
+# 16 = 3km
+# 15 = 5km
+# 14 = 8km
+# 13 = 12km
+# 12 = 20km
+# 11 = 30km
+# 10 = 50km
+#  9 = 80km
+#  8 = 120km
+#  7 = 200km
+#  6 = 300km
+#  5 = 500km
+#  4 = 800km
+
 # The levels specification for this Style:
 # Level 0 - Objekt sichtbar bei Resolution 24:
-#   BaseCamp  : 0.7 km (Maßstab 1:280)
-#   Dakota 20 : 200 m
+#   Fenix     : 80 m
 # Level 1 - Objekt sichtbar bei Resolution 23:
-#   BaseCamp  : 1.5 km (Maßstab 1:600)
-#   Dakota 20 : 300 m
+#   Fenix     : 200 m
 # Level 2 - Objekt sichtbar bei Resolution 22:
-#   BaseCamp  : 3.0 km (Maßstab 1:1200)
-#   Dakota 20 : 500 m
-# Level 3 - Objekt sichtbar bei Resolution 21:
-#   BaseCamp  : 5.0 km (Maßstab 1:2000)
-#   Dakota 20 : ? m
-# Level 4 - Objekt sichtbar bei Resolution 20:
-#   BaseCamp  : 10.0 km (Maßstab 1:4000)
-#   Dakota 20 :  3.0 km
-# Level 5 - Objekt sichtbar bei Resolution 19:
-#   BaseCamp  : 20.0 km (Maßstab 1:???)
-#   Dakota 20 :  5.0 km
-# Level 6 - Objekt sichtbar bei Resolution 18:
-#   BaseCamp  : 50.0 km (Maßstab 1:???)
-#   Dakota 20 : 12.0 km
-# Level 7 - Objekt sichtbar bei Resolution 17:
-#   BaseCamp  : 100.0 km (Maßstab 1:???)
-#   Dakota 20 :  20.0 km
+#   Fenix     : 500 m
+# Level 3 - Objekt sichtbar bei Resolution 20:
+#   Fenix     : 800 m
+# Level 4 - Objekt sichtbar bei Resolution 19:
+#   Fenix     : 1,2 km
+# Level 5 - Objekt sichtbar bei Resolution 18:
+#   Fenix     : 3 km
+# Level 6 - Objekt sichtbar bei Resolution 16:
+#   Fenix     : 8 km
+# Level 7 - Objekt sichtbar bei Resolution 14:
+#   Fenix     : 20 km
+# Level 8 - Objekt sichtbar bei Resolution 14:
+#   Fenix     : 30 km
 
-levels = 0:24, 1:23, 2:22, 3:21, 4:20, 5:19, 6:18, 7:17
-overview-levels = 8:16, 9:14, 10:12, 11:11
-#overview-levels = 7:17
+levels = 0:24, 1:22, 2:20, 3:19, 4:18, 5:16
+overview-levels = 6:14, 7:12, 8:11
