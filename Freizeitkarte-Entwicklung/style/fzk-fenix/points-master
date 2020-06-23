@@ -37,6 +37,10 @@
 #                             - Adapted handling of special shops
 #                             - moved tourism=attraction as a general rule to the very end
 # Version : 0.23 -20.05.2019  - removed rendering of public_transport = stop_position & bus/tram = yes
+# Version : 0.24 -23.06.2020  - Reduced POIs which are uninteresting for fitness trackers
+#                               Removed: powertower, powerstation, powerplan, windpower, radiotower,
+#                                        oilwell, shops (fashion, beauty, furniture, car, computer,
+#                                        garden, etc.), bowling, horse stuff, employment agency
 #
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
@@ -679,27 +683,27 @@ place = village [0x0c00 resolution 21]
 # ------------------------------------------
 
 # Strommast: Mast für Hochspannungsüberlandleitungen. [point]
-power = tower {name "${name} ($__POWERTOWER__)" | "$__POWERTOWER__"} [0x6417 resolution 24]
+#power = tower {name "${name} ($__POWERTOWER__)" | "$__POWERTOWER__"} [0x6417 resolution 24]
 
 # Strommast für Nieder- und Mittelspannungsleitungen, oft aus Holz oder Beton. [point]
 # power = pole (wird derzeit nicht unterstützt)
 
 # Umspannwerk: bezeichnet eine Umspannanlage, die ein Höchst- oder Hochspannungs- mit einem weiteren
 # Hochspannungs- oder einem Mittelspannungsnetz verbindet. [point, closedway]
-power = station & name = * {name "${name} ($__POWERSTATION__)"} [0x6600 resolution 24]
-power = plant & name = * {name "${name} ($__POWERSTATION__)"} [0x6600 resolution 24]
+# power = station & name = * {name "${name} ($__POWERSTATION__)"} [0x6600 resolution 24]
+# power = plant & name = * {name "${name} ($__POWERSTATION__)"} [0x6600 resolution 24]
 
 # Umspannstation, kleiner als station, verbindet ein Mittel- mit einem Niederspannungsnetz,
 # z.B. Mini-Umspannwerk, Trafohäuschen oder großer Trafokasten. [point, closedway]
 # Actually disabled... unclear (2013.02.014)
-#power = sub_station & name = * {name "${name} ($__POWERSUBSTATION__)"} [0x6600 resolution 24]
+# power = sub_station & name = * {name "${name} ($__POWERSUBSTATION__)"} [0x6600 resolution 24]
 
 # Windenergieanlage. [point, closedway]
-power = generator & power_source = wind {name "${name} ($__WINDGENERATOR__)" | "$__WINDGENERATOR__"} [0x6419 resolution 24]
-power = generator & generator:source = wind {name "${name} ($__WINDGENERATOR__)" | "$__WINDGENERATOR__"} [0x6419 resolution 24]
+# power = generator & power_source = wind {name "${name} ($__WINDGENERATOR__)" | "$__WINDGENERATOR__"} [0x6419 resolution 24]
+# power = generator & generator:source = wind {name "${name} ($__WINDGENERATOR__)" | "$__WINDGENERATOR__"} [0x6419 resolution 24]
 
 # Kraftwerk: dient der Erzeugung von Strom oder Wärme. [point, closedway]
-power = generator & name = * {name "${name} ($__POWERGENERATOR__)"} [0x6600 resolution 24]
+# power = generator & name = * {name "${name} ($__POWERGENERATOR__)"} [0x6600 resolution 24]
 
 # Kabelverteilerschrank: in diesen Schränken werden die 400V-Stromkreise zu den Hausanschlüssen,
 # Anschluss- und Übergabepunkten der regionalen Energieversorger verzweigt. Weitere Einsatzgebiete
@@ -862,19 +866,19 @@ amenity = restaurant & name = * {set name = "${name} ($__RESTAURANT__)"} [0x2a00
 # -------------------
 
 # Kindergarten. [point, closedway]
-amenity = kindergarten & name = * {name "${name} ($__KINDERGARTEN__)"} [0x2c05 resolution 24]
+# amenity = kindergarten & name = * {name "${name} ($__KINDERGARTEN__)"} [0x2c05 resolution 24]
 
 # Schule. [point, closedway]
-amenity = school & name = * {name "${name} ($__SCHOOL__)"} [0x2c05 resolution 24]
+# amenity = school & name = * {name "${name} ($__SCHOOL__)"} [0x2c05 resolution 24]
 
 # Hochschule. [point, closedway]
-amenity = college & name = * {name "${name} $__COLLEGE__)"} [0x2c05 resolution 24]
+# amenity = college & name = * {name "${name} $__COLLEGE__)"} [0x2c05 resolution 24]
 
 # Bibliothek, Bücherei. [point, closedway]
 amenity = library & name = * {name "${name} ($__LIBRARY__)"} [0x2c03 resolution 24]
 
 # Universität (Campus oder Gebäude). [point, closedway]
-amenity = university & name = * {name "${name} ($__UNIVERSITY__)"} [0x2c05 resolution 24]
+# amenity = university & name = * {name "${name} ($__UNIVERSITY__)"} [0x2c05 resolution 24]
 
 # Kategorie "Transport, Verkehr"
 # ------------------------------
@@ -886,16 +890,16 @@ amenity = bicycle_rental {name "${name} ($__BICYCLERENTAL__)" | "$__BICYCLERENTA
 amenity = bus_station                         {name "${name} ($__BUSSTATION__)" | "$__BUSSTATION__"} [0x2f08 resolution 24]
 
 # Automobil-Club. [point, closedway]
-amenity = car_club & name = * {name "${name} ($__CARCLUB__)"} [0x2f0d resolution 24]
+# amenity = car_club & name = * {name "${name} ($__CARCLUB__)"} [0x2f0d resolution 24]
 
 # Autoverleih. [point, closedway]
 amenity = car_rental & name = * {name "${name} ($__CARRENTAL__)"} [0x2f02 resolution 24]
 
 # Carsharing-Station. [point, closedway]
-amenity = car_sharing & name = * {name "${name} ($__CARSHARING__)"} [0x2f02 resolution 24]
+# amenity = car_sharing & name = * {name "${name} ($__CARSHARING__)"} [0x2f02 resolution 24]
 
 # Autowaschanlage. [point, closedway]
-amenity = car_wash & name = * {name "${name} ($__CARWASH__)"} [0x2f0e resolution 24]
+# amenity = car_wash & name = * {name "${name} ($__CARWASH__)"} [0x2f0e resolution 24]
 
 # Fährterminal. [point, closedway]
 amenity = ferry_terminal {name "${name} ($__FERRYTERMINAL__)" | "$__FERRYTERMINAL__"} [0x6500 resolution 24]
@@ -935,33 +939,33 @@ amenity = hospital & name = * {name "${name} ($__HOSPITAL__)"} [0x3002 resolutio
 # ---------------------------------------
 
 # Kunstzentrum. [point, closedway]
-amenity = arts_centre & name = * {name "${name} ($__ARTSCENTRE__)"} [0x2c04 resolution 24]
+# amenity = arts_centre & name = * {name "${name} ($__ARTSCENTRE__)"} [0x2c04 resolution 24]
 
 # Casino. [point, closedway]
-amenity = casino & name = * {name "${name} ($__CASINO__)"} [0x2d04 resolution 24]
+# amenity = casino & name = * {name "${name} ($__CASINO__)"} [0x2d04 resolution 24]
 
 # Kino. [point, closedway]
-amenity = cinema & name = * {name "${name} ($__CINEMA__)"} [0x2d03 resolution 24]
+# amenity = cinema & name = * {name "${name} ($__CINEMA__)"} [0x2d03 resolution 24]
 
 # Lokale Veranstaltungshalle. [point, closedway]
-amenity = community_centre & name = * {name "${name} ($__COMMUNITYCENTRE__)"} [0x3005 resolution 24]
-amenity = community_hall   & name = * {name "${name} ($__COMMUNITYCENTRE__)"} [0x3005 resolution 24]
+# amenity = community_centre & name = * {name "${name} ($__COMMUNITYCENTRE__)"} [0x3005 resolution 24]
+# amenity = community_hall   & name = * {name "${name} ($__COMMUNITYCENTRE__)"} [0x3005 resolution 24]
 
 # Konzerthalle. [point, closedway]
-amenity = concert_hall & name = * {name "${name} ($__CONCERTHALL__)"} [0x2c09 resolution 24]
+# amenity = concert_hall & name = * {name "${name} ($__CONCERTHALL__)"} [0x2c09 resolution 24]
 
 # Messe, Konferenzcenter. [point, closedway]
-amenity = conference_centre & name = * {name "${name} ($__CONFERENCECENTRE__)"} [0x2c09 resolution 24]
+# amenity = conference_centre & name = * {name "${name} ($__CONFERENCECENTRE__)"} [0x2c09 resolution 24]
 
 # Nachtclub, Disco. [point, closedway]
-amenity = nightclub & name = * {name "${name} ($__NIGHTCLUB__)"} [0x2d02 resolution 24]
+# amenity = nightclub & name = * {name "${name} ($__NIGHTCLUB__)"} [0x2d02 resolution 24]
 
 # A place for free and not-for-profit activities.
-amenity = social_centre   & name = * {name "${name} ($__SOCIALCENTRE__)"} [0x2f14 resolution 24]
-amenity = social_facility & name = * {name "${name} ($__SOCIALFACILITY__)"} [0x2f14 resolution 24]
+# amenity = social_centre   & name = * {name "${name} ($__SOCIALCENTRE__)"} [0x2f14 resolution 24]
+# amenity = social_facility & name = * {name "${name} ($__SOCIALFACILITY__)"} [0x2f14 resolution 24]
 
 # Theater, Oper, Schauspielhaus. [point, closedway]
-amenity = theatre & name = * {name "${name} ($__THEATRE__)"} [0x2d01 resolution 24]
+# amenity = theatre & name = * {name "${name} ($__THEATRE__)"} [0x2d01 resolution 24]
 
 # Kategorie "Andere"
 # ------------------
@@ -1034,8 +1038,8 @@ man_made = beacon & name = * {name "${name} ($__BEACON__)"} [0x6500 resolution 2
 man_made = lighthouse {name "${name} ($__LIGHTHOUSE__)" | "$__LIGHTHOUSE__"} [0x1206 resolution 24]
 
 # Mast (z.B. Telekommunkations- / Funkmast)
-#man_made = mast {name "${name} ($__MAST__)" | "$__MAST__"} [0x2f12 resolution 24]
-man_made = mast {name "${name} ($__MAST__)" | "$__MAST__"} [0x2f11 resolution 24]
+# man_made = mast {name "${name} ($__MAST__)" | "$__MAST__"} [0x2f12 resolution 24]
+# man_made = mast {name "${name} ($__MAST__)" | "$__MAST__"} [0x2f11 resolution 24]
 
 # Schacht. [point, closedway]
 man_made = mineshaft & name = * {name "${name} ($__MINESHAFT__)"} [0x6600 resolution 24]
@@ -1044,7 +1048,7 @@ man_made = mineshaft & name = * {name "${name} ($__MINESHAFT__)"} [0x6600 resolu
 # man_made = monitoring_station (wird derzeit nicht unterstützt)
 
 # Ölfördereinrichtung. [point]
-man_made = petroleum_well & name = * {name "${name} ($__PETROLEUMWELL__)"} [0x6600 resolution 24]
+# man_made = petroleum_well & name = * {name "${name} ($__PETROLEUMWELL__)"} [0x6600 resolution 24]
 
 # Überdecktes Speicherbasin. [point, closedway]
 man_made = reservoir_covered & name = * {name "${name} ($__RESERVOIRCOVERED__)"} [0x6500 resolution 24]
@@ -1065,10 +1069,10 @@ man_made = reservoir_covered & name = * {name "${name} ($__RESERVOIRCOVERED__)"}
 man_made = tower & tower:type = observation {name "${name} ($__OBSERVATIONTOWER__)" | "$__OBSERVATIONTOWER__"} [0x661f resolution 24]
 
 # Funkturm (s.a. "mast")
-#man_made = tower & tower:type = communication {name "${name} ($__COMMUNICATIONTOWER__)" | "$__COMMUNICATIONTOWER__"} [0x2f12 resolution 24]
-man_made = tower & tower:type = communication & ( communication:radio!=no | communication:television!=no ) {name "${name} ($__COMMUNICATIONTOWER__)" | "$__COMMUNICATIONTOWER__"} [0x2f12 resolution 24]
-man_made = tower & tower:type = communication & ( communication:mobile!=no ) {name "${name} ($__COMMUNICATIONTOWER__)" | "$__COMMUNICATIONTOWER__"} [0x2f11 resolution 24]
-man_made =  communications_tower  {name "${name} ($__COMMUNICATIONTOWER__)" | "$__COMMUNICATIONTOWER__"} [0x2f12 resolution 24]
+# man_made = tower & tower:type = communication {name "${name} ($__COMMUNICATIONTOWER__)" | "$__COMMUNICATIONTOWER__"} [0x2f12 resolution 24]
+# man_made = tower & tower:type = communication & ( communication:radio!=no | communication:television!=no ) {name "${name} ($__COMMUNICATIONTOWER__)" | "$__COMMUNICATIONTOWER__"} [0x2f12 resolution 24]
+# man_made = tower & tower:type = communication & ( communication:mobile!=no ) {name "${name} ($__COMMUNICATIONTOWER__)" | "$__COMMUNICATIONTOWER__"} [0x2f11 resolution 24]
+# man_made =  communications_tower  {name "${name} ($__COMMUNICATIONTOWER__)" | "$__COMMUNICATIONTOWER__"} [0x2f12 resolution 24]
 
 # allgemeiner Turm (z.B. auch Kirchturm)
 man_made = tower & name = * {name "${name} ($__TOWER__)"} [0x6500 resolution 24]
@@ -1134,10 +1138,10 @@ railway = tram_stop                            {name "${name} ($__TRAMSTOP__)" |
 # ------------------------------------------------------------
 
 # Korrekturen:
-shop = carpenter            {set shop=carpet; delete carpenter}
-shop = carpentry            {set shop=carpet; delete carpentry}
-shop = carpeting            {set shop=carpet; delete carpeting}
-shop = curtains             {set shop=curtain; delete curtains}
+# shop = carpenter            {set shop=carpet; delete carpenter}
+# shop = carpentry            {set shop=carpet; delete carpentry}
+# shop = carpeting            {set shop=carpet; delete carpeting}
+# shop = curtains             {set shop=curtain; delete curtains}
 shop = drugstore            {set shop=chemist; delete drugstore}
 shop = musical_instruments  {set shop=musical_instrument; delete musical_instruments}
 shop = wine                 {set shop=alcohol; set wine=yes; delete wine}
@@ -1147,8 +1151,8 @@ shop = winery               {set shop=alcohol; set wine=yes; delete winery}
 shop = bakery & name = * {name "${name} ($__BAKERY__)"} [0x2a0d resolution 24]
 
 # Schönheitssalon, Kosmetiksalon, Damensalon, Nagelstudio, Parfümerie, Wellness-Center. [point, closedway]
-shop = beauty    & name = * {name "${name} ($__COSMETICS__)"} [0x2f10 resolution 24]
-shop = cosmetics & name = * {name "${name} ($__COSMETICS__)"} [0x2f10 resolution 24]
+# shop = beauty    & name = * {name "${name} ($__COSMETICS__)"} [0x2f10 resolution 24]
+# shop = cosmetics & name = * {name "${name} ($__COSMETICS__)"} [0x2f10 resolution 24]
 
 # Fahrradgeschäft, Fahrradwerkstatt, Fahrradverleih, Fahrradservice. [point, closedway]
 shop = bicycle & name = * {name "${name} ($__BICYCLESHOP__)"} [0x2f13 resolution 24]
@@ -1157,7 +1161,7 @@ shop = bicycle & name = * {name "${name} ($__BICYCLESHOP__)"} [0x2f13 resolution
 shop = butcher & name = * {name "${name} ($__BUTCHER__)"} [0x2e02 resolution 24]
 
 # Autohaus. [point, closedway]
-shop = car & name = * {name "${name} ($__CARSHOP__)"} [0x2f07 resolution 24]
+# shop = car & name = * {name "${name} ($__CARSHOP__)"} [0x2f07 resolution 24]
 
 # Autowerkstatt, Autoreparatur. [point, closedway]
 shop = car_repair & name = * {name "${name} ($__CARREPAIR__)"} [0x2f03 resolution 24]
@@ -1166,12 +1170,12 @@ shop = car_repair & name = * {name "${name} ($__CARREPAIR__)"} [0x2f03 resolutio
 shop = chemist & name = * {name "${name} ($__CHEMIST__)"} [0x2e05 resolution 24]
 
 # Bekleidungsgeschäfte. [point, closedway]
-shop = boutique & name = * {name "${name} ($__BOUTIQUE__)"} [0x2e0a resolution 24]
-shop = clothes  & name = * {name "${name} ($__CLOTHES__)"} [0x2e07 resolution 24]
-shop = fashion  & name = * {name "${name} ($__FASION__)"} [0x2e07 resolution 24]
+# shop = boutique & name = * {name "${name} ($__BOUTIQUE__)"} [0x2e0a resolution 24]
+# shop = clothes  & name = * {name "${name} ($__CLOTHES__)"} [0x2e07 resolution 24]
+# shop = fashion  & name = * {name "${name} ($__FASION__)"} [0x2e07 resolution 24]
 
 # Computer-Fachhandel. [point, closedway]
-shop = computer & name = * {name "${name} ($__COMPUTER__)"} [0x2e0b resolution 24]
+# shop = computer & name = * {name "${name} ($__COMPUTER__)"} [0x2e0b resolution 24]
 
 # Süßwarenhändler, Confiserie, Konditorei. [point, closedway]
 shop = confectionery & name = * {name "${name} ($__CONFECTIONERY__)"} [0x2a0d resolution 24]
@@ -1189,10 +1193,10 @@ shop = department_store & name = * {name "${name} ($__DEPARTMENTSTORE__)"} [0x2e
 shop = doityourself & name = * {name "${name} ($__DOITYOURSELF__)"} [0x2e08 resolution 24]
 
 # Möbelhaus, Einrichtungshaus. [point, closedway]
-shop = furniture  & name = * {name "${name} ($__FURNITURE__)"} [0x2e09 resolution 24]
+# shop = furniture  & name = * {name "${name} ($__FURNITURE__)"} [0x2e09 resolution 24]
 
 # Garten-Center. [point, closedway]
-shop = garden_centre & name = * {name "${name} ($__GARDENCENTRE__)"} [0x2e08 resolution 24]
+# shop = garden_centre & name = * {name "${name} ($__GARDENCENTRE__)"} [0x2e08 resolution 24]
 
 # Gemischtwarenhandlung, Dorfladen, mit breitem Warensortiment des täglichen Bedarfs. [point, closedway]
 shop = general & name = * {name "${name} ($__GENERALSHOP__)"} [0x2e03 resolution 24]
@@ -1201,7 +1205,7 @@ shop = general & name = * {name "${name} ($__GENERALSHOP__)"} [0x2e03 resolution
 shop = hairdresser & name = * {name "${name} ($__HAIRDRESSER__)"} [0x2f10 resolution 24]
 
 # Eisenwaren. [point, closedway]
-shop = hardware & name = * {name "${name} ($__HARDWARE__)"} [0x2e0a resolution 24]
+# shop = hardware & name = * {name "${name} ($__HARDWARE__)"} [0x2e0a resolution 24]
 
 # Eis, Eisdiele, Eiscaffee. [point, closedway] (s.a. amenity)
 shop = ice_cream & name = * {name "${name} ($__ICECREAMSHOP__)"} [0x2a0e resolution 24]
@@ -1219,69 +1223,69 @@ shop = shoes & name = * {name "${name} ($__SHOES__)"} [0x2e07 resolution 24]
 shop = supermarket & name = * {name "${name} ($__SUPERMARKET__)"} [0x2e02 resolution 24]
 
 # Baustoffhandel, Baumaterial: Steine,Holz, Zement ,etc. [point, closedway]
-shop = trade & name = * {name "${name} ($__TRADESHOP__)"} [0x2e08 resolution 24]
+# shop = trade & name = * {name "${name} ($__TRADESHOP__)"} [0x2e08 resolution 24]
 
 # Reifenhandel. [point, closedway]
-shop = tyres & name = * {name "${name} ($__TYRES__)"} [0x2f07 resolution 24]
+# shop = tyres & name = * {name "${name} ($__TYRES__)"} [0x2f07 resolution 24]
 
 # Spezialitäteneinzelhandel. [point, closedway]
 shop = alcohol & wine = yes & name = * {name "${name} ($__WINESHOP__)"} [0x2e0a resolution 24]
 shop = alcohol             & name = * {name "${name} ($__ALCOHOL__)"} [0x2e0a resolution 24]
-shop = art                 & name = * {name "${name} ($__ARTSHOP__)"} [0x2e0a resolution 24]
-shop = bed                 & name = * {name "${name} ($__BEDSHOP__)"} [0x2e0a resolution 24]
+# shop = art                 & name = * {name "${name} ($__ARTSHOP__)"} [0x2e0a resolution 24]
+# shop = bed                 & name = * {name "${name} ($__BEDSHOP__)"} [0x2e0a resolution 24]
 shop = beverages           & name = * {name "${name} ($__BEVERAGES__)"} [0x2e0a resolution 24]
 shop = books               & name = * {name "${name} ($__BOOKS__)"} [0x2e0a resolution 24]
-shop = copyshop            & name = * {name "${name} ($__COPYSHOOP__)"} [0x2e0a resolution 24]
-shop = carpet              & name = * {name "${name} ($__CARPET__)"} [0x2e0a resolution 24]
+# shop = copyshop            & name = * {name "${name} ($__COPYSHOOP__)"} [0x2e0a resolution 24]
+# shop = carpet              & name = * {name "${name} ($__CARPET__)"} [0x2e0a resolution 24]
 shop = coffee              & name = * {name "${name} ($__COFFEESHOP__)"} [0x2e0a resolution 24]
 shop = dry_cleaning        & name = * {name "${name} ($__DRYCLEANING__)"} [0x2e0a resolution 24]
 shop = electronics         & name = * {name "${name} ($__ELECTRONICS__)"} [0x2e0a resolution 24]
-shop = erotic              & name = * {name "${name} ($__EROTIC__)"} [0x2e0a resolution 24]
-shop = fabric              & name = * {name "${name} ($__FABRIC__)"} [0x2e0a resolution 24]
-shop = farm                & name = * {name "${name} ($__FARMSHOP__)"} [0x2e0a resolution 24]
-shop = fish                & name = * {name "${name} ($__FISHMONGER__)"} [0x2e0a resolution 24]
-shop = fishmonger          & name = * {name "${name} ($__FISHMONGER__)"} [0x2e0a resolution 24]
-shop = florist             & name = * {name "${name} ($__FLORIST__)"} [0x2e0a resolution 24]
-shop = funeral_directors   & name = * {name "${name} ($__FUNERALDIRECTORS__)"} [0x2e0a resolution 24]
-shop = gift                & name = * {name "${name} ($__GIFTSHOP__)"} [0x2e0a resolution 24]
+# shop = erotic              & name = * {name "${name} ($__EROTIC__)"} [0x2e0a resolution 24]
+# shop = fabric              & name = * {name "${name} ($__FABRIC__)"} [0x2e0a resolution 24]
+# shop = farm                & name = * {name "${name} ($__FARMSHOP__)"} [0x2e0a resolution 24]
+# shop = fish                & name = * {name "${name} ($__FISHMONGER__)"} [0x2e0a resolution 24]
+# shop = fishmonger          & name = * {name "${name} ($__FISHMONGER__)"} [0x2e0a resolution 24]
+# shop = florist             & name = * {name "${name} ($__FLORIST__)"} [0x2e0a resolution 24]
+# shop = funeral_directors   & name = * {name "${name} ($__FUNERALDIRECTORS__)"} [0x2e0a resolution 24]
+# shop = gift                & name = * {name "${name} ($__GIFTSHOP__)"} [0x2e0a resolution 24]
 shop = greengrocer         & name = * {name "${name} ($__GREENGROCER__)"} [0x2e0a resolution 24]
-shop = hearing_aids        & name = * {name "${name} ($__HEARINGAIDS__)"} [0x2e0a resolution 24]
-shop = hifi                & name = * {name "${name} ($__HIFI__)"} [0x2e0a resolution 24]
-shop = insurance           & name = * {name "${name} ($__INSURANCE__)"} [0x2e0a resolution 24]
-shop = interior_decoration & name = * {name "${name} ($__INTERIORDECORATION__)"} [0x2e0a resolution 24]
-shop = jewelry             & name = * {name "${name} ($__JEWELRY__)"} [0x2e0a resolution 24]
-shop = kitchen             & name = * {name "${name} ($__KITCHEN__)"} [0x2e0a resolution 24]
+# shop = hearing_aids        & name = * {name "${name} ($__HEARINGAIDS__)"} [0x2e0a resolution 24]
+# shop = hifi                & name = * {name "${name} ($__HIFI__)"} [0x2e0a resolution 24]
+# shop = insurance           & name = * {name "${name} ($__INSURANCE__)"} [0x2e0a resolution 24]
+# shop = interior_decoration & name = * {name "${name} ($__INTERIORDECORATION__)"} [0x2e0a resolution 24]
+# shop = jewelry             & name = * {name "${name} ($__JEWELRY__)"} [0x2e0a resolution 24]
+# shop = kitchen             & name = * {name "${name} ($__KITCHEN__)"} [0x2e0a resolution 24]
 shop = kiosk               & name = * {name "${name} ($__KIOSK__)"} [0x2e0a resolution 24]
 shop = laundry             & name = * {name "${name} ($__LOUNDRY__)"} [0x2e0a resolution 24]
 shop = massage             & name = * {name "${name} ($__MASSAGE__)"} [0x2e0a resolution 24]
 shop = mobile_phone        & name = * {name "${name} ($__MOBILEPHONE__)"} [0x2e0a resolution 24]
-shop = motorcycle          & name = * {name "${name} ($__MOTORCYCLE__)"} [0x2e0a resolution 24]
+# shop = motorcycle          & name = * {name "${name} ($__MOTORCYCLE__)"} [0x2e0a resolution 24]
 shop = music               & name = * {name "${name} ($__MUSICSHOP__)"} [0x2e0a resolution 24]
 shop = musical_instrument  & name = * {name "${name} ($__MUSICALINSTRUMENT__)"} [0x2e0a resolution 24]
-shop = newsagent           & name = * {name "${name} ($__NEWSAGENT__)"} [0x2e0a resolution 24]
+# shop = newsagent           & name = * {name "${name} ($__NEWSAGENT__)"} [0x2e0a resolution 24]
 shop = optician            & name = * {name "${name} ($__OPTICIAN__)"} [0x2e0a resolution 24]
 shop = outdoor             & name = * {name "${name} ($__OUTDOOR__)"} [0x2e0a resolution 24]
-shop = paint               & name = * {name "${name} ($__PAINT__)"} [0x2e0a resolution 24]
-shop = pet                 & name = * {name "${name} ($__PETSHOP__)"} [0x2e0a resolution 24]
+# shop = paint               & name = * {name "${name} ($__PAINT__)"} [0x2e0a resolution 24]
+# shop = pet                 & name = * {name "${name} ($__PETSHOP__)"} [0x2e0a resolution 24]
 shop = photo               & name = * {name "${name} ($__PHOTO__)"} [0x2e0a resolution 24]
 shop = seafood             & name = * {name "${name} ($__SEAFOODSHOP__)"} [0x2e0a resolution 24]
 shop = second_hand         & name = * {name "${name} ($__SECONDHAND__)"} [0x2e0a resolution 24]
-shop = solarium            & name = * {name "${name} ($__SOLARIUM__)"} [0x2e0a resolution 24]
+# shop = solarium            & name = * {name "${name} ($__SOLARIUM__)"} [0x2e0a resolution 24]
 shop = sports              & name = * {name "${name} ($__SPORTSSHOP__)"} [0x2e0a resolution 24]
 shop = stationery          & name = * {name "${name} ($__STATIONERY__)"} [0x2e0a resolution 24]
-shop = tanning             & name = * {name "${name} ($__SOLARIUM__)"} [0x2e0a resolution 24]
-shop = tattoo              & name = * {name "${name} ($__TATTOO__)"} [0x2e0a resolution 24]
+# shop = tanning             & name = * {name "${name} ($__SOLARIUM__)"} [0x2e0a resolution 24]
+# shop = tattoo              & name = * {name "${name} ($__TATTOO__)"} [0x2e0a resolution 24]
 shop = tailor              & name = * {name "${name} ($__TAILOR__)"} [0x2e0a resolution 24]
 shop = tea                 & name = * {name "${name} ($__TEASHOP__)"} [0x2e0a resolution 24]
-shop = tobacco             & name = * {name "${name} ($__TOBACCO__)"} [0x2e0a resolution 24]
-shop = toys                & name = * {name "${name} ($__TOYS__)"} [0x2e0a resolution 24]
+# shop = tobacco             & name = * {name "${name} ($__TOBACCO__)"} [0x2e0a resolution 24]
+# shop = toys                & name = * {name "${name} ($__TOYS__)"} [0x2e0a resolution 24]
 shop = travel_agency       & name = * {name "${name} ($__TRAVELAGENCY__)"} [0x2e0a resolution 24]
-shop = vacant              & name = * {name "${name} ($__VACANT__)"} [0x2e0a resolution 24]
-shop = variety_store       & name = * {name "${name} ($__VARIETYSTORE__)"} [0x2e0a resolution 24]
-shop = video               & name = * {name "${name} ($__VIDEO__)"} [0x2e0a resolution 24]
+# shop = vacant              & name = * {name "${name} ($__VACANT__)"} [0x2e0a resolution 24]
+# shop = variety_store       & name = * {name "${name} ($__VARIETYSTORE__)"} [0x2e0a resolution 24]
+# shop = video               & name = * {name "${name} ($__VIDEO__)"} [0x2e0a resolution 24]
 
 # Alle anderen Geschäfte (Spezialitäteneinzelhandel). [point, closedway]
-shop = * & name = * {name "${name} (${shop})"} [0x2e0a resolution 24]
+# shop = * & name = * {name "${name} (${shop})"} [0x2e0a resolution 24]
 
 
 # --------------------------------------------
@@ -1347,7 +1351,7 @@ highway = services {name "${name} ($__HIGHWAYSERVICEAREA__)" | "$__HIGHWAYSERVIC
 leisure = common & name = * {name "${name} ($__COMMON__)"} [0x2c06 resolution 24]
 
 # Tanzen: Eine Örtlichkeit, speziell zum regelmäßigen Tanzen. [point, closedway]
-leisure = dance & name = * {name "${name} ($__DANCE__)"} [0x6600 resolution 24]
+#leisure = dance & name = * {name "${name} ($__DANCE__)"} [0x6600 resolution 24]
 
 # Ein Hundepark ist ein Gebiet, mit oder ohne Umzäunung, wo Hunde ohne Leine laufen dürfen. [point, closedway]
 leisure = dog_park & name = * {name "${name} ($__DOGPARK__)"} [0x6600 resolution 24]
@@ -1370,7 +1374,7 @@ leisure = ice_rink & name = * {name "${name} ($__ICERINK__)"} [0x2d08 resolution
 leisure = marina & name = * {name "${name} ($__MARINA__)"} [0x2F09 resolution 24]
 
 # Minigolf (siehe auch Golfanlage). [point, closedway]
-leisure = miniature_golf & name = * {name "${name} ($__MINIATUREGOLF__)"} [0x6600 resolution 24]
+# leisure = miniature_golf & name = * {name "${name} ($__MINIATUREGOLF__)"} [0x6600 resolution 24]
 
 # Naturschutzgebiet (NSG), dieser Tag ist ausschließlich für Naturschutzgebiete zu nutzen.
 # Andere Gebiete – wie z. B. Nationalpark, Biosphärenreservat, Landschaftsschutzgebiet, etc.
@@ -1386,7 +1390,7 @@ leisure = pitch & name = * {name "${name} ($__PITCH__)"} [0x6600 resolution 24]
 
 # Spielplatz für Kinder. [point, closedway]
 # leisure = playground {name "${name} (Spielplatz)" | "Spielplatz"} [0x2c06 resolution 24]
-leisure = playground {name "${name} ($__PLAYGROUND__)" | "$__PLAYGROUND__"} [0x640e resolution 24]
+# leisure = playground {name "${name} ($__PLAYGROUND__)" | "$__PLAYGROUND__"} [0x640e resolution 24]
 
 # Gibt es nur in den Commenwealth-Staaten - hier eher identisch mit landuse=village_green.
 leisure = recreation_ground & name = * {name "${name} ($__RECREATIONGROUND__)"} [0x2c08 resolution 24]
@@ -1417,10 +1421,10 @@ leisure = water_park & name = * {name "${name} ($__WATERPARK__)"} [0x2D09 resolu
 historic = archaelogical_site & name = * {name "${name} ($__ARCHAELOGICALSITE__)"} [0x6600 resolution 24]
 
 # Schlachtfeld. [point, closedway]
-historic = battlefield & name = * {name "${name} ($__BATTLEFIELD__)"} [0x6600 resolution 24]
+#historic = battlefield & name = * {name "${name} ($__BATTLEFIELD__)"} [0x6600 resolution 24]
 
 # Historischer Grenzstein. [point]
-historic = boundary_stone & name = * {name "${name} ($__BOUNDARYSTONE__)"} [0x6600 resolution 24]
+#historic = boundary_stone & name = * {name "${name} ($__BOUNDARYSTONE__)"} [0x6600 resolution 24]
 
 # Burg oder Schloss. [point, closedway]
 historic = castle & name = * {name "${name} ($__CASTLE__)"} [0x6600 resolution 24]
@@ -1576,16 +1580,16 @@ geological = outcrop & name = * {name "${name} ($__OUTCROP__)"} [0x6600 resoluti
 # --------------------------------------------
 
 # Kegelbahn. [point, closedway]
-sport = 9pin & name = * {name "${name} ($__SPORT9PIN__)"} [0x2d07 resolution 24]
+# sport = 9pin & name = * {name "${name} ($__SPORT9PIN__)"} [0x2d07 resolution 24]
 
 # Bowlingbahn. [point, closedway]
-sport = 10pin & name = * {name "${name} ($__SPORT10PIN__)"} [0x2d07 resolution 24]
+# sport = 10pin & name = * {name "${name} ($__SPORT10PIN__)"} [0x2d07 resolution 24]
 
 # Radrennbahn, Radsporthalle. [point, closedway]
 sport = cycling & name = * {name "${name} ($__CYCLING__)"} [0x2c08 resolution 24]
 
 # Hunderennbahn. [point, closedway]
-sport = dog_racing & name = * {name "${name} ($__DOGRACING__)"} [0x2c08 resolution 24]
+# sport = dog_racing & name = * {name "${name} ($__DOGRACING__)"} [0x2c08 resolution 24]
 
 # Reitsporthalle, Reitplatz. [point, closedway]
 sport = equestrian & name = * {name "${name} ($__EQUESTRIAN__)"} [0x6600 resolution 24]
@@ -1594,7 +1598,7 @@ sport = equestrian & name = * {name "${name} ($__EQUESTRIAN__)"} [0x6600 resolut
 sport = golf & name = * {name "${name} ($__SPORTGOLF__)"} [0x2D05 resolution 24]
 
 # Pferderennbahn. [point, closedway]
-sport = horse_racing & name = * {name "${name} ($__HORSERACING__)"} [0x2c08 resolution 24]
+# sport = horse_racing & name = * {name "${name} ($__HORSERACING__)"} [0x2c08 resolution 24]
 
 # Mehrzweckhalle, Mehrzweckanlage.
 sport = multi & name = * {name "${name} ($__SPORTMULTI__)"} [0x2d0a resolution 24]
@@ -1669,7 +1673,7 @@ aerialway = pylon {name "${name} ($__PYLON__)" | "$__PYLON__"} [0x6417 resolutio
 office = administrative & name = * {name "${name} ($__ADMINISTRATIVE__)"} [0x3007 resolution 24]
 
 # Job-Center / Arbeitsvermittlung. [point, closedway]
-office = employment_agency & name = * {name "${name} ($__EMPLOYMENTAGENCY__)"} [0x3007 resolution 24]
+# office = employment_agency & name = * {name "${name} ($__EMPLOYMENTAGENCY__)"} [0x3007 resolution 24]
 
 # Büro einer Regierung / Behörde / Regierungseinrichtung. [point, closedway]
 office = government & name = * {name "${name} ($__GOVERNMENT__)"} [0x3007 resolution 24]
@@ -1678,7 +1682,7 @@ office = government & name = * {name "${name} ($__GOVERNMENT__)"} [0x3007 resolu
 office = ngo & name = * {name "${name} ($__NGO__)"} [0x3007 resolution 24]
 
 # Büro oder Sitz einer halbstaatlichen Organisation. [point, closedway]
-office = quango & name = * {name "${name} ($__QUANGO__)"} [0x3007 resolution 24]
+# office = quango & name = * {name "${name} ($__QUANGO__)"} [0x3007 resolution 24]
 
 
 # ------------------------------------------------------------
@@ -1734,11 +1738,11 @@ barrier = lift_gate [0x1210 resolution 24]
 
 # Grabstellen bedeutender Persönlichkeiten (d.h. Personen mit Wikipedia-Eintrag)
 # cemetery = grave & name = * & (wikipedia:de = * | wikipedia = * | website ~ 'wikipedia') {name "${name} (Ruhestaette)"} [0x6405 resolution 24]
-cemetery = grave & name = * & (wikipedia:de = * | wikipedia = * | website = *) {name "${name} ($__GRAVE__)"} [0x6405 resolution 24]
+# cemetery = grave & name = * & (wikipedia:de = * | wikipedia = * | website = *) {name "${name} ($__GRAVE__)"} [0x6405 resolution 24]
 
 # allgemeine Sehenswürdigkeit. [point, closedway]
 # (Excluding worship places here, that tag should be stronger than attraction)
-tourism = attraction & name = * {name "${name} ($__ATTRACTION__)"} [0x6600 resolution 24]
+# tourism = attraction & name = * {name "${name} ($__ATTRACTION__)"} [0x6600 resolution 24]
 
 
 # ------------------------------------------------
