@@ -35,6 +35,12 @@ Type=0x03a,3
 
 ; DrawOrder 4:
 ; -----------
+; forest (broadleaved)
+Type=0x015,4
+; forest (coniferous)
+Type=0x050,4
+; forest (mixed)
+Type=0x052,4
 ; residential
 Type=0x002,4
 ; retail
@@ -64,8 +70,6 @@ Type=0x040,4
 
 ; DrawOrder 5
 ; -----------
-; forest (broadleaved) 
-Type=0x015,5
 ; vineyard
 Type=0x01b,5
 ; zoo
@@ -80,10 +84,6 @@ Type=0x02f,5
 Type=0x044,5
 ; farmyard (Gehöft)
 Type=0x049,5
-; forest (coniferous)
-Type=0x050,5
-; forest (mixed)
-Type=0x052,5
 
 ; DrawOrder 6
 ; -----------
