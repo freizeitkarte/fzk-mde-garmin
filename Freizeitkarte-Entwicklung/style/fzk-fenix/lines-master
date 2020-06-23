@@ -63,6 +63,7 @@
 # Version : 0.35  26.11.2016 - Fixing highway = path & area = yes
 # Version : 0.36  19.03.2017 - Fixing highway = footpath & access=no: no in violet and not red anymore
 # Version : 0.37  20.05.2019 - Adding different types of arealway: j-bar, platter, magic_carpet
+# Version : 0.38  23.06.2020 - Remove power lines
 
 
 #
@@ -1658,11 +1659,11 @@ schutzgebiet = national_park [0x1d resolution 21-23]
 
 # Stromleitung (Überlandleitung)
 # 0x29 = 1 (NoLabel)
-power = line [0x29 resolution 24]
+# power = line [0x29 resolution 24]
 
 # Freileitung mit Nieder- oder Mittelspannung.
 # 0x29 = 1 (NoLabel)
-power = minor_line [0x29 resolution 24]
+# power = minor_line [0x29 resolution 24]
 
 
 # ------------------------------------------------------------------
