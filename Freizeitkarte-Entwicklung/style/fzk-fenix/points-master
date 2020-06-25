@@ -41,6 +41,7 @@
 #                               Removed: powertower, powerstation, powerplan, windpower, radiotower,
 #                                        oilwell, shops (fashion, beauty, furniture, car, computer,
 #                                        garden, etc.), bowling, horse stuff, employment agency
+# Version : 0.25 -25.06.2020  - Remove private parking lots
 #
 #
 # Copyright (C) 2011, 2012 Klaus Tockloth <freizeitkarte@googlemail.com>
@@ -910,9 +911,12 @@ amenity = fuel { name "${brand}" | "${operator}" | "${name}" | "$__FUELSTATION__
 # Parkplatz. [point, closedway]
 # amenity = parking & access = * {name "${name} (Parken eingeschränkt)" | "Parken (eingeschränkt)"} [0x2F0B resolution 24]
 # amenity = parking              {name "${name} (Parken)" | "Parken"}                               [0x4D00 resolution 24]
-#amenity = parking & access = *                                    & (capacity != * | capacity >= 10) {name "${name} ($__PARKING__ $__RESTRICTED__)" | "$__PARKING__ ($__RESTRICTED__)"} [0x2F0B resolution 24]
-amenity = parking &  access = * & access != public & access != yes & (capacity != * | capacity >= 10) {name "${name} ($__PARKING__ $__RESTRICTED__)" | "$__PARKING__ ($__RESTRICTED__)"} [0x2F0B resolution 24]
-amenity = parking & (capacity != * | capacity >= 10)              {name "${name} ($__PARKING__)" | "$__PARKING__"}                               [0x4D00 resolution 24]
+# amenity = parking & access = *                                    & (capacity != * | capacity >= 10) {name "${name} ($__PARKING__ $__RESTRICTED__)" | "$__PARKING__ ($__RESTRICTED__)"} [0x2F0B resolution 24]
+# amenity = parking &  access = * & access != public & access != yes & (capacity != * | capacity >= 10) {name "${name} ($__PARKING__ $__RESTRICTED__)" | "$__PARKING__ ($__RESTRICTED__)"} [0x2F0B resolution 24]
+# amenity = parking & (capacity != * | capacity >= 10)              {name "${name} ($__PARKING__)" | "$__PARKING__"}                               [0x4D00 resolution 24]
+
+# Öffentliche Parkplätze
+amenity = parking & access != private & (capacity != * | capacity >= 10)              {name "${name} ($__PARKING__)" | "$__PARKING__"}                               [0x4D00 resolution 24]
 
 # Kategorie "Finanzen"
 # --------------------
