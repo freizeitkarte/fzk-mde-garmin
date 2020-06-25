@@ -6297,13 +6297,24 @@ String4=0x04,Restaurant: other
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6337,13 +6348,24 @@ String4=0x04,Restaurant: Asian
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6357,13 +6379,24 @@ String4=0x04,Restaurant: Barbecue
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6377,13 +6410,24 @@ String4=0x04,Restaurant: Chinese
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6397,13 +6441,24 @@ String4=0x04,Restaurant: Deli/bakery
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6417,13 +6472,24 @@ String4=0x04,Restaurant: International
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6437,13 +6503,24 @@ String4=0x04,Restaurant: Fast food
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6457,13 +6534,24 @@ String4=0x04,Restaurant: Italian
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6477,13 +6565,24 @@ String4=0x04,Restaurant: Mexican
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6497,13 +6596,24 @@ String4=0x04,Restaurant: Pizzeria
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6517,13 +6627,24 @@ String4=0x04,Restaurant: Seafood
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6537,13 +6658,24 @@ String4=0x04,Restaurant: Steak House
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6557,13 +6689,24 @@ String4=0x04,Restaurant: Bagel/donut
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6577,13 +6720,24 @@ String4=0x04,Restaurant: Cafe/diner
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6597,13 +6751,24 @@ String4=0x04,Restaurant: French
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6617,13 +6782,24 @@ String4=0x04,Restaurant: German
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6637,13 +6813,24 @@ String4=0x04,Restaurant: British
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6657,13 +6844,24 @@ String4=0x04,Restaurant: Speciality
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
@@ -6677,13 +6875,24 @@ String4=0x04,Restaurant: Other
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #7B3000"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="9 13 3 1" Colormode=16
+".	c #ffffff"
+"#	c #a04000"
+" 	c none"
+" ...  .. "
+".#.#. ##."
+".#.#.###."
+".###.###."
+".###.###."
+".###.###."
+" .#..###."
+" .#...##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+" .#. .##."
+"  .   .  "
+;123456789
 [end]
 
 
