@@ -7612,13 +7612,23 @@ String4=0x04,Shop: Pharmacy
 ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
-DayXpm="3 3 2 1"   Colormode=16
-"!	c #0000FF"
-"  	c none"
-"!!!"
-"! !"
-"!!!"
-;123
+DayXpm="11 12 3 1"
+".	c #ffffff"
+"#	c #ea3f42"
+" 	c none"
+"     ..    "
+"   ..##.   "
+"  .#####.  "
+"  .######. "
+"  .##..##. "
+" .###..##. "
+" .#######. "
+" .#######. "
+" .###..###."
+".####..###."
+" .##. ..#. "
+"  ..    .  "
+;12345678901
 [end]
 
 
