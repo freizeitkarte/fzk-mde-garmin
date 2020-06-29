@@ -3308,7 +3308,7 @@ Type=0x10e05
 UseOrientation=N
 LineWidth=1
 Xpm="0 0 1 0"
-"1 c #702020"
+"1 c #942a2a"
 String1=0x00,Footpath
 String2=0x01,Footpath
 String3=0x02,Fußweg
@@ -3878,9 +3878,9 @@ CustomColor=No
 Type=0x10f07
 UseOrientation=N
 Xpm="32 2 2  1"
-"! c #000078"
+"! c #020eff"
 "  c none"
-"!!!!!!!!!!!!!!  !!!!!!!!!!!!!!  "
+"!!!!!!!!!!!!    !!!!!!!!!!!!    "
 "                                "
 ;12345678901234567890123456789012
 String1=0x00,Cycleway
@@ -4816,8 +4816,11 @@ CustomColor=No
 Type=0x11f1c
 UseOrientation=N
 LineWidth=2
-Xpm="0 0 1 0"
-"1 c #000078"
+Xpm="32 2 2  1"
+"! c #020eff"
+"# c #ffffff"
+"!!!!!!!!!!!#####!!!!!!!!!!!#####"
+"!!!!!!!!!!!#####!!!!!!!!!!!#####"
 String1=0x00,CycleFootway
 String2=0x01,CycleFootway
 String3=0x02,RadFußweg
@@ -4832,10 +4835,10 @@ CustomColor=No
 Type=0x11f1d
 UseOrientation=Y
 Xpm="32 2 2  1"
-"! c #000078"
+"! c #020eff"
 "  c none"
-"!!!!!!!!!!!!!!  !!!!!!!!!!!!!!  "
-"!!!!!!!!!!!!!!  !!!!!!!!!!!!!!  "
+"!!!!!!!!!!!!    !!!!!!!!!!!!    "
+"!!!!!!!!!!!!    !!!!!!!!!!!!    "
 ;12345678901234567890123456789012
 String1=0x00,Cyclepath
 String2=0x01,Cyclepath
