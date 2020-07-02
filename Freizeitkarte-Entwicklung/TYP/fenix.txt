@@ -3900,7 +3900,7 @@ LineWidth=2
 BorderWidth=1
 Xpm="0 0 2 0"
 "1 c #ffffff"
-"2 c #BABABA"
+"2 c #505050"
 String1=0x00,Pedestrianised Street
 String2=0x01,Pedestrianised Street
 String3=0x02,Fußgängerstraße mittel
@@ -3918,7 +3918,7 @@ LineWidth=1
 BorderWidth=1
 Xpm="0 0 2 0"
 "1 c #ffffff"
-"2 c #BABABA"
+"2 c #505050"
 String1=0x00,Pedestrianised street
 String2=0x01,Pedestrianised street
 String3=0x02,Fußgängerstraße
@@ -4116,7 +4116,7 @@ LineWidth=2
 BorderWidth=1
 Xpm="0 0 2 0"
 "1 c #ffffff"
-"2 c #404040"
+"2 c #222222"
 String1=0x00,Residential Road
 String2=0x01,Residential Road
 String3=0x02,Wohngebietsstraße
@@ -4134,7 +4134,7 @@ LineWidth=1
 BorderWidth=1
 Xpm="0 0 2 0"
 "1 c #ffffff"
-"2 c #404040"
+"2 c #222222"
 String1=0x00,Residential Road
 String2=0x01,Residential Road
 String3=0x02,Wohngebietsstraße
@@ -4729,7 +4729,7 @@ LineWidth=3
 BorderWidth=1
 Xpm="0 0 2 0"
 "1 c #ffffff"
-"2 c #404040"
+"2 c #222222"
 String1=0x00,side street
 String2=0x01,side street
 String3=0x02,Wohngebietsstraße
@@ -4747,7 +4747,7 @@ LineWidth=3
 BorderWidth=1
 Xpm="0 0 2 0"
 "1 c #ffffff"
-"2 c #404040"
+"2 c #222222"
 String1=0x00,Unclassified Road
 String2=0x01,Unclassified Road
 String3=0x02,Nebenstraße
@@ -4801,7 +4801,7 @@ LineWidth=3
 BorderWidth=1
 Xpm="0 0 2 0"
 "1 c #ffffff"
-"2 c #BABABA"
+"2 c #505050"
 String1=0x00,Pedestrianised Street
 String2=0x01,Pedestrianised Street
 String3=0x02,Fußgängerstraße
