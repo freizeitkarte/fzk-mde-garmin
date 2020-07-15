@@ -201,7 +201,7 @@ ExtendedLabels=Y
 FontStyle=NoLabel (invisible)
 CustomColor=No
 Xpm="0 0 1 0"
-"1 c #aaaaaa"
+"1 c #dadada"
 [end]
 
 
@@ -3899,7 +3899,7 @@ UseOrientation=Y
 LineWidth=2
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #ffffff"
+"1 c #cccccc"
 "2 c #505050"
 String1=0x00,Pedestrianised Street
 String2=0x01,Pedestrianised Street
@@ -3917,7 +3917,7 @@ UseOrientation=Y
 LineWidth=1
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #ffffff"
+"1 c #cccccc"
 "2 c #505050"
 String1=0x00,Pedestrianised street
 String2=0x01,Pedestrianised street
@@ -4115,7 +4115,7 @@ UseOrientation=Y
 LineWidth=2
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #ffffff"
+"1 c #cccccc"
 "2 c #222222"
 String1=0x00,Residential Road
 String2=0x01,Residential Road
@@ -4133,7 +4133,7 @@ UseOrientation=Y
 LineWidth=1
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #ffffff"
+"1 c #cccccc"
 "2 c #222222"
 String1=0x00,Residential Road
 String2=0x01,Residential Road
@@ -4187,7 +4187,7 @@ UseOrientation=Y
 LineWidth=2
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #ffffff"
+"1 c #cccccc"
 "2 c #222222"
 String1=0x00,Unclassified Road
 String2=0x01,Unclassified Road
@@ -4728,7 +4728,7 @@ UseOrientation=Y
 LineWidth=3
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #ffffff"
+"1 c #cccccc"
 "2 c #222222"
 String1=0x00,side street
 String2=0x01,side street
@@ -4746,7 +4746,7 @@ UseOrientation=Y
 LineWidth=3
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #ffffff"
+"1 c #cccccc"
 "2 c #222222"
 String1=0x00,Unclassified Road
 String2=0x01,Unclassified Road
@@ -4764,7 +4764,7 @@ UseOrientation=Y
 LineWidth=3
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #ffffff"
+"1 c #cccccc"
 "2 c #404040"
 String1=0x00,Service Road
 String2=0x01,Service Road
@@ -4800,7 +4800,7 @@ UseOrientation=Y
 LineWidth=3
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #ffffff"
+"1 c #cccccc"
 "2 c #505050"
 String1=0x00,Pedestrianised Street
 String2=0x01,Pedestrianised Street
