@@ -1158,7 +1158,7 @@ String=0x03,[Snelweg]
 String=0x04,[Highway]
 String=0x05,[Strada di importanza statale]
 String=0x10,[Via expressa]
-String=0x15,[Droga ekspersowa]
+String=0x15,[Droga ekspresowa]
 String=0x19,[Федеральная трасса]
 [end]
 
