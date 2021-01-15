@@ -144,7 +144,7 @@
 #define $__CARAVANSITE__FR Camping (caravanes)
 #define $__CARAVANSITE__IT Campeggio (Caravan)
 #define $__CARAVANSITE__NL Camperplaats
-#define $__CARAVANSITE__PL Kemping dla zmotoryzowaneych
+#define $__CARAVANSITE__PL Kemping dla zmotoryzowanych
 #define $__CARAVANSITE__RU Кемпинг / Стоянка для фургонов, автомобилей с прицепами
 #define $__CARAVANSITE__PT Parque de campismo
 
@@ -548,7 +548,7 @@
 #define $__LOCALITY__FR Localité
 #define $__LOCALITY__IT Località
 #define $__LOCALITY__NL Locatie
-#define $__LOCALITY__PL Miejsce niezamieszałe ale godne uwagi
+#define $__LOCALITY__PL Miejsce niezamieszkane ale godne uwagi
 #define $__LOCALITY__RU Название места
 #define $__LOCALITY__PT Localidade
 
@@ -1053,7 +1053,7 @@
 #define $__AUSTRIAN__FR Autrichien
 #define $__AUSTRIAN__IT Austriaco
 #define $__AUSTRIAN__NL Oostenrijks
-#define $__AUSTRIAN__PL Austryjacka
+#define $__AUSTRIAN__PL Austriacka
 #define $__AUSTRIAN__RU Австрийский
 #define $__AUSTRIAN__PT Austríaco
 
@@ -1250,7 +1250,7 @@
 #define $__CARRENTAL__FR Location de voiture
 #define $__CARRENTAL__IT Noleggio autoveicoli
 #define $__CARRENTAL__NL Autoverhuur
-#define $__CARRENTAL__PL Wypożyczalnie samochodów
+#define $__CARRENTAL__PL Wypożyczalnia samochodów
 #define $__CARRENTAL__RU Прокат автомобилей
 #define $__CARRENTAL__PT Aluguel de veículos
 
@@ -2324,7 +2324,7 @@
 #define $__COFFEESHOP__FR Magasin de café
 #define $__COFFEESHOP__IT Caffè
 #define $__COFFEESHOP__NL Koffiewinkel
-#define $__COFFEESHOP__PL Kawiarmia
+#define $__COFFEESHOP__PL Kawiarnia
 #define $__COFFEESHOP__RU Кофейня
 #define $__COFFEESHOP__PT Cafeteria
 
@@ -2464,7 +2464,7 @@
 #define $__INTERIORDECORATION__FR Magasin de décoration intérieur
 #define $__INTERIORDECORATION__IT Decorazione di interni
 #define $__INTERIORDECORATION__NL Interieurwinkel
-#define $__INTERIORDECORATION__PL Sklep z meteriałami do wystroju wnętrzs
+#define $__INTERIORDECORATION__PL Sklep z materiałami do wystroju wnętrz
 #define $__INTERIORDECORATION__RU Товары для интерьера
 #define $__INTERIORDECORATION__PT Decoração de interiores
 
@@ -2474,7 +2474,7 @@
 #define $__JEWELRY__FR Bijouterie
 #define $__JEWELRY__IT Gioielleria
 #define $__JEWELRY__NL Juwelier
-#define $__JEWELRY__PL Jublier
+#define $__JEWELRY__PL Jubiler
 #define $__JEWELRY__RU Ювелирный магазин
 #define $__JEWELRY__PT Joalheiro
 
@@ -2564,7 +2564,7 @@
 #define $__NEWSAGENT__FR Marchand de journaux
 #define $__NEWSAGENT__IT Giornalaio
 #define $__NEWSAGENT__NL Krantenwinkel
-#define $__NEWSAGENT__PL Sklkep z gazetami
+#define $__NEWSAGENT__PL Sklep z gazetami
 #define $__NEWSAGENT__RU Газетный киоск
 #define $__NEWSAGENT__PT Banca de jornais
 
@@ -2754,7 +2754,7 @@
 #define $__VIDEO__FR Vidéo club
 #define $__VIDEO__IT Videoteca
 #define $__VIDEO__NL Vidiotheek
-#define $__VIDEO__PL Videoteka
+#define $__VIDEO__PL Wideoteka
 #define $__VIDEO__RU Видеофильмы/видеопрокат
 #define $__VIDEO__PT Videolocadora
 
@@ -2841,7 +2841,7 @@
 #define $__COMMON__FR Espace vert
 #define $__COMMON__IT Area verde
 #define $__COMMON__NL Openbaar groen
-#define $__COMMON__PL Ogólniedostępna przestrzeń zielona
+#define $__COMMON__PL Ogólnodostępna przestrzeń zielona
 #define $__COMMON__RU Зелёные насаждения
 #define $__COMMON__PT Área verde
 
@@ -3133,7 +3133,7 @@
 #define $__BUNKER__FR Bunker
 #define $__BUNKER__IT Rifugio sotterraneo
 #define $__BUNKER__NL Bunker
-#define $__BUNKER__PL Bunker
+#define $__BUNKER__PL Bunkier
 #define $__BUNKER__RU Бункер/убежище
 #define $__BUNKER__PT Bunker
 
@@ -3271,7 +3271,7 @@
 #define $__FARMYARD__FR Ferme
 #define $__FARMYARD__IT Fattoria
 #define $__FARMYARD__NL Boerderij
-#define $__FARMYARD__PL Gospodarstwo wejskie
+#define $__FARMYARD__PL Gospodarstwo wiejskie
 #define $__FARMYARD__RU Фермерские угодья
 #define $__FARMYARD__PT Pátio de fazenda
 
@@ -3360,7 +3360,7 @@
 #define $__MILITARY__FR Zone militaire
 #define $__MILITARY__IT Area militare
 #define $__MILITARY__NL Millitair terrein
-#define $__MILITARY__PL Obszar należący do wosjka
+#define $__MILITARY__PL Obszar należący do wojska
 #define $__MILITARY__RU Территория воинской части
 #define $__MILITARY__PT Quartel
 
@@ -3496,7 +3496,7 @@
 #define $__MILITARYDANGERAREA__FR Zone de danger (militaire)
 #define $__MILITARYDANGERAREA__IT Area pericolosa (militare)
 #define $__MILITARYDANGERAREA__NL Millitair terein, verboden toegang
-#define $__MILITARYDANGERAREA__PL Strefa millitarna
+#define $__MILITARYDANGERAREA__PL Strefa militarna
 #define $__MILITARYDANGERAREA__RU Опасная зона (воен.)
 #define $__MILITARYDANGERAREA__PT Área militar restrita
 
@@ -3575,7 +3575,7 @@
 #define $__SPORT10PIN__FR Bowling (10 quilles)
 #define $__SPORT10PIN__IT Bowling (10 birilli)
 #define $__SPORT10PIN__NL Bowlingbaan
-#define $__SPORT10PIN__PL Kręglielnia (10)
+#define $__SPORT10PIN__PL Kręgielnia (10)
 #define $__SPORT10PIN__RU Кегельбан (10 кеглей)
 #define $__SPORT10PIN__PT Boliche
 
@@ -3718,7 +3718,7 @@
 #define $__PYLON__FR Pylone de télécabine
 #define $__PYLON__IT Pilone della funivia
 #define $__PYLON__NL Kabelbaanpilaar
-#define $__PYLON__PL Wspornik koleji liniowych
+#define $__PYLON__PL Wspornik kolei linowych
 #define $__PYLON__RU Опора канатной дороги
 #define $__PYLON__PT Torre de teleférico
 
@@ -3745,7 +3745,7 @@
 #define $__EMPLOYMENTAGENCY__FR Agence pour l'emploi
 #define $__EMPLOYMENTAGENCY__IT Agenzia per l'impiego
 #define $__EMPLOYMENTAGENCY__NL Arbeidsbureau
-#define $__EMPLOYMENTAGENCY__PL Pośredniak
+#define $__EMPLOYMENTAGENCY__PL Biuro pośrednictwa pracy
 #define $__EMPLOYMENTAGENCY__RU Кадровое агентство
 #define $__EMPLOYMENTAGENCY__PT Agência de emprego
 
