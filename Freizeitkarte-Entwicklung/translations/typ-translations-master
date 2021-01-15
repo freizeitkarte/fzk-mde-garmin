@@ -299,7 +299,7 @@ String=0x03,Groeve
 String=0x04,Quarry
 String=0x05,Cava
 String=0x10,Pedreira
-String=0x15,Kemieniołom
+String=0x15,Kamieniołom
 String=0x19,Карьер
 [end]
 
@@ -327,7 +327,7 @@ String=0x03,Picknickplaats
 String=0x04,Picnic Area
 String=0x05,Area Picnic
 String=0x10,Local de piquenique
-String=0x15,Miejscie piknikowe
+String=0x15,Miejsce piknikowe
 String=0x19,Место для пикника
 [end]
 
@@ -523,7 +523,7 @@ String=0x03,Krachtcentrale
 String=0x04,Power Station
 String=0x05,Stazione di trasformazione
 String=0x10,Estação de energia
-String=0x15,Eletkrownia
+String=0x15,Elektrownia
 String=0x19,Электростанция
 [end]
 
@@ -705,7 +705,7 @@ String=0x03,Supermarkt
 String=0x04,Supermarket
 String=0x05,Supermercato
 String=0x10,Supermercado
-String=0x15,Supermakret
+String=0x15,Supermarket
 String=0x19,Супермаркет
 [end]
 
@@ -1097,7 +1097,7 @@ String=0x03,Wadi
 String=0x04,Wadi
 String=0x05,Wadi
 String=0x10,Uádi
-String=0x15,Wadi (sucha koryto rzeki na pustyni)
+String=0x15,Wadi (suche koryto rzeki na pustyni)
 String=0x19,Вади (сухая долина временного потока)
 [end]
 
@@ -1564,7 +1564,7 @@ String=0x03,Rivier
 String=0x04,Stream
 String=0x05,Ruscello
 String=0x10,Córrego
-String=0x15,Strumyczek
+String=0x15,Strumień
 String=0x19,Ручей
 [end]
 
@@ -2248,7 +2248,7 @@ String=0x03,Ruiterpad
 String=0x04,bridle path
 String=0x05,Mulattiera
 String=0x10,Hipovia
-String=0x15,Wyznaczona droga do dla koni
+String=0x15,Wyznaczona droga dla koni
 String=0x19,Дорога для всадников
 [end]
 
@@ -2290,7 +2290,7 @@ String=0x03,Pad
 String=0x04,Path
 String=0x05,Percorso
 String=0x10,Caminho
-String=0x15,Wąską ścieżka
+String=0x15,Wąska ścieżka
 String=0x19,Путь
 [end]
 
@@ -2431,7 +2431,7 @@ String=0x03,Fietspad/Voetpad nauw
 String=0x04,Cycle-/Footway narrow
 String=0x05,Sentiero pedonale/ciclabile stretta
 String=0x10,Ciclovia/Pedestres estreito
-String=0x15,ścieżka rowerowa/chodnik 
+String=0x15,Ścieżka rowerowa/chodnik 
 String=0x19,Вело-/пешеходная дорожка
 [end]
 
@@ -2781,7 +2781,7 @@ String=0x03,Autosnelweg
 String=0x04,freeway
 String=0x05,Autostrada
 String=0x10,Auto estrada
-String=0x15,Droga eksprespowa
+String=0x15,Droga ekspresowa
 String=0x19,Автомагистраль
 [end]
 
@@ -2795,7 +2795,7 @@ String=0x03,Autosnelweg
 String=0x04,freeway
 String=0x05,Autostrada
 String=0x10,Auto estrada
-String=0x15,Droga eksprespowa
+String=0x15,Droga ekspresowa
 String=0x19,Федеральная трасса
 [end]
 
@@ -3371,7 +3371,7 @@ String=0x03,Straat
 String=0x04,Unclassified Road
 String=0x05,Strada minore
 String=0x10,Rua não classificada
-String=0x15,Droga czwartorzeędna
+String=0x15,Droga czwartorzędna
 String=0x19,Неопределённая дорога
 [end]
 
@@ -3427,7 +3427,7 @@ String=0x03,Fietspad/Voetpad nauw
 String=0x04,Cycle-/Footway
 String=0x05,Sentiero pedonale/ciclabile
 String=0x10,Ciclovia/Pedestres
-String=0x15,ścieżka rowerowa/chodnik
+String=0x15,Ścieżka rowerowa/chodnik
 String=0x19,Вело-/пешеходная дорожка
 [end]
 
@@ -3567,7 +3567,7 @@ String=0x03,Skipiste
 String=0x04,Extreme Piste
 String=0x05,Pista (difficoltà estrema)
 String=0x10,Pista difícil
-String=0x15,Stok o ekstermalnej trudności
+String=0x15,Stok o ekstremalnej trudności
 String=0x19,Экстремальная горнолыжная трасса
 [end]
 
@@ -4140,7 +4140,7 @@ String=0x03,Haag
 String=0x04,Hedge
 String=0x05,Siepe
 String=0x10,Sebe
-String=0x15,żywopłot
+String=0x15,Żywopłot
 String=0x19,хедж
 [end]
 
@@ -4153,7 +4153,7 @@ String=0x03,Haag
 String=0x04,Hedge Bank
 String=0x05,Siepe
 String=0x10,Sebe
-String=0x15,żywopłot
+String=0x15,Żywopłot
 String=0x19,хедж
 [end]
 
@@ -4166,7 +4166,7 @@ String=0x03,Bomenrij
 String=0x04,Tree Row
 String=0x05,Filare di Alberi
 String=0x10,Fileira Árvore
-String=0x15,Wiersz Drzewa
+String=0x15,Linia Drzew
 String=0x19,дерево строка
 [end]
 
@@ -4194,7 +4194,7 @@ String=0x03,Spoor T1
 String=0x04,Hiking Trail T1
 String=0x05,Sentiero T1
 String=0x10,Trilha T1
-String=0x15,ślad T1
+String=0x15,Ślad T1
 String=0x19,тропа T1
 [end]
 
@@ -4208,7 +4208,7 @@ String=0x03,Spoor T1
 String=0x04,Hiking Trail T1
 String=0x05,Sentiero T1
 String=0x10,Trilha T1
-String=0x15,ślad T1
+String=0x15,Ślad T1
 String=0x19,тропа T1
 [end]
 
@@ -4508,7 +4508,7 @@ String=0x03,Restaurant: overig
 String=0x04,Restaurant: other
 String=0x05,Ristorante: Altro
 String=0x10,Restaurante: outros
-String=0x15,Restauracja: inne
+String=0x15,Restauracja: inna
 String=0x19,Ресторан: прочее
 [end]
 
@@ -4793,7 +4793,7 @@ String=0x03,Restaurant: overig
 String=0x04,Restaurant: Other
 String=0x05,Ristorante: Altro
 String=0x10,Restaurante: Outros
-String=0x15,Restauracja: Inne
+String=0x15,Restauracja: Inna
 String=0x19,Ресторан: прочее
 [end]
 
@@ -5290,7 +5290,7 @@ String=0x03,Winkel: Supermarkt
 String=0x04,Shop: Convinience
 String=0x05,Commercio: Emporio
 String=0x10,Comércio: Loja de conveniência
-String=0x15,Sklep: Aartykuły codziennego użytku
+String=0x15,Sklep: Artykuły codziennego użytku
 String=0x19,Магазин: товары первой необходимости
 [end]
 
@@ -5395,7 +5395,7 @@ String=0x03,Winkel: Overig
 String=0x04,Shop: Other
 String=0x05,Commercio: Altro
 String=0x10,Comércio: Outros
-String=0x15,Sklep: Inne
+String=0x15,Sklep: Inny
 String=0x19,Магазин: прочее
 [end]
 
@@ -5799,7 +5799,7 @@ String=0x03,Berghut (horecabedrijf)
 String=0x04,Alpine Hut (operated/manned)
 String=0x05,Rifugio alpino (gestito)
 String=0x10,Cabana alpina (com serviços)
-String=0x15,Schronisko turystyczne(z obsługą)
+String=0x15,Schronisko turystyczne (z obsługą)
 String=0x19,Горное жилище (с обслуживанием)
 [end]
 
@@ -5874,7 +5874,7 @@ String=0x03,Picknickplaats
 String=0x04,Picnic Area
 String=0x05,Area Picnic
 String=0x10,Local de piquenique
-String=0x15,Miejscie piknikowe
+String=0x15,Miejsce piknikowe
 String=0x19,Место для пикника
 [end]
 
@@ -6444,7 +6444,7 @@ String=0x03,Militaire bunker
 String=0x04,Bunker
 String=0x05,Rifugio sotterraneo
 String=0x10,Trincheira
-String=0x15,Bunker
+String=0x15,Bunkier
 String=0x19,Бункер/убежище
 [end]
 
