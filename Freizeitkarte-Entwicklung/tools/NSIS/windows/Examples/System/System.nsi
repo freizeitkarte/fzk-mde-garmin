@@ -5,6 +5,8 @@
 
 Name "System Plugin Example"
 OutFile "System.exe"
+RequestExecutionLevel User
+Unicode True
 
 !include "SysFunc.nsh"
 
@@ -32,7 +34,7 @@ Section "ThisNameIsIgnoredSoWhyBother?"
      StrCpy $7 '               Disk,                Size,                Free,                Free for user:$\n$\n'
 
      ; Memory for paths   
-     System::Alloc 1024
+     System::StrAlloc 1024
      Pop $1
      ; Get drives   
      System::Call '${sysGetLogicalDriveStrings}(1024, r1)'
@@ -59,8 +61,9 @@ enumok:
 
 enumnext:
      ; Next drive path       
+     IntOp $2 $2 * ${NSIS_CHAR_SIZE}
      IntOp $1 $1 + $2
-     IntOp $1 $1 + 1
+     IntOp $1 $1 + ${NSIS_CHAR_SIZE}
      goto enumok   
 enumex: ; End of drives or user cancel
      ; Free memory for paths   
@@ -72,7 +75,7 @@ enumex: ; End of drives or user cancel
      ; ----- Sample 3 ----- Direct proc defenition -----
 
      ; Direct specification demo
-     System::Call 'user32::MessageBoxA(i $HWNDPARENT, t "Just direct MessageBoxA specification demo ;)", t "System Example 3", i ${MB_OK}) i.s'
+     System::Call 'user32::MessageBox(p $HWNDPARENT, t "Just direct MessageBox specification demo ;)", t "System Example 3", i ${MB_OK}) i.s'
      Pop $0
 
      ; ----- Sample 4 ----- Int64, mixed definition demo -----
@@ -132,5 +135,27 @@ enumex: ; End of drives or user cancel
      MessageBox MB_OK "Splash (callbacks) demo result $R0"
 
 SectionEnd 
+
+
+Section "Quoted path"
+
+  !define /IfNDef CSIDL_FONTS 0x14
+  StrCpy $9 "$PluginsDir\N(S # I)S" ; Directory with '(', ' ', '#' or ')' needs to be quoted
+  CreateDirectory "$9"
+  CopyFiles /Silent /FilesOnly "$sysdir\shfolder.dll" "$9\" ; This could fail on 95 & NT4?
+
+  System::Call '"$9\shfolder.dll"::SHGetFolderPathA(p $hWndParent, i ${CSIDL_FONTS}, p 0, i 0, m "?" r1) ?u'
+  DetailPrint Fonts=$1
+
+SectionEnd
+
+
+Section "Ordinal"
+
+  System::Call 'OLEAUT32::#2(w "OLE string")p.r0' ; SysAllocString
+  System::Call 'USER32::MessageBoxW(p $hWndParent, p r0, w "OLE:", i 0)'
+  System::Call 'OLEAUT32::#6(p r0)'
+
+SectionEnd
 
 ; eof

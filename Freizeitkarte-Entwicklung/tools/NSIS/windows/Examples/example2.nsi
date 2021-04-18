@@ -13,15 +13,18 @@ Name "Example2"
 ; The file to write
 OutFile "example2.exe"
 
+; Request application privileges for Windows Vista
+RequestExecutionLevel admin
+
+; Build Unicode installer
+Unicode True
+
 ; The default installation directory
 InstallDir $PROGRAMFILES\Example2
 
 ; Registry key to check for directory (so if you install again, it will 
 ; overwrite the old one automatically)
 InstallDirRegKey HKLM "Software\NSIS_Example2" "Install_Dir"
-
-; Request application privileges for Windows Vista
-RequestExecutionLevel admin
 
 ;--------------------------------
 
@@ -55,7 +58,7 @@ Section "Example2 (required)"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Example2" "UninstallString" '"$INSTDIR\uninstall.exe"'
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Example2" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Example2" "NoRepair" 1
-  WriteUninstaller "uninstall.exe"
+  WriteUninstaller "$INSTDIR\uninstall.exe"
   
 SectionEnd
 
@@ -63,8 +66,8 @@ SectionEnd
 Section "Start Menu Shortcuts"
 
   CreateDirectory "$SMPROGRAMS\Example2"
-  CreateShortCut "$SMPROGRAMS\Example2\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
-  CreateShortCut "$SMPROGRAMS\Example2\Example2 (MakeNSISW).lnk" "$INSTDIR\example2.nsi" "" "$INSTDIR\example2.nsi" 0
+  CreateShortcut "$SMPROGRAMS\Example2\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
+  CreateShortcut "$SMPROGRAMS\Example2\Example2 (MakeNSISW).lnk" "$INSTDIR\example2.nsi" "" "$INSTDIR\example2.nsi" 0
   
 SectionEnd
 
