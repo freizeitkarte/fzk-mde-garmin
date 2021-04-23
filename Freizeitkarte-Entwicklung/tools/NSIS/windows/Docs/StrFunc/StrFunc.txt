@@ -32,7 +32,7 @@ How to use
 
     !include "StrFunc.nsh"
 
-    StrFunc.nsh has to be inside Include directory, so you don't have to
+    StrFunc.nsh is inside the Include directory, so you don't have to
     specify a path.
 
     You have to put this command before any command used in this header file.
@@ -93,25 +93,25 @@ How to use
     3.1 How To Use Commands In Install Sections and Functions
     ---------------------------------------------------------
 
-    Every command used in install sections and functions have to be called
-    first before and out of any sections and functions, and without
+    Every command used in install sections and functions have to be declared
+    before (and outside of) any sections and functions, and without
     parameters.
 
     Example:
     --------
 
-    ${StrStr}
+    ${UsingStrFunc} StrStr
     
     3.2 How To Use Commands In Uninstall Sections and Functions
     -----------------------------------------------------------
 
-    Commands with Uninstall Sections and Functions support have "Un" before
-    the words inside curly brackets "{}".
+    Commands for uninstall sections and functions have "Un" before
+    the name.
 
     Example:
     --------
     
-    ${UnStrStr}
+    ${UsingStrFunc} UnStrStr
 
     A complete example with both Install and Uninstall Commands:
     ------------------------------------------------------------
@@ -119,9 +119,9 @@ How to use
 
     !include "StrFunc.nsh"
 
-    ${StrStr} # Supportable for Install Sections and Functions
+    ${UsingStrFunc} StrStr # Supportable for Install Sections and Functions
 
-    ${UnStrStr} # Supportable for Uninstall Sections and Functions
+    ${UsingStrFunc} UnStrStr # Supportable for Uninstall Sections and Functions
 
     Section
 
@@ -328,7 +328,7 @@ How to use
     =========================================================================
     ***                                                            ${StrSort}
     -------------------------------------------------------------------------
-    ResultVar String LeftStr CenterStr RightStr IncludeLeftStr(1|0)
+    ResultVar String CenterStr LeftStr RightStr IncludeLeftStr(1|0)
     IncludeCenterStr(1|0) IncludeRightStr(1|0)
     =========================================================================
     Searches for "CenterStr" in "String", and returns only the value
@@ -344,13 +344,13 @@ How to use
       String
       String where to search "CenterStr".
 
+      CenterStr
+      String to search in "String".
+
       LeftStr
       The first occurrence of "LeftStr" on the left of "CenterStr".
       If it is an empty value, or was not found, will return
       everything on the left of "CenterStr".
-
-      CenterStr
-      String to search in "String".
 
       RightStr
       The first occurrence of "RightStr" on the right of "CenterStr".

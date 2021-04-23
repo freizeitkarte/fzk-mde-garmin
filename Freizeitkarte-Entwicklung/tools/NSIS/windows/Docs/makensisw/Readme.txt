@@ -191,11 +191,29 @@ Version History
 
 2.3.1
 - Fixed broken command line parameter handling
- 
+
+2.3.2
+- The size gripper can be used to resize the window
+
+2.3.3
+- Update check switched from JNetLib to WinInet
+- New file type icons
+
+2.3.4
+- Added Window Info/Spy feature
+- System DPI aware
+- New toolbar images
+
+2.3.5
+- Added log window colors
+- Basic AppEvents custom sound support for BuildComplete, BuildWarning and BuildError
+
+
 Copyright Information
 ---------------------
 Copyright (c) 2002 Robert Rainwater
-Contributors: Justin Frankel, Fritz Elfert, Amir Szekely, Sunil Kamath, Joost Verburg
+Contributors: Justin Frankel, Fritz Elfert, Amir Szekely, 
+              Sunil Kamath, Joost Verburg, Anders Kjersem.
 
 This software is provided 'as-is', without any express or implied
 warranty.  In no event will the authors be held liable for any damages
