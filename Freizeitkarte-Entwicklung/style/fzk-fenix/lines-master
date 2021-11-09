@@ -412,8 +412,8 @@ highway = *
    surface = gravel  | surface = fine_gravel | surface = mud |
    surface = wood    | surface = pebblestone | surface = sand |
    surface = unpaved |
-   mtb:scale = * |
-   tracktype ~ 'grade[2-5]' |
+   mtb:scale>0 | mtb:scale='0+' |
+   tracktype ~ 'grade[2-6]' |
    smoothness ~ '.*(bad | very_bad | horrible | very_horrible | impassable)' |
    sac_scale = * |
    sport = via_ferrata)
