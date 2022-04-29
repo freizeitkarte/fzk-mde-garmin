@@ -1,0 +1,4 @@
+[submodule "ofm-styles"]
+	path = ofm-styles
+	url = https://github.com/enginefeeder101/ofm-styles.git
+	shallow = true
