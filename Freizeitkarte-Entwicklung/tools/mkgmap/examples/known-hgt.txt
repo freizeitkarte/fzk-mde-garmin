@@ -1,4 +1,4 @@
-# HGT files (SRTM) is not avalaible for areas in the ocean.
+# HGT files (SRTM) are not avalaible for areas in the ocean.
 # This is a list of all hgt files
 # to compile it use 
 # java -cp mkgmap.jar uk.me.parabola.mkgmap.reader.hgt.HGTList compile known-hgt.txt   
@@ -10392,7 +10392,6 @@ N60E153
 N60E154 
 N60E155 
 N60E156 
-N60E157 
 N60E159 
 N60E160 
 N60E161 
@@ -11669,7 +11668,6 @@ N64W173
 N64W174 
 N64W175 
 N64W176 
-N64W180 
 N65E010 
 N65E011 
 N65E012 
@@ -13627,7 +13625,6 @@ N72E053
 N72E054 
 N72E055 
 N72E056 
-N72E057 
 N72E068 
 N72E069 
 N72E070 
@@ -14403,7 +14400,6 @@ N77E024
 N77E025 
 N77E067 
 N77E082 
-N77E083 
 N77E088 
 N77E089 
 N77E090 
