@@ -101,6 +101,7 @@
 ;                           - implemented service rails separately from normal rails
 ; Version: 0.19 -02.05.2015 - Spliting up caravan and picnic site: for moving camping_site to drawOrder 4
 ; Version: 0.20  28.05.2017 - Adapted/corrected few Dutch translations
+; Version: 0.21  14.05.2022   Fix typos in polish translation (thanks to matpk1990)
 
 
 
