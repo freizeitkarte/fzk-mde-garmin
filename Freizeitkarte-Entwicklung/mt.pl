@@ -4,7 +4,7 @@
 # Version : siehe unten
 #
 # Copyright (C) 2011-2013 Klaus Tockloth <Klaus.Tockloth@googlemail.com>
-#               2013-2015 Adaptions by Patrik Brunner <keenonkites@gmx.net>
+#               2013-2022 Adaptions by Patrik Brunner <keenonkites@gmx.net>
 # - modified for Ubuntu through GVE
 #
 # Programmcode formatiert mit "perltidy".
@@ -433,7 +433,7 @@ my $ACTIONTARGET = 4;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.18 - 2021/01/18';
+my $VERSION = '1.3.19 - 2022/05/14';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -3398,6 +3398,14 @@ sub create_nsis_nsi_full {
   printf { $fh } ( "; - Kopieren des Deinstallationsprogramms\n" );
   printf { $fh } ( "; ------------------------------------------------------------\n" );
   printf { $fh } ( "\n" );
+
+  printf { $fh } ( "; Unicode (needed on makensis > 3.0a)\n" );
+  printf { $fh } ( "; -----------------------------------\n" );
+  printf { $fh } ( "!if \"\${NSIS_PACKEDVERSION}\" > 0x02ffffff\n" );
+  printf { $fh } ( "  Unicode True\n" );
+  printf { $fh } ( "!endif\n" );
+
+  # Settings and definitions
   printf { $fh } ( "; General Settings\n" );
   printf { $fh } ( "; ----------------\n" );
   printf { $fh } ( "\n" );
@@ -3889,6 +3897,12 @@ sub create_nsis_nsi_gmap {
   printf { $fh } ( ";   into the correct location for BaseCamp\n" );
   printf { $fh } ( "; ------------------------------------------------------------\n" );
   printf { $fh } ( "\n" );
+
+  printf { $fh } ( "; Unicode (needed on makensis > 3.0a)\n" );
+  printf { $fh } ( "; -----------------------------------\n" );
+  printf { $fh } ( "!if \"\${NSIS_PACKEDVERSION}\" > 0x02ffffff\n" );
+  printf { $fh } ( "  Unicode True\n" );
+  printf { $fh } ( "!endif\n" );
 
   # Settings and definitions
   printf { $fh } ( "; General Settings\n" );
