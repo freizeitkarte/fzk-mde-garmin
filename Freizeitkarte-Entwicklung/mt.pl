@@ -4,7 +4,7 @@
 # Version : siehe unten
 #
 # Copyright (C) 2011-2013 Klaus Tockloth <Klaus.Tockloth@googlemail.com>
-#               2013-2015 Adaptions by Patrik Brunner <keenonkites@gmx.net>
+#               2013-2022 Adaptions by Patrik Brunner <keenonkites@gmx.net>
 # - modified for Ubuntu through GVE
 #
 # Programmcode formatiert mit "perltidy".
@@ -433,7 +433,7 @@ my $ACTIONTARGET = 4;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.18 - 2021/01/18';
+my $VERSION = '1.3.19 - 2022/05/14';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -3398,6 +3398,14 @@ sub create_nsis_nsi_full {
   printf { $fh } ( "; - Kopieren des Deinstallationsprogramms\n" );
   printf { $fh } ( "; ------------------------------------------------------------\n" );
   printf { $fh } ( "\n" );
+
+  printf { $fh } ( "; Unicode (needed on makensis > 3.0a)\n" );
+  printf { $fh } ( "; -----------------------------------\n" );
+  printf { $fh } ( "!if \"\${NSIS_PACKEDVERSION}\" > 0x02ffffff\n" );
+  printf { $fh } ( "  Unicode True\n" );
+  printf { $fh } ( "!endif\n" );
+
+  # Settings and definitions
   printf { $fh } ( "; General Settings\n" );
   printf { $fh } ( "; ----------------\n" );
   printf { $fh } ( "\n" );
@@ -3592,13 +3600,19 @@ sub create_nsis_nsi_full {
   printf { $fh } ( "  Delete \$MyTempDir\n" );
   printf { $fh } ( "  CreateDirectory \$MyTempDir\n" );
   printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Include correct plugins\n" );
+  printf { $fh } ( "  ; -----------------------\n" );
+  printf { $fh } ( "  !if \"\${NSIS_PACKEDVERSION}\" > 0x02ffffff\n" );
+  printf { $fh } ( "    !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\\x86-unicode\"\n", $BASEPATH );
+  printf { $fh } ( "  !else\n" );
+  printf { $fh } ( "    !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\\x86-ansi\"\n", $BASEPATH );
+  printf { $fh } ( "  !endif\n" );
+  printf { $fh } ( "\n" );
   printf { $fh } ( "  ; Files to be installed\n" );
   printf { $fh } ( "  ; ---------------------\n" );
   printf { $fh } ( "  SetOutPath \"\$MyTempDir\"\n" );
   printf { $fh } ( "  File \"\${MAPNAME}_InstallFiles.zip\"\n" );
-
-  printf { $fh } ( "  !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\\x86-ansi\"\n", $BASEPATH );
-
+  printf { $fh } ( "\n" );
   printf { $fh } ( "  nsisunz::UnzipToLog \"\$MyTempDir\\\${MAPNAME}_InstallFiles.zip\" \"\$MyTempDir\"\n" );
   printf { $fh } ( "  Pop \$0\n" );
   printf { $fh } ( "  StrCmp \$0 \"success\" +2\n" );
@@ -3890,6 +3904,12 @@ sub create_nsis_nsi_gmap {
   printf { $fh } ( "; ------------------------------------------------------------\n" );
   printf { $fh } ( "\n" );
 
+  printf { $fh } ( "; Unicode (needed on makensis > 3.0a)\n" );
+  printf { $fh } ( "; -----------------------------------\n" );
+  printf { $fh } ( "!if \"\${NSIS_PACKEDVERSION}\" > 0x02ffffff\n" );
+  printf { $fh } ( "  Unicode True\n" );
+  printf { $fh } ( "!endif\n" );
+
   # Settings and definitions
   printf { $fh } ( "; General Settings\n" );
   printf { $fh } ( "; ----------------\n" );
@@ -4036,9 +4056,17 @@ sub create_nsis_nsi_gmap {
   printf { $fh } ( "; -------------------------------------------------------------------\n" );
   printf { $fh } ( "Function .onInit\n" );
   printf { $fh } ( "\n" );
+  printf { $fh } ( "  ; Include correct plugins\n" );
+  printf { $fh } ( "  ; -----------------------\n" );
+  printf { $fh } ( "  !if \"\${NSIS_PACKEDVERSION}\" > 0x02ffffff\n" );
+  printf { $fh } ( "    !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\\x86-unicode\"\n", $BASEPATH );
+  printf { $fh } ( "  !else\n" );
+  printf { $fh } ( "    !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\\x86-ansi\"\n", $BASEPATH );
+  printf { $fh } ( "  !endif\n" );
+  printf { $fh } ( "\n" );
+
   printf { $fh } ( "  ; Initiate the logging\n" );
   printf { $fh } ( "  ; ---------------------------------------------------------\n" );
-  printf { $fh } ( "  !addplugindir \"\%s\\tools\\NSIS\\windows\\Plugins\\x86-ansi\"\n", $BASEPATH );
   printf { $fh } ( "  LogEx::Init true \"\$EXEDIR\\\${MAPNAME}-install.log\"\n" );
   printf { $fh } ( "  LogEx::Write  \"Init: Starting installation: \${MAPNAME} \${KARTEN_AUSGABE}\"\n" );
   printf { $fh } ( "\n" );
@@ -4181,11 +4209,11 @@ sub create_nsis_nsi_gmap {
   printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Print Garmin Maps Dir content:\n" );
   printf { $fh } ( "  ; ------------------------------\n" );
-  printf { $fh } ( "  LogEx::Write  \"   pre installation:\"\n" );
-  printf { $fh } ( "  LogEx::Write  \"SectionMain: Garmin Maps Dir:\"\n" );
+  printf { $fh } ( "  LogEx::Write  \"SectionMain: Garmin Maps Dir: pre installation\"\n" );
   printf { $fh } ( "  LogEx::Write  \"   --------------------------------------------------------------------------------\"\n" );
-  printf { $fh } ( "  ExecDos::exec 'cmd /C dir \"\$GarminMapsDir\"' \"\" \"\$MyTempDir\\garminmapsdir-output.log\"\n" );
-  printf { $fh } ( "  LogEx::AddFile \"   \" \"\$MyTempDir\\garminmapsdir-output.log\"\n" );
+  printf { $fh } ( "  Push \"*\"\n" );
+  printf { $fh } ( "  Push \"\$GarminMapsDir\"\n" );
+  printf { $fh } ( "  Call MakeFileList\n" );
   printf { $fh } ( "  LogEx::Write  \"   --------------------------------------------------------------------------------\"\n" );
   printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Extract 7za.exe\n" );
@@ -4230,11 +4258,11 @@ sub create_nsis_nsi_gmap {
   printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Print Garmin Maps Dir content:\n" );
   printf { $fh } ( "  ; ------------------------------\n" );
-  printf { $fh } ( "  LogEx::Write  \"   pre installation:\"\n" );
-  printf { $fh } ( "  LogEx::Write  \"SectionMain: Garmin Maps Dir:\"\n" );
+  printf { $fh } ( "  LogEx::Write  \"SectionMain: Garmin Maps Dir: post installation\"\n" );
   printf { $fh } ( "  LogEx::Write  \"   --------------------------------------------------------------------------------\"\n" );
-  printf { $fh } ( "  ExecDos::exec 'cmd /C dir \"\$GarminMapsDir\"' \"\" \"\$MyTempDir\\garminmapsdir-output.log\"\n" );
-  printf { $fh } ( "  LogEx::AddFile \"   \" \"\$MyTempDir\\garminmapsdir-output.log\"\n" );
+  printf { $fh } ( "  Push \"*\"\n" );
+  printf { $fh } ( "  Push \"\$GarminMapsDir\"\n" );
+  printf { $fh } ( "  Call MakeFileList\n" );
   printf { $fh } ( "  LogEx::Write  \"   --------------------------------------------------------------------------------\"\n" );
   printf { $fh } ( "  \n" );
   printf { $fh } ( "  ; Delete temporary directory and content\n" );
@@ -4307,6 +4335,38 @@ sub create_nsis_nsi_gmap {
   printf { $fh } ( "  LogEx::Close\n" );
   printf { $fh } ( "  Abort\n" );
   printf { $fh } ( "FunctionEnd\n" );
+  printf { $fh } ( "\n" );
+
+  # Function MakeFileList (alternative dir command)
+  printf { $fh } ( "; Function MakeFileList (dir)\n" );
+  printf { $fh } ( "; ---------------------------\n" );
+  printf { $fh } ( "Function MakeFileList\n" );
+  printf { $fh } ( "  Exch \$R0 #path\n" );
+  printf { $fh } ( "  Exch\n" );
+  printf { $fh } ( "  Exch \$R1 #filter\n" );
+  printf { $fh } ( "  Exch\n" );
+  printf { $fh } ( "  Push \$R2\n" );
+  printf { $fh } ( "  Push \$R3\n" );
+  printf { $fh } ( "    ClearErrors\n" );
+  printf { $fh } ( "    FindFirst \$R2 \$R3 \"\$R0\\\$R1\"\n" );
+  printf { $fh } ( "    \n" );
+  printf { $fh } ( "    Loop:\n" );
+  printf { $fh } ( "    IfErrors Done\n" );
+  printf { $fh } ( "      IfFileExists \"\$R0\\\$R3\\*.*\" +3\n" );
+  printf { $fh } ( "      LogEx::Write \"   f  \$R0\\\$R3\"\n" );
+  printf { $fh } ( "      Goto +2\n" );
+  printf { $fh } ( "      LogEx::Write \"   d  \$R0\\\$R3\"\n" );
+  printf { $fh } ( "      FindNext \$R2 \$R3\n" );
+  printf { $fh } ( "      Goto Loop\n" );
+  printf { $fh } ( "      \n" );
+  printf { $fh } ( "    Done:\n" );
+  printf { $fh } ( "      FindClose \$R3\n" );
+  printf { $fh } ( "  Pop \$R3\n" );
+  printf { $fh } ( "  Pop \$R2\n" );
+  printf { $fh } ( "  Pop \$R1\n" );
+  printf { $fh } ( "  Pop \$R0\n" );
+  printf { $fh } ( "FunctionEnd\n" );
+  printf { $fh } ( "\n" );
 
   close ( $fh ) or die ( "Can't close $filename: $OS_ERROR\n" );
 
