@@ -5914,27 +5914,38 @@ sub show_help {
       . "perl $programName  --ram=6000    --cores=max   build     Freizeitkarte_Oesterreich  DEXTENDEDROUTING\n\n"
       . "Options:\n"
       . "--ram      = javaheapsize in MB (join, split, build) (default = %d)\n"
+      . "\n"
       . "--cores    = max. number of CPU cores (build) (1, 2, ..., max; default = %d)\n"
+      . "\n"
       . "--ele      = equidistance of elevation lines (fetch_ele) (10, 20; default = 20)\n"
+      . "\n"
       . "--typfile  = filename of a valid typfile to be used (build, gmap, nsis, gmapsupp, imagedir, typ) (default = freizeit.TYP)\n"
+      . "\n"
       . "--style    = name of the style to be used, must be a directory below styles (default = fzk)\n"
+      . "\n"
       . "--language = overwrite the default language of a map (en=english, de=german);\n"
       . "             if you build a map for another language than the map's default language,\n"
       . "             this option needs to be set for all subcommands, else it swaps back to the default language and possibly fails.\n"
+      . "\n"
       . "--unicode  = Build the map in unicode (CP65001) instead of in the native codepage of the map language.\n"
       . "                --unicode\n"
+      . "             ATTENTION: unicode maps are not supported on all Garmin devices !\n"
+      . "\n"
       . "--ntl      = overwrite the default name-tag-list for the mkgmap run (name) with a specific list, e.g.\n"
       . "                --ntl=\"name:en,int_name,name\"\n"
       . "             Please check mkgmap documentation for more information.\n"
+      . "\n"
       . "--downloadbar\n"
       . "           = Show a download progress bar during actions 'bootstrap', 'fetch_osm' and 'fetch_ele'.\n"
       . "                --downloadbar\n"
+      . "\n"
       . "--downloadspeed\n"
       . "           = Set speed limit for downloads during actions 'bootstrap', 'fetch_osm' and 'fetch_ele'.\n"
       . "             Setting speed limit in number of bytes:\n"
       . "                --downloadspeedlimit=15\n"
       . "             You can also set the speed limit in kilobytes (k), megabytes (m) or gigabytes (g) by using the correct character, e.g.:\n"
       . "                --downloadspeedlimit=15m\n"
+      . "\n"
       . "--continuedownload\n"
       . "           = try to continue interrupted downloads for actions 'fetch_osm' and 'fetch_ele'.\n"
       . "                --continuedownload\n"
@@ -5942,6 +5953,7 @@ sub show_help {
       . "             - can only work if you don't use the 'create' action, which cleans out any files from the working directories\n"
       . "             - using this option on fully completed downloads will fail to download anything new.\n"
       . "             - not guaranteed to work always and might create data garbage, but worth a try on huge downloads\n"
+      . "\n"
 	  . "--dempath\n"
 	  . "           = specify a directory or ZIP file with HGT files used to add a Digital Elevation Model subfile to the map (build).\n"
 	  . "                --dempath=D:/fzk/hgtfiles\n"
@@ -5959,6 +5971,7 @@ sub show_help {
 	  . "           = Define dem-dists values for mkgmap in case --demtype is not set.\n"
 	  . "                --demdists=\"9942,19884,29826,39768,49710,59652,69594,79536\"\n"
       . "             Please check mkgmap documentation for more information.\n"
+      . "\n"
       . "\n"
       . "PPO        = preprocessor options (multiple possible), to be invoked with D<option>\n"
       . "\n"
@@ -5987,11 +6000,17 @@ sub show_help {
 #      printf { *STDOUT } ( "%-10s = %s\n", $actions[ $i ][ $ACTIONNAME ], $actions[ $i ][ $ACTIONDESC ] );
 #    }
 #  }
-  printf { *STDOUT } ( "\nID = Code = Map  (default language):\n" );
-
+  if ( $optional ) {
+	printf { *STDOUT } ( "\n\nList of all supported Maps\n===========================\n" );
+  }
+  else {
+	printf { *STDOUT } ( "\n\nList of selected Maps\n===========================\n" );	  
+  }
+  printf { *STDOUT } ( "%-4s = %-26s = %-50s(%s)\n", "ID", "Code", "Map", "def lang" );
+  printf { *STDOUT } ("------------------------------------------------------------------------------------------------ \n" );
   for my $mapdata ( @maps ) {
     if ( $optional ) {
-      # alle Lï¿½nder und Regionen
+      # alle Länder und Regionen
       if ( @$mapdata[ $MAPID ] == -1 ) {
         printf { *STDOUT } ( "\n%s:\n", @$mapdata[ $MAPNAME ] );    # Kommentar
       }
