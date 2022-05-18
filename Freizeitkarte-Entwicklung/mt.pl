@@ -3409,6 +3409,8 @@ sub create_nsis_nsi_full {
   printf { $fh } ( "; General Settings\n" );
   printf { $fh } ( "; ----------------\n" );
   printf { $fh } ( "\n" );
+  printf { $fh } ( "Unicode True" );
+  printf { $fh } ( "\n" );
   printf { $fh } ( "; Installationsverzeichnis (Default)\n" );
   printf { $fh } ( "!define INSTALLATIONS_VERZEICHNIS \"C:\\Freizeitkarte\\%s\"\n", $mapname );
   printf { $fh } ( "\n" );
