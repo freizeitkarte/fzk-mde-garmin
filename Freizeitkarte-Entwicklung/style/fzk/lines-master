@@ -63,6 +63,7 @@
 # Version : 0.35  26.11.2016 - Fixing highway = path & area = yes
 # Version : 0.36  19.03.2017 - Fixing highway = footpath & access=no: no in violet and not red anymore
 # Version : 0.37  20.05.2019 - Adding different types of arealway: j-bar, platter, magic_carpet
+# Version : 0.38  07.10.2023 - waterway: Changing from tunnel = yes | tunnel = culvert to tunnel = *
 
 
 #
@@ -1587,12 +1588,12 @@ route = ferry [0x011f10 resolution 20 continue with_actions]
 # 0x012018 = 4 (mittel, gestrichelt, NoLabel) Tunnel
 # 0x010103 = 2 (schmal, NoLabel)
 # 0x012016 = 2 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = canal & ( tunnel != yes & tunnel != culvert) [0x26     resolution 24 continue]
-waterway = canal & ( tunnel = yes | tunnel = culvert)   [0x01201a resolution 24 continue]
-waterway = canal & ( tunnel != yes & tunnel != culvert) [0x010102 resolution 23-23 continue]
-waterway = canal & ( tunnel = yes | tunnel = culvert)   [0x012018 resolution 23-23 continue]
-waterway = canal & ( tunnel != yes & tunnel != culvert) [0x010103 resolution 21-22 continue]
-waterway = canal & ( tunnel = yes | tunnel = culvert)   [0x012016 resolution 21-22 continue]
+waterway = canal & ( tunnel != * )  [0x26     resolution 24 continue]
+waterway = canal & ( tunnel = * )   [0x01201a resolution 24 continue]
+waterway = canal & ( tunnel != * )  [0x010102 resolution 23-23 continue]
+waterway = canal & ( tunnel = * )   [0x012018 resolution 23-23 continue]
+waterway = canal & ( tunnel != * )  [0x010103 resolution 21-22 continue]
+waterway = canal & ( tunnel = * )   [0x012016 resolution 21-22 continue]
 
 # Staudamm oder Staumauer fuer Speichersee und aehnliches. [way, aber auch closedway]
 # 0x01010c = 2 (NoLabel)
