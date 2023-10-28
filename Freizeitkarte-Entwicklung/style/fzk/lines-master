@@ -64,6 +64,7 @@
 # Version : 0.36  19.03.2017 - Fixing highway = footpath & access=no: no in violet and not red anymore
 # Version : 0.37  20.05.2019 - Adding different types of arealway: j-bar, platter, magic_carpet
 # Version : 0.38  07.10.2023 - waterway: Changing from tunnel = yes | tunnel = culvert to tunnel = *
+# Version : 0.39  28.10.2023 - other water types: Changing from tunnel = yes | tunnel = culvert to tunnel = *
 
 
 #
@@ -1602,14 +1603,14 @@ waterway = dam [0x01010c resolution 23 continue]
 # Wassergraben.
 # 0x01010a = 2 (NoLabel)
 # 0x012016 = 2 (NoLabel, gestrichelt) Tunnel
-waterway = ditch & ( tunnel != yes & tunnel != culvert) [0x01010a resolution 24 continue]
-waterway = ditch & ( tunnel = yes | tunnel = culvert)   [0x01201b resolution 24 continue]
+waterway = ditch & ( tunnel != * )  [0x01010a resolution 24 continue]
+waterway = ditch & ( tunnel = * )   [0x01201b resolution 24 continue]
 
 # Abwassergraben, Abfluss - Bauwerk, das z.B. Regen- oder Industrieabwaesser aufnimmt.
 # 0x012104 = 2 (NoLabel)
 # 0x012016 = 2 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = drain & ( tunnel != yes & tunnel != culvert) [0x012104 resolution 24]
-waterway = drain & ( tunnel = yes | tunnel = culvert)   [0x01201c resolution 24]
+waterway = drain & ( tunnel != * )  [0x012104 resolution 24]
+waterway = drain & ( tunnel = * )   [0x01201c resolution 24]
 
 # Fluss
 # 0x1f     = 5 (breit, Label, SmallFont)
@@ -1618,18 +1619,18 @@ waterway = drain & ( tunnel = yes | tunnel = culvert)   [0x01201c resolution 24]
 # 0x012017 = 3 (mittel, gestrichelt, NoLabel) Tunnel
 # 0x010101 = 1 (schmal, NoLabel)
 # 0x012015 = 1 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = river & ( tunnel != yes & tunnel != culvert) [0x1f     resolution 24 continue]
-waterway = river & ( tunnel = yes | tunnel = culvert)   [0x012019 resolution 24 continue]
-waterway = river & ( tunnel != yes & tunnel != culvert) [0x010100 resolution 23-23 continue]
-waterway = river & ( tunnel = yes | tunnel = culvert)   [0x012017 resolution 23-23 continue]
-waterway = river & ( tunnel != yes & tunnel != culvert) [0x010101 resolution 21-22]
-waterway = river & ( tunnel = yes | tunnel = culvert)   [0x012015 resolution 21-22]
+waterway = river & ( tunnel != * ) [0x1f     resolution 24 continue]
+waterway = river & ( tunnel = * )  [0x012019 resolution 24 continue]
+waterway = river & ( tunnel != * ) [0x010100 resolution 23-23 continue]
+waterway = river & ( tunnel = * )  [0x012017 resolution 23-23 continue]
+waterway = river & ( tunnel != * ) [0x010101 resolution 21-22]
+waterway = river & ( tunnel = * )  [0x012015 resolution 21-22]
 
 # Bach - natuerliches schmales Gewaesser, zu klein fuer die Bezeichnung Fluss.
 # 0x18     = 2 (NoLabel)
 # 0x012016 = 2 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = stream & ( tunnel != yes & tunnel != culvert) [0x18     resolution 24]
-waterway = stream & ( tunnel = yes | tunnel = culvert)   [0x01201d resolution 24]
+waterway = stream & ( tunnel != * ) [0x18     resolution 24]
+waterway = stream & ( tunnel = * )  [0x01201d resolution 24]
 
 # Wehr (auch als Gebaeude moeglich, s.a. Staudamm / -mauer)
 # 0x012105 = 2 (NoLabel)
