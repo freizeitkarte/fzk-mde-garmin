@@ -5820,6 +5820,12 @@ sub show_actionsummary {
     printf { *STDOUT }   ( "Typ file:   %s.TYP\n",  $maptypfile );
     printf { *STDOUT }   ( "Style Dir:  %s\n",  $mapstyledir );
     printf { *STDOUT }   ( "Elevation:  %s m\n",    $ele );
+    if ( $hqele ) {
+      printf { *STDOUT } ( "Eletype:    highQuality Elevation (ele_special)\n" );
+    }
+    else {
+      printf { *STDOUT } ( "Eletype:    normal\n" );
+    }
     if ( $maptype == 3 ) {
       printf { *STDOUT } ( "Map type:   downloadable OSM extract\n" );
     }
