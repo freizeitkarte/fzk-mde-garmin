@@ -1336,7 +1336,7 @@ sub download_url {
 
   if ( ( $OSNAME eq 'darwin' ) || ( $OSNAME eq 'linux' ) || ( $OSNAME eq 'freebsd' ) || ( $OSNAME eq 'openbsd' ) ) {
     # OS X, Linux, FreeBSD, OpenBSD
-    $command = "curl $downloadbar_curl $download_continue_curl $downloadspeed_curl --fail --location --url \"$download_src\" --output \"$download_dst\" --write \"Downloaded %{size_download} bytes in %{time_connect} seconds (%{speed_download} bytes/s)\"";
+    $command = "curl $downloadbar_curl $download_continue_curl $downloadspeed_curl --fail --location --url \"$download_src\" --output \"$download_dst\" -w \"Downloaded %{size_download} bytes in %{time_connect} seconds (%{speed_download} bytes/s)\"";
   }
   elsif ( $OSNAME eq 'MSWin32' ) {
     # Windows
