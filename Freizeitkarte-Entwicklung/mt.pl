@@ -5,6 +5,7 @@
 #
 # Copyright (C) 2011-2013 Klaus Tockloth <Klaus.Tockloth@googlemail.com>
 #               2013-2022 Adaptions by Patrik Brunner <keenonkites@gmx.net>
+#               11/2024   several plus maps added (Klaus Tockloth)
 # - modified for Ubuntu through GVE
 #
 # Programmcode formatiert mit "perltidy".
@@ -189,7 +190,7 @@ my %lic_ele = ();
 my @maps = (
   # ID, 'Karte', 'URL der Quelle', 'Code', 'language', 'oldName', 'Type', 'Parent'
 
-  # Bundesländer
+  # Bundeslaender
   [ -1,   'Bundeslaender',                        'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 5810, 'Freizeitkarte_BADEN-WUERTTEMBERG',     'http://download.geofabrik.de/europe/germany/baden-wuerttemberg-latest.osm.pbf',                     'BADEN-WUERTTEMBERG',       'de', 'Freizeitkarte_Baden-Wuerttemberg',        3, 'NA'             ],
   [ 5811, 'Freizeitkarte_BAYERN',                 'http://download.geofabrik.de/europe/germany/bayern-latest.osm.pbf',                                 'BAYERN',                   'de', 'Freizeitkarte_Bayern',                    3, 'NA'             ],
@@ -233,7 +234,7 @@ my @maps = (
   [ 5855, 'Freizeitkarte_SCHWABEN',               'http://download.geofabrik.de/europe/germany/bayern/schwaben-latest.osm.pbf',                        'SCHWABEN',                 'de', 'Freizeitkarte_Schwaben',                  3, 'NA'             ],
   [ 5856, 'Freizeitkarte_UNTERFRANKEN',           'http://download.geofabrik.de/europe/germany/bayern/unterfranken-latest.osm.pbf',                    'UNTERFRANKEN',             'de', 'Freizeitkarte_Unterfranken',              3, 'NA'             ],
 
-  # Regionen in Frankreich (unvollständig)
+  # Regionen in Frankreich (unvollstaendig)
   [ -1,   'Regionen Frankreich',                  'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 5860, 'Freizeitkarte_LORRAINE',               'http://download.geofabrik.de/europe/france/lorraine-latest.osm.pbf',                                'LORRAINE',                 'de', 'Freizeitkarte_Lothringen',                3, 'NA'             ],
   [ 5861, 'Freizeitkarte_ALSACE',                 'http://download.geofabrik.de/europe/france/alsace-latest.osm.pbf',                                  'ALSACE',                   'de', 'Freizeitkarte_Elsass',                    3, 'NA'             ],
@@ -335,7 +336,7 @@ my @maps = (
 #  [ 7050, 'Freizeitkarte_EUROP-RUSSIA',           'http://download.geofabrik.de/europe/russia-european-part-latest.osm.pbf',                           'EUROP-RUSSIA',             'en', 'Freizeitkarte_Euro-Russland',             3, 'NA'             ],
 #  [ 7060, 'Freizeitkarte_CANARY-ISLANDS',         'http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf',                                 'CANARY-ISLANDS',           'en', 'Freizeitkarte_Kanarische-Inseln',         3, 'NA'             ],
 
-  # PLUS Länder, Ländercodes: 7000 + ISO-3166 (numerisch)
+  # PLUS Laender, Laendercodes: 7000 + ISO-3166 (numerisch)
   [ -1,   'Freizeitkarte PLUS Laender',           'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 7040, 'Freizeitkarte_AUT+',                   'NA',                                                                                                'AUT+',                     'de', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7056, 'Freizeitkarte_BEL+',                   'NA',                                                                                                'BEL+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
@@ -350,10 +351,24 @@ my @maps = (
   [ 7528, 'Freizeitkarte_NLD+',                   'NA',                                                                                                'NLD+',                     'nl', 'no_old_name',                             2, 'EUROPE'         ],
   [ 7620, 'Freizeitkarte_PRT+',                   'NA',                                                                                                'PRT+',                     'pt', 'no_old_name',                             2, 'EUROPE'         ],
 
+# KTO, 11/2024
+  [ 7442, 'Freizeitkarte_LUX+',                   'NA',                                                                                                'LUX+',                     'fr', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7752, 'Freizeitkarte_SWE+',                   'NA',                                                                                                'SWE+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7246, 'Freizeitkarte_FIN+',                   'NA',                                                                                                'FIN+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7112, 'Freizeitkarte_BLR+',                   'NA',                                                                                                'BLR+',                     'ru', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7804, 'Freizeitkarte_UKR+',                   'NA',                                                                                                'UKR+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7300, 'Freizeitkarte_GRC+',                   'NA',                                                                                                'GRC+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7008, 'Freizeitkarte_ALB+',                   'NA',                                                                                                'ALB+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7100, 'Freizeitkarte_BGR+',                   'NA',                                                                                                'BGR+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7642, 'Freizeitkarte_ROU+',                   'NA',                                                                                                'ROU+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7807, 'Freizeitkarte_MKD+',                   'NA',                                                                                                'MKD+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7498, 'Freizeitkarte_MDA+',                   'NA',                                                                                                'MDA+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7688, 'Freizeitkarte_SRB+',                   'NA',                                                                                                'SRB+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7070, 'Freizeitkarte_BIH+',                   'NA',                                                                                                'BIH+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 7499, 'Freizeitkarte_MNE+',                   'NA',                                                                                                'MNE+',                     'en', 'no_old_name',                             2, 'EUROPE'         ],
+
   [ -1,   'Andere Laender',                       'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 7032, 'Freizeitkarte_ARG+',                   'NA',                                                                                                'ARG+',                     'en', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
-
-
 
   # Sonderkarten wie z.B. FZK-eigene Extrakte (alle ohne geofabrik-Download (NA = Not Applicable); Ausnahme Europa)
   [ -1,   'Freizeitkarte Regionen',               'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
@@ -375,6 +390,11 @@ my @maps = (
   [ 8102, 'Freizeitkarte_FRA+SOUTHWEST',          'NA',                                                                                                'FRA+SOUTHWEST',            'fr', 'no_old_name',                             2, 'EUROPE'         ],
   [ 8103, 'Freizeitkarte_FRA+SOUTHEAST',          'NA',                                                                                                'FRA+SOUTHEAST',            'fr', 'no_old_name',                             2, 'EUROPE'         ],
 
+# KTO, 11/2024
+  [ 8110, 'Freizeitkarte_NOR+NORTH',              'NA',                                                                                                'NOR+NORTH',                'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8111, 'Freizeitkarte_NOR+SOUTH',              'NA',                                                                                                'NOR+SOUTH',                'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8120, 'Freizeitkarte_RUS+KGD',                'NA',                                                                                                'RUS+KGD',                  'ru', 'no_old_name',                             2, 'EUROPE'         ],
+
   [ 8889, 'Freizeitkarte_SOUTHAMERICA',           'http://download.geofabrik.de/south-america-latest.osm.pbf',                                         'SOUTHAMERICA',             'en', 'no_old_name',                             1, 'NA'             ],
   [ 8510, 'Freizeitkarte_MISIONES',               'NA',                                                                                                'MISIONES',                 'de', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
   [ 8520, 'Freizeitkarte_SAOPAULO',               'NA',                                                                                                'SAOPAULO',                 'de', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
@@ -389,6 +409,15 @@ my @maps = (
   [ 9040, 'Freizeitkarte_AZORES',                  'http://download.geofabrik.de/europe/azores-latest.osm.pbf',                                         'AZORES',                  'pt', 'Freizeitkarte_Azoren',                    3, 'NA'             ],
   [ 9050, 'Freizeitkarte_ISR_PSE',                 'http://download.geofabrik.de/asia/israel-and-palestine-latest.osm.pbf',                             'ISR_PSE',                 'en', 'Freizeitkarte_Israel_Palaestina',         3, 'NA'             ],
   [ 9060, 'Freizeitkarte_MYS_SGP_BRN',             'http://download.geofabrik.de/asia/malaysia-singapore-brunei-latest.osm.pbf',                        'MYS_SGP_BRN',             'en', 'no_old_name',                             3, 'NA'             ],
+
+# KTO, 11/2024
+  [ 9070, 'Freizeitkarte_RUS_NORTHWEST',           'https://download.geofabrik.de/russia/northwestern-fed-district-latest.osm.pbf',                     'RUS_NORTHWEST',           'ru', 'no_old_name',                             3, 'NA'             ],
+  [ 9071, 'Freizeitkarte_RUS_CENTRAL',             'https://download.geofabrik.de/russia/central-fed-district-latest.osm.pbf',                          'RUS_CENTRAL',             'ru', 'no_old_name',                             3, 'NA'             ],
+  [ 9072, 'Freizeitkarte_RUS_VOLGA',               'https://download.geofabrik.de/russia/volga-fed-district-latest.osm.pbf',                            'RUS_VOLGA',               'ru', 'no_old_name',                             3, 'NA'             ],
+  [ 9073, 'Freizeitkarte_RUS_CRIMEA',              'https://download.geofabrik.de/russia/crimean-fed-district-latest.osm.pbf',                          'RUS_CRIMEA',              'ru', 'no_old_name',                             3, 'NA'             ],
+  [ 9074, 'Freizeitkarte_RUS_NORTHCAUCASUS',       'https://download.geofabrik.de/russia/north-caucasus-fed-district-latest.osm.pbf',                   'RUS_NORTHCAUCASUS',       'ru', 'no_old_name',                             3, 'NA'             ],
+  [ 9075, 'Freizeitkarte_RUS_SOUTH',               'https://download.geofabrik.de/russia/south-fed-district-latest.osm.pbf',                            'RUS_SOUTH',               'ru', 'no_old_name',                             3, 'NA'             ],
+
 
   # Andere Regionen
   [ 9701, 'Freizeitkarte_US_WASHINGTON',           'http://download.geofabrik.de/north-america/us/washington-latest.osm.pbf',                           'US_WASHINGTON',           'en', 'no_old_name',                             3, 'NA'             ],
@@ -445,7 +474,7 @@ my $ACTIONTARGET = 4;
 my $LANGCODE = 0;
 my $LANGDESC = 1;
 
-my $VERSION = '1.3.19 - 2022/05/14';
+my $VERSION = '1.4.0 - 2024/11/23';
 
 # Maximale Speichernutzung (Heapsize im MB) beim Splitten und Compilieren
 my $javaheapsize = 1536;
@@ -4626,9 +4655,9 @@ sub create_gmapsuppfile {
 
   # mkgmap-Parameter
   # --description: Anzeige des Kartennamens in BaseCamp
-  # --description: alleinige Anzeige des Kartennamens in einigen GPS-Geräten (z.B. 62er)
-  # --description: zusätzliche Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
-  # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
+  # --description: alleinige Anzeige des Kartennamens in einigen GPS-Geraeten (z.B. 62er)
+  # --description: zusaetzliche Anzeige des Kartennamens in einigen GPS-Geraeten (z.B. Dakota)
+  # --family-name: primaere Anzeige des Kartennamens in einigen GPS-Geraeten (z.B. Dakota)
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
         "--gmapsupp "
@@ -4676,9 +4705,9 @@ sub create_gmapfile {
 
   # mkgmap-Parameter
   # --description: Anzeige des Kartennamens in BaseCamp
-  # --description: alleinige Anzeige des Kartennamens in einigen GPS-Geräten (z.B. 62er)
-  # --description: zusätzliche Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
-  # --family-name: primäre Anzeige des Kartennamens in einigen GPS-Geräten (z.B. Dakota)
+  # --description: alleinige Anzeige des Kartennamens in einigen GPS-Geraeten (z.B. 62er)
+  # --description: zusaetzliche Anzeige des Kartennamens in einigen GPS-Geraeten (z.B. Dakota)
+  # --family-name: primaere Anzeige des Kartennamens in einigen GPS-Geraeten (z.B. Dakota)
   # --series-name: This name will be displayed in MapSource in the map selection drop-down.
   my $mkgmap_parameter = sprintf (
         "--gmapi "
@@ -6031,7 +6060,7 @@ sub show_help {
   printf { *STDOUT } ("------------------------------------------------------------------------------------------------ \n" );
   for my $mapdata ( @maps ) {
     if ( $optional ) {
-      # alle Länder und Regionen
+      # alle Laender und Regionen
       if ( @$mapdata[ $MAPID ] == -1 ) {
         printf { *STDOUT } ( "\n%s:\n", @$mapdata[ $MAPNAME ] );    # Kommentar
       }
@@ -6041,12 +6070,12 @@ sub show_help {
     }
     else {
       # nur ausgewaehlte Karten
-      if (   ( ( @$mapdata[ $MAPID ] <= 5825 ) && ( @$mapdata[ $MAPID ] >= 5810 ) )  # Bundesländer
+      if (   ( ( @$mapdata[ $MAPID ] <= 5825 ) && ( @$mapdata[ $MAPID ] >= 5810 ) )  # Bundeslaender
         || ( @$mapdata[ $MAPID ] == 6276 )                                        # Deutschland
-        || ( @$mapdata[ $MAPID ] == 6208 )                                        # Dänemark
+        || ( @$mapdata[ $MAPID ] == 6208 )                                        # Daenemark
         || ( @$mapdata[ $MAPID ] == 6616 )                                        # Polen
         || ( @$mapdata[ $MAPID ] == 6203 )                                        # Tschechien
-        || ( @$mapdata[ $MAPID ] == 6040 )                                        # Österreich
+        || ( @$mapdata[ $MAPID ] == 6040 )                                        # Oesterreich
         || ( @$mapdata[ $MAPID ] == 6756 )                                        # Schweiz
         || ( @$mapdata[ $MAPID ] == 7010 )                                        # Alpen
         || ( @$mapdata[ $MAPID ] == 6250 )                                        # Frankreich

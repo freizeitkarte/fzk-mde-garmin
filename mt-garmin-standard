@@ -1,0 +1,451 @@
+#!/bin/sh
+
+# DEM PATHS
+DEM_SONN1=/data/dem/hgt/SONN1
+DEM_SRTM1=/data/dem/hgt/SRTM1v3.0.hgt
+DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
+
+cd
+cd fzk-mde-garmin/Freizeitkarte-Entwicklung/
+
+./mt.pl bootstrap
+
+./mt.pl create 8888
+./mt.pl fetch_osm 8888
+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6756 # CHE
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6040 # AUT
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6276 # DEU
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6250 # FRA
+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6442 # LUX
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6616 # POL
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6752 # SWE
+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6056 # BEL
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6208 # DNK
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6246 # FIN
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6826 # GBR
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6528 # NLD
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6578 # NOR
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6203 # CZE
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 6348 # HUN
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6705 # SVN
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6703 # SVK
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6724 # ESP
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6233 # EST
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6380 # ITA
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 9020 # ESP_CANARIAS (KIS)
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6428 # LVA
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6440 # LTU
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 6642 # ROU
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 6191 # HRV
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 6688 # SRB
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 6100 # BGR
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 6792 # TUR
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 6300 # GRC
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6620 # PRT
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6372 # IRL
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 6352 # ISL
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 6112 # BLR
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bim 9040 # AZORES
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en bim 9040 # AZORES - en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 6196 # CYP
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 6498 # MDA
+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en build 6616 # POL -en
+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6756 # CHE
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6040 # AUT
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6276 # DEU
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6250 # FRA
+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6442 # LUX
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en bam 6616 # POL - en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6616 # POL
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6752 # SWE
+
+./mt.pl zip 6756 # CHE
+./mt.pl zip 6040 # AUT
+./mt.pl zip 6276 # DEU
+./mt.pl zip 6250 # FRA
+
+./mt.pl zip 6442 # LUX
+./mt.pl --language=en zip 6616 # POL - en
+./mt.pl zip 6616 # POL
+./mt.pl zip 6752 # SWE
+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en build 6380 # ITA en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de build 6380 # ITA de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de build 6724 # ESP de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 --language=de build 6191 # HRV de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 --language=de build 6300 # GRC de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de build 6620 # PRT de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de build 6208 # DNK de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de build 6578 # NOR de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de build 6246 # FIN de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de build 6752 # SWE de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en build 6620 # PRT en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en build 6528 # NLD en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en build 6056 # BEL en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=nl build 6056 # BEL nl
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en build 6250 # FRA en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en build 6442 # LUX en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de build 6442 # LUX de
+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6056 # BEL
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6208 # DNK
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6246 # FIN
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6826 # GBR
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6528 # NLD
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6578 # NOR
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6203 # CZE
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 6348 # HUN
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6705 # SVN
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6703 # SVK
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6724 # ESP
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6233 # EST
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6380 # ITA
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 9020 # ESP_CANARIAS (KIS)
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6428 # LVA
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6440 # LTU
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 6642 # ROU
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 6191 # HRV
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 6688 # SRB
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 6100 # BGR
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 6792 # TUR
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 6300 # GRC
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6620 # PRT
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6372 # IRL
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 6352 # ISL
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 6112 # BLR
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 9040 # AZORES
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en bam 9040 # AZORES - en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 6196 # CYP
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 6498 # MDA
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en bam 6380 # ITA en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de bam 6380 # ITA de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de bam 6724 # ESP de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 --language=de bam 6191 # HRV de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 --language=de bam 6300 # GRC de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de bam 6620 # PRT de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de bam 6208 # DNK de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de bam 6578 # NOR de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de bam 6246 # FIN de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de bam 6752 # SWE de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en bam 6620 # PRT en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en bam 6528 # NLD en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en bam 6056 # BEL en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=nl bam 6056 # BEL nl
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en bam 6250 # FRA en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en bam 6442 # LUX en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de bam 6442 # LUX de
+
+./mt.pl zip 6056 # BEL
+./mt.pl zip 6208 # DNK
+./mt.pl zip 6246 # FIN
+./mt.pl zip 6826 # GBR
+./mt.pl zip 6528 # NLD
+./mt.pl zip 6578 # NOR
+./mt.pl zip 6203 # CZE
+./mt.pl zip 6348 # HUN
+./mt.pl zip 6705 # SVN
+./mt.pl zip 6703 # SVK
+./mt.pl zip 6724 # ESP
+./mt.pl zip 6233 # EST
+./mt.pl zip 6380 # ITA
+./mt.pl zip 9020 # KIS
+./mt.pl zip 6428 # LVA
+./mt.pl zip 6440 # LTU
+./mt.pl zip 6642 # ROU
+./mt.pl zip 6191 # HRV
+./mt.pl zip 6688 # SRB
+./mt.pl zip 6100 # BGR
+./mt.pl zip 6792 # TUR
+./mt.pl zip 6300 # GRC
+./mt.pl zip 6620 # PRT
+./mt.pl zip 6372 # IRL
+./mt.pl zip 6352 # ISL
+./mt.pl zip 6112 # BLR
+./mt.pl zip 9040 # AZORES
+./mt.pl zip 6196 # CYP
+./mt.pl zip 6498 # MDA
+./mt.pl --language=en zip 9040 # AZORES - en
+./mt.pl --language=en zip 6380 # ITA en
+./mt.pl --language=de zip 6380 # ITA de
+./mt.pl --language=de zip 6724 # ESP de
+./mt.pl --language=de zip 6191 # HRV de
+./mt.pl --language=de zip 6300 # GRC de
+./mt.pl --language=de zip 6620 # PRT de
+./mt.pl --language=de zip 6208 # DNK de
+./mt.pl --language=de zip 6578 # NOR de
+./mt.pl --language=de zip 6246 # FIN de
+./mt.pl --language=de zip 6752 # SWE de
+./mt.pl --language=en zip 6620 # PRT en
+./mt.pl --language=en zip 6528 # NLD en
+./mt.pl --language=en zip 6056 # BEL en
+./mt.pl --language=nl zip 6056 # BEL nl
+./mt.pl --language=en zip 6250 # FRA en
+./mt.pl --language=en zip 6442 # LUX en
+./mt.pl --language=de zip 6442 # LUX de
+
+
+./mt.pl --ram=24000 --cores=8 create 8010 # GBR_IRL
+./mt.pl --ram=24000 --cores=8 extract_osm 8010 # GBR_IRL
+./mt.pl --ram=24000 --cores=8 fetch_ele 8010 # GBR_IRL
+./mt.pl --ram=24000 --cores=8 join 8010 # GBR_IRL
+./mt.pl --ram=24000 --cores=8 split 8010 # GBR_IRL
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 8010 # GBR_IRL
+
+./mt.pl --ram=24000 --cores=8 --language=de create 8020 DT36ROUTING DTRIGMARK # ALPS - de
+./mt.pl --ram=24000 --cores=8 --language=de extract_osm 8020 DT36ROUTING DTRIGMARK # ALPS - de
+./mt.pl --ram=24000 --cores=8 --language=de fetch_ele 8020 DT36ROUTING DTRIGMARK # ALPS - de
+./mt.pl --ram=24000 --cores=8 --language=de join 8020 DT36ROUTING DTRIGMARK # ALPS - de
+./mt.pl --ram=24000 --cores=8 --language=de split 8020 DT36ROUTING DTRIGMARK # ALPS - de
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de build 8020 DT36ROUTING DTRIGMARK # ALPS - de
+
+# ALPS - de  vor den anderen beenden, wegen Test
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de bam 8020 DTRIGMARK DT36ROUTING # ALPS - de
+./mt.pl --language=de zip 8020 # ALPS - de
+
+./mt.pl --ram=24000 --cores=8 --language=en create 8020 DT36ROUTING DTRIGMARK # ALPS - en
+./mt.pl --ram=24000 --cores=8 --language=en extract_osm 8020 DT36ROUTING DTRIGMARK # ALPS - en
+./mt.pl --ram=24000 --cores=8 --language=en fetch_ele 8020 DT36ROUTING DTRIGMARK # ALPS - en
+./mt.pl --ram=24000 --cores=8 --language=en join 8020 DT36ROUTING DTRIGMARK # ALPS - en
+./mt.pl --ram=24000 --cores=8 --language=en split 8020 DT36ROUTING DTRIGMARK # ALPS - en
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en build 8020 DT36ROUTING DTRIGMARK # ALPS - en
+
+# Zu Gross - deaktiviert pab 31.5.2024
+# ./mt.pl --ram=24000 --cores=8 create 8030 # DNK_NOR_SWE_FIN
+# ./mt.pl --ram=24000 --cores=8 extract_osm 8030 # DNK_NOR_SWE_FIN
+# ./mt.pl --ram=24000 --cores=8 fetch_ele 8030 # DNK_NOR_SWE_FIN
+# ./mt.pl --ram=24000 --cores=8 join 8030 # DNK_NOR_SWE_FIN
+# ./mt.pl --ram=24000 --cores=8 split 8030 # DNK_NOR_SWE_FIN
+# ./mt.pl --ram=24000 --cores=8 --dempath=/data/dem/hgt/VIEW3 --demtype=3 build 8030 # DNK_NOR_SWE_FIN
+
+./mt.pl --ram=24000 --cores=8 create 8040 # BEL_NLD_LUX
+./mt.pl --ram=24000 --cores=8 extract_osm 8040 # BEL_NLD_LUX
+./mt.pl --ram=24000 --cores=8 fetch_ele 8040 # BEL_NLD_LUX
+./mt.pl --ram=24000 --cores=8 join 8040  # BEL_NLD_LUX
+./mt.pl --ram=24000 --cores=8 split 8040 # BEL_NLD_LUX
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 8040 # BEL_NLD_LUX
+
+./mt.pl --ram=24000 --cores=8 create 8050 # ESP_PRT
+./mt.pl --ram=24000 --cores=8 extract_osm 8050 # ESP_PRT
+./mt.pl --ram=24000 --cores=8 fetch_ele 8050 # ESP_PRT
+./mt.pl --ram=24000 --cores=8 join 8050 # ESP_PRT
+./mt.pl --ram=24000 --cores=8 split 8050 # ESP_PRT
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 8050 # ESP_PRT
+
+./mt.pl --ram=24000 --cores=8 create 8080 # BALKAN
+./mt.pl --ram=24000 --cores=8 extract_osm 8080 # BALKAN
+./mt.pl --ram=24000 --cores=8 fetch_ele 8080 # BALKAN
+./mt.pl --ram=24000 --cores=8 join 8080 # BALKAN
+./mt.pl --ram=24000 --cores=8 split 8080 # BALKAN
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 build 8080 # BALKAN
+
+./mt.pl --ram=24000 --cores=8 create 7756 # CHE+
+./mt.pl --ram=24000 --cores=8 extract_osm 7756 
+./mt.pl --ram=24000 --cores=8 fetch_ele 7756 
+./mt.pl --ram=24000 --cores=8 join 7756 
+./mt.pl --ram=24000 --cores=8 split 7756 
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 7756 
+
+./mt.pl --ram=24000 --cores=8 create 7040 # AUT+
+./mt.pl --ram=24000 --cores=8 extract_osm 7040 
+./mt.pl --ram=24000 --cores=8 fetch_ele 7040 
+./mt.pl --ram=24000 --cores=8 join 7040 
+./mt.pl --ram=24000 --cores=8 split 7040 
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 7040 
+
+# zu gross - deaktiviert pab 31.5.2924, ersetzt durch DEU+NORTH und DEU+SOUTH
+# ./mt.pl --ram=24000 --cores=8 create 7276 # DEU+
+# ./mt.pl --ram=24000 --cores=8 extract_osm 7276 
+# ./mt.pl --ram=24000 --cores=8 fetch_ele 7276 
+# ./mt.pl --ram=24000 --cores=8 join 7276 
+# ./mt.pl --ram=24000 --cores=8 split 7276 
+# ./mt.pl --ram=24000 --cores=8 --dempath=/data/dem/hgt/VIEW3 --demtype=3 build 7276 
+
+./mt.pl --ram=24000 --cores=8 create 8090 # DEU+NORTH
+./mt.pl --ram=24000 --cores=8 extract_osm 8090
+./mt.pl --ram=24000 --cores=8 fetch_ele 8090
+./mt.pl --ram=24000 --cores=8 join 8090
+./mt.pl --ram=24000 --cores=8 split 8090 
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 8090 
+
+./mt.pl --ram=24000 --cores=8 create 8091 # DEU+SOUTH
+./mt.pl --ram=24000 --cores=8 extract_osm 8091
+./mt.pl --ram=24000 --cores=8 fetch_ele 8091
+./mt.pl --ram=24000 --cores=8 join 8091
+./mt.pl --ram=24000 --cores=8 split 8091
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 8091 
+
+./mt.pl --ram=24000 --cores=8 --language=en create 8060 DT36ROUTING DTRIGMARK # PYR - en
+./mt.pl --ram=24000 --cores=8 --language=en extract_osm 8060 DT36ROUTING DTRIGMARK # PYR - en
+./mt.pl --ram=24000 --cores=8 --language=en fetch_ele 8060 DT36ROUTING DTRIGMARK # PYR - en
+./mt.pl --ram=24000 --cores=8 --language=en join 8060 DT36ROUTING DTRIGMARK # PYR - en
+./mt.pl --ram=24000 --cores=8 --language=en split 8060 DT36ROUTING DTRIGMARK # PYRS - en
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 build 8060 DT36ROUTING DTRIGMARK # PYRS - en
+
+./mt.pl --ram=24000 --cores=8 --language=en create 8070 DT36ROUTING DTRIGMARK # CARP - en
+./mt.pl --ram=24000 --cores=8 --language=en extract_osm 8070 DT36ROUTING DTRIGMARK # CARP - en
+./mt.pl --ram=24000 --cores=8 --language=en fetch_ele 8070 DT36ROUTING DTRIGMARK # CARP - en
+./mt.pl --ram=24000 --cores=8 --language=en join 8070 DT36ROUTING DTRIGMARK # CARP - en
+./mt.pl --ram=24000 --cores=8 --language=en split 8070 DT36ROUTING DTRIGMARK # CARP - en
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SRTM1} --demtype=1 build 8070 DT36ROUTING DTRIGMARK # CARP - en
+
+./mt.pl --ram=24000 --cores=8 --language=pl create 8070 DT36ROUTING DTRIGMARK # CARP - pl
+./mt.pl --ram=24000 --cores=8 --language=pl extract_osm 8070 DT36ROUTING DTRIGMARK # CARP - pl
+./mt.pl --ram=24000 --cores=8 --language=pl fetch_ele 8070 DT36ROUTING DTRIGMARK # CARP - pl
+./mt.pl --ram=24000 --cores=8 --language=pl join 8070 DT36ROUTING DTRIGMARK # CARP - pl
+./mt.pl --ram=24000 --cores=8 --language=pl split 8070 DT36ROUTING DTRIGMARK # CARP - pl
+./mt.pl --ram=24000 --cores=8 --language=pl --dempath=${DEM_SRTM1} --demtype=1 build 8070 DT36ROUTING DTRIGMARK # CARP - pl
+
+
+# zu gross - aufteteilt in 4 Teile (pab 31.5.2024)
+# ./mt.pl --ram=24000 --cores=8 create 7250 # FRA+
+# ./mt.pl --ram=24000 --cores=8 extract_osm 7250 
+# ./mt.pl --ram=24000 --cores=8 fetch_ele 7250 
+# ./mt.pl --ram=24000 --cores=8 join 7250 
+# ./mt.pl --ram=24000 --cores=8 split 7250 
+# ./mt.pl --ram=24000 --cores=8 --dempath=/data/dem/hgt/VIEW3 --demtype=3 build 7250 
+
+# ./mt.pl --ram=24000 --cores=8 --language=en create 7250 # FRA+
+# ./mt.pl --ram=24000 --cores=8 --language=en extract_osm 7250 
+# ./mt.pl --ram=24000 --cores=8 --language=en fetch_ele 7250 
+# ./mt.pl --ram=24000 --cores=8 --language=en join 7250 
+# ./mt.pl --ram=24000 --cores=8 --language=en split 7250 
+# ./mt.pl --ram=24000 --cores=8 --language=en --dempath=/data/dem/hgt/VIEW3 --demtype=3 build 7250 
+
+./mt.pl --ram=24000 --cores=8 create 8100 # FRA+NORTHWEST
+./mt.pl --ram=24000 --cores=8 extract_osm 8100 
+./mt.pl --ram=24000 --cores=8 fetch_ele 8100
+./mt.pl --ram=24000 --cores=8 join 8100
+./mt.pl --ram=24000 --cores=8 split 8100 
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 8100
+
+./mt.pl --ram=24000 --cores=8 --language=en create 8100 # FRA+NORTHWEST
+./mt.pl --ram=24000 --cores=8 --language=en extract_osm 8100 
+./mt.pl --ram=24000 --cores=8 --language=en fetch_ele 8100 
+./mt.pl --ram=24000 --cores=8 --language=en join 8100 
+./mt.pl --ram=24000 --cores=8 --language=en split 8100 
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 build 8100 
+
+./mt.pl --ram=24000 --cores=8 create 8101 # FRA+NORTHEAST
+./mt.pl --ram=24000 --cores=8 extract_osm 8101 
+./mt.pl --ram=24000 --cores=8 fetch_ele 8101
+./mt.pl --ram=24000 --cores=8 join 8101
+./mt.pl --ram=24000 --cores=8 split 8101 
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 8101
+
+./mt.pl --ram=24000 --cores=8 --language=en create 8101 # FRA+NORTHEAST
+./mt.pl --ram=24000 --cores=8 --language=en extract_osm 8101 
+./mt.pl --ram=24000 --cores=8 --language=en fetch_ele 8101 
+./mt.pl --ram=24000 --cores=8 --language=en join 8101 
+./mt.pl --ram=24000 --cores=8 --language=en split 8101 
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 build 8101 
+
+./mt.pl --ram=24000 --cores=8 create 8102 # FRA+SOUTHWEST
+./mt.pl --ram=24000 --cores=8 extract_osm 8102 
+./mt.pl --ram=24000 --cores=8 fetch_ele 8102
+./mt.pl --ram=24000 --cores=8 join 8102
+./mt.pl --ram=24000 --cores=8 split 8102 
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 8102
+
+./mt.pl --ram=24000 --cores=8 --language=en create 8102 # FRA+SOUTHWEST
+./mt.pl --ram=24000 --cores=8 --language=en extract_osm 8102
+./mt.pl --ram=24000 --cores=8 --language=en fetch_ele 8102
+./mt.pl --ram=24000 --cores=8 --language=en join 8102
+./mt.pl --ram=24000 --cores=8 --language=en split 8102
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 build 8102
+
+./mt.pl --ram=24000 --cores=8 create 8103 # FRA+SOUTHEAST
+./mt.pl --ram=24000 --cores=8 extract_osm 8103
+./mt.pl --ram=24000 --cores=8 fetch_ele 8103
+./mt.pl --ram=24000 --cores=8 join 8103
+./mt.pl --ram=24000 --cores=8 split 8103
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 8103
+
+./mt.pl --ram=24000 --cores=8 --language=en create 8103 # FRA+SOUTHEAST
+./mt.pl --ram=24000 --cores=8 --language=en extract_osm 8103
+./mt.pl --ram=24000 --cores=8 --language=en fetch_ele 8103
+./mt.pl --ram=24000 --cores=8 --language=en join 8103
+./mt.pl --ram=24000 --cores=8 --language=en split 8103
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 build 8103
+
+
+./mt.pl --ram=24000 --cores=8 create 7380 # ITA+
+./mt.pl --ram=24000 --cores=8 extract_osm 7380 
+./mt.pl --ram=24000 --cores=8 fetch_ele 7380 
+./mt.pl --ram=24000 --cores=8 join 7380 
+./mt.pl --ram=24000 --cores=8 split 7380 
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 7380 
+
+./mt.pl --ram=24000 --cores=8 --language=en create 7380 # ITA+
+./mt.pl --ram=24000 --cores=8 --language=en extract_osm 7380 
+./mt.pl --ram=24000 --cores=8 --language=en fetch_ele 7380 
+./mt.pl --ram=24000 --cores=8 --language=en join 7380 
+./mt.pl --ram=24000 --cores=8 --language=en split 7380 
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 build 7380 
+
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 bam 8020 DTRIGMARK DT36ROUTING # ALPS - en
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 bam 8060 DTRIGMARK DT36ROUTING # PYR - en
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SRTM1} --demtype=1 bam 8070 DTRIGMARK DT36ROUTING # CARP - en
+./mt.pl --ram=24000 --cores=8 --language=pl --dempath=${DEM_SRTM1} --demtype=1 bam 8070 DTRIGMARK DT36ROUTING # CARP - pl
+
+
+# ./mt.pl --ram=24000 --cores=8 --dempath=/data/dem/hgt/VIEW3 --demtype=3 bam 8030 # DNK_NOR_SWE_FIN
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 8040 # BEL_NLD_LUX
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 8050 # ESP_PRT
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 8010 # GBR_IRL
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 8080 # BALKAN
+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7756 # CHE+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7040 # AUT+
+# ./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7276 # DEU+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 8090 # DEU+NORTH
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 8091 # DEU+SOUT
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7380 # ITA+
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 bam 7380 # ITA+ - en
+# ./mt.pl --ram=24000 --cores=8 --dempath=/data/dem/hgt/VIEW3 --demtype=1 bam 7250 # FRA+
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 8100 # FRA+NORTHWEST
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 8101 # FRA+NORTHEAST
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 8102 # FRA+SOUTHWEST
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 8103 # FRA+SOUTHEAST
+# ./mt.pl --ram=24000 --cores=8 --language=en --dempath=/data/dem/hgt/VIEW1 --demtype=1 bam 7250 # FRA+ - en
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 bam 8100 # FRA+NORTHWEST - en
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 bam 8101 # FRA+NORTHEAST - en
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 bam 8102 # FRA+SOUTHWEST - en
+./mt.pl --ram=24000 --cores=8 --language=en --dempath=${DEM_SONN1} --demtype=1 bam 8103 # FRA+SOUTHEAST - en
+
+./mt.pl zip 8010 # GBR_IRL
+./mt.pl zip 8080 # BALKAN
+./mt.pl --language=en zip 8020 # ALPS - en
+./mt.pl --language=en zip 8060 # PYR - en
+./mt.pl --language=en zip 8070 # CARP - en
+./mt.pl --language=pl zip 8070 # CARP - pl
+# ./mt.pl zip 8030 # DNK_NOR_SWE_FIN
+./mt.pl zip 8040 # BEL_NLD_LUX
+./mt.pl zip 8050 # ESP_PRT
+
+./mt.pl zip 7756 # CHE+
+./mt.pl zip 7040 # AUT+
+# ./mt.pl zip 7276 # DEU+
+./mt.pl zip 8090 # DEU+NORTH
+./mt.pl zip 8091 # DEU+SOUTH
+./mt.pl zip 7380 # ITA+
+./mt.pl --language=en zip 7380 # ITA+ - en
+# ./mt.pl zip 7250 # FRA+
+./mt.pl zip 8100 # FRA+NORTHWEST
+./mt.pl zip 8101 # FRA+NORTHEAST
+./mt.pl zip 8102 # FRA+SOUTHWEST
+./mt.pl zip 8103 # FRA+SOUTHEAST
+# ./mt.pl --language=en zip 7250 # FRA+ - en
+./mt.pl --language=en zip 8100 # FRA+NORTHWEST - en
+./mt.pl --language=en zip 8101 # FRA+NORTHEAST - en
+./mt.pl --language=en zip 8102 # FRA+SOUTHWEST - en
+./mt.pl --language=en zip 8103 # FRA+SOUTHEAST - en
+
+./mt.pl alltypfiles
+./mt.pl replacetyp
+
