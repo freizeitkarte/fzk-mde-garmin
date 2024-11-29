@@ -158,9 +158,14 @@ a default of 2000 is used which means about 0.04 degrees of latitude or
 longitude. If --keep-complete=true is active and --overlap is given, a warning
 will be printed because this combination rarely makes sense.
 
+;--polygon-desc-file
+:  An osm file (.o5m, .pbf, .osm) with named ways that describe bounding polygons 
+with OSM ways having tags name and mapid. 
+
 ;--polygon-file
 :  The name of a file containing a bounding polygon in the
 [http://wiki.openstreetmap.org/wiki/Osmosis/Polygon_Filter_File_Format osmosis polygon file format].
+Note that holes in the polygon are more or less ignored.
 Splitter uses this file when calculating the areas. It first calculates a grid
 using the given --resolution. The input file is read and for each node, a
 counter is increased for the related grid area. If the input file contains a

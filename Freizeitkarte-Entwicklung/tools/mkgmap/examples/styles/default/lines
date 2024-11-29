@@ -71,7 +71,7 @@ mkgmap:exit_hint=true | mkgmap:dest_hint=* {name '${tmp:exit_hint} ${tmp:dest_hi
 highway=* & (surface=asphalt | surface=paved | surface=sett |
     surface=concrete | surface=concrete:lanes | surface=concrete:plates |
     surface=paving_stones | surface=cobblestone |
-    surface=cobblestone:flattened | surface=metal | surface=wood)
+    surface=cobblestone:flattened | surface=metal | surface=wood | surface=chipseal)
     {set mkgmap:unpaved=0}
 highway=* & tracktype=grade1 & surface!=* {set mkgmap:unpaved=0}
 
