@@ -404,6 +404,8 @@ my @maps = (
   [ 8110, 'Freizeitkarte_NOR+NORTH',              'NA',                                                                                                'NOR+NORTH',                'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 8111, 'Freizeitkarte_NOR+SOUTH',              'NA',                                                                                                'NOR+SOUTH',                'en', 'no_old_name',                             2, 'EUROPE'         ],
   [ 8120, 'Freizeitkarte_RUS+KGD',                'NA',                                                                                                'RUS+KGD',                  'ru', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8130, 'Freizeitkarte_BALEARICS',              'NA',                                                                                                'BALEARICS',                'en', 'no_old_name',                             2, 'EUROPE'         ],
+  [ 8131, 'Freizeitkarte_MADEIRA',                'NA',                                                                                                'MADEIRA',                  'pt', 'no_old_name',                             2, 'EUROPE'         ],
 
   [ 8889, 'Freizeitkarte_SOUTHAMERICA',           'http://download.geofabrik.de/south-america-latest.osm.pbf',                                         'SOUTHAMERICA',             'en', 'no_old_name',                             1, 'NA'             ],
   [ 8510, 'Freizeitkarte_MISIONES',               'NA',                                                                                                'MISIONES',                 'de', 'no_old_name',                             2, 'SOUTHAMERICA'   ],
@@ -427,7 +429,6 @@ my @maps = (
   [ 9073, 'Freizeitkarte_RUS_CRIMEA',              'https://download.geofabrik.de/russia/crimean-fed-district-latest.osm.pbf',                          'RUS_CRIMEA',              'ru', 'no_old_name',                             3, 'NA'             ],
   [ 9074, 'Freizeitkarte_RUS_NORTHCAUCASUS',       'https://download.geofabrik.de/russia/north-caucasus-fed-district-latest.osm.pbf',                   'RUS_NORTHCAUCASUS',       'ru', 'no_old_name',                             3, 'NA'             ],
   [ 9075, 'Freizeitkarte_RUS_SOUTH',               'https://download.geofabrik.de/russia/south-fed-district-latest.osm.pbf',                            'RUS_SOUTH',               'ru', 'no_old_name',                             3, 'NA'             ],
-
 
   # Andere Regionen
   [ 9701, 'Freizeitkarte_US_WASHINGTON',           'http://download.geofabrik.de/north-america/us/washington-latest.osm.pbf',                           'US_WASHINGTON',           'en', 'no_old_name',                             3, 'NA'             ],
@@ -453,14 +454,11 @@ my @maps = (
   [ 9861, 'Freizeitkarte_CAN_SK',                  'http://download.geofabrik.de/north-america/canada/saskatchewan-latest.osm.pbf',                     'CAN_SK',                  'en', 'no_old_name',                             3, 'NA'             ],
   [ 9862, 'Freizeitkarte_CAN_YT',                  'http://download.geofabrik.de/north-america/canada/yukon-latest.osm.pbf',                            'CAN_YT',                  'en', 'no_old_name',                             3, 'NA'             ],
 
-
   # For faster test runs with regions
   [ -1,   'Regions - Maps for test purposes',     'URL',                                                                                               'Code',               'Language', 'oldName',                            'Type', 'Parent'         ],
   [ 9990, 'Freizeitkarte_CHE_R',                  'http://download.geofabrik.de/europe/switzerland-latest.osm.pbf',                                    'CHE_R',                    'de', 'no_old_name',                             1, 'NA'             ],
   [ 9991, 'Freizeitkarte_ZUG+',                   'NA',                                                                                                'ZUG+',                     'de', 'no_old_name',                             2, 'CHE_R'          ],
   [ 9992, 'Freizeitkarte_ZHSEE+',                 'NA',                                                                                                'ZHSEE+',                   'de', 'no_old_name',                             2, 'CHE_R'          ],
-
-
 );
 
 # pseudo constants
