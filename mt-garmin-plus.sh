@@ -6,6 +6,7 @@
 #
 # Version:
 # - v1.0.0 - 2024/12/01: first release (kto)
+# - v1.1.0 - 2024/12/07: region balkans added (kto)
 #
 # Remarks:
 # - nohup sh mt-garmin-plus.sh >mt-garmin-plus.out 2>&1 &
@@ -197,6 +198,7 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 # Republic of Bosnia and Herzegovina (BIH+)
 # Republic of Kosovo (controversial under international law, see Republic of Serbia)
 # Montenegro (MNE+)
+# Region Balkans (BALKAN)
 
 # Hellenic Republic (GRC+, Greece)
 ./mt.pl --ram=24000 --cores=8 create 7300
@@ -295,6 +297,16 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 ./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 build 7499
 ./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 7499
 ./mt.pl zip 7499
+
+# Region Balkans (BALKAN)
+./mt.pl --ram=24000 --cores=8 create 8080
+./mt.pl --ram=24000 --cores=8 extract_osm 8080
+./mt.pl --ram=24000 --cores=8 fetch_ele 8080
+./mt.pl --ram=24000 --cores=8 join 8080
+./mt.pl --ram=24000 --cores=8 split 8080
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 build 8080
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 8080
+./mt.pl zip 8080
 
 # maps for 'Southern Europe'
 # --------------------------
