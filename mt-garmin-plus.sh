@@ -7,6 +7,7 @@
 # Version:
 # - v1.0.0 - 2024/12/01: first release (kto)
 # - v1.1.0 - 2024/12/07: region balkans added (kto)
+# - v1.1.1 - 2024/12/14: licenses for contour lines for some maps fixed (kto)
 #
 # Remarks:
 # - nohup sh mt-garmin-plus.sh >mt-garmin-plus.out 2>&1 &
@@ -56,8 +57,8 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 ./mt.pl --ram=24000 --cores=8 fetch_ele 8110
 ./mt.pl --ram=24000 --cores=8 join 8110
 ./mt.pl --ram=24000 --cores=8 split 8110
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 8110
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 8110
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 build 8110
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bam 8110
 ./mt.pl zip 8110
 
 # Kingdom of Norway (NOR+SOUTH)
@@ -86,8 +87,8 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 ./mt.pl --ram=24000 --cores=8 fetch_ele 7246
 ./mt.pl --ram=24000 --cores=8 join 7246
 ./mt.pl --ram=24000 --cores=8 split 7246
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 7246
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7246
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 build 7246
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bam 7246
 ./mt.pl zip 7246
 
 # Denmark (DNK+)
@@ -126,23 +127,23 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 # Ukraine (UKR+)
 
 # Russian Federation, Northwestern Federal District (RUS_NORTHWEST)
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 9070
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 9070
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bim 9070
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bam 9070
 ./mt.pl zip 9070
 
 # Russian Federation, Central Federal District (RUS_CENTRAL)
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 9071
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 9071
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bim 9071
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bam 9071
 ./mt.pl zip 9071
 
 # Russian Federation, Volga Federal District (RUS_VOLGA)
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 9072
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 9072
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bim 9072
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bam 9072
 ./mt.pl zip 9072
 
 # Russian Federation, Southern Federal District (RUS_SOUTH)
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 9075
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 9075
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bim 9075
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bam 9075
 ./mt.pl zip 9075
 
 # Russian Federation, Crimean Federal District (controversial under international law, RUS_CRIMEA)
@@ -151,8 +152,8 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 ./mt.pl zip 9073
 
 # Russian Federation, North Caucasian Federal District (RUS_NORTHCAUCASUS)
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bim 9074
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 9074
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bim 9074
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_ALOS1} --demtype=1 bam 9074
 ./mt.pl zip 9074
 
 # Russian Federation, Exclave Kaliningrad (RUS+KGD)
@@ -584,8 +585,8 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 ./mt.pl --ram=24000 --cores=8 fetch_ele 7191
 ./mt.pl --ram=24000 --cores=8 join 7191
 ./mt.pl --ram=24000 --cores=8 split 7191
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 7191
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7191
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 build 7191
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 7191
 ./mt.pl zip 7191
 
 # Republic of Poland (POL+)
@@ -594,14 +595,14 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 ./mt.pl --ram=24000 --cores=8 fetch_ele 7616
 ./mt.pl --ram=24000 --cores=8 join 7616
 ./mt.pl --ram=24000 --cores=8 split 7616
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 7616
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7616
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 build 7616
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 7616
 ./mt.pl zip 7616
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en build 7616
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=en bam 7616
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 --language=en build 7616
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 --language=en bam 7616
 ./mt.pl --language=en zip 7616
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de build 7616
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 --language=de bam 7616
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 --language=de build 7616
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 --language=de bam 7616
 ./mt.pl --language=de zip 7616
 
 # Republic of Lithuania (LTU+)
@@ -610,8 +611,8 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 ./mt.pl --ram=24000 --cores=8 fetch_ele 7440
 ./mt.pl --ram=24000 --cores=8 join 7440
 ./mt.pl --ram=24000 --cores=8 split 7440
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 7440
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7440
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 build 7440
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 7440
 ./mt.pl zip 7440
 
 # Republic of Latvia (LVA+)
@@ -620,8 +621,8 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 ./mt.pl --ram=24000 --cores=8 fetch_ele 7428
 ./mt.pl --ram=24000 --cores=8 join 7428
 ./mt.pl --ram=24000 --cores=8 split 7428
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 7428
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7428
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 build 7428
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 7428
 ./mt.pl zip 7428
 
 # Republic of Estonia (EST+)
@@ -630,8 +631,8 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 ./mt.pl --ram=24000 --cores=8 fetch_ele 7233
 ./mt.pl --ram=24000 --cores=8 join 7233
 ./mt.pl --ram=24000 --cores=8 split 7233
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 7233
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7233
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 build 7233
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 7233
 ./mt.pl zip 7233
 
 # Czech Republic (CZE+)
@@ -653,8 +654,8 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 ./mt.pl --ram=24000 --cores=8 fetch_ele 7703
 ./mt.pl --ram=24000 --cores=8 join 7703
 ./mt.pl --ram=24000 --cores=8 split 7703
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 7703
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7703
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 build 7703
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 7703
 ./mt.pl zip 7703
 
 # Republic of Slovenia (SVN+)
@@ -673,8 +674,8 @@ DEM_ALOS1=/data/dem/hgt/ALOS1.hgt
 ./mt.pl --ram=24000 --cores=8 fetch_ele 7348
 ./mt.pl --ram=24000 --cores=8 join 7348
 ./mt.pl --ram=24000 --cores=8 split 7348
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 build 7348
-./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SONN1} --demtype=1 bam 7348
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 build 7348
+./mt.pl --ram=24000 --cores=8 --dempath=${DEM_SRTM1} --demtype=1 bam 7348
 ./mt.pl zip 7348
 
 # maps for 'Mountains'
